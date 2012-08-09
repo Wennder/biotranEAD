@@ -63,6 +63,10 @@ class Biotran_Mvc {
     public function pegarAcao() {
         return $this->acao;
     }
+    
+    public function mudarAcao($acao){
+        $this->acao = $acao;
+    }
 
     public function rodar() {
         //pega o modulo, controlador e acao 

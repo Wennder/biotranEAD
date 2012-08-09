@@ -69,7 +69,11 @@ class UsuarioDAO extends PDOConnectionFactory {
     public function select($selecao = null, $condicao = null) {
         try {
             if ($query == null) {
-                $stmt = $this->conex->query("SELECT * FROM usuario");
+                if($condicao == null){
+                    $stmt = $this->conex->query("SELECT * FROM usuario");                    
+                }else{
+                    $stmt = $this->conex->query("SELECT * FROM usuario WHERE ". $condicao);
+                }                
             } else {
                 if ($condicao == null) {
                     $stmt = $this->conex->query("SELECT " . $selecao . " FROM usuario");

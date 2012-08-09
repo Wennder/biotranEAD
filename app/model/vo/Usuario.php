@@ -15,7 +15,7 @@ class Usuario {
     private $nome;
     private $tel;
     //chave estrangeira
-    private $papel;
+    private $id_papel;
     private $email;
     private $senha;
     
@@ -43,11 +43,11 @@ class Usuario {
         $this->tel = $tel;
     }
 
-    public function getPapel() {
+    public function getId_papel() {
         return $this->id_papel;
     }
 
-    public function setPapel($papel) {
+    public function setId_papel($papel) {
         $this->Papel = $papel;
     }
 
@@ -65,16 +65,7 @@ class Usuario {
 
     public function setSenha($senha) {
         $this->senha = $senha;
-    }
-    
-    public function getValoresAtributos(){
-        $valores[0] = $this->id_usuario;
-        $valores[1] = $this->nome;
-        $valores[2] = $this->senha;
-        $valores[3] = $this->tel;
-        $valores[4] = $this->email;
-        return $valores;
-    }
+    }        
 
 }
 
