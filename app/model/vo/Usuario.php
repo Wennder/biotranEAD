@@ -19,6 +19,10 @@ class Usuario {
     private $email;
     private $senha;
     
+    function __construct() {
+        
+    }
+    
     public function getId_usuario() {
         return $this->id_usuario;           
     }

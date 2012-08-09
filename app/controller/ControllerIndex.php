@@ -1,6 +1,9 @@
 <?php
 
 class ControllerIndex extends Biotran_Mvc_Controller{
+    
+    function __construct() {        
+    }
 
     public function actionIndex() {
         $this->visao->titulo = "Blog Planeta Framework";

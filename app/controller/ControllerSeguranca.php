@@ -11,7 +11,11 @@
  * @author cead-p057007
  */
 class ControllerSeguranca {
-    //put your code here
+    
+    function __construct() {
+        
+    }
+    
 }
 
 ?>
