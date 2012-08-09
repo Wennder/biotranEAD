@@ -7,7 +7,6 @@ class ControllerIndex extends Biotran_Mvc_Controller{
         $this->renderizar();
 //        echo "Sou a acao inicial";
     }
-
 }
 
 ?>
