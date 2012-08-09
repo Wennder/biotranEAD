@@ -16,7 +16,6 @@ class ControllerIndex extends Biotran_Mvc_Controller{
         $this->visao->titulo = "Cadastrar Usuário";
         $this->renderizar();
     }
-
 }
 
 ?>
