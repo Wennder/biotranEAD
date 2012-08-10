@@ -15,7 +15,7 @@ class Usuario {
     private $nome;
     private $tel;
     //chave estrangeira
-    private $id_papel;
+    private $papel;
     private $email;
     private $senha;
     
@@ -47,12 +47,12 @@ class Usuario {
         $this->tel = $tel;
     }
 
-    public function getId_papel() {
+    public function getPapel() {
         return $this->id_papel;
     }
 
-    public function setId_papel($papel) {
-        $this->Papel = $papel;
+    public function setPapel($papel) {
+        $this->papel = $papel;
     }
 
     public function getEmail() {

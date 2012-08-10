@@ -10,7 +10,7 @@
  *
  * @author cead-p057007
  */
-class PapelDAO {
+class PapelDAO extends PDOConnectionFactory {
     public $conex = null;
 
     public function PapelDAO() {

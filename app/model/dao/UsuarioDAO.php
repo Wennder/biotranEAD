@@ -82,7 +82,7 @@ class UsuarioDAO extends PDOConnectionFactory {
                 }
             }
         } catch (PDOException $ex) {
-            echo "Erro: ". $ex->getMessage();
+            return "erro";
         }
     }
 

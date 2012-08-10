@@ -10,7 +10,7 @@
  *
  * @author cead-p057007
  */
-class CursoDAO {
+class CursoDAO extends PDOConnectionFactory{
     public $conex = null;
 
     public function CursoDAO() {
