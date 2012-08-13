@@ -1,1 +1,0 @@
-<h1><?php echo $this->login ."---". $this->senha?></h1>

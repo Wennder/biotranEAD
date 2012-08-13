@@ -54,6 +54,10 @@ class Biotran_Mvc {
     public function pegarControlador() {
         return $this->controlador;
     }
+    
+    public function mudarControlador($controlador) {
+        $this->controlador = $controlador;
+    }
 
     /**
      * Pega a ação da requisição atual

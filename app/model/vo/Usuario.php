@@ -15,6 +15,7 @@ class Usuario {
     private $login;
     private $senha;
     //papel: chave estrangeira    
+    //private $id_papel;
     private $papel;
     private $nome_completo;
     private $data_nascimento;
@@ -26,8 +27,8 @@ class Usuario {
     private $sexo;
     private $tel_residencial;
     private $tel_celular;
-    private $email;
-    
+    private $email;               
+       
     public function getId_usuario() {
         return $this->id_usuario;
     }
@@ -56,7 +57,7 @@ class Usuario {
         return $this->papel;
     }
 
-    public function setPapel($papel) {
+    public function setPapel(Papel $papel) {
         $this->papel = $papel;
     }
 
