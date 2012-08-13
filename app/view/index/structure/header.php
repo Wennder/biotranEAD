@@ -20,13 +20,13 @@
                             <li><a href="http://www.biotran.com.br" target="_blank">BIOTRAN</a></li>
                         </ul>
                     </div>
-                    <div id="div_login">
-                        <form method="post" action="index.php?c=index&a=login">
+                    <div id="login">
+                        <form method="post">
                             <table align="right">
                                 <tr>
                                     <td>
                                         <label>E-mail: </label>
-                                        <input id="login" name="login" type="text" size="20"/>
+                                        <input id="email" name="email" type="text" size="20"/>
                                         <label>Senha: </label>
                                         <input id="senha" name="senha" type="text" size="10"/>
                                         <input type="submit" id="enviar" name="enviar" value="Enviar"/>
