@@ -1,5 +1,7 @@
 <?php
 
+//include "../app/model/pdo/PDOConnectionFactory.class.php";
+
 class ControllerEad extends Biotran_Mvc_Controller{
 
     public function actionIndex() {

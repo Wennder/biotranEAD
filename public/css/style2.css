@@ -71,8 +71,7 @@ body {
     background-color: #fff;
 }
 
-.navbar_home {
-    background-image: url("../images/navbar_icons/home.png");
+.navbar_home {    
     background-repeat: no-repeat;
 }
 

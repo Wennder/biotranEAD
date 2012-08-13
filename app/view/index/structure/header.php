@@ -3,6 +3,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>EAD Biotran</title>
         <script src="js/jquery.js" type="text/javascript"></script>  
+        <script src="js/login.js" type="text/javascript"></script>  
         <script src="js/jqFancyTransitions.1.8.js" type="text/javascript"></script>
         <link rel='stylesheet' href='css/style.css' />
 
@@ -21,7 +22,7 @@
                         </ul>
                     </div>
                     <div id="div_login">
-                        <form method="post" action="index.php?c=index&a=login">
+                        <form id="form_login" method="post" action="index.php?c=ead&a=index">
                             <table align="right">
                                 <tr>
                                     <td>
@@ -29,7 +30,7 @@
                                         <input id="login" name="login" type="text" size="20"/>
                                         <label>Senha: </label>
                                         <input id="senha" name="senha" type="text" size="10"/>
-                                        <input type="submit" id="enviar" name="enviar" value="Enviar"/>
+                                        <input id="bttn_login" type="button" name="bttn_login" value="Login"/>
                                     </td>
                                 </tr>
                             </table>
