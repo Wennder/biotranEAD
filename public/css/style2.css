@@ -1,0 +1,124 @@
+body {
+    background-color: #EFEFEF;
+    color: #404040;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.eadbiotran_topbar{
+    background-color: #F5F5F5;
+    border: 1px solid #BCBEC0;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+#banner_top{
+    border-bottom: 2px solid #CCCCCC;
+    height: 80px;
+    min-width: 900px;
+    overflow: hidden;
+    background: url("../img/banner_bg.png") repeat-x scroll 0 0 transparent;
+}
+
+.eadbiotran_logo{
+    padding-left: 16px;
+    padding-top: 11px;
+}
+
+.content_fluid:after {
+    clear: both;
+}
+
+.content_fluid:before, .content_fluid:after {
+    content: "";
+    display: table;
+}
+
+.content_fluid:before, .content_fluid:after {
+    content: "";
+    display: table;
+}
+
+.content_fluid{
+    min-width: 940px;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+}
+
+.content_fluid > .leftcolumn{
+    left: 20px;
+    position: absolute;
+    top: 0;
+    width: 220px;
+}
+
+.page-leftcolumn {
+    padding-top: 25px;
+}
+
+.content_fluid > .content {
+    margin-left: 240px;
+}
+
+.page-content {
+    padding-top: 25px;
+    background-color: #fff;
+}
+
+.navbar_home {
+    background-image: url("../images/navbar_icons/home.png");
+    background-repeat: no-repeat;
+}
+
+.navbar_item {
+    font-size: 14px;
+    padding-bottom: 4px;
+    padding-left: 32px;
+    padding-top: 4px;
+}
+
+p {
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+    margin-bottom: 9px;
+}
+
+a {
+    color: #0069D6;
+    font-weight: inherit;
+    line-height: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #00438A;
+    text-decoration: underline;
+}
+
+ul, ol {
+    margin: 0 0 18px -22px;
+}
+ul ul, ul ol, ol ol, ol ul {
+    margin-bottom: 0;
+}
+ul {
+    list-style: disc outside none;
+}
+ol {
+    list-style: decimal outside none;
+}
+li {
+    color: #404040;
+    line-height: 18px;
+}
+ul.unstyled {
+    list-style: none outside none;
+    margin-left: 0;
+}

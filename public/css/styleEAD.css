@@ -1,0 +1,48 @@
+body {
+    padding: 0; 
+    margin: 0;
+    font-size: 12px;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+/*    background: url('images/background.png') repeat-x #FFF;*/
+    background-color: lavender;
+}
+
+#eadbiotran {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+/*    background: url(images/background_.png) top center no-repeat;*/
+    overflow: hidden;
+}
+
+#main {
+    margin: 0 auto;
+    width: 980px;
+    position: relative;
+}
+
+#header{
+    height: 120px;
+    background-color: darkgrey;
+}
+
+#content{
+    width: 760px;
+    height: 620px;
+    float: right;
+    background-color: grey;
+}
+
+#leftcolumn{
+    width: 220px;
+    height: 620px;
+    float: left;
+    background-color: silver;
+}
+
+#footer{
+    height: 50px;
+    width: 100%;
+    clear: both;
+    background-color: darkgrey;
+}
