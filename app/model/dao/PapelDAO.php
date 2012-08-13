@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+include "../app/model/pdo/PDOConnectionFactory.class.php";
 /**
  * Description of PapelDAO
  *
@@ -59,7 +59,8 @@ class PapelDAO extends PDOConnectionFactory {
 
     public function select($selecao = null, $condicao = null) {
         try {
-            if ($query == null) {
+            $stmt = null;
+            if ($selecao == null) {
                 if($condicao == null){
                     $stmt = $this->conex->query("SELECT * FROM papel");                    
                 }else{
@@ -72,6 +73,7 @@ class PapelDAO extends PDOConnectionFactory {
                     $stmt = $this->conex->query("SELECT " . $selecao . " FROM papel WHERE " . $condicao);
                 }
             }
+            return $stmt;
         } catch (PDOException $ex) {
             echo "Erro: ". $ex->getMessage();
         }

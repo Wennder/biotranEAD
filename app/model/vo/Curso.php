@@ -11,9 +11,9 @@
  * @author cead-p057007
  */
 class Curso {
-    var $id_curso;
-    var $nome;
-    var $descricao;
+    private $id_curso;
+    private $nome;
+    private $descricao;
     
     function __construct() {
         

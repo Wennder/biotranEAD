@@ -32,7 +32,8 @@ class Seguranca {
         $this->usuarioDao = new UsuarioDAO();
         $this->papelDao = new PapelDAO();
         $buscaUsuario = $this->usuarioDao->select(null, "login=" . $login);
-        if($buscaUsuario != 'erro'){            
+        if($buscaUsuario != 'erro'){
+            $buscaUsuario->fetch();
             //cria nova instancia de usuario
             $this->user = new Usuario();
             $this->user->setId_usuario($buscaUsuario["id_usuario"]);
@@ -42,26 +43,31 @@ class Seguranca {
             $this->user->setTel($buscaUsuario["tel"]);
             
             //consulta papel do usuario cadastrado
-            $buscaPapel = $this->papelDao->select(null, "id_papel=" . $buscaUsuario["id_papel"]);
+            $buscaPapel = $this->papelDao->select(null, "id_papel=" . $buscaUsuario["id_papel"])->fetch();
             //cria nova instancia de papel do usuario
             $papel = new Papel();
             $papel->setId_papel($buscaPapel["id_papel"]);
             $papel->setPapel($buscaPapel["papel"]);
             //seta papel do usuario em $this->user
-            $this->user->setPapel($papel);            
+            $this->user->setPapel($papel);
+            return true;
         }else{//usuario nao cadastrado no banco de dados
-            $this->tratarExcessoes('nao cadastrado');
+            return false;
         }
     }
 
     public function validarLogin($login, $senha) {
-        $this->setUsuario($login);
-        //verifica a validade da senha
-        if ($this->user->getSenha() == md5($senha)) {
-            $this->iniciarSessao($this->user);
-        }else{
-            $this->tratarExcessoes('senha invalida');
+        //se usuario existe então ele vai ser setado no objeto $this->user;
+        if($this->setUsuario($login)){
+            //verifica a validade da senha
+            if ($this->user->getSenha() == md5($senha)) {
+                $this->iniciarSessao($this->user);
+                return 'usuario validado';
+            } else {
+                return'senha invalida';
+            }
         }
+        return 'nao cadastrado';
     }
     
     public function tratarExcessoes($excessao){
@@ -73,42 +79,11 @@ class Seguranca {
             }
         }
     }
-
-    function protegePaginaLogado() {
-        global $_SG;
-        if (!isset($_SESSION['idUsuario'])) {
-            expulsaVisitante();
-        }
-    }
-
-    function get_idusuario() {
-        return $_SESSION['idUsuario'];
-    }
-
-    function getUsuario($login) {
-        $conn = new ConnectionDB();
-        $sql = "SELECT * FROM usuario WHERE login='" . $login . "'";
-        //capturando usuario no banco:
-        $busca = mysql_fetch_array($conn->sql_query($sql));
-        $usuario = new Usuario($busca["idusuario"], $busca["login"], $busca["senha"], $busca["nome"]);
-        //----
-        //capturando as permissoes do usuario e armazenando na sessao:
-        $_SESSION['permissao'] = Array();
-        $sql = "SELECT * FROM usuario_permissao_ferramenta NATURAL JOIN usuario WHERE usuario.idusuario = '" . $usuario->id . "' ORDER BY idferramenta";
-        $busca = $conn->sql_query($sql);
-        $num_linhas = mysql_num_rows($busca);
-        //captura as permissões por ferramenta.
-        for ($i = 0; $i < $num_linhas; $i++) {
-            $aux[$i] = mysql_fetch_array($busca);
-            $_SESSION['permissao'][$i] = $aux[$i]["idpermissao"];
-        }
-        return $usuario;
-    }
-
-    function expulsaVisitante() {
-        unset($_SESSION['idUsuario'], $_SESSION['loginUsuario'], $_SESSION['senhaUsuario']);
-        header("Location: http://cead.unifal-mg.edu.br/controleCEAD/index.php");
-    }
+    
+    public function expulsar(){
+        unset($_SESSION['usuarioLogado']);
+        //envia para página de expulsao
+    }       
 
 }
 

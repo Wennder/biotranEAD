@@ -4,7 +4,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+include "../app/model/pdo/PDOConnectionFactory.class.php";
+include "../app/model/dao/EnderecoDAO.php";
 /**
  * Description of DAOUsuario
  *
@@ -18,33 +19,61 @@ class UsuarioDAO extends PDOConnectionFactory {
         $this->conex = $this->getConnection();
     }
 
-    public function insert(Usuario $user) {
+    public function insert(Usuario $user, Endereco $end1, Endereco $end2) {
         try {
-            $stmt = $this->conex->prepare("INSERT INTO usuario(id_usuario, nome, senha, email, tel, id_papel) VALUES (?,?,?,?,?,?)");
-            $stmt->bindValue(1, $user->getId_usuario());
-            $stmt->bindValue(2, $user->getNome());
-            $stmt->bindValue(3, $user->getSenha());
-            $stmt->bindValue(4, $user->getEmail());
-            $stmt->bindValue(5, $user->getTel());
-            $stmt->bindValue(6, $user->getId_papel());
-
-            $stmt->execute();
+            $stmt = $this->conex->prepare("INSERT INTO usuario(login, senha, id_papel, nome_completo, 
+                data_nascimento, cpf, rg, id_profissional, atuacao, descricao_pessoal, sexo, tel_residencial, tel_celular, email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            $stmt->bindValue(1, $user->getLogin());
+            $stmt->bindValue(2, $user->getSenha());
+            $stmt->bindValue(3, $user->getPapel()->getId_papel());
+            $stmt->bindValue(4, $user->getNome_completo());
+            $stmt->bindValue(5, $user->getData_nascimento());
+            $stmt->bindValue(6, $user->getCpf());
+            $stmt->bindValue(7, $user->getRg());
+            $stmt->bindValue(8, $user->getId_profissional());
+            $stmt->bindValue(9, $user->getAtuacao());
+            $stmt->bindValue(10, $user->getDescricao_pessoal());
+            $stmt->bindValue(11, $user->getSexo());
+            $stmt->bindValue(12, $user->getTel_residencial());
+            $stmt->bindValue(13, $user->getTel_celular());
+            $stmt->bindValue(14, $user->getEmail());                        
+            //inserindo usuario no banco
+            $stmt->execute();            
+            //inserindo enderecos de usuario no banco
+            $buscaId = $this->select("id_usuario", "login='".$user->getLogin()."'")->fetch();                                   
+            $enderecoDAO = new EnderecoDAO();                                    
+            $end1->setId_usuario($buscaId["id_usuario"]);
+            $end2->setId_usuario($buscaId["id_usuario"]);                                          
+            $enderecoDAO->insert($end1);
+            $enderecoDAO->insert($end2);
+            
             $stmt->conex = null;
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
         }
     }
 
-    public function update(Usuario $user, $condicao) {
+    public function update(Usuario $user) {
         try {
-            $stmt = $this->conex->prepare("UPDATE usuario SET id_usuario=?, nome=?, senha=?, email=?, tel=?, id_papel=? WHERE id=?");
-            $stmt->bindValue(1, $user->getId_usuario());
-            $stmt->bindValue(2, $user->getNome());
-            $stmt->bindValue(3, $user->getSenha());
-            $stmt->bindValue(4, $user->getEmail());
-            $stmt->bindValue(5, $user->getTel());
-            $stmt->bindValue(6, $user->getId_papel());
-            $stmt->bindValue(7, $condicao);
+            $stmt = $this->conex->prepare("UPDATE usuario SET id_usuario=?, login=?, senha=?, id_papel=?, nome_completo=?, 
+                data_nascimento=?, cpf=?, rg=?, id_profissional=?, atuacao=?, descricao_pessoal=?, sexo=?, tel_residencial=?, tel_celular=?, id_endereco1=?, id_endereco2=?, email=? WHERE id_usuario=?");
+            $stmt->bindValue(1, $user->getLogin());
+            $stmt->bindValue(2, $user->getSenha());
+            $stmt->bindValue(3, $user->getPapel()->getId_papel());
+            $stmt->bindValue(4, $user->getNome_completo());
+            $stmt->bindValue(5, $user->getData_nascimento());
+            $stmt->bindValue(6, $user->getCpf());
+            $stmt->bindValue(7, $user->getRg());
+            $stmt->bindValue(8, $user->getId_profissional());
+            $stmt->bindValue(9, $user->getAtuacao());
+            $stmt->bindValue(10, $user->getDescricao_pessoal());
+            $stmt->bindValue(11, $user->getSexo());
+            $stmt->bindValue(12, $user->getTel_residencial());
+            $stmt->bindValue(13, $user->getTel_celular());
+            $stmt->bindValue(14, $user->getId_endereco1()->getId_endereco_usuario());
+            $stmt->bindValue(15, $user->getId_endereco2()->getId_endereco_usuario());
+            $stmt->bindValue(16, $user->getEmail());
+            $stmt->bindValue(7, $user->getId_usuario());
             $stmt->execute();
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
@@ -53,7 +82,7 @@ class UsuarioDAO extends PDOConnectionFactory {
 
     public function delete(Usuario $user) {
         try {
-            $num = $this->conex->exec("DELETE FROM usuario WHERE id=" . $user->getId_usuario());
+            $num = $this->conex->exec("DELETE FROM usuario WHERE id_usuario=" . $user->getId_usuario());
             // caso seja execuado ele retorna o número de rows que foram afetadas.
             if ($num >= 1) {
                 return $num;
@@ -68,19 +97,21 @@ class UsuarioDAO extends PDOConnectionFactory {
 
     public function select($selecao = null, $condicao = null) {
         try {
-            if ($query == null) {
+            $stmt = null;
+            if ($selecao== null) {
                 if($condicao == null){
                     $stmt = $this->conex->query("SELECT * FROM usuario");                    
                 }else{
-                    $stmt = $this->conex->query("SELECT * FROM usuario WHERE ". $condicao);
+                    $stmt = $this->conex->query("SELECT * FROM usuario WHERE ". $condicao);                    
                 }                
             } else {
                 if ($condicao == null) {
                     $stmt = $this->conex->query("SELECT " . $selecao . " FROM usuario");
                 }else{
-                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM usuario WHERE " . $condicao);
+                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM usuario WHERE " . $condicao);                    
                 }
             }
+            return $stmt;
         } catch (PDOException $ex) {
             return "erro";
         }

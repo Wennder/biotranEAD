@@ -12,8 +12,8 @@
  */
 class Papel {
 
-    var $id_papel;
-    var $papel;
+    private $id_papel;
+    private $papel;
 
     function __construct() {
         
