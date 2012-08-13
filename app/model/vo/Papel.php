@@ -11,13 +11,14 @@
  * @author cead-p057007
  */
 class Papel {
+
     var $id_papel;
     var $papel;
-    
-    public function __papel(){
+
+    function __construct() {
         
     }
-    
+
     public function getId_papel() {
         return $this->id_papel;
     }
@@ -33,7 +34,6 @@ class Papel {
     public function setPapel($papel) {
         $this->papel = $papel;
     }
-
 
 }
 

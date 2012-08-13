@@ -15,6 +15,10 @@ class Curso {
     var $nome;
     var $descricao;
     
+    function __construct() {
+        
+    }
+    
     public function getId_curso() {
         return $this->id_curso;
     }

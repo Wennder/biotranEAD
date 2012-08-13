@@ -14,7 +14,6 @@ class Biotran_Mvc_Controller {
 
         $this->visao->renderizar($diretorio, $arquivo);
     }
-
 }
 
 ?>

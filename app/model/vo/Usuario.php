@@ -19,6 +19,10 @@ class Usuario {
     private $email;
     private $senha;
     
+    function __construct() {
+        
+    }
+    
     public function getId_usuario() {
         return $this->id_usuario;           
     }
@@ -48,7 +52,7 @@ class Usuario {
     }
 
     public function setPapel($papel) {
-        $this->Papel = $papel;
+        $this->papel = $papel;
     }
 
     public function getEmail() {
@@ -65,16 +69,7 @@ class Usuario {
 
     public function setSenha($senha) {
         $this->senha = $senha;
-    }
-    
-    public function getValoresAtributos(){
-        $valores[0] = $this->id_usuario;
-        $valores[1] = $this->nome;
-        $valores[2] = $this->senha;
-        $valores[3] = $this->tel;
-        $valores[4] = $this->email;
-        return $valores;
-    }
+    }        
 
 }
 
