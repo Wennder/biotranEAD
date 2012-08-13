@@ -21,7 +21,7 @@
                         </ul>
                     </div>
                     <div id="div_login">
-                        <form method="post">
+                        <form method="post" action="index.php?c=index&a=login">
                             <table align="right">
                                 <tr>
                                     <td>
