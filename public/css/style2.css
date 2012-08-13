@@ -69,10 +69,10 @@ body {
 .page-content {
     padding-top: 25px;
     background-color: #fff;
+    height: 100%;
 }
 
 .navbar_home {
-    background-image: url("../images/navbar_icons/home.png");
     background-repeat: no-repeat;
 }
 
@@ -121,4 +121,38 @@ li {
 ul.unstyled {
     list-style: none outside none;
     margin-left: 0;
+}
+
+#form_cadastro{
+    padding-left: 30px;
+}
+
+#form_cadastro tr{
+    height: 35px;
+}
+
+form.form_cadastro {
+    font-family: tahoma,verdana,"sans-serif";
+    font-size: 12px;
+    margin: 0 auto;
+}
+
+.label_cadastro{
+    font-size: 12px;
+}
+
+.form_cadastro .text-input {
+    background: none repeat-x scroll 0 0 #FFFFFF;
+    border: 1px solid #B5B8C8;
+    color: #555555;
+    font-size: 14px;
+    margin-top: 4px;
+    padding: 4px;
+    width: 250px;
+}
+
+#opcoes_cadastro{
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
 }

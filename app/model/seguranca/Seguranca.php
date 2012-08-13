@@ -43,7 +43,7 @@ class Seguranca {
             $buscaPapel = $this->papelDao->select(null, "id_papel=" . $id_papel);
             //cria nova instancia de papel do usuario                                    
             //seta papel do usuario em $this->user            
-            $this->user->setPapel($buscaPapel->fetchObject('Papel'));                        
+            $this->user->setPapel($buscaPapel->fetchObject('Papel'));
             return true;
         }else{//usuario nao cadastrado no banco de dados
             return false;
