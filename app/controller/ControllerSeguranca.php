@@ -4,43 +4,57 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-include '../app/model/seguranca/Seguranca.php';
+include ROOT_PATH . '/app/model/seguranca/Seguranca.php';
+//include ROOT_PATH . '/app/model/pdo/PDOConnectionFactory.class.php';
 /**
  * Description of ControllerSeguranca
  *
  * @author cead-p057007
  */
-class ControllerSeguranca{
-    
+class ControllerSeguranca {
+
     private $seguranca;
-    
-    public function __construct(){
+
+    public function __construct() {
         $this->seguranca = new Seguranca();
     }
-    
-    public function acaoValidar($login, $senha){                
-        $this->tratarValidacao($this->seguranca->validarLogin($login, $senha));
+
+    public function acaoValidarLogin_ajax($login, $senha) {        
+        return $this->tratarValidacaoLogin_ajax($this->seguranca->validarLogin($login, $senha));
     }
-    
+
     //trata de acordo com o retorno da funcao validarLogin da classe seguranca.
-    public function tratarValidacao($validacao){
-        if($validacao == 'usuario validado'){
+    public function tratarValidacaoLogin_ajax($validacao) {
+        if ($validacao == 'usuario validado') {
             //se usuario for validado, então a ação é alterada para direcionar 
             //a pagina de acordo com o papel do usuario
-            Biotran_Mvc::pegarInstancia()->mudarControlador('ead');
-            Biotran_Mvc::pegarInstancia()->mudarAcao('index');
-        }else{
-            if($validacao == 'senha invalida'){
-                Biotran_Mvc::pegarInstancia()->mudarAcao('senhainvalida');
-            }else{
-                if($validacao == 'nao cadastrado'){
-                    Biotran_Mvc::pegarInstancia()->mudarAcao('naocadastrado');
+            $valores = array(
+                'validacao' => 'validado',
+                'controlador' => 'ead',
+                'acao' => 'index'
+            );
+            return $valores;
+        } else {
+            if ($validacao == 'senha invalida') {                
+                $valores = array(
+                    'validacao' => 'invalido'
+                );
+                return $valores;
+            } else {
+                if ($validacao == 'nao cadastrado') {
+                    $valores = array(
+                        'validacao' => 'cadastrar'
+                    );
+                    return $valores;
                 }
             }
         }
+    }
+
+    public function acaoEnviarSenhaEmail($login) {
         
     }
-    
+
 }
 
 ?>

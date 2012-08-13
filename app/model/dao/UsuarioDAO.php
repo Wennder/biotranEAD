@@ -5,7 +5,8 @@
  * and open the template in the editor.
  */
 //include "../app/model/pdo/PDOConnectionFactory.class.php";
-include "../app/model/dao/EnderecoDAO.php";
+
+include ROOT_PATH . "/app/model/dao/EnderecoDAO.php";
 /**
  * Description of DAOUsuario
  *

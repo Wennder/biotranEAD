@@ -4,8 +4,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-include "../app/model/dao/UsuarioDAO.php";
-include "../app/model/dao/PapelDAO.php";
+include ROOT_PATH . '/app/model/dao/UsuarioDAO.php';
+include ROOT_PATH . '/app/model/dao/PapelDAO.php';
+//include "../app/model/dao/UsuarioDAO.php";
+//include "../app/model/dao/PapelDAO.php";
 /**
  * Description of seguranca
  *
@@ -21,6 +23,10 @@ class Seguranca {
         session_start();
         $_SESSION["usuarioLogado"] = $this->user;
     }
+    
+    public function getUsuario(){
+        return $this->user;       
+    }
 
     /*
      * busca usuario no banco
@@ -32,12 +38,9 @@ class Seguranca {
         //busca usuario no banco pelo login 
         $this->usuarioDao = new UsuarioDAO();
         $this->papelDao = new PapelDAO();        
-        $buscaUsuario = $this->usuarioDao->select(null, "login='" . $login."'");        
-        //echo $buscaUsuario;die();
-        if($buscaUsuario != 'erro'){
-            //cria nova instancia de usuario
-            $this->user = new Usuario();
-            $this->user = $buscaUsuario->fetchObject('Usuario');                        
+        $this->user = new Usuario();
+        $this->user = $this->usuarioDao->select(null, "login='" . $login."'")->fetchObject('Usuario');  
+        if($this->user != null){                        
             //consulta papel do usuario cadastrado
             $id_papel = $this->usuarioDao->select('id_papel', "login='" . $login."'")->fetchColumn();            
             $buscaPapel = $this->papelDao->select(null, "id_papel=" . $id_papel);
@@ -62,17 +65,7 @@ class Seguranca {
             }
         }
         return 'nao cadastrado';
-    }
-    
-    public function tratarExcessoes($excessao){
-        if($excessao == 'nao cadastrado'){
-            
-        }else{
-            if($excessao == 'senha invalida'){
-                
-            }
-        }
-    }
+    }        
     
     public function expulsar(){
         unset($_SESSION['usuarioLogado']);
