@@ -27,8 +27,8 @@ class ControllerSeguranca{
         if($validacao == 'usuario validado'){
             //se usuario for validado, então a ação é alterada para direcionar 
             //a pagina de acordo com o papel do usuario
-            Biotran_Mvc::pegarInstancia()->mudarControlador('aluno');
-            Biotran_Mvc::pegarInstancia()->mudarAcao($_SESSION["usuarioLogado"]->getPapel()->getPapel());
+            Biotran_Mvc::pegarInstancia()->mudarControlador('ead');
+            Biotran_Mvc::pegarInstancia()->mudarAcao('index');
         }else{
             if($validacao == 'senha invalida'){
                 Biotran_Mvc::pegarInstancia()->mudarAcao('senhainvalida');
