@@ -14,9 +14,12 @@ class ControllerSeguranca{
     
     private $seguranca;
     
-    public function acaoValidar($login, $senha){        
-        $this->seguranca = new Seguranca();                
-        $this->tratarValidacao($this->seguranca->validarLogin($login, $senha));        
+    public function __construct(){
+        $this->seguranca = new Seguranca();
+    }
+    
+    public function acaoValidar($login, $senha){                
+        $this->tratarValidacao($this->seguranca->validarLogin($login, $senha));
     }
     
     //trata de acordo com o retorno da funcao validarLogin da classe seguranca.
