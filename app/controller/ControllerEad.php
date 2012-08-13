@@ -1,6 +1,6 @@
 <?php
 
-include "../app/model/pdo/PDOConnectionFactory.class.php";
+//include "../app/model/pdo/PDOConnectionFactory.class.php";
 
 class ControllerEad extends Biotran_Mvc_Controller{
 
