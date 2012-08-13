@@ -26,7 +26,7 @@ body {
     margin-top: 20px;
 }
 
-#login{
+#div_login{
     height: 40px;
     width: 650px;
     margin-top: 10px;
@@ -35,7 +35,7 @@ body {
     right: 0;
 }
 
-#login table{
+#div_login table{
     font-size: 12px;
 }
 
