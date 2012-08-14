@@ -69,7 +69,7 @@ body {
 .page-content {
     padding-top: 25px;
     background-color: #fff;
-    height: 100%;
+    min-height: 600px;
 }
 
 .navbar_home {
@@ -124,7 +124,7 @@ ul.unstyled {
 }
 
 #form_cadastro{
-    padding-left: 30px;
+    padding: 20px 0 0 30px;
 }
 
 #form_cadastro tr{
@@ -138,8 +138,23 @@ form.form_cadastro {
 }
 
 .label_cadastro{
-    font-size: 12px;
+    font-size: 13px;
 }
+
+#form_cadastro .label_cadastro_legend{
+    font-size: 11px;
+    color: #555555;
+}
+
+#form_cadastro legend{
+    font-size: 11px;
+    color: #555555;
+    
+}
+
+#form_cadastro fieldset{
+    border:1px solid #DCDCDC;
+}    
 
 .form_cadastro .text-input {
     background: none repeat-x scroll 0 0 #FFFFFF;
@@ -149,6 +164,7 @@ form.form_cadastro {
     margin-top: 4px;
     padding: 4px;
     width: 250px;
+    border-radius: 8px;
 }
 
 #opcoes_cadastro{

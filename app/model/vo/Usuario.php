@@ -11,12 +11,13 @@
  * @author cead-p057007
  */
 class Usuario {
+
     private $id_usuario;
     private $login;
     private $senha;
     //papel: chave estrangeira    
     //private $id_papel;
-    private $papel;
+    private $id_papel;
     private $nome_completo;
     private $data_nascimento;
     private $cpf;
@@ -26,9 +27,11 @@ class Usuario {
     private $descricao_pessoal;
     private $sexo;
     private $tel_residencial;
-    private $tel_celular;
-    private $email;               
-       
+    private $tel_comercial;
+    private $tel_celular1;
+    private $tel_celular2;
+    private $email;
+
     public function getId_usuario() {
         return $this->id_usuario;
     }
@@ -53,12 +56,12 @@ class Usuario {
         $this->senha = $senha;
     }
 
-    public function getPapel() {
-        return $this->papel;
+    public function getId_papel() {
+        return $this->id_papel;
     }
 
-    public function setPapel(Papel $papel) {
-        $this->papel = $papel;
+    public function setId_papel(Papel $id_papel) {
+        $this->id_papel = $id_papel;
     }
 
     public function getNome_completo() {
@@ -133,14 +136,31 @@ class Usuario {
         $this->tel_residencial = $tel_residencial;
     }
 
-    public function getTel_celular() {
-        return $this->tel_celular;
+    public function getTel_comercial() {
+        return $this->tel_comercial;
+    }
+    
+    public function setTel_comercial($tel_comercial) {
+        $this->tel_comercial = $tel_comercial;
     }
 
-    public function setTel_celular($tel_celular) {
-        $this->tel_celular = $tel_celular;
-    }     
+    public function getTel_celular1() {
+        return $this->tel_celular1;
+    }
 
+    public function setTel_celular1($tel_celular1) {
+        $this->tel_celular1 = $tel_celular1;
+    }
+
+    
+    public function getTel_celular2() {
+        return $this->tel_celular2;
+    }
+
+    public function setTel_celular2($tel_celular2) {
+        $this->tel_celular2 = $tel_celular2;
+    }
+    
     public function getEmail() {
         return $this->email;
     }
@@ -148,7 +168,7 @@ class Usuario {
     public function setEmail($email) {
         $this->email = $email;
     }
-    
+
 }
 
 ?>
