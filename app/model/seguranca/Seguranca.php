@@ -37,16 +37,9 @@ class Seguranca {
     public function setUsuario($login) {
         //busca usuario no banco pelo login 
         $this->usuarioDao = new UsuarioDAO();
-        $this->papelDao = new PapelDAO();        
         $this->user = new Usuario();
         $this->user = $this->usuarioDao->select(null, "login='" . $login."'")->fetchObject('Usuario');  
         if($this->user != null){                        
-            //consulta papel do usuario cadastrado
-            $id_papel = $this->usuarioDao->select('id_papel', "login='" . $login."'")->fetchColumn();            
-            $buscaPapel = $this->papelDao->select(null, "id_papel=" . $id_papel);
-            //cria nova instancia de papel do usuario                                    
-            //seta papel do usuario em $this->user            
-            $this->user->setPapel($buscaPapel->fetchObject('Papel'));
             return true;
         }else{//usuario nao cadastrado no banco de dados
             return false;

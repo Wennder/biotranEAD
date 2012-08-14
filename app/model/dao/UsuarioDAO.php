@@ -7,6 +7,7 @@
 //include "../app/model/pdo/PDOConnectionFactory.class.php";
 
 include ROOT_PATH . "/app/model/dao/EnderecoDAO.php";
+
 /**
  * Description of DAOUsuario
  *
@@ -37,17 +38,17 @@ class UsuarioDAO extends PDOConnectionFactory {
             $stmt->bindValue(11, $user->getSexo());
             $stmt->bindValue(12, $user->getTel_residencial());
             $stmt->bindValue(13, $user->getTel_celular());
-            $stmt->bindValue(14, $user->getEmail());                        
+            $stmt->bindValue(14, $user->getEmail());
             //inserindo usuario no banco
-            $stmt->execute();            
+            $stmt->execute();
             //inserindo enderecos de usuario no banco
-            $buscaId = $this->select("id_usuario", "login='".$user->getLogin()."'")->fetch();                                   
-            $enderecoDAO = new EnderecoDAO();                                    
+            $buscaId = $this->select("id_usuario", "login='" . $user->getLogin() . "'")->fetch();
+            $enderecoDAO = new EnderecoDAO();
             $end1->setId_usuario($buscaId["id_usuario"]);
-            $end2->setId_usuario($buscaId["id_usuario"]);                                          
+            $end2->setId_usuario($buscaId["id_usuario"]);
             $enderecoDAO->insert($end1);
             $enderecoDAO->insert($end2);
-            
+
             $stmt->conex = null;
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
@@ -99,20 +100,42 @@ class UsuarioDAO extends PDOConnectionFactory {
     public function select($selecao = null, $condicao = null) {
         try {
             $stmt = null;
-            if ($selecao== null) {
-                if($condicao == null){
-                    $stmt = $this->conex->query("SELECT * FROM usuario");                    
-                }else{
-                    $stmt = $this->conex->query("SELECT * FROM usuario WHERE ". $condicao);                    
-                }                
+            if ($selecao == null) {
+                if ($condicao == null) {
+                    $stmt = $this->conex->query("SELECT * FROM usuario");
+                } else {
+                    $stmt = $this->conex->query("SELECT * FROM usuario WHERE " . $condicao);
+                }
             } else {
                 if ($condicao == null) {
                     $stmt = $this->conex->query("SELECT " . $selecao . " FROM usuario");
-                }else{
-                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM usuario WHERE " . $condicao);                    
+                } else {
+                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM usuario WHERE " . $condicao);
                 }
             }
             return $stmt;
+        } catch (PDOException $ex) {
+            return "erro";
+        }
+    }
+
+    public function selectAll($query = null) {
+        $obj = new Usuario();
+        $usuarios = array();
+        try {
+            $stmt = null;
+            if ($query == null) {
+                $stmt = $this->conex->query("SELECT * FROM usuario")->fetchAll();
+            } else {
+                $stmt = $this->conex->query($query)->fetchAll();
+            }
+            foreach ($stmt as $usuario) {
+                $obj->setNome_completo(stripslashes($usuario["nome_completo"]));
+                $usuarios[] = clone $obj;
+//                echo($usuarios[0]->getNome_completo());
+//                die();
+            }
+            return $usuarios;
         } catch (PDOException $ex) {
             return "erro";
         }

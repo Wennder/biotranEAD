@@ -12,7 +12,7 @@ $login = $_REQUEST['login'];
 $senha = $_REQUEST['senha'];
 
 $controllerSeguranca = new ControllerSeguranca();
-$valores = $controllerSeguranca->acaoValidarLogin_ajax($login, $senha);
+$valores = $controllerSeguranca->actionValidarLogin_ajax($login, $senha);
 
 echo( json_encode($valores) );
 

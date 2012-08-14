@@ -300,13 +300,12 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
     </br></br>
 </div>
 
-
-<div id="form_editar" style="display: none;">
+<div id="form_edicao" style="display: none;">
     <form id="editar" class="form_editar" method="post">
         <table>
             <tr>
                 <td>
-                    
+                    <?php echo ($this->usuarios[0]->getNome_completo()); ?>
                 </td>
             </tr>
         </table>

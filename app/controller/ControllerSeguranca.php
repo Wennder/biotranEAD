@@ -19,7 +19,7 @@ class ControllerSeguranca {
         $this->seguranca = new Seguranca();
     }
 
-    public function acaoValidarLogin_ajax($login, $senha) {        
+    public function actionValidarLogin_ajax($login, $senha) {        
         return $this->tratarValidacaoLogin_ajax($this->seguranca->validarLogin($login, $senha));
     }
 

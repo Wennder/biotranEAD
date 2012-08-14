@@ -15,6 +15,9 @@ class ControllerEad extends Biotran_Mvc_Controller{
 //        $this->visao->usuario = null;
         $this->visao->usuario = new Usuario();
         $this->visao->usuario = $usuarioDAO->select(null, "id_usuario=33")->fetchObject("Usuario");
+        $this->visao->usuarios = $usuarioDAO->selectAll();
+//        echo $this->visao->usuarios[0]->getNome_completo();
+//        die();
         $this->renderizar();
     }
     
@@ -24,9 +27,9 @@ class ControllerEad extends Biotran_Mvc_Controller{
     }
     
     public function actionCadastrar_usuario() {
-        $usuarioDAO = new UsuarioDAO();
-        $this->visao->usuario = new Usuario();
-        $this->visao->usuario = $usuarioDAO->select("id_usuario, nome_completo", "id_usuario=33")->fetchObject("Usuario");
+//        $usuarioDAO = new UsuarioDAO();
+//        $this->visao->usuario = new Usuario();
+//        $this->visao->usuario = $usuarioDAO->select("id_usuario, nome_completo", "id_usuario=33")->fetchObject("Usuario");
         $this->renderizar();
     }
 
