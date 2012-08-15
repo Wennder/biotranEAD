@@ -5,7 +5,6 @@
  * and open the template in the editor.
  */
 include ROOT_PATH . '/app/model/dao/UsuarioDAO.php';
-include ROOT_PATH . '/app/model/dao/PapelDAO.php';
 //include "../app/model/dao/UsuarioDAO.php";
 //include "../app/model/dao/PapelDAO.php";
 /**
@@ -16,7 +15,6 @@ include ROOT_PATH . '/app/model/dao/PapelDAO.php';
 class Seguranca {
 
     private $usuarioDao;
-    private $papelDao;
     private $user;
 
     public function iniciarSessao() {
@@ -63,7 +61,7 @@ class Seguranca {
     public function expulsar(){
         unset($_SESSION['usuarioLogado']);
         //envia para página de expulsao
-    }       
+    }
 
 }
 

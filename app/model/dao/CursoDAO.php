@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-include "../app/model/pdo/PDOConnectionFactory.class.php";
+include ROOT_PATH . "/app/model/pdo/PDOConnectionFactory.class.php";
 /**
  * Description of CursoDAO
  *

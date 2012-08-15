@@ -1,6 +1,5 @@
 <?php
 
-//include "../app/model/vo/Usuario.php";
 
 class ControllerEad extends Biotran_Mvc_Controller{
 

@@ -1,12 +1,8 @@
 <?php
 
-include "../app/model/vo/Papel.php";
-include "../app/model/vo/Endereco.php";
-//include "../app/model/pdo/PDOConnectionFactory.class.php";
-
 class ControllerIndex extends Biotran_Mvc_Controller{            
     
-    public function actionIndex() {        
+    public function actionIndex() {                               
         $this->renderizar(); 
     }
         

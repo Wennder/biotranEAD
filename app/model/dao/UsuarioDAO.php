@@ -4,8 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-//include "../app/model/pdo/PDOConnectionFactory.class.php";
-
+//include ROOT_PATH . "/app/model/pdo/PDOConnectionFactory.class.php";
 include ROOT_PATH . "/app/model/dao/EnderecoDAO.php";
 
 /**
@@ -97,25 +96,23 @@ class UsuarioDAO extends PDOConnectionFactory {
         }
     }
 
-    public function select($selecao = null, $condicao = null) {
+    
+    //$condicao entra no formato, ex: 'nome_coluna = valor'
+    public function select($condicao = null) {
         try {
             $stmt = null;
-            if ($selecao == null) {
-                if ($condicao == null) {
-                    $stmt = $this->conex->query("SELECT * FROM usuario");
-                } else {
-                    $stmt = $this->conex->query("SELECT * FROM usuario WHERE " . $condicao);
-                }
+            if ($condicao == null) {
+                $stmt = $this->conex->query("SELECT * FROM usuario");
             } else {
-                if ($condicao == null) {
-                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM usuario");
-                } else {
-                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM usuario WHERE " . $condicao);
-                }
+                $stmt = $this->conex->query("SELECT * FROM usuario WHERE " . $condicao);
             }
-            return $stmt;
+            $usuarios = array();           
+            for ($i = 0; $i < $stmt->rowCount(); $i++){
+                $usuarios[$i] = $stmt->fetchObject('Usuario');
+            }
+            return $usuarios;
         } catch (PDOException $ex) {
-            return "erro";
+            return "erro: ".$ex;
         }
     }
 
