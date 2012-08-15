@@ -4,9 +4,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-//include "../app/model/pdo/PDOConnectionFactory.class.php";
-
-include ROOT_PATH . "/app/model/dao/EnderecoDAO.php";
 
 /**
  * Description of DAOUsuario
@@ -97,50 +94,26 @@ class UsuarioDAO extends PDOConnectionFactory {
         }
     }
 
-    public function select($selecao = null, $condicao = null) {
+    
+    //$condicao entra no formato, ex: 'nome_coluna = valor'
+    public function select($condicao = null) {
         try {
             $stmt = null;
-            if ($selecao == null) {
-                if ($condicao == null) {
-                    $stmt = $this->conex->query("SELECT * FROM usuario");
-                } else {
-                    $stmt = $this->conex->query("SELECT * FROM usuario WHERE " . $condicao);
-                }
+            if ($condicao == null) {
+                $stmt = $this->conex->query("SELECT * FROM usuario");
             } else {
-                if ($condicao == null) {
-                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM usuario");
-                } else {
-                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM usuario WHERE " . $condicao);
-                }
+                $stmt = $this->conex->query("SELECT * FROM usuario WHERE " . $condicao);
             }
-            return $stmt;
-        } catch (PDOException $ex) {
-            return "erro";
-        }
-    }
-
-    public function selectAll($query = null) {
-        $obj = new Usuario();
-        $usuarios = array();
-        try {
-            $stmt = null;
-            if ($query == null) {
-                $stmt = $this->conex->query("SELECT * FROM usuario")->fetchAll();
-            } else {
-                $stmt = $this->conex->query($query)->fetchAll();
-            }
-            foreach ($stmt as $usuario) {
-                $obj->setNome_completo(stripslashes($usuario["nome_completo"]));
-                $usuarios[] = clone $obj;
-//                echo($usuarios[0]->getNome_completo());
-//                die();
+            $usuarios = array();                                   
+            for ($i = 0; $i < $stmt->rowCount(); $i++){
+                $usuarios[$i] = $stmt->fetchObject('Usuario');
             }
             return $usuarios;
         } catch (PDOException $ex) {
-            return "erro";
+            return "erro: ".$ex;
         }
-    }
-
+    }   
+    
 }
 
 ?>

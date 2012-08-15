@@ -1,6 +1,5 @@
 <?php
 
-//include "../app/model/vo/Usuario.php";
 
 class ControllerEad extends Biotran_Mvc_Controller{
 
@@ -10,14 +9,7 @@ class ControllerEad extends Biotran_Mvc_Controller{
     }
     
     public function actionGerenciar_usuarios() {
-        $this->visao->titulo = "Gerenciar Usuários";
-        $usuarioDAO = new UsuarioDAO();
-//        $this->visao->usuario = null;
-        $this->visao->usuario = new Usuario();
-        $this->visao->usuario = $usuarioDAO->select(null, "id_usuario=33")->fetchObject("Usuario");
-        $this->visao->usuarios = $usuarioDAO->selectAll();
-//        echo $this->visao->usuarios[0]->getNome_completo();
-//        die();
+        $this->visao->titulo = "Gerenciar Usuários";                
         $this->renderizar();
     }
     
