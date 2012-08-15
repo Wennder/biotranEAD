@@ -4,9 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-include ROOT_PATH . '/app/model/dao/UsuarioDAO.php';
-//include "../app/model/dao/UsuarioDAO.php";
-//include "../app/model/dao/PapelDAO.php";
+
 /**
  * Description of seguranca
  *
@@ -36,7 +34,7 @@ class Seguranca {
         //busca usuario no banco pelo login 
         $this->usuarioDao = new UsuarioDAO();
         $this->user = new Usuario();
-        $this->user = $this->usuarioDao->select(null, "login='" . $login."'")->fetchObject('Usuario');  
+        $this->user = $this->usuarioDao->select("login='" . $login."'");  
         if($this->user != null){                        
             return true;
         }else{//usuario nao cadastrado no banco de dados
@@ -48,7 +46,7 @@ class Seguranca {
         //se usuario existe então ele vai ser setado no objeto $this->user;
         if($this->setUsuario($login)){
             //verifica a validade da senha
-            if ($this->user->getSenha() == $senha) {
+            if ($this->user[0]->getSenha() == $senha) {
                 $this->iniciarSessao($this->user);
                 return 'usuario validado';
             } else {

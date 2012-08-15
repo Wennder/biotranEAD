@@ -53,7 +53,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Nome completo: </label>
                     </td>
                     <td style="width: 500px;">
-                        <input type="text" id="nome" name="nome" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getNome_completo()); ?>" class="validate[required, custom[onlyLetterSp]] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                        <input type="text" id="nome_completo" name="nome_completo" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getNome_completo()); ?>" class="validate[required, custom[onlyLetterSp]] text-input" data-prompt-position="centerRight" style="width: 500px"/>
                     </td>
                 </tr>
                 <tr>
@@ -61,7 +61,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Papel no sistema: </label>
                     </td>
                     <td style="width: 500px;">
-                        <select id="papel" name="papel" class="validate[required]" data-prompt-position="centerRight">
+                        <select id="id_papel" name="id_papel" class="validate[required]" data-prompt-position="centerRight">
                             <option value></option>
                             <option value="1">Administrador</option>
                             <option value="2">Estudante</option>
@@ -75,7 +75,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Data de nascimento: </label>
                     </td>
                     <td>
-                        <input type="text" id="dataNascimento" name="dataNascimento" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getData_nascimento()); ?>" class="validate[required, custom[date]] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="10"/>
+                        <input type="text" id="data_nascimento" name="data_nascimento" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getData_nascimento()); ?>" class="validate[required, custom[date]] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="10"/>
                         <label class="label_cadastro_legend">DD/MM/AAAA </label>
                     </td>
                 </tr>
@@ -118,7 +118,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Identidade Profissional: </label>
                     </td>
                     <td>
-                        <input type="text" id="indentidade_profissional" name="indentidade_profissional" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getId_profissional()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 150px"/>
+                        <input type="text" id="id_profissional" name="id_profissional" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getId_profissional()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 150px"/>
                         <label class="label_cadastro_legend"> </label>
                     </td>
                 </tr>
@@ -138,7 +138,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Telefone Residencial: </label>
                     </td>
                     <td>
-                        <input type="text" id="telResidencial" name="telResidencial" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_residencial()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
+                        <input type="text" id="tel_residencial" name="tel_residencial" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_residencial()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
                         <label class="label_cadastro_legend">(XX)XXXX-XXXX </label>
                     </td>
                 </tr>
@@ -147,7 +147,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Telefone Comercial: </label>
                     </td>
                     <td>
-                        <input type="text" id="telComercial" name="telComercial" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_comercial()); ?>" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
+                        <input type="text" id="tel_comercial" name="tel_comercial" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_comercial()); ?>" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
                     </td>
                 </tr>
                 <tr>
@@ -155,7 +155,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Celular 1: </label>
                     </td>
                     <td>
-                        <input type="text" id="cel1" name="cel1" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_celular1()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
+                        <input type="text" id="tel_celular1" name="tel_celular1" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_celular1()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
                     </td>
                 </tr>
                 <tr>
@@ -163,7 +163,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Celular 2: </label>
                     </td>
                     <td>
-                        <input type="text" id="cel2" name="cel2" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_celular2()); ?>" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
+                        <input type="text" id="tel_celular2" name="tel_celular2" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_celular2()); ?>" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
                     </td>
                 </tr>            
                 <tr>
@@ -171,7 +171,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Descrição Pessoal: </label>
                     </td>
                     <td>
-                        <textarea id="descricaoPessoal" name="descricaoPessoal"rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"><?php echo ($this->usuario == null ? '' : $this->usuario->getDescricao_pessoal()); ?></textarea>
+                        <textarea id="descricao_pessoal" name="descricao_pessoal" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"><?php echo ($this->usuario == null ? '' : $this->usuario->getDescricao_pessoal()); ?></textarea>
                     </td>
                 </tr>
             </table>

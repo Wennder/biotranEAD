@@ -6,8 +6,6 @@
  */
 
 include ROOT_PATH . '/app/model/seguranca/Seguranca.php';
-include ROOT_PATH . '/app/model/dao/UsuarioDAO.php';
-//include ROOT_PATH . '/app/model/pdo/PDOConnectionFactory.class.php';
 /**
  * Description of ControllerSeguranca
  *

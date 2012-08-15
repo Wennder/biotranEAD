@@ -19,7 +19,9 @@ class controllerUsuario {
             $this->usuario = new Usuario();
             foreach ($_POST as $k => $v) {
                 $setAtributo = 'set'.ucfirst($k);
-                $this->usuario->$setAtributo($v);                
+                if(method_exists($this->usuario, $setAtributo)){
+                    $this->usuario->$setAtributo($v);                                    
+                }
             }
             
         }else{

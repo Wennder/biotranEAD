@@ -4,8 +4,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-//include ROOT_PATH . "/app/model/pdo/PDOConnectionFactory.class.php";
-include ROOT_PATH . "/app/model/dao/EnderecoDAO.php";
 
 /**
  * Description of DAOUsuario
@@ -106,7 +104,7 @@ class UsuarioDAO extends PDOConnectionFactory {
             } else {
                 $stmt = $this->conex->query("SELECT * FROM usuario WHERE " . $condicao);
             }
-            $usuarios = array();           
+            $usuarios = array();                                   
             for ($i = 0; $i < $stmt->rowCount(); $i++){
                 $usuarios[$i] = $stmt->fetchObject('Usuario');
             }
@@ -114,30 +112,8 @@ class UsuarioDAO extends PDOConnectionFactory {
         } catch (PDOException $ex) {
             return "erro: ".$ex;
         }
-    }
-
-    public function selectAll($query = null) {
-        $obj = new Usuario();
-        $usuarios = array();
-        try {
-            $stmt = null;
-            if ($query == null) {
-                $stmt = $this->conex->query("SELECT * FROM usuario")->fetchAll();
-            } else {
-                $stmt = $this->conex->query($query)->fetchAll();
-            }
-            foreach ($stmt as $usuario) {
-                $obj->setNome_completo(stripslashes($usuario["nome_completo"]));
-                $usuarios[] = clone $obj;
-//                echo($usuarios[0]->getNome_completo());
-//                die();
-            }
-            return $usuarios;
-        } catch (PDOException $ex) {
-            return "erro";
-        }
-    }
-
+    }   
+    
 }
 
 ?>
