@@ -17,6 +17,28 @@ body {
     padding: 0;
 }
 
+.eadbiotran_navbar_container {
+    float: right;
+}
+
+ul.eadbiotran_toplevel_nav {
+    list-style-type: none;
+    margin-right: 15px;
+}
+
+li.eadbiotran_top_item {
+    color: #6D6E71;
+    float: left;
+    font-family: "sofiapro-medium",Arial,sans-serif;
+    font-size: 15px;
+    height: 30px;
+    letter-spacing: 1px;
+    margin-left: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 10px;
+}
+
 #banner_top{
     border-bottom: 2px solid #CCCCCC;
     height: 80px;

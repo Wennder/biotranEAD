@@ -24,6 +24,13 @@ class ControllerEad extends Biotran_Mvc_Controller{
 //        $this->visao->usuario = $usuarioDAO->select("id_usuario, nome_completo", "id_usuario=33")->fetchObject("Usuario");
         $this->renderizar();
     }
+    
+    public function actionProfile() {
+        $usuarioDAO = new UsuarioDAO();
+        $this->visao->usuario = new Usuario();
+        $this->visao->usuario = $usuarioDAO->select(null, "id_usuario=33")->fetchObject("Usuario");
+        $this->renderizar();
+    }
 
 }
 ?>

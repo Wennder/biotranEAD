@@ -16,6 +16,8 @@ class Seguranca {
     private $user;
 
     public function iniciarSessao() {
+//        session_cache_limiter('private');
+//        session_cache_expire(30); 
         session_start();
         $_SESSION["usuarioLogado"] = $this->user;
     }
