@@ -20,6 +20,8 @@ class Seguranca {
     private $user;
 
     public function iniciarSessao() {
+//        session_cache_limiter('private');
+//        session_cache_expire(30); 
         session_start();
         $_SESSION["usuarioLogado"] = $this->user;
     }
@@ -51,7 +53,7 @@ class Seguranca {
         if($this->setUsuario($login)){
             //verifica a validade da senha
             if ($this->user->getSenha() == $senha) {
-                $this->iniciarSessao($this->user);
+                $this->iniciarSessao();
                 return 'usuario validado';
             } else {
                 return'senha invalida';
