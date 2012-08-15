@@ -1,15 +1,17 @@
 <?php
 
 
-class ControllerEad extends Biotran_Mvc_Controller{
-
+class ControllerEad extends Biotran_Mvc_Controller{   
+    
     public function actionIndex() {
         $this->visao->titulo = "EAD Biotran";
         $this->renderizar();
     }
     
     public function actionGerenciar_usuarios() {
-        $this->visao->titulo = "Gerenciar Usuários";                
+        $this->visao->titulo = "Gerenciar Usuários";
+        $ctrl = new controllerUsuario();        
+        $this->visao->usuario = $ctrl->getUsuario('id_usuario = 33');
         $this->renderizar();
     }
     
@@ -18,19 +20,17 @@ class ControllerEad extends Biotran_Mvc_Controller{
         $this->renderizar();
     }
     
-    public function actionCadastrar_usuario() {
-//        $usuarioDAO = new UsuarioDAO();
-//        $this->visao->usuario = new Usuario();
-//        $this->visao->usuario = $usuarioDAO->select("id_usuario, nome_completo", "id_usuario=33")->fetchObject("Usuario");
+    public function actionCadastrar_usuario() {        
+        $ctrl = new controllerUsuario();
+        $ctrl->novoUsuario();
         $this->renderizar();
     }
     
     public function actionProfile() {
-        $usuarioDAO = new UsuarioDAO();
-        $this->visao->usuario = new Usuario();
-        $this->visao->usuario = $usuarioDAO->select(null, "id_usuario=33")->fetchObject("Usuario");
+        $ctrl = new controllerUsuario();        
+        $this->visao->usuario = $ctrl->getUsuario('id_usuario = 33');
         $this->renderizar();
-    }
+    }        
 
 }
 ?>

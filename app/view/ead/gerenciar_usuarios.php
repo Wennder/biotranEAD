@@ -1,6 +1,9 @@
 <?php
 //$editar = "false";
-$this->usuario == null ? $editar = "false" : $editar = "true";
+if(isset($this->usuario)){
+    $this->usuario == null ? $editar = "false" : $editar = "true";    
+}
+    
 ?>
 
 <?php require 'structure/header.php'; ?>
@@ -127,9 +130,9 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Sexo: </label>
                     </td>
                     <td>
-                        <input type="radio" name="group0" id="sexoM" <?php echo ($this->usuario == null ? '' : ($this->usuario->getSexo() == "M") ? "checked" : ""); ?> value="M" class="validate[required] radio" data-prompt-position="centerRight">
+                        <input type="radio" name="sexo" id="sexoM" <?php echo ($this->usuario == null ? '' : ($this->usuario->getSexo() == "M") ? "checked" : ""); ?> value="M" class="validate[required] radio" data-prompt-position="centerRight">
                         <label class="label_cadastro">Masculino </label>
-                        <input type="radio" name="group0" id="sexoF" <?php echo ($this->usuario == null ? '' : ($this->usuario->getSexo() == "F") ? "checked" : ""); ?> value="F" class="validate[required] radio" data-prompt-position="centerRight">
+                        <input type="radio" name="sexo" id="sexoF" <?php echo ($this->usuario == null ? '' : ($this->usuario->getSexo() == "F") ? "checked" : ""); ?> value="F" class="validate[required] radio" data-prompt-position="centerRight">
                         <label class="label_cadastro">Feminino </label>
                     </td>
                 </tr>
@@ -185,13 +188,13 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Rua: </label>
                     </td>
                     <td style="width: 390px;">
-                        <input type="text" id="rua1" name="rua1" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 390px"/>
+                        <input type="text" id="rua_residencial" name="rua_residencial" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 390px"/>
                     </td>
                     <td style="width: 50px;">
                         <label class="label_cadastro">Número: </label>
                     </td>
                     <td style="width: 60px;">
-                        <input type="text" id="num1" name="num1" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 60px"/>
+                        <input type="text" id="numero_residencial" name="numero_residencial" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 60px"/>
                     </td>
                 </tr>
                 <tr>
@@ -199,7 +202,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Complemento: </label>
                     </td>
                     <td colspan="3" style="width: 500px;">
-                        <input type="text" id="complemento1" name="complemento1" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="complemento_residencial" name="complemento_residencial" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
@@ -207,7 +210,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Bairro: </label>
                     </td>
                     <td colspan="3" style="width: 500px;">
-                        <input type="text" id="bairro1" name="bairro1" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="bairro_residencial" name="bairro_residencial" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
@@ -215,7 +218,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Cidade: </label>
                     </td>
                     <td colspan="3" style="width: 500px;">
-                        <input type="text" id="cidade1" name="cidade1" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="cidade_residencial" name="cidade_residencial" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
             </table>
@@ -229,13 +232,13 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Rua: </label>
                     </td>
                     <td style="width: 390px;">
-                        <input type="text" id="rua2" name="rua2" class="text-input" data-prompt-position="centerRight" style="width: 390px"/>
+                        <input type="text" id="rua_comercial" name="rua_comercial" class="text-input" data-prompt-position="centerRight" style="width: 390px"/>
                     </td>
                     <td style="width: 50px;">
                         <label class="label_cadastro">Número: </label>
                     </td>
                     <td style="width: 60px;">
-                        <input type="text" id="num2" name="num2" class="text-input" data-prompt-position="centerRight" style="width: 60px"/>
+                        <input type="text" id="numero_comercial" name="numero_comercial" class="text-input" data-prompt-position="centerRight" style="width: 60px"/>
                     </td>
                 </tr>
                 <tr>
@@ -243,7 +246,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Complemento: </label>
                     </td>
                     <td colspan="3">
-                        <input type="text" id="complemento2" name="complemento2" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="complemento_comercial" name="complemento_comercial" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
@@ -251,7 +254,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Bairro: </label>
                     </td>
                     <td colspan="3">
-                        <input type="text" id="bairro2" name="bairro2" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="bairro_comercial" name="bairro_comercial" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
@@ -259,7 +262,7 @@ $this->usuario == null ? $editar = "false" : $editar = "true";
                         <label class="label_cadastro">Cidade: </label>
                     </td>
                     <td colspan="3">
-                        <input type="text" id="cidade2" name="cidade2" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="cidade_comercial" name="cidade_comercial" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
             </table>
