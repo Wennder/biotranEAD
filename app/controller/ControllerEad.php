@@ -1,6 +1,5 @@
 <?php
 
-
 class ControllerEad extends Biotran_Mvc_Controller{
 
     public function actionIndex() {
@@ -9,7 +8,15 @@ class ControllerEad extends Biotran_Mvc_Controller{
     }
     
     public function actionGerenciar_usuarios() {
-        $this->visao->titulo = "Gerenciar Usuários";                
+        $this->visao->titulo = "Gerenciar Usuários";
+        
+//        $usuarioDAO = new UsuarioDAO();        
+//        $this->visao->usuario = $usuarioDAO->select("id_usuario=33");
+//        $this->visao->usuario = $this->visao->usuario[0];
+        
+        $controllerUsuario = new controllerUsuario();
+        $this->visao->tabela = $controllerUsuario->tabelaUsuarios();
+        
         $this->renderizar();
     }
     
@@ -18,17 +25,19 @@ class ControllerEad extends Biotran_Mvc_Controller{
         $this->renderizar();
     }
     
-    public function actionCadastrar_usuario() {
+    public function actionDados_pessoais() {
 //        $usuarioDAO = new UsuarioDAO();
 //        $this->visao->usuario = new Usuario();
-//        $this->visao->usuario = $usuarioDAO->select("id_usuario, nome_completo", "id_usuario=33")->fetchObject("Usuario");
+//        $this->visao->usuario = $usuarioDAO->select("id_usuario=33");
+        $this->visao->usuario;
         $this->renderizar();
     }
     
-    public function actionProfile() {
-        $usuarioDAO = new UsuarioDAO();
-        $this->visao->usuario = new Usuario();
-        $this->visao->usuario = $usuarioDAO->select(null, "id_usuario=33")->fetchObject("Usuario");
+        public function actionProfile() {
+        $usuarioDAO = new UsuarioDAO();        
+        $this->visao->usuario = $usuarioDAO->select("id_usuario=33");
+        $this->visao->usuario = $this->visao->usuario[0];
+//        $this->visao->usuario;// = $_SESSION["usuarioLogado"];
         $this->renderizar();
     }
 

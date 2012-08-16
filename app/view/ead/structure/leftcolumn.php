@@ -7,12 +7,12 @@
             <ul style="list-style-type:none;">
                 <li>
                     <p class="navbar_item navbar_home">
-                        <a href="<?php echo "index.php?c=ead&a=gerenciar_usuarios" ?>"> Usuários</a>
+                        <a href="index.php?c=ead&a=gerenciar_usuarios"> Usuários</a>
                     </p>
                 </li>
                 <li>
                     <p class="navbar_item navbar_home">
-                        <a href="<?php echo "index.php?c=ead&a=gerenciar_cursos" ?>"> Cursos</a>
+                        <a href="index.php?c=ead&a=gerenciar_cursos"> Cursos</a>
                     </p>
                 </li>
             </ul>
@@ -44,7 +44,7 @@
         </li>
         <li>
             <p class="navbar_item navbar_home">
-                <a href="#"> Home </a>
+                <a href="index.php?c=ead&a=profile"> Profile </a>
             </p>
         </li>
         <li>

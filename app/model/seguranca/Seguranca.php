@@ -37,7 +37,8 @@ class Seguranca {
         $this->usuarioDao = new UsuarioDAO();
         $this->user = new Usuario();
         $this->user = $this->usuarioDao->select("login='" . $login."'");  
-        if($this->user != null){                        
+        if($this->user != null){  
+            $this->user = $this->user[0];
             return true;
         }else{//usuario nao cadastrado no banco de dados
             return false;
@@ -48,7 +49,7 @@ class Seguranca {
         //se usuario existe então ele vai ser setado no objeto $this->user;
         if($this->setUsuario($login)){
             //verifica a validade da senha
-            if ($this->user[0]->getSenha() == $senha) {
+            if ($this->user->getSenha() == $senha) {
                 $this->iniciarSessao($this->user);
                 return 'usuario validado';
             } else {

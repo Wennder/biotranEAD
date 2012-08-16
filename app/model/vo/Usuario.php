@@ -113,7 +113,7 @@ class Usuario {
     }
 
     public function getDescricao_pessoal() {
-        return $this->descricao_pessoal;
+        return utf8_encode($this->descricao_pessoal);
     }
 
     public function setDescricao_pessoal($descricao_pessoal) {

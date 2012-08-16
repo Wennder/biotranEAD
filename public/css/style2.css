@@ -69,7 +69,7 @@ li.eadbiotran_top_item {
 .content_fluid{
     min-width: 940px;
     padding-left: 20px;
-    padding-right: 20px;
+/*    padding-right: 20px;*/
     position: relative;
 }
 
@@ -145,12 +145,16 @@ ul.unstyled {
     margin-left: 0;
 }
 
-#form_cadastro{
+#form_cadastro, #profile{
     padding: 20px 0 0 30px;
 }
 
 #form_cadastro tr{
     height: 35px;
+}
+
+#profile tr{
+    height: 25px;
 }
 
 form.form_cadastro {
@@ -159,7 +163,7 @@ form.form_cadastro {
     margin: 0 auto;
 }
 
-.label_cadastro{
+.label_cadastro, .label_profile{
     font-size: 13px;
 }
 
@@ -168,17 +172,17 @@ form.form_cadastro {
     color: #555555;
 }
 
-#form_cadastro legend{
+#form_cadastro legend, #profile legend{
     font-size: 11px;
     color: #555555;
     
 }
 
-#form_cadastro fieldset{
+#form_cadastro fieldset, #profile fieldset{
     border:1px solid #DCDCDC;
 }    
 
-.form_cadastro .text-input {
+.form_cadastro .text-input, .profile .text-input {
     background: none repeat-x scroll 0 0 #FFFFFF;
     border: 1px solid #B5B8C8;
     color: #555555;
@@ -187,6 +191,17 @@ form.form_cadastro {
     padding: 4px;
     width: 250px;
     border-radius: 8px;
+}
+
+#form_editar{
+    padding: 20px 30px;
+}
+
+#foto_usuario{
+    height: 120px;
+    width: 100px;
+    background-color: #DCDCDC;
+    border: solid 1px #B5B8C8;
 }
 
 #opcoes_cadastro{
