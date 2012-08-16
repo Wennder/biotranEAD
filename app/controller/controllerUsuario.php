@@ -97,7 +97,8 @@ class controllerUsuario {
         for (; $i < $quant; $i++) {
             $tabela .= "<tr id=" . $this->usuarios[$i]->getId_usuario() . ">";
             $tabela .= "<td width='55%' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
-            $tabela .= "<td width='15%' id='permissao' align='center'>" . $papelDAO->select($this->usuarios[$i]->getId_papel()) . "</td>";
+            $papel = $papelDAO->select("id_papel=".$this->usuarios[$i]->getId_papel());
+            $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";
             $tabela .= "<td width='15%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
             $tabela .= "<td width='5%' id='b_visualizar' align='center'>" . "" . "</td>";
             $tabela .= "<td width='5%' id='b_editar' align='center'>" . "" . "</td>";
