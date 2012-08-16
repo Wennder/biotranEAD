@@ -10,7 +10,8 @@
  * @author cead-p057007
  */
 class CursoDAO extends PDOConnectionFactory{
-    public $conex = null;
+    
+    private $conex = null;
 
     public function CursoDAO() {
         $this->conex = $this->getConnection();

@@ -8,7 +8,7 @@ class ControllerIndex extends Biotran_Mvc_Controller{
         
     public function actionLogin() {
         $this->visao->login = $_POST["login"];
-        $this->visao->senha = $_POST["senha"];
+        $this->visao->senha = $_POST["senha"];        
         $this->controllerSeguranca->acaoValidar($this->visao->login, $this->visao->senha);
         $this->renderizar();
     }

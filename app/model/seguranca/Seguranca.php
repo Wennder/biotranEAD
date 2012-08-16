@@ -16,9 +16,8 @@ class Seguranca {
     private $user;
 
     public function iniciarSessao() {
-//        session_cache_limiter('private');
-//        session_cache_expire(30); 
         session_start();
+        ini_set('session.cookie_domain', (strpos($_SERVER['HTTP_HOST'],'.') !== false) ? $_SERVER['HTTP_HOST'] : '');
         $_SESSION["usuarioLogado"] = $this->user;
     }
     
@@ -37,7 +36,7 @@ class Seguranca {
         $this->usuarioDao = new UsuarioDAO();
         $this->user = new Usuario();
         $this->user = $this->usuarioDao->select("login='" . $login."'");  
-        if($this->user != null){  
+        if($this->user != null){                        
             $this->user = $this->user[0];
             return true;
         }else{//usuario nao cadastrado no banco de dados
@@ -48,9 +47,9 @@ class Seguranca {
     public function validarLogin($login, $senha) {
         //se usuario existe então ele vai ser setado no objeto $this->user;
         if($this->setUsuario($login)){
-            //verifica a validade da senha
+            //verifica a validade da senha            
             if ($this->user->getSenha() == $senha) {
-                $this->iniciarSessao($this->user);
+                $this->iniciarSessao();                
                 return 'usuario validado';
             } else {
                 return'senha invalida';

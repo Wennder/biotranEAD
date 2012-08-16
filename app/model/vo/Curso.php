@@ -11,6 +11,7 @@
  * @author cead-p057007
  */
 class Curso {
+    
     private $id_curso;
     private $nome;
     private $descricao;

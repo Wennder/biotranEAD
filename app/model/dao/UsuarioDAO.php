@@ -12,7 +12,7 @@
  */
 class UsuarioDAO extends PDOConnectionFactory {
 
-    public $conex = null;
+    private $conex = null;
 
     public function UsuarioDAO() {
         $this->conex = $this->getConnection();
@@ -21,10 +21,11 @@ class UsuarioDAO extends PDOConnectionFactory {
     public function insert(Usuario $user, Endereco $end1, Endereco $end2) {
         try {
             $stmt = $this->conex->prepare("INSERT INTO usuario(login, senha, id_papel, nome_completo, 
-                data_nascimento, cpf, rg, id_profissional, atuacao, descricao_pessoal, sexo, tel_residencial, tel_celular, email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            $stmt->bindValue(1, $user->getLogin());
+                data_nascimento, cpf, rg, id_profissional, atuacao, descricao_pessoal, sexo, tel_residencial, 
+                tel_comercial, tel_celular1, tel_celular2, email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            $stmt->bindValue(1, $user->getEmail());
             $stmt->bindValue(2, $user->getSenha());
-            $stmt->bindValue(3, $user->getPapel()->getId_papel());
+            $stmt->bindValue(3, $user->getId_papel());
             $stmt->bindValue(4, $user->getNome_completo());
             $stmt->bindValue(5, $user->getData_nascimento());
             $stmt->bindValue(6, $user->getCpf());
@@ -34,15 +35,18 @@ class UsuarioDAO extends PDOConnectionFactory {
             $stmt->bindValue(10, $user->getDescricao_pessoal());
             $stmt->bindValue(11, $user->getSexo());
             $stmt->bindValue(12, $user->getTel_residencial());
-            $stmt->bindValue(13, $user->getTel_celular());
-            $stmt->bindValue(14, $user->getEmail());
+            $stmt->bindValue(13, $user->getTel_comercial());
+            $stmt->bindValue(14, $user->getTel_celular1());
+            $stmt->bindValue(15, $user->getTel_celular2());
+            $stmt->bindValue(16, $user->getEmail());
             //inserindo usuario no banco
             $stmt->execute();
-            //inserindo enderecos de usuario no banco
-            $buscaId = $this->select("id_usuario", "login='" . $user->getLogin() . "'")->fetch();
+                            
+            //inserindo enderecos de usuario no banco                        
+            $buscaId = $this->select("login='". $user->getLogin() ."'");
             $enderecoDAO = new EnderecoDAO();
-            $end1->setId_usuario($buscaId["id_usuario"]);
-            $end2->setId_usuario($buscaId["id_usuario"]);
+            $end1->setId_usuario($buscaId[0]->getId_usuario());
+            $end2->setId_usuario($buscaId[0]->getId_usuario());
             $enderecoDAO->insert($end1);
             $enderecoDAO->insert($end2);
 
@@ -93,7 +97,6 @@ class UsuarioDAO extends PDOConnectionFactory {
             echo "Erro: " . $ex->getMessage();
         }
     }
-
     
     //$condicao entra no formato, ex: 'nome_coluna = valor'
     public function select($condicao = null) {
@@ -104,11 +107,11 @@ class UsuarioDAO extends PDOConnectionFactory {
             } else {
                 $stmt = $this->conex->query("SELECT * FROM usuario WHERE " . $condicao);
             }
-            $usuarios = array();                                   
+            $usuario = array();                                   
             for ($i = 0; $i < $stmt->rowCount(); $i++){
-                $usuarios[$i] = $stmt->fetchObject('Usuario');
+                $usuario[$i] = $stmt->fetchObject('Usuario');
             }
-            return $usuarios;
+            return $usuario;
         } catch (PDOException $ex) {
             return "erro: ".$ex;
         }

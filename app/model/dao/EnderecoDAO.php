@@ -11,7 +11,8 @@
  * @author cead-p057007
  */
 class EnderecoDAO extends PDOConnectionFactory{
-    public $conex = null;
+    
+    private $conex = null;
 
     public function EnderecoDAO() {
         $this->conex = $this->getConnection();
@@ -66,27 +67,23 @@ class EnderecoDAO extends PDOConnectionFactory{
         }
     }
 
-    public function select($selecao = null, $condicao = null) {
+    public function select($condicao = null) {
         try {
             $stmt = null;
-            if ($selecao == null) {
-                if($condicao == null){
-                    $stmt = $this->conex->query("SELECT * FROM endereco_usuario");
-                }else{
-                    $stmt = $this->conex->query("SELECT * FROM endereco_usuario WHERE ". $condicao);
-                }
+            if ($condicao == null) {
+                $stmt = $this->conex->query("SELECT * FROM endereco_usuario");
             } else {
-                if ($condicao == null) {
-                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM endereco_usuario");
-                }else{
-                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM endereco_usuario WHERE " . $condicao);
-                }
+                $stmt = $this->conex->query("SELECT * FROM endereco_usuario WHERE " . $condicao);
             }
-            return $stmt;
+            $endereco = array();                                   
+            for ($i = 0; $i < $stmt->rowCount(); $i++){
+                $endereco[$i] = $stmt->fetchObject('Endereco');
+            }
+            return $endereco;
         } catch (PDOException $ex) {
-            echo "Erro: ". $ex->getMessage();
+            return "erro: ".$ex;
         }
-    }
+    }   
 }
 
 

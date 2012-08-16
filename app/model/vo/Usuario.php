@@ -60,7 +60,7 @@ class Usuario {
         return $this->id_papel;
     }
 
-    public function setId_papel(Papel $id_papel) {
+    public function setId_papel($id_papel) {
         $this->id_papel = $id_papel;
     }
 
@@ -151,7 +151,6 @@ class Usuario {
     public function setTel_celular1($tel_celular1) {
         $this->tel_celular1 = $tel_celular1;
     }
-
     
     public function getTel_celular2() {
         return $this->tel_celular2;
@@ -167,6 +166,7 @@ class Usuario {
 
     public function setEmail($email) {
         $this->email = $email;
+        $this->setLogin($email);
     }
 
 }
