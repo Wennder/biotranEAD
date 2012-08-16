@@ -1,5 +1,5 @@
 <?php
-//$editar = "false";
+$editar = "false";
 if(isset($this->usuario)){
     $this->usuario == null ? $editar = "false" : $editar = "true";    
 }

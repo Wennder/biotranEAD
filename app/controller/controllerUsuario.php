@@ -88,7 +88,7 @@ class controllerUsuario {
                 </tr> 
             </thead> 
             <tbody>";
-        
+        $tabela = utf8_encode($tabela);
         $usuarioDAO = new UsuarioDAO();
         $papelDAO = new PapelDAO();
         $this->usuarios = $usuarioDAO->select(null);
