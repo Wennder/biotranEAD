@@ -115,6 +115,10 @@ class controllerUsuario {
         $user = $dao->select();
         return $user;
     }
+    
+    public function removerUsuario(Usuario $user){
+        
+    }
 
 }
 ?>

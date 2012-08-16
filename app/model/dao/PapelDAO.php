@@ -11,7 +11,8 @@
  * @author cead-p057007
  */
 class PapelDAO extends PDOConnectionFactory {
-    public $conex = null;
+
+    private $conex = null;
 
     public function PapelDAO() {
         $this->conex = $this->getConnection();
@@ -57,27 +58,24 @@ class PapelDAO extends PDOConnectionFactory {
         }
     }
 
-    public function select($selecao = null, $condicao = null) {
+    public function select($condicao = null) {
         try {
             $stmt = null;
-            if ($selecao == null) {
-                if($condicao == null){
-                    $stmt = $this->conex->query("SELECT * FROM papel");                    
-                }else{
-                    $stmt = $this->conex->query("SELECT * FROM papel WHERE ". $condicao);
-                }
+            if ($condicao == null) {
+                $stmt = $this->conex->query("SELECT * FROM papel");
             } else {
-                if ($condicao == null) {
-                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM papel");
-                }else{
-                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM papel WHERE " . $condicao);
-                }
+                $stmt = $this->conex->query("SELECT * FROM papel WHERE " . $condicao);
             }
-            return $stmt;
+            $papel = array();
+            for ($i = 0; $i < $stmt->rowCount(); $i++) {
+                $papel[$i] = $stmt->fetchObject('Papel');
+            }
+            return $papel;
         } catch (PDOException $ex) {
-            echo "Erro: ". $ex->getMessage();
+            return "erro: " . $ex;
         }
     }
+
 }
 
 ?>

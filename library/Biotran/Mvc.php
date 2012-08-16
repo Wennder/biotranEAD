@@ -73,7 +73,7 @@ class Biotran_Mvc {
     }
 
     public function rodar() {
-        //pega o modulo, controlador e acao 
+        //pega o modulo, controlador e acao        
         $controlador = isset($_GET['c']) ? $_GET['c'] : 'index';
         $acao = isset($_GET['a']) ? $_GET['a'] : 'index';
 

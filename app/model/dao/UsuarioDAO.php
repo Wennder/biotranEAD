@@ -12,7 +12,7 @@
  */
 class UsuarioDAO extends PDOConnectionFactory {
 
-    public $conex = null;
+    private $conex = null;
 
     public function UsuarioDAO() {
         $this->conex = $this->getConnection();
@@ -97,7 +97,6 @@ class UsuarioDAO extends PDOConnectionFactory {
             echo "Erro: " . $ex->getMessage();
         }
     }
-
     
     //$condicao entra no formato, ex: 'nome_coluna = valor'
     public function select($condicao = null) {
@@ -108,11 +107,11 @@ class UsuarioDAO extends PDOConnectionFactory {
             } else {
                 $stmt = $this->conex->query("SELECT * FROM usuario WHERE " . $condicao);
             }
-            $usuarios = array();                                   
+            $usuario = array();                                   
             for ($i = 0; $i < $stmt->rowCount(); $i++){
-                $usuarios[$i] = $stmt->fetchObject('Usuario');
+                $usuario[$i] = $stmt->fetchObject('Usuario');
             }
-            return $usuarios;
+            return $usuario;
         } catch (PDOException $ex) {
             return "erro: ".$ex;
         }
