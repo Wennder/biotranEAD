@@ -116,7 +116,7 @@ if(isset($this->usuario)){
                         </select>
                     </td>
                 </tr>
-                <tr>
+                <tr>                    
                     <td>
                         <label class="label_cadastro">Identidade Profissional: </label>
                     </td>

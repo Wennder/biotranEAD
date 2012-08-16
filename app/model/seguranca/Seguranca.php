@@ -16,8 +16,6 @@ class Seguranca {
     private $user;
 
     public function iniciarSessao() {
-//        session_cache_limiter('private');
-//        session_cache_expire(30); 
         session_start();
         ini_set('session.cookie_domain', (strpos($_SERVER['HTTP_HOST'],'.') !== false) ? $_SERVER['HTTP_HOST'] : '');
         $_SESSION["usuarioLogado"] = $this->user;

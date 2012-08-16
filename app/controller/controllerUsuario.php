@@ -117,7 +117,7 @@ class controllerUsuario {
     }
     
     public function removerUsuario(Usuario $user){
-        
+     
     }
 
 }
