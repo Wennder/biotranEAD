@@ -10,7 +10,6 @@ table.dataTable {
 
 table.dataTable thead th {
 	padding: 3px 18px 3px 10px;
-	border-bottom: 1px solid black;
 	font-weight: bold;
 	cursor: pointer;
 	*cursor: hand;
@@ -220,42 +219,56 @@ table.dataTable th:active {
 
 /* Hover nas entradas da tabela */
 
+/*Colunas secundárias, linhas claras hover*/
 #tabela_usuarios tbody tr.even:hover, #tabela_usuarios tbody tr.even td.highlighted {
-	background-color: #ECFFB3;
+	background-color: #D9DADC;
 }
 
+/*Colunas secundárias, linhas escuras hover*/
 #tabela_usuarios tbody tr.odd:hover, #tabela_usuarios tbody tr.odd td.highlighted {
-	background-color: #E6FF99;
+	background-color: #D9DADC;
 }
 
+/*Coluna primária, linhas claras hover*/
+#tabela_usuarios tr.even:hover td.sorting_1 {
+	background-color: #B4B4B4;
+        color: #FFF;
+/*        font-weight: bold;*/
+}
+
+/*Coluna primária, linhas claras hover*/
+#tabela_usuarios tr.odd:hover td.sorting_1 {
+	background-color: #B4B4B4;
+        color: #FFF;
+/*        font-weight: bold;*/
+}
+
+/*???*/
 #tabela_usuarios tr.even:hover {
 	background-color: #ECFFB3;
 }
 
-#tabela_usuarios tr.even:hover td.sorting_1 {
-	background-color: #DDFF75;
-}
-
+/*???*/
 #tabela_usuarios tr.even:hover td.sorting_2 {
 	background-color: #E7FF9E;
 }
 
+/*???*/
 #tabela_usuarios tr.even:hover td.sorting_3 {
 	background-color: #E2FF89;
 }
 
+/*???*/
 #tabela_usuarios tr.odd:hover {
 	background-color: #E6FF99;
 }
 
-#tabela_usuarios tr.odd:hover td.sorting_1 {
-	background-color: #D6FF5C;
-}
-
+/*???*/
 #tabela_usuarios tr.odd:hover td.sorting_2 {
 	background-color: #E0FF84;
 }
 
+/*???*/
 #tabela_usuarios tr.odd:hover td.sorting_3 {
 	background-color: #DBFF70;
 }

@@ -65,7 +65,7 @@ class Usuario {
     }
 
     public function getNome_completo() {
-        return $this->nome_completo;
+        return utf8_encode($this->nome_completo);
     }
 
     public function setNome_completo($nome_completo) {
@@ -105,7 +105,7 @@ class Usuario {
     }
 
     public function getAtuacao() {
-        return $this->atuacao;
+        return utf8_encode($this->atuacao);
     }
 
     public function setAtuacao($atuacao) {

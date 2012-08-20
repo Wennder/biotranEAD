@@ -5,11 +5,17 @@
 <div id="profile" class="profile">
     <fieldset style="width: 650px;">
         <legend>Profile</legend>
-        <table>
+        <table style="width: 650px;">
             <tr>
-                <td>
+                <td style="width: 120px;">
                     <div id="foto_usuario">
-                        <img src="img/profile/<?php echo $this->usuario->getId_usuario(); ?>.jpg" alt="" height="120" width="100" />
+                        <img src="img/profile/<?php
+                        if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
+                            echo $this->usuario->getId_usuario() . '.jpg';
+                        } else {
+                            echo '00.jpg';
+                        }
+                        ?>" alt="" height="120" width="100" />
                     </div>
                 </td>
                 <td>
@@ -66,9 +72,14 @@
                     <label class="label_profile"><?php echo $this->usuario->getDescricao_pessoal(); ?></label>
                 </td>
             </tr>
+            <tr><td colspan="2"</td></tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <input type="button" value="Editar" class="button" onclick="$(location).attr('href', 'index.php?c=ead&a=dados_pessoais&id=<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>');"/>
+                </td>
+            </tr>
         </table>
     </fieldset>
-    <input type="button" value="Editar" onclick="$(location).attr('href', 'index.php?c=ead&a=dados_pessoais&id=<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>');"/>
     </br></br>
 </div>
 

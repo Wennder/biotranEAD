@@ -1,4 +1,11 @@
 <?php
+//if(file_exists('img/profile/33.jpg')){
+//    echo 'achou';
+//}
+//else{
+//    echo 'n achou';
+//}
+
 $editar = "false";
 if (isset($this->usuario)) {
     $this->usuario == null ? $editar = "false" : $editar = "true";
@@ -19,10 +26,14 @@ if (isset($this->usuario)) {
         $("#cadastro").validationEngine();
         if($("#i_editar").val() == "true"){
             $("#form_cadastro").show();
+            $("#opcoes_cadastro").hide();
+            $("#button_cadastrar").hide();
+            $("#button_atualizar").show();
         }
         else{
             $("#form_cadastro").hide();
         }
+        $("#editar").validationEngine();
         var papel = $("#i_papel");
         $("#papel").val(papel.val());
         var atuacao = $("#i_atuacao");
@@ -48,11 +59,11 @@ if (isset($this->usuario)) {
     function mostrar(opcao){
         if(opcao == "cadastro"){
             $("#form_cadastro").show();
-            $("#form_editar").hide();
+            $("#form_gerenciar").hide();
         }
-        else if(opcao == "editar"){
+        else if(opcao == "gerenciar"){
             $("#form_cadastro").hide();
-            $("#form_editar").show();
+            $("#form_gerenciar").show();
         }
     }
     
@@ -69,13 +80,13 @@ if (isset($this->usuario)) {
 </script>
 
 <div id="opcoes_cadastro">
-    <input type="button" value="Cadastrar" onclick="mostrar('cadastro');"/>
-    <input type="button" value="Editar/Remover" onclick="mostrar('editar');"/>
+    <input type="button" value="Cadastro" class="button" onclick="mostrar('cadastro');"/>
+    <input type="button" value="Gerência" class="button" onclick="mostrar('gerenciar');" style="margin-left: 10px;"/>
 </div>
 
 <div id="form_cadastro" style="display: none;">
     <form id="cadastro" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_usuario">
-        <fieldset style="width: 650px;">
+        <fieldset style="width: 100%;">
             <legend>Dados Pessoais</legend>
             <table>
                 <tr>
@@ -91,7 +102,7 @@ if (isset($this->usuario)) {
                         <label class="label_cadastro">Permissão: </label>
                     </td>
                     <td style="width: 500px;">
-                        <select id="id_papel" name="id_papel" class="validate[required]" data-prompt-position="centerRight">
+                        <select id="papel" name="papel" class="validate[required]" data-prompt-position="centerRight">
                             <option value></option>
                             <option value="1">Administrador</option>
                             <option value="2">Estudante</option>
@@ -133,11 +144,11 @@ if (isset($this->usuario)) {
                     <td>
                         <select id="atuacao" name="atuacao" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getAtuacao()); ?>" class="validate[required]" data-prompt-position="centerRight">
                             <option value></option>
-                            <option value="Agronomo">Agrônomo</option>
+                            <option value="Agrônomo">Agrônomo</option>
                             <option value="Estudante">Estudante</option>
                             <option value="Produtor">Produtor</option>
-                            <option value="Tecnico_nm">Técnico nível médio</option>
-                            <option value="Veterinario">Veterinário</option>
+                            <option value="Técnico nível médio">Técnico nível médio</option>
+                            <option value="Veterinário">Veterinário</option>
                             <option value="Zootecnista">Zootecnista</option>
                             <option value="Outros">Outros</option>
                         </select>
@@ -213,7 +224,16 @@ if (isset($this->usuario)) {
                             <tr>
                                 <td>
                                     <div id="foto_usuario">
-                                        <img src="img/profile/<?php echo ($this->usuario == null ? '00' : $this->usuario->getId_usuario()); ?>.jpg" alt="" height="120" width="100" />
+                                        <img src="img/profile/<?php
+                                                if($this->usuario == null){
+                                                    echo '00.jpg'; 
+                                                }
+                                                else if(file_exists('img/profile/'.$this->usuario->getId_usuario().'.jpg')){
+                                                    echo $this->usuario->getId_usuario().'.jpg';
+                                                }else{
+                                                    echo '00.jpg'; 
+                                                }
+                                            ?>" alt="" height="120" width="100" />
                                     </div>
                                 </td>
                                 <td>
@@ -226,7 +246,7 @@ if (isset($this->usuario)) {
             </table>
         </fieldset>
         <br>
-        <fieldset style="width: 650px;">
+        <fieldset style="width: 100%;">
             <table id="endereço1">
                 <legend>Endereço Residencial</legend>
                 <tr>
@@ -270,7 +290,7 @@ if (isset($this->usuario)) {
             </table>
         </fieldset>
         <br>
-        <fieldset style="width: 650px;">
+        <fieldset style="width: 100%;">
             <legend>Endereço Comercial</legend>
             <table id="endereço2">
                 <tr>
@@ -314,7 +334,7 @@ if (isset($this->usuario)) {
             </table>
         </fieldset>
         <br>
-        <fieldset style="width: 650px;">
+        <fieldset style="width: 100%;">
             <legend>Acesso</legend>
             <table>
                 <tr>
@@ -344,12 +364,13 @@ if (isset($this->usuario)) {
             </table>
         </fieldset>
         <br>
-        <input type="submit" id="button_cadastrar" name="button_cadastrar" value="Cadastrar"/>
+        <input type="submit" id="button_cadastrar" name="button_cadastrar" value="Cadastrar" class="button"/>
+        <input type="submit" id="button_atualizar" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
     </form>
     </br></br>
 </div>
 
-<div id="form_editar" style="display: none;">
+<div id="form_gerenciar" style="display: none;">
     <?php echo $this->tabela; ?>
 </div>
 

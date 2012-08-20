@@ -80,15 +80,15 @@ class controllerUsuario {
          <thead> 
                 <tr> 
                     <th>Nome</th> 
-                    <th>Permissao</th> 
-                    <th>Atuacao</th> 
+                    <th>Permissão</th> 
+                    <th>Atuação</th> 
                     <th></th> 
                     <th></th> 
                     <th></th> 
                 </tr> 
             </thead> 
             <tbody>";
-        $tabela = utf8_encode($tabela);
+        $tabela = $tabela;
         $usuarioDAO = new UsuarioDAO();
         $papelDAO = new PapelDAO();
         $this->usuarios = $usuarioDAO->select(null);
@@ -109,7 +109,7 @@ class controllerUsuario {
             $tabela .= "</tr>";
         }
         $tabela .= "</tbody></table>";
-        return utf8_encode($tabela);
+        return $tabela;
     }
 
     public function getUsuario($condicao) {
