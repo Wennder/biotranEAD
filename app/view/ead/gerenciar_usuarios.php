@@ -1,13 +1,14 @@
 <?php
-$editar = "false";
-if (isset($this->usuario)) {
-    $this->usuario == null ? $editar = "false" : $editar = "true";
-}
+    $editar = "false";
+    if (isset($this->usuario)) {
+        $this->usuario == null ? $editar = "false" : $editar = "true";
+    }
 ?>
 
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/leftcolumn.php'; ?>
 <?php require 'structure/content.php'; ?>
+<script src="js/crudTabelaUsuario.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
@@ -53,24 +54,17 @@ if (isset($this->usuario)) {
         else if(opcao == "editar"){
             $("#form_cadastro").hide();
             $("#form_editar").show();
+            $("#form_editar").show();
         }
     }
     
-    function editarUsuario(id){
-        id = id.substr(6,6);
-        $(location).attr('href', 'index.php?c=ead&a=gerenciar_usuarios&id='+id+'');
-    }
     
-    function visualizarUsuario(id){
-        id = id.substr(6,6);
-        $(location).attr('href', 'index.php?c=ead&a=profile&id='+id+'');
-    }
 
 </script>
 
 <div id="opcoes_cadastro">
-    <input type="button" value="Cadastrar" onclick="mostrar('cadastro');"/>
-    <input type="button" value="Editar/Remover" onclick="mostrar('editar');"/>
+    <input id="btn_cadastrar" name="btn_cadastrar" type="button" value="Cadastrar" onclick="mostrar('cadastro');"/>
+    <input name="btn_edtrem" id="btn_edtrem" type="button" value="Editar/Remover" onclick="mostrar('editar');"/>
 </div>
 
 <div id="form_cadastro" style="display: none;">
@@ -350,7 +344,13 @@ if (isset($this->usuario)) {
 </div>
 
 <div id="form_editar" style="display: none;">
-    <?php echo $this->tabela; ?>
+    <?php
+        if (!isset($this->tabela)) {
+            $controllerUsuario = new controllerUsuario();
+            $this->tabela = $controllerUsuario->tabelaUsuarios();
+        }
+        echo $this->tabela;
+    ?>
 </div>
 
 <div id="div_hidden" style="display: none;">
