@@ -209,3 +209,80 @@ form.form_cadastro {
     margin: 0 auto;
     text-align: center;
 }
+
+/* CSS DOS BOTOES */
+
+.botaoExcluir{
+    background: url('../img/botao_excluir.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoExcluir:hover{
+    cursor: pointer;
+}
+
+.botaoExcluir:active{
+    background: url('../img/botao_excluir_active.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoExcluirDesativado{
+    background: url('../img/botao_excluir_desativado.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoEditar{
+    background: url('../img/botao_editar.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoEditar:hover{
+    cursor: pointer;
+}
+
+.botaoEditar:active{
+    background: url('../img/botao_editar_active.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoEditarDesativado{
+    background: url('../img/botao_editar_desativado.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoVisualizar{
+    background: url('../img/botao_visualizar.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoVisualizar:hover{
+    cursor: pointer;
+}
+
+.botaoVisualizar:active{
+    background: url('../img/botao_visualizar_active.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoVisualizarDesativado{
+    background: url('../img/botao_visualizar_desativado.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}

@@ -1,7 +1,6 @@
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/leftcolumn.php'; ?>
 <?php require 'structure/content.php'; ?>
-<?php $this->usuario = $_SESSION["usuarioLogado"]; ?>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>

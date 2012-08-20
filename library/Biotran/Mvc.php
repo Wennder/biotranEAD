@@ -10,11 +10,18 @@ class Biotran_Mvc {
     protected $controlador;
 
     /**
-     * Nome do controlador
+     * Nome da acao
      * 
      * @var string
      */
     protected $acao;
+
+    /**
+     * Id
+     * 
+     * @var string
+     */
+    protected $id;
 
     /**
      * Instancia única do objeto Planeta_Mvc
@@ -54,7 +61,7 @@ class Biotran_Mvc {
     public function pegarControlador() {
         return $this->controlador;
     }
-    
+
     public function mudarControlador($controlador) {
         $this->controlador = $controlador;
     }
@@ -67,19 +74,30 @@ class Biotran_Mvc {
     public function pegarAcao() {
         return $this->acao;
     }
-    
-    public function mudarAcao($acao){
+
+    public function mudarAcao($acao) {
         $this->acao = $acao;
+    }
+
+    /**
+     * Pega a id na url
+     * 
+     * @return string
+     */
+    public function pegarId() {
+        return $this->id;
     }
 
     public function rodar() {
         //pega o modulo, controlador e acao        
         $controlador = isset($_GET['c']) ? $_GET['c'] : 'index';
         $acao = isset($_GET['a']) ? $_GET['a'] : 'index';
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
 
         //padronizacao de nomes
         $this->controlador = ucfirst(strtolower($controlador));
         $this->acao = ucfirst(strtolower($acao));
+        $this->id = strtolower($id);
 
         $nomeClasseControlador = 'Controller' . $this->controlador;
         $nomeAcao = 'action' . $this->acao;

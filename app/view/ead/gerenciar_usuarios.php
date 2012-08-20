@@ -1,9 +1,8 @@
 <?php
 $editar = "false";
-if(isset($this->usuario)){
-    $this->usuario == null ? $editar = "false" : $editar = "true";    
+if (isset($this->usuario)) {
+    $this->usuario == null ? $editar = "false" : $editar = "true";
 }
-    
 ?>
 
 <?php require 'structure/header.php'; ?>
@@ -55,6 +54,16 @@ if(isset($this->usuario)){
             $("#form_cadastro").hide();
             $("#form_editar").show();
         }
+    }
+    
+    function editarUsuario(id){
+        id = id.substr(6,6);
+        $(location).attr('href', 'index.php?c=ead&a=gerenciar_usuarios&id='+id+'');
+    }
+    
+    function visualizarUsuario(id){
+        id = id.substr(6,6);
+        $(location).attr('href', 'index.php?c=ead&a=profile&id='+id+'');
     }
 
 </script>
@@ -341,9 +350,7 @@ if(isset($this->usuario)){
 </div>
 
 <div id="form_editar" style="display: none;">
-    <!--    <form id="editar" class="form_editar" method="post">-->
     <?php echo $this->tabela; ?>
-    <!--    </form>-->
 </div>
 
 <div id="div_hidden" style="display: none;">
