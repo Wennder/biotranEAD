@@ -29,7 +29,7 @@
         }
         $("#editar").validationEngine();
         var papel = $("#i_papel");
-        $("#papel").val(papel.val());
+        $("#id_papel").val(papel.val());
         var atuacao = $("#i_atuacao");
         $("#atuacao").val(atuacao.val());
         $("#tabela_usuarios").dataTable({
@@ -88,7 +88,7 @@
                         <label class="label_cadastro">Permissão: </label>
                     </td>
                     <td style="width: 500px;">
-                        <select id="papel" name="papel" class="validate[required]" data-prompt-position="centerRight">
+                        <select id="id_papel" name="id_papel" class="validate[required]" data-prompt-position="centerRight">
                             <option value></option>
                             <option value="1">Administrador</option>
                             <option value="2">Estudante</option>
@@ -356,7 +356,7 @@
     </br></br>
 </div>
 
-<div id="form_editar" style="display: none;">
+<div id="form_gerenciar" style="display: none;">
     <?php
         if (!isset($this->tabela)) {
             $controllerUsuario = new controllerUsuario();

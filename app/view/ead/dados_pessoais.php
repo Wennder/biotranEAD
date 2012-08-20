@@ -9,7 +9,7 @@
     $(document).ready(function(){
         $("#editar").validationEngine();
         var papel = $("#i_papel");
-        $("#papel").val(papel.val());
+        $("#id_papel").val(papel.val());
         var atuacao = $("#i_atuacao");
         $("#atuacao").val(atuacao.val());
     });
@@ -34,7 +34,7 @@
                         <label class="label_editar">Permissão: </label>
                     </td>
                     <td style="width: 500px;">
-                        <select id="papel" name="papel" disabled="disabled" class="validate[required]" data-prompt-position="centerRight">
+                        <select id="id_papel" name="id_papel" disabled="disabled" class="validate[required]" data-prompt-position="centerRight">
                             <option value></option>
                             <option value="1">Administrador</option>
                             <option value="2">Estudante</option>
