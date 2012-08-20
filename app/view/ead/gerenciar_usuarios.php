@@ -1,5 +1,5 @@
 <?php
-//$editar = "false";
+$editar = "false";
 if(isset($this->usuario)){
     $this->usuario == null ? $editar = "false" : $editar = "true";    
 }
@@ -204,7 +204,7 @@ if(isset($this->usuario)){
                             <tr>
                                 <td>
                                     <div id="foto_usuario">
-                                        <img src="img/profile/<?php echo ($this->usuario == null ? '00' : $this->usuario->getId_usuario()); ?>.jpg" alt="" height="120" width="100" />
+                                        <img id="foto" name="foto" src="img/profile/<?php echo ($this->usuario == null ? '00' : $this->usuario->getId_usuario()); ?>.jpg" alt="" height="120" width="100" />
                                     </div>
                                 </td>
                                 <td>
