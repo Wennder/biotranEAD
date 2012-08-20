@@ -66,6 +66,21 @@ class EnderecoDAO extends PDOConnectionFactory{
             echo "Erro: " . $ex->getMessage();
         }
     }
+        
+    public function deleteEnderecoUsuario($id_usuario) {
+        try {
+            $num = $this->conex->exec("DELETE FROM endereco_usuario WHERE id_usuario=". $id_usuario);
+            // caso seja execuado ele retorna o número de rows que foram afetadas.
+            if ($num >= 1) {
+                return $num;
+            } else {
+                return 0;
+            }
+            // caso ocorra um erro, retorna o erro;
+        } catch (PDOException $ex) {
+            echo "Erro: " . $ex->getMessage();
+        }
+    }
 
     public function select($condicao = null) {
         try {

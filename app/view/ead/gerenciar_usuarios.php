@@ -1,20 +1,14 @@
 <?php
-//if(file_exists('img/profile/33.jpg')){
-//    echo 'achou';
-//}
-//else{
-//    echo 'n achou';
-//}
-
-$editar = "false";
-if (isset($this->usuario)) {
-    $this->usuario == null ? $editar = "false" : $editar = "true";
-}
+    $editar = "false";
+    if (isset($this->usuario)) {
+        $this->usuario == null ? $editar = "false" : $editar = "true";
+    }
 ?>
 
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/leftcolumn.php'; ?>
 <?php require 'structure/content.php'; ?>
+<script src="js/crudTabelaUsuario.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
@@ -67,15 +61,7 @@ if (isset($this->usuario)) {
         }
     }
     
-    function editarUsuario(id){
-        id = id.substr(6,6);
-        $(location).attr('href', 'index.php?c=ead&a=gerenciar_usuarios&id='+id+'');
-    }
     
-    function visualizarUsuario(id){
-        id = id.substr(6,6);
-        $(location).attr('href', 'index.php?c=ead&a=profile&id='+id+'');
-    }
 
 </script>
 
@@ -370,8 +356,14 @@ if (isset($this->usuario)) {
     </br></br>
 </div>
 
-<div id="form_gerenciar" style="display: none;">
-    <?php echo $this->tabela; ?>
+<div id="form_editar" style="display: none;">
+    <?php
+        if (!isset($this->tabela)) {
+            $controllerUsuario = new controllerUsuario();
+            $this->tabela = $controllerUsuario->tabelaUsuarios();
+        }
+        echo $this->tabela;
+    ?>
 </div>
 
 <div id="div_hidden" style="display: none;">

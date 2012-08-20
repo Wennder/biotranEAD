@@ -86,7 +86,7 @@ class UsuarioDAO extends PDOConnectionFactory {
     public function delete(Usuario $user) {
         try {
             $num = $this->conex->exec("DELETE FROM usuario WHERE id_usuario=" . $user->getId_usuario());
-            // caso seja execuado ele retorna o número de rows que foram afetadas.
+            // caso seja executado ele retorna o número de rows que foram afetadas.
             if ($num >= 1) {
                 return $num;
             } else {
