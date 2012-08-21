@@ -102,7 +102,7 @@
                         <label class="label_cadastro">Data de nascimento: </label>
                     </td>
                     <td>
-                        <input type="text" id="data_nascimento" name="data_nascimento" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getData_nascimento()); ?>" class="validate[required, custom[date]] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="10"/>
+                        <input type="text" id="data_nascimento" name="data_nascimento" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getData_nascimento()); ?>" class="validate[custom[date]] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="10"/>
                         <label class="label_cadastro_legend">DD/MM/AAAA </label>
                     </td>
                 </tr>
@@ -111,7 +111,7 @@
                         <label class="label_cadastro">CPF: </label>
                     </td>
                     <td>
-                        <input type="text" id="cpf" name="cpf" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getCpf()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="14"/>
+                        <input type="text" id="cpf" name="cpf" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getCpf()); ?>" class="validate[required, custom[onlyNumberSp]] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="14"/>
                         <label class="label_cadastro_legend">XXX.XXX.XXX-XX </label>
                     </td>
                 </tr>
@@ -120,7 +120,7 @@
                         <label class="label_cadastro">RG: </label>
                     </td>
                     <td>
-                        <input type="text" id="rg" name="rg" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getRg()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="12"/>
+                        <input type="text" id="rg" name="rg" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getRg()); ?>" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="15"/>
                     </td>
                 </tr>
                 <tr>
@@ -145,7 +145,7 @@
                         <label class="label_cadastro">Identidade Profissional: </label>
                     </td>
                     <td>
-                        <input type="text" id="id_profissional" name="id_profissional" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getId_profissional()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 150px"/>
+                        <input type="text" id="id_profissional" name="id_profissional" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getId_profissional()); ?>" class="text-input" data-prompt-position="centerRight" style="width: 150px" maxlength="15"/>
                         <label class="label_cadastro_legend"> </label>
                     </td>
                 </tr>
@@ -162,43 +162,27 @@
                 </tr>
                 <tr>
                     <td>
-                        <label class="label_cadastro">Telefone Residencial: </label>
+                        <label class="label_cadastro">Telefone Principal: </label>
                     </td>
                     <td>
-                        <input type="text" id="tel_residencial" name="tel_residencial" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_residencial()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
+                        <input type="text" id="tel_principal" name="tel_principal" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_principal()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
                         <label class="label_cadastro_legend">(XX)XXXX-XXXX </label>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label class="label_cadastro">Telefone Comercial: </label>
+                        <label class="label_cadastro">Telefone Secundário: </label>
                     </td>
                     <td>
-                        <input type="text" id="tel_comercial" name="tel_comercial" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_comercial()); ?>" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
+                        <input type="text" id="tel_secundario" name="tel_secundario" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_secundario()); ?>" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <label class="label_cadastro">Celular 1: </label>
-                    </td>
-                    <td>
-                        <input type="text" id="tel_celular1" name="tel_celular1" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_celular1()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="label_cadastro">Celular 2: </label>
-                    </td>
-                    <td>
-                        <input type="text" id="tel_celular2" name="tel_celular2" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getTel_celular2()); ?>" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
-                    </td>
-                </tr>            
                 <tr>
                     <td>
                         <label class="label_cadastro">Descrição Pessoal: </label>
                     </td>
                     <td>
-                        <textarea id="descricao_pessoal" name="descricao_pessoal" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"><?php echo ($this->usuario == null ? '' : $this->usuario->getDescricao_pessoal()); ?></textarea>
+                        <textarea id="descricao_pessoal" name="descricao_pessoal" rows="3" class="text-input" data-prompt-position="centerRight" maxlength="100"><?php echo ($this->usuario == null ? '' : $this->usuario->getDescricao_pessoal()); ?></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -234,19 +218,19 @@
         <br>
         <fieldset style="width: 100%;">
             <table id="endereço1">
-                <legend>Endereço Residencial</legend>
+                <legend>Endereço</legend>
                 <tr>
                     <td style="width: 150px;">
                         <label class="label_cadastro">Rua: </label>
                     </td>
                     <td style="width: 390px;">
-                        <input type="text" id="rua_residencial" name="rua_residencial" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 390px"/>
+                        <input type="text" id="rua" name="rua" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 390px"/>
                     </td>
                     <td style="width: 50px;">
                         <label class="label_cadastro">Número: </label>
                     </td>
                     <td style="width: 60px;">
-                        <input type="text" id="numero_residencial" name="numero_residencial" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 60px"/>
+                        <input type="text" id="numero" name="numero" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 60px"/>
                     </td>
                 </tr>
                 <tr>
@@ -254,7 +238,7 @@
                         <label class="label_cadastro">Complemento: </label>
                     </td>
                     <td colspan="3" style="width: 500px;">
-                        <input type="text" id="complemento_residencial" name="complemento_residencial" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="complemento" name="complemento" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
@@ -262,7 +246,7 @@
                         <label class="label_cadastro">Bairro: </label>
                     </td>
                     <td colspan="3" style="width: 500px;">
-                        <input type="text" id="bairro_residencial" name="bairro_residencial" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="bairro" name="bairro" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
@@ -270,51 +254,7 @@
                         <label class="label_cadastro">Cidade: </label>
                     </td>
                     <td colspan="3" style="width: 500px;">
-                        <input type="text" id="cidade_residencial" name="cidade_residencial" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
-        <br>
-        <fieldset style="width: 100%;">
-            <legend>Endereço Comercial</legend>
-            <table id="endereço2">
-                <tr>
-                    <td style="width: 150px;">
-                        <label class="label_cadastro">Rua: </label>
-                    </td>
-                    <td style="width: 390px;">
-                        <input type="text" id="rua_comercial" name="rua_comercial" class="text-input" data-prompt-position="centerRight" style="width: 390px"/>
-                    </td>
-                    <td style="width: 50px;">
-                        <label class="label_cadastro">Número: </label>
-                    </td>
-                    <td style="width: 60px;">
-                        <input type="text" id="numero_comercial" name="numero_comercial" class="text-input" data-prompt-position="centerRight" style="width: 60px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1">
-                        <label class="label_cadastro">Complemento: </label>
-                    </td>
-                    <td colspan="3">
-                        <input type="text" id="complemento_comercial" name="complemento_comercial" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1">
-                        <label class="label_cadastro">Bairro: </label>
-                    </td>
-                    <td colspan="3">
-                        <input type="text" id="bairro_comercial" name="bairro_comercial" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1">
-                        <label class="label_cadastro">Cidade: </label>
-                    </td>
-                    <td colspan="3">
-                        <input type="text" id="cidade_comercial" name="cidade_comercial" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="cidade" name="cidadel" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
             </table>

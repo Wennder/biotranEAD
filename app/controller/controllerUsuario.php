@@ -13,16 +13,14 @@
 class controllerUsuario {
 
     private $usuario;
-    private $end_residencial;
-    private $end_comercial;
+    private $end;
 
     /*
      * Insere um novo Usuario no BD.
      * Captura os dados do usuario via POST ou através dos paramtros
      *     
      * @param $user: objeto usuario
-     * @param $end1: objeto endereco 1 
-     * @param $end2: objeto endereco 2 
+     * @param $end1: objeto endereco
      * 
      * @return Mensagem de erro caso a insersao via parametros falhe por objetos nulos
      */
@@ -30,8 +28,7 @@ class controllerUsuario {
     public function novoUsuario(Usuario $user = null, Endereco $end1 = null, Endereco $end2 = null) {
         if (!empty($_POST)) {
             $this->usuario = new Usuario();
-            $this->end_comercial = new Endereco();
-            $this->end_residencial = new Endereco();  
+            $this->end = new Endereco(); 
             foreach ($_POST as $k => $v) {
                 if (stristr($k, '_')) {
                     $chave_endereco = explode('_', $k);

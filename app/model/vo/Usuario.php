@@ -26,10 +26,8 @@ class Usuario {
     private $atuacao;
     private $descricao_pessoal;
     private $sexo;
-    private $tel_residencial;
-    private $tel_comercial;
-    private $tel_celular1;
-    private $tel_celular2;
+    private $tel_principal;
+    private $tel_secundario;
     private $email;
 
     public function getId_usuario() {
@@ -128,36 +126,20 @@ class Usuario {
         $this->sexo = $sexo;
     }
 
-    public function getTel_residencial() {
-        return $this->tel_residencial;
+    public function getTel_principal() {
+        return $this->tel_principal;
     }
 
-    public function setTel_residencial($tel_residencial) {
-        $this->tel_residencial = $tel_residencial;
+    public function setTel_principal($tel_principal) {
+        $this->tel_principal = $tel_principal;
     }
 
-    public function getTel_comercial() {
-        return $this->tel_comercial;
+    public function getTel_secundario() {
+        return $this->tel_secundario;
     }
     
-    public function setTel_comercial($tel_comercial) {
-        $this->tel_comercial = $tel_comercial;
-    }
-
-    public function getTel_celular1() {
-        return $this->tel_celular1;
-    }
-
-    public function setTel_celular1($tel_celular1) {
-        $this->tel_celular1 = $tel_celular1;
-    }
-    
-    public function getTel_celular2() {
-        return $this->tel_celular2;
-    }
-
-    public function setTel_celular2($tel_celular2) {
-        $this->tel_celular2 = $tel_celular2;
+    public function setTel_secundario($tel_secundario) {
+        $this->tel_secundario = $tel_secundario;
     }
     
     public function getEmail() {

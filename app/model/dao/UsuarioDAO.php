@@ -18,11 +18,11 @@ class UsuarioDAO extends PDOConnectionFactory {
         $this->conex = $this->getConnection();
     }
 
-    public function insert(Usuario $user, Endereco $end1, Endereco $end2) {
+    public function insert(Usuario $user, Endereco $end) {
         try {
             $stmt = $this->conex->prepare("INSERT INTO usuario(login, senha, id_papel, nome_completo, 
-                data_nascimento, cpf, rg, id_profissional, atuacao, descricao_pessoal, sexo, tel_residencial, 
-                tel_comercial, tel_celular1, tel_celular2, email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                data_nascimento, cpf, rg, id_profissional, atuacao, descricao_pessoal, sexo, tel_principal, 
+                tel_secundairo, email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $stmt->bindValue(1, $user->getEmail());
             $stmt->bindValue(2, $user->getSenha());
             $stmt->bindValue(3, $user->getId_papel());
@@ -34,21 +34,17 @@ class UsuarioDAO extends PDOConnectionFactory {
             $stmt->bindValue(9, $user->getAtuacao());
             $stmt->bindValue(10, $user->getDescricao_pessoal());
             $stmt->bindValue(11, $user->getSexo());
-            $stmt->bindValue(12, $user->getTel_residencial());
-            $stmt->bindValue(13, $user->getTel_comercial());
-            $stmt->bindValue(14, $user->getTel_celular1());
-            $stmt->bindValue(15, $user->getTel_celular2());
-            $stmt->bindValue(16, $user->getEmail());
+            $stmt->bindValue(12, $user->getTel_principal());
+            $stmt->bindValue(13, $user->getTel_secundario());
+            $stmt->bindValue(14, $user->getEmail());
             //inserindo usuario no banco
             $stmt->execute();
                             
             //inserindo enderecos de usuario no banco                        
             $buscaId = $this->select("login='". $user->getLogin() ."'");
             $enderecoDAO = new EnderecoDAO();
-            $end1->setId_usuario($buscaId[0]->getId_usuario());
-            $end2->setId_usuario($buscaId[0]->getId_usuario());
-            $enderecoDAO->insert($end1);
-            $enderecoDAO->insert($end2);
+            $end->setId_usuario($buscaId[0]->getId_usuario());
+            $enderecoDAO->insert($end);
 
             $stmt->conex = null;
         } catch (PDOException $ex) {
@@ -59,7 +55,7 @@ class UsuarioDAO extends PDOConnectionFactory {
     public function update(Usuario $user) {
         try {
             $stmt = $this->conex->prepare("UPDATE usuario SET id_usuario=?, login=?, senha=?, id_papel=?, nome_completo=?, 
-                data_nascimento=?, cpf=?, rg=?, id_profissional=?, atuacao=?, descricao_pessoal=?, sexo=?, tel_residencial=?, tel_celular=?, id_endereco1=?, id_endereco2=?, email=? WHERE id_usuario=?");
+                data_nascimento=?, cpf=?, rg=?, id_profissional=?, atuacao=?, descricao_pessoal=?, sexo=?, tel_principal=?, tel_secundario=?, id_endereco=?, email=? WHERE id_usuario=?");
             $stmt->bindValue(1, $user->getLogin());
             $stmt->bindValue(2, $user->getSenha());
             $stmt->bindValue(3, $user->getPapel()->getId_papel());
@@ -71,10 +67,9 @@ class UsuarioDAO extends PDOConnectionFactory {
             $stmt->bindValue(9, $user->getAtuacao());
             $stmt->bindValue(10, $user->getDescricao_pessoal());
             $stmt->bindValue(11, $user->getSexo());
-            $stmt->bindValue(12, $user->getTel_residencial());
-            $stmt->bindValue(13, $user->getTel_celular());
-            $stmt->bindValue(14, $user->getId_endereco1()->getId_endereco_usuario());
-            $stmt->bindValue(15, $user->getId_endereco2()->getId_endereco_usuario());
+            $stmt->bindValue(12, $user->getTel_principal());
+            $stmt->bindValue(13, $user->getTel_secundario());
+            $stmt->bindValue(14, $user->getId_endereco()->getId_endereco_usuario());
             $stmt->bindValue(16, $user->getEmail());
             $stmt->bindValue(7, $user->getId_usuario());
             $stmt->execute();
