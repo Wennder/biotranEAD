@@ -25,54 +25,37 @@ class controllerUsuario {
      * @return Mensagem de erro caso a insersao via parametros falhe por objetos nulos
      */
 
-    public function novoUsuario(Usuario $user = null, Endereco $end1 = null, Endereco $end2 = null) {
+    public function novoUsuario_ead() {
         if (!empty($_POST)) {
             $this->usuario = new Usuario();
-            $this->end = new Endereco(); 
+            $this->end = new Endereco();
             foreach ($_POST as $k => $v) {
                 if (stristr($k, '_')) {
                     $chave_endereco = explode('_', $k);
-                    if ($chave_endereco[1] != 'residencial' && $chave_endereco[1] != 'comercial') {
-                        $setAtributo = 'set' . ucfirst($k);
-                        if (method_exists($this->usuario, $setAtributo)) {
-                            $this->usuario->$setAtributo($v);                            
-                        }
-                    } else {
-                        if ($chave_endereco[0] != 'tel') {
-                            $setAtributo = 'set' . ucfirst($chave_endereco[0]);
-                            if (method_exists($this->end_comercial, $setAtributo)) {
-                                if ($chave_endereco[1] == 'residencial') {
-                                    $this->end_residencial->$setAtributo($v);
-                                } else {
-                                    $this->end_comercial->$setAtributo($v);
-                                }                                
-                            }
-                        } else {
-                            $setAtributo = 'set' . ucfirst($k);
-                            if (method_exists($this->usuario, $setAtributo)) {
-                                $this->usuario->$setAtributo($v);                                
-                            }
-                        }
-                    }
-                } else {
-                    if($k != 'foto'){
+                    if ($chave_endereco[0] != 'endereco') {
                         $setAtributo = 'set' . ucfirst($k);
                         if (method_exists($this->usuario, $setAtributo)) {
                             $this->usuario->$setAtributo($v);
-                        }                        
-                    }else{
-                        
+                        }
+                    } else {
+                        $setAtributo = 'set' . ucfirst($chave_endereco[1]);
+                        if (method_exists($this->end, $setAtributo)) {
+                            $this->end->$setAtributo($v);
+                        }
+                    }
+                } else {
+                    if ($k != 'foto') {
+                        $setAtributo = 'set' . ucfirst($k);
+                        if (method_exists($this->usuario, $setAtributo)) {
+                            $this->usuario->$setAtributo($v);
+                        }
+                    } else {
+                        $foto = $_FILES['foto'];
                     }
                 }
-            }            
-            $dao = new UsuarioDAO();
-            $dao->insert($this->usuario, $this->end_residencial, $this->end_comercial);
-        } else {
-            if ($user != null && $end1 != null && $end2) {
-                $dao->insert($this->usuario, $this->end_residencial, $this->end_comercial);
-            } else {
-                return 'enderecos ou usuario nao instanciados';
             }
+            $dao = new UsuarioDAO();
+            $dao->insert($this->usuario, $this->end);
         }
     }
 
@@ -93,12 +76,12 @@ class controllerUsuario {
         $usuarioDAO = new UsuarioDAO();
         $papelDAO = new PapelDAO();
         $this->usuarios = $usuarioDAO->select(null);
-        $quant =  count($this->usuarios);
+        $quant = count($this->usuarios);
         $i = 0;
         for (; $i < $quant; $i++) {
             $tabela .= "<tr id=tabela_linha" . $this->usuarios[$i]->getId_usuario() . ">";
             $tabela .= "<td width='55%' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
-            $papel = $papelDAO->select("id_papel=".$this->usuarios[$i]->getId_papel());
+            $papel = $papelDAO->select("id_papel=" . $this->usuarios[$i]->getId_papel());
             $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";
             $tabela .= "<td width='15%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
             $tabela .= "<td width='5%' id='b_visualizar' align='center'>
@@ -144,22 +127,22 @@ class controllerUsuario {
         $user = $dao->select();
         return $user;
     }
-    
-    public function removerUsuario(Usuario $user){
+
+    public function removerUsuario(Usuario $user) {
         $dao = new EnderecoDAO();
         $affectedrows = $dao->deleteEnderecoUsuario($user->getId_usuario());
-        if($affectedrows > 0){
+        if ($affectedrows > 0) {
             $dao = new UsuarioDAO();
-                $affectedrows = $dao->delete($user);
-                if ($affectedrows >= 1) {
-                    return 1;
-                }else
-                    return 0;            
-        }else{
+            $affectedrows = $dao->delete($user);
+            if ($affectedrows >= 1) {
+                return 1;
+            }else
+                return 0;
+        }else {
             return 3;
         }
     }
-        
+
 }
 ?>
 

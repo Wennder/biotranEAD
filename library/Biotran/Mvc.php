@@ -22,6 +22,7 @@ class Biotran_Mvc {
      * @var string
      */
     protected $id;
+    protected $controllerSeguranca;
 
     /**
      * Instancia única do objeto Planeta_Mvc
@@ -50,7 +51,7 @@ class Biotran_Mvc {
      * @return void
      */
     private function __construct() {
-        
+        $this->controllerSeguranca = new ControllerSeguranca();
     }
 
     /**
@@ -88,16 +89,19 @@ class Biotran_Mvc {
         return $this->id;
     }
 
-    public function rodar() {
-        //pega o modulo, controlador e acao        
-        $controlador = isset($_GET['c']) ? $_GET['c'] : 'index';
-        $acao = isset($_GET['a']) ? $_GET['a'] : 'index';
-        $id = isset($_GET['id']) ? $_GET['id'] : '';
+    public function validarAcessoUsuario() {
+        $permissao = $this->controllerSeguranca->actionLiberarAcesso($this->acao);
+        if (!$permissao) {
+            $this->controlador = 'ead';
+            $this->acao = 'acesso_negado';
+        }
+    }
 
+    public function executarAcao() {
         //padronizacao de nomes
-        $this->controlador = ucfirst(strtolower($controlador));
-        $this->acao = ucfirst(strtolower($acao));
-        $this->id = strtolower($id);
+        $this->controlador = ucfirst(strtolower($this->controlador));
+        $this->acao = ucfirst(strtolower($this->acao));
+        $this->id = strtolower($this->id);
 
         $nomeClasseControlador = 'Controller' . $this->controlador;
         $nomeAcao = 'action' . $this->acao;
@@ -105,15 +109,32 @@ class Biotran_Mvc {
         //verifica se a classe existe
         if (class_exists($nomeClasseControlador)) {
             $controladorObjeto = new $nomeClasseControlador;
-
             //verifica se o metodo existe
-            if (method_exists($controladorObjeto, $nomeAcao)) {                
+            if (method_exists($controladorObjeto, $nomeAcao)) {
                 $controladorObjeto->$nomeAcao();
                 return true;
             }
             throw new Exception('Acao nao existente.');
         }
         throw new Exception('Controlador nao existente.');
+    }
+
+    public function rodar() {
+        //pega o modulo, controlador e acao        
+        $this->controlador = isset($_GET['c']) ? $_GET['c'] : 'index';
+        $this->acao = isset($_GET['a']) ? $_GET['a'] : 'index';
+        $this->id = isset($_GET['id']) ? $_GET['id'] : '';
+        
+        session_start();
+
+        if ($this->acao == 'login' && $this->controlador == 'ead') {
+            $this->executarAcao();
+            $this->validarAcessoUsuario();
+            $this->executarAcao();
+        } else {
+            $this->validarAcessoUsuario();
+            $this->executarAcao();
+        }       
     }
 
     private function __clone() {

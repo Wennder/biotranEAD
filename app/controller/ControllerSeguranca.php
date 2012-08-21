@@ -12,12 +12,14 @@ include ROOT_PATH . '/app/model/seguranca/Seguranca.php';
  *
  * @author cead-p057007
  */
-class ControllerSeguranca extends Seguranca {
+class ControllerSeguranca {
 
     private $papeis;
+    private $seguranca;
 
     public function __construct() {
         $this->setPapeis();
+        $this->seguranca = new Seguranca();
     }    
 
     /*
@@ -33,9 +35,9 @@ class ControllerSeguranca extends Seguranca {
     }        
 
     public function actionValidarLogin_ajax($login, $senha) {
-        return $this->tratarValidacaoLogin_ajax($this->validarLogin($login, $senha));
+        return $this->seguranca->validarLogin($login, $senha);
     }
-
+    
     //trata de acordo com o retorno da funcao validarLogin da classe seguranca.
     public function tratarValidacaoLogin_ajax($validacao) {
         if ($validacao == 'usuario validado') {
@@ -62,6 +64,11 @@ class ControllerSeguranca extends Seguranca {
                 }
             }
         }
+    }
+    
+    public function actionLiberarAcesso($pagina){
+        
+        return $this->seguranca->isPapel_pagina($pagina);            
     }
 
     public function acaoEnviarSenhaEmail($login) {

@@ -21,14 +21,14 @@ class UsuarioDAO extends PDOConnectionFactory {
     public function insert(Usuario $user, Endereco $end) {
         try {
             $stmt = $this->conex->prepare("INSERT INTO usuario(login, senha, id_papel, nome_completo, 
-                data_nascimento, cpf, rg, id_profissional, atuacao, descricao_pessoal, sexo, tel_principal, 
+                data_nascimento, cpf_passaporte, rg, id_profissional, atuacao, descricao_pessoal, sexo, tel_principal, 
                 tel_secundairo, email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $stmt->bindValue(1, $user->getEmail());
             $stmt->bindValue(2, $user->getSenha());
             $stmt->bindValue(3, $user->getId_papel());
             $stmt->bindValue(4, $user->getNome_completo());
             $stmt->bindValue(5, $user->getData_nascimento());
-            $stmt->bindValue(6, $user->getCpf());
+            $stmt->bindValue(6, $user->getCpf_passaporte());
             $stmt->bindValue(7, $user->getRg());
             $stmt->bindValue(8, $user->getId_profissional());
             $stmt->bindValue(9, $user->getAtuacao());

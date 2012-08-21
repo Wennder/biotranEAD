@@ -20,7 +20,7 @@ class Usuario {
     private $id_papel;
     private $nome_completo;
     private $data_nascimento;
-    private $cpf;
+    private $cpf_passaporte;
     private $rg;
     private $id_profissional;
     private $atuacao;
@@ -78,12 +78,12 @@ class Usuario {
         $this->data_nascimento = $data_nascimento;
     }
 
-    public function getCpf() {
-        return $this->cpf;
+    public function getCpf_passaporte() {
+        return $this->cpf_passaporte;
     }
 
-    public function setCpf($cpf) {
-        $this->cpf = $cpf;
+    public function setCpf_passaporte($cpf_passaporte) {
+        $this->cpf_passaporte = $cpf_passaporte;
     }
 
     public function getRg() {

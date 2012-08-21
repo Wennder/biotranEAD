@@ -13,12 +13,10 @@
 class Seguranca {
 
     private $usuarioDao;
-    private $user;
+    private $user;   
 
     public function iniciarSessao() {
-        session_start();
-        ini_set('session.cookie_domain', (strpos($_SERVER['HTTP_HOST'],'.') !== false) ? $_SERVER['HTTP_HOST'] : '');
-        $_SESSION["usuarioLogado"] = $this->user;
+        $_SESSION['usuarioLogado'] = $this->user;
     }
     
     public function getUsuario(){
@@ -49,19 +47,25 @@ class Seguranca {
         if($this->setUsuario($login)){
             //verifica a validade da senha            
             if ($this->user->getSenha() == $senha) {
-                $this->iniciarSessao();                
-                return 'usuario validado';
+                $this->iniciarSessao();          
+                return 'validado';
             } else {
-                return'senha invalida';
+                return'invalido';
             }
         }
-        return 'nao cadastrado';
-    }        
+        return 'cadastrar';
+    }
     
     public function expulsar(){
         unset($_SESSION['usuarioLogado']);
         //envia para página de expulsao
     }
+    
+    public function isPapel_pagina($pagina) {        
+        $dao = new Papel_paginaDAO();
+        $idPapel = $_SESSION['usuarioLogado']->getId_papel();           
+        return $dao->select($idPapel, $pagina);
+    }   
 
 }
 
