@@ -92,7 +92,7 @@ class controllerUsuario {
                 </tr> 
             </thead> 
             <tbody>";
-        
+        $tabela = utf8_encode($tabela);
         $usuarioDAO = new UsuarioDAO();
         $papelDAO = new PapelDAO();
         $this->usuarios = $usuarioDAO->select(null);
@@ -101,11 +101,15 @@ class controllerUsuario {
         for (; $i < $quant; $i++) {
             $tabela .= "<tr id=" . $this->usuarios[$i]->getId_usuario() . ">";
             $tabela .= "<td width='55%' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
-            $tabela .= "<td width='15%' id='permissao' align='center'>" . $papelDAO->select("id_papel=".$this->usuarios[$i]->getId_papel()) . "</td>";
+            $papel = $papelDAO->select("id_papel=".$this->usuarios[$i]->getId_papel());
+            $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";
             $tabela .= "<td width='15%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
-            $tabela .= "<td width='5%' id='b_visualizar' align='center'>" . "" . "</td>";
-            $tabela .= "<td width='5%' id='b_editar' align='center'>" . "" . "</td>";
-            $tabela .= "<td width='5%' id='b_excluir' align='center'>" . "" . "</td>";
+            $tabela .= "<td width='5%' id='b_visualizar' align='center'>
+                <input type='button' title='Visualizar dados do Usuário' id='b_vis-" . $this->usuarios[$i]->getId_usuario() . "' value='' onclick='visualizarUsuario(this.id);' class='botaoVisualizar' /> </td>";
+            $tabela .= "<td width='5%' id='b_editar' align='center'>
+                <input type='button' title='Editar dados do Usuário' id='b_edt-" . $this->usuarios[$i]->getId_usuario() . "' value='' onclick='editarUsuario(this.id);' class='botaoEditar' /> </td>";
+            $tabela .= "<td width='5%' id='b_excluir' align='center'>
+                <input type='button' title='Excluir Usuário' id='b_exc-" . $this->usuarios[$i]->getId_usuario() . "' value='' onclick='' class='botaoExcluir' /> </td>";
             $tabela .= "</tr>";
         }
         $tabela .= "</tbody></table>";
@@ -145,7 +149,7 @@ class controllerUsuario {
     }
     
     public function removerUsuario(Usuario $user){
-     
+        
     }
 
 }

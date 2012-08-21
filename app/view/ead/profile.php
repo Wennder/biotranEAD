@@ -1,19 +1,6 @@
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/leftcolumn.php'; ?>
 <?php require 'structure/content.php'; ?>
-<script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
-
-<script>
-    //    $(document).ready(function(){
-    //        $("#cadastro").validationEngine();
-    //        var papel = $("#i_papel");
-    //        $("#papel").val(papel.val());
-    //        var atuacao = $("#i_atuacao");
-    //        $("#atuacao").val(atuacao.val());
-    //    });
-</script>
 
 <div id="profile" class="profile">
     <fieldset style="width: 650px;">
@@ -81,13 +68,8 @@
             </tr>
         </table>
     </fieldset>
-    <input type="button" value="Editar" onclick="$(location).attr('href', 'index.php?c=ead&a=dados_pessoais');"/>
+    <input type="button" value="Editar" onclick="$(location).attr('href', 'index.php?c=ead&a=dados_pessoais&id=<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>');"/>
     </br></br>
 </div>
-
-<!--<div id="div_hidden" style="display: none;">
-    <input type="text" id="i_papel" name="i_papel" value="<?php echo $this->usuario->getId_papel(); ?>"/>
-    <input type="text" id="i_atuacao" name="i_atuacao" value="<?php echo $this->usuario->getAtuacao(); ?>"/>
-</div>-->
 
 <?php require 'structure/footer.php'; ?>
