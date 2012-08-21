@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>EAD Biotran</title>
         <script src="js/jquery.js" type="text/javascript"></script>
-        <link rel='stylesheet' href='css/style2.css' />
+        <link rel='stylesheet' href='css/styleEAD.css' />
     </head>
     <body>
         <div class="eadbiotran_topbar">

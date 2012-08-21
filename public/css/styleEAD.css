@@ -1,48 +1,351 @@
 body {
-    padding: 0; 
+    background-color: #EFEFEF;
+    color: #404040;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
     margin: 0;
-    font-size: 12px;
-    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-/*    background: url('images/background.png') repeat-x #FFF;*/
-    background-color: lavender;
+    padding: 0;
 }
 
-#eadbiotran {
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
-/*    background: url(images/background_.png) top center no-repeat;*/
+.eadbiotran_topbar{
+    background-color: #F5F5F5;
+    border: 1px solid #BCBEC0;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.eadbiotran_navbar_container {
+    float: right;
+}
+
+ul.eadbiotran_toplevel_nav {
+    list-style-type: none;
+    margin-right: 15px;
+}
+
+li.eadbiotran_top_item {
+    color: #6D6E71;
+    float: left;
+    font-family: "sofiapro-medium",Arial,sans-serif;
+    font-size: 15px;
+    height: 30px;
+    letter-spacing: 1px;
+    margin-left: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 10px;
+}
+
+#banner_top{
+    border-bottom: 2px solid #CCCCCC;
+    height: 80px;
+    min-width: 900px;
     overflow: hidden;
+    background: url("../img/banner_bg.png") repeat-x scroll 0 0 transparent;
 }
 
-#main {
-    margin: 0 auto;
-    width: 980px;
+.eadbiotran_logo{
+    padding-left: 16px;
+    padding-top: 11px;
+}
+
+.content_fluid:after {
+    clear: both;
+}
+
+.content_fluid:before, .content_fluid:after {
+    content: "";
+    display: table;
+}
+
+.content_fluid:before, .content_fluid:after {
+    content: "";
+    display: table;
+}
+
+.content_fluid{
+    min-width: 940px;
+    padding-left: 20px;
+    /*    padding-right: 20px;*/
     position: relative;
 }
 
-#header{
+.content_fluid > .leftcolumn{
+    left: 20px;
+    position: absolute;
+    top: 0;
+    width: 210px;
+}
+
+.page-leftcolumn {
+    padding-top: 25px;
+}
+
+.content_fluid > .content {
+    margin-left: 210px;
+}
+
+.page-content {
+    padding-top: 25px;
+    background-color: #fff;
+    min-height: 600px;
+}
+
+.navbar_item {
+    font-size: 14px;
+    padding-bottom: 4px;
+    padding-left: 32px;
+    padding-top: 4px;
+}
+
+p {
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+    margin-bottom: 9px;
+}
+
+a {
+    color: #0069D6;
+    font-weight: inherit;
+    line-height: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #00438A;
+    text-decoration: underline;
+}
+
+ul, ol {
+    margin: 0 0 18px -22px;
+}
+ul ul, ul ol, ol ol, ol ul {
+    margin-bottom: 0;
+}
+ul {
+    list-style: disc outside none;
+}
+ol {
+    list-style: decimal outside none;
+}
+li {
+    color: #404040;
+    line-height: 18px;
+}
+ul.unstyled {
+    list-style: none outside none;
+    margin-left: 0;
+}
+
+#form_cadastro, #profile, #form_editar{
+    margin: 10px 30px 0 30px;
+}
+
+#form_gerenciar{
+    padding: 20px 30px 0;
+}
+
+#form_cadastro tr, #form_editar tr{
+    height: 35px;
+}
+
+#profile tr{
+    height: 25px;
+}
+
+form.form_cadastro, form.form_editar{
+    font-family: tahoma,verdana,"sans-serif";
+    font-size: 12px;
+    width: 98%;
+}
+
+.label_cadastro, .label_profile, .label_editar{
+    font-size: 13px;
+}
+
+#form_cadastro .label_cadastro_legend, #form_editar .label_editar_legend{
+    font-size: 11px;
+    color: #555555;
+}
+
+#form_cadastro legend, #profile legend, #form_editar legend{
+    font-size: 11px;
+    color: #555555;
+
+}
+
+#form_cadastro fieldset, #profile fieldset, #form_editar fieldset{
+    border:1px solid #DCDCDC;
+}    
+
+.form_cadastro .text-input, .profile .text-input, .form_editar .text-input{
+    background: none repeat-x scroll 0 0 #FFFFFF;
+    border: 1px solid #B5B8C8;
+    color: #555555;
+    font-size: 14px;
+    margin-top: 4px;
+    padding: 4px;
+    width: 250px;
+    border-radius: 8px;
+}
+
+#foto_usuario{
     height: 120px;
-    background-color: darkgrey;
+    width: 100px;
+    background-color: #DCDCDC;
+    border: solid 1px #B5B8C8;
 }
 
-#content{
-    width: 760px;
-    height: 620px;
-    float: right;
-    background-color: grey;
+#opcoes_cadastro{
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
 }
 
-#leftcolumn{
-    width: 220px;
-    height: 620px;
-    float: left;
-    background-color: silver;
+.button{
+    font:bold 14px Arial, Helvetica, sans-serif;
+    font-style:normal;
+    color:#3074c7;
+    background:#f2f2f2;
+    border:0px solid #ffffff;
+    text-shadow:-1px 1px 0px #fff;
+    box-shadow:0px 0px 2px #000000;
+    -moz-box-shadow:0px 0px 3px #000000;
+    -webkit-box-shadow:0px 0px 3px #000000;
+    border-radius:10px 10px 10px 10px;
+    -moz-border-radius:10px 10px 10px 10px;
+    -webkit-border-radius:10px 10px 10px 10px;
+    width:140px;
+    padding:2px 20px;
+    cursor:pointer;
+    margin:0 auto;
 }
 
-#footer{
-    height: 50px;
-    width: 100%;
-    clear: both;
-    background-color: darkgrey;
+.button:active{
+    cursor:pointer;
+    position:relative;
+    top:2px;
+}
+
+/*ÍCONES MENU*/
+
+.gerenciarIcon{
+    background: url('../img/gerenciar_icon.png') no-repeat;
+    border-style: none;
+}
+
+.usuariosIcon{
+    background: url('../img/usuarios_icon.png') no-repeat;
+    border-style: none;
+}
+
+.cursosIcon{
+    background: url('../img/cursos_icon.png') no-repeat;
+    border-style: none;
+}
+
+.homeIcon{
+    background: url('../img/home_icon.png') no-repeat;
+    border-style: none;
+}
+
+.videoIcon{
+    background: url('../img/video_icon.png') no-repeat;
+    border-style: none;
+}
+
+.materialIcon{
+    background: url('../img/material_icon.png') no-repeat;
+    border-style: none;
+}
+
+.exerciciosIcon{
+    background: url('../img/exercicios_icon.png') no-repeat;
+    border-style: none;
+}
+
+.forumIcon{
+    background: url('../img/forum_icon.png') no-repeat;
+    border-style: none;
+}
+
+/* CSS DOS BOTOES */
+
+.botaoExcluir{
+    background: url('../img/botao_excluir.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoExcluir:hover{
+    cursor: pointer;
+}
+
+.botaoExcluir:active{
+    background: url('../img/botao_excluir_active.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoExcluirDesativado{
+    background: url('../img/botao_excluir_desativado.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoEditar{
+    background: url('../img/botao_editar.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoEditar:hover{
+    cursor: pointer;
+}
+
+.botaoEditar:active{
+    background: url('../img/botao_editar_active.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoEditarDesativado{
+    background: url('../img/botao_editar_desativado.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoVisualizar{
+    background: url('../img/botao_visualizar.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoVisualizar:hover{
+    cursor: pointer;
+}
+
+.botaoVisualizar:active{
+    background: url('../img/botao_visualizar_active.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoVisualizarDesativado{
+    background: url('../img/botao_visualizar_desativado.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
 }

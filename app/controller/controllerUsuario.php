@@ -13,16 +13,14 @@
 class controllerUsuario {
 
     private $usuario;
-    private $end_residencial;
-    private $end_comercial;
+    private $end;
 
     /*
      * Insere um novo Usuario no BD.
      * Captura os dados do usuario via POST ou através dos paramtros
      *     
      * @param $user: objeto usuario
-     * @param $end1: objeto endereco 1 
-     * @param $end2: objeto endereco 2 
+     * @param $end1: objeto endereco
      * 
      * @return Mensagem de erro caso a insersao via parametros falhe por objetos nulos
      */
@@ -30,8 +28,7 @@ class controllerUsuario {
     public function novoUsuario(Usuario $user = null, Endereco $end1 = null, Endereco $end2 = null) {
         if (!empty($_POST)) {
             $this->usuario = new Usuario();
-            $this->end_comercial = new Endereco();
-            $this->end_residencial = new Endereco();  
+            $this->end = new Endereco(); 
             foreach ($_POST as $k => $v) {
                 if (stristr($k, '_')) {
                     $chave_endereco = explode('_', $k);
@@ -84,15 +81,15 @@ class controllerUsuario {
          <thead> 
                 <tr> 
                     <th>Nome</th> 
-                    <th>Permissao</th> 
-                    <th>Atuacao</th> 
+                    <th>Permissão</th> 
+                    <th>Atuação</th> 
                     <th></th> 
                     <th></th> 
                     <th></th> 
                 </tr> 
             </thead> 
             <tbody>";
-        $tabela = utf8_encode($tabela);
+        $tabela = $tabela;
         $usuarioDAO = new UsuarioDAO();
         $papelDAO = new PapelDAO();
         $this->usuarios = $usuarioDAO->select(null);
@@ -113,7 +110,7 @@ class controllerUsuario {
             $tabela .= "</tr>";
         }
         $tabela .= "</tbody></table>";
-        return utf8_encode($tabela);
+        return $tabela;
     }
 
     public function getUsuario($condicao) {
