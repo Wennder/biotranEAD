@@ -44,7 +44,7 @@ class controllerUsuario {
                         if ($chave_endereco[0] != 'tel') {
                             $setAtributo = 'set' . ucfirst($chave_endereco[0]);
                             if (method_exists($this->end_comercial, $setAtributo)) {
-                                if ($chave_endereco == 'residencial') {
+                                if ($chave_endereco[1] == 'residencial') {
                                     $this->end_residencial->$setAtributo($v);
                                 } else {
                                     $this->end_comercial->$setAtributo($v);
@@ -99,7 +99,7 @@ class controllerUsuario {
         $quant =  count($this->usuarios);
         $i = 0;
         for (; $i < $quant; $i++) {
-            $tabela .= "<tr id=" . $this->usuarios[$i]->getId_usuario() . ">";
+            $tabela .= "<tr id=tabela_linha" . $this->usuarios[$i]->getId_usuario() . ">";
             $tabela .= "<td width='55%' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
             $papel = $papelDAO->select("id_papel=".$this->usuarios[$i]->getId_papel());
             $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";
@@ -109,7 +109,7 @@ class controllerUsuario {
             $tabela .= "<td width='5%' id='b_editar' align='center'>
                 <input type='button' title='Editar dados do Usuário' id='b_edt-" . $this->usuarios[$i]->getId_usuario() . "' value='' onclick='editarUsuario(this.id);' class='botaoEditar' /> </td>";
             $tabela .= "<td width='5%' id='b_excluir' align='center'>
-                <input type='button' title='Excluir Usuário' id='b_exc-" . $this->usuarios[$i]->getId_usuario() . "' value='' onclick='' class='botaoExcluir' /> </td>";
+                <input type='button' title='Excluir Usuário' id='b_exc-" . $this->usuarios[$i]->getId_usuario() . "' value='' onclick='removerUsuario(this.id);' class='botaoExcluir' /> </td>";
             $tabela .= "</tr>";
         }
         $tabela .= "</tbody></table>";
@@ -149,8 +149,18 @@ class controllerUsuario {
     }
     
     public function removerUsuario(Usuario $user){
-        $dao = new UsuarioDAO();
-        $dao->delete($user);
+        $dao = new EnderecoDAO();
+        $affectedrows = $dao->deleteEnderecoUsuario($user->getId_usuario());
+        if($affectedrows > 0){
+            $dao = new UsuarioDAO();
+                $affectedrows = $dao->delete($user);
+                if ($affectedrows >= 1) {
+                    return 1;
+                }else
+                    return 0;            
+        }else{
+            return 3;
+        }
     }
         
 }
