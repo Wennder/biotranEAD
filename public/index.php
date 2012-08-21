@@ -9,9 +9,11 @@ include ROOT_PATH . '/app/model/dao/UsuarioDAO.php';
 include ROOT_PATH . '/app/model/dao/CursoDAO.php';
 include ROOT_PATH . '/app/model/dao/EnderecoDAO.php';
 include ROOT_PATH . '/app/model/dao/PapelDAO.php';
+include ROOT_PATH . '/app/model/dao/Papel_paginaDAO.php';
+include ROOT_PATH . '/app/controller/ControllerSeguranca.php';
 require ROOT_PATH . '/library/Biotran/AutoLoad.php';
 require ROOT_PATH . '/library/Biotran/mvc/view.php';
-require ROOT_PATH . '/library/Biotran/mvc/controller.php';
+require ROOT_PATH . '/library/Biotran/mvc/controller.php'; 
 
 Biotran_AutoLoad::registrar();
 Biotran_Mvc::pegarInstancia()->rodar();

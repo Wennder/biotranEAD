@@ -22,7 +22,7 @@
                         </ul>
                     </div>
                     <div id="div_login">
-                        <form id="form_login" method="post" action="index.php?c=ead&a=index">
+                        <form id="form_login" method="post" action="index.php?c=ead&a=login">
                             <table align="right">
                                 <tr>
                                     <td>
@@ -30,7 +30,7 @@
                                         <input id="login" name="login" type="text" size="20"/>
                                         <label>Senha: </label>
                                         <input id="senha" name="senha" type="text" size="10"/>
-                                        <input id="bttn_login" type="button" name="bttn_login" value="Login"/>
+                                        <input id="button_login" type="submit" name="button_login" value="Login"/>
                                     </td>
                                 </tr>
                             </table>

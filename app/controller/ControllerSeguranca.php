@@ -6,6 +6,7 @@
  */
 
 include ROOT_PATH . '/app/model/seguranca/Seguranca.php';
+
 /**
  * Description of ControllerSeguranca
  *
@@ -13,16 +14,30 @@ include ROOT_PATH . '/app/model/seguranca/Seguranca.php';
  */
 class ControllerSeguranca {
 
+    private $papeis;
     private $seguranca;
 
     public function __construct() {
+        $this->setPapeis();
         $this->seguranca = new Seguranca();
+    }    
+
+    /*
+     * retorna sempre uma lista de papeis dos sistema no banco
+     */
+    public function getPapeis() {
+        return $this->papeis;
     }
 
-    public function actionValidarLogin_ajax($login, $senha) {        
-        return $this->tratarValidacaoLogin_ajax($this->seguranca->validarLogin($login, $senha));
-    }
+    public function setPapeis() {
+        $dao = new PapelDAO();
+        $this->papeis = $dao->select();
+    }        
 
+    public function actionValidarLogin_ajax($login, $senha) {
+        return $this->seguranca->validarLogin($login, $senha);
+    }
+    
     //trata de acordo com o retorno da funcao validarLogin da classe seguranca.
     public function tratarValidacaoLogin_ajax($validacao) {
         if ($validacao == 'usuario validado') {
@@ -35,7 +50,7 @@ class ControllerSeguranca {
             );
             return $valores;
         } else {
-            if ($validacao == 'senha invalida') {                
+            if ($validacao == 'senha invalida') {
                 $valores = array(
                     'validacao' => 'invalido'
                 );
@@ -49,6 +64,11 @@ class ControllerSeguranca {
                 }
             }
         }
+    }
+    
+    public function actionLiberarAcesso($pagina){
+        
+        return $this->seguranca->isPapel_pagina($pagina);            
     }
 
     public function acaoEnviarSenhaEmail($login) {

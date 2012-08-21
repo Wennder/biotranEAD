@@ -57,7 +57,7 @@
                         <label class="label_editar">CPF: </label>
                     </td>
                     <td>
-                        <input type="text" id="cpf" name="cpf" value="<?php echo $this->usuario->getCpf(); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="14"/>
+                        <input type="text" id="cpf_passaporte" name="cpf_passaporte" value="<?php echo $this->usuario->getCpf_passaporte(); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="14"/>
                         <label class="label_editar_legend">XXX.XXX.XXX-XX </label>
                     </td>
                 </tr>
@@ -186,13 +186,13 @@
                         <label class="label_editar">Rua: </label>
                     </td>
                     <td style="width: 390px;">
-                        <input type="text" id="rua1" name="rua1" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 390px"/>
+                        <input type="text" id="endereco_rua" name="endereco_rua" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 390px"/>
                     </td>
                     <td style="width: 50px;">
                         <label class="label_editar">Número: </label>
                     </td>
                     <td style="width: 60px;">
-                        <input type="text" id="num1" name="num1" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 60px"/>
+                        <input type="text" id="endereco_numero" name="endereco_numero" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 60px"/>
                     </td>
                 </tr>
                 <tr>
@@ -200,7 +200,7 @@
                         <label class="label_editar">Complemento: </label>
                     </td>
                     <td colspan="3" style="width: 500px;">
-                        <input type="text" id="complemento1" name="complemento1" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="endereco_complemento" name="endereco_complemento" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
@@ -208,7 +208,7 @@
                         <label class="label_editar">Bairro: </label>
                     </td>
                     <td colspan="3" style="width: 500px;">
-                        <input type="text" id="bairro1" name="bairro1" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="endereco_bairro" name="endereco_bairro" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
@@ -216,7 +216,7 @@
                         <label class="label_editar">Cidade: </label>
                     </td>
                     <td colspan="3" style="width: 500px;">
-                        <input type="text" id="cidade1" name="cidade1" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="endereco_cidade" name="endereco_cidade" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
             </table>
