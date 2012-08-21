@@ -107,7 +107,7 @@ class Biotran_Mvc {
             $controladorObjeto = new $nomeClasseControlador;
 
             //verifica se o metodo existe
-            if (method_exists($controladorObjeto, $nomeAcao)) {
+            if (method_exists($controladorObjeto, $nomeAcao)) {                
                 $controladorObjeto->$nomeAcao();
                 return true;
             }

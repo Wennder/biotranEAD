@@ -6,21 +6,34 @@
  */
 
 include ROOT_PATH . '/app/model/seguranca/Seguranca.php';
+
 /**
  * Description of ControllerSeguranca
  *
  * @author cead-p057007
  */
-class ControllerSeguranca {
+class ControllerSeguranca extends Seguranca {
 
-    private $seguranca;
+    private $papeis;
 
     public function __construct() {
-        $this->seguranca = new Seguranca();
+        $this->setPapeis();
+    }    
+
+    /*
+     * retorna sempre uma lista de papeis dos sistema no banco
+     */
+    public function getPapeis() {
+        return $this->papeis;
     }
 
-    public function actionValidarLogin_ajax($login, $senha) {        
-        return $this->tratarValidacaoLogin_ajax($this->seguranca->validarLogin($login, $senha));
+    public function setPapeis() {
+        $dao = new PapelDAO();
+        $this->papeis = $dao->select();
+    }        
+
+    public function actionValidarLogin_ajax($login, $senha) {
+        return $this->tratarValidacaoLogin_ajax($this->validarLogin($login, $senha));
     }
 
     //trata de acordo com o retorno da funcao validarLogin da classe seguranca.
@@ -35,7 +48,7 @@ class ControllerSeguranca {
             );
             return $valores;
         } else {
-            if ($validacao == 'senha invalida') {                
+            if ($validacao == 'senha invalida') {
                 $valores = array(
                     'validacao' => 'invalido'
                 );

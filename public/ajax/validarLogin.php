@@ -8,9 +8,6 @@ include ROOT_PATH . '/app/model/dao/UsuarioDAO.php';
 include ROOT_PATH . '/app/model/dao/EnderecoDAO.php';
 include ROOT_PATH . '/app/model/dao/PapelDAO.php';
 
-header('Cache-Control: no-cache');
-header('Content-type: application/xml; charset="utf-8"', true);
-
 $login = $_REQUEST['login'];
 $senha = $_REQUEST['senha'];
 
