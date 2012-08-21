@@ -149,9 +149,10 @@ class controllerUsuario {
     }
     
     public function removerUsuario(Usuario $user){
-        
+        $dao = new UsuarioDAO();
+        $dao->delete($user);
     }
-
+        
 }
 ?>
 
