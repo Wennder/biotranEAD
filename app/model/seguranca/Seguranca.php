@@ -62,6 +62,10 @@ class Seguranca {
         unset($_SESSION['usuarioLogado']);
         //envia para página de expulsao
     }
+    
+   public function getSessao(){
+       return $_SESSION["usuarioLogado"];
+   }
 
 }
 

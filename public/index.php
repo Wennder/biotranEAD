@@ -12,7 +12,7 @@ include ROOT_PATH . '/app/model/dao/PapelDAO.php';
 require ROOT_PATH . '/library/Biotran/AutoLoad.php';
 require ROOT_PATH . '/library/Biotran/mvc/view.php';
 require ROOT_PATH . '/library/Biotran/mvc/controller.php';
- 
+
 Biotran_AutoLoad::registrar();
 Biotran_Mvc::pegarInstancia()->rodar();
 
