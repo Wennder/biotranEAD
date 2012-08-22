@@ -90,14 +90,16 @@ class Biotran_Mvc {
     }
 
     public function validarAcessoUsuario() {
-        $permissao = $this->controllerSeguranca->actionLiberarAcesso($this->acao);
-        if (!$permissao) {
-            $this->controlador = 'ead';
-            $this->acao = 'acesso_negado';
-        } else {
-            if ($permissao == 'nao logado') {
-                $this->controlador = 'index';
-                $this->acao = 'index';
+        if($this->controlador != 'index'){            
+            $permissao = $this->controllerSeguranca->actionLiberarAcesso($this->acao);
+            if (!$permissao) {
+                $this->controlador = 'ead';
+                $this->acao = 'acesso_negado';
+            } else {
+                if ($permissao == 'nao logado') {
+                    $this->controlador = 'index';
+                    $this->acao = 'index';
+                }
             }
         }
     }
@@ -115,7 +117,7 @@ class Biotran_Mvc {
         if (class_exists($nomeClasseControlador)) {
             $controladorObjeto = new $nomeClasseControlador;
             //verifica se o metodo existe
-            if (method_exists($controladorObjeto, $nomeAcao)) {
+            if (method_exists($controladorObjeto, $nomeAcao)) {                
                 $controladorObjeto->$nomeAcao();
                 return true;
             }
@@ -131,13 +133,15 @@ class Biotran_Mvc {
         $this->id = isset($_GET['id']) ? $_GET['id'] : '';
 
         session_start();
-        
+
         if ($this->controlador == 'index') {
-            $this->executarAcao();
-        } else if ($this->acao == 'login' && $this->controlador == 'ead') {
-            $this->executarAcao();
-            $this->validarAcessoUsuario();
-            $this->executarAcao();
+            if ($this->acao == 'login') {
+                $this->executarAcao();
+                $this->validarAcessoUsuario();
+                $this->executarAcao();
+            } else {
+                $this->executarAcao();
+            }
         } else {
             $this->validarAcessoUsuario();
             $this->executarAcao();

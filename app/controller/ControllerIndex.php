@@ -3,6 +3,31 @@
 class ControllerIndex extends Biotran_Mvc_Controller{            
     
     private $controller;
+        
+    public function actionLogin() {
+        $login = $_POST['login'];
+        $senha = $_POST['senha'];
+
+        $this->controller = new ControllerSeguranca();
+        $resposta = $this->controller->actionValidarLogin_ajax($login, $senha);
+        if ($resposta == 'validado') {    
+            Biotran_Mvc::pegarInstancia()->mudarControlador('ead');
+            Biotran_Mvc::pegarInstancia()->mudarAcao('index');
+        } else {
+            if ($resposta == 'invalido') {                
+                Biotran_Mvc::pegarInstancia()->mudarAcao('index');
+                $this->visao->invalidado = true;
+            } else {
+                //usuario inexistente
+                if ($resposta == 'cadastrar') {                    
+                    Biotran_Mvc::pegarInstancia()->mudarControlador('index');
+                    Biotran_Mvc::pegarInstancia()->mudarAcao('cadastro');                    
+                    $this->visao->invalidado = true;
+                }
+            }
+        }
+    }
+    
     
     public function actionIndex() {                               
         $this->renderizar(); 

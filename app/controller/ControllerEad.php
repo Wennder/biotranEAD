@@ -4,29 +4,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     private $controller;
 
-    public function actionLogin() {
-        $login = $_POST['login'];
-        $senha = $_POST['senha'];
-
-        $controllerSeguranca = new ControllerSeguranca();
-        $resposta = $controllerSeguranca->actionValidarLogin_ajax($login, $senha);
-        if ($resposta == 'validado') {
-            Biotran_Mvc::pegarInstancia()->mudarAcao('Index');
-        } else {
-            if ($resposta == 'invalido') {
-                Biotran_Mvc::pegarInstancia()->mudarControlador('Index');
-                Biotran_Mvc::pegarInstancia()->mudarAcao('Index');
-                $this->visao->invalidado = true;
-            } else {
-                //usuario inexistente
-                if ($resposta == 'cadastrar') {
-                    Biotran_Mvc::pegarInstancia()->mudarControlador('Index');
-                    Biotran_Mvc::pegarInstancia()->mudarAcao('Cadastrar');
-                    $this->visao->invalidado = true;
-                }
-            }
-        }
-    }
+    
 
     public function actionIndex() {
         $this->visao->usuarioLogado = $_SESSION['usuarioLogado'];
@@ -55,7 +33,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerUsuario();
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
-            $this->controller->atualizarUsuario_ead($id_usuario);
+            $this->controller->atualizarUsuario_ead($id_usuario);            
+            Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
         }
 
         $this->visao->tabela = $this->controller->tabelaUsuarios();
@@ -67,6 +46,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
             $this->controller->atualizarUsuario_ead($id_usuario);
+            Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
         }
 
         $this->visao->tabela = $this->controller->tabelaUsuarios();
