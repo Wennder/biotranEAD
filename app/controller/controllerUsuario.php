@@ -1,5 +1,7 @@
 <?php
 
+include('../library/wideimage/lib/WideImage.inc.php');
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -44,18 +46,40 @@ class controllerUsuario {
                         }
                     }
                 } else {
-                    if ($k != 'foto') {
-                        $setAtributo = 'set' . ucfirst($k);
-                        if (method_exists($this->usuario, $setAtributo)) {
-                            $this->usuario->$setAtributo($v);
-                        }
-                    } else {
-                        $foto = $_FILES['foto'];
+                    $setAtributo = 'set' . ucfirst($k);
+                    if (method_exists($this->usuario, $setAtributo)) {
+                        $this->usuario->$setAtributo($v);
                     }
                 }
             }
             $dao = new UsuarioDAO();
             $dao->insert($this->usuario, $this->end);
+            $idUsuario = $dao->select("email='". $this->usuario->getEmail() ."'");
+            $idUsuario = $idUsuario[0]->getId_usuario();
+            
+            //Inserção da foto
+            if (isset($_FILES["foto"])) {
+                $foto = $_FILES["foto"];
+                $tipos = array("image/jpg");
+                $pasta_dir = "img/profile/";
+                if (!in_array($foto['type'], $tipos)) {
+                    $foto_nome = $pasta_dir . $idUsuario . ".jpg";
+                    move_uploaded_file($foto["tmp_name"], $foto_nome);
+                    $foto_arquivo = "img/profile/" . $idUsuario . ".jpg";
+                    $foto_arquivo_pic = "img/profile/pic/" . $idUsuario . ".jpg";
+                    list($altura, $largura) = getimagesize($foto_arquivo);
+                    if ($altura > 120 && $largura > 100) {
+                        $img = wiImage::load($foto_arquivo);
+                        $img = $img->resize(150, 170, 'outside');
+                        $img = $img->crop('50% - 50', '50% - 40', 100, 120);
+                        $img->saveToFile($foto_arquivo);
+                    }
+                    copy($foto_arquivo, $foto_arquivo_pic);
+                    $img = wiImage::load($foto_arquivo_pic);
+                    $img = $img->resize(35, 42, 'outside');
+                    $img->saveToFile($foto_arquivo_pic);
+                }
+            }
         }
     }
 

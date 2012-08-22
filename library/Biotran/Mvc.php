@@ -126,15 +126,17 @@ class Biotran_Mvc {
         $this->id = isset($_GET['id']) ? $_GET['id'] : '';
         
         session_start();
-
-        if ($this->acao == 'login' && $this->controlador == 'ead') {
+        
+        if ($this->acao == 'index' && $this->controlador == 'index') {
+            $this->executarAcao();
+        } else if ($this->acao == 'login' && $this->controlador == 'ead') {
             $this->executarAcao();
             $this->validarAcessoUsuario();
             $this->executarAcao();
         } else {
             $this->validarAcessoUsuario();
             $this->executarAcao();
-        }       
+        }
     }
 
     private function __clone() {

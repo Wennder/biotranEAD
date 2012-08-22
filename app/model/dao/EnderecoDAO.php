@@ -29,7 +29,6 @@ class EnderecoDAO extends PDOConnectionFactory{
             $stmt->bindValue(6, $endereco->getId_usuario());
 
             $stmt->execute();
-            echo "executa";
             $stmt->conex = null;
         } catch (PDOException $ex) {           
             echo "Erro: " . $ex->getMessage();            

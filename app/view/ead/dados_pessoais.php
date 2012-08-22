@@ -17,7 +17,7 @@
 
 <div id="form_editar">
     <h2>Alterar Dados Pessoais</h2>
-    <form id="editar" class="form_editar" method="post" action="index.php?c=ead&a=atualizar_usuario">
+    <form id="editar" class="form_editar" method="post" action="index.php?c=ead&a=atualizar_usuario" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados Pessoais</legend>
             <table>
@@ -37,9 +37,9 @@
                         <select id="id_papel" name="id_papel" disabled="disabled" class="validate[required]" data-prompt-position="centerRight">
                             <option value></option>
                             <option value="1">Administrador</option>
-                            <option value="2">Estudante</option>
-                            <option value="3">Gestor</option>
-                            <option value="4">Professor</option>
+                            <option value="2">Gestor</option>
+                            <option value="3">Professor</option>
+                            <option value="4">Estudante</option>
                         </select>
                     </td>
                 </tr>
@@ -111,7 +111,7 @@
                         <label class="label_editar">Telefone Residencial: </label>
                     </td>
                     <td>
-                        <input type="text" id="telResidencial" name="telResidencial" value="<?php echo  $this->usuario->getTel_residencial(); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
+                        <input type="text" id="tel_principal" name="tel_principal" value="<?php echo  $this->usuario->getTel_principal(); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
                         <label class="label_editar_legend">(XX)XXXX-XXXX </label>
                     </td>
                 </tr>
@@ -120,25 +120,9 @@
                         <label class="label_editar">Telefone Comercial: </label>
                     </td>
                     <td>
-                        <input type="text" id="telComercial" name="telComercial" value="<?php echo $this->usuario->getTel_comercial(); ?>" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
+                        <input type="text" id="tel_secundario" name="tel_secundario" value="<?php echo $this->usuario->getTel_secundario(); ?>" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
                     </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="label_editar">Celular 1: </label>
-                    </td>
-                    <td>
-                        <input type="text" id="cel1" name="cel1" value="<?php echo $this->usuario->getTel_celular1(); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="label_editar">Celular 2: </label>
-                    </td>
-                    <td>
-                        <input type="text" id="cel2" name="cel2" value="<?php echo $this->usuario->getTel_celular2(); ?>" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="13"/>
-                    </td>
-                </tr>            
+                </tr>           
                 <tr>
                     <td>
                         <label class="label_editar">Descrição Pessoal: </label>
@@ -179,8 +163,8 @@
         </fieldset>
         <br>
         <fieldset style="width: 100%;">
-            <table id="endereço1">
-                <legend>Endereço Residencial</legend>
+            <table id="endereço">
+                <legend>Endereço</legend>
                 <tr>
                     <td style="width: 150px;">
                         <label class="label_editar">Rua: </label>
@@ -217,50 +201,6 @@
                     </td>
                     <td colspan="3" style="width: 500px;">
                         <input type="text" id="endereco_cidade" name="endereco_cidade" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
-        <br>
-        <fieldset style="width: 100%;">
-            <legend>Endereço Comercial</legend>
-            <table id="endereço2">
-                <tr>
-                    <td style="width: 150px;">
-                        <label class="label_editar">Rua: </label>
-                    </td>
-                    <td style="width: 390px;">
-                        <input type="text" id="rua2" name="rua2" class="text-input" data-prompt-position="centerRight" style="width: 390px"/>
-                    </td>
-                    <td style="width: 50px;">
-                        <label class="label_editar">Número: </label>
-                    </td>
-                    <td style="width: 60px;">
-                        <input type="text" id="num2" name="num2" class="text-input" data-prompt-position="centerRight" style="width: 60px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1">
-                        <label class="label_editar">Complemento: </label>
-                    </td>
-                    <td colspan="3">
-                        <input type="text" id="complemento2" name="complemento2" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1">
-                        <label class="label_editar">Bairro: </label>
-                    </td>
-                    <td colspan="3">
-                        <input type="text" id="bairro2" name="bairro2" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1">
-                        <label class="label_editar">Cidade: </label>
-                    </td>
-                    <td colspan="3">
-                        <input type="text" id="cidade2" name="cidade2" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
             </table>

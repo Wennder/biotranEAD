@@ -71,7 +71,7 @@
 </div>
 
 <div id="form_cadastro" style="display: none;">
-    <form id="cadastro" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_usuario">
+    <form id="cadastro" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_usuario" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados Pessoais</legend>
             <table>
@@ -91,9 +91,9 @@
                         <select id="id_papel" name="id_papel" class="validate[required]" data-prompt-position="centerRight">
                             <option value></option>
                             <option value="1">Administrador</option>
-                            <option value="2">Estudante</option>
-                            <option value="3">Gestor</option>
-                            <option value="4">Professor</option>
+                            <option value="2">Gestor</option>
+                            <option value="3">Professor</option>
+                            <option value="4">Estudante</option>
                         </select>
                     </td>
                 </tr>
