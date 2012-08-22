@@ -2,12 +2,17 @@
 
 class ControllerIndex extends Biotran_Mvc_Controller{            
     
+    private $controller;
+    
     public function actionIndex() {                               
         $this->renderizar(); 
     }            
     
     public function actionLembrarSenha(){
-        $this->visao->login = $_POST["login"];
+        $this->controller = new controllerUsuario();        
+        $cpf_passaporte = $_POST["cpf_passaporte"];
+        //captura e-mail do usuario a partir do cpf, através do controlador usuario
+        $email = $this->controller->getUsuario("cpf_passaporte='".$cpf_passaporte."'")->getEmail();
     }
     
     public function actionCadastro() {
@@ -17,6 +22,8 @@ class ControllerIndex extends Biotran_Mvc_Controller{
     
     public function actionCadastrar_usuario() {
         $this->visao->titulo = "Cadastrar Usuário";
+        $ctrl = new controllerUsuario();
+        $ctrl->novoUsuario_ead();                
         $this->renderizar();
     }
     

@@ -67,8 +67,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionCadastrar_usuario() {
-        $ctrl = new controllerUsuario();
-        $ctrl->novoUsuario_ead();
+        $this->controller = new controllerUsuario();
+        $this->controller->novoUsuario_ead();
         Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
         $this->renderizar();
 //        $this->actionGerenciar_usuarios();
