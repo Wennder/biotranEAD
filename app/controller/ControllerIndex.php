@@ -10,7 +10,7 @@ class ControllerIndex extends Biotran_Mvc_Controller{
         $this->visao->login = $_POST["login"];
     }
     
-    public function actionCadastro() {
+    public function actionCadastrar_usuario() {
         $this->visao->titulo = "Cadastrar Usuário";
         $this->renderizar();
     }

@@ -131,7 +131,7 @@ class Biotran_Mvc {
         $this->id = isset($_GET['id']) ? $_GET['id'] : '';
 
         session_start();
-
+        
         if ($this->controlador == 'index') {
             $this->executarAcao();
         } else if ($this->acao == 'login' && $this->controlador == 'ead') {
