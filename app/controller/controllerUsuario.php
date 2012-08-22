@@ -187,6 +187,12 @@ class controllerUsuario {
         $user = $dao->select($condicao);
         return $user[0];
     }
+    
+    public function getEndereco_usuario($condicao){
+        $dao = new EnderecoDAO();
+        $end = $dao->select($condicao);
+        return $end[0];
+    }
 
     /*
      * Retorna uma lista de usuarios de acordo com a condicao da query.

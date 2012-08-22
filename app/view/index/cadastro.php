@@ -19,17 +19,6 @@
             src.value += texto.substring(0,1);
         }             
     }
-    
-    function mascara_tel(src){
-//        var mask = '(##)####-####';
-//        var i = src.value.length;
-//        var saida = mask.substring(0,0);
-//        var texto = mask.substring(i);              
-//        if (texto.substring(0,1) != saida)
-//        {
-//            src.value += texto.substring(0,1);
-//        }             
-    }
             
     function apenas_numero(e){
         var tecla=(window.event)?event.keyCode:e.which;   
@@ -113,7 +102,7 @@
                         <label class="label_cadastro">Telefone: </label>
                     </td>
                     <td>
-                        <input type="text" id="tel_principal" name="tel_principal" class="text-input" data-prompt-position="centerRight" onKeyUp='mascara_tel(this)' onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="13"/>
+                        <input type="text" id="tel_principal" name="tel_principal" class="text-input" data-prompt-position="centerRight" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="13"/>
                         <label class="label_cadastro_legend">(XX)XXXX-XXXX </label>
                     </td>
                 </tr>
