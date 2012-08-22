@@ -1,8 +1,8 @@
 <?php
-    $editar = "false";
-    if (isset($this->usuario)) {
-        $this->usuario == null ? $editar = "false" : $editar = "true";
-    }
+$editar = "false";
+if (isset($this->usuario)) {
+    $this->usuario == null ? $editar = "false" : $editar = "true";
+}
 ?>
 
 <?php require 'structure/header.php'; ?>
@@ -59,6 +59,26 @@
             $("#form_cadastro").hide();
             $("#form_gerenciar").show();
         }
+    }
+    
+    function validaLogin_ajax(login_antigo){
+        if($('#email').val() != login_antigo){
+            $.getJSON('ajax/validarLoginCadastro.php?search=',{
+                login: $('#email').val(),                         
+                ajax: 'true'
+            }, function(j){
+                //usuario validado         
+                if(j == 0){
+                    alert('Esse login não pode ser utilizado');                                
+                    $('#email').val('');
+                }
+            });            
+        }
+    }
+    
+    function atualizarCadastro(idusuario){
+        $('#cadastro').attr({action: 'index.php?c=ead&a=atualizarCadastro&id='+idusuario});
+        $('#cadastro').submit();
     }
     
     
@@ -195,15 +215,14 @@
                                 <td>
                                     <div id="foto_usuario">
                                         <img src="img/profile/<?php
-                                                if($this->usuario == null){
-                                                    echo '00.jpg'; 
-                                                }
-                                                else if(file_exists('img/profile/'.$this->usuario->getId_usuario().'.jpg')){
-                                                    echo $this->usuario->getId_usuario().'.jpg';
-                                                }else{
-                                                    echo '00.jpg'; 
-                                                }
-                                            ?>" alt="" height="120" width="100" />
+if ($this->usuario == null) {
+    echo '00.jpg';
+} else if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
+    echo $this->usuario->getId_usuario() . '.jpg';
+} else {
+    echo '00.jpg';
+}
+?>" alt="" height="120" width="100" />
                                     </div>
                                 </td>
                                 <td>
@@ -268,7 +287,7 @@
                         <label class="label_cadastro">E-mail (login): </label>
                     </td>
                     <td style="width: 500px;">
-                        <input type="text" id="email" name="email" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getEmail()); ?>" class="validate[required, custom[email]] text-input" data-prompt-position="centerRight"/>
+                        <input type="text" id="email" name="email" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getEmail()); ?>" class="validate[required, custom[email]] text-input" onblur="validaLogin_ajax(<?php echo ($this->usuario == null ? '' : "'".$this->usuario->getLogin()."'"); ?>);" data-prompt-position="centerRight"/>
                     </td>
                 </tr>
                 <tr>
@@ -291,18 +310,18 @@
         </fieldset>
         <br>
         <input type="submit" id="button_cadastrar" name="button_cadastrar" value="Cadastrar" class="button"/>
-        <input type="submit" id="button_atualizar" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
+        <input type="button" id="button_atualizar" onclick="atualizarCadastro(<?php echo ($this->usuario == null ? '' : $this->usuario->getId_usuario()); ?>)" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
     </form>
     </br></br>
 </div>
 
 <div id="form_gerenciar" style="display: none;">
     <?php
-        if (!isset($this->tabela)) {
-            $controllerUsuario = new controllerUsuario();
-            $this->tabela = $controllerUsuario->tabelaUsuarios();
-        }
-        echo $this->tabela;
+    if (!isset($this->tabela)) {
+        $controllerUsuario = new controllerUsuario();
+        $this->tabela = $controllerUsuario->tabelaUsuarios();
+    }
+    echo $this->tabela;
     ?>
 </div>
 

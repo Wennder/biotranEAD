@@ -1,7 +1,5 @@
 <?php
 
-include('../library/wideimage/lib/WideImage.inc.php');
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -16,6 +14,14 @@ class controllerUsuario {
 
     private $usuario;
     private $end;
+
+    public function validarLoginCadastro($login) {
+        $user = $this->getUsuario("login='" . $login . "'");
+        if ($user != null) {
+            return 0;
+        }else
+            return 1;
+    }
 
     /*
      * Insere um novo Usuario no BD.
@@ -54,9 +60,9 @@ class controllerUsuario {
             }
             $dao = new UsuarioDAO();
             $dao->insert($this->usuario, $this->end);
-            $idUsuario = $dao->select("email='". $this->usuario->getEmail() ."'");
+            $idUsuario = $dao->select("email='" . $this->usuario->getEmail() . "'");
             $idUsuario = $idUsuario[0]->getId_usuario();
-            
+
             //Inserção da foto
             if (isset($_FILES["foto"])) {
                 $foto = $_FILES["foto"];
@@ -67,6 +73,62 @@ class controllerUsuario {
                     move_uploaded_file($foto["tmp_name"], $foto_nome);
                     $foto_arquivo = "img/profile/" . $idUsuario . ".jpg";
                     $foto_arquivo_pic = "img/profile/pic/" . $idUsuario . ".jpg";
+                    list($altura, $largura) = getimagesize($foto_arquivo);
+                    if ($altura > 120 && $largura > 100) {
+                        $img = wiImage::load($foto_arquivo);
+                        $img = $img->resize(150, 170, 'outside');
+                        $img = $img->crop('50% - 50', '50% - 40', 100, 120);
+                        $img->saveToFile($foto_arquivo);
+                    }
+                    copy($foto_arquivo, $foto_arquivo_pic);
+                    $img = wiImage::load($foto_arquivo_pic);
+                    $img = $img->resize(35, 42, 'outside');
+                    $img->saveToFile($foto_arquivo_pic);
+                }
+            }
+        }
+    }
+
+    public function atualizarUsuario_ead($id_usuario) {
+        if (!empty($_POST)) {
+            $this->usuario = new Usuario();
+            $this->end = new Endereco();
+            foreach ($_POST as $k => $v) {
+                if (stristr($k, '_')) {
+                    $chave_endereco = explode('_', $k);
+                    if ($chave_endereco[0] != 'endereco') {
+                        $setAtributo = 'set' . ucfirst($k);
+                        if (method_exists($this->usuario, $setAtributo)) {
+                            $this->usuario->$setAtributo($v);
+                        }
+                    } else {
+                        $setAtributo = 'set' . ucfirst($chave_endereco[1]);
+                        if (method_exists($this->end, $setAtributo)) {
+                            $this->end->$setAtributo($v);
+                        }
+                    }
+                } else {
+                    $setAtributo = 'set' . ucfirst($k);
+                    if (method_exists($this->usuario, $setAtributo)) {
+                        $this->usuario->$setAtributo($v);
+                    }
+                }
+            }
+            $this->usuario->setId_usuario($id_usuario);
+            $this->end->setId_usuario($id_usuario);
+            $dao = new UsuarioDAO();
+            $dao->update($this->usuario, $this->end);
+
+            //Inserção da foto
+            if (isset($_FILES["foto"])) {
+                $foto = $_FILES["foto"];
+                $tipos = array("image/jpg");
+                $pasta_dir = "img/profile/";
+                if (!in_array($foto['type'], $tipos)) {
+                    $foto_nome = $pasta_dir . $id_usuario . ".jpg";
+                    move_uploaded_file($foto["tmp_name"], $foto_nome);
+                    $foto_arquivo = "img/profile/" . $id_usuario . ".jpg";
+                    $foto_arquivo_pic = "img/profile/pic/" . $id_usuario . ".jpg";
                     list($altura, $largura) = getimagesize($foto_arquivo);
                     if ($altura > 120 && $largura > 100) {
                         $img = wiImage::load($foto_arquivo);

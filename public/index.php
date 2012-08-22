@@ -14,6 +14,8 @@ include ROOT_PATH . '/app/controller/ControllerSeguranca.php';
 require ROOT_PATH . '/library/Biotran/AutoLoad.php';
 require ROOT_PATH . '/library/Biotran/mvc/view.php';
 require ROOT_PATH . '/library/Biotran/mvc/controller.php'; 
+include('../library/wideimage/lib/WideImage.inc.php');
+
 
 Biotran_AutoLoad::registrar();
 Biotran_Mvc::pegarInstancia()->rodar();
