@@ -19,8 +19,7 @@ class ControllerIndex extends Biotran_Mvc_Controller{
                 $this->visao->invalidado = true;
             } else {
                 //usuario inexistente
-                if ($resposta == 'cadastrar') {                    
-                    Biotran_Mvc::pegarInstancia()->mudarControlador('index');
+                if ($resposta == 'cadastrar') {                                        
                     Biotran_Mvc::pegarInstancia()->mudarAcao('cadastro');                    
                     $this->visao->invalidado = true;
                 }

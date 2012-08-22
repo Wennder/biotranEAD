@@ -17,7 +17,7 @@
 
 <div id="form_editar">
     <h2>Alterar Dados Pessoais</h2>
-    <form id="editar" class="form_editar" method="post" action="index.php?c=ead&a=atualizar_cadastro" enctype="multipart/form-data">
+    <form id="editar" class="form_editar" method="post" action="index.php?c=ead&a=atualizar_cadastro_usuario" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados Pessoais</legend>
             <table>
@@ -26,7 +26,7 @@
                         <label class="label_cadastro">*Nome completo: </label>
                     </td>
                     <td style="width: 500px;">
-                        <input type="text" id="nome_completo" name="nome_completo" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getNome_completo()); ?>" class="validate[required, custom[onlyLetterSp]] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                        <input type="text" id="nome_completo" name="nome_completo" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getNome_completo()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
                     </td>
                 </tr>
                 <tr>
