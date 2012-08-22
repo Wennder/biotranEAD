@@ -22,7 +22,7 @@
                         </ul>
                     </div>
                     <div id="div_login">
-                        <form id="form_login" method="post" action="index.php?c=ead&a=login">
+                        <form id="form_login" method="post" action="index.php?c=index&a=login">
                             <table align="right">
                                 <tr>
                                     <td style="width: 220px;">

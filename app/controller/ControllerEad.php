@@ -3,7 +3,9 @@
 class ControllerEad extends Biotran_Mvc_Controller {
 
     private $controller;
+
     
+
     public function actionIndex() {
         $this->visao->usuarioLogado = $_SESSION['usuarioLogado'];
         $this->renderizar();
@@ -31,7 +33,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerUsuario();
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
-            $this->controller->atualizarUsuario_ead($id_usuario);
+            $this->controller->atualizarUsuario_ead($id_usuario);            
+            Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
         }
 
         $this->visao->tabela = $this->controller->tabelaUsuarios();
@@ -43,6 +46,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
             $this->controller->atualizarUsuario_ead($id_usuario);
+            Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
         }
 
         $this->visao->tabela = $this->controller->tabelaUsuarios();
