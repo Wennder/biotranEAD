@@ -94,6 +94,11 @@ class Biotran_Mvc {
         if (!$permissao) {
             $this->controlador = 'ead';
             $this->acao = 'acesso_negado';
+        } else {
+            if ($permissao == 'nao logado') {
+                $this->controlador = 'index';
+                $this->acao = 'index';
+            }
         }
     }
 
@@ -124,9 +129,9 @@ class Biotran_Mvc {
         $this->controlador = isset($_GET['c']) ? $_GET['c'] : 'index';
         $this->acao = isset($_GET['a']) ? $_GET['a'] : 'index';
         $this->id = isset($_GET['id']) ? $_GET['id'] : '';
-        
+
         session_start();
-        
+
         if ($this->acao == 'index' && $this->controlador == 'index') {
             $this->executarAcao();
         } else if ($this->acao == 'login' && $this->controlador == 'ead') {

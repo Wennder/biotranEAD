@@ -67,8 +67,11 @@ class ControllerSeguranca {
     }
     
     public function actionLiberarAcesso($pagina){
-        
-        return $this->seguranca->isPapel_pagina($pagina);            
+        if($this->seguranca->validarSessao()){
+            return$this->seguranca->isPapel_pagina($pagina);
+        }else{
+            return 'nao logado';
+        }
     }
 
     public function acaoEnviarSenhaEmail($login) {

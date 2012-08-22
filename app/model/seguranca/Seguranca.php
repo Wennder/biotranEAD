@@ -65,7 +65,13 @@ class Seguranca {
         $dao = new Papel_paginaDAO();
         $idPapel = $_SESSION['usuarioLogado']->getId_papel();           
         return $dao->select($idPapel, $pagina);
-    }   
+    }
+    
+    public function validarSessao(){
+        if(isset($_SESSION['usuarioLogado'])){
+            return 1;
+        }return 0;
+    }
 
 }
 
