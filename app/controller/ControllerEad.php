@@ -29,7 +29,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
-    public function actionAtualizar_cadastro() {
+    public function actionAtualizar_cadastro_usuario() {
         $this->controller = new controllerUsuario();
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
@@ -41,7 +41,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
-    public function actionAtualizar_cadastro_ead() {
+    public function actionAtualizar_cadastro_admin() {
         $this->controller = new controllerUsuario();
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {

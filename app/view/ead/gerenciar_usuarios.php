@@ -118,7 +118,7 @@ if (isset($this->usuario)) {
                         <label class="label_cadastro">*Nome completo: </label>
                     </td>
                     <td style="width: 500px;">
-                        <input type="text" id="nome_completo" name="nome_completo" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getNome_completo()); ?>" class="validate[required, custom[onlyLetterSp]] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                        <input type="text" id="nome_completo" name="nome_completo" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getNome_completo()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
                     </td>
                 </tr>
                 <tr>
