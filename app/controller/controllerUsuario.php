@@ -32,6 +32,7 @@ class controllerUsuario {
      * 
      * @return Mensagem de erro caso a insersao via parametros falhe por objetos nulos
      */
+
     public function novoUsuario_ead() {
         if (!empty($_POST)) {
             $this->usuario = new Usuario();
@@ -64,33 +65,36 @@ class controllerUsuario {
 
             //Inserção da foto
             if (isset($_FILES["foto"])) {
-                $foto = $_FILES["foto"];
-                $tipos = array("image/jpg");
-                $pasta_dir = "img/profile/";
-                if (!in_array($foto['type'], $tipos)) {
-                    $foto_nome = $pasta_dir . $idUsuario . ".jpg";
-                    move_uploaded_file($foto["tmp_name"], $foto_nome);
-                    $foto_arquivo = "img/profile/" . $idUsuario . ".jpg";
-                    $foto_arquivo_pic = "img/profile/pic/" . $idUsuario . ".jpg";
-                    list($altura, $largura) = getimagesize($foto_arquivo);
-                    if ($altura > 120 && $largura > 100) {
-                        $img = wiImage::load($foto_arquivo);
-                        $img = $img->resize(150, 170, 'outside');
-                        $img = $img->crop('50% - 50', '50% - 40', 100, 120);
-                        $img->saveToFile($foto_arquivo);
+                if ($_FILES["foto"]["name"] != '') {
+                    $foto = $_FILES["foto"];
+                    $tipos = array("image/jpg");
+                    $pasta_dir = "img/profile/";
+                    if (!in_array($foto['type'], $tipos)) {
+                        $foto_nome = $pasta_dir . $idUsuario . ".jpg";
+                        move_uploaded_file($foto["tmp_name"], $foto_nome);
+                        $foto_arquivo = "img/profile/" . $idUsuario . ".jpg";
+                        $foto_arquivo_pic = "img/profile/pic/" . $idUsuario . ".jpg";
+                        list($altura, $largura) = getimagesize($foto_arquivo);
+                        if ($altura > 120 && $largura > 100) {
+                            $img = wiImage::load($foto_arquivo);
+                            $img = $img->resize(150, 170, 'outside');
+                            $img = $img->crop('50% - 50', '50% - 40', 100, 120);
+                            $img->saveToFile($foto_arquivo);
+                        }
+                        copy($foto_arquivo, $foto_arquivo_pic);
+                        $img = wiImage::load($foto_arquivo_pic);
+                        $img = $img->resize(35, 42, 'outside');
+                        $img->saveToFile($foto_arquivo_pic);
                     }
-                    copy($foto_arquivo, $foto_arquivo_pic);
-                    $img = wiImage::load($foto_arquivo_pic);
-                    $img = $img->resize(35, 42, 'outside');
-                    $img->saveToFile($foto_arquivo_pic);
                 }
             }
         }
     }
-    
+
     /*
      * Insere novo usuario a partir da página inicial do sistema: index.php     
-     */       
+     */
+
     public function novoUsuario_index() {
         if (!empty($_POST)) {
             $this->usuario = new Usuario();
@@ -100,7 +104,7 @@ class controllerUsuario {
                     $chave_endereco = explode('_', $k);
                     if ($chave_endereco[0] != 'endereco') {
                         $setAtributo = 'set' . ucfirst($k);
-                        if (method_exists($this->usuario, $setAtributo)) {                            
+                        if (method_exists($this->usuario, $setAtributo)) {
                             $this->usuario->$setAtributo($v);
                         }
                     } else {
@@ -116,7 +120,7 @@ class controllerUsuario {
                     }
                 }
             }
-            
+
             /*
              * usuario inserido pela pagina index sempre terá papel de estudante
              * id_papel: 3 descrição: estudante
@@ -129,25 +133,27 @@ class controllerUsuario {
 
             //Inserção da foto
             if (isset($_FILES["foto"])) {
-                $foto = $_FILES["foto"];
-                $tipos = array("image/jpg");
-                $pasta_dir = "img/profile/";
-                if (!in_array($foto['type'], $tipos)) {
-                    $foto_nome = $pasta_dir . $idUsuario . ".jpg";
-                    move_uploaded_file($foto["tmp_name"], $foto_nome);
-                    $foto_arquivo = "img/profile/" . $idUsuario . ".jpg";
-                    $foto_arquivo_pic = "img/profile/pic/" . $idUsuario . ".jpg";
-                    list($altura, $largura) = getimagesize($foto_arquivo);
-                    if ($altura > 120 && $largura > 100) {
-                        $img = wiImage::load($foto_arquivo);
-                        $img = $img->resize(150, 170, 'outside');
-                        $img = $img->crop('50% - 50', '50% - 40', 100, 120);
-                        $img->saveToFile($foto_arquivo);
+                if ($_FILES["foto"]["name"] != '') {
+                    $foto = $_FILES["foto"];
+                    $tipos = array("image/jpg");
+                    $pasta_dir = "img/profile/";
+                    if (!in_array($foto['type'], $tipos)) {
+                        $foto_nome = $pasta_dir . $idUsuario . ".jpg";
+                        move_uploaded_file($foto["tmp_name"], $foto_nome);
+                        $foto_arquivo = "img/profile/" . $idUsuario . ".jpg";
+                        $foto_arquivo_pic = "img/profile/pic/" . $idUsuario . ".jpg";
+                        list($altura, $largura) = getimagesize($foto_arquivo);
+                        if ($altura > 120 && $largura > 100) {
+                            $img = wiImage::load($foto_arquivo);
+                            $img = $img->resize(150, 170, 'outside');
+                            $img = $img->crop('50% - 50', '50% - 40', 100, 120);
+                            $img->saveToFile($foto_arquivo);
+                        }
+                        copy($foto_arquivo, $foto_arquivo_pic);
+                        $img = wiImage::load($foto_arquivo_pic);
+                        $img = $img->resize(35, 42, 'outside');
+                        $img->saveToFile($foto_arquivo_pic);
                     }
-                    copy($foto_arquivo, $foto_arquivo_pic);
-                    $img = wiImage::load($foto_arquivo_pic);
-                    $img = $img->resize(35, 42, 'outside');
-                    $img->saveToFile($foto_arquivo_pic);
                 }
             }
         }
@@ -185,25 +191,27 @@ class controllerUsuario {
 
             //Inserção da foto
             if (isset($_FILES["foto"])) {
-                $foto = $_FILES["foto"];
-                $tipos = array("image/jpg");
-                $pasta_dir = "img/profile/";
-                if (!in_array($foto['type'], $tipos)) {
-                    $foto_nome = $pasta_dir . $id_usuario . ".jpg";
-                    move_uploaded_file($foto["tmp_name"], $foto_nome);
-                    $foto_arquivo = "img/profile/" . $id_usuario . ".jpg";
-                    $foto_arquivo_pic = "img/profile/pic/" . $id_usuario . ".jpg";
-                    list($altura, $largura) = getimagesize($foto_arquivo);
-                    if ($altura > 120 && $largura > 100) {
-                        $img = wiImage::load($foto_arquivo);
-                        $img = $img->resize(150, 170, 'outside');
-                        $img = $img->crop('50% - 50', '50% - 40', 100, 120);
-                        $img->saveToFile($foto_arquivo);
+                if ($_FILES["foto"]["name"] != '') {
+                    $foto = $_FILES["foto"];
+                    $tipos = array("image/jpg");
+                    $pasta_dir = "img/profile/";
+                    if (!in_array($foto['type'], $tipos)) {
+                        $foto_nome = $pasta_dir . $id_usuario . ".jpg";
+                        move_uploaded_file($foto["tmp_name"], $foto_nome);
+                        $foto_arquivo = "img/profile/" . $id_usuario . ".jpg";
+                        $foto_arquivo_pic = "img/profile/pic/" . $id_usuario . ".jpg";
+                        list($altura, $largura) = getimagesize($foto_arquivo);
+                        if ($altura > 120 && $largura > 100) {
+                            $img = wiImage::load($foto_arquivo);
+                            $img = $img->resize(150, 170, 'outside');
+                            $img = $img->crop('50% - 50', '50% - 40', 100, 120);
+                            $img->saveToFile($foto_arquivo);
+                        }
+                        copy($foto_arquivo, $foto_arquivo_pic);
+                        $img = wiImage::load($foto_arquivo_pic);
+                        $img = $img->resize(35, 42, 'outside');
+                        $img->saveToFile($foto_arquivo_pic);
                     }
-                    copy($foto_arquivo, $foto_arquivo_pic);
-                    $img = wiImage::load($foto_arquivo_pic);
-                    $img = $img->resize(35, 42, 'outside');
-                    $img->saveToFile($foto_arquivo_pic);
                 }
             }
         }
@@ -251,8 +259,8 @@ class controllerUsuario {
         $user = $dao->select($condicao);
         return $user[0];
     }
-    
-    public function getEndereco_usuario($condicao){
+
+    public function getEndereco_usuario($condicao) {
         $dao = new EnderecoDAO();
         $end = $dao->select($condicao);
         return $end[0];

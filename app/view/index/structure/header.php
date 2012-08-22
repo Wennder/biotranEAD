@@ -49,7 +49,7 @@
                                 <tr>
                                     <td colspan="3">
                                         <div id="errorlogin" style="display: none;"><label>Usuário e/ou senha inválidos, tente novamente.</label></div>
-                                        <div style="display: none;"><input type="text" id="i_errorlogin" value="<?php echo $this->invalidado; ?>" /></div>
+                                        <div style="display: none;"><input type="text" id="i_errorlogin" value="<?php // echo $this->invalidado; ?>" /></div>
                                     </td>
                                 </tr>
                             </table>
