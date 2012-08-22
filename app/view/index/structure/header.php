@@ -25,12 +25,21 @@
                         <form id="form_login" method="post" action="index.php?c=ead&a=login">
                             <table align="right">
                                 <tr>
-                                    <td>
-                                        <label>E-mail: </label>
-                                        <input id="login" name="login" type="text" size="20"/>
-                                        <label>Senha: </label>
-                                        <input id="senha" name="senha" type="text" size="10"/>
+                                    <td style="width: 220px;">
+                                        <label style="color: #fff">E-mail: </label>
+                                        <input id="login" name="login" type="text" size="25"/>
+                                    </td>
+                                    <td style="width: 170px;">
+                                        <label style="color: #fff">Senha: </label>
+                                        <input id="senha" name="senha" type="text" size="15"/>
+                                    </td>
+                                    <td style="width: 60px;">
                                         <input id="button_login" type="submit" name="button_login" value="Login"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div id="errorlogin"><label>Usuário e/ou senha inválidos, tente novamente.</label></div>
                                     </td>
                                 </tr>
                             </table>
