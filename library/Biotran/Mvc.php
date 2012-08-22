@@ -132,7 +132,7 @@ class Biotran_Mvc {
 
         session_start();
 
-        if ($this->acao == 'index' && $this->controlador == 'index') {
+        if ($this->controlador == 'index') {
             $this->executarAcao();
         } else if ($this->acao == 'login' && $this->controlador == 'ead') {
             $this->executarAcao();
