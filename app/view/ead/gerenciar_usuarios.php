@@ -77,7 +77,7 @@ if (isset($this->usuario)) {
     }
     
     function atualizarCadastro(idusuario){
-        $('#cadastro').attr({action: 'index.php?c=ead&a=atualizar_cadastro_ead&id='+idusuario});
+        $('#cadastro').attr({action: 'index.php?c=ead&a=atualizar_cadastro_admin&id='+idusuario});
         $('#cadastro').submit();
     }
     
