@@ -13,48 +13,25 @@ class ControllerIndex extends Biotran_Mvc_Controller{
         if ($resposta == 'validado') {    
             Biotran_Mvc::pegarInstancia()->mudarControlador('ead');
             Biotran_Mvc::pegarInstancia()->mudarAcao('index');
+            $this->visao->invalidado = 0;
         } else {
             if ($resposta == 'invalido') {                
                 Biotran_Mvc::pegarInstancia()->mudarAcao('index');
-                $this->visao->invalidado = true;
+                $this->visao->invalidado = 1;
             } else {
                 //usuario inexistente
                 if ($resposta == 'cadastrar') {                    
                     Biotran_Mvc::pegarInstancia()->mudarControlador('index');
                     Biotran_Mvc::pegarInstancia()->mudarAcao('cadastro');                    
-                    $this->visao->invalidado = true;
+//                    $this->visao->invalidado = true;
                 }
             }
         }
     }
-    
-    
-    public function actionIndex() {                               
+        
+    public function actionIndex() {
+//        $this->visao->invalidado = 0;
         $this->renderizar(); 
-    }
-    
-    public function actionLogin() {
-        $login = $_POST['login'];
-        $senha = $_POST['senha'];
-
-        $controllerSeguranca = new ControllerSeguranca();
-        $resposta = $controllerSeguranca->actionValidarLogin_ajax($login, $senha);
-        if ($resposta == 'validado') {
-            Biotran_Mvc::pegarInstancia()->mudarAcao('Index');
-        } else {
-            if ($resposta == 'invalido') {
-                Biotran_Mvc::pegarInstancia()->mudarControlador('Index');
-                Biotran_Mvc::pegarInstancia()->mudarAcao('Index');
-                $this->visao->invalidado = true;
-            } else {
-                //usuario inexistente
-                if ($resposta == 'cadastrar') {
-                    Biotran_Mvc::pegarInstancia()->mudarControlador('Index');
-                    Biotran_Mvc::pegarInstancia()->mudarAcao('Cadastrar');
-                    $this->visao->invalidado = true;
-                }
-            }
-        }
     }
     
     public function actionLembrarSenha(){
