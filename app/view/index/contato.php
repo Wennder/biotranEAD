@@ -3,7 +3,7 @@
 
 <div id="divcontato">
     <form id="formContato" name="formContato" action="" method="post">
-        <table width="500" border="0" align="center" style="margin-left: 110px;">
+<!--        <table width="500" border="0" align="center" style="margin-left: 110px;">
             <tr>
                 <td colspan="2">
                     <h3 style="margin-left: 160px;">Contato</h3>
@@ -38,8 +38,9 @@
                     <input type="submit" value="Enviar" />
                 </th>
             </tr>
-        </table>
+        </table>-->
     </form>
 </div>
-<?php require 'structure/content_down.php'; ?>
+<h1>CONTATO</h1>
+<?php // require 'structure/content_down.php'; ?>
 <?php require 'structure/footer.php'; ?>

@@ -4,9 +4,9 @@ body {
     font-size: 12px;
     color: #404040;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    background: url('../img/body_bg.jpg') repeat-x;
+    background: url('../img/body_bg.png') repeat-x;
     background-color: #FFF;
-/*    background-color: #EFEFEF;*/
+    /*    background-color: #EFEFEF;*/
 }
 
 #eadbiotran {
@@ -74,7 +74,66 @@ body {
     font-weight: bold;
 }
 
-#topmenu ul li a:hover { color: #000; border-bottom: solid;}
+#topmenu ul li a:hover {
+    color: #000;
+}
+
+#sliderShow{
+    float: right;
+    box-shadow:2px 2px 10px #AAAAAA;
+    -moz-box-shadow:1px 1px 4px #AAAAAA;
+    -webkit-box-shadow:1px 1px 4px #AAAAAA;
+}
+
+#menu_destaque{
+    width: 320px;
+    height: 400px;
+    float: left;
+    color: #CCCCCC;
+}
+
+#menu_destaque ul{
+    list-style-type:none;
+    margin:0px;
+    padding:0px;
+}
+
+#menu_destaque li{
+    height: 91px;
+    width: 320px;
+}
+
+#menu_destaque li:hover{
+    background-color: #3E7DB3;
+    color: #fff;
+    border-radius: 20px 0px 0px 20px;
+/*    -moz-border-radius:10px 10px 10px 10px;
+    -webkit-border-radius:10px 10px 10px 10px;*/
+}
+
+#menu_destaque ul li a {
+    height: 91px;
+    width: 320px;
+    position: absolute;
+    color: #000;
+    text-decoration: none;
+    font-size: 32px;
+    font-weight: bold;
+    padding-top: 25px;
+    padding-left: 10px;
+    text-shadow:-1px 1px 0px #CCC;
+}
+
+#menu_destaque ul li a:hover {
+    color: #fff;
+    text-shadow:-1px 1px 0px #000;
+}
+
+.destaque_item {
+/*    font-size: 14px;
+    height: 40px;
+    width: 300px;*/
+}
 
 #content_up{
     margin-top: 40px;
@@ -89,13 +148,26 @@ body {
 #content_down{
     width: 978px;
     min-height: 430px;
-    /*    background-color: #CCC;*/
+    margin-top: 10px;
+    margin-bottom: 30px;
+    background: url('../img/header_content.png') repeat-x;
+}
+
+#content_in{
+    width: 908px;
+    min-height: 380px;
+    position: absolute;
+    background-color: #FFF;
+    margin: 50px 0 0 35px;
+    box-shadow:0px 5px 10px #AAAAAA;
+    -moz-box-shadow:1px 1px 4px #AAAAAA;
+    -webkit-box-shadow:1px 1px 4px #AAAAAA;
 }
 
 #footer{
     height: 150px;
     clear: both;
-    background-color: #000;
+    background-color: #275175;
 }
 
 #content_footer{
