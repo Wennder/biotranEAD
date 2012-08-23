@@ -159,10 +159,10 @@ class controllerUsuario {
         }
     }
 
-    public function atualizarUsuario_ead($id_usuario) {
+    public function atualizarUsuario_admin($id_usuario) {
         if (!empty($_POST)) {
-            $this->usuario = new Usuario();
-            $this->end = new Endereco();
+            $this->usuario = $this->getUsuario("id_usuario=".$id_usuario);
+            $this->end = $this->getEndereco_usuario($id_usuario);
             foreach ($_POST as $k => $v) {
                 if (stristr($k, '_')) {
                     $chave_endereco = explode('_', $k);
@@ -178,14 +178,15 @@ class controllerUsuario {
                         }
                     }
                 } else {
-                    $setAtributo = 'set' . ucfirst($k);
-                    if (method_exists($this->usuario, $setAtributo)) {
-                        $this->usuario->$setAtributo($v);
+                    if($k != 'senha' || ($k == 'senha' && $v != '')){                        
+                        $setAtributo = 'set' . ucfirst($k);
+                        if (method_exists($this->usuario, $setAtributo)) {
+                            $this->usuario->$setAtributo($v);
+                        }
                     }
                 }
-            }
-            $this->usuario->setId_usuario($id_usuario);
-            $this->end->setId_usuario($id_usuario);
+            }            
+            //atualiza usuario
             $dao = new UsuarioDAO();
             $dao->update($this->usuario, $this->end);
 
@@ -260,9 +261,9 @@ class controllerUsuario {
         return $user[0];
     }
 
-    public function getEndereco_usuario($condicao) {
+    public function getEndereco_usuario($id_usuario) {
         $dao = new EnderecoDAO();
-        $end = $dao->select($condicao);
+        $end = $dao->select("id_usuario=".$id_usuario);
         return $end[0];
     }
 

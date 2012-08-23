@@ -35,12 +35,17 @@ class ControllerSeguranca {
     }        
 
     public function actionValidarLogin_ajax($login, $senha) {
+        return $this->tratarValidacaoLogin_ajax($this->seguranca->validarLogin($login, $senha));
+        
+    }
+    
+    public function actionValidarLogin($login, $senha) {
         return $this->seguranca->validarLogin($login, $senha);
     }
     
     //trata de acordo com o retorno da funcao validarLogin da classe seguranca.
     public function tratarValidacaoLogin_ajax($validacao) {
-        if ($validacao == 'usuario validado') {
+        if ($validacao == 'validado') {
             //se usuario for validado, então a ação é alterada para direcionar 
             //a pagina de acordo com o papel do usuario
             $valores = array(
@@ -50,13 +55,13 @@ class ControllerSeguranca {
             );
             return $valores;
         } else {
-            if ($validacao == 'senha invalida') {
+            if ($validacao == 'invalidado') {
                 $valores = array(
                     'validacao' => 'invalido'
                 );
                 return $valores;
             } else {
-                if ($validacao == 'nao cadastrado') {
+                if ($validacao == 'cadastrar') {
                     $valores = array(
                         'validacao' => 'cadastrar'
                     );

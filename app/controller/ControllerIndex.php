@@ -4,12 +4,17 @@ class ControllerIndex extends Biotran_Mvc_Controller{
     
     private $controller;
 
+    public function actionLogin_ajax($login, $senha) {               
+        $this->controller = new ControllerSeguranca();
+        return $this->controller->actionValidarLogin_ajax($login, $senha);        
+    }
+    
     public function actionLogin() {
         $login = $_POST['login'];
         $senha = $_POST['senha'];
 
         $this->controller = new ControllerSeguranca();
-        $resposta = $this->controller->actionValidarLogin_ajax($login, $senha);
+        $resposta = $this->controller->actionValidarLogin($login, $senha);
         if ($resposta == 'validado') {    
             Biotran_Mvc::pegarInstancia()->mudarControlador('ead');
             Biotran_Mvc::pegarInstancia()->mudarAcao('index');
