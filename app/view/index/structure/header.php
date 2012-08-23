@@ -43,7 +43,7 @@
                                         <input id="senha" name="senha" type="text" size="15"/>
                                     </td>
                                     <td style="width: 60px;">
-                                        <input id="button_login" type="submit" name="button_login" value="Login"/>
+                                        <input id="button_login" type="button" name="button_login" value="Login"/>
                                     </td>
                                 </tr>
                                 <tr>

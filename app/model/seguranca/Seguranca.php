@@ -16,6 +16,7 @@ class Seguranca {
     private $user;   
 
     public function iniciarSessao() {
+        session_start();
         $_SESSION['usuarioLogado'] = $this->user;
     }
     
@@ -50,7 +51,7 @@ class Seguranca {
                 $this->iniciarSessao();          
                 return 'validado';
             } else {
-                return'invalido';
+                return'invalidado';
             }
         }
         return 'cadastrar';

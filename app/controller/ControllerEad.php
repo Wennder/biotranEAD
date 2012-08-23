@@ -19,7 +19,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
             $this->visao->usuario = $this->controller->getUsuario("id_usuario=" . $id_usuario . "");
-            $this->visao->endereco = $this->controller->getEndereco_usuario("id_usuario=" . $id_usuario . "");
+            $this->visao->endereco = $this->controller->getEndereco_usuario($id_usuario);
         } else {
             $this->visao->usuario = null;
             $this->visao->endereco = null;
@@ -33,7 +33,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerUsuario();
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
-            $this->controller->atualizarUsuario_ead($id_usuario);            
+            $this->controller->atualizarUsuario_admin($id_usuario);            
             Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
         }
 
@@ -45,7 +45,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerUsuario();
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
-            $this->controller->atualizarUsuario_ead($id_usuario);
+            $this->controller->atualizarUsuario_admin($id_usuario);
             Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
         }
 
@@ -71,7 +71,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         //Pega a id passa na url e monta o objeto buscando os dados no banco
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->usuario = $this->controller->getUsuario("id_usuario=" . $id_usuario . "");
-        $this->visao->endereco = $this->controller->getEndereco_usuario("id_usuario=" . $id_usuario . "");
+        $this->visao->endereco = $this->controller->getEndereco_usuario($id_usuario);
 
         $this->renderizar();
     }

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-   $('#bttn_login').click(function(){
+   $('#button_login').click(function(){
        //alert('oi');
       validarLogin($('#login'), $('#senha'));
    });
