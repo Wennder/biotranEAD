@@ -100,6 +100,10 @@ if (isset($this->usuario)) {
             else  return false;
         }
     }
+    
+    function setarCombo(){
+        $("#id_papel").val(4);
+    }
 
 </script>
 
@@ -121,20 +125,22 @@ if (isset($this->usuario)) {
                         <input type="text" id="nome_completo" name="nome_completo" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getNome_completo()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
                     </td>
                 </tr>
-                <tr>
-                    <td style="width: 150px;">
-                        <label class="label_cadastro">*Permissão: </label>
-                    </td>
-                    <td style="width: 500px;">
-                        <select id="id_papel" name="id_papel" class="validate[required]" data-prompt-position="centerRight">
-                            <option value></option>
-                            <option value="1">Administrador</option>
-                            <option value="2">Gestor</option>
-                            <option value="3">Professor</option>
-                            <option value="4">Estudante</option>
-                        </select>
-                    </td>
-                </tr>
+                <?php if($_SESSION["usuarioLogado"]->getId_papel() == '1') {
+                    echo ('<tr>
+                            <td style="width: 150px;">
+                                <label class="label_cadastro">*Permissão: </label>
+                            </td>
+                            <td style="width: 500px;">
+                                <select id="id_papel" name="id_papel" class="validate[required]" data-prompt-position="centerRight">
+                                    <option></option>
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Gestor</option>
+                                    <option value="3">Professor</option>
+                                    <option value="4">Estudante</option>
+                                </select>
+                            </td>
+                        </tr>');
+                }?>
                 <tr>
                     <td>
                         <label class="label_cadastro">*Atuação: </label>

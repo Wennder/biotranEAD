@@ -107,7 +107,7 @@ class Usuario {
     }
 
     public function setAtuacao($atuacao) {
-        $this->atuacao = $atuacao;
+        $this->atuacao = utf8_decode($atuacao);
     }
 
     public function getDescricao_pessoal() {

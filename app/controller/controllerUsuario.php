@@ -58,6 +58,11 @@ class controllerUsuario {
                     }
                 }
             }
+            
+            if(!isset($_POST["id_papel"])){
+                $this->usuario->setId_papel(4);
+            }
+            
             $dao = new UsuarioDAO();
             $dao->insert($this->usuario, $this->end);
             $idUsuario = $dao->select("email='" . $this->usuario->getEmail() . "'");
@@ -186,6 +191,8 @@ class controllerUsuario {
                     }
                 }
             }            
+//            echo ($_POST["atuacao"]); die();
+            echo ($this->usuario->getAtuacao()); die();
             //atualiza usuario
             $dao = new UsuarioDAO();
             $dao->update($this->usuario, $this->end);

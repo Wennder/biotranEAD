@@ -34,7 +34,7 @@
                         <label class="label_cadastro">*Permissão: </label>
                     </td>
                     <td style="width: 500px;">
-                        <select id="id_papel" name="id_papel" disabled="true" class="validate[required]" data-prompt-position="centerRight">
+                        <select id="id_papel" name="id_papel" <?php echo ($_SESSION["usuarioLogado"]->getId_papel() != '1' ? 'disabled="true"' : '');?> class="validate[required]" data-prompt-position="centerRight">
                             <option value></option>
                             <option value="1">Administrador</option>
                             <option value="2">Gestor</option>
