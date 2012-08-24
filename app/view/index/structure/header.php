@@ -34,13 +34,13 @@
                         <form id="form_login" method="post" action="index.php?c=index&a=login">
                             <table align="right">
                                 <tr>
-                                    <td style="width: 220px;">
+                                    <td style="width: 230px;">
                                         <label style="color: #fff">E-mail: </label>
                                         <input id="login" name="login" type="text" size="25"/>
                                     </td>
                                     <td style="width: 170px;">
                                         <label style="color: #fff">Senha: </label>
-                                        <input id="senha" name="senha" type="text" size="15"/>
+                                        <input id="senha" name="senha" type="password" size="15"/>
                                     </td>
                                     <td style="width: 60px;">
                                         <input id="button_login" type="button" name="button_login" value="Login"/>

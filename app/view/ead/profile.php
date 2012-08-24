@@ -75,7 +75,7 @@
             <tr><td colspan="2"</td></tr>
             <tr>
                 <td colspan="2" align="right">
-                    <input type="button" value="Editar" class="button" onclick="$(location).attr('href', 'index.php?c=ead&a=dados_pessoais&id=<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>');"/>
+                    <input type="button" value="Editar" class="button" onclick="$(location).attr('href', 'index.php?c=ead&a=dados_pessoais&id=<?php echo $this->usuario->getId_usuario(); ?>');"/>
                 </td>
             </tr>
         </table>

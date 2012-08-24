@@ -15,7 +15,7 @@ function validarLogin(login, senha){
     }, function(j){
         //usuario validado         
         if(j.validacao == 'validado'){
-            alert(j.controlador + ' - ' + j.acao);
+//            alert(j.controlador + ' - ' + j.acao);
             $('#form_login').attr({action: 'index.php?c='+ j.controlador +'&a=' + j.acao});
             $('#form_login').submit();
         }else{
