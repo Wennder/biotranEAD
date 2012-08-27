@@ -8,10 +8,10 @@ if (isset($this->usuario)) {
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/leftcolumn.php'; ?>
 <?php require 'structure/content.php'; ?>
-<script src="js/crudTabelaUsuario.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/crudTabelaUsuario.js" type="text/javascript"></script>
+<script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
+<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
+<script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 <link rel="stylesheet" href="css/jquery.dataTables.css" type="text/css"/>
 

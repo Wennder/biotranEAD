@@ -38,6 +38,7 @@ class controllerUsuario {
             $this->usuario = new Usuario();
             $this->end = new Endereco();
             foreach ($_POST as $k => $v) {
+                $v = utf8_decode($v);
                 if (stristr($k, '_')) {
                     $chave_endereco = explode('_', $k);
                     if ($chave_endereco[0] != 'endereco') {
@@ -191,8 +192,7 @@ class controllerUsuario {
                     }
                 }
             }            
-//            echo ($_POST["atuacao"]); die();
-            echo ($this->usuario->getAtuacao()); die();
+            
             //atualiza usuario
             $dao = new UsuarioDAO();
             $dao->update($this->usuario, $this->end);
