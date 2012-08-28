@@ -108,7 +108,6 @@ class Usuario {
 
     public function setAtuacao($atuacao) {
         $this->atuacao = $atuacao;
-        echo $this->atuacao;
     }
 
     public function getDescricao_pessoal() {

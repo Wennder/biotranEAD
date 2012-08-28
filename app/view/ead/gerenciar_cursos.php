@@ -1,10 +1,216 @@
+<?php
+$editar = "false";
+if (isset($this->curso)) {
+    $this->curso == null ? $editar = "false" : $editar = "true";
+}
+?>
+
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/leftcolumn.php'; ?>
 <?php require 'structure/content.php'; ?>
+<!--<script src="js/crudTabelaUsuario.js" type="text/javascript"></script>-->
+<script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
+<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
+<script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery.dataTables.css" type="text/css"/>
 
-<div style="height: 500px;">
-    <form method="post">
-        
-    </form>
+<script>
+    $(document).ready(function(){
+        $("#cadastro").validationEngine();
+        if($("#i_editar").val() == "true"){
+            $("#form_cadastro").show();
+            $("#opcoes_cadastro").hide();
+            $("#button_cadastrar").hide();
+            $("#button_atualizar").show();
+        }
+        else{
+            $("#form_cadastro").hide();
+        }
+        $("#editar").validationEngine();
+        var papel = $("#i_papel");
+        $("#id_papel").val(papel.val());
+        var atuacao = $("#i_atuacao");
+        $("#atuacao").val(atuacao.val());
+        $("#tabela_usuarios").dataTable({
+            "bPaginate": true,
+            "bFilter": true,
+            "bSort": true,
+            "bInfo": true,
+            "bLengthMenu": false,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sLengthMenu": "Mostrar _MENU_ usuário(s)",
+                "sZeroRecords": "Nada encontrado",
+                "sInfo": "Showing _START_ to _END_ of _TOTAL_ records",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 usuário(s)",
+                "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ usuário(s)",
+                "sSearch": "Pesquisar"
+            }
+        });
+    });
+   
+    function mostrar(opcao){
+        if(opcao == "cadastro"){
+            $("#form_cadastro").show();
+            $("#form_gerenciar").hide();
+        }
+        else if(opcao == "gerenciar"){
+            $("#form_cadastro").hide();
+            $("#form_gerenciar").show();
+        }
+    }
+    
+    function validaLogin_ajax(login_antigo){
+        if($('#email').val() != login_antigo){
+            $.getJSON('ajax/validarLoginCadastro.php?search=',{
+                login: $('#email').val(),                         
+                ajax: 'true'
+            }, function(j){
+                //usuario validado         
+                if(j == 0){
+                    alert('Esse login não pode ser utilizado');                                
+                    $('#email').val('');
+                }
+            });            
+        }
+    }
+    
+    function atualizarCadastro(idusuario){
+        $('#cadastro').attr({action: 'index.php?c=ead&a=atualizar_cadastro_admin&id='+idusuario});
+        $('#cadastro').submit();
+    }
+    
+    function mascara_data(src){
+        var mask = '##/##/####';
+        var i = src.value.length;
+        var saida = mask.substring(0,1);
+        var texto = mask.substring(i);              
+        if (texto.substring(0,1) != saida)
+        {
+            src.value += texto.substring(0,1);
+        }             
+    }
+            
+    function apenas_numero(e){
+        var tecla=(window.event)?event.keyCode:e.which;   
+        if((tecla>47 && tecla<58)) return true;
+        else{
+            if (tecla==8 || tecla==0) return true;
+            else  return false;
+        }
+    }
+    
+    function setarCombo(){
+        $("#id_papel").val(4);
+    }
+
+</script>
+
+<div id="opcoes_cadastro">
+    <input type="button" value="Cadastro" class="button" onclick="mostrar('cadastro');"/>
+    <input type="button" value="Gerência" class="button" onclick="mostrar('gerenciar');" style="margin-left: 10px;"/>
 </div>
+
+<div id="form_cadastro" style="display: none;">
+    <form id="cadastro" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_curso" enctype="multipart/form-data">
+        <fieldset style="width: 100%;">
+            <legend>Dados do Curso</legend>
+            <table>
+                <tr>
+                    <td style="width: 150px;">
+                        <label class="label_cadastro">*Nome: </label>
+                    </td>
+                    <td style="width: 500px;">
+                        <input type="text" id="nome" name="nome" value="<?php echo ($this->curso == null ? '' : $this->curso->getNome()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="label_cadastro">*Descrição: </label>
+                    </td>
+                    <td>
+                        <textarea id="descricao" name="descricao" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"><?php echo ($this->curso == null ? '' : $this->curso->getDescricao()); ?></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="label_cadastro">*Tempo de duração: </label>
+                    </td>
+                    <td>
+                        <input type="text" id="tempo" name="tempo" value="<?php echo ($this->curso == null ? '' : $this->curso->getTempo()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 40px" maxlength="3"/>
+                        <label class="label_cadastro_legend">dias</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="label_cadastro">*Professores do curso: </label>
+                    </td>
+                    <td>
+                        <select multiple="multiple">
+                            <option value="volvo">José Silva Sauro</option>
+                            <option value="saab">Mazoto Mazete Miziti</option>
+                            <option value="mercedes">Carlos Ray Norris Jr.</option>
+                            <option value="audi">Santos Dumont de Andrade</option>
+                            <option value="audi">Edson Arantes do Nascimento</option>
+                            <option value="audi">Eddard Stark</option>
+                            <option value="audi">Caio Fernando Abreu</option>
+                        </select>
+                        <label class="label_cadastro_legend">Para mais de um pressione Ctrl e selecione os demais</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="label_cadastro">*Imagem (240x180): </label>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <div id="imagem_curso">
+                                        <img src="img/cursos/<?php
+                                        if ($this->usuario == null) {
+                                            echo '00.jpg';
+                                        } else if (file_exists('img/cursos/' . $this->curso->getId_curso() . '.jpg')) {
+                                            echo $this->curso->getId_curso() . '.jpg';
+                                        } else {
+                                            echo '00.jpg';
+                                        }
+                                        ?>" alt="" height="180" width="240" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="file" name="imagem" id="imagem" class="validate[required] text-input" data-prompt-position="centerRight"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br>
+        <input type="submit" id="button_cadastrar" name="button_cadastrar" value="Cadastrar" class="button"/>
+        <input type="button" id="button_atualizar" onclick="atualizarCadastro(<?php echo ($this->usuario == null ? '' : $this->usuario->getId_usuario()); ?>)" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
+    </form>
+    </br></br>
+</div>
+
+<div id="form_gerenciar" style="display: none;">
+    <?php
+    if (!isset($this->tabela)) {
+        $controllerUsuario = new controllerUsuario();
+        $this->tabela = $controllerUsuario->tabelaUsuarios();
+    }
+    echo $this->tabela;
+    ?>
+</div>
+
+<div id="div_hidden" style="display: none;">
+    <input type="text" id="i_editar" name="i_editar" value="<?php echo $editar; ?>"/>
+<!--    <input type="text" id="i_papel" name="i_papel" value="<?php // echo $this->usuario == null ? '' : $this->usuario->getId_papel(); ?>"/>
+    <input type="text" id="i_atuacao" name="i_atuacao" value="<?php // echo $this->usuario == null ? '' : $this->usuario->getAtuacao(); ?>"/>-->
+</div>
+
 <?php require 'structure/footer.php'; ?>

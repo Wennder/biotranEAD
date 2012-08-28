@@ -55,6 +55,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionGerenciar_cursos() {
         $this->visao->titulo = "Gerenciar Cursos";
+        $this->visao->curso = null;
         $this->renderizar();
     }
 

@@ -200,6 +200,13 @@ form.form_cadastro, form.form_editar{
     border: solid 1px #B5B8C8;
 }
 
+#imagem_curso{
+    height: 180px;
+    width: 240px;
+    background-color: #DCDCDC;
+    border: solid 1px #B5B8C8;
+}
+
 #opcoes_cadastro{
     width: 600px;
     margin: 0 auto;

@@ -16,19 +16,22 @@ function validarLogin(login, senha){
         //usuario validado         
         if(j.validacao == 'validado'){
 //            alert(j.controlador + ' - ' + j.acao);
+            $("#errorlogin").hide();
             $('#form_login').attr({action: 'index.php?c='+ j.controlador +'&a=' + j.acao});
             $('#form_login').submit();
         }else{
             //senha invalida
-            if(j.validacao == 'invalido'){
+            if(j.validacao == 'invalido' || j.validacao == 'cadastrar'){
                 $('#senha').val('');
-                alert('Senha inválida!');
-            }else{
-                //usuario inexistente
-                if(j.validacao == 'cadastrar'){
-                    $('#senha').val('');
-                    alert('Usuario não cadastrado!');
-                }
+                $("#errorlogin").show();
+//                alert('Senha inválida!');
+//            }else{
+//                //usuario inexistente
+//                if(j.validacao == 'cadastrar'){
+//                    $('#senha').val('');
+//                    alert('Usuario não cadastrado!');
+//                }
+//            }
             }
         }
     });

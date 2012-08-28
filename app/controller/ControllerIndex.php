@@ -38,11 +38,8 @@ class ControllerIndex extends Biotran_Mvc_Controller{
         $this->renderizar(); 
     }
     
-    public function actionLembrarSenha(){
-        $this->controller = new controllerUsuario();        
-        $cpf_passaporte = $_POST["cpf_passaporte"];
-        //captura e-mail do usuario a partir do cpf, através do controlador usuario
-        $email = $this->controller->getUsuario("cpf_passaporte='".$cpf_passaporte."'")->getEmail();
+    public function actionRecuperar_senha(){
+        $this->renderizar(); 
     }
     
     public function actionCadastro() {

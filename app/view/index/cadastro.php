@@ -80,68 +80,6 @@
                         <label class="label_cadastro_legend">Somente números </label>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <label class="label_cadastro">RG: </label>
-                    </td>
-                    <td>
-                        <input type="text" id="rg" name="rg" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="15"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="label_cadastro">Data de nascimento: </label>
-                    </td>
-                    <td>
-                        <input type="text" id="data_nascimento" name="data_nascimento" class="text-input" data-prompt-position="centerRight" onKeyUp='mascara_data(this)' onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="10"/>
-                        <label class="label_cadastro_legend">DD/MM/AAAA </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="label_cadastro">Telefone: </label>
-                    </td>
-                    <td>
-                        <input type="text" id="tel_principal" name="tel_principal" class="text-input" data-prompt-position="centerRight" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="13"/>
-                        <label class="label_cadastro_legend">(XX)XXXX-XXXX </label>
-                    </td>
-                </tr>
-                <tr>                    
-                    <td>
-                        <label class="label_cadastro">Identidade Profissional: </label>
-                    </td>
-                    <td>
-                        <input type="text" id="id_profissional" name="id_profissional" class="text-input" data-prompt-position="centerRight" style="width: 150px" maxlength="15"/>
-                        <label class="label_cadastro_legend"> </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="label_cadastro">Descrição Pessoal: </label>
-                    </td>
-                    <td>
-                        <textarea id="descricao_pessoal" name="descricao_pessoal" rows="3" class="text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="label_cadastro">Foto (100x120): </label>
-                    </td>
-                    <td>
-                        <table>
-                            <tr>
-                                <td>
-                                    <div id="foto_usuario">
-                                        <img src="img/profile/00.jpg" alt="" height="120" width="100" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <input type="file" name="foto" id="foto" class="text-input" data-prompt-position="centerRight" style="margin: 100px 0 0 10px;"/>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
             </table>
         </fieldset>
         <br>
