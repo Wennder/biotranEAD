@@ -1,15 +1,5 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of controllerUsuario
- *
- * @author cead-p057007
- */
 class controllerUsuario {
 
     private $usuario;
@@ -57,7 +47,6 @@ class controllerUsuario {
             $this->usuario = new Usuario();
             $this->end = new Endereco();
             foreach ($_POST as $k => $v) {
-                $v = utf8_decode($v);
                 if (stristr($k, '_')) {
                     $chave_endereco = explode('_', $k);
                     if ($chave_endereco[0] != 'endereco') {

@@ -217,7 +217,7 @@ table.dataTable th:active {
 	-webkit-overflow-scrolling: touch;
 }
 
-/* Hover nas entradas da tabela */
+/* Hover nas entradas da tabela dos usuários */
 
 /*Colunas secundárias, linhas claras hover*/
 #tabela_usuarios tbody tr.even:hover, #tabela_usuarios tbody tr.even td.highlighted {
@@ -271,6 +271,32 @@ table.dataTable th:active {
 /*???*/
 #tabela_usuarios tr.odd:hover td.sorting_3 {
 	background-color: #DBFF70;
+}
+
+/* Hover nas entradas da tabela dos cursos */
+
+/*Colunas secundárias, linhas claras hover*/
+#tabela_cursos tbody tr.even:hover, #tabela_cursos tbody tr.even td.highlighted {
+	background-color: #D9DADC;
+}
+
+/*Colunas secundárias, linhas escuras hover*/
+#tabela_cursos tbody tr.odd:hover, #tabela_cursos tbody tr.odd td.highlighted {
+	background-color: #D9DADC;
+}
+
+/*Coluna primária, linhas claras hover*/
+#tabela_cursos tr.even:hover td.sorting_1 {
+	background-color: #B4B4B4;
+        color: #FFF;
+/*        font-weight: bold;*/
+}
+
+/*Coluna primária, linhas claras hover*/
+#tabela_cursos tr.odd:hover td.sorting_1 {
+	background-color: #B4B4B4;
+        color: #FFF;
+/*        font-weight: bold;*/
 }
 
 .dataTables_length{

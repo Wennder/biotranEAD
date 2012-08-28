@@ -16,14 +16,14 @@ function removerUsuario(id){
     }, function(j){
         //usuario excluido         
         if(j == 1){
-            alert('Rapaizinho excluido com súúcessoo');            
+            alert('Usuário excluído com sucesso');            
             $('#tabela_linha'+id).detach();
         }else{
             //usuario nao pode ser excluido devido à restrições de chave estrangeira
             if(j == 3){
-                alert('Endereço não exlcuido!');                
+                alert('Endereço não excluído!');                
             }else{
-                alert('Usuario não pode ser excluído!');                                
+                alert('Usuário não pode ser excluído!');                                
             }
         }
     });            

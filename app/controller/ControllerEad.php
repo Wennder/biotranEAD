@@ -56,7 +56,24 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionGerenciar_cursos() {
         $this->visao->titulo = "Gerenciar Cursos";
-        $this->visao->curso = null;
+
+        $this->controller = new controllerCurso();
+        //Pega a id passa na url e monta o objeto buscando os dados no banco
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        if ($id_curso != '') {
+            $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
+        } else {
+            $this->visao->curso = null;
+        }
+        //Monta a tabela de usuários        
+        $this->visao->tabela = $this->controller->tabelaCursos();
+        $this->renderizar();
+    }
+    
+    public function actionCadastrar_curso() {
+        $this->controller = new controllerCurso();
+        $this->controller->novoCurso();
+        Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_cursos');
         $this->renderizar();
     }
 

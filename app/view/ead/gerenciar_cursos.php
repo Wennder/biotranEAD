@@ -8,7 +8,7 @@ if (isset($this->curso)) {
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/leftcolumn.php'; ?>
 <?php require 'structure/content.php'; ?>
-<!--<script src="js/crudTabelaUsuario.js" type="text/javascript"></script>-->
+<script src="js/crudTabelaCurso.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
 <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -18,6 +18,7 @@ if (isset($this->curso)) {
 <script>
     $(document).ready(function(){
         $("#cadastro").validationEngine();
+        $("#editar").validationEngine();
         if($("#i_editar").val() == "true"){
             $("#form_cadastro").show();
             $("#opcoes_cadastro").hide();
@@ -27,12 +28,7 @@ if (isset($this->curso)) {
         else{
             $("#form_cadastro").hide();
         }
-        $("#editar").validationEngine();
-        var papel = $("#i_papel");
-        $("#id_papel").val(papel.val());
-        var atuacao = $("#i_atuacao");
-        $("#atuacao").val(atuacao.val());
-        $("#tabela_usuarios").dataTable({
+        $("#tabela_cursos").dataTable({
             "bPaginate": true,
             "bFilter": true,
             "bSort": true,
@@ -44,7 +40,7 @@ if (isset($this->curso)) {
                 "sZeroRecords": "Nada encontrado",
                 "sInfo": "Showing _START_ to _END_ of _TOTAL_ records",
                 "sInfoEmpty": "Mostrando 0 até 0 de 0 usuário(s)",
-                "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ usuário(s)",
+                "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ curso(s)",
                 "sSearch": "Pesquisar"
             }
         });
@@ -61,23 +57,8 @@ if (isset($this->curso)) {
         }
     }
     
-    function validaLogin_ajax(login_antigo){
-        if($('#email').val() != login_antigo){
-            $.getJSON('ajax/validarLoginCadastro.php?search=',{
-                login: $('#email').val(),                         
-                ajax: 'true'
-            }, function(j){
-                //usuario validado         
-                if(j == 0){
-                    alert('Esse login não pode ser utilizado');                                
-                    $('#email').val('');
-                }
-            });            
-        }
-    }
-    
-    function atualizarCadastro(idusuario){
-        $('#cadastro').attr({action: 'index.php?c=ead&a=atualizar_cadastro_admin&id='+idusuario});
+    function atualizarCadastro(idcurso){
+        $('#cadastro').attr({action: 'index.php?c=ead&a=atualizar_curso&id='+idcurso});
         $('#cadastro').submit();
     }
     
@@ -100,10 +81,6 @@ if (isset($this->curso)) {
             else  return false;
         }
     }
-    
-    function setarCombo(){
-        $("#id_papel").val(4);
-    }
 
 </script>
 
@@ -121,7 +98,7 @@ if (isset($this->curso)) {
                     <td style="width: 150px;">
                         <label class="label_cadastro">*Nome: </label>
                     </td>
-                    <td style="width: 500px;">
+                    <td style="width: 600px;">
                         <input type="text" id="nome" name="nome" value="<?php echo ($this->curso == null ? '' : $this->curso->getNome()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
                     </td>
                 </tr>
@@ -144,19 +121,39 @@ if (isset($this->curso)) {
                 </tr>
                 <tr>
                     <td>
+                        <label class="label_cadastro">*Valor: </label>
+                    </td>
+                    <td>
+                        <label class="label_cadastro_legend">R$</label>
+                        <input type="text" id="valor" name="valor" value="<?php echo ($this->curso == null ? '' : $this->curso->getValor()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 80px" maxlength="7"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="label_cadastro">*Gratuito: </label>
+                    </td>
+                    <td>
+                        <input type="radio" name="gratuito" id="gratuitoSim" <?php echo ($this->curso == null ? '' : ($this->curso->getGratuito() == "1") ? "checked" : ""); ?> value="1" class="validate[required] radio" data-prompt-position="centerRight">
+                        <label class="label_cadastro">Sim </label>
+                        <input type="radio" name="gratuito" id="gratuitoNao" <?php echo ($this->curso == null ? '' : ($this->curso->getGratuito() == "0") ? "checked" : ""); ?> value="0" class="validate[required] radio" data-prompt-position="centerRight">
+                        <label class="label_cadastro">Não </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <label class="label_cadastro">*Professores do curso: </label>
                     </td>
                     <td>
-                        <select multiple="multiple">
-                            <option value="volvo">José Silva Sauro</option>
-                            <option value="saab">Mazoto Mazete Miziti</option>
-                            <option value="mercedes">Carlos Ray Norris Jr.</option>
-                            <option value="audi">Santos Dumont de Andrade</option>
-                            <option value="audi">Edson Arantes do Nascimento</option>
-                            <option value="audi">Eddard Stark</option>
-                            <option value="audi">Caio Fernando Abreu</option>
+                        <select id="professores" name="professores[]" multiple="multiple">
+                            <option value="33">José Silva Sauro</option>
+                            <option value="34">Mazoto Mazete Miziti</option>
+                            <option value="35">Carlos Ray Norris Jr.</option>
+                            <option value="36">Santos Dumont de Andrade</option>
+                            <option value="33">Edson Arantes do Nascimento</option>
+                            <option value="34">Eddard Stark</option>
+                            <option value="35">Caio Fernando Abreu</option>
                         </select>
-                        <label class="label_cadastro_legend">Para mais de um pressione Ctrl e selecione os demais</label>
+                        <label class="label_cadastro_legend">Obs: Para mais de um pressione e segure Ctrl e selecione os demais</label>
                     </td>
                 </tr>
                 <tr>
@@ -192,7 +189,7 @@ if (isset($this->curso)) {
         </fieldset>
         <br>
         <input type="submit" id="button_cadastrar" name="button_cadastrar" value="Cadastrar" class="button"/>
-        <input type="button" id="button_atualizar" onclick="atualizarCadastro(<?php echo ($this->usuario == null ? '' : $this->usuario->getId_usuario()); ?>)" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
+        <input type="button" id="button_atualizar" onclick="atualizarCadastro(<?php echo ($this->curso == null ? '' : $this->curso->getId_curso()); ?>)" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
     </form>
     </br></br>
 </div>
@@ -200,8 +197,8 @@ if (isset($this->curso)) {
 <div id="form_gerenciar" style="display: none;">
     <?php
     if (!isset($this->tabela)) {
-        $controllerUsuario = new controllerUsuario();
-        $this->tabela = $controllerUsuario->tabelaUsuarios();
+        $controllerCurso = new controllerCurso();
+        $this->tabela = $controllerCurso->tabelaCursos();
     }
     echo $this->tabela;
     ?>
