@@ -68,6 +68,15 @@ class ControllerIndex extends Biotran_Mvc_Controller{
         $this->visao->titulo = "Fotos";
         $this->renderizar();
     }
+    
+    public function actionExibir_curso() {
+        //Pega a id passa na url e monta o objeto buscando os dados no banco
+        $cursoDAO = new CursoDAO();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->curso = $cursoDAO->select("id_curso=" . $id_curso . "");
+        $this->visao->curso = $this->visao->curso[0];
+        $this->renderizar();
+    }
 }
 
 ?>
