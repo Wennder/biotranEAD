@@ -50,7 +50,7 @@ class ControllerIndex extends Biotran_Mvc_Controller{
     public function actionCadastrar_usuario() {
         $this->visao->titulo = "Cadastrar Usuário";
         $ctrl = new controllerUsuario();
-        $ctrl->novoUsuario_ead();                
+        $ctrl->inserirNovoUsuario_post();
         $this->renderizar();
     }
     

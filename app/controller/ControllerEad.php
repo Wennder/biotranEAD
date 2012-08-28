@@ -20,8 +20,6 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
             $this->visao->usuario = $this->controller->getUsuario("id_usuario=" . $id_usuario . "");            
-//            $this->controller = new ControllerSeguranca();
-//            $this->controller->actionEnviarSenhaEmail($this->visao->usuario);            
             $this->visao->endereco = $this->controller->getEndereco_usuario($id_usuario);
         } else {
             $this->visao->usuario = null;
@@ -64,7 +62,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionCadastrar_usuario() {
         $this->controller = new controllerUsuario();
-        $this->controller->novoUsuario_ead();
+        $this->controller->inserirNovoUsuario_post();
         Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
         $this->renderizar();
 //        $this->actionGerenciar_usuarios();

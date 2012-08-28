@@ -52,33 +52,37 @@ class UsuarioDAO extends PDOConnectionFactory {
         }
     }
 
-    public function update(Usuario $user, Endereco $end) {
+    public function update(Usuario $user = null, Endereco $end = null) {
         try {
-            $stmt = $this->conex->prepare("UPDATE usuario SET login=?, senha=?, id_papel=?, nome_completo=?, 
+            if($user != null){                
+                $stmt = $this->conex->prepare("UPDATE usuario SET login=?, senha=?, id_papel=?, nome_completo=?, 
                 data_nascimento=?, cpf_passaporte=?, rg=?, id_profissional=?, atuacao=?, descricao_pessoal=?, sexo=?, tel_principal=?, tel_secundario=?, email=? WHERE id_usuario=?");
-            $stmt->bindValue(1, $user->getEmail());
-            $stmt->bindValue(2, $user->getSenha());
-            $stmt->bindValue(3, $user->getId_papel());
-            $stmt->bindValue(4, $user->getNome_completo());
-            $stmt->bindValue(5, $user->getData_nascimento());
-            $stmt->bindValue(6, $user->getCpf_passaporte());
-            $stmt->bindValue(7, $user->getRg());
-            $stmt->bindValue(8, $user->getId_profissional());
-            $stmt->bindValue(9, $user->getAtuacao());
-            $stmt->bindValue(10, $user->getDescricao_pessoal());
-            $stmt->bindValue(11, $user->getSexo());
-            $stmt->bindValue(12, $user->getTel_principal());
-            $stmt->bindValue(13, $user->getTel_secundario());            
-            $stmt->bindValue(14, $user->getEmail());
-            $stmt->bindValue(15, $user->getId_usuario());
-            $stmt->execute();
-            
-            $dao = new EnderecoDAO();
-            $dao->update($end);            
+                $stmt->bindValue(1, $user->getEmail());
+                $stmt->bindValue(2, $user->getSenha());
+                $stmt->bindValue(3, $user->getId_papel());
+                $stmt->bindValue(4, $user->getNome_completo());
+                $stmt->bindValue(5, $user->getData_nascimento());
+                $stmt->bindValue(6, $user->getCpf_passaporte());
+                $stmt->bindValue(7, $user->getRg());
+                $stmt->bindValue(8, $user->getId_profissional());
+                $stmt->bindValue(9, $user->getAtuacao());
+                $stmt->bindValue(10, $user->getDescricao_pessoal());
+                $stmt->bindValue(11, $user->getSexo());
+                $stmt->bindValue(12, $user->getTel_principal());
+                $stmt->bindValue(13, $user->getTel_secundario());
+                $stmt->bindValue(14, $user->getEmail());
+                $stmt->bindValue(15, $user->getId_usuario());
+                $stmt->execute();
+
+                if ($end != null) {
+                    $dao = new EnderecoDAO();
+                    $dao->update($end);
+                }
+            }
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
         }
-    }
+    }       
 
     public function delete(Usuario $user) {
         try {

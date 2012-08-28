@@ -16,6 +16,7 @@ class ControllerSeguranca {
 
     private $papeis;
     private $seguranca;
+    private $controller;
 
     public function __construct() {
         $this->setPapeis();
@@ -79,16 +80,41 @@ class ControllerSeguranca {
         }
     }
 
-    public function actionEnviarSenhaEmail($usuario) {
+    public function actionEnviarSenhaEmail($email, $cpf_passaporte) {
+        $this->controller = new controllerUsuario();
+        $user = $this->controller->getUsuario("login ='" . $email . "'");
+        //se o usuario(email) existe no bd E cpf_passaporte for válido
+        if ($user != null && $cpf_passaporte == $user->getCpf_passaporte()) {
+            //---enviar e-mail
+            $mail = new PHPMailer(); //instancia o objeto PHPMailer
+            $mail->IsSMTP(); //informa que foi trabalhar com SMTP
+            $mail->Host = "mail.dietsmart.com.br"; //o endereço do meu servidor smtp
+            $mail->SMTPAuth = true; //informo que o servidor SMTP requer autenticação
+            $mail->Username = "contato@dietsmart.com.br"; //informo o usuário para autenticação no SMTP
+            $mail->Password = "teste2012"; //informo a senha do usuário para autenticação no SMTP
+            $mail->From = "contato@biotraead.com.br"; //informo o e-mail Remetente
+            $mail->FromName = "Biotran EAD"; //o nome do que irá aparecer para a pessoa que vai receber o e-mail
+            $mail->AddAddress($email); //e-mail do destinatário
+            $mail->WordWrap = 50; //informo a quebra de linha no e-mail (isso é opcional)
+            $mail->IsHTML(true); //informo que o e-mail é em HTML (opcional)
+            $mail->Subject = "Mudança de senha"; //informo o assunto do e-mail
+            //gerando nova senha de usuario:
+            $senha = $this->gerarSenha();
+            $user->setSenha($senha);
+            $this->controller->atualizarUsuario($user);            
+            $mail->Body = "<html><body>
+                    Olá, ".$user->getNome_completo()." </br>
+                        Sua nova senha é: ".$senha."</br>
+                        
+                        Para a sua segurança altere sua sua senha ;).
+                        
+            </body></html>"; //aqui vai o corpo do e-mail em HTML
+            $mail->Send(); //Enfim, envio o e-mail.
 
-        $mail = new SMTP;
-        $mail->Delivery('relay');
-        $mail->Relay('smtp.gmail.com', 'dietsmar', 'r2lsmart', 25, 'login', false);
-        $mail->From('rafael11690@gmail.com', 'DietSmart');
-        $mail->AddTo("rafael11690@gmail.com", "Rafael PEresss!");
-        $body = "Olá";
-        $mail->Html($body);
-        $mail->Send('Assinatura confirmada por mais ');        
+            return 1;
+        }
+
+        return 0;
     }
 
     public function actionLogout() {

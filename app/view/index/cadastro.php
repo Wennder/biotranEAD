@@ -151,7 +151,7 @@
                         <label class="label_cadastro">*Confirmar Senha: </label>
                     </td>
                     <td>
-                        <input type="password" id="senha2" name="senha2" class="validate[required, equals[senha]] text-input" data-prompt-position="centerRight" style="width: 150px"/>
+                        <input type="password" id="senha2" name="senha2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 150px"/>
                     </td>
                 </tr>
             </table>

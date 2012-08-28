@@ -23,19 +23,37 @@ class controllerUsuario {
         }else
             return 1;
     }
-
-    /*
-     * Insere um novo Usuario no BD.
-     * Captura os dados do usuario via POST ou através dos paramtros
-     *     
+    
+    /*    
      * @param $user: objeto usuario
      * @param $end1: objeto endereco
      * 
      * @return Mensagem de erro caso a insersao via parametros falhe por objetos nulos
      */
 
-    public function novoUsuario_ead() {
-        if (!empty($_POST)) {
+    public function inserirNovoUsuario_post() {
+        //setando o objeto usuario e endereco via post
+        $this->setUsuario_post();
+        //inserindo os objetos         
+//        echo $this->usuario->getEmail();die();
+        $this->novoUsuario($this->usuario, $this->end);
+        //verifico se existe foto para ser inserida
+        if(isset($_FILES["foto"])){
+            //captura a id do usuario inserido
+            $this->usuario = $this->getUsuario("email='" . $this->usuario->getEmail() . "'");
+            $id_usuario = $this->usuario->getId_usuario();
+            //insere foto do usuario
+            $this->inserirFotoUsuario($id_usuario);            
+        }
+        
+    }
+
+    /*
+     * Insere um novo Usuario no BD.
+     * Captura os dados do usuario via POST ou através dos paramtros    
+     */
+    public function setUsuario_post() {
+        if (!empty($_POST)) {            
             $this->usuario = new Usuario();
             $this->end = new Endereco();
             foreach ($_POST as $k => $v) {
@@ -59,53 +77,70 @@ class controllerUsuario {
                         $this->usuario->$setAtributo($v);
                     }
                 }
-            }
-            
-            if(!isset($_POST["id_papel"])){
+            }            
+            if (!isset($_POST["id_papel"])) {
                 $this->usuario->setId_papel(4);
             }
+        }
             
-            $dao = new UsuarioDAO();
-            $dao->insert($this->usuario, $this->end);
-            $idUsuario = $dao->select("email='" . $this->usuario->getEmail() . "'");
-            $idUsuario = $idUsuario[0]->getId_usuario();
+    }
 
-            //Inserção da foto
-            if (isset($_FILES["foto"])) {
-                if ($_FILES["foto"]["name"] != '') {
-                    $foto = $_FILES["foto"];
-                    $tipos = array("image/jpg");
-                    $pasta_dir = "img/profile/";
-                    if (!in_array($foto['type'], $tipos)) {
-                        $foto_nome = $pasta_dir . $idUsuario . ".jpg";
-                        move_uploaded_file($foto["tmp_name"], $foto_nome);
-                        $foto_arquivo = "img/profile/" . $idUsuario . ".jpg";
-                        $foto_arquivo_pic = "img/profile/pic/" . $idUsuario . ".jpg";
-                        list($altura, $largura) = getimagesize($foto_arquivo);
-                        if ($altura > 120 && $largura > 100) {
-                            $img = wiImage::load($foto_arquivo);
-                            $img = $img->resize(150, 170, 'outside');
-                            $img = $img->crop('50% - 50', '50% - 40', 100, 120);
-                            $img->saveToFile($foto_arquivo);
-                        }
-                        copy($foto_arquivo, $foto_arquivo_pic);
-                        $img = wiImage::load($foto_arquivo_pic);
-                        $img = $img->resize(35, 42, 'outside');
-                        $img->saveToFile($foto_arquivo_pic);
+    /*
+     *  Insere nova foto do usuario de id=$id_usuario
+     * 
+     * @param $id_usuario
+     */
+    public function inserirFotoUsuario($id_usuario){
+        if (isset($_FILES["foto"])) {
+            if ($_FILES["foto"]["name"] != '') {
+                $foto = $_FILES["foto"];
+                $tipos = array("image/jpg");
+                $pasta_dir = "img/profile/";
+                if (!in_array($foto['type'], $tipos)) {
+                    $foto_nome = $pasta_dir . $id_usuario . ".jpg";
+                    move_uploaded_file($foto["tmp_name"], $foto_nome);
+                    $foto_arquivo = "img/profile/" . $id_usuario . ".jpg";
+                    $foto_arquivo_pic = "img/profile/pic/" . $id_usuario . ".jpg";
+                    list($altura, $largura) = getimagesize($foto_arquivo);
+                    if ($altura > 120 && $largura > 100) {
+                        $img = wiImage::load($foto_arquivo);
+                        $img = $img->resize(150, 170, 'outside');
+                        $img = $img->crop('50% - 50', '50% - 40', 100, 120);
+                        $img->saveToFile($foto_arquivo);
                     }
+                    copy($foto_arquivo, $foto_arquivo_pic);
+                    $img = wiImage::load($foto_arquivo_pic);
+                    $img = $img->resize(35, 42, 'outside');
+                    $img->saveToFile($foto_arquivo_pic);
                 }
             }
+        }
+        
+    }
+
+    /*
+     * @param $user - objeto do tipo Usuario
+     * @param $end - objeto do tipo Endereco
+     * 
+     * @return String - msg de erro
+     */
+    public function novoUsuario(Usuario $user = null, Endereco $end = null) {
+        if ($user != null && $end != null) {
+            $dao = new UsuarioDAO();
+            $dao->insert($user, $end);
+        } else {
+            return 'ERRO: funcao novoUsuario - [controllerUsuario]';
         }
     }
 
     /*
      * Insere novo usuario a partir da página inicial do sistema: index.php     
-     */
+     */   
 
-    public function novoUsuario_index() {
+    public function atualizarUsuario_admin($id_usuario) {
         if (!empty($_POST)) {
-            $this->usuario = new Usuario();
-            $this->end = new Endereco();
+            $this->usuario = $this->getUsuario("id_usuario=" . $id_usuario);
+            $this->end = $this->getEndereco_usuario($id_usuario);
             foreach ($_POST as $k => $v) {
                 if (stristr($k, '_')) {
                     $chave_endereco = explode('_', $k);
@@ -121,82 +156,17 @@ class controllerUsuario {
                         }
                     }
                 } else {
-                    $setAtributo = 'set' . ucfirst($k);
-                    if (method_exists($this->usuario, $setAtributo)) {
-                        $this->usuario->$setAtributo($v);
-                    }
-                }
-            }
-
-            /*
-             * usuario inserido pela pagina index sempre terá papel de estudante
-             * id_papel: 3 descrição: estudante
-             */
-            $this->usuario->setId_papel(4);
-            $dao = new UsuarioDAO();
-            $dao->insert($this->usuario, $this->end);
-            $idUsuario = $dao->select("email='" . $this->usuario->getEmail() . "'");
-            $idUsuario = $idUsuario[0]->getId_usuario();
-
-            //Inserção da foto
-            if (isset($_FILES["foto"])) {
-                if ($_FILES["foto"]["name"] != '') {
-                    $foto = $_FILES["foto"];
-                    $tipos = array("image/jpg");
-                    $pasta_dir = "img/profile/";
-                    if (!in_array($foto['type'], $tipos)) {
-                        $foto_nome = $pasta_dir . $idUsuario . ".jpg";
-                        move_uploaded_file($foto["tmp_name"], $foto_nome);
-                        $foto_arquivo = "img/profile/" . $idUsuario . ".jpg";
-                        $foto_arquivo_pic = "img/profile/pic/" . $idUsuario . ".jpg";
-                        list($altura, $largura) = getimagesize($foto_arquivo);
-                        if ($altura > 120 && $largura > 100) {
-                            $img = wiImage::load($foto_arquivo);
-                            $img = $img->resize(150, 170, 'outside');
-                            $img = $img->crop('50% - 50', '50% - 40', 100, 120);
-                            $img->saveToFile($foto_arquivo);
-                        }
-                        copy($foto_arquivo, $foto_arquivo_pic);
-                        $img = wiImage::load($foto_arquivo_pic);
-                        $img = $img->resize(35, 42, 'outside');
-                        $img->saveToFile($foto_arquivo_pic);
-                    }
-                }
-            }
-        }
-    }
-
-    public function atualizarUsuario_admin($id_usuario) {
-        if (!empty($_POST)) {
-            $this->usuario = $this->getUsuario("id_usuario=".$id_usuario);
-            $this->end = $this->getEndereco_usuario($id_usuario);
-            foreach ($_POST as $k => $v) {                
-                if (stristr($k, '_')) {
-                    $chave_endereco = explode('_', $k);
-                    if ($chave_endereco[0] != 'endereco') {
-                        $setAtributo = 'set' . ucfirst($k);
-                        if (method_exists($this->usuario, $setAtributo)) {
-                            $this->usuario->$setAtributo($v);
-                        }
-                    } else {
-                        $setAtributo = 'set' . ucfirst($chave_endereco[1]);
-                        if (method_exists($this->end, $setAtributo)) {
-                            $this->end->$setAtributo($v);
-                        }
-                    }
-                } else {
-                    if($k != 'senha' || ($k == 'senha' && $v != '')){                        
+                    if ($k != 'senha' || ($k == 'senha' && $v != '')) {
                         $setAtributo = 'set' . ucfirst($k);
                         if (method_exists($this->usuario, $setAtributo)) {
                             $this->usuario->$setAtributo($v);
                         }
                     }
                 }
-            }            
-            
+            }
+
             //atualiza usuario
-            $dao = new UsuarioDAO();
-            $dao->update($this->usuario, $this->end);
+            $this->atualizarUsuario($this->user, $this->end);
 
             //Inserção da foto
             if (isset($_FILES["foto"])) {
@@ -224,7 +194,21 @@ class controllerUsuario {
                 }
             }
         }
-    }   
+    }
+
+    public function atualizarUsuario(Usuario $user = null, Endereco $end = null) {
+        //atualiza usuario
+        if ($user != null) {
+            $dao = new UsuarioDAO();
+            if ($end != null) {
+                $dao->update($this->usuario, $this->end);
+            } else {
+                $dao->update($this->usuario);
+            }
+        } else {
+            return 'ERRO: funcao novoUsuario - [controllerUsuario]';
+        }
+    }
 
     public function getUsuario($condicao) {
         $dao = new UsuarioDAO();
@@ -234,7 +218,7 @@ class controllerUsuario {
 
     public function getEndereco_usuario($id_usuario) {
         $this->controller = new controllerEndereco();
-        return $this->controller->getEndereco("id_usuario=".$id_usuario);        
+        return $this->controller->getEndereco("id_usuario=" . $id_usuario);
     }
 
     /*
@@ -277,14 +261,14 @@ class controllerUsuario {
             return 3;
         }
     }
-    
+
     /*
      * FIM FUNÇOES CRUD
      * 
      * FUNÇOES DE MANIPULAÇÃO (criação html com objeto usuario)
      * 
      */
-    
+
     public function tabelaUsuarios() {
         $tabela = "<table id='tabela_usuarios' width='100%' align='center'>
          <thead> 
@@ -304,7 +288,7 @@ class controllerUsuario {
         $this->usuarios = $usuarioDAO->select(null);
         $quant = count($this->usuarios);
         $i = 0;
-        for (; $i < $quant; $i++) {
+        for (; $i < $quant; $i++) {            
             $tabela .= "<tr id=tabela_linha" . $this->usuarios[$i]->getId_usuario() . ">";
             $tabela .= "<td width='55%' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
             $papel = $papelDAO->select("id_papel=" . $this->usuarios[$i]->getId_papel());

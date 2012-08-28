@@ -7,7 +7,28 @@
 <script>
     $(document).ready(function(){
         $("#recuperarSenha").validationEngine();
+        $('#button_enviar').click(function(){
+            //alert('oi');
+            ajax_enviarEmail($('#email'), $('#cpf_passaporte'));
+        });
+    
+        function ajax_enviarEmail(email, cpf_passaporte){
+            $.getJSON('ajax/enviarEmail.php?search=',{
+                email: email.val(),
+                cpf_passaporte: cpf_passaporte.val(), 
+                ajax: 'true'
+            }, function(j){
+                if(j == 1){
+                    alert("DEU CERTO");
+                }else{
+                    alert("NÃO DEU CERTO");
+                }
+            });
+        }
+       
     });
+
+    
 </script>
 <div id="form_recuperarSenha">
     <form id="recuperarSenha" name="form_recuperarSenha" method="post" action="">
@@ -41,7 +62,7 @@
             </table>
         </fieldset>
         <br>
-        <input type="submit" id="button_enviar" name="button_enviar" value="Enviar" class="button"/>
+        <input type="button" id="button_enviar" name="button_enviar" value="Enviar" class="button"/>
     </form>
 </div>
 <?php // require 'structure/content_down.php'; ?>

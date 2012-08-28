@@ -12,22 +12,26 @@
  */
 class Usuario {
 
-    private $id_usuario;
-    private $login;
-    private $senha;
+    private $id_usuario = '';
+    private $login = '';
+    private $senha = '';
     //papel: chave estrangeira        
-    private $id_papel;
-    private $nome_completo;
-    private $data_nascimento;
-    private $cpf_passaporte;
-    private $rg;
-    private $id_profissional;
-    private $atuacao;
-    private $descricao_pessoal;
-    private $sexo;
-    private $tel_principal;
-    private $tel_secundario;
-    private $email;       
+    private $id_papel = '';
+    private $nome_completo = '';
+    private $data_nascimento = '';
+    private $cpf_passaporte = '';
+    private $rg = '';
+    private $id_profissional = '';
+    private $atuacao = '';
+    private $descricao_pessoal = '';
+    private $sexo = '';
+    private $tel_principal = '';
+    private $tel_secundario = '';
+    private $email = '';     
+    
+    public function Usuario(){
+        
+    }
 
     public function getId_usuario() {
         return $this->id_usuario;
