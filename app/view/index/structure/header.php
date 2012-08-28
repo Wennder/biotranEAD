@@ -6,16 +6,6 @@
         <script src="js/login.js" type="text/javascript"></script>  
         <script src="js/jqFancyTransitions.1.8.js" type="text/javascript"></script>
         <link rel='stylesheet' href='css/style.css' />
-        <script>
-            function mostrarErro(){
-                if($("#i_errorlogin") == 1){
-                   $("errorlogin").show();
-                }
-                else{
-                    $("errorlogin").hide();
-                }
-            }
-        </script>
     </head>
     <body>
         <div id="eadbiotran">
@@ -48,8 +38,12 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3">
-                                        <div id="errorlogin" style="display: none;"><label>Usuário e/ou senha inválidos, tente novamente.</label></div>
-                                        <div style="display: none;"><input type="text" id="i_errorlogin" value="<?php // echo $this->invalidado; ?>" /></div>
+                                        <div id="recuperar_senha" style=""><label>Esqueceu sua senha? <a href="index.php?c=index&a=recuperar_senha">Clique aqui</a></label></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div id="errorlogin" style="display: none;"><label>Usuário ou senha inválidos, tente novamente.</label></div>
                                     </td>
                                 </tr>
                             </table>
