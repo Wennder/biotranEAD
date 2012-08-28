@@ -15,8 +15,7 @@ class Usuario {
     private $id_usuario;
     private $login;
     private $senha;
-    //papel: chave estrangeira    
-    //private $id_papel;
+    //papel: chave estrangeira        
     private $id_papel;
     private $nome_completo;
     private $data_nascimento;
@@ -28,7 +27,7 @@ class Usuario {
     private $sexo;
     private $tel_principal;
     private $tel_secundario;
-    private $email;
+    private $email;       
 
     public function getId_usuario() {
         return $this->id_usuario;
@@ -63,7 +62,7 @@ class Usuario {
     }
 
     public function getNome_completo() {
-        return utf8_encode($this->nome_completo);
+        return $this->nome_completo;
     }
 
     public function setNome_completo($nome_completo) {
@@ -103,15 +102,15 @@ class Usuario {
     }
 
     public function getAtuacao() {
-        return utf8_encode($this->atuacao);
+        return $this->atuacao;
     }
 
     public function setAtuacao($atuacao) {
-        $this->atuacao = utf8_decode($atuacao);
+        $this->atuacao = $atuacao;
     }
 
     public function getDescricao_pessoal() {
-        return utf8_encode($this->descricao_pessoal);
+        return $this->descricao_pessoal;
     }
 
     public function setDescricao_pessoal($descricao_pessoal) {

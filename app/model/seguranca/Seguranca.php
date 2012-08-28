@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -35,7 +34,7 @@ class Seguranca {
         $this->usuarioDao = new UsuarioDAO();
         $this->user = new Usuario();
         $this->user = $this->usuarioDao->select("login='" . $login."'");  
-        if($this->user != null){                        
+        if($this->user != null){           
             $this->user = $this->user[0];
             return true;
         }else{//usuario nao cadastrado no banco de dados
@@ -50,7 +49,7 @@ class Seguranca {
             if ($this->user->getSenha() == $senha) {
                 $this->iniciarSessao();          
                 return 'validado';
-            } else {
+            } else {                
                 return'invalidado';
             }
         }
@@ -59,7 +58,8 @@ class Seguranca {
     
     public function expulsar(){
         unset($_SESSION['usuarioLogado']);
-        //envia para página de expulsao
+        //envia para página inicial
+        header("Location: http://localhost/biotranEAD/public/index.php");
     }
     
     public function isPapel_pagina($pagina) {        
@@ -73,6 +73,7 @@ class Seguranca {
             return 1;
         }return 0;
     }
+        
 
 }
 

@@ -143,6 +143,7 @@ class Biotran_Mvc {
                 $this->executarAcao();
             }
         } else {
+            //segurança
             $this->validarAcessoUsuario();
             $this->executarAcao();
         }

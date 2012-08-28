@@ -17,7 +17,7 @@ class Endereco {
     private $complemento;    
     private $bairro;    
     private $cidade;    
-    private $id_usuario;    
+    private $id_usuario;            
     
     public function getId_endereco_usuario() {
         return $this->id_endereco_usuario;

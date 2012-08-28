@@ -15,10 +15,13 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->titulo = "Gerenciar Usuários";
 
         $this->controller = new controllerUsuario();
+        
         //Pega a id passa na url e monta o objeto buscando os dados no banco
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
-            $this->visao->usuario = $this->controller->getUsuario("id_usuario=" . $id_usuario . "");
+            $this->visao->usuario = $this->controller->getUsuario("id_usuario=" . $id_usuario . "");            
+//            $this->controller = new ControllerSeguranca();
+//            $this->controller->actionEnviarSenhaEmail($this->visao->usuario);            
             $this->visao->endereco = $this->controller->getEndereco_usuario($id_usuario);
         } else {
             $this->visao->usuario = null;

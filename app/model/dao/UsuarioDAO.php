@@ -110,7 +110,7 @@ class UsuarioDAO extends PDOConnectionFactory {
             }
             if($i==0){
                 $usuario = null;
-            }
+            }            
             return $usuario;
         } catch (PDOException $ex) {
             return "erro: ".$ex;

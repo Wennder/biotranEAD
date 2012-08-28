@@ -14,6 +14,7 @@ class controllerUsuario {
 
     private $usuario;
     private $end;
+    private $controller;
 
     public function validarLoginCadastro($login) {
         $user = $this->getUsuario("login='" . $login . "'");
@@ -168,7 +169,7 @@ class controllerUsuario {
         if (!empty($_POST)) {
             $this->usuario = $this->getUsuario("id_usuario=".$id_usuario);
             $this->end = $this->getEndereco_usuario($id_usuario);
-            foreach ($_POST as $k => $v) {
+            foreach ($_POST as $k => $v) {                
                 if (stristr($k, '_')) {
                     $chave_endereco = explode('_', $k);
                     if ($chave_endereco[0] != 'endereco') {
@@ -190,9 +191,8 @@ class controllerUsuario {
                         }
                     }
                 }
-            }            
-//            echo ($_POST["atuacao"]); die();
-            echo ($this->usuario->getAtuacao()); die();
+            }                        
+            
             //atualiza usuario
             $dao = new UsuarioDAO();
             $dao->update($this->usuario, $this->end);
@@ -223,44 +223,7 @@ class controllerUsuario {
                 }
             }
         }
-    }
-
-    public function tabelaUsuarios() {
-        $tabela = "<table id='tabela_usuarios' width='100%' align='center'>
-         <thead> 
-                <tr> 
-                    <th>Nome</th> 
-                    <th>Permissão</th> 
-                    <th>Atuação</th> 
-                    <th></th> 
-                    <th></th> 
-                    <th></th> 
-                </tr> 
-            </thead> 
-            <tbody>";
-        $tabela = $tabela;
-        $usuarioDAO = new UsuarioDAO();
-        $papelDAO = new PapelDAO();
-        $this->usuarios = $usuarioDAO->select(null);
-        $quant = count($this->usuarios);
-        $i = 0;
-        for (; $i < $quant; $i++) {
-            $tabela .= "<tr id=tabela_linha" . $this->usuarios[$i]->getId_usuario() . ">";
-            $tabela .= "<td width='55%' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
-            $papel = $papelDAO->select("id_papel=" . $this->usuarios[$i]->getId_papel());
-            $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";
-            $tabela .= "<td width='15%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
-            $tabela .= "<td width='5%' id='b_visualizar' align='center'>
-                <input type='button' title='Visualizar dados do Usuário' id='b_vis-" . $this->usuarios[$i]->getId_usuario() . "' value='' onclick='visualizarUsuario(this.id);' class='botaoVisualizar' /> </td>";
-            $tabela .= "<td width='5%' id='b_editar' align='center'>
-                <input type='button' title='Editar dados do Usuário' id='b_edt-" . $this->usuarios[$i]->getId_usuario() . "' value='' onclick='editarUsuario(this.id);' class='botaoEditar' /> </td>";
-            $tabela .= "<td width='5%' id='b_excluir' align='center'>
-                <input type='button' title='Excluir Usuário' id='b_exc-" . $this->usuarios[$i]->getId_usuario() . "' value='' onclick='removerUsuario(this.id);' class='botaoExcluir' /> </td>";
-            $tabela .= "</tr>";
-        }
-        $tabela .= "</tbody></table>";
-        return $tabela;
-    }
+    }   
 
     public function getUsuario($condicao) {
         $dao = new UsuarioDAO();
@@ -269,9 +232,8 @@ class controllerUsuario {
     }
 
     public function getEndereco_usuario($id_usuario) {
-        $dao = new EnderecoDAO();
-        $end = $dao->select("id_usuario=".$id_usuario);
-        return $end[0];
+        $this->controller = new controllerEndereco();
+        return $this->controller->getEndereco("id_usuario=".$id_usuario);        
     }
 
     /*
@@ -313,6 +275,50 @@ class controllerUsuario {
         }else {
             return 3;
         }
+    }
+    
+    /*
+     * FIM FUNÇOES CRUD
+     * 
+     * FUNÇOES DE MANIPULAÇÃO (criação html com objeto usuario)
+     * 
+     */
+    
+    public function tabelaUsuarios() {
+        $tabela = "<table id='tabela_usuarios' width='100%' align='center'>
+         <thead> 
+                <tr> 
+                    <th>Nome</th> 
+                    <th>Permissão</th> 
+                    <th>Atuação</th> 
+                    <th></th> 
+                    <th></th> 
+                    <th></th> 
+                </tr> 
+            </thead> 
+            <tbody>";
+        $tabela = $tabela;
+        $usuarioDAO = new UsuarioDAO();
+        $papelDAO = new PapelDAO();
+        $this->usuarios = $usuarioDAO->select(null);
+        $quant = count($this->usuarios);
+        $i = 0;
+        for (; $i < $quant; $i++) {
+            $tabela .= "<tr id=tabela_linha" . $this->usuarios[$i]->getId_usuario() . ">";
+            $tabela .= "<td width='55%' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
+            $papel = $papelDAO->select("id_papel=" . $this->usuarios[$i]->getId_papel());
+            $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";
+            $tabela .= "<td width='15%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
+            $tabela .= "<td width='5%' id='b_visualizar' align='center'>
+                <input type='button' title='Visualizar dados do Usuário' id='b_vis-" . $this->usuarios[$i]->getId_usuario() . "' value='' onclick='visualizarUsuario(this.id);' class='botaoVisualizar' /> </td>";
+            $tabela .= "<td width='5%' id='b_editar' align='center'>
+                <input type='button' title='Editar dados do Usuário' id='b_edt-" . $this->usuarios[$i]->getId_usuario() . "' value='' onclick='editarUsuario(this.id);' class='botaoEditar' /> </td>";
+            $tabela .= "<td width='5%' id='b_excluir' align='center'>
+                <input type='button' title='Excluir Usuário' id='b_exc-" . $this->usuarios[$i]->getId_usuario() . "' value='' onclick='removerUsuario(this.id);' class='botaoExcluir' /> </td>";
+            $tabela .= "</tr>";
+        }
+        $tabela .= "</tbody></table>";
+        return $tabela;
     }
 
 }
