@@ -10,9 +10,9 @@ class Curso_professorDAO extends PDOConnectionFactory {
     
     public function insert(Curso_professor $curso_professor) {
         try {            
-            $stmt = $this->conex->prepare("INSERT INTO curso_usuario (id_curso, id_usuario) VALUES (?,?)");
-            $stmt->bindValue(1, $curso_professor->getId_usuario());
-            $stmt->bindValue(2, $curso_professor->getId_curso());
+            $stmt = $this->conex->prepare("INSERT INTO curso_professor (id_curso, id_usuario) VALUES (?,?)");
+            $stmt->bindValue(1, $curso_professor->getId_curso());
+            $stmt->bindValue(2, $curso_professor->getId_usuario());
 
             $stmt->execute();
             $stmt->conex = null;

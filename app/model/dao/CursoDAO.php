@@ -23,8 +23,8 @@ class CursoDAO extends PDOConnectionFactory{
             //inserindo professores do curso no banco                        
             $buscaId = $this->select("nome='". $curso->getNome() ."'");
             $curso_professorDAO = new Curso_professorDAO();
-            for($i = 0; $i < count($curso_professor); $i++){
-                $curso_professor[$i]->setId_usuario($buscaId[0]->getId_curso());
+            for($i = 0; $i < count($curso_professor); $i++){                
+                $curso_professor[$i]->setId_curso($buscaId[0]->getId_curso());
                 $curso_professorDAO->insert($curso_professor[$i]);
             }
             
@@ -65,21 +65,13 @@ class CursoDAO extends PDOConnectionFactory{
         }
     }
 
-    public function select($selecao = null, $condicao = null) {
+    public function select($condicao = null) {
         try {
             $stmt = null;
-            if ($selecao == null) {
-                if($condicao == null){
-                    $stmt = $this->conex->query("SELECT * FROM curso");                    
-                }else{
-                    $stmt = $this->conex->query("SELECT * FROM curso WHERE ". $condicao);
-                }
+            if ($condicao == null) {
+                $stmt = $this->conex->query("SELECT * FROM curso");
             } else {
-                if ($condicao == null) {
-                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM curso");
-                }else{
-                    $stmt = $this->conex->query("SELECT " . $selecao . " FROM curso WHERE " . $condicao);
-                }
+                $stmt = $this->conex->query("SELECT * FROM curso WHERE " . $condicao);
             }
             $curso = array();                                   
             for ($i = 0; $i < $stmt->rowCount(); $i++){
@@ -87,7 +79,7 @@ class CursoDAO extends PDOConnectionFactory{
             }
             if($i==0){
                 $curso = null;
-            }
+            }            
             return $curso;
         } catch (PDOException $ex) {
             echo "Erro: ". $ex->getMessage();

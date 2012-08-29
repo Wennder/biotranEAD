@@ -53,8 +53,8 @@ class UsuarioDAO extends PDOConnectionFactory {
     }
 
     public function update(Usuario $user = null, Endereco $end = null) {
-        try {
-            if($user != null){                
+        try {                
+            if($user != null){   
                 $stmt = $this->conex->prepare("UPDATE usuario SET login=?, senha=?, id_papel=?, nome_completo=?, 
                 data_nascimento=?, cpf_passaporte=?, rg=?, id_profissional=?, atuacao=?, descricao_pessoal=?, sexo=?, tel_principal=?, tel_secundario=?, email=? WHERE id_usuario=?");
                 $stmt->bindValue(1, $user->getEmail());
@@ -72,8 +72,7 @@ class UsuarioDAO extends PDOConnectionFactory {
                 $stmt->bindValue(13, $user->getTel_secundario());
                 $stmt->bindValue(14, $user->getEmail());
                 $stmt->bindValue(15, $user->getId_usuario());
-                $stmt->execute();
-
+                $stmt->execute();                
                 if ($end != null) {
                     $dao = new EnderecoDAO();
                     $dao->update($end);

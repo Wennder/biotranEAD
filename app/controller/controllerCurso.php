@@ -19,11 +19,11 @@ class controllerCurso {
             $this->curso = new Curso();
             $this->curso_professor = array();
             foreach ($_POST as $k => $v) {
-                if ($k == "professores") {
+                if ($k == "professores") {                    
                     $professores = $v;
                     for($i = 0; $i < count($professores); $i++){
                         $this->curso_professor[$i] = new Curso_professor();
-                        $this->curso_professor[$i]->setId_usuario($professores[$i]);
+                        $this->curso_professor[$i]->setId_usuario($professores[$i]);                        
                     }
                 } else {
                     $setAtributo = 'set' . ucfirst($k);
@@ -52,8 +52,8 @@ class controllerCurso {
                         list($altura, $largura) = getimagesize($imagem_arquivo);
                         if ($altura > 180 && $largura > 240) {
                             $img = wiImage::load($imagem_arquivo);
-                            $img = $img->resize(230, 290, 'outside');
-                            $img = $img->crop('50% - 50', '50% - 40', 180, 240);
+                            $img = $img->resize(290, 230, 'outside');
+                            $img = $img->crop('50% - 50', '50% - 40', 240, 180);
                             $img->saveToFile($imagem_arquivo);
                         }
                     }

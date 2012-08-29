@@ -190,9 +190,9 @@ class controllerUsuario {
         if ($user != null) {
             $dao = new UsuarioDAO();
             if ($end != null) {
-                $dao->update($this->usuario, $this->end);
-            } else {
-                $dao->update($this->usuario);
+                $dao->update($user, $end);
+            } else {                
+                $dao->update($user);
             }
         } else {
             return 'ERRO: funcao novoUsuario - [controllerUsuario]';
