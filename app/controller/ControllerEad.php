@@ -72,7 +72,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
     
     public function actionCadastrar_curso() {
         $this->controller = new controllerCurso();
-        $this->controller->novoCurso();
+        $this->controller->novoCurso_post();
         Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_cursos');
         $this->renderizar();
     }
