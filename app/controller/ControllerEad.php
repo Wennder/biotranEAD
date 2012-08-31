@@ -34,18 +34,18 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerUsuario();
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
-            $this->controller->atualizarUsuario_admin($id_usuario);           
+            $this->controller->atualizarUsuario_post($id_usuario);
         }
         Biotran_Mvc::pegarInstancia()->mudarAcao('index');
 //        $this->visao->tabela = $this->controller->tabelaUsuarios();
         $this->renderizar();
     }
 
-    public function actionAtualizar_cadastro_admin() {
+    public function actionAtualizar_cadastro_admin(){
         $this->controller = new controllerUsuario();
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
-            $this->controller->atualizarUsuario_admin($id_usuario);
+            $this->controller->atualizarUsuario_post($id_usuario);
             Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
         }
 

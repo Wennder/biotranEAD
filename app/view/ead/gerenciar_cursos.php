@@ -174,7 +174,7 @@ if (isset($this->curso)) {
                             ?>
                             <li>
                                 <select id="professores" name="professores[]" class="validate[required]" data-prompt-position="centerRight">
-                                    <?php echo $this->options; ?>
+                                    '.$this->options.'
                                 </select>
                             </li>
                         </ul>

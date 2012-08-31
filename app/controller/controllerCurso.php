@@ -176,15 +176,19 @@ class controllerCurso {
         return $tabela;
     }
     
-    public function optionsProfessores($idCurso = null){
-//        $dao = new Curso_professorDAO();
+    public function optionsProfessores(){
         $dao = new UsuarioDAO();
-//        $professores = $dao->selectProfessores($idCurso);
-        $professores = $dao->selectProfessores();
+        $todos_professores = $dao->selectProfessores();
+//        $professores_curso = $this->getProfesores(); //Professores do curso
         $options = "<option value=''></option>";
-        foreach ($professores as $professor){
-            $options .= "<option value='".$professor->getId_usuario()."'>".$professor->getNome_completo()."</option>";
-        }
+        foreach ($todos_professores as $professor){
+//            if($professor->getId_usuario() == $professores_curso->getId_usuario()){
+//                $options .= "<option selected='selected' value='".$professor->getId_usuario()."'>".$professor->getNome_completo()."</option>";
+//            }
+//            else{
+                $options .= "<option value='".$professor->getId_usuario()."'>".$professor->getNome_completo()."</option>";
+            }
+//        }
         return $options;
     }
     
