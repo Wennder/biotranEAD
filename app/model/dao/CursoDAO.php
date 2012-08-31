@@ -10,6 +10,7 @@ class CursoDAO extends PDOConnectionFactory{
 
     public function insert(Curso $curso, Array $curso_professor) {
         try {
+            $this->conex->exec("SET NAMES 'utf8'");
             $stmt = $this->conex->prepare("INSERT INTO curso(id_curso, nome, descricao, tempo, gratuito, valor) VALUES (?,?,?,?,?,?)");
             $stmt->bindValue(1, $curso->getId_curso());
             $stmt->bindValue(2, $curso->getNome());
@@ -34,17 +35,25 @@ class CursoDAO extends PDOConnectionFactory{
         }
     }
 
-    public function update(Curso $curso, $condicao) {
+    public function update(Curso $curso = null, Curso_professor $cp = null) {
         try {
-            $stmt = $this->conex->prepare("UPDATE curso SET id_curso=?, nome=?, descricao=?, tempo=?, gratuito=?, valor=? WHERE id=?");
-            $stmt->bindValue(1, $curso->getId_curso());
-            $stmt->bindValue(2, $curso->getNome());
-            $stmt->bindValue(3, $curso->getDescricao());
-            $stmt->bindValue(4, $curso->getTempo());
-            $stmt->bindValue(5, $curso->getGratuito());
-            $stmt->bindValue(6, $curso->getValor());
-            $stmt->bindValue(7, $condicao);
-            $stmt->execute();
+            if($curso != null){
+                $this->conex->exec("SET NAMES 'utf8'");
+                $stmt = $this->conex->prepare("UPDATE curso SET id_curso=?, nome=?, descricao=?, tempo=?, gratuito=?, valor=? WHERE id_curso=?");
+                $stmt->bindValue(1, $curso->getId_curso());
+                $stmt->bindValue(2, $curso->getNome());
+                $stmt->bindValue(3, $curso->getDescricao());
+                $stmt->bindValue(4, $curso->getTempo());
+                $stmt->bindValue(5, $curso->getGratuito());
+                $stmt->bindValue(6, $curso->getValor());
+                $stmt->bindValue(7, $curso->getId_curso());
+                $stmt->execute();
+                if($cp != null){
+                    $dao = new Curso_professorDAO();
+                    $dao->update($cp);
+                }                
+                
+            }
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
         }

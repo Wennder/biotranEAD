@@ -10,6 +10,7 @@ class PapelDAO extends PDOConnectionFactory {
 
     public function insert(Papel $papel) {
         try {
+            $this->conex->exec("SET NAMES 'utf8'");
             $stmt = $this->conex->prepare("INSERT INTO papel(id_papel, papel) VALUES (?,?)");
             $stmt->bindValue(1, $papel->getId_papel());
             $stmt->bindValue(2, $papel->getPapel());
@@ -23,7 +24,8 @@ class PapelDAO extends PDOConnectionFactory {
 
     public function update(Papel $papel, $condicao) {
         try {
-            $stmt = $this->conex->prepare("UPDATE papel SET id_papel=?, papel=? WHERE id=?");
+            $this->conex->exec("SET NAMES 'utf8'");
+            $stmt = $this->conex->prepare("UPDATE papel SET id_papel=?, papel=? WHERE id_papel=?");
             $stmt->bindValue(1, $papel->getId_papel());
             $stmt->bindValue(2, $papel->getPapel());
             $stmt->bindValue(7, $condicao);

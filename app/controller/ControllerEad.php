@@ -4,8 +4,6 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     private $controller;
 
-    
-
     public function actionIndex() {
         $this->visao->usuarioLogado = $_SESSION['usuarioLogado'];
         $this->renderizar();
@@ -15,11 +13,11 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->titulo = "Gerenciar Usuários";
 
         $this->controller = new controllerUsuario();
-        
+
         //Pega a id passa na url e monta o objeto buscando os dados no banco
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
-            $this->visao->usuario = $this->controller->getUsuario("id_usuario=" . $id_usuario . "");            
+            $this->visao->usuario = $this->controller->getUsuario("id_usuario=" . $id_usuario . "");
             $this->visao->endereco = $this->controller->getEndereco_usuario($id_usuario);
         } else {
             $this->visao->usuario = null;
@@ -70,7 +68,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->professores = $this->controller->getProfessores();
         $this->renderizar();
     }
-    
+
     public function actionCadastrar_curso() {
         $this->controller = new controllerCurso();
         $this->controller->novoCurso_post();
@@ -80,10 +78,14 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionCadastrar_usuario() {
         $this->controller = new controllerUsuario();
-        $this->controller->inserirNovoUsuario_post();
-        Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
-        $this->renderizar();
-//        $this->actionGerenciar_usuarios();
+        if ($this->controller->validarLoginCadastro($_POST["email"])) {
+            $this->controller->inserirNovoUsuario_post();
+            Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
+            $this->renderizar();
+//          $this->actionGerenciar_usuarios();
+        }else{
+            //redirecionar página,TRATAR LOGIN sei lá.
+        }                            
     }
 
     public function actionDados_pessoais() {

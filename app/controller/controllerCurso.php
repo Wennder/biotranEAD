@@ -87,9 +87,13 @@ class controllerCurso {
      * @return Array - de usuarios(professor) responsaveis
      */
     public function getListaCurso_professor($id_curso){
-        
+        $this->controller = new controllerCurso_professor();
+        return $this->controller->getListaCurso_professor("id_curso_professor = ".$id_curso);        
     }
-
+    
+    /*
+     * insere novo curso via formulário post
+     */
     public function novoCurso_post() {
         //seta as variaveis $this->curso e $this->cp
         $this->setCurso_post();        
@@ -139,7 +143,6 @@ class controllerCurso {
      * FIM: FUNÇÕES DE CRUD
      * INICIO: FUNÇÕES AUXILIARES (geração de documento em html e funções de suporte)
      */
-
     public function tabelaCursos() {
         $tabela = "<table id='tabela_cursos' width='100%' align='center'>
          <thead> 

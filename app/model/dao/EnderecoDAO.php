@@ -11,7 +11,8 @@ class EnderecoDAO extends PDOConnectionFactory{
 
     public function insert(Endereco $endereco) {
         try {            
-            $stmt = $this->conex->prepare("INSERT INTO endereco_usuario(rua, numero, complemento, bairro, cidade, pais, estado, id_usuario) VALUES (?,?,?,?,?,?,?,?)");
+            $this->conex->exec("SET NAMES 'utf8'");
+            $stmt = $this->conex->prepare("INSERT INTO endereco_usuario(rua, numero, complemento, bairro, cidade, id_usuario) VALUES (?,?,?,?,?,?)");
             $stmt->bindValue(1, $endereco->getRua());
             $stmt->bindValue(2, $endereco->getNumero());
             $stmt->bindValue(3, $endereco->getComplemento());
@@ -30,7 +31,8 @@ class EnderecoDAO extends PDOConnectionFactory{
 
     public function update(Endereco $endereco) {
         try {
-            $stmt = $this->conex->prepare("UPDATE endereco_usuario SET rua=?, numero=?, complemento=?, bairro=?, cidade=?, pais=?, estado=?, id_usuario=? WHERE id_endereco_usuario=?");
+            $this->conex->exec("SET NAMES 'utf8'");
+            $stmt = $this->conex->prepare("UPDATE endereco_usuario SET rua=?, numero=?, complemento=?, bairro=?, cidade=?, id_usuario=? WHERE id_endereco_usuario=?");
             $stmt->bindValue(1, $endereco->getRua());
             $stmt->bindValue(2, $endereco->getNumero());
             $stmt->bindValue(3, $endereco->getComplemento());
