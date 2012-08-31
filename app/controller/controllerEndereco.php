@@ -39,7 +39,7 @@ class controllerEndereco {
      */
 
     public function getListaEndereco($condicao) {
-        $dao = new UsuarioDAO();
+        $dao = new EnderecoDAO();
         $end = $dao->select($condicao);
         return $end;
     }

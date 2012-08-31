@@ -11,6 +11,7 @@
  * @author cead-p057007
  */
 class controllerCurso_professor {
+    
     /*
      * Retorna apenas um cpereco de acordo com a condicao da query.
      * Se houver mais de um registro em banco, apenas o primeiro sera retornado
@@ -19,7 +20,6 @@ class controllerCurso_professor {
      * 
      * @return Objeto cpereco encontrado, ou o primeiro da lista
      */
-
     public function getCurso_professor($condicao) {
         $dao = new Curso_professorDAO();
         $cp = $dao->select($condicao);
@@ -36,9 +36,8 @@ class controllerCurso_professor {
      * @param string $condicao
      * @return array de objetos curso_professor encontrado
      */
-
     public function getListaCurso_professor($condicao) {
-        $dao = new UsuarioDAO();
+        $dao = new Curso_professorDAODAO();
         $cp = $dao->select($condicao);
         return $cp;
     }
@@ -48,7 +47,6 @@ class controllerCurso_professor {
      *      
      * @return array de objetos com todos os usuarios
      */
-
     public function getAllCurso_professor() {
         $dao = new Curso_professorDAO();
         $cp = $dao->select();

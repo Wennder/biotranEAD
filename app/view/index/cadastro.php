@@ -9,6 +9,19 @@
         $("#cadastro").validationEngine();
     });
     
+    function validaLogin_ajax(){        
+        $.getJSON('ajax/validarLoginCadastro.php?search=',{
+            login: $('#email').val(),                         
+            ajax: 'true'
+        }, function(j){
+            //usuario validado         
+            if(j == 0){
+                alert('Esse login não pode ser utilizado');                                
+                $('#email').val('');
+            }
+        });                    
+    }
+    
     function mascara_data(src){
         var mask = '##/##/####';
         var i = src.value.length;
@@ -135,7 +148,7 @@
                         <label class="label_cadastro">*E-mail (login): </label>
                     </td>
                     <td style="width: 500px;">
-                        <input type="text" id="email" name="email"  class="validate[required, custom[email]] text-input" data-prompt-position="centerRight"/>
+                        <input type="text" id="email" name="email"  class="validate[required, custom[email]] text-input" onblur="validaLogin_ajax()" data-prompt-position="centerRight"/>
                     </td>
                 </tr>
                 <tr>

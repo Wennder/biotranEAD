@@ -23,6 +23,7 @@ class Curso_professorDAO extends PDOConnectionFactory {
 
     public function select($idCurso, $idUsuario) {
         try {
+            $this->conex->exec("SET NAMES 'utf8'");
             $stmt = $this->conex->query("SELECT * FROM curso_professor WHERE id_curso=" . $idCurso . " AND id_usuario=" . $idUsuario . "");
             if ($stmt->rowCount() == 1) {
                 return 1;
@@ -30,6 +31,41 @@ class Curso_professorDAO extends PDOConnectionFactory {
                 return 0;
         } catch (PDOException $ex) {
             return "erro: " . $ex;
+        }
+    }
+    
+    public function update(Curso_professor $cp = null) {
+        try {
+            if($cp != null){
+                $this->conex->exec("SET NAMES 'utf8'");
+                $stmt = $this->conex->prepare("UPDATE curso_professor SET id_curso=?, id_usuario=? WHERE id_curso_professor=?");
+                $stmt->bindValue(1, $cp->getId_curso());
+                $stmt->bindValue(2, $cp->getId_usuario());                
+                $stmt->bindValue(3, $cp->getId_curso_professor());
+                $stmt->execute();
+                if($cp != null){
+                    $dao = new Curso_professor();
+                    $dao->update($cp);
+                }                
+                
+            }
+        } catch (PDOException $ex) {
+            echo "Erro: " . $ex->getMessage();
+        }
+    }
+    
+    public function delete(Curso $curso) {
+        try {
+            $num = $this->conex->exec("DELETE FROM usuario WHERE id_usuario=" . $curso->getId_curso());
+            // caso seja executado ele retorna o número de rows que foram afetadas.
+            if ($num >= 1) {
+                return $num;
+            } else {
+                return 0;
+            }
+            // caso ocorra um erro, retorna o erro;
+        } catch (PDOException $ex) {
+            echo "Erro: " . $ex->getMessage();
         }
     }
 
