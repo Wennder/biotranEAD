@@ -1,14 +1,5 @@
 <?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- * Description of seguranca
- *
- * @author cead-p057007
- */
 class Seguranca {
 
     private $usuarioDao;

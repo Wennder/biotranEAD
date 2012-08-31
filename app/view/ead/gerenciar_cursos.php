@@ -44,6 +44,20 @@ if (isset($this->curso)) {
                 "sSearch": "Pesquisar"
             }
         });
+        
+        var $quantProfessores = 1;
+        var $professores = $('#combo_professores li').clone();
+        $('#add').click(function () {
+            $('#combo_professores li:last').after($professores.clone());
+            $quantProfessores++;
+        });
+        $('#remover').click(function () {
+            if($quantProfessores > 1){
+                $('#combo_professores li:last').detach();
+                $quantProfessores--;
+            }
+        });
+        
     });
    
     function mostrar(opcao){
@@ -66,7 +80,7 @@ if (isset($this->curso)) {
         var mask = '##/##/####';
         var i = src.value.length;
         var saida = mask.substring(0,1);
-        var texto = mask.substring(i);              
+        var texto = mask.substring(i);
         if (texto.substring(0,1) != saida)
         {
             src.value += texto.substring(0,1);
@@ -116,7 +130,7 @@ if (isset($this->curso)) {
                     </td>
                     <td>
                         <input type="text" id="tempo" name="tempo" value="<?php echo ($this->curso == null ? '' : $this->curso->getTempo()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 40px" maxlength="3"/>
-                        <label class="label_cadastro_legend">dias</label>
+                        <label class="label_cadastro_legend">dia(s)</label>
                     </td>
                 </tr>
                 <tr>
@@ -133,9 +147,9 @@ if (isset($this->curso)) {
                         <label class="label_cadastro">*Gratuito: </label>
                     </td>
                     <td>
-                        <input type="radio" name="gratuito" id="gratuitoSim" <?php echo ($this->curso == null ? '' : ($this->curso->getGratuito() == "1") ? "checked" : ""); ?> value="1" class="validate[required] radio" data-prompt-position="centerRight">
+                        <input type="radio" name="gratuito" id="gratuitoSim" <?php echo ($this->curso == null ? '' : ($this->curso->getGratuito(1) == "1") ? "checked" : ""); ?> value="1" class="validate[required] radio" data-prompt-position="centerRight">
                         <label class="label_cadastro">Sim </label>
-                        <input type="radio" name="gratuito" id="gratuitoNao" <?php echo ($this->curso == null ? '' : ($this->curso->getGratuito() == "0") ? "checked" : ""); ?> value="0" class="validate[required] radio" data-prompt-position="centerRight">
+                        <input type="radio" name="gratuito" id="gratuitoNao" <?php echo ($this->curso == null ? 'checked' : ($this->curso->getGratuito(1) == "0") ? "checked" : ""); ?> value="0" class="validate[required] radio" data-prompt-position="centerRight">
                         <label class="label_cadastro">Não </label>
                     </td>
                 </tr>
@@ -144,16 +158,36 @@ if (isset($this->curso)) {
                         <label class="label_cadastro">*Professores do curso: </label>
                     </td>
                     <td>
-                        <select id="professores" name="professores[]" multiple="multiple">
-                            <option value="33">José Silva Sauro</option>
-                            <option value="34">Mazoto Mazete Miziti</option>
-                            <option value="35">Carlos Ray Norris Jr.</option>
-                            <option value="36">Santos Dumont de Andrade</option>
-                            <option value="33">Edson Arantes do Nascimento</option>
-                            <option value="34">Eddard Stark</option>
-                            <option value="35">Caio Fernando Abreu</option>
-                        </select>
-                        <label class="label_cadastro_legend">Obs: Para mais de um pressione e segure Ctrl e selecione os demais</label>
+                        <ul id="combo_professores">
+                            <?php
+                            if ($editar == "true") {
+                                for($i = 0; $i < count($this->professores); $i++){
+                                    echo ('
+                                        <li>
+                                            <select id="professores" name="professores[]" class="validate[required]" data-prompt-position="centerRight">
+                                                '.$this->options.'
+                                            </select>
+                                        </li>
+                                    ');
+                                }
+                            }
+                            ?>
+                            <li>
+                                <select id="professores" name="professores[]" class="validate[required]" data-prompt-position="centerRight">
+                                    <?php echo $this->options; ?>
+                                </select>
+                            </li>
+                        </ul>
+                        <table>
+                            <tr>
+                                <td>
+                                    <span id="add">Adicionar Professor(a)</span>
+                                </td>
+                                <td>
+                                    <span id="remover">Remover Professor(a)</span>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -166,14 +200,14 @@ if (isset($this->curso)) {
                                 <td>
                                     <div id="imagem_curso">
                                         <img src="img/cursos/<?php
-                                        if ($this->usuario == null) {
-                                            echo '00.jpg';
-                                        } else if (file_exists('img/cursos/' . $this->curso->getId_curso() . '.jpg')) {
-                                            echo $this->curso->getId_curso() . '.jpg';
-                                        } else {
-                                            echo '00.jpg';
-                                        }
-                                        ?>" alt="" height="180" width="240" />
+                                            if ($this->curso == null) {
+                                                echo '00.jpg';
+                                            } else if (file_exists('img/cursos/' . $this->curso->getId_curso() . '.jpg')) {
+                                                echo $this->curso->getId_curso() . '.jpg';
+                                            } else {
+                                                echo '00.jpg';
+                                            }
+                                            ?>" alt="" height="180" width="240" />
                                     </div>
                                 </td>
                             </tr>
@@ -206,8 +240,8 @@ if (isset($this->curso)) {
 
 <div id="div_hidden" style="display: none;">
     <input type="text" id="i_editar" name="i_editar" value="<?php echo $editar; ?>"/>
-<!--    <input type="text" id="i_papel" name="i_papel" value="<?php // echo $this->usuario == null ? '' : $this->usuario->getId_papel(); ?>"/>
-    <input type="text" id="i_atuacao" name="i_atuacao" value="<?php // echo $this->usuario == null ? '' : $this->usuario->getAtuacao(); ?>"/>-->
+    <input type="text" id="i_professores" name="i_professores" value="<?php echo $this->professores; ?>"/>
+    <input type="text" id="i_professores_size" name="i_professores_size" value="<?php echo count($this->professores); ?>"/>
 </div>
 
 <?php require 'structure/footer.php'; ?>

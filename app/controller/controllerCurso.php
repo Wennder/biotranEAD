@@ -136,7 +136,6 @@ class controllerCurso {
                 </tr> 
             </thead> 
             <tbody>";
-        $tabela = $tabela;
         $cursoDAO = new CursoDAO();
         $this->cursos = $cursoDAO->select(null, null);
         $quant = count($this->cursos);
@@ -146,7 +145,7 @@ class controllerCurso {
             $tabela .= "<td width='59%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
             $tabela .= "<td width='7%' id='tempo' align='center'>" . $this->cursos[$i]->getTempo() . " dias</td>";
             $tabela .= "<td width='8%' id='gratuito' align='center'>" . $this->cursos[$i]->getGratuito(0) . "</td>";
-            $tabela .= "<td width='14%' id='valor' align='center'>" . $this->cursos[$i]->getValor() . "</td>";
+            $tabela .= "<td width='14%' id='valor' align='center'>R$" . $this->cursos[$i]->getValor() . "</td>";
             $tabela .= "<td width='3%' id='b_visualizar' align='center'>
                 <input type='button' title='Visualizar dados do Curso' id='b_vis-" . $this->cursos[$i]->getId_curso() . "' value='' onclick='visualizarCurso(this.id);' class='botaoVisualizar' /> </td>";
             $tabela .= "<td width='3%' id='b_editar' align='center'>
@@ -186,6 +185,24 @@ class controllerCurso {
 //        }else {
 //            return 3;
 //        }
+    }
+    
+    public function optionsProfessores($idCurso = null){
+//        $dao = new Curso_professorDAO();
+        $dao = new UsuarioDAO();
+//        $professores = $dao->selectProfessores($idCurso);
+        $professores = $dao->selectProfessores();
+        $options = "<option value=''></option>";
+        foreach ($professores as $professor){
+            $options .= "<option value='".$professor->getId_usuario()."'>".$professor->getNome_completo()."</option>";
+        }
+        return $options;
+    }
+    
+    public function getProfessores(){
+        $dao = new UsuarioDAO();
+        $professores = $dao->selectProfessores();
+        return $professores;
     }
 
 }

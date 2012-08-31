@@ -1,15 +1,5 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Usuario
- *
- * @author cead-p057007
- */
 class Usuario {
 
     private $id_usuario = '';

@@ -155,7 +155,7 @@ class controllerUsuario {
             }
 
             //atualiza usuario
-            $this->atualizarUsuario($this->user, $this->end);
+            $this->atualizarUsuario($this->usuario, $this->end);
 
             //Inserção da foto
             if (isset($_FILES["foto"])) {

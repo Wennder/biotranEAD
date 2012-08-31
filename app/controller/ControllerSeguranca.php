@@ -1,17 +1,7 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 include ROOT_PATH . '/app/model/seguranca/Seguranca.php';
 
-/**
- * Description of ControllerSeguranca
- *
- * @author cead-p057007
- */
 class ControllerSeguranca {
 
     private $papeis;

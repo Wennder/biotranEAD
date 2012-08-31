@@ -1,15 +1,6 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- * Description of EnderecoDAO
- *
- * @author cead-p057007
- */
 class EnderecoDAO extends PDOConnectionFactory{
     
     private $conex = null;
@@ -20,13 +11,15 @@ class EnderecoDAO extends PDOConnectionFactory{
 
     public function insert(Endereco $endereco) {
         try {            
-            $stmt = $this->conex->prepare("INSERT INTO endereco_usuario(rua, numero, complemento, bairro, cidade, id_usuario) VALUES (?,?,?,?,?,?)");
+            $stmt = $this->conex->prepare("INSERT INTO endereco_usuario(rua, numero, complemento, bairro, cidade, pais, estado, id_usuario) VALUES (?,?,?,?,?,?,?,?)");
             $stmt->bindValue(1, $endereco->getRua());
             $stmt->bindValue(2, $endereco->getNumero());
             $stmt->bindValue(3, $endereco->getComplemento());
             $stmt->bindValue(4, $endereco->getBairro());
             $stmt->bindValue(5, $endereco->getCidade());
-            $stmt->bindValue(6, $endereco->getId_usuario());
+            $stmt->bindValue(6, $endereco->getPais());
+            $stmt->bindValue(7, $endereco->getEstado());
+            $stmt->bindValue(8, $endereco->getId_usuario());
 
             $stmt->execute();
             $stmt->conex = null;
@@ -37,14 +30,16 @@ class EnderecoDAO extends PDOConnectionFactory{
 
     public function update(Endereco $endereco) {
         try {
-            $stmt = $this->conex->prepare("UPDATE endereco_usuario SET rua=?, numero=?, complemento=?, bairro=?, cidade=?, id_usuario=? WHERE id_endereco_usuario=?");
+            $stmt = $this->conex->prepare("UPDATE endereco_usuario SET rua=?, numero=?, complemento=?, bairro=?, cidade=?, pais=?, estado=?, id_usuario=? WHERE id_endereco_usuario=?");
             $stmt->bindValue(1, $endereco->getRua());
             $stmt->bindValue(2, $endereco->getNumero());
             $stmt->bindValue(3, $endereco->getComplemento());
             $stmt->bindValue(4, $endereco->getBairro());
             $stmt->bindValue(5, $endereco->getCidade());
-            $stmt->bindValue(6, $endereco->getId_usuario());
-            $stmt->bindValue(7, $endereco->getId_endereco_usuario());
+            $stmt->bindValue(6, $endereco->getPais());
+            $stmt->bindValue(7, $endereco->getEstado());
+            $stmt->bindValue(8, $endereco->getId_usuario());
+            $stmt->bindValue(9, $endereco->getId_endereco_usuario());
             $stmt->execute();
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();

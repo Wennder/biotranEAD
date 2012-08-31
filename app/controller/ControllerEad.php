@@ -35,10 +35,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
             $this->controller->atualizarUsuario_admin($id_usuario);           
-            Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
         }
-
-        $this->visao->tabela = $this->controller->tabelaUsuarios();
+        Biotran_Mvc::pegarInstancia()->mudarAcao('index');
+//        $this->visao->tabela = $this->controller->tabelaUsuarios();
         $this->renderizar();
     }
 
@@ -67,6 +66,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         }
         //Monta a tabela de usuários        
         $this->visao->tabela = $this->controller->tabelaCursos();
+        $this->visao->options = $this->controller->optionsProfessores($id_curso);
+        $this->visao->professores = $this->controller->getProfessores();
         $this->renderizar();
     }
     

@@ -356,3 +356,48 @@ form.form_cadastro, form.form_editar{
     height: 20px;
     width: 20px;
 }
+
+#combo_professores li, #add, #remover{
+    display:block;
+}
+
+#combo_professores, #combo_professores li{
+    list-style:none;
+    padding: 3px 0;
+    margin: 3px 0;
+}
+
+/*#combo_professores li, #add{
+    width:200px;
+}*/
+
+/*.remover{
+    width:28px;
+    height:28px;
+    background: url('../img/remove.png') no-repeat;
+    float:right;
+}*/
+
+#remover{
+    padding-left:25px;
+    padding-top: 1px;
+    height:20px;
+    background: url('../img/botao_remover.png') no-repeat;
+    font-size: 12px;
+    color: #555555;
+    cursor:pointer;
+}
+
+#add{
+    padding-left:25px;
+    padding-top: 1px;
+    height:20px;
+    background: url('../img/botao_adicionar.png') no-repeat;
+    font-size: 12px;
+    color: #555555;
+    cursor:pointer;
+}
+
+#add, #remover{
+    cursor:pointer;
+}
