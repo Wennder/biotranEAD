@@ -3,27 +3,28 @@
 class controllerCurso {
 
     private $curso;
+    private $curso_professor;
+    private $controller;
+    
     
     /*
-     * Insere um novo Usuario no BD.
-     * Captura os dados do usuario via POST ou através dos paramtros
-     *     
-     * @param $user: objeto usuario
-     * @param $end1: objeto endereco
-     * 
-     * @return Mensagem de erro caso a insersao via parametros falhe por objetos nulos
+     * INICIO: FUNÇÕES DE CRUD
      */
-
-    public function novoCurso() {
+    
+    /*
+     * Seta os objetos $this->curso e $this->curso_professor
+     * a partir de dados enviados via POST
+     */
+    public function setCurso_post() {
         if (!empty($_POST)) {
             $this->curso = new Curso();
             $this->curso_professor = array();
             foreach ($_POST as $k => $v) {
-                if ($k == "professores") {                    
+                if ($k == "professores") {
                     $professores = $v;
-                    for($i = 0; $i < count($professores); $i++){
+                    for ($i = 0; $i < count($professores); $i++) {
                         $this->curso_professor[$i] = new Curso_professor();
-                        $this->curso_professor[$i]->setId_usuario($professores[$i]);                        
+                        $this->curso_professor[$i]->setId_usuario($professores[$i]);
                     }
                 } else {
                     $setAtributo = 'set' . ucfirst($k);
@@ -32,95 +33,112 @@ class controllerCurso {
                     }
                 }
             }
+        }
+    }
 
+    /*
+     * insere foto no curso de id=$id_curso
+     * @param @id_curso
+     */
+    public function inserirFotoCurso($id_curso) {
+        //Inserção da foto
+        if (isset($_FILES["imagem"])) {
+            if ($_FILES["imagem"]["name"] != '') {
+                $imagem = $_FILES["imagem"];
+                $tipos = array("image/jpg");
+                $pasta_dir = "img/cursos/";
+                if (!in_array($imagem['type'], $tipos)) {
+                    $imagem_nome = $pasta_dir . $idCurso . ".jpg";
+                    move_uploaded_file($imagem["tmp_name"], $imagem_nome);
+                    $imagem_arquivo = "img/cursos/" . $idCurso . ".jpg";
+                    list($altura, $largura) = getimagesize($imagem_arquivo);
+                    if ($altura > 180 && $largura > 240) {
+                        $img = wiImage::load($imagem_arquivo);
+                        $img = $img->resize(290, 230, 'outside');
+                        $img = $img->crop('50% - 50', '50% - 40', 240, 180);
+                        $img->saveToFile($imagem_arquivo);
+                    }
+                }
+            }
+        }
+    }
+    
+    /*
+     * Insere um novo Curso no BD.     
+     *     
+     * @param $curso: objeto curso
+     * @param $cp: objeto curso_professor
+     * 
+     * @return Mensagem de erro caso a insersao via parametros falhe por objetos nulos
+     */
+    public function novoCurso(Curso $curso, Curso_professor $cp) {
+        if ($curso != null && $cp != null) {
             $dao = new CursoDAO();
-            $dao->insert($this->curso, $this->curso_professor);
+            $dao->insert($curso, $cp);
+        } else {
+            return 'ERRO: funcao novoCurso - [controllerCurso]';
+        }
+    }   
+    
+    /*
+     * retorna uma lista de usuarios(professor) responsaveis pelo curso
+     * de id = $id_curso
+     * @param $id_curso - id do curso
+     * @return Array - de usuarios(professor) responsaveis
+     */
+    public function getListaCurso_professor($id_curso){
+        
+    }
+
+    public function novoCurso_post() {
+        //seta as variaveis $this->curso e $this->cp
+        $this->setCurso_post();        
+        $this->novoCurso($this->curso, $this->curso_professor);
+        //se existir foto: para filtrar os cadastros feitos pela pag inicial
+        if(isset($_POST["foto"])){
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/
-            $idCurso = $dao->select("nome='" . $this->curso->getNome() . "'");
-            $idCurso = $idCurso[0]->getId_curso();
-
-            //Inserção da foto
-            if (isset($_FILES["imagem"])) {
-                if ($_FILES["imagem"]["name"] != '') {
-                    $imagem = $_FILES["imagem"];
-                    $tipos = array("image/jpg");
-                    $pasta_dir = "img/cursos/";
-                    if (!in_array($imagem['type'], $tipos)) {
-                        $imagem_nome = $pasta_dir . $idCurso . ".jpg";
-                        move_uploaded_file($imagem["tmp_name"], $imagem_nome);
-                        $imagem_arquivo = "img/cursos/" . $idCurso . ".jpg";
-                        list($altura, $largura) = getimagesize($imagem_arquivo);
-                        if ($altura > 180 && $largura > 240) {
-                            $img = wiImage::load($imagem_arquivo);
-                            $img = $img->resize(290, 230, 'outside');
-                            $img = $img->crop('50% - 50', '50% - 40', 240, 180);
-                            $img->saveToFile($imagem_arquivo);
-                        }
-                    }
-                }
-            }
+            $this->curso = $this->getCurso("nome='" . $this->curso->getNome() . "'");
+            $this->inserirFotoCurso($this->curso->getId_usuario());
         }
     }
-
-    public function atualizarUsuario_admin($id_usuario) {
-        if (!empty($_POST)) {
-            $this->usuario = $this->getUsuario("id_usuario=" . $id_usuario);
-            $this->end = $this->getEndereco_usuario($id_usuario);
-            foreach ($_POST as $k => $v) {
-                if (stristr($k, '_')) {
-                    $chave_endereco = explode('_', $k);
-                    if ($chave_endereco[0] != 'endereco') {
-                        $setAtributo = 'set' . ucfirst($k);
-                        if (method_exists($this->usuario, $setAtributo)) {
-                            $this->usuario->$setAtributo($v);
-                        }
-                    } else {
-                        $setAtributo = 'set' . ucfirst($chave_endereco[1]);
-                        if (method_exists($this->end, $setAtributo)) {
-                            $this->end->$setAtributo($v);
-                        }
-                    }
-                } else {
-                    if ($k != 'senha' || ($k == 'senha' && $v != '')) {
-                        $setAtributo = 'set' . ucfirst($k);
-                        if (method_exists($this->usuario, $setAtributo)) {
-                            $this->usuario->$setAtributo($v);
-                        }
-                    }
-                }
-            }
-
-            //atualiza usuario
-            $dao = new UsuarioDAO();
-            $dao->update($this->usuario, $this->end);
-
-            //Inserção da foto
-            if (isset($_FILES["foto"])) {
-                if ($_FILES["foto"]["name"] != '') {
-                    $foto = $_FILES["foto"];
-                    $tipos = array("image/jpg");
-                    $pasta_dir = "img/profile/";
-                    if (!in_array($foto['type'], $tipos)) {
-                        $foto_nome = $pasta_dir . $id_usuario . ".jpg";
-                        move_uploaded_file($foto["tmp_name"], $foto_nome);
-                        $foto_arquivo = "img/profile/" . $id_usuario . ".jpg";
-                        $foto_arquivo_pic = "img/profile/pic/" . $id_usuario . ".jpg";
-                        list($altura, $largura) = getimagesize($foto_arquivo);
-                        if ($altura > 120 && $largura > 100) {
-                            $img = wiImage::load($foto_arquivo);
-                            $img = $img->resize(150, 170, 'outside');
-                            $img = $img->crop('50% - 50', '50% - 40', 100, 120);
-                            $img->saveToFile($foto_arquivo);
-                        }
-                        copy($foto_arquivo, $foto_arquivo_pic);
-                        $img = wiImage::load($foto_arquivo_pic);
-                        $img = $img->resize(35, 42, 'outside');
-                        $img->saveToFile($foto_arquivo_pic);
-                    }
-                }
-            }
+    
+    public function atualizarCurso_post($id_curso) {
+        $this->curso = $this->getCurso("id_curso = ".$id_curso);
+        $this->curso_professor = $this->getCurso_professor();
+        //seta as variaveis $this->curso e $this->cp
+        $this->setCurso_post();        
+        $this->novoCurso($this->curso, $this->curso_professor);
+        //se existir foto: para filtrar os cadastros feitos pela pag inicial
+        if(isset($_POST["foto"])){
+            // NOME? NÃO É UMA ENTRADA ÚNICA... =/
+            $this->curso = $this->getCurso("nome='" . $this->curso->getNome() . "'");
+            $this->inserirFotoCurso($this->curso->getId_usuario());
         }
     }
+    
+    public function getCurso($condicao) {
+        $dao = new CursoDAO();
+        $curso = $dao->select($condicao);
+        if($curso != null){
+            return $curso[0];            
+        }
+        return $curso;// null
+    }
+
+    public function removerCurso(Curso $curso) {
+        $dao = new CursoDAO();
+        $affectedrows = $dao->delete($curso);
+        if ($affectedrows >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
+    /*
+     * FIM: FUNÇÕES DE CRUD
+     * INICIO: FUNÇÕES AUXILIARES (geração de documento em html e funções de suporte)
+     */
 
     public function tabelaCursos() {
         $tabela = "<table id='tabela_cursos' width='100%' align='center'>
@@ -157,35 +175,6 @@ class controllerCurso {
         $tabela .= "</tbody></table>";
         return $tabela;
     }
-
-    public function getCurso($condicao) {
-        $dao = new CursoDAO();
-        $curso = $dao->select($condicao);
-        return $curso[0];
-    }
-
-    public function removerCurso(Curso $curso) {
-        $dao = new CursoDAO();
-        $affectedrows = $dao->delete($curso);
-        if ($affectedrows >= 1) {
-            return 1;
-        }else{
-            return 0;
-        }
-
-//        $dao = new EnderecoDAO();
-//        $affectedrows = $dao->deleteEnderecoUsuario($curso->getId_usuario());
-//        if ($affectedrows > 0) {
-//            $dao = new UsuarioDAO();
-//            $affectedrows = $dao->delete($curso);
-//            if ($affectedrows >= 1) {
-//                return 1;
-//            }else
-//                return 0;
-//        }else {
-//            return 3;
-//        }
-    }
     
     public function optionsProfessores($idCurso = null){
 //        $dao = new Curso_professorDAO();
@@ -204,7 +193,11 @@ class controllerCurso {
         $professores = $dao->selectProfessores();
         return $professores;
     }
-
+    
+    /*
+     * FIM: FUNÇÕES AUXILIARES
+     */
+   
 }
 
 ?>

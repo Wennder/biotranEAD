@@ -14,7 +14,10 @@ class controllerEndereco {
     public function getEndereco($condicao) {
         $dao = new EnderecoDAO();
         $end = $dao->select($condicao);
-        return $end[0];
+        if($end != null){
+            return $end[0];            
+        }
+        return $end; // null
     }
 
     /*
