@@ -1,22 +1,14 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Endereco
- *
- * @author cead-p057007
- */
 class Endereco {
     private $id_endereco_usuario;    
     private $rua;    
     private $numero;    
     private $complemento;    
     private $bairro;    
-    private $cidade;    
+    private $cidade;
+    private $pais;
+    private $estado;
     private $id_usuario;            
     
     public function getId_endereco_usuario() {
@@ -75,6 +67,22 @@ class Endereco {
         $this->id_usuario = $id_usuario;
     }
     
+    public function getPais() {
+        return $this->pais;
+    }
+
+    public function setPais($pais) {
+        $this->pais = $pais;
+    }
+
+    public function getEstado() {
+        return $this->estado;
+    }
+
+    public function setEstado($estado) {
+        $this->estado = $estado;
+    }
+
 }
 
 ?>

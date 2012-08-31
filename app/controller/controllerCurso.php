@@ -157,7 +157,6 @@ class controllerCurso {
                 </tr> 
             </thead> 
             <tbody>";
-        $tabela = $tabela;
         $cursoDAO = new CursoDAO();
         $this->cursos = $cursoDAO->select(null, null);
         $quant = count($this->cursos);
@@ -167,7 +166,7 @@ class controllerCurso {
             $tabela .= "<td width='59%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
             $tabela .= "<td width='7%' id='tempo' align='center'>" . $this->cursos[$i]->getTempo() . " dias</td>";
             $tabela .= "<td width='8%' id='gratuito' align='center'>" . $this->cursos[$i]->getGratuito(0) . "</td>";
-            $tabela .= "<td width='14%' id='valor' align='center'>" . $this->cursos[$i]->getValor() . "</td>";
+            $tabela .= "<td width='14%' id='valor' align='center'>R$" . $this->cursos[$i]->getValor() . "</td>";
             $tabela .= "<td width='3%' id='b_visualizar' align='center'>
                 <input type='button' title='Visualizar dados do Curso' id='b_vis-" . $this->cursos[$i]->getId_curso() . "' value='' onclick='visualizarCurso(this.id);' class='botaoVisualizar' /> </td>";
             $tabela .= "<td width='3%' id='b_editar' align='center'>
@@ -178,6 +177,28 @@ class controllerCurso {
         }
         $tabela .= "</tbody></table>";
         return $tabela;
+    }
+    
+    public function optionsProfessores(){
+        $dao = new UsuarioDAO();
+        $todos_professores = $dao->selectProfessores();
+//        $professores_curso = $this->getProfesores(); //Professores do curso
+        $options = "<option value=''></option>";
+        foreach ($todos_professores as $professor){
+//            if($professor->getId_usuario() == $professores_curso->getId_usuario()){
+//                $options .= "<option selected='selected' value='".$professor->getId_usuario()."'>".$professor->getNome_completo()."</option>";
+//            }
+//            else{
+                $options .= "<option value='".$professor->getId_usuario()."'>".$professor->getNome_completo()."</option>";
+            }
+//        }
+        return $options;
+    }
+    
+    public function getProfessores(){
+        $dao = new UsuarioDAO();
+        $professores = $dao->selectProfessores();
+        return $professores;
     }
     
     /*

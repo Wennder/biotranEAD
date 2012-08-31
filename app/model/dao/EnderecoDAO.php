@@ -1,15 +1,6 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- * Description of EnderecoDAO
- *
- * @author cead-p057007
- */
 class EnderecoDAO extends PDOConnectionFactory{
     
     private $conex = null;
@@ -47,8 +38,10 @@ class EnderecoDAO extends PDOConnectionFactory{
             $stmt->bindValue(3, $endereco->getComplemento());
             $stmt->bindValue(4, $endereco->getBairro());
             $stmt->bindValue(5, $endereco->getCidade());
-            $stmt->bindValue(6, $endereco->getId_usuario());
-            $stmt->bindValue(7, $endereco->getId_endereco_usuario());
+            $stmt->bindValue(6, $endereco->getPais());
+            $stmt->bindValue(7, $endereco->getEstado());
+            $stmt->bindValue(8, $endereco->getId_usuario());
+            $stmt->bindValue(9, $endereco->getId_endereco_usuario());
             $stmt->execute();
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();

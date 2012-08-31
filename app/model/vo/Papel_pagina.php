@@ -1,15 +1,5 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Papel_pagina
- *
- * @author cead-p057007
- */
 class Papel_pagina {
     
     private $id_papel_pagina;

@@ -1,15 +1,5 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of DAOUsuario
- *
- * @author cead-p057007
- */
 class UsuarioDAO extends PDOConnectionFactory {
 
     private $conex = null;
@@ -120,7 +110,24 @@ class UsuarioDAO extends PDOConnectionFactory {
         } catch (PDOException $ex) {
             return "erro: ".$ex;
         }
-    }   
+    }
+    
+    public function selectProfessores() {
+        try {
+            $stmt = null;
+            $stmt = $this->conex->query("SELECT * FROM usuario WHERE id_papel = 3 ORDER BY nome_completo");
+            $usuario = array();
+            for ($i = 0; $i < $stmt->rowCount(); $i++){
+                $usuario[$i] = $stmt->fetchObject('Usuario');
+            }
+            if($i==0){
+                $usuario = null;
+            }            
+            return $usuario;
+        } catch (PDOException $ex) {
+            return "erro: ".$ex;
+        }
+    }  
     
 }
 

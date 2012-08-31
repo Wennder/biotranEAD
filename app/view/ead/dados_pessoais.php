@@ -7,11 +7,36 @@
 
 <script>
     $(document).ready(function(){
+        //Habilita a validação automática no formulário de edição
         $("#editar").validationEngine();
+        //Captura o papel do usuário a ser editado e seta o combobox
         var papel = $("#i_papel");
         $("#id_papel").val(papel.val());
+        //Captura a atuação do usuário a ser editado e seta o combobox
         var atuacao = $("#i_atuacao");
         $("#atuacao").val(atuacao.val());
+        //Verifica se o país é Brasil, captura o estado do usuário a ser editado e seta o combobox
+        var estado = $("#i_estado");
+        if(paisBrasil()){
+            $("#endereco_estado").val(estado.val());
+        }
+        else{
+            $("#endereco_estado").hide();
+        }
+        //Verifica se o país informado é Brasil e libera o combo de estados
+        function paisBrasil(){
+            var pais = $("#endereco_pais").val();
+            if(pais == "Brasil" || pais == "brasil" || pais == "BRASIL"){
+                $("#endereco_estado").show();
+                $("#label_estado").show();
+                return true;
+            }
+            else{
+                $("#endereco_estado").hide();
+                $("#label_estado").hide();
+                return false;
+            }
+        }
     });
 </script>
 
@@ -166,13 +191,13 @@
                 <legend>Endereço</legend>
                 <tr>
                     <td style="width: 150px;">
-                        <label class="label_cadastro">Rua: </label>
+                        <label class="label_cadastro">*Rua: </label>
                     </td>
                     <td style="width: 390px;">
                         <input type="text" id="endereco_rua" name="endereco_rua" value="<?php echo ($this->endereco == null ? '' : $this->endereco->getRua()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 390px"/>
                     </td>
                     <td style="width: 50px;">
-                        <label class="label_cadastro">Número: </label>
+                        <label class="label_cadastro">*Número: </label>
                     </td>
                     <td style="width: 60px;">
                         <input type="text" id="endereco_numero" name="endereco_numero" value="<?php echo ($this->endereco == null ? '' : $this->endereco->getNumero()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 60px"/>
@@ -183,12 +208,12 @@
                         <label class="label_cadastro">Complemento: </label>
                     </td>
                     <td colspan="3" style="width: 500px;">
-                        <input type="text" id="endereco_complemento" name="endereco_complemento" value="<?php echo ($this->endereco == null ? '' : $this->endereco->getComplemento()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                        <input type="text" id="endereco_complemento" name="endereco_complemento" value="<?php echo ($this->endereco == null ? '' : $this->endereco->getComplemento()); ?>" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="1" style="width: 150px;">
-                        <label class="label_cadastro">Bairro: </label>
+                        <label class="label_cadastro">*Bairro: </label>
                     </td>
                     <td colspan="3" style="width: 500px;">
                         <input type="text" id="endereco_bairro" name="endereco_bairro" value="<?php echo ($this->endereco == null ? '' : $this->endereco->getBairro()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
@@ -196,10 +221,55 @@
                 </tr>
                 <tr>
                     <td colspan="1" style="width: 150px;">
-                        <label class="label_cadastro">Cidade: </label>
+                        <label class="label_cadastro">*Cidade: </label>
                     </td>
                     <td colspan="3" style="width: 500px;">
                         <input type="text" id="endereco_cidade" name="endereco_cidade" value="<?php echo ($this->endereco == null ? '' : $this->endereco->getCidade()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1" style="width: 150px;">
+                        <label class="label_cadastro">*País: </label>
+                    </td>
+                    <td colspan="3" style="width: 500px;">
+                        <input type="text" id="endereco_pais" name="endereco_pais" value="<?php echo ($this->endereco == null ? 'Brasil' : $this->endereco->getPais()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px" onkeyup="paisBrasil()"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1" style="width: 150px;">
+                        <label id="label_estado" class="label_cadastro">*Estado: </label>
+                    </td>
+                    <td colspan="3" style="width: 500px;">
+                        <select id="endereco_estado" name="endereco_estado" class="validate[required]" data-prompt-position="centerRight">
+                            <option></option >
+                            <option  value="Acre">Acre</option >
+                            <option  value="Alagoas">Alagoas</option >
+                            <option  value="Amapá">Amapá</option >
+                            <option  value="Amazonas">Amazonas</option >
+                            <option  value="Bahia">Bahia</option >
+                            <option  value="Ceará">Ceará</option >
+                            <option  value="Distrito Federal">Distrito Federal</option >
+                            <option  value="Espirito Santo">Espirito Santo</option >
+                            <option  value="Goiás">Goiás</option >
+                            <option  value="Maranhão">Maranhão</option >
+                            <option  value="Mato Grosso">Mato Grosso</option >
+                            <option  value="Mato Grosso do Sul">Mato Grosso do Sul</option >
+                            <option  value="Minas Gerais">Minas Gerais</option >
+                            <option  value="Pará">Pará</option >
+                            <option  value="Paraiba">Paraiba</option >
+                            <option  value="Paraná">Paraná</option >
+                            <option  value="Pernambuco">Pernambuco</option >
+                            <option  value="Piauí">Piauí</option >
+                            <option  value="Rio de Janeiro">Rio de Janeiro</option >
+                            <option  value="Rio Grande do Norte">Rio Grande do Norte</option >
+                            <option  value="Rio Grande do Sul">Rio Grande do Sul</option >
+                            <option  value="Rondônia">Rondônia</option >
+                            <option  value="Roraima">Roraima</option >
+                            <option  value="Santa Catarina">Santa Catarina</option >
+                            <option  value="São Paulo">São Paulo</option >
+                            <option  value="Sergipe">Sergipe</option >
+                            <option  value="Tocantis">Tocantis</option >
+                        </select>
                     </td>
                 </tr>
             </table>
@@ -210,7 +280,7 @@
             <table>
                 <tr>
                     <td style="width: 150px;">
-                        <label class="label_editar">E-mail (login): </label>
+                        <label class="label_editar">*E-mail (login): </label>
                     </td>
                     <td style="width: 500px;">
                         <input type="text" id="email" name="email" value="<?php echo $this->usuario->getEmail(); ?>" class="validate[required, custom[email]] text-input" data-prompt-position="centerRight"/>
@@ -218,7 +288,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <label class="label_editar">Senha: </label>
+                        <label class="label_editar">*Senha: </label>
                     </td>
                     <td>
                         <input type="password" id="senha" name="senha" class="text-input" data-prompt-position="centerRight" style="width: 150px"/>
@@ -226,7 +296,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <label class="label_editar">Confirmar Senha: </label>
+                        <label class="label_editar">*Confirmar Senha: </label>
                     </td>
                     <td>
                         <input type="password" id="senha2" name="senha2" class="validate[equals[senha]] text-input" data-prompt-position="centerRight" style="width: 150px"/>
@@ -243,6 +313,7 @@
 <div id="div_hidden" style="display: none;">
     <input type="text" id="i_papel" name="i_papel" value="<?php echo $this->usuario->getId_papel(); ?>"/>
     <input type="text" id="i_atuacao" name="i_atuacao" value="<?php echo $this->usuario->getAtuacao(); ?>"/>
+    <input type="text" id="i_estado" name="i_estado" value="<?php echo $this->endereco == null ? '' : $this->endereco->getEstado(); ?>"/>
 </div>
 
 <?php require 'structure/footer.php'; ?>
