@@ -21,13 +21,15 @@ class EnderecoDAO extends PDOConnectionFactory{
     public function insert(Endereco $endereco) {
         try {            
             $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("INSERT INTO endereco_usuario(rua, numero, complemento, bairro, cidade, id_usuario) VALUES (?,?,?,?,?,?)");
+            $stmt = $this->conex->prepare("INSERT INTO endereco_usuario(rua, numero, complemento, bairro, cidade, id_usuario, pais, estado) VALUES (?,?,?,?,?,?)");
             $stmt->bindValue(1, $endereco->getRua());
             $stmt->bindValue(2, $endereco->getNumero());
             $stmt->bindValue(3, $endereco->getComplemento());
             $stmt->bindValue(4, $endereco->getBairro());
             $stmt->bindValue(5, $endereco->getCidade());
-            $stmt->bindValue(6, $endereco->getId_usuario());
+            $stmt->bindValue(6, $endereco->getPais());
+            $stmt->bindValue(7, $endereco->getEstado());
+            $stmt->bindValue(8, $endereco->getId_usuario());
 
             $stmt->execute();
             $stmt->conex = null;
