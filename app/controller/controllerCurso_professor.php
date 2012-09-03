@@ -55,7 +55,7 @@ class controllerCurso_professor {
     
     public function getProfessoresCurso($id_curso){
         $dao = new Curso_professorDAO();
-        $cp = $dao->select("id_curso =".$id_curso);
+        return $dao->selectProfessoresCurso("id_curso =".$id_curso);
     }
 }
 

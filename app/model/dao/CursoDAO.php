@@ -8,7 +8,7 @@ class CursoDAO extends PDOConnectionFactory{
         $this->conex = $this->getConnection();
     }
 
-    public function insert(Curso $curso, Array $curso_professor) {
+    public function insert(Curso $curso, array $curso_professor) {
         try {
             $this->conex->exec("SET NAMES 'utf8'");
             $stmt = $this->conex->prepare("INSERT INTO curso(id_curso, nome, descricao, tempo, gratuito, valor) VALUES (?,?,?,?,?,?)");

@@ -2,12 +2,15 @@
 $editar = "false";
 if (isset($this->usuario)) {
     $this->usuario == null ? $editar = "false" : $editar = "true";
+}else{
+    $this->usuario = null;
 }
 ?>
 
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/leftcolumn.php'; ?>
 <?php require 'structure/content.php'; ?>
+<script src="js/validarCpf_passaporteCadastro.js" type="text/javascript"></script>
 <script src="js/crudTabelaUsuario.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
@@ -209,7 +212,7 @@ if (isset($this->usuario)) {
                         <label class="label_cadastro">*CPF/Passaporte: </label>
                     </td>
                     <td>
-                        <input type="text" id="cpf_passaporte" name="cpf_passaporte" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getCpf_passaporte()); ?>" class="validate[required, custom[onlyNumberSp]] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="14"/>
+                        <input type="text" id="cpf_passaporte" name="cpf_passaporte" onblur="validaCpf_passaporte_ajax(<?php echo ($this->usuario == null ? '' : "'".$this->usuario->getCpf_passaporte()."'"); ?>)" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getCpf_passaporte()); ?>" class="validate[required, custom[onlyNumberSp]] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="14"/>
                         <label class="label_cadastro_legend">XXX.XXX.XXX-XX </label>
                     </td>
                 </tr>

@@ -13,6 +13,14 @@ class controllerUsuario {
         }else
             return 1;
     }
+    
+    public function validarCpf_passaporteCadastro($cpf_passaporte) {
+        $user = $this->getUsuario("cpf_passaporte='" . $cpf_passaporte . "'");
+        if ($user != null) {
+            return 0;
+        }else
+            return 1;
+    }
 
     /*
      * INICIO: FUNÇÕES DE CRUD
@@ -155,6 +163,11 @@ class controllerUsuario {
         } else {
             return 'ERRO: funcao novoUsuario - [controllerUsuario]';
         }
+    }
+    
+    public function getListaUsuarioProfessor(){
+        $dao = new UsuarioDAO();
+        return $dao->select("id_papel = 3 ORDER BY nome_completo");
     }
 
     /*

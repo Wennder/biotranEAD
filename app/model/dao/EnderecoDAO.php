@@ -12,7 +12,7 @@ class EnderecoDAO extends PDOConnectionFactory{
     public function insert(Endereco $endereco) {
         try {            
             $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("INSERT INTO endereco_usuario(rua, numero, complemento, bairro, cidade, pais, estado, id_usuario) VALUES (?,?,?,?,?,?)");
+            $stmt = $this->conex->prepare("INSERT INTO endereco_usuario(rua, numero, complemento, bairro, cidade, pais, estado, id_usuario) VALUES (?,?,?,?,?,?,?,?)");
             $stmt->bindValue(1, $endereco->getRua());
             $stmt->bindValue(2, $endereco->getNumero());
             $stmt->bindValue(3, $endereco->getComplemento());

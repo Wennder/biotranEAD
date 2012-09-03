@@ -1,5 +1,6 @@
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/content_up.php'; ?>
+<script src="js/validarCpf_passaporteCadastro.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
@@ -105,7 +106,7 @@
                         <label class="label_cadastro">*CPF/Passaporte: </label>
                     </td>
                     <td>
-                        <input type="text" id="cpf_passaporte" name="cpf_passaporte" class="validate[required, custom[onlyNumberSp]] text-input" data-prompt-position="centerRight" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="14"/>
+                        <input type="text" id="cpf_passaporte" name="cpf_passaporte" onblur="validaCpf_passaporte_ajax(null);" class="validate[required, custom[onlyNumberSp]] text-input" data-prompt-position="centerRight" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="14"/>
                         <label class="label_cadastro_legend">Somente números </label>
                     </td>
                 </tr>
