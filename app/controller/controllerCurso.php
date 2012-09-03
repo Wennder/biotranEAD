@@ -2,9 +2,9 @@
 
 class controllerCurso {
 
-    private $curso;
-    private $curso_professor;
-    private $controller;
+    private $curso = null;
+    private $curso_professor = null;
+    private $controller = null;
     
     
     /*
@@ -17,8 +17,12 @@ class controllerCurso {
      */
     public function setCurso_post() {
         if (!empty($_POST)) {
-            $this->curso = new Curso();
-            $this->curso_professor = array();
+            if($this->curso == null){
+                $this->curso = new Curso();                
+            }
+            if($this->curso_professor == null){
+                $this->curso_professor = array();                
+            }
             foreach ($_POST as $k => $v) {
                 if ($k == "professores") {
                     $professores = $v;
@@ -48,9 +52,9 @@ class controllerCurso {
                 $tipos = array("image/jpg");
                 $pasta_dir = "img/cursos/";
                 if (!in_array($imagem['type'], $tipos)) {
-                    $imagem_nome = $pasta_dir . $idCurso . ".jpg";
+                    $imagem_nome = $pasta_dir . $id_curso . ".jpg";
                     move_uploaded_file($imagem["tmp_name"], $imagem_nome);
-                    $imagem_arquivo = "img/cursos/" . $idCurso . ".jpg";
+                    $imagem_arquivo = "img/cursos/" . $id_curso . ".jpg";
                     list($altura, $largura) = getimagesize($imagem_arquivo);
                     if ($altura > 180 && $largura > 240) {
                         $img = wiImage::load($imagem_arquivo);
@@ -181,7 +185,7 @@ class controllerCurso {
     
     public function optionsProfessores(){
         $dao = new UsuarioDAO();
-        $todos_professores = $dao->selectProfessores();
+        $todos_professores = $dao->select("id_papel = 3 ORDER BY nome_completo");
 //        $professores_curso = $this->getProfesores(); //Professores do curso
         $options = "<option value=''></option>";
         foreach ($todos_professores as $professor){
@@ -189,7 +193,8 @@ class controllerCurso {
 //                $options .= "<option selected='selected' value='".$professor->getId_usuario()."'>".$professor->getNome_completo()."</option>";
 //            }
 //            else{
-                $options .= "<option value='".$professor->getId_usuario()."'>".$professor->getNome_completo()."</option>";
+//                $options .= "<option value='".$professor->getId_usuario()."'>".$professor->getNome_completo()."</option>";
+                $options .= "<option value='teste'>teste</option>";
             }
 //        }
         return $options;
@@ -197,7 +202,7 @@ class controllerCurso {
     
     public function getProfessores(){
         $dao = new UsuarioDAO();
-        $professores = $dao->selectProfessores();
+        $professores = $dao->select("id_papel = 3 ORDER BY nome_completo");
         return $professores;
     }
     

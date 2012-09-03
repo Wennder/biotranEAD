@@ -61,8 +61,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
         } else {
             $this->visao->curso = null;
         }
-        //Monta a tabela de usuários        
+        //Monta a tabela de cursos
         $this->visao->tabela = $this->controller->tabelaCursos();
+        
         $this->visao->options = $this->controller->optionsProfessores($id_curso);
         $this->visao->professores = $this->controller->getProfessores();
         $this->renderizar();
