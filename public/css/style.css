@@ -41,6 +41,30 @@ body {
     font-size: 12px;
 }
 
+#div_logado{
+    height: 40px;
+    width: 650px;
+    margin-top: 10px;
+    position: absolute;
+    float: right;
+    right: 0;
+}
+
+#div_logado table{
+    font-size: 13px;
+    color: #FFF;
+    text-align: right;
+    margin-right: 5px;
+}
+
+#div_logado a{
+    text-decoration: none;
+}
+
+#div_logado a:visited, a:active{
+    text-decoration: none;
+}
+
 #recuperar_senha{
     font-size: 11px;
     color: #FFF;

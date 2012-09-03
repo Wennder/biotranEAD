@@ -13,16 +13,12 @@
                         <a target="_new" href="index.php?c=index&a=cursos">Cursos</a>
                     </li>
                     <li class="eadbiotran_top_item" style="">
+                        <a href="index.php?c=seguranca&a=logout">Logout</a>
+                    </li>
+                    <li class="eadbiotran_top_item" style="">
                         <a href="index.php?c=ead&a=profile&id=<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>" class="">
                             <?php echo $_SESSION["usuarioLogado"]->getNome_completo(); ?>
                         </a>
-<!--                        <ul>
-                            <li class="">
-                                <a href="#" class="">
-                                    <?php // echo $_SESSION["usuarioLogado"]->getNome_completo(); ?>
-                                </a>
-                            </li>
-                        </ul>-->
                     </li>
                 </ul>
             </div>

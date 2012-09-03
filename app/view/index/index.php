@@ -48,7 +48,6 @@
     <img src='img/biotran.jpg' />
     <img src='img/curso.jpg' />
     <img src='img/fazenda.jpg'/>
-<!--    <img src='img/image4.jpg' alt='Arara' />-->
 </div>
 
 <?php require 'structure/content_down.php'; ?>
