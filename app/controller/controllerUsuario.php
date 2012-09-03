@@ -13,12 +13,13 @@ class controllerUsuario {
         }else
             return 1;
     }
+
     /*
      * INICIO: FUNÇÕES DE CRUD
      */
 
-    
-    
+
+
     /*
      * Insere novo usuario a partir de um formulario enviado via POST     
      */
@@ -32,13 +33,12 @@ class controllerUsuario {
         //verifico se existe foto para ser inserida
         if (isset($_FILES["foto"])) {
             //captura a id do usuario inserido
-            $this->usuario = $this->getUsuario("email='" . $this->usuario->getEmail() . "'");            
+            $this->usuario = $this->getUsuario("email='" . $this->usuario->getEmail() . "'");
             //insere foto do usuario
             $this->inserirFotoUsuario($this->usuario->getId_usuario());
         }
     }
-    
-    
+
     /*
      * Atualiza Usuario a partir de um formulário enviado via POST
      */
@@ -46,24 +46,25 @@ class controllerUsuario {
     public function atualizarUsuario_post($id_usuario) {
         //se usuario já está cadastrado
         $this->usuario = $this->getUsuario("id_usuario=" . $id_usuario);
-        $this->end = $this->getEndereco_usuario($id_usuario);
+        $this->end = $this->getEndereco_usuario($id_usuario);        
         //captura as informações de usuario via post!
-        $this->setUsuario_post();
+        $this->setUsuario_post();        
         //atualiza usuario
         $this->atualizarUsuario($this->usuario, $this->end);
         //atualiza a foto
         $this->inserirFotoUsuario($this->usuario->getId_usuario());
     }
-    
+
     /*
      * Atualiza Usuario no banco. Faz acesso ao UsuarioDAO
      */
-    
+
     public function atualizarUsuario(Usuario $user = null, Endereco $end = null) {
         //atualiza usuario
         if ($user != null) {
             $dao = new UsuarioDAO();
             if ($end != null) {
+
                 $dao->update($user, $end);
             } else {
                 $dao->update($user);
@@ -79,10 +80,11 @@ class controllerUsuario {
      * 
      * @return Usuario - se restornar uma lista, apenas o primeiro será retornado;
      */
+
     public function getUsuario($condicao) {
         $dao = new UsuarioDAO();
         $user = $dao->select($condicao);
-        if($user != null){
+        if ($user != null) {
             return $user[0];
         }
         return $user;
@@ -92,7 +94,8 @@ class controllerUsuario {
      * Retorna o endereço do usuario de id = id_usuario
      * 
      * @return Endereco - objeto endereco
-     */    
+     */
+
     public function getEndereco_usuario($id_usuario) {
         $this->controller = new controllerEndereco();
         return $this->controller->getEndereco("id_usuario=" . $id_usuario);
@@ -108,7 +111,7 @@ class controllerUsuario {
 
     public function getListaUsuario($condicao) {
         $dao = new UsuarioDAO();
-        $user = $dao->select($condicao);        
+        $user = $dao->select($condicao);
         return $user;
     }
 
@@ -117,6 +120,7 @@ class controllerUsuario {
      *      
      * @return array de objetos com todos os usuarios
      */
+
     public function getAllUsuario() {
         $dao = new UsuarioDAO();
         $user = $dao->select();
@@ -127,7 +131,8 @@ class controllerUsuario {
      * Remove permanentemente um usuario do banco de dados
      * 
      * @return int - valor lógico referente ao sucesso da acao.
-     */    
+     */
+
     public function removerUsuario(Usuario $user) {
         $dao = new EnderecoDAO();
         $affectedrows = $dao->deleteEnderecoUsuario($user->getId_usuario());
@@ -142,7 +147,7 @@ class controllerUsuario {
             return 3;
         }
     }
-    
+
     public function novoUsuario(Usuario $user = null, Endereco $end = null) {
         if ($user != null && $end != null) {
             $dao = new UsuarioDAO();
@@ -151,7 +156,7 @@ class controllerUsuario {
             return 'ERRO: funcao novoUsuario - [controllerUsuario]';
         }
     }
-    
+
     /*
      * FIM: FUNÇOES DE CRUD
      * -------
@@ -163,10 +168,15 @@ class controllerUsuario {
      * atraves de dados enviados via POST
      * os dados sao carregados e acessados de forma genérica
      */
+
     public function setUsuario_post() {
         if (!empty($_POST)) {
-            $this->usuario = new Usuario();
-            $this->end = new Endereco();
+            if ($this->usuario == null) {
+                $this->usuario = new Usuario();
+            }
+            if ($this->end == null) {
+                $this->end = new Endereco();
+            }
             foreach ($_POST as $k => $v) {
                 if (stristr($k, '_')) {
                     $chave_endereco = explode('_', $k);
@@ -200,12 +210,12 @@ class controllerUsuario {
         }
     }
 
-    
     /*
      *  Insere nova foto do usuario de id=$id_usuario
      * 
      * @param $id_usuario
      */
+
     public function inserirFotoUsuario($id_usuario) {
         if (isset($_FILES["foto"])) {
             if ($_FILES["foto"]["name"] != '') {
@@ -235,7 +245,8 @@ class controllerUsuario {
 
     /*
      * cria uma datatable em html com os dados do usuario para serem visualizados pelo usuário
-     */      
+     */
+
     public function tabelaUsuarios() {
         $tabela = "<table id='tabela_usuarios' width='100%' align='center'>
          <thead> 
@@ -272,14 +283,12 @@ class controllerUsuario {
         $tabela .= "</tbody></table>";
         return $tabela;
     }
-    
+
     /*
      * ---     
      * FIM FUNÇOES DE MANIPULAÇÃO (criação html com objeto usuario)
      * ---
      */
-
-
 }
 ?>
 
