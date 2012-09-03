@@ -1,15 +1,15 @@
 <?php
 
 class Endereco {
-    private $id_endereco_usuario;    
-    private $rua;    
-    private $numero;    
-    private $complemento;    
-    private $bairro;    
-    private $cidade;
-    private $pais;
-    private $estado;
-    private $id_usuario;            
+    private $id_endereco_usuario = '';    
+    private $rua = '';    
+    private $numero = '';    
+    private $complemento = '';    
+    private $bairro = '';    
+    private $cidade = '';
+    private $pais = '';
+    private $estado = '';
+    private $id_usuario = '';            
     
     public function getId_endereco_usuario() {
         return $this->id_endereco_usuario;

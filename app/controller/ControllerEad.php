@@ -12,8 +12,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionGerenciar_usuarios() {
         $this->visao->titulo = "Gerenciar Usuários";
 
-        $this->controller = new controllerUsuario();
-
+        $this->controller = new controllerUsuario();        
         //Pega a id passa na url e monta o objeto buscando os dados no banco
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
@@ -30,7 +29,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionAtualizar_cadastro_usuario() {
         $this->controller = new controllerUsuario();
-        $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
+        $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();            
         if ($id_usuario != '') {
             $this->controller->atualizarUsuario_post($id_usuario);
         }
