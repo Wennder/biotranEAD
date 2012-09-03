@@ -179,7 +179,7 @@ class controllerCurso {
         return $tabela;
     }
     
-    public function optionsProfessores(){
+    public function comboTodos_Professores(){
         $dao = new UsuarioDAO();
         $todos_professores = $dao->selectProfessores();
 //        $professores_curso = $this->getProfesores(); //Professores do curso
