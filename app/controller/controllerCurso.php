@@ -46,7 +46,7 @@ class controllerCurso {
      * @param @id_curso
      */
 
-    public function inserirFotoCurso($idCurso) {
+    public function inserirFotoCurso($id_curso) {
         //Inserção da foto
         if (isset($_FILES["imagem"])) {
             if ($_FILES["imagem"]["name"] != '') {
@@ -78,7 +78,7 @@ class controllerCurso {
      * @return Mensagem de erro caso a insersao via parametros falhe por objetos nulos
      */
 
-    public function novoCurso(Curso $curso, Curso_professor $cp) {
+    public function novoCurso(Curso $curso, array $cp) {
         if ($curso != null && $cp != null) {
             $dao = new CursoDAO();
             $dao->insert($curso, $cp);
@@ -106,6 +106,7 @@ class controllerCurso {
     public function novoCurso_post() {
         //seta as variaveis $this->curso e $this->cp
         $this->setCurso_post();
+        
         $this->novoCurso($this->curso, $this->curso_professor);
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
         if (isset($_POST["foto"])) {
@@ -190,8 +191,8 @@ class controllerCurso {
     }
 
     public function comboTodos_Professores() {
-        $dao = new UsuarioDAO();
-        $todos_professores = $dao->selectProfessores();
+        $this->controller = new controllerUsuario();        
+        $todos_professores = $this->controller->getListaUsuarioProfessor();
         $options = "<option value=''></option>";
         foreach ($todos_professores as $professor) {
             $options .= "<option value='" . $professor->getId_usuario() . "'>" . $professor->getNome_completo() . "</option>";
@@ -200,15 +201,13 @@ class controllerCurso {
     }
 
     public function getProfessores_curso($idCurso) {
-        $dao = new Curso_professorDAO();
-        $professores = $dao->selectProfessoresCurso($idCurso);
-        return $professores;
+        $this->controller = new controllerCurso_professor();        
+        return $this->controller->getProfessoresCurso($idCurso);                
     }
 
     public function getProfessores() {
-        $dao = new UsuarioDAO();
-        $professores = $dao->select("id_papel = 3 ORDER BY nome_completo");
-        return $professores;
+        $this->controller = new controllerUsuario();        
+        return $this->controller->getListaUsuarioProfessor();        
     }
 
     /*

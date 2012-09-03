@@ -2,7 +2,10 @@
 
 class Biotran_Mvc_View {
     
-    public $usuario;
+    public $curso = null;
+    public $usuario = null;
+    public $endereco = null;
+    public $options = null;
     
     public function renderizar($diretorio, $arquivo) {        
         $local = '../app/view/';
