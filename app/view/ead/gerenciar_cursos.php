@@ -48,8 +48,10 @@ if (isset($this->curso)) {
         var $quantProfessores = 1;
         var $professores = $('#combo_professores li').clone();
         $('#add').click(function () {
-            $('#combo_professores li:last').after($professores.clone());
-            $quantProfessores++;
+            if($quantProfessores < $('#i_professores_size').val()){
+                $('#combo_professores li:last').after($professores.clone());
+                $quantProfessores++;
+            }
         });
         $('#remover').click(function () {
             if($quantProfessores > 1){

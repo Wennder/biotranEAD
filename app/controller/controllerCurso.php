@@ -5,20 +5,24 @@ class controllerCurso {
     private $curso;
     private $curso_professor;
     private $controller;
-    
-    
+
     /*
      * INICIO: FUNÇÕES DE CRUD
      */
-    
+
     /*
      * Seta os objetos $this->curso e $this->curso_professor
      * a partir de dados enviados via POST
      */
+
     public function setCurso_post() {
         if (!empty($_POST)) {
-            $this->curso = new Curso();
-            $this->curso_professor = array();
+            if ($this->curso == null) {
+                $this->curso = new Curso();
+            }
+            if ($this->curso_professor == null) {
+                $this->curso_professor = array();
+            }
             foreach ($_POST as $k => $v) {
                 if ($k == "professores") {
                     $professores = $v;
@@ -40,7 +44,8 @@ class controllerCurso {
      * insere foto no curso de id=$id_curso
      * @param @id_curso
      */
-    public function inserirFotoCurso($id_curso) {
+
+    public function inserirFotoCurso($idCurso) {
         //Inserção da foto
         if (isset($_FILES["imagem"])) {
             if ($_FILES["imagem"]["name"] != '') {
@@ -62,7 +67,7 @@ class controllerCurso {
             }
         }
     }
-    
+
     /*
      * Insere um novo Curso no BD.     
      *     
@@ -71,6 +76,7 @@ class controllerCurso {
      * 
      * @return Mensagem de erro caso a insersao via parametros falhe por objetos nulos
      */
+
     public function novoCurso(Curso $curso, Curso_professor $cp) {
         if ($curso != null && $cp != null) {
             $dao = new CursoDAO();
@@ -78,55 +84,57 @@ class controllerCurso {
         } else {
             return 'ERRO: funcao novoCurso - [controllerCurso]';
         }
-    }   
-    
+    }
+
     /*
      * retorna uma lista de usuarios(professor) responsaveis pelo curso
      * de id = $id_curso
      * @param $id_curso - id do curso
      * @return Array - de usuarios(professor) responsaveis
      */
-    public function getListaCurso_professor($id_curso){
+
+    public function getListaCurso_professor($id_curso) {
         $this->controller = new controllerCurso_professor();
-        return $this->controller->getListaCurso_professor("id_curso_professor = ".$id_curso);        
+        return $this->controller->getListaCurso_professor("id_curso_professor = " . $id_curso);
     }
-    
+
     /*
      * insere novo curso via formulário post
      */
+
     public function novoCurso_post() {
         //seta as variaveis $this->curso e $this->cp
-        $this->setCurso_post();        
+        $this->setCurso_post();
         $this->novoCurso($this->curso, $this->curso_professor);
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
-        if(isset($_POST["foto"])){
+        if (isset($_POST["foto"])) {
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/
             $this->curso = $this->getCurso("nome='" . $this->curso->getNome() . "'");
             $this->inserirFotoCurso($this->curso->getId_usuario());
         }
     }
-    
+
     public function atualizarCurso_post($id_curso) {
-        $this->curso = $this->getCurso("id_curso = ".$id_curso);
+        $this->curso = $this->getCurso("id_curso = " . $id_curso);
         $this->curso_professor = $this->getCurso_professor();
         //seta as variaveis $this->curso e $this->cp
-        $this->setCurso_post();        
+        $this->setCurso_post();
         $this->novoCurso($this->curso, $this->curso_professor);
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
-        if(isset($_POST["foto"])){
+        if (isset($_POST["foto"])) {
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/
             $this->curso = $this->getCurso("nome='" . $this->curso->getNome() . "'");
             $this->inserirFotoCurso($this->curso->getId_usuario());
         }
     }
-    
+
     public function getCurso($condicao) {
         $dao = new CursoDAO();
         $curso = $dao->select($condicao);
-        if($curso != null){
-            return $curso[0];            
+        if ($curso != null) {
+            return $curso[0];
         }
-        return $curso;// null
+        return $curso; // null
     }
 
     public function removerCurso(Curso $curso) {
@@ -138,11 +146,12 @@ class controllerCurso {
             return 0;
         }
     }
-    
+
     /*
      * FIM: FUNÇÕES DE CRUD
      * INICIO: FUNÇÕES AUXILIARES (geração de documento em html e funções de suporte)
      */
+
     public function tabelaCursos() {
         $tabela = "<table id='tabela_cursos' width='100%' align='center'>
          <thead> 
@@ -178,33 +187,32 @@ class controllerCurso {
         $tabela .= "</tbody></table>";
         return $tabela;
     }
-    
-    public function comboTodos_Professores(){
+
+    public function comboTodos_Professores() {
         $dao = new UsuarioDAO();
         $todos_professores = $dao->selectProfessores();
-//        $professores_curso = $this->getProfesores(); //Professores do curso
         $options = "<option value=''></option>";
-        foreach ($todos_professores as $professor){
-//            if($professor->getId_usuario() == $professores_curso->getId_usuario()){
-//                $options .= "<option selected='selected' value='".$professor->getId_usuario()."'>".$professor->getNome_completo()."</option>";
-//            }
-//            else{
-                $options .= "<option value='".$professor->getId_usuario()."'>".$professor->getNome_completo()."</option>";
-            }
-//        }
+        foreach ($todos_professores as $professor) {
+            $options .= "<option value='" . $professor->getId_usuario() . "'>" . $professor->getNome_completo() . "</option>";
+        }
         return $options;
     }
-    
-    public function getProfessores(){
+
+    public function getProfessores_curso($idCurso) {
+        $dao = new Curso_professorDAO();
+        $professores = $dao->selectProfessoresCurso($idCurso);
+        return $professores;
+    }
+
+    public function getProfessores() {
         $dao = new UsuarioDAO();
         $professores = $dao->selectProfessores();
         return $professores;
     }
-    
+
     /*
      * FIM: FUNÇÕES AUXILIARES
      */
-   
 }
 
 ?>
