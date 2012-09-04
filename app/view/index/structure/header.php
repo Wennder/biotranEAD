@@ -20,7 +20,7 @@
                             <li><a href="http://www.biotran.com.br" target="_blank">BIOTRAN</a></li>
                         </ul>
                     </div>
-                    <?php if($_SESSION != null){
+                    <?php if(isset($_SESSION["usuarioLogado"])){
                         echo('
                             <div id="div_logado">
                                 <table align="right">

@@ -1,6 +1,6 @@
 <?php
 $editar = "false";
-if (isset($this->curso)) {    
+if (isset($this->curso)) {
     $this->curso == null ? $editar = "false" : $editar = "true";
 }
 ?>
