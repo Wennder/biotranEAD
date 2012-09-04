@@ -1,7 +1,6 @@
 <?php
 $editar = "false";
-if (isset($this->curso)) {
-    echo $this->curso; die();
+if (isset($this->curso)) {    
     $this->curso == null ? $editar = "false" : $editar = "true";
 }
 ?>
