@@ -110,6 +110,17 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionAcesso_negado() {
         $this->renderizar();
     }
+    
+    public function actionAtualizar_curso(){
+        $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();            
+        if ($id_curso != '') {
+            $this->controller->atualizarCurso_post($id_curso);
+        }
+        Biotran_Mvc::pegarInstancia()->mudarAcao('index');
+//        $this->visao->tabela = $this->controller->tabelaUsuarios();
+        $this->renderizar();
+    }
 
 }
 

@@ -57,6 +57,11 @@ class controllerCurso_professor {
         $dao = new Curso_professorDAO();
         return $dao->selectProfessoresCurso($id_curso);
     }
+    
+    public function removeProfessoresCurso($id_curso){
+        $dao = new Curso_professorDAO();
+        return $dao->deleteProfessoresCurso($id_curso);
+    }
 }
 
 ?>

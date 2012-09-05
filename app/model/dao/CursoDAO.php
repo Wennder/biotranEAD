@@ -1,7 +1,7 @@
 <?php
 
-class CursoDAO extends PDOConnectionFactory{
-    
+class CursoDAO extends PDOConnectionFactory {
+
     private $conex = null;
 
     public function CursoDAO() {
@@ -18,20 +18,20 @@ class CursoDAO extends PDOConnectionFactory{
             $stmt->bindValue(4, $curso->getTempo());
             $stmt->bindValue(5, $curso->getGratuito(1));
             $stmt->bindValue(6, $curso->getValor());
-            
+
             //inserindo curso no banco
-            if(!$stmt->execute()){
-                trigger_error("0 Erro insersao banco de dados"); 
+            if (!$stmt->execute()) {
+                trigger_error("0 Erro insersao banco de dados");
             }
-            
+
             //inserindo professores do curso no banco                        
-            $buscaId = $this->select("nome='". $curso->getNome() ."'");
+            $buscaId = $this->select("nome='" . $curso->getNome() . "'");
             $curso_professorDAO = new Curso_professorDAO();
-            for($i = 0; $i < count($curso_professor); $i++){                
+            for ($i = 0; $i < count($curso_professor); $i++) {
                 $curso_professor[$i]->setId_curso($buscaId[0]->getId_curso());
-                $curso_professorDAO->insert($curso_professor[$i]);
+                $curso_professorDAO->insert($curso_professor);
             }
-            
+
             $stmt->conex = null;
         } catch (PDOException $ex) {
             $msgErro = "dao";
@@ -39,9 +39,15 @@ class CursoDAO extends PDOConnectionFactory{
         }
     }
 
-    public function update(Curso $curso = null, Curso_professor $cp = null) {
+    /*
+     * atualiza curso. Insere novos registros na tabela curso_professor
+     * 
+     * @param $curso - objeto curso
+     * @param $cp - array dos novoso curso_professor      
+     */
+    public function update(Curso $curso = null, array $cp = null) {
         try {
-            if($curso != null){
+            if ($curso != null) {
                 $this->conex->exec("SET NAMES 'utf8'");
                 $stmt = $this->conex->prepare("UPDATE curso SET id_curso=?, nome=?, descricao=?, tempo=?, gratuito=?, valor=? WHERE id_curso=?");
                 $stmt->bindValue(1, $curso->getId_curso());
@@ -52,11 +58,14 @@ class CursoDAO extends PDOConnectionFactory{
                 $stmt->bindValue(6, $curso->getValor());
                 $stmt->bindValue(7, $curso->getId_curso());
                 $stmt->execute();
-                if($cp != null){
+
+                if ($cp != null) {
                     $dao = new Curso_professorDAO();
-                    $dao->update($cp);
-                }                
-                
+                    for($i = 0; $i < count($cp); $i++){
+                        $cp[$i]->setId_curso($curso->getId_curso());
+                        $dao->insert($cp[$i]);
+                    }
+                }
             }
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
@@ -86,16 +95,16 @@ class CursoDAO extends PDOConnectionFactory{
             } else {
                 $stmt = $this->conex->query("SELECT * FROM curso WHERE " . $condicao);
             }
-            $curso = array();                                   
-            for ($i = 0; $i < $stmt->rowCount(); $i++){
+            $curso = array();
+            for ($i = 0; $i < $stmt->rowCount(); $i++) {
                 $curso[$i] = $stmt->fetchObject('Curso');
             }
-            if($i==0){
+            if ($i == 0) {
                 $curso = null;
-            }            
+            }
             return $curso;
         } catch (PDOException $ex) {
-            echo "Erro: ". $ex->getMessage();
+            echo "Erro: " . $ex->getMessage();
         }
     }
 

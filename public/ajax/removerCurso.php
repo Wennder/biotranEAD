@@ -15,7 +15,5 @@ $curso = $controllerCurso->getCurso($condicao);
 $resposta = $controllerCurso->removerCurso($curso);
 
 echo( json_encode($resposta) );
-
-
-    
+   
 ?>

@@ -2,12 +2,12 @@
 
 class Curso {
     
-    private $id_curso;
-    private $nome;
-    private $descricao;
-    private $tempo;
-    private $gratuito;
-    private $valor;
+    private $id_curso = '';
+    private $nome = '';
+    private $descricao = '';
+    private $tempo = '';
+    private $gratuito = '';
+    private $valor = '';
     
     function __construct() {
         

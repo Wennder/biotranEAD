@@ -14,6 +14,7 @@ if (isset($this->curso)) {
 <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="js/jquery.ui.widget.js" type="text/javascript"></script>
 <script src="js/jquery-picklist.js" type="text/javascript"></script>
+<script src="js/validarNomeCurso.js" type="text/javascript"></script>
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 <link rel="stylesheet" href="css/jquery.dataTables.css" type="text/css"/>
 
@@ -71,7 +72,7 @@ if (isset($this->curso)) {
     }
     
     function atualizarCadastro(idcurso){
-        $('#cadastro').attr({action: 'index.php?c=ead&a=atualizar_curso&id='+idcurso});
+        $('#cadastro').attr({action: 'index.php?c=ead&a=atualizar_curso&id='+idcurso});        
         $('#cadastro').submit();
     }
     
@@ -112,7 +113,7 @@ if (isset($this->curso)) {
                         <label class="label_cadastro">*Nome: </label>
                     </td>
                     <td style="width: 600px;">
-                        <input type="text" id="nome" name="nome" value="<?php echo ($this->curso == null ? '' : $this->curso->getNome()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                        <input type="text" onblur="validarNomeCurso_ajax(null)" id="nome" name="nome" value="<?php echo ($this->curso == null ? '' : $this->curso->getNome()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
                     </td>
                 </tr>
                 <tr>
@@ -157,7 +158,7 @@ if (isset($this->curso)) {
                         <label class="label_cadastro">*Professores do curso: </label>
                     </td>
                     <td>
-                        <select id="professores" name="professores[]" multiple="multiple">
+                        <select id="professores" name="professores[]" multiple="multiple" class="validate[required] text-input">
                             <?php
                             if($this->curso == null){
                                 echo $this->optionsTP;
