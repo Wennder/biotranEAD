@@ -221,7 +221,7 @@ class controllerCurso {
             }
         }
         return $options;
-    }//oi :-)
+    }
 
     public function getProfessores_curso($idCurso) {
         $this->controller = new controllerCurso_professor();

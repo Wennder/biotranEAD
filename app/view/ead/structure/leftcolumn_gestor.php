@@ -15,36 +15,16 @@
                         <a href="index.php?c=ead&a=gerenciar_usuarios"> Usuários</a>
                     </p>
                 </li>
-                <li>
-                    <p class="navbar_item cursosIcon">
-                        <a href="index.php?c=ead&a=gerenciar_cursos"> Cursos</a>
-                    </p>
-                </li>
             </ul>
         </li>
         <li>
-            <p class="navbar_item videoIcon">
-                <a href="#"> Vídeo Aulas </a>
+            <p class="navbar_item cursosIcon">
+                <a href="index.php?c=ead&a=index"> Liberar Acesso</a>
             </p>
         </li>
         <li>
-            <p class="navbar_item materialIcon">
-                <a href="#"> Material Complementar </a>
-            </p>
-        </li>
-        <li>
-            <p class="navbar_item materialIcon">
-                <a href="#"> Bibliografia </a>
-            </p>
-        </li>
-        <li>
-            <p class="navbar_item exerciciosIcon">
-                <a href="#"> Exercícios </a>
-            </p>
-        </li>
-        <li>
-            <p class="navbar_item forumIcon">
-                <a href="#"> Fórum </a>
+            <p class="navbar_item gerenciarIcon">
+                <a href="index.php?c=ead&a=index"> Gerenciar Sistema</a>
             </p>
         </li>
     </ul>

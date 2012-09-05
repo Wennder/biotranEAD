@@ -157,7 +157,7 @@ if (isset($this->curso)) {
                         <label class="label_cadastro">*Professores do curso: </label>
                     </td>
                     <td>
-                        <select id="professores" name="professores[]" multiple="multiple">
+                        <select id="professores" name="professores[]" multiple="multiple" class="validate[required] text-input">
                             <?php
                             if($this->curso == null){
                                 echo $this->optionsTP;
@@ -171,7 +171,7 @@ if (isset($this->curso)) {
                 </tr>
                 <tr>
                     <td>
-                        <label class="label_cadastro">*Imagem (240x180): </label>
+                        <label class="label_cadastro">Imagem (240x180): </label>
                     </td>
                     <td>
                         <table>
@@ -192,7 +192,7 @@ if (isset($this->curso)) {
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="file" name="imagem" id="imagem" class="validate[required] text-input" data-prompt-position="centerRight"/>
+                                    <input type="file" name="imagem" id="imagem" class="text-input" data-prompt-position="centerRight"/>
                                 </td>
                             </tr>
                         </table>

@@ -23,28 +23,45 @@
             </ul>
         </li>
         <li>
-            <p class="navbar_item videoIcon">
-                <a href="#"> Vídeo Aulas </a>
+            <p class="navbar_item cursosIcon">
+                <a href="index.php?c=ead&a=index"> Liberar Acesso</a>
             </p>
         </li>
         <li>
-            <p class="navbar_item materialIcon">
-                <a href="#"> Material Complementar </a>
+            <p class="navbar_item gerenciarIcon">
+                <a href="#">Gerenciar Curso</a>
             </p>
+            <ul style="list-style-type:none;">
+                <li>
+                    <p class="navbar_item moduloIcon">
+                        <a href="index.php?c=ead&a=index"> Adicionar Módulo</a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar_item videoIcon">
+                        <a href="index.php?c=ead&a=index"> Adicionar Vídeo Aula</a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar_item materialIcon">
+                        <a href="index.php?c=ead&a=index"> Adicionar Bibliografia</a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar_item materialIcon">
+                        <a href="index.php?c=ead&a=index"> Adicionar Material Complementar</a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar_item exerciciosIcon">
+                        <a href="index.php?c=ead&a=index"> Adicionar Exercício</a>
+                    </p>
+                </li>
+            </ul>
         </li>
         <li>
-            <p class="navbar_item materialIcon">
-                <a href="#"> Bibliografia </a>
-            </p>
-        </li>
-        <li>
-            <p class="navbar_item exerciciosIcon">
-                <a href="#"> Exercícios </a>
-            </p>
-        </li>
-        <li>
-            <p class="navbar_item forumIcon">
-                <a href="#"> Fórum </a>
+            <p class="navbar_item gerenciarIcon">
+                <a href="index.php?c=ead&a=index"> Gerenciar Sistema</a>
             </p>
         </li>
     </ul>
