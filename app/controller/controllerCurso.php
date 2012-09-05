@@ -145,7 +145,7 @@ class controllerCurso {
         if ($affectedrows >= 1) {
             return 1;
         } else {
-            return 0;
+            return trigger_error($error_msg);            
         }
     }
 

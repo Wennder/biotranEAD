@@ -18,8 +18,11 @@ class CursoDAO extends PDOConnectionFactory{
             $stmt->bindValue(4, $curso->getTempo());
             $stmt->bindValue(5, $curso->getGratuito(1));
             $stmt->bindValue(6, $curso->getValor());
+            
             //inserindo curso no banco
-            $stmt->execute();
+            if(!$stmt->execute()){
+                trigger_error("0 Erro insersao banco de dados"); 
+            }
             
             //inserindo professores do curso no banco                        
             $buscaId = $this->select("nome='". $curso->getNome() ."'");
@@ -31,7 +34,8 @@ class CursoDAO extends PDOConnectionFactory{
             
             $stmt->conex = null;
         } catch (PDOException $ex) {
-            echo "Erro: " . $ex->getMessage();
+            $msgErro = "dao";
+            trigger_error($ex->getMessage());
         }
     }
 
