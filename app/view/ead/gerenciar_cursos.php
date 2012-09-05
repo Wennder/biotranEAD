@@ -6,12 +6,14 @@ if (isset($this->curso)) {
 ?>
 
 <?php require 'structure/header.php'; ?>
-<?php require 'structure/leftcolumn.php'; ?>
+<?php require 'structure/leftcolumn_admin.php'; ?>
 <?php require 'structure/content.php'; ?>
 <script src="js/crudTabelaCurso.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
 <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="js/jquery.ui.widget.js" type="text/javascript"></script>
+<script src="js/jquery-picklist.js" type="text/javascript"></script>
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 <link rel="stylesheet" href="css/jquery.dataTables.css" type="text/css"/>
 
@@ -45,19 +47,14 @@ if (isset($this->curso)) {
             }
         });
         
-        var $quantProfessores = 1;
-        var $professores = $('#combo_professores li').clone();
-        $('#add').click(function () {
-            if($quantProfessores < $('#i_professores_size').val()){
-                $('#combo_professores li:last').after($professores.clone());
-                $quantProfessores++;
-            }
-        });
-        $('#remover').click(function () {
-            if($quantProfessores > 1){
-                $('#combo_professores li:last').detach();
-                $quantProfessores--;
-            }
+        $("#professores").pickList({
+            sourceListLabel:	"",
+            targetListLabel:	"",
+            addAllLabel:	"",
+            addLabel:		"Adicionar >>",
+            removeAllLabel:	"",
+            removeLabel:	"<< Remover",
+            sortAttribute:	"value"
         });
         
     });
@@ -160,36 +157,16 @@ if (isset($this->curso)) {
                         <label class="label_cadastro">*Professores do curso: </label>
                     </td>
                     <td>
-                        <ul id="combo_professores">
+                        <select id="professores" name="professores[]" multiple="multiple">
                             <?php
-                            if ($editar == "true") {
-                                for($i = 0; $i < count($this->professores); $i++){
-                                    echo ('
-                                        <li>
-                                            <select id="professores" name="professores[]" class="validate[required]" data-prompt-position="centerRight">
-                                                '.$this->options.'
-                                            </select>
-                                        </li>
-                                    ');
-                                }
+                            if($this->curso == null){
+                                echo $this->optionsTP;
+                            }
+                            else{
+                                echo $this->optionsPC;
                             }
                             ?>
-                            <li>
-                                <select id="professores" name="professores[]" class="validate[required]" data-prompt-position="centerRight">
-                                    <?php echo $this->options; ?>
-                                </select>
-                            </li>
-                        </ul>
-                        <table>
-                            <tr>
-                                <td>
-                                    <span id="add">Adicionar Professor(a)</span>
-                                </td>
-                                <td>
-                                    <span id="remover">Remover Professor(a)</span>
-                                </td>
-                            </tr>
-                        </table>
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -243,7 +220,6 @@ if (isset($this->curso)) {
 <div id="div_hidden" style="display: none;">
     <input type="text" id="i_editar" name="i_editar" value="<?php echo $editar; ?>"/>
     <input type="text" id="i_professores" name="i_professores" value="<?php echo $this->professores; ?>"/>
-    <input type="text" id="i_professores_size" name="i_professores_size" value="<?php echo count($this->professores); ?>"/>
 </div>
 
 <?php require 'structure/footer.php'; ?>

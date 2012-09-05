@@ -401,3 +401,25 @@ form.form_cadastro, form.form_editar{
 #add, #remover{
     cursor:pointer;
 }
+
+/* CSS DO PICKLIST */
+
+.pickList_sourceListContainer, .pickList_controlsContainer, .pickList_targetListContainer { float: left; margin: 0.25em; }
+.pickList_controlsContainer { text-align: center; }
+.pickList_controlsContainer button { display: block; width: 100%; text-align: center; }
+.pickList_list { list-style-type: none; margin: 0; padding: 0; float: left; width: 220px; height: 75px; border: 1px inset #eee; overflow-y: auto; cursor: default; }
+.pickList_listItem { font-size: 12px;}
+.pickList_selectedListItem { background-color: #a3c8f5; }
+.pickList_listLabel { font-size: 0.9em; font-weight: bold; text-align: center; }
+.pickList_clear { clear: both; }
+.pickList_addAll{ display: none !important;}
+.pickList_removeAll{ display: none !important;}
+.pickList_add{
+/*    padding-left:25px;
+    padding-top: 1px;
+    height:20px;
+    background: url('../img/botao_adicionar.png') no-repeat;
+    font-size: 12px;
+    color: #555555;
+    cursor:pointer;*/
+}

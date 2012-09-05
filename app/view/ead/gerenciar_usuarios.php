@@ -8,7 +8,17 @@ if (isset($this->usuario)) {
 ?>
 
 <?php require 'structure/header.php'; ?>
-<?php require 'structure/leftcolumn.php'; ?>
+<?php
+$papel = $_SESSION["usuarioLogado"]->getId_papel();
+switch ($papel) {
+    case 1:
+        require 'structure/leftcolumn_admin.php';
+        break;
+    case 2:
+        require 'structure/leftcolumn_gestor.php';
+        break;
+}
+?>
 <?php require 'structure/content.php'; ?>
 <script src="js/validarCpf_passaporteCadastro.js" type="text/javascript"></script>
 <script src="js/crudTabelaUsuario.js" type="text/javascript"></script>

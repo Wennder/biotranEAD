@@ -5,8 +5,7 @@ class controllerCurso {
     private $curso = null;
     private $curso_professor = null;
     private $controller = null;
-    
-    
+
     /*
      * INICIO: FUNÇÕES DE CRUD
      */
@@ -18,11 +17,11 @@ class controllerCurso {
 
     public function setCurso_post() {
         if (!empty($_POST)) {
-            if($this->curso == null){
-                $this->curso = new Curso();                
+            if ($this->curso == null) {
+                $this->curso = new Curso();
             }
-            if($this->curso_professor == null){
-                $this->curso_professor = array();                
+            if ($this->curso_professor == null) {
+                $this->curso_professor = array();
             }
             foreach ($_POST as $k => $v) {
                 if ($k == "professores") {
@@ -106,7 +105,7 @@ class controllerCurso {
     public function novoCurso_post() {
         //seta as variaveis $this->curso e $this->cp
         $this->setCurso_post();
-        
+
         $this->novoCurso($this->curso, $this->curso_professor);
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
         if (isset($_POST["foto"])) {
@@ -191,23 +190,47 @@ class controllerCurso {
     }
 
     public function comboTodos_Professores() {
-        $this->controller = new controllerUsuario();        
+        $this->controller = new controllerUsuario();
         $todos_professores = $this->controller->getListaUsuarioProfessor();
-        $options = "<option value=''></option>";
+        $options = "";
         foreach ($todos_professores as $professor) {
             $options .= "<option value='" . $professor->getId_usuario() . "'>" . $professor->getNome_completo() . "</option>";
         }
         return $options;
     }
 
+    public function comboProfessores_curso($idCurso) {
+        $this->controller = new controllerUsuario();
+        $this->controllerCP = new controllerCurso_professor();
+        $todos_professores = $this->controller->getListaUsuarioProfessor();
+        $professores_curso = $this->controllerCP->getProfessoresCurso($idCurso);
+        $options = "";
+
+        for ($j = 0; $j < count($professores_curso); $j++) {
+            //verifica se é o professor é professor do curso especificado       
+            $options .= "<option value='" . $professores_curso[$j]->getId_usuario() . "' selected='selected'>" . $professores_curso[$j]->getNome_completo() . "</option>";
+            for ($i = 0; $i < count($todos_professores); $i++) {
+                if ($todos_professores[$i] != null && $todos_professores[$i]->getId_usuario() == $professores_curso[$j]->getId_usuario()) {
+                    $todos_professores[$i] = null;
+                }
+            }
+        }
+        for ($i = 0; $i < count($todos_professores); $i++) {
+            if ($todos_professores[$i] != null) {
+                $options .= "<option value='" . $professores_curso[$i]->getId_usuario() . "'>" . $todos_professores[$i]->getNome_completo() . "</option>";
+            }
+        }
+        return $options;
+    }//oi :-)
+
     public function getProfessores_curso($idCurso) {
-        $this->controller = new controllerCurso_professor();        
-        return $this->controller->getProfessoresCurso($idCurso);                
+        $this->controller = new controllerCurso_professor();
+        return $this->controller->getProfessoresCurso($idCurso);
     }
 
     public function getProfessores() {
-        $this->controller = new controllerUsuario();        
-        return $this->controller->getListaUsuarioProfessor();        
+        $this->controller = new controllerUsuario();
+        return $this->controller->getListaUsuarioProfessor();
     }
 
     /*
