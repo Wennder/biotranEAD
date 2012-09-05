@@ -6,6 +6,15 @@ class controllerCurso {
     private $curso_professor = null;
     private $controller = null;
 
+    
+    public function validarCurso ($nome){
+         $user = $this->getUsuario("nome='" . $nome . "'");
+        if ($user != null) {
+            return 0;
+        }else
+            return 1;
+    }
+    
     /*
      * INICIO: FUNÇÕES DE CRUD
      */
@@ -28,7 +37,7 @@ class controllerCurso {
                     $professores = $v;
                     for ($i = 0; $i < count($professores); $i++) {
                         $this->curso_professor[$i] = new Curso_professor();
-                        $this->curso_professor[$i]->setId_usuario($professores[$i]);
+                        $this->curso_professor[$i]->setId_usuario($professores[$i]);                        
                     }
                 } else {
                     $setAtributo = 'set' . ucfirst($k);
@@ -108,24 +117,47 @@ class controllerCurso {
 
         $this->novoCurso($this->curso, $this->curso_professor);
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
-        if (isset($_POST["foto"])) {
+        if (isset($_FILES["imagem"])) {
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/
             $this->curso = $this->getCurso("nome='" . $this->curso->getNome() . "'");
-            $this->inserirFotoCurso($this->curso->getId_usuario());
+            $this->inserirFotoCurso($this->curso->getId_curso());
         }
     }
+    
+    /*
+     * Atualiza Curso no banco. Faz acesso ao CursoDAO
+     */
+
+    public function atualizarCurso(Curso $curso = null, array $cp = null) {
+        //atualiza usuario
+        if ($curso != null) {
+            $dao = new CursoDAO();
+            if ($cp != null) {
+                $dao->update($curso, $cp);
+            } else {
+                $dao->update($curso);
+            }
+        } else {
+            return 'ERRO: parametros nullos - funcao novoUsuario - [controllerUsuario]';
+        }
+    }
+    
 
     public function atualizarCurso_post($id_curso) {
-        $this->curso = $this->getCurso("id_curso = " . $id_curso);
-        $this->curso_professor = $this->getCurso_professor();
+        $this->curso = $this->getCurso("id_curso = " . $id_curso);        
         //seta as variaveis $this->curso e $this->cp
         $this->setCurso_post();
-        $this->novoCurso($this->curso, $this->curso_professor);
+        
+        //remove entradas antigas
+        $this->controller = new controllerCurso_professor();
+        $this->controller->removeProfessoresCurso($id_curso);
+        
+        //atualizar
+        $this->atualizarCurso($this->curso, $this->curso_professor);
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
-        if (isset($_POST["foto"])) {
-            // NOME? NÃO É UMA ENTRADA ÚNICA... =/
-            $this->curso = $this->getCurso("nome='" . $this->curso->getNome() . "'");
-            $this->inserirFotoCurso($this->curso->getId_usuario());
+        if (isset($_FILES["imagem"])) {
+            // NOME? NÃO É UMA ENTRADA ÚNICA... =/            
+            $this->inserirFotoCurso($this->curso->getId_curso());
         }
     }
 
@@ -144,7 +176,7 @@ class controllerCurso {
         if ($affectedrows >= 1) {
             return 1;
         } else {
-            return 0;
+            return 0;            
         }
     }
 

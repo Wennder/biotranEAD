@@ -20,6 +20,7 @@ include ROOT_PATH . '/app/model/dao/PapelDAO.php';
 include ROOT_PATH . '/app/model/dao/Papel_paginaDAO.php';
 include ROOT_PATH . '/app/controller/ControllerSeguranca.php';
 include ROOT_PATH . '/app/controller/ControllerCurso_professor.php';
+include ROOT_PATH . '/app/controller/ControllerErros.php';
 require ROOT_PATH . '/library/Biotran/AutoLoad.php';
 require ROOT_PATH . '/library/Biotran/mvc/view.php';
 require ROOT_PATH . '/library/Biotran/mvc/controller.php'; 

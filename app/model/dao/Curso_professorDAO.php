@@ -15,6 +15,8 @@ class Curso_professorDAO extends PDOConnectionFactory {
             $stmt->bindValue(2, $curso_professor->getId_usuario());
 
             $stmt->execute();
+
+
             $stmt->conex = null;
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
@@ -53,9 +55,9 @@ class Curso_professorDAO extends PDOConnectionFactory {
         }
     }
 
-    public function delete(Curso $curso) {
+    public function deleteProfessoresCurso($id_curso) {
         try {
-            $num = $this->conex->exec("DELETE FROM usuario WHERE id_usuario=" . $curso->getId_curso());
+            $num = $this->conex->exec("DELETE FROM curso_professor WHERE id_curso=" . $id_curso);
             // caso seja executado ele retorna o número de rows que foram afetadas.
             if ($num >= 1) {
                 return $num;
@@ -90,12 +92,13 @@ class Curso_professorDAO extends PDOConnectionFactory {
      * retorna um array de Usuarios professor responsáveis pelo curso
      * de id = $id_curso;
      */
+
     public function selectProfessoresCurso($id_curso) {
         try {
-            $stmt = $this->conex->query("SELECT * FROM curso_professor NATURAL JOIN usuario WHERE id_curso = ".$id_curso);            
+            $stmt = $this->conex->query("SELECT * FROM curso_professor NATURAL JOIN usuario WHERE id_curso = " . $id_curso);
             $cp = array();
             for ($i = 0; $i < $stmt->rowCount(); $i++) {
-                $cp[$i] = $stmt->fetchObject('Usuario');                
+                $cp[$i] = $stmt->fetchObject('Usuario');
             }
             return $cp;
         } catch (PDOException $ex) {
