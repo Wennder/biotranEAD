@@ -106,7 +106,7 @@
                         <label class="label_cadastro">*CPF/Passaporte: </label>
                     </td>
                     <td>
-                        <input type="text" id="cpf_passaporte" name="cpf_passaporte" onblur="validaCpf_passaporte_ajax(null);" class="validate[required, custom[onlyNumberSp]] text-input" data-prompt-position="centerRight" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="14"/>
+                        <input type="text" id="cpf_passaporte" name="cpf_passaporte" class="validate[required, custom[onlyNumberSp], ajax[validarCpf_cadastro_ajax]] text-input" data-prompt-position="centerRight" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="14"/>
                         <label class="label_cadastro_legend">Somente números </label>
                     </td>
                 </tr>
@@ -210,7 +210,7 @@
                         <label class="label_cadastro">*E-mail (login): </label>
                     </td>
                     <td style="width: 500px;">
-                        <input type="text" id="email" name="email"  class="validate[required, custom[email]] text-input" onblur="validaLogin_ajax()" data-prompt-position="centerRight"/>
+                        <input type="text" id="email" name="email"  class="validate[required, custom[email], ajax[validarLogin_ajax]] text-input" data-prompt-position="centerRight"/>
                     </td>
                 </tr>
                 <tr>

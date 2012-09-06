@@ -6,20 +6,20 @@ class controllerUsuario {
     private $end;
     private $controller;
 
-    public function validarLoginCadastro($login) {
+    public function validarLogin($login) {
         $user = $this->getUsuario("login='" . $login . "'");
         if ($user != null) {
-            return 0;
+            return false;
         }else
-            return 1;
+            return true;
     }
     
-    public function validarCpf_passaporteCadastro($cpf_passaporte) {
+    public function validarCpf($cpf_passaporte) {
         $user = $this->getUsuario("cpf_passaporte='" . $cpf_passaporte . "'");
         if ($user != null) {
-            return 0;
+            return false;
         }else
-            return 1;
+            return true;
     }
 
     /*

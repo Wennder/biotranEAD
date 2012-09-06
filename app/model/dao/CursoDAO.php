@@ -27,9 +27,10 @@ class CursoDAO extends PDOConnectionFactory {
             //inserindo professores do curso no banco                        
             $buscaId = $this->select("nome='" . $curso->getNome() . "'");
             $curso_professorDAO = new Curso_professorDAO();
+            
             for ($i = 0; $i < count($curso_professor); $i++) {
                 $curso_professor[$i]->setId_curso($buscaId[0]->getId_curso());
-                $curso_professorDAO->insert($curso_professor);
+                $curso_professorDAO->insert($curso_professor[$i]);
             }
 
             $stmt->conex = null;

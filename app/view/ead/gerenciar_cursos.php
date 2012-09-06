@@ -113,7 +113,7 @@ if (isset($this->curso)) {
                         <label class="label_cadastro">*Nome: </label>
                     </td>
                     <td style="width: 600px;">
-                        <input type="text" onblur="validarNomeCurso_ajax(null)" id="nome" name="nome" value="<?php echo ($this->curso == null ? '' : $this->curso->getNome()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                        <input type="text" id="nome" name="nome" value="<?php echo ($this->curso == null ? '' : $this->curso->getNome()); ?>" class="validate[required, ajax[validarNomeCurso_ajax]] text-input" data-prompt-position="centerRight" style="width: 500px"/>
                     </td>
                 </tr>
                 <tr>

@@ -34,7 +34,7 @@
                     "alertText": "* Permitido o máximo de ",
                     "alertText2": " caractere(s)"
                 },
-				"groupRequired": {
+                "groupRequired": {
                     "regex": "none",
                     "alertText": "* Você deve preencher um dos seguintes campos"
                 },
@@ -113,9 +113,30 @@
                     "alertText": "* Não são permitidos caracteres especiais"
                 },
                 "real": {
-                	// Brazilian (Real - R$) money format
-                	"regex": /^([1-9]{1}[\d]{0,2}(\.[\d]{3})*(\,[\d]{0,2})?|[1-9]{1}[\d]{0,}(\,[\d]{0,2})?|0(\,[\d]{0,2})?|(\,[\d]{1,2})?)$/,
+                    // Brazilian (Real - R$) money format
+                    "regex": /^([1-9]{1}[\d]{0,2}(\.[\d]{3})*(\,[\d]{0,2})?|[1-9]{1}[\d]{0,}(\,[\d]{0,2})?|0(\,[\d]{0,2})?|(\,[\d]{1,2})?)$/,
                     "alertText": "* Número decimal inválido"
+                },
+                "validarLogin_ajax":{
+                    "url": "ajax/validarCamposUnicos.php?acao=login&controller=usuario",
+                    "extraDataDynamic": ['#email'],
+                    "alertText": "* Este login já está sendo utilizado",
+                    "alertTextOk": "Login válido!",
+                    "alertTextLoad": "* Validando, por favor espere!"
+                },
+                "validarNomeCurso_ajax":{
+                    "url": "ajax/validarCamposUnicos.php?acao=nome&controller=curso",                    
+                    "extraDataDynamic": ['#nome'],
+                    "alertText": "* Este nome já está sendo utilizado",
+                    "alertTextOk": "Nome válido!",
+                    "alertTextLoad": "* Validando, por favor espere!"
+                },
+                "validarCpf_cadastro_ajax":{
+                    "url": "ajax/validarCamposUnicos.php?acao=cpf&controller=usuario",                    
+                    "extraDataDynamic": ['#cpf_cadastro'],
+                    "alertText": "* Este CPF/Passaporte já está sendo utilizado",
+                    "alertTextOk": "Registro válido!",
+                    "alertTextLoad": "* Validando, por favor espere!"
                 }
             };
             

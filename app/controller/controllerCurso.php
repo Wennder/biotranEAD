@@ -7,12 +7,12 @@ class controllerCurso {
     private $controller = null;
 
     
-    public function validarCurso ($nome){
-         $user = $this->getUsuario("nome='" . $nome . "'");
+    public function validarNome ($nome){
+         $user = $this->getCurso("nome='" . $nome . "'");
         if ($user != null) {
-            return 0;
+            return false;
         }else
-            return 1;
+            return true;
     }
     
     /*

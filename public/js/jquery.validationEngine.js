@@ -1179,26 +1179,25 @@
 					 rule: rule,
 					 methods: methods,
 					 options: options,
-					 beforeSend: function() {
+					 beforeSend: function() {                                             
 						 // build the loading prompt
 						 var loadingText = rule.alertTextLoad;
 						 if (loadingText)
 							methods._showPrompt(field, loadingText, "load", true, options);
 					 },
-					 error: function(data, transport) {
+					 error: function(data, transport) {                                                
 						 methods._ajaxError(data, transport);
 					 },
 					 success: function(json) {
-
+                                                
 						 // asynchronously called on success, data is the json answer from the server
-						 var errorFieldId = json[0];
+						 var errorFieldId = json[0];                                                 
 						 //var errorField = $($("#" + errorFieldId)[0]);
 						 var errorField = $($("input[id='" + errorFieldId +"']")[0]);
-
 						 // make sure we found the element
 						 if (errorField.length == 1) {
 							 var status = json[1];
-							 // read the optional msg from the server
+							 // read the optional msg from the server                                                         
 							 var msg = json[2];
 							 if (!status) {
 								 // Houston we got a problem - display an red prompt
@@ -1232,7 +1231,7 @@
 									 }
 								 }
 								 else
-								 msg = rule.alertTextOk;
+								 msg = rule.alertTextOk;                                                             
 
 								 // see if we should display a green prompt
 								 if (msg)
