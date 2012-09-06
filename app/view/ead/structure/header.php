@@ -29,6 +29,7 @@
             </div>
         </div>
         <div id="banner_top">
-
+            <br>
+            <label style="color: #fff;">. Versão 0.1</label>
         </div>
         <div class="content_fluid">
