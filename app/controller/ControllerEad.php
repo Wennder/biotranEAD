@@ -2,28 +2,26 @@
 
 class ControllerEad extends Biotran_Mvc_Controller {
 
-    private $controller = null;    
+    private $controller = null;
 
     public function actionIndex() {
         $this->visao->usuarioLogado = $_SESSION['usuarioLogado'];
         $this->renderizar();
     }
-    
+
     public function actionCadastrar_usuario() {
         $this->controller = new controllerUsuario();
-        if ($this->controller->validarLoginCadastro($_POST["email"])) {
+        if ($this->controller->validarLogin($_POST["email"])) {
             $this->controller->inserirNovoUsuario_post();
             Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_usuarios');
             $this->renderizar();
-//          $this->actionGerenciar_usuarios();
-        }else{
-            //redirecionar página,TRATAR LOGIN sei lá.
-        }                            
+        } else {
+            trigger_error("1 Reenvio de formulario, usuario ja cadastrado");
+        }
     }
 
     public function actionGerenciar_usuarios() {
         $this->visao->titulo = "Gerenciar Usuários";
-
         $this->controller = new controllerUsuario();
         //Pega a id passa na url e monta o objeto buscando os dados no banco
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
@@ -41,7 +39,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionAtualizar_cadastro_usuario() {
         $this->controller = new controllerUsuario();
-        $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();            
+        $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
             $this->controller->atualizarUsuario_post($id_usuario);
         }
@@ -50,8 +48,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
-    public function actionAtualizar_cadastro_admin(){
-        $this->controller = new controllerUsuario();
+    public function actionAtualizar_cadastro_admin() {
+        $this->controller = new controllerUsuario();        
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
             $this->controller->atualizarUsuario_post($id_usuario);
@@ -72,19 +70,23 @@ class ControllerEad extends Biotran_Mvc_Controller {
         if ($id_curso != '') {
             $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
             $this->visao->optionsPC = $this->controller->comboProfessores_curso($id_curso);
-        } 
+        }
         //Monta a tabela de cursos
         $this->visao->tabela = $this->controller->tabelaCursos();
-        
+
         $this->visao->optionsTP = $this->controller->comboTodos_Professores();
         $this->renderizar();
     }
 
     public function actionCadastrar_curso() {
         $this->controller = new controllerCurso();
+        if($this->controller->validarNome("nome='".$_POST['nome']."'")){
         $this->controller->novoCurso_post();
-        Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_cursos');        
-        $this->renderizar();
+            Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_cursos');
+            $this->renderizar();            
+        }else{
+            trigger_error("1 Reenvio de formulario, curso ja cadastrado");
+        }
     }
 
     public function actionDados_pessoais() {
@@ -110,10 +112,10 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionAcesso_negado() {
         $this->renderizar();
     }
-    
-    public function actionAtualizar_curso(){
+
+    public function actionAtualizar_curso() {
         $this->controller = new controllerCurso();
-        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();            
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_curso != '') {
             $this->controller->atualizarCurso_post($id_curso);
         }
@@ -125,11 +127,11 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionTodos_cursos() {
         $this->renderizar();
     }
-    
+
     public function actionCurso() {
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->controller = new controllerCurso();
-        $this->visao->curso = $this->controller->getCurso("id_curso=".$id_curso."");
+        $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
         $this->renderizar();
     }
 

@@ -137,6 +137,10 @@
                     "alertText": "* Este CPF/Passaporte já está sendo utilizado",
                     "alertTextOk": "Registro válido!",
                     "alertTextLoad": "* Validando, por favor espere!"
+                },
+                "checkSelectProfessores":{
+                    "regex": "none",
+                    "alertText": "* Nenhum professor selecionado"
                 }
             };
             

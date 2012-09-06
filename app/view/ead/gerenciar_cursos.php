@@ -95,6 +95,12 @@ if (isset($this->curso)) {
             else  return false;
         }
     }
+    
+    function checkSelectProfessores(field, rules, i, options){        
+        if(field.val().length == 0){
+            return options.allrules.checkSelectProfessores.alertText;
+        }
+    }
 
 </script>
 
@@ -158,7 +164,7 @@ if (isset($this->curso)) {
                         <label class="label_cadastro">*Professores do curso: </label>
                     </td>
                     <td>
-                        <select id="professores" name="professores[]" multiple="multiple" class="validate[required] text-input">
+                        <select id="professores" name="professores[]" multiple="multiple" class="validate[required, funcCall[checkSelectProfessores]] text-input" data-prompt-position="centerRight">
                             <?php
                             if($this->curso == null){
                                 echo $this->optionsTP;

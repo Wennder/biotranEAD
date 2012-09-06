@@ -89,7 +89,13 @@ class controllerCurso {
     public function novoCurso(Curso $curso, array $cp) {
         if ($curso != null && $cp != null) {
             $dao = new CursoDAO();
-            $dao->insert($curso, $cp);
+            //se realmente não existe registro com o mesmo nome, insere
+            if($dao->select("nome='".$curso->getNome()."'") == null){
+                $dao->insert($curso, $cp);                
+            }else{
+                //caso contrário, enviar para a página principal
+                trigger_error("1 Reenvio de formulario, curso ja cadastrado");
+            }
         } else {
             return 'ERRO: funcao novoCurso - [controllerCurso]';
         }
