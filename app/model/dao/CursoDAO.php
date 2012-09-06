@@ -95,7 +95,7 @@ class CursoDAO extends PDOConnectionFactory {
                 $stmt = $this->conex->query("SELECT * FROM curso");
             } else {
                 $stmt = $this->conex->query("SELECT * FROM curso WHERE " . $condicao);
-            }
+            }            
             $curso = array();
             for ($i = 0; $i < $stmt->rowCount(); $i++) {
                 $curso[$i] = $stmt->fetchObject('Curso');

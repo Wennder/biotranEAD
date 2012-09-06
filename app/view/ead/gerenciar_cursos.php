@@ -72,7 +72,7 @@ if (isset($this->curso)) {
     }
     
     function atualizarCadastro(idcurso){
-        $('#cadastro').attr({action: 'index.php?c=ead&a=atualizar_curso&id='+idcurso});        
+        $('#cadastro').attr({action: 'index.php?c=ead&a=atualizar_curso&id='+idcurso});
         $('#cadastro').submit();
     }
     

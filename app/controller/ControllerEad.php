@@ -49,7 +49,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionAtualizar_cadastro_admin() {
-        $this->controller = new controllerUsuario();        
+        $this->controller = new controllerUsuario();
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         if ($id_usuario != '') {
             $this->controller->atualizarUsuario_post($id_usuario);
@@ -68,7 +68,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->curso = null;
         if ($id_curso != '') {
-            $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
+            $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");            
             $this->visao->optionsPC = $this->controller->comboProfessores_curso($id_curso);
         }
         //Monta a tabela de cursos
@@ -80,11 +80,11 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionCadastrar_curso() {
         $this->controller = new controllerCurso();
-        if($this->controller->validarNome("nome='".$_POST['nome']."'")){
-        $this->controller->novoCurso_post();
+        if ($this->controller->validarNome($_POST['nome']) && count($_POST["professores"])>0) {
+            $this->controller->novoCurso_post();
             Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_cursos');
-            $this->renderizar();            
-        }else{
+            $this->renderizar();
+        } else {
             trigger_error("1 Reenvio de formulario, curso ja cadastrado");
         }
     }
@@ -114,14 +114,19 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionAtualizar_curso() {
-        $this->controller = new controllerCurso();
-        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-        if ($id_curso != '') {
-            $this->controller->atualizarCurso_post($id_curso);
-        }
-        Biotran_Mvc::pegarInstancia()->mudarAcao('index');
+        if(count($_POST["professores"]) == 0){
+            trigger_error("1 Reenvio de formulario, curso ja cadastrado");
+        }else{
+            
+            $this->controller = new controllerCurso();
+            $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+            if ($id_curso != '') {
+                $this->controller->atualizarCurso_post($id_curso);
+            }
+            Biotran_Mvc::pegarInstancia()->mudarAcao('index');
 //        $this->visao->tabela = $this->controller->tabelaUsuarios();
-        $this->renderizar();
+            $this->renderizar();
+        }
     }
 
     public function actionTodos_cursos() {

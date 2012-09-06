@@ -7,7 +7,7 @@ class controllerCurso {
     private $controller = null;
 
     
-    public function validarNome ($nome){
+    public function validarNome ($nome){        
          $user = $this->getCurso("nome='" . $nome . "'");
         if ($user != null) {
             return false;
@@ -119,8 +119,7 @@ class controllerCurso {
 
     public function novoCurso_post() {
         //seta as variaveis $this->curso e $this->cp
-        $this->setCurso_post();
-
+        $this->setCurso_post();        
         $this->novoCurso($this->curso, $this->curso_professor);
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
         if (isset($_FILES["imagem"])) {
@@ -255,7 +254,7 @@ class controllerCurso {
         }
         for ($i = 0; $i < count($todos_professores); $i++) {
             if ($todos_professores[$i] != null) {
-                $options .= "<option value='" . $professores_curso[$i]->getId_usuario() . "'>" . $todos_professores[$i]->getNome_completo() . "</option>";
+                $options .= "<option value='" . $todos_professores[$i]->getId_usuario() . "'>" . $todos_professores[$i]->getNome_completo() . "</option>";
             }
         }
         return $options;
