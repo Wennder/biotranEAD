@@ -13,7 +13,7 @@ class controllerUsuario {
         }else
             return true;
     }
-    
+
     public function validarCpf($cpf_passaporte) {
         $user = $this->getUsuario("cpf_passaporte='" . $cpf_passaporte . "'");
         if ($user != null) {
@@ -54,9 +54,9 @@ class controllerUsuario {
     public function atualizarUsuario_post($id_usuario) {
         //se usuario já está cadastrado
         $this->usuario = $this->getUsuario("id_usuario=" . $id_usuario);
-        $this->end = $this->getEndereco_usuario($id_usuario);        
+        $this->end = $this->getEndereco_usuario($id_usuario);
         //captura as informações de usuario via post!
-        $this->setUsuario_post();        
+        $this->setUsuario_post();
         //atualiza usuario
         $this->atualizarUsuario($this->usuario, $this->end);
         //atualiza a foto
@@ -156,16 +156,22 @@ class controllerUsuario {
         }
     }
 
-    public function novoUsuario(Usuario $user = null, Endereco $end = null) {
+    public function novoUsuario(Usuario $user = null, Endereco $end = null) {        
         if ($user != null && $end != null) {
             $dao = new UsuarioDAO();
-            $dao->insert($user, $end);
+            //verifica se realmente já não existe o registro
+            //prevenir reenvio de formulário
+            if($dao->select("login='".$user->getLogin()."'") == null){
+                $dao->insert($user, $end);                
+            }else{
+                trigger_error("1 Reenvio de formulario, curso ja cadastrado");
+            }
         } else {
             return 'ERRO: funcao novoUsuario - [controllerUsuario]';
         }
     }
-    
-    public function getListaUsuarioProfessor(){
+
+    public function getListaUsuarioProfessor() {
         $dao = new UsuarioDAO();
         return $dao->select("id_papel = 3 ORDER BY nome_completo");
     }
@@ -208,7 +214,11 @@ class controllerUsuario {
                     if ($k != 'senha' || ($k == 'senha' && $v != '')) {
                         $setAtributo = 'set' . ucfirst($k);
                         if (method_exists($this->usuario, $setAtributo)) {
-                            $this->usuario->$setAtributo($v);
+                            if ($k == 'senha') {
+                                $this->usuario->$setAtributo(md5($v));
+                            }else{
+                                $this->usuario->$setAtributo($v);
+                            }
                         }
                     } else {
                         if ($k == 'senha') {

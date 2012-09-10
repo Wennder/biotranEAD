@@ -7,8 +7,7 @@
 function customerErros($error_level, $error_msg, $error_file, $error_line, $error_ctx) {
 
     $date = date("d/m/y");
-    $time = date("H:i");
-    
+    $time = date("H:i");    
     $tipo_erro = $error_msg[0];
     $error_msg[0] = $error_msg[1] = '';
     $erro = "---$date $time--- \r\nerror_level:$error_level \r\n$error_msg $error_file - line: $error_line \r\n\r\nerror_context: " . print_r($error_ctx, 1) . "\r\n\r\n";
@@ -17,7 +16,12 @@ function customerErros($error_level, $error_msg, $error_file, $error_line, $erro
     if ($tipo_erro == 0) {        
         error_log($erro, 3, "../app/relatorios/log_erros_usuario.txt");
     }else{
-        error_log($erro, 3, "../app/relatorios/log_erros_sistema.txt");
+        error_log($erro, 3, "../app/relatorios/log_erros_sistema.txt");        
+        if(isset($_SESSION["usuarioLogado"])){
+            header("location: index.php?c=ead&a=index");
+        }else{
+            header("location: index.php");
+        }
     }
 }
 

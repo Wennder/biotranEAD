@@ -53,7 +53,7 @@ class controllerCurso_professor {
         return $cp;
     }
     
-    public function getProfessoresCurso($id_curso){
+    public function getProfessoresCurso($id_curso){        
         $dao = new Curso_professorDAO();
         return $dao->selectProfessoresCurso($id_curso);
     }

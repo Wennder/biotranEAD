@@ -7,7 +7,7 @@ class controllerCurso {
     private $controller = null;
 
     
-    public function validarNome ($nome){
+    public function validarNome ($nome){        
          $user = $this->getCurso("nome='" . $nome . "'");
         if ($user != null) {
             return false;
@@ -89,7 +89,13 @@ class controllerCurso {
     public function novoCurso(Curso $curso, array $cp) {
         if ($curso != null && $cp != null) {
             $dao = new CursoDAO();
-            $dao->insert($curso, $cp);
+            //se realmente não existe registro com o mesmo nome, insere
+            if($dao->select("nome='".$curso->getNome()."'") == null){
+                $dao->insert($curso, $cp);                
+            }else{
+                //caso contrário, enviar para a página principal
+                trigger_error("1 Reenvio de formulario, curso ja cadastrado");
+            }
         } else {
             return 'ERRO: funcao novoCurso - [controllerCurso]';
         }
@@ -113,8 +119,7 @@ class controllerCurso {
 
     public function novoCurso_post() {
         //seta as variaveis $this->curso e $this->cp
-        $this->setCurso_post();
-
+        $this->setCurso_post();        
         $this->novoCurso($this->curso, $this->curso_professor);
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
         if (isset($_FILES["imagem"])) {
@@ -249,7 +254,7 @@ class controllerCurso {
         }
         for ($i = 0; $i < count($todos_professores); $i++) {
             if ($todos_professores[$i] != null) {
-                $options .= "<option value='" . $professores_curso[$i]->getId_usuario() . "'>" . $todos_professores[$i]->getNome_completo() . "</option>";
+                $options .= "<option value='" . $todos_professores[$i]->getId_usuario() . "'>" . $todos_professores[$i]->getNome_completo() . "</option>";
             }
         }
         return $options;

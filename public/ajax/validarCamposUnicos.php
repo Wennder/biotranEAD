@@ -1,6 +1,6 @@
 <?php
 
-define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'].'/biotranEAD');
+define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . '/biotranEAD');
 include ROOT_PATH . '/app/model/pdo/PDOConnectionFactory.class.php';
 include ROOT_PATH . '/app/controller/controllerUsuario.php';
 include ROOT_PATH . '/app/controller/controllerCurso.php';
@@ -15,13 +15,16 @@ $controller = $_GET['controller'];
 
 $valor = $_REQUEST['fieldValue'];
 
-$classe_controller = 'controller'.ucfirst(strtolower($controller));
-$acao_controller = 'validar'.ucfirst(strtolower($acao));  
+$classe_controller = 'controller' . ucfirst(strtolower($controller));
+$acao_controller = 'validar' . ucfirst(strtolower($acao));
+$acaoGet_controller = 'get' . ucfirst(strtolower($controller));
 
-if(class_exists($classe_controller)){
+if (class_exists($classe_controller)) {
     $controller = new $classe_controller;
-    if(method_exists($controller, $acao_controller)){
-        $valores = array($id_input, $controller->$acao_controller($valor));        
+    if (method_exists($controller, $acao_controller)) {
+        if (method_exists($controller, $acaoGet_controller)) {  
+                $valores = array($id_input, $controller->$acao_controller($valor));                
+        }
     }
 }
 

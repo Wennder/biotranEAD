@@ -98,7 +98,7 @@ class Curso_professorDAO extends PDOConnectionFactory {
             $stmt = $this->conex->query("SELECT * FROM curso_professor NATURAL JOIN usuario WHERE id_curso = " . $id_curso);
             $cp = array();
             for ($i = 0; $i < $stmt->rowCount(); $i++) {
-                $cp[$i] = $stmt->fetchObject('Usuario');
+                $cp[$i] = $stmt->fetchObject('Usuario');                
             }
             return $cp;
         } catch (PDOException $ex) {
