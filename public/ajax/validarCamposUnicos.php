@@ -10,6 +10,7 @@ include ROOT_PATH . '/app/model/vo/Curso.php';
 include ROOT_PATH . '/app/model/vo/Usuario.php';
 
 $id_input = $_GET['fieldId'];
+
 $acao = $_GET['acao'];
 $controller = $_GET['controller'];
 

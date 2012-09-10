@@ -64,7 +64,7 @@ class ControllerSeguranca {
 
     public function actionLiberarAcesso($pagina) {
         if ($this->seguranca->validarSessao()) {
-            return$this->seguranca->isPapel_pagina($pagina);
+            return $this->seguranca->isPapel_pagina($pagina);
         } else {
             return 'nao logado';
         }
