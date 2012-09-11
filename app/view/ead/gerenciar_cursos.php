@@ -58,7 +58,7 @@ if (isset($this->curso)) {
             addLabel:		"Adicionar >>",
             removeAllLabel:	"",
             removeLabel:	"<< Remover",
-            sortAttribute:	"value"
+            sortAttribute:	"value",                        
         });
         
     });
@@ -100,7 +100,8 @@ if (isset($this->curso)) {
     }
     
     function checkSelectProfessores(field, rules, i, options){        
-        if(field.val().length == 0){
+        alert('teste');
+        if($("#professores").length == 0){
             return "* Nenhum professor selecionado";
 //            return options.allrules.checkSelectProfessores.alertText;
         }else return true;

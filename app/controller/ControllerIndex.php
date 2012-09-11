@@ -49,9 +49,10 @@ class ControllerIndex extends Biotran_Mvc_Controller{
     
     public function actionCadastrar_usuario() {
         $this->visao->titulo = "Cadastrar Usuário";
-        if(validarLoginCadastro($_POST["email"])){
-            $ctrl = new controllerUsuario();
+        $ctrl = new controllerUsuario();
+        if($ctrl->validarLogin($_POST["email"])){            
             $ctrl->inserirNovoUsuario_post();
+            Biotran_Mvc::pegarInstancia()->mudarAcao("cadastro");
             $this->renderizar();            
         }else{
             //tratar email inválido (já existente)

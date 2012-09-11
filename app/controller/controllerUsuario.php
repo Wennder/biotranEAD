@@ -6,7 +6,7 @@ class controllerUsuario {
     private $end;
     private $controller;
 
-    public function validarLogin($login, $id_usuario) {
+    public function validarLogin($login, $id_usuario = -1) {
         $user = $this->getUsuario("login='" . $login . "'");
         if ($user != null) {
             if($id_usuario != -1){            
