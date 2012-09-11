@@ -6,17 +6,29 @@ class controllerUsuario {
     private $end;
     private $controller;
 
-    public function validarLogin($login) {
+    public function validarLogin($login, $id_usuario) {
         $user = $this->getUsuario("login='" . $login . "'");
         if ($user != null) {
+            if($id_usuario != -1){            
+                $user_id = $this->getUsuario("id_usuario=" . $id_usuario);
+                if($user_id->getLogin() == $login){
+                    return true;
+                }
+            }
             return false;
         }else
             return true;
     }
 
-    public function validarCpf($cpf_passaporte) {
+    public function validarCpf($cpf_passaporte, $id_usuario) {
         $user = $this->getUsuario("cpf_passaporte='" . $cpf_passaporte . "'");
         if ($user != null) {
+            if($id_usuario != -1){            
+                $user_id = $this->getUsuario("id_usuario=" . $id_usuario);
+                if($user_id->getCpf_passaporte() == $cpf_passaporte){
+                    return true;
+                }
+            }
             return false;
         }else
             return true;
@@ -156,14 +168,14 @@ class controllerUsuario {
         }
     }
 
-    public function novoUsuario(Usuario $user = null, Endereco $end = null) {        
+    public function novoUsuario(Usuario $user = null, Endereco $end = null) {
         if ($user != null && $end != null) {
             $dao = new UsuarioDAO();
             //verifica se realmente já não existe o registro
             //prevenir reenvio de formulário
-            if($dao->select("login='".$user->getLogin()."'") == null){
-                $dao->insert($user, $end);                
-            }else{
+            if ($dao->select("login='" . $user->getLogin() . "'") == null) {
+                $dao->insert($user, $end);
+            } else {
                 trigger_error("1 Reenvio de formulario, curso ja cadastrado");
             }
         } else {
@@ -216,7 +228,7 @@ class controllerUsuario {
                         if (method_exists($this->usuario, $setAtributo)) {
                             if ($k == 'senha') {
                                 $this->usuario->$setAtributo(md5($v));
-                            }else{
+                            } else {
                                 $this->usuario->$setAtributo($v);
                             }
                         }

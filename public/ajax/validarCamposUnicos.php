@@ -13,8 +13,8 @@ $id_input = $_GET['fieldId'];
 
 $acao = $_GET['acao'];
 $controller = $_GET['controller'];
-
 $valor = $_REQUEST['fieldValue'];
+$id = $_REQUEST['id'];
 
 $classe_controller = 'controller' . ucfirst(strtolower($controller));
 $acao_controller = 'validar' . ucfirst(strtolower($acao));
@@ -24,7 +24,7 @@ if (class_exists($classe_controller)) {
     $controller = new $classe_controller;
     if (method_exists($controller, $acao_controller)) {
         if (method_exists($controller, $acaoGet_controller)) {  
-                $valores = array($id_input, $controller->$acao_controller($valor));                
+                $valores = array($id_input, $controller->$acao_controller($valor, $id));                
         }
     }
 }

@@ -1,8 +1,8 @@
 <?php
 $editar = "false";
 if (isset($this->usuario)) {
-    $this->usuario == null ? $editar = "false" : $editar = "true";
-}else{
+    $this->usuario == null ? $editar = "false" : $editar = $this->usuario->getId_usuario();
+} else {
     $this->usuario = null;
 }
 ?>
@@ -33,13 +33,14 @@ switch ($papel) {
         //Habilita a validação automática no formulário de cadastro
         $("#cadastro").validationEngine();
         //Verifica se é o modo de edição
-        if($("#i_editar").val() == "true"){
+        if($("#i_editar").val() != "false"){
             $("#form_cadastro").show();
             $("#opcoes_cadastro").hide();
             $("#button_cadastrar").hide();
             $("#button_atualizar").show();
         }
         else{
+            $("#id").val(-1);
             $("#form_cadastro").hide();
         }
         //Habilita a validação automática no formulário de edição
@@ -133,6 +134,10 @@ switch ($papel) {
         }
     }
     
+    function getId_usuario(){
+        return $("#id_usuario").val();
+    }
+    
     //Se gestor estiver logado, seta o combo papel como estudante
     function setarCombo(){
         $("#id_papel").val(4);
@@ -173,7 +178,8 @@ switch ($papel) {
                         <input type="text" id="nome_completo" name="nome_completo" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getNome_completo()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
                     </td>
                 </tr>
-                <?php if($_SESSION["usuarioLogado"]->getId_papel() == '1') {
+                <?php
+                if ($_SESSION["usuarioLogado"]->getId_papel() == '1') {
                     echo ('<tr>
                             <td style="width: 150px;">
                                 <label class="label_cadastro">*Permissão: </label>
@@ -188,7 +194,8 @@ switch ($papel) {
                                 </select>
                             </td>
                         </tr>');
-                }?>
+                }
+                ?>
                 <tr>
                     <td>
                         <label class="label_cadastro">*Atuação: </label>
@@ -287,14 +294,14 @@ switch ($papel) {
                                 <td>
                                     <div id="foto_usuario">
                                         <img src="img/profile/<?php
-                                        if ($this->usuario == null) {
-                                            echo '00.jpg';
-                                        } else if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
-                                            echo $this->usuario->getId_usuario() . '.jpg';
-                                        } else {
-                                            echo '00.jpg';
-                                        }
-                                        ?>" alt="" height="120" width="100" />
+                if ($this->usuario == null) {
+                    echo '00.jpg';
+                } else if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
+                    echo $this->usuario->getId_usuario() . '.jpg';
+                } else {
+                    echo '00.jpg';
+                }
+                ?>" alt="" height="120" width="100" />
                                     </div>
                                 </td>
                                 <td>
@@ -428,6 +435,9 @@ switch ($papel) {
         <br>
         <input type="submit" id="button_cadastrar" name="button_cadastrar" value="Cadastrar" class="button"/>
         <input type="button" id="button_atualizar" onclick="atualizarCadastro(<?php echo ($this->usuario == null ? '' : $this->usuario->getId_usuario()); ?>)" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
+        <div id="div_hidden" style="display: none;">
+            <input type="text" id="id" name="id" value="<?php echo $editar; ?>"/>
+        </div>
     </form>
     </br></br>
 </div>
@@ -446,7 +456,7 @@ switch ($papel) {
     <input type="text" id="i_editar" name="i_editar" value="<?php echo $editar; ?>"/>
     <input type="text" id="i_papel" name="i_papel" value="<?php echo $this->usuario == null ? '' : $this->usuario->getId_papel(); ?>"/>
     <input type="text" id="i_atuacao" name="i_atuacao" value="<?php echo $this->usuario == null ? '' : $this->usuario->getAtuacao(); ?>"/>
-    <input type="text" id="i_estado" name="i_estado" value="<?php echo $this->endereco == null ? '' : $this->endereco->getEstado(); ?>"/>
+    <input type="text" id="i_estado" name="i_estado" value="<?php echo $this->endereco == null ? '' : $this->endereco->getEstado(); ?>"/>    
 </div>
 
 <?php require 'structure/footer.php'; ?>

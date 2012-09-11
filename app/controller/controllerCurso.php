@@ -7,9 +7,15 @@ class controllerCurso {
     private $controller = null;
 
     
-    public function validarNome ($nome){        
+    public function validarNome ($nome, $id_curso){        
          $user = $this->getCurso("nome='" . $nome . "'");
         if ($user != null) {
+            if($id_curso != -1){            
+                $curso_id = $this->getCurso("id_curso=" . $id_curso);
+                if($curso_id->getNome() == $nome){
+                    return true;
+                }
+            }
             return false;
         }else
             return true;

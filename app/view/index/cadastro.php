@@ -1,5 +1,5 @@
 <?php require 'structure/header.php'; ?>
-<?php require 'structure/content_up.php'; ?>
+<?php require 'structure/content_up.php';?>
 <script src="js/validarCpf_passaporteCadastro.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
