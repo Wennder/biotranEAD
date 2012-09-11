@@ -169,7 +169,7 @@ if (isset($this->curso)) {
                         <label class="label_cadastro">*Professores do curso: </label>
                     </td>
                     <td>
-                        <select id="professores" name="professores[]" multiple="multiple" class="validate[funcCall[checkSelectProfessores]] text-input" data-prompt-position="centerRight">
+                        <select id="professores" name="professores[]" multiple="multiple" class="validate[required] text-input" data-prompt-position="centerRight">
                             <?php
                             if ($this->curso == null) {
                                 echo $this->optionsTP;
