@@ -1,7 +1,7 @@
 <?php
 $editar = "false";
 if (isset($this->curso)) {
-    $this->curso == null ? $editar = "false" : $editar = "true";
+    $this->curso == null ? $editar = "false" : $editar = $this->curso->getId_curso();
 }
 ?>
 
@@ -22,13 +22,16 @@ if (isset($this->curso)) {
     $(document).ready(function(){
         $("#cadastro").validationEngine();
         $("#editar").validationEngine();
-        if($("#i_editar").val() == "true"){
+        
+        if($("#i_editar").val() != "false"){
             $("#form_cadastro").show();
             $("#opcoes_cadastro").hide();
             $("#button_cadastrar").hide();
             $("#button_atualizar").show();
+            $('#cadastro').attr({action: 'index.php?c=ead&a=atualizar_curso&id='+$("#i_editar").val()});
         }
-        else{
+        else{            
+            $("#id").val('');
             $("#form_cadastro").hide();
         }
         $("#tabela_cursos").dataTable({
@@ -98,8 +101,9 @@ if (isset($this->curso)) {
     
     function checkSelectProfessores(field, rules, i, options){        
         if(field.val().length == 0){
-            return options.allrules.checkSelectProfessores.alertText;
-        }
+            return "* Nenhum professor selecionado";
+//            return options.allrules.checkSelectProfessores.alertText;
+        }else return true;
     }
 
 </script>
@@ -164,12 +168,11 @@ if (isset($this->curso)) {
                         <label class="label_cadastro">*Professores do curso: </label>
                     </td>
                     <td>
-                        <select id="professores" name="professores[]" multiple="multiple" class="validate[required, funcCall[checkSelectProfessores]] text-input" data-prompt-position="centerRight">
+                        <select id="professores" name="professores[]" multiple="multiple" class="validate[funcCall[checkSelectProfessores]] text-input" data-prompt-position="centerRight">
                             <?php
-                            if($this->curso == null){
+                            if ($this->curso == null) {
                                 echo $this->optionsTP;
-                            }
-                            else{
+                            } else {
                                 echo $this->optionsPC;
                             }
                             ?>
@@ -186,14 +189,14 @@ if (isset($this->curso)) {
                                 <td>
                                     <div id="imagem_curso">
                                         <img src="img/cursos/<?php
-                                            if ($this->curso == null) {
-                                                echo '00.jpg';
-                                            } else if (file_exists('img/cursos/' . $this->curso->getId_curso() . '.jpg')) {
-                                                echo $this->curso->getId_curso() . '.jpg';
-                                            } else {
-                                                echo '00.jpg';
-                                            }
-                                            ?>" alt="" height="180" width="240" />
+                            if ($this->curso == null) {
+                                echo '00.jpg';
+                            } else if (file_exists('img/cursos/' . $this->curso->getId_curso() . '.jpg')) {
+                                echo $this->curso->getId_curso() . '.jpg';
+                            } else {
+                                echo '00.jpg';
+                            }
+                            ?>" alt="" height="180" width="240" />
                                     </div>
                                 </td>
                             </tr>
@@ -209,7 +212,10 @@ if (isset($this->curso)) {
         </fieldset>
         <br>
         <input type="submit" id="button_cadastrar" name="button_cadastrar" value="Cadastrar" class="button"/>
-        <input type="button" id="button_atualizar" onclick="atualizarCadastro(<?php echo ($this->curso == null ? '' : $this->curso->getId_curso()); ?>)" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
+        <input type="submit" id="button_atualizar" onclick="atualizarCadastro(<?php echo ($this->curso == null ? '' : $this->curso->getId_curso()); ?>)" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
+        <div id="div_hidden" style="display: none;">
+            <input type="text" id="id" name="id" value="<?php echo $editar; ?>"/>
+        </div>
     </form>
     </br></br>
 </div>
