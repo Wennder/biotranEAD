@@ -6,13 +6,12 @@ class controllerCurso {
     private $curso_professor = null;
     private $controller = null;
 
-    
-    public function validarNome ($nome, $id_curso){        
-         $user = $this->getCurso("nome='" . $nome . "'");
+    public function validarNome($nome, $id_curso) {
+        $user = $this->getCurso("nome='" . $nome . "'");
         if ($user != null) {
-            if($id_curso != -1){            
+            if ($id_curso != -1) {
                 $curso_id = $this->getCurso("id_curso=" . $id_curso);
-                if($curso_id->getNome() == $nome){
+                if ($curso_id->getNome() == $nome) {
                     return true;
                 }
             }
@@ -20,7 +19,7 @@ class controllerCurso {
         }else
             return true;
     }
-    
+
     /*
      * INICIO: FUNÇÕES DE CRUD
      */
@@ -39,12 +38,12 @@ class controllerCurso {
                 $this->curso_professor = array();
             }
             foreach ($_POST as $k => $v) {
-                if ($k == "professores") {
+                if ($k == "destino") {
                     $professores = $v;
-                    for ($i = 0; $i < count($professores); $i++) {
+                    for ($i = 0; $i < count($professores); $i++) {                        
                         $this->curso_professor[$i] = new Curso_professor();
-                        $this->curso_professor[$i]->setId_usuario($professores[$i]);                        
-                    }
+                        $this->curso_professor[$i]->setId_usuario($professores[$i]);
+                    }                    
                 } else {
                     $setAtributo = 'set' . ucfirst($k);
                     if (method_exists($this->curso, $setAtributo)) {
@@ -96,9 +95,9 @@ class controllerCurso {
         if ($curso != null && $cp != null) {
             $dao = new CursoDAO();
             //se realmente não existe registro com o mesmo nome, insere
-            if($dao->select("nome='".$curso->getNome()."'") == null){
+            if ($dao->select("nome='" . $curso->getNome() . "'") == null) {
                 $dao->insert($curso, $cp);                
-            }else{
+            } else {
                 //caso contrário, enviar para a página principal
                 trigger_error("1 Reenvio de formulario, curso ja cadastrado");
             }
@@ -125,7 +124,7 @@ class controllerCurso {
 
     public function novoCurso_post() {
         //seta as variaveis $this->curso e $this->cp
-        $this->setCurso_post();        
+        $this->setCurso_post();
         $this->novoCurso($this->curso, $this->curso_professor);
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
         if (isset($_FILES["imagem"])) {
@@ -134,7 +133,7 @@ class controllerCurso {
             $this->inserirFotoCurso($this->curso->getId_curso());
         }
     }
-    
+
     /*
      * Atualiza Curso no banco. Faz acesso ao CursoDAO
      */
@@ -152,17 +151,16 @@ class controllerCurso {
             return 'ERRO: parametros nullos - funcao novoUsuario - [controllerUsuario]';
         }
     }
-    
 
     public function atualizarCurso_post($id_curso) {
-        $this->curso = $this->getCurso("id_curso = " . $id_curso);        
+        $this->curso = $this->getCurso("id_curso = " . $id_curso);
         //seta as variaveis $this->curso e $this->cp
         $this->setCurso_post();
-        
+
         //remove entradas antigas
         $this->controller = new controllerCurso_professor();
         $this->controller->removeProfessoresCurso($id_curso);
-        
+
         //atualizar
         $this->atualizarCurso($this->curso, $this->curso_professor);
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
@@ -187,7 +185,7 @@ class controllerCurso {
         if ($affectedrows >= 1) {
             return 1;
         } else {
-            return 0;            
+            return 0;
         }
     }
 
@@ -242,7 +240,18 @@ class controllerCurso {
         return $options;
     }
 
-    public function comboProfessores_curso($idCurso) {
+    public function comboProfessores_curso($idCurso) {        
+        $this->controllerCP = new controllerCurso_professor();        
+        $professores_curso = $this->controllerCP->getProfessoresCurso($idCurso);
+        $options = "";
+
+        for ($j = 0; $j < count($professores_curso); $j++) {        
+            $options .= "<option value='" . $professores_curso[$j]->getId_usuario() . "' selected='selected'>" . $professores_curso[$j]->getNome_completo() . "</option>";
+        }
+        return $options;
+    }
+
+    public function comboProfessoresDisponiveis($idCurso) {
         $this->controller = new controllerUsuario();
         $this->controllerCP = new controllerCurso_professor();
         $todos_professores = $this->controller->getListaUsuarioProfessor();
@@ -250,8 +259,6 @@ class controllerCurso {
         $options = "";
 
         for ($j = 0; $j < count($professores_curso); $j++) {
-            //verifica se é o professor é professor do curso especificado       
-            $options .= "<option value='" . $professores_curso[$j]->getId_usuario() . "' selected='selected'>" . $professores_curso[$j]->getNome_completo() . "</option>";
             for ($i = 0; $i < count($todos_professores); $i++) {
                 if ($todos_professores[$i] != null && $todos_professores[$i]->getId_usuario() == $professores_curso[$j]->getId_usuario()) {
                     $todos_professores[$i] = null;
