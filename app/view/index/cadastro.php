@@ -233,6 +233,9 @@
         </fieldset>
         <br>
         <input type="submit" id="button_cadastrar" name="button_cadastrar" value="Cadastrar" class="button"/>
+        <div id="div_hidden" style="display: none;">
+            <input type="text" id="id" name="id" value=""/>
+        </div>
     </form>
     </br></br>
 </div>

@@ -6,7 +6,7 @@ class controllerUsuario {
     private $end;
     private $controller;
 
-    public function validarLogin($login, $id_usuario) {
+    public function validarLogin($login, $id_usuario = -1) {
         $user = $this->getUsuario("login='" . $login . "'");
         if ($user != null) {
             if($id_usuario != -1){            
@@ -176,7 +176,7 @@ class controllerUsuario {
             if ($dao->select("login='" . $user->getLogin() . "'") == null) {
                 $dao->insert($user, $end);
             } else {
-                trigger_error("1 Reenvio de formulario, curso ja cadastrado");
+                trigger_error("1 Reenvio de formulario, usuario ja cadastrado");
             }
         } else {
             return 'ERRO: funcao novoUsuario - [controllerUsuario]';

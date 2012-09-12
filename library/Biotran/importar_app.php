@@ -4,7 +4,7 @@
  * Arquivo de importação da pasta app do projeto.
  * Contém apenas comandos de importação
  */
-
+define('FALHA_SISTEMA', "falha no sistema");
 define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'].'/biotranEAD');
 include ROOT_PATH . "/app/model/pdo/PDOConnectionFactory.class.php";
 include ROOT_PATH . '/app/model/vo/Usuario.php';

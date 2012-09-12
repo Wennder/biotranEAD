@@ -250,7 +250,7 @@ class controllerCurso {
         $options = "";
 
         for ($j = 0; $j < count($professores_curso); $j++) {
-            //verifica se é o professor é professor do curso especificado       
+            //verifica se é o professor do curso especificado       
             $options .= "<option value='" . $professores_curso[$j]->getId_usuario() . "' selected='selected'>" . $professores_curso[$j]->getNome_completo() . "</option>";
             for ($i = 0; $i < count($todos_professores); $i++) {
                 if ($todos_professores[$i] != null && $todos_professores[$i]->getId_usuario() == $professores_curso[$j]->getId_usuario()) {

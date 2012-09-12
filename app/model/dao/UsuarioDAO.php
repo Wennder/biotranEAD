@@ -29,7 +29,9 @@ class UsuarioDAO extends PDOConnectionFactory {
             $stmt->bindValue(13, $user->getTel_secundario());
             $stmt->bindValue(14, $user->getEmail());
             //inserindo usuario no banco
-            $stmt->execute();
+            if(!$stmt->execute()){
+                trigger_error(FALHA_SISTEMA);
+            }
                             
             //inserindo enderecos de usuario no banco                        
             $buscaId = $this->select("login='". $user->getLogin() ."'");
@@ -65,7 +67,7 @@ class UsuarioDAO extends PDOConnectionFactory {
                 $stmt->bindValue(14, $user->getEmail());
                 $stmt->bindValue(15, $user->getId_usuario());
                 if(!$stmt->execute()){
-                    echo $user->getId_usuario(); die();
+                    trigger_error(FALHA_SISTEMA);
                 }                
                 if ($end != null) {
                     $dao = new EnderecoDAO();
