@@ -73,7 +73,7 @@
 			self._trigger("beforeBuild");
 
 			self.pickList = $("<div/>")
-					.hide()
+					.hide()					
 					.addClass(self.options.mainClass)
 					.insertAfter(self.element)
 					.append(self._buildSourceList())
@@ -147,7 +147,7 @@
 					.addClass(self.options.listLabelClass)
 					.addClass(self.options.targetListLabelClass);
 
-			self.targetList = $("<ul/>")
+			self.targetList = $("<ul/>")					
 					.addClass(self.options.listClass)
 					.addClass(self.options.targetListClass)
 					.delegate("li", "click", { pickList: self }, self._changeHandler);

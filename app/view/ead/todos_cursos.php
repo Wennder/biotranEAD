@@ -56,7 +56,7 @@
                 <label>Curso teste 3</label>
             </td>
             <td align="right">
-                <a href="#" class="button" onclick="alert('Em contrução!');">Matricular</a>
+                <a href="index.php?c=ead&a=matricula&id=1" class="button" >Matricular</a>
             </td>
         </tr>
         <tr>
@@ -74,7 +74,7 @@
                 <label>Curso teste 4</label>
             </td>
             <td align="right">
-                <a href="#" class="button" onclick="alert('Em contrução!');">Matricular</a>
+                <a href="index.php?c=ead&a=matricula" class="button">Matricular</a>
             </td>
         </tr>
         <tr>
@@ -92,7 +92,7 @@
                 <label>Curso teste 5</label>
             </td>
             <td align="right">
-                <a href="#" class="button" onclick="alert('Em contrução!');">Matricular</a>
+                <a href="index.php?c=ead&a=matricula" class="button">Matricular</a>
             </td>
         </tr>
         <tr>

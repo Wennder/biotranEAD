@@ -21,14 +21,13 @@ class CursoDAO extends PDOConnectionFactory {
 
             //inserindo curso no banco
             if (!$stmt->execute()) {
-                trigger_error("0 Erro insersao banco de dados");
+                trigger_error("0 Erro insersao banco de dados");                
             }
 
             //inserindo professores do curso no banco                        
             $buscaId = $this->select("nome='" . $curso->getNome() . "'");
-            $curso_professorDAO = new Curso_professorDAO();
-            
-            for ($i = 0; $i < count($curso_professor); $i++) {
+            $curso_professorDAO = new Curso_professorDAO();            
+            for ($i = 0; $i < count($curso_professor); $i++) {                
                 $curso_professor[$i]->setId_curso($buscaId[0]->getId_curso());
                 $curso_professorDAO->insert($curso_professor[$i]);
             }

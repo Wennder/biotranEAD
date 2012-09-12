@@ -37,7 +37,7 @@ class controllerCurso_professor {
      * @return array de objetos curso_professor encontrado
      */
     public function getListaCurso_professor($condicao) {
-        $dao = new Curso_professorDAODAO();
+        $dao = new Curso_professorDAO();
         $cp = $dao->select($condicao);
         return $cp;
     }
