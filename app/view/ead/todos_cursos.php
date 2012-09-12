@@ -74,7 +74,7 @@
                 <label>Curso teste 4</label>
             </td>
             <td align="right">
-                <a href="index.php?c=ead&a=matricula" class="button">Matricular</a>
+                <a href="index.php?c=ead&a=matricula&id=2" class="button">Matricular</a>
             </td>
         </tr>
         <tr>
@@ -92,7 +92,7 @@
                 <label>Curso teste 5</label>
             </td>
             <td align="right">
-                <a href="index.php?c=ead&a=matricula" class="button">Matricular</a>
+                <a href="index.php?c=ead&a=matricula&id=1" class="button">Matricular</a>
             </td>
         </tr>
         <tr>
