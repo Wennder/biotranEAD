@@ -51,16 +51,21 @@ if (isset($this->curso)) {
             }
         });
         
-        $("#professores").pickList({
-            sourceListLabel:	"",
-            targetListLabel:	"",
-            addAllLabel:	"",
-            addLabel:		"Adicionar >>",
-            removeAllLabel:	"",
-            removeLabel:	"<< Remover",
-            sortAttribute:	"value"
+        //JS DO PICKLIST DO JAN
+        $('#add').click(function(){
+            $('#origem option:selected').each(function(){
+                $('#destino').append('<option selected="selected" value="'+$(this).val()+'">'+$(this).text()+'</option>');
+                $(this).remove();
+            });
         });
-        
+	
+        $('#remover').click(function(){
+            $('#destino option:selected').each(function(){
+                $('#origem').append('<option value="'+$(this).val()+'">'+$(this).text()+'</option>');
+                $(this).remove();
+            });
+        });                
+        //-----------fim js janquery picklist
     });
    
     function mostrar(opcao){
@@ -100,13 +105,29 @@ if (isset($this->curso)) {
     }
     
     function checkSelectProfessores(field, rules, i, options){        
-        if(field.val().length == 0){
+        alert('teste');
+        if($("#professores").length == 0){
             return "* Nenhum professor selecionado";
-//            return options.allrules.checkSelectProfessores.alertText;
+            //            return options.allrules.checkSelectProfessores.alertText;
         }else return true;
     }
 
 </script>
+<style>
+    .origem, .destino {
+        float:left;
+        display:inline; 
+    }
+    .botoes{
+        float:left;
+        display:inline;         
+    }
+
+    #destino {
+        display:block;
+        width:100px;
+    }
+</style>
 
 <div id="opcoes_cadastro">
     <input type="button" value="Cadastro" class="button" onclick="mostrar('cadastro');"/>
@@ -168,15 +189,33 @@ if (isset($this->curso)) {
                         <label class="label_cadastro">*Professores do curso: </label>
                     </td>
                     <td>
-                        <select id="professores" name="professores[]" multiple="multiple" class="validate[funcCall[checkSelectProfessores]] text-input" data-prompt-position="centerRight">
-                            <?php
-                            if ($this->curso == null) {
-                                echo $this->optionsTP;
-                            } else {
-                                echo $this->optionsPC;
-                            }
-                            ?>
-                        </select>
+                        <div class="container">
+                            <div class="origem">
+                                <select size="5" multiple="multiple" id="origem">
+                                    <?php
+                                    if ($this->curso == null) {
+                                        echo $this->optionsTP;
+                                    } else {
+                                        echo $this->optionsPD;
+                                    }
+                                    ?>                            
+                                </select>
+                            </div>
+                            <div class="botoes">
+                                <input type="button" id="add" value=" Adicionar" />
+                                <input type="button" id="remover" value=" Remover" />
+                            </div>
+                            <div class="destino">
+                                <select id="destino" name="destino[]" multiple="multiple" class="validate[required] text-input" data-prompt-position="centerRight">
+                                    <?php
+                                        if($this->curso != null){
+                                            echo $this->optionsPC;
+                                        }
+                                    ?>
+                                </select>
+                                
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -189,14 +228,14 @@ if (isset($this->curso)) {
                                 <td>
                                     <div id="imagem_curso">
                                         <img src="img/cursos/<?php
-                            if ($this->curso == null) {
-                                echo '00.jpg';
-                            } else if (file_exists('img/cursos/' . $this->curso->getId_curso() . '.jpg')) {
-                                echo $this->curso->getId_curso() . '.jpg';
-                            } else {
-                                echo '00.jpg';
-                            }
-                            ?>" alt="" height="180" width="240" />
+                                    if ($this->curso == null) {
+                                        echo '00.jpg';
+                                    } else if (file_exists('img/cursos/' . $this->curso->getId_curso() . '.jpg')) {
+                                        echo $this->curso->getId_curso() . '.jpg';
+                                    } else {
+                                        echo '00.jpg';
+                                    }
+                                    ?>" alt="" height="180" width="240" />
                                     </div>
                                 </td>
                             </tr>

@@ -54,7 +54,7 @@ class ControllerIndex extends Biotran_Mvc_Controller {
             $ctrl->inserirNovoUsuario_post();
             Biotran_Mvc::pegarInstancia()->mudarAcao("sucesso_cadastro");
             $this->renderizar();
-        } else {
+        }else{
             //tratar email inválido (já existente)
         }
     }

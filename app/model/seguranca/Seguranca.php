@@ -7,7 +7,7 @@ class Seguranca {
 
     public function iniciarSessao() {
         session_start();
-        $_SESSION['usuarioLogado'] = $this->user;
+        $_SESSION['usuarioLogado'] = $this->user;                
     }
     
     public function getUsuario(){
