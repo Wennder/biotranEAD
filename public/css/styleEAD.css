@@ -17,6 +17,66 @@ body {
     padding: 0;
 }
 
+.eadbiotran_topbar_dropdown {
+    margin: 0;
+    padding: 0;
+    z-index: 30
+}
+
+.eadbiotran_topbar_dropdown li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
+    cursor:pointer;
+    min-width: 60px;
+}
+
+.eadbiotran_topbar_dropdown li a {
+    display: block;
+    margin: 0;
+    padding: 3px;
+    text-decoration: none;
+    cursor:pointer;
+
+}
+
+.eadbiotran_topbar_dropdown li a:hover {
+    text-decoration:none;
+}
+
+.eadbiotran_topbar_dropdown div {
+    position: absolute;
+    visibility: hidden;
+    margin: 0;
+    padding: 0;
+    width:auto;                 
+    cursor:pointer;
+    border-radius:5px;
+}
+
+.eadbiotran_topbar_dropdown div a  {
+    position: relative;
+    display: block;
+    margin: 3px;
+    padding: 0 2px;
+    width: auto;
+    color:#111111;
+    background: #EEF;
+    border:1px solid black;
+    border-radius:5px;
+    white-space: nowrap; 
+    text-align: center;
+    text-decoration: none;
+}
+
+.eadbiotran_topbar_dropdown div a:hover {
+    background: #37F;
+    color: #FFF;
+    text-decoration:none;
+    border-radius:3px;
+}
+
 .eadbiotran_navbar_container {
     float: right;
 }
@@ -430,11 +490,11 @@ form.form_cadastro, form.form_editar{
 .pickList_addAll{ display: none !important;}
 .pickList_removeAll{ display: none !important;}
 .pickList_add{
-/*    padding-left:25px;
-    padding-top: 1px;
-    height:20px;
-    background: url('../img/botao_adicionar.png') no-repeat;
-    font-size: 12px;
-    color: #555555;
-    cursor:pointer;*/
+    /*    padding-left:25px;
+        padding-top: 1px;
+        height:20px;
+        background: url('../img/botao_adicionar.png') no-repeat;
+        font-size: 12px;
+        color: #555555;
+        cursor:pointer;*/
 }

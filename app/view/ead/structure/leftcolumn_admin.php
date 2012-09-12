@@ -12,7 +12,8 @@
             collapsible: true
         });
     });
-</script>
+    
+   </script>
 
 <div id="page-leftcolumn" class="leftcolumn page-leftcolumn">
     <p class="navbar_item homeIcon">

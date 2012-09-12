@@ -6,8 +6,19 @@
         <script src="js/login.js" type="text/javascript"></script>  
         <script src="js/jqFancyTransitions.1.8.js" type="text/javascript"></script>
         <link rel='stylesheet' href='css/style.css' />
+
+        <script type="text/javascript">
+            function checarBotao(e)
+            {
+                if(e && e.keyCode == 13)
+                {
+                    document.forms[0].submit();
+                }
+            }
+        </script>
     </head>
-    <body>
+    <body onLoad="self.focus();document.form_login.login.focus();">
+        
         <div id="eadbiotran">
             <div id="main">
                 <div id="header">
@@ -20,13 +31,14 @@
                             <li><a href="http://www.biotran.com.br" target="_blank">BIOTRAN</a></li>
                         </ul>
                     </div>
-                    <?php if(isset($_SESSION["usuarioLogado"])){
+                    <?php
+                    if (isset($_SESSION["usuarioLogado"])) {
                         echo('
                             <div id="div_logado">
                                 <table align="right">
                                     <tr>
                                         <td style="font-size: 15px;">
-                                            Olá '. $_SESSION["usuarioLogado"]->getNome_completo() .'!
+                                            Olá ' . $_SESSION["usuarioLogado"]->getNome_completo() . '!
                                         </td>
                                     </tr>
                                     <tr>
@@ -37,19 +49,19 @@
                                 </table>
                             </div>
                         ');
-                    }else{
+                    } else {
                         echo('
                             <div id="div_login">
-                                <form id="form_login" method="post" action="index.php?c=index&a=login">
+                                <form id="form_login" name="form_login" method="post" action="index.php?c=index&a=login">
                                     <table align="right">
                                         <tr>
                                             <td style="width: 230px;">
                                                 <label style="color: #fff">E-mail: </label>
-                                                <input id="login" name="login" type="text" size="25"/>
+                                                <input id="login" name="login" type="text" size="25" tabindex="1"/>
                                             </td>
                                             <td style="width: 170px;">
                                                 <label style="color: #fff">Senha: </label>
-                                                <input id="senha" name="senha" type="password" size="15"/>
+                                                <input id="senha" name="senha" type="password" size="15" onKeyPress="return checarBotao(event)" tabindex="2"/>
                                             </td>
                                             <td style="width: 60px;">
                                                 <input id="button_login" type="button" name="button_login" value="Login"/>
