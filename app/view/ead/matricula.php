@@ -6,8 +6,8 @@
 
 
 
-<img id="imagem_curso_matricula" src="img/cursos/00.jpg" style="float:left; margin:10px;"/>
-<div style="padding:15px;">
+<img id="imagem_curso_matricula" src=<?php echo "img/cursos/". $this->curso->getId_curso() .".jpg"; ?> style="float:left; margin:10px;"/>
+<div style="padding-right:15px;">
 <h1  style=""><?php echo $this->curso->getNome(); ?></h1> 
 
 
