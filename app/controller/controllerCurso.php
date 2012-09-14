@@ -40,10 +40,10 @@ class controllerCurso {
             foreach ($_POST as $k => $v) {
                 if ($k == "destino") {
                     $professores = $v;
-                    for ($i = 0; $i < count($professores); $i++) {                        
+                    for ($i = 0; $i < count($professores); $i++) {
                         $this->curso_professor[$i] = new Curso_professor();
                         $this->curso_professor[$i]->setId_usuario($professores[$i]);
-                    }                    
+                    }
                 } else {
                     $setAtributo = 'set' . ucfirst($k);
                     if (method_exists($this->curso, $setAtributo)) {
@@ -96,7 +96,7 @@ class controllerCurso {
             $dao = new CursoDAO();
             //se realmente não existe registro com o mesmo nome, insere
             if ($dao->select("nome='" . $curso->getNome() . "'") == null) {
-                $dao->insert($curso, $cp);                
+                $dao->insert($curso, $cp);
             } else {
                 //caso contrário, enviar para a página principal
                 trigger_error("1 Reenvio de formulario, curso ja cadastrado");
@@ -126,12 +126,57 @@ class controllerCurso {
         //seta as variaveis $this->curso e $this->cp
         $this->setCurso_post();
         $this->novoCurso($this->curso, $this->curso_professor);
+
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
         if (isset($_FILES["imagem"])) {
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/
             $this->curso = $this->getCurso("nome='" . $this->curso->getNome() . "'");
             $this->inserirFotoCurso($this->curso->getId_curso());
         }
+
+        //cria o diretório do curso na pasta pdf
+        $this->criaDiretorioCurso($this->curso->getId_curso());
+//        $this->criaDiretorioCurso_videoAula($this->curso->getId_curso());
+//        $this->criaDiretorioCurso_textos($this->curso->getId_curso());
+    }
+
+    public function criaDiretorioCurso($id) {
+        $caminho = ROOT_PATH . '/public/cursos/' . $id . '/';
+        if (!mkdir($caminho, 0777))
+            trigger_error("Não foi possível criar o diretório do curso" . $id);
+    }
+
+    public function excluiDiretorioCurso($id) {
+        chmod(ROOT_PATH, 0777);
+        $caminho = ROOT_PATH . '/public/cursos/' . $id;
+        rmdir($caminho);
+//        if (is_dir($caminho)) {
+//            $objetos = scandir($caminho);
+//            foreach ($objetos as $objeto) {
+//                if ($objeto != "." && $objeto != "..") {
+//                    if (filetype($caminho . "/" . $objeto) == "dir")
+//                        rrmdir($caminho . "/" . $objeto);
+//                    else
+//                        unlink($caminho . "/" . $objeto);
+//                }
+//            }
+//            reset($objetos);
+//            rmdir($caminho);
+        
+          //  trigger_error("Não foi possível remover o diretório do curso" . $id);
+   //     }
+    }
+
+    public function criaDiretorioCurso_videoAula($id) {
+        $caminho = ROOT_PATH . '/public/cursos/' . $id . '/videoAulas/';
+        if (!mkdir($caminho))
+            trigger_error("Não foi possível criar o diretório de video aulas do curso" . $id);
+    }
+
+    public function criaDiretorioCurso_textos($id) {
+        $caminho = ROOT_PATH . '/public/cursos/' . $id . '/textos/';
+        if (!mkdir($caminho))
+            trigger_error("Não foi possível criar o diretório de textos do curso" . $id);
     }
 
     /*
@@ -230,22 +275,21 @@ class controllerCurso {
         return $tabela;
     }
 
-    
     public function cursosAluno() {
         $tabela = null;
         $cursoDAO = new CursoDAO();
         $this->cursos = $cursoDAO->select(null, null);
         $matricula_cursoDAO = new Matricula_cursoDAO();
-        $matriculados = $matricula_cursoDAO->select("id_usuario=".$_SESSION["usuarioLogado"]->getId_usuario());
+        $matriculados = $matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario());
         $quant = count($matriculados);
-        $i= 0 ;
-        for(;$i<$quant;$i++){
-            $auxCurso = $cursoDAO->select("id_curso=" .$matriculados[$i]->getId_curso());
-            
-            $tabela.="<table style='width: 100%;' class='matriculado'><tr><td><label>". $auxCurso[0]->getNome()."</label>
+        $i = 0;
+        for (; $i < $quant; $i++) {
+            $auxCurso = $cursoDAO->select("id_curso=" . $matriculados[$i]->getId_curso());
+
+            $tabela.="<table style='width: 100%;' class='matriculado'><tr><td><label>" . $auxCurso[0]->getNome() . "</label>
             </td>";
             $tabela.="<td align='right'>
-                <a href='index.php?c=ead&a=curso&id=".$auxCurso[0]->getId_curso()."' class='button'>Acessar</a></td></tr>";
+                <a href='index.php?c=ead&a=curso&id=" . $auxCurso[0]->getId_curso() . "' class='button'>Acessar</a></td></tr>";
             $tabela.= "<tr><td><label style='font-size: 12px'>Duração do curso:" . $auxCurso[0]->getTempo() . "</label>
             </td>";
             $tabela.="</tr>
@@ -254,22 +298,22 @@ class controllerCurso {
         $quant = count($this->cursos);
         $i = 0;
         for (; $i < $quant; $i++) {
-            if($matricula_cursoDAO->select("id_usuario=".$_SESSION["usuarioLogado"]->getId_usuario().
-                    " AND id_curso=". $this->cursos[$i]->getId_curso())==null){
-                $tabela.="<table style='width: 100%;' class='nao_matriculado'><tr><td><label>". $this->cursos[$i]->getNome()."</label>
+            if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() .
+                            " AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
+                $tabela.="<table style='width: 100%;' class='nao_matriculado'><tr><td><label>" . $this->cursos[$i]->getNome() . "</label>
                 </td>";
                 $tabela.="<td align='right'>
-                    <a href='index.php?c=ead&a=matricula&id=".$this->cursos[$i]->getId_curso()."' class='button'>Matricular</a></td></tr>";
+                    <a href='index.php?c=ead&a=matricula&id=" . $this->cursos[$i]->getId_curso() . "' class='button'>Matricular</a></td></tr>";
                 $tabela.= "<tr><td><label style='font-size: 12px'>Duração do curso:" . $this->cursos[$i]->getTempo() . "</label>
                 </td>";
                 $tabela.="</tr>
                 </table>";
             }
         }
-        
+
         return $tabela;
     }
-    
+
     public function comboTodos_Professores() {
         $this->controller = new controllerUsuario();
         $todos_professores = $this->controller->getListaUsuarioProfessor();
@@ -280,12 +324,12 @@ class controllerCurso {
         return $options;
     }
 
-    public function comboProfessores_curso($idCurso) {        
-        $this->controllerCP = new controllerCurso_professor();        
+    public function comboProfessores_curso($idCurso) {
+        $this->controllerCP = new controllerCurso_professor();
         $professores_curso = $this->controllerCP->getProfessoresCurso($idCurso);
         $options = "";
 
-        for ($j = 0; $j < count($professores_curso); $j++) {        
+        for ($j = 0; $j < count($professores_curso); $j++) {
             $options .= "<option value='" . $professores_curso[$j]->getId_usuario() . "' selected='selected'>" . $professores_curso[$j]->getNome_completo() . "</option>";
         }
         return $options;
