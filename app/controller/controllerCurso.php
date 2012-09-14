@@ -96,7 +96,8 @@ class controllerCurso {
             $dao = new CursoDAO();
             //se realmente não existe registro com o mesmo nome, insere
             if ($dao->select("nome='" . $curso->getNome() . "'") == null) {
-                $dao->insert($curso, $cp);                
+                $dao->insert($curso, $cp);
+                
             } else {
                 //caso contrário, enviar para a página principal
                 trigger_error("1 Reenvio de formulario, curso ja cadastrado");
@@ -132,6 +133,10 @@ class controllerCurso {
             $this->curso = $this->getCurso("nome='" . $this->curso->getNome() . "'");
             $this->inserirFotoCurso($this->curso->getId_curso());
         }
+                $caminho = ROOT_PATH."/public/pdf/" . $this->curso->getId_curso();
+                if(!mkdir($caminho))
+                    trigger_error("Não foi possivel criar diretorio do curso ". $this->curso->getId_curso());
+                
     }
 
     /*
