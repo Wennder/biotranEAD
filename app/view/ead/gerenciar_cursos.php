@@ -1,5 +1,6 @@
 <?php
 $editar = "false";
+$professorAlocado = false;
 if (isset($this->curso)) {
     $this->curso == null ? $editar = "false" : $editar = $this->curso->getId_curso();
 }

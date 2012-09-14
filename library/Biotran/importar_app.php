@@ -11,6 +11,8 @@ include ROOT_PATH . '/app/model/vo/Usuario.php';
 include ROOT_PATH . '/app/model/vo/Endereco.php';
 include ROOT_PATH . '/app/model/vo/Papel.php';
 include ROOT_PATH . '/app/model/vo/Curso.php';
+include ROOT_PATH . '/app/model/vo/Matricula_curso.php'; 
+include ROOT_PATH . '/app/model/dao/Matricula_cursoDAO.php';
 include ROOT_PATH . '/app/model/vo/Curso_professor.php';
 include ROOT_PATH . '/app/model/dao/UsuarioDAO.php';
 include ROOT_PATH . '/app/model/dao/CursoDAO.php';

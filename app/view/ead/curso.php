@@ -2,7 +2,7 @@
 <?php require 'structure/leftcolumn_aluno_curso.php';?>
 <?php require 'structure/content.php'; ?>
 
-<img id="imagem_curso_matricula" src="img/cursos/00.jpg" style="float:left; margin:10px;"/>
+<img id="imagem_curso_matricula" src=<?php echo "img/cursos/". $this->curso->getId_curso() .".jpg"; ?> style="float:left; margin:10px;"/>
 <div style="padding:15px;">
 <h1  style=""><?php echo $this->curso->getNome(); ?></h1> 
 
@@ -12,4 +12,10 @@
         <h4 style="float:left;">Duração:</h4>
         <h4 style="float:left; clear:right;"><?php echo $this->curso->getTempo() ?></h4>
 
+</div>
+<div style="height: 10px;clear: left;"></div>
+<hr style="clear:left;" />
+<div>
+    
+</div>
 <?php require 'structure/footer.php'; ?>

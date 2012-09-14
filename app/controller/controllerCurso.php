@@ -230,6 +230,46 @@ class controllerCurso {
         return $tabela;
     }
 
+    
+    public function cursosAluno() {
+        $tabela = null;
+        $cursoDAO = new CursoDAO();
+        $this->cursos = $cursoDAO->select(null, null);
+        $matricula_cursoDAO = new Matricula_cursoDAO();
+        $matriculados = $matricula_cursoDAO->select("id_usuario=".$_SESSION["usuarioLogado"]->getId_usuario());
+        $quant = count($matriculados);
+        $i= 0 ;
+        for(;$i<$quant;$i++){
+            $auxCurso = $cursoDAO->select("id_curso=" .$matriculados[$i]->getId_curso());
+            
+            $tabela.="<table style='width: 100%;' class='matriculado'><tr><td><label>". $auxCurso[0]->getNome()."</label>
+            </td>";
+            $tabela.="<td align='right'>
+                <a href='index.php?c=ead&a=curso&id=".$auxCurso[0]->getId_curso()."' class='button'>Acessar</a></td></tr>";
+            $tabela.= "<tr><td><label style='font-size: 12px'>Duração do curso:" . $auxCurso[0]->getTempo() . "</label>
+            </td>";
+            $tabela.="</tr>
+            </table>";
+        }
+        $quant = count($this->cursos);
+        $i = 0;
+        for (; $i < $quant; $i++) {
+            if($matricula_cursoDAO->select("id_usuario=".$_SESSION["usuarioLogado"]->getId_usuario().
+                    " AND id_curso=". $this->cursos[$i]->getId_curso())==null){
+                $tabela.="<table style='width: 100%;' class='nao_matriculado'><tr><td><label>". $this->cursos[$i]->getNome()."</label>
+                </td>";
+                $tabela.="<td align='right'>
+                    <a href='index.php?c=ead&a=matricula&id=".$this->cursos[$i]->getId_curso()."' class='button'>Matricular</a></td></tr>";
+                $tabela.= "<tr><td><label style='font-size: 12px'>Duração do curso:" . $this->cursos[$i]->getTempo() . "</label>
+                </td>";
+                $tabela.="</tr>
+                </table>";
+            }
+        }
+        
+        return $tabela;
+    }
+    
     public function comboTodos_Professores() {
         $this->controller = new controllerUsuario();
         $todos_professores = $this->controller->getListaUsuarioProfessor();
