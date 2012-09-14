@@ -62,7 +62,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionGerenciar_cursos() {
         $this->visao->titulo = "Gerenciar Cursos";
-
+        
         $this->controller = new controllerCurso();
         //Pega a id passa na url e monta o objeto buscando os dados no banco
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
@@ -71,8 +71,10 @@ class ControllerEad extends Biotran_Mvc_Controller {
             $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
             $this->visao->optionsPC = $this->controller->comboProfessores_curso($id_curso);
             $this->visao->optionsPD = $this->controller->comboProfessoresDisponiveis($id_curso);
+            
         } else {
             $this->visao->optionsTP = $this->controller->comboTodos_Professores();
+            
         }
         //Monta a tabela de cursos
         $this->visao->tabela = $this->controller->tabelaCursos();
@@ -80,12 +82,15 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionCadastrar_curso() {
+        
         $this->controller = new controllerCurso();       
         //$_POST['destino'] - destino é o select dos professores responsaveis
         if ($this->controller->validarNome($_POST['nome']) && count($_POST["destino"]) > 0) {        
             $this->controller->novoCurso_post();
+            
             Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_cursos');
-            $this->renderizar();
+            $this->actionGerenciar_cursos();
+           // $this->renderizar();
         } else {
             trigger_error("1 Reenvio de formulario, curso ja cadastrado");
         }
@@ -125,6 +130,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
             if ($id_curso != '') {
                 $this->controller->atualizarCurso_post($id_curso);
             }
+            //$_GET['a'] = 'gerenciar_curso';
             Biotran_Mvc::pegarInstancia()->mudarAcao('index');
 //        $this->visao->tabela = $this->controller->tabelaUsuarios();
             $this->renderizar();

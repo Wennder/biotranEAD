@@ -97,6 +97,7 @@ class controllerCurso {
             //se realmente não existe registro com o mesmo nome, insere
             if ($dao->select("nome='" . $curso->getNome() . "'") == null) {
                 $dao->insert($curso, $cp);
+                
             } else {
                 //caso contrário, enviar para a página principal
                 trigger_error("1 Reenvio de formulario, curso ja cadastrado");
