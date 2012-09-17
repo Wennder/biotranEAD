@@ -74,6 +74,7 @@ class CursoDAO extends PDOConnectionFactory {
 
     public function delete(Curso $curso) {
         try {
+            
             $num = $this->conex->exec("DELETE FROM curso WHERE id_curso=" . $curso->getId_curso());
             // caso seja execuado ele retorna o número de rows que foram afetadas.
             if ($num >= 1) {
