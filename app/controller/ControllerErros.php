@@ -6,6 +6,7 @@
 
 function customerErros($error_level, $error_msg, $error_file, $error_line, $error_ctx) {
 
+    //pedro lindo
     $date = date("d/m/y");
     $time = date("H:i");    
     $tipo_erro = $error_msg[0];
