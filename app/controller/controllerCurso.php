@@ -275,6 +275,20 @@ class controllerCurso {
         return $tabela;
     }
     
+    public function modulosCurso(){
+        $lista = null;
+        $moduloDAO = new ModuloDAO();
+        $modulos = $moduloDAO->select("id_curso=". $_GET['id']);
+        
+        $quant = count($modulos);
+        $i = 0;
+        for(;$i<$quant; $i++){
+            $lista .= "<li><p class='navbar_item materialIcon'><a href='#'> Modulo ".$modulos[$i]->getNumero_modulo()."</a></p></li>";
+        }
+        
+        return $lista;
+    }
+    
     public function comboTodos_Professores() {
         $this->controller = new controllerUsuario();
         $todos_professores = $this->controller->getListaUsuarioProfessor();
