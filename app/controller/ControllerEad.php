@@ -155,6 +155,22 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
     
+    public function actionAdicionar_modulo(){
+        $this->renderizar();
+    }
+    
+    public function actionAdicionar_videoaula(){
+        $this->renderizar();
+    }
+    
+    public function actionAdicionar_bibliografia(){
+        $this->renderizar();
+    }
+    
+    public function actionAdicionar_materialcomplementar(){
+        $this->renderizar();
+    }
+    
 }
 
 ?>
