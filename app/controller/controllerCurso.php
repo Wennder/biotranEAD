@@ -97,7 +97,6 @@ class controllerCurso {
             //se realmente não existe registro com o mesmo nome, insere
             if ($dao->select("nome='" . $curso->getNome() . "'") == null) {
                 $dao->insert($curso, $cp);
-                
             } else {
                 //caso contrário, enviar para a página principal
                 trigger_error("1 Reenvio de formulario, curso ja cadastrado");
@@ -137,35 +136,14 @@ class controllerCurso {
 
         //cria o diretório do curso na pasta pdf
         $this->criaDiretorioCurso($this->curso->getId_curso());
-//        $this->criaDiretorioCurso_videoAula($this->curso->getId_curso());
-//        $this->criaDiretorioCurso_textos($this->curso->getId_curso());
+        $this->criaDiretorioCurso_videoAula($this->curso->getId_curso());
+        $this->criaDiretorioCurso_textos($this->curso->getId_curso());
     }
 
     public function criaDiretorioCurso($id) {
         $caminho = ROOT_PATH . '/public/cursos/' . $id . '/';
         if (!mkdir($caminho, 0777))
             trigger_error("Não foi possível criar o diretório do curso" . $id);
-    }
-
-    public function excluiDiretorioCurso($id) {
-        chmod(ROOT_PATH, 0777);
-        $caminho = ROOT_PATH . '/public/cursos/' . $id;
-        rmdir($caminho);
-//        if (is_dir($caminho)) {
-//            $objetos = scandir($caminho);
-//            foreach ($objetos as $objeto) {
-//                if ($objeto != "." && $objeto != "..") {
-//                    if (filetype($caminho . "/" . $objeto) == "dir")
-//                        rrmdir($caminho . "/" . $objeto);
-//                    else
-//                        unlink($caminho . "/" . $objeto);
-//                }
-//            }
-//            reset($objetos);
-//            rmdir($caminho);
-        
-          //  trigger_error("Não foi possível remover o diretório do curso" . $id);
-   //     }
     }
 
     public function criaDiretorioCurso_videoAula($id) {
@@ -229,6 +207,19 @@ class controllerCurso {
         $dao = new CursoDAO();
         $affectedrows = $dao->delete($curso);
         if ($affectedrows >= 1) {
+            $caminho = ROOT_PATH . '/public/cursos/' . $curso->getId_curso();
+            if (is_dir($caminho)) {
+                $objects = scandir($caminho);
+                foreach ($objects as $object) {
+                    if ($object != "." && $object != "..") {
+                        if (filetype($caminho . "/" . $object) == "dir")
+                            rmdir($caminho . "/" . $object); else
+                            unlink($caminho . "/" . $object);
+                    }
+                }
+                reset($objects);
+                rmdir($caminho);
+            }
             return 1;
         } else {
             return 0;
