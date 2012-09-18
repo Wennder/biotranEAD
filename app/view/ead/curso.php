@@ -15,7 +15,7 @@
 </div>
 <div style="height: 10px;clear: left;"></div>
 <hr style="clear:left;" />
-<div>
-    
+<div style="padding: 10px;">
+    <h3>Material Bibliografico</h3>
 </div>
 <?php require 'structure/footer.php'; ?>

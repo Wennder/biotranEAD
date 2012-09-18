@@ -24,7 +24,10 @@
         </p>
         <div>
             <ul style="list-style-type:none;">
-                <li>
+                <?php  $controllerCurso = new ControllerCurso();
+                    echo $controllerCurso->modulosCurso();
+                ?>
+<!--                <li>
                     <p class="navbar_item materialIcon">
                         <a href="#"> Módulo 1</a>
                     </p>
@@ -48,7 +51,7 @@
                     <p class="navbar_item materialIcon">
                         <a href="#"> Módulo 5</a>
                     </p>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>
