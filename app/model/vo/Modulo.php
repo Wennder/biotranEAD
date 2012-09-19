@@ -16,6 +16,7 @@ class Modulo {
      private $numero_modulo;
      private $id_curso;
      private $titulo_modulo;
+     private $descricao;
      
      public function getId_modulo() {
          return $this->id_modulo;
@@ -47,6 +48,14 @@ class Modulo {
 
      public function setTitulo_modulo($titulo_modulo) {
          $this->titulo_modulo = $titulo_modulo;
+     }
+     
+     public function getDescricao() {
+         return $this->descricao;
+     }
+
+     public function setDescricao($descricao) {
+         $this->descricao = $descricao;
      }
 
 }
