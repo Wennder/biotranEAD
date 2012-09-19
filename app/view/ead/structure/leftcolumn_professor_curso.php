@@ -26,12 +26,11 @@
             <ul style="list-style-type:none;">
                 <li>
                     <p class="navbar_item moduloIcon">
-                        <a href="index.php?c=ead&a=index"> Adicionar Módulo</a>
+<!--                        <a href="index.php?c=ead&a=index"> Adicionar Módulo</a>-->
                     </p>
                 </li>
                 <!-- Função de listar módulos -->
             </ul>
         </div>
     </div>
-</div>
 </div>

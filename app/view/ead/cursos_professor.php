@@ -1,5 +1,5 @@
 <?php require 'structure/header.php'; ?>
-<?php require 'structure/leftcolumn_aluno_curso.php'; ?>
+<?php require 'structure/leftcolumn_professor_home.php'; ?>
 <?php require 'structure/content.php'; ?>
 
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
@@ -12,10 +12,10 @@
             //            fillSpace: true,
             autoHeight: false,
             navigation: true,
-            collapsible: true
+            collapsible: false
         });
     });
 </script>
 <div class="accordion_cursos">
-    <?php echo $this->listaCursos; ?>
+    <?php echo $this->lista; ?>
 </div>
