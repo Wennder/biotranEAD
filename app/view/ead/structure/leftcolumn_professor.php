@@ -17,36 +17,8 @@
     </p>
     <div id="menu_accordion">
         <p class="navbar_item gerenciarIcon">
-            <a href="#">Gerenciar Curso</a>
+            <a href="">Gerenciar Curso</a>
         </p>
-        <div>
-            <ul style="list-style-type:none;">
-                <li>
-                    <p class="navbar_item moduloIcon">
-                        <a href="index.php?c=ead&a=index"> Adicionar Módulo</a>
-                    </p>
-                </li>
-                <li>
-                    <p class="navbar_item videoIcon">
-                        <a href="index.php?c=ead&a=index"> Adicionar Vídeo Aula</a>
-                    </p>
-                </li>
-                <li>
-                    <p class="navbar_item materialIcon">
-                        <a href="index.php?c=ead&a=index"> Adicionar Bibliografia</a>
-                    </p>
-                </li>
-                <li>
-                    <p class="navbar_item materialIcon">
-                        <a href="index.php?c=ead&a=index"> Adicionar Material Complementar</a>
-                    </p>
-                </li>
-                <li>
-                    <p class="navbar_item exerciciosIcon">
-                        <a href="index.php?c=ead&a=index"> Adicionar Exercício</a>
-                    </p>
-                </li>
-            </ul>
-        </div>
+        
     </div>
 </div>

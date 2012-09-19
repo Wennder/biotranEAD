@@ -20,16 +20,131 @@ switch ($papel) {
 }
 ?>
 <?php require 'structure/content.php'; ?>
+<!--<script src="js/jquery-1.8.0.min.js" type="text/javascript"></script>-->
 <script src="js/validarCpf_passaporteCadastro.js" type="text/javascript"></script>
 <script src="js/crudTabelaUsuario.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
 <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+<!--<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>-->
+
+
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 <link rel="stylesheet" href="css/jquery.dataTables.css" type="text/css"/>
+<style type="text/css" title="currentStyle">
+
+	@import "http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css";
+	#div_update label {display:block;width:100%;padding:10px 0;}
+</style>
+
+
 
 <script>
+    
+    
+    
     $(document).ready(function(){
+         var oTable = $("#tabela_usuarios").dataTable({
+            "aoColumnDefs": [ 
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 3 ], "sTitle":"rendering" },
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 4 ], "sTitle":"rendering" },
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 5 ], "sTitle":"rendering" },
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 6 ], "sTitle":"rendering" },
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 7 ], "sTitle":"rendering" },
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 8 ], "sTitle":"rendering" },
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 9 ], "sTitle":"rendering" },
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 10 ], "sTitle":"rendering" },
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 11 ], "sTitle":"rendering" },
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 12 ], "sTitle":"rendering" },
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 13 ], "sTitle":"rendering" },                
+            ],
+            "bJQueryUI":true,
+            "bPaginate": true,
+            "bFilter": true,
+            "bSort": true,
+            "bInfo": true,
+            "bLengthMenu": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sLengthMenu": "Mostrar _MENU_ usuário(s)",
+                "sZeroRecords": "Nada encontrado",
+                "sInfo": "Showing _START_ to _END_ of _TOTAL_ records",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 usuário(s)",
+                "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ usuário(s)",
+                "sSearch": "Pesquisar"
+            }
+        });                
+        
+        oTable.$('tr').click(function(e){
+            if ( $(this).hasClass('row_selected') ) {
+                $(this).removeClass('row_selected');
+            } else {
+                oTable.$('tr.row_selected').removeClass('row_selected');
+                $(this).addClass('row_selected');
+            }
+        });
+        
+        $('#btn_edit').click(function(){
+            var elem = $('tr.row_selected');
+            if (elem.length) {
+                var _data = oTable.fnGetData(elem[0]);
+                $('#nome_completo').val(_data[0]);
+                $('#button_cadastrar').hide();
+                $('#button_atualizar').show();
+                $('#form_cadastro').dialog({width:800, height:600, modal: true});
+            }
+        });
+        
+    $('#btn_add').click(function(){
+        $('#form_cadastro').dialog({width:800,height:600, modal:true});
+    });
+    
+    
+    $('#btn_view').click(function(){
+        $('#profile').dialog({width:800,height:600, modal:true});
+    });
+    
+    $('btn_del').click(function(){
+       var elem = $('tr.row_selected');
+            if (elem.length) {
+                var _data = oTable.fnGetData(elem[0]);
+                
+            }
+        
+    });
+    
+    function removerUsuario(id){
+    id = id.substr(6,6);
+    
+    var r = confirm('Deseja realmente deletar esse usuario?');
+    if(r==true){
+        $.getJSON('ajax/removerUsuario.php?search=',{
+            id_usuario: id,       
+            ajax: 'true'
+        }, function(j){
+            //usuario excluido         
+            if(j == 1){
+
+                    $('#tabela_linha'+id).detach();
+
+            }else{
+                //usuario nao pode ser excluido devido à restrições de chave estrangeira
+                if(j == 3){
+                    alert('Endereço não excluído!');                
+                }else{
+                    alert('Usuário não pode ser excluído!');                                
+                }
+            }
+        });            
+    }
+}
+      
+        function zeraForm(){
+            $('#nome_completo').val();
+            
+        }
+      
         //Habilita a validação automática no formulário de cadastro
         $("#cadastro").validationEngine();
         //Verifica se é o modo de edição
@@ -60,22 +175,7 @@ switch ($papel) {
             $("#endereco_estado").hide();
         }
         //Instanciação e configuração da tabela
-        $("#tabela_usuarios").dataTable({
-            "bPaginate": true,
-            "bFilter": true,
-            "bSort": true,
-            "bInfo": true,
-            "bLengthMenu": false,
-            "sPaginationType": "full_numbers",
-            "oLanguage": {
-                "sLengthMenu": "Mostrar _MENU_ usuário(s)",
-                "sZeroRecords": "Nada encontrado",
-                "sInfo": "Showing _START_ to _END_ of _TOTAL_ records",
-                "sInfoEmpty": "Mostrando 0 até 0 de 0 usuário(s)",
-                "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ usuário(s)",
-                "sSearch": "Pesquisar"
-            }
-        });
+       
     });
    
     //Alterna entre a exibição do formulario de cadastro e a tabela de consulta
@@ -160,12 +260,14 @@ switch ($papel) {
 
 </script>
 
-<div id="opcoes_cadastro">
+<!--<div id="opcoes_cadastro">
     <input type="button" value="Cadastro" class="button" onclick="mostrar('cadastro');"/>
     <input type="button" value="Gerência" class="button" onclick="mostrar('gerenciar');" style="margin-left: 10px;"/>
-</div>
+</div>-->
+
 
 <div id="form_cadastro" style="display: none;">
+    
     <form id="cadastro" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_usuario" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados Pessoais</legend>
@@ -175,7 +277,7 @@ switch ($papel) {
                         <label class="label_cadastro">*Nome completo: </label>
                     </td>
                     <td style="width: 500px;">
-                        <input type="text" id="nome_completo" name="nome_completo" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getNome_completo()); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                        <input type="text" id="nome_completo" name="nome_completo" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
                     </td>
                 </tr>
                 <?php
@@ -442,7 +544,11 @@ switch ($papel) {
     </br></br>
 </div>
 
-<div id="form_gerenciar" style="display: none;">
+<div id="form_gerenciar" style="">
+    <input type="button" value="Adicionar usuario" id="btn_add" />
+    <input type="button" value="Editar" id="btn_edit" />
+    <input type="button" value="Remover" id="btn_del" />
+    <input type="button" value="Ver" id="btn_view" />
     <?php
     if (!isset($this->tabela)) {
         $controllerUsuario = new controllerUsuario();
@@ -459,4 +565,84 @@ switch ($papel) {
     <input type="text" id="i_estado" name="i_estado" value="<?php echo $this->endereco == null ? '' : $this->endereco->getEstado(); ?>"/>    
 </div>
 
+<div id="profile" class="profile" style="display:none;">
+    <fieldset style="width: 650px;">
+        <legend>Profile</legend>
+        <table style="width: 650px;">
+            <tr>
+                <td style="width: 120px;">
+                    <div id="foto_usuario">
+                        <img src="img/profile/<?php
+                        if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
+                            echo $this->usuario->getId_usuario() . '.jpg';
+                        } else {
+                            echo '00.jpg';
+                        }
+                        ?>" alt="" height="120" width="100" />
+                    </div>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <label class="label_profile">Nome: </label>
+                                <label class="label_profile"><?php echo $this->usuario->getNome_completo(); ?></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label_profile">Atuação: </label>
+                                <label class="label_profile"><?php echo $this->usuario->getAtuacao(); ?></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label_profile">E-mail: </label>
+                                <label class="label_profile"><?php echo $this->usuario->getEmail(); ?></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label_profile">Sexo: </label>
+                                <label class="label_profile"><?php echo $this->usuario->getSexo(); ?></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label_profile">Data de Nascimento: </label>
+                                <label class="label_profile"><?php echo $this->usuario->getData_nascimento(); ?></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label_profile">Cidade: </label>
+                                <label class="label_profile"><?php echo $this->usuario->getData_nascimento(); ?></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label_profile"><?php echo $this->usuario->getId_papel(); ?></label>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="label_cadastro">Descrição Pessoal: </label>
+                </td>
+                <td>
+                    <label class="label_profile"><?php echo $this->usuario->getDescricao_pessoal(); ?></label>
+                </td>
+            </tr>
+            <tr><td colspan="2"</td></tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <input type="button" value="Editar" class="button" onclick="$(location).attr('href', 'index.php?c=ead&a=dados_pessoais&id=<?php echo $this->usuario->getId_usuario(); ?>');"/>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    </br></br>
+</div>
 <?php require 'structure/footer.php'; ?>
