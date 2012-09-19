@@ -5,8 +5,9 @@ class controllerCurso {
     private $curso = null;
     private $curso_professor = null;
     private $controller = null;
+    private $modulo = null;
 
-    public function validarNome($nome, $id_curso) {
+    public function validarNome($nome, $id_curso = -1) {        
         $user = $this->getCurso("nome='" . $nome . "'");
         if ($user != null) {
             if ($id_curso != -1) {
@@ -203,6 +204,30 @@ class controllerCurso {
         return $curso; // null
     }
 
+    public function getListaCursos($condicao = null) {
+        $dao = new CursoDAO();
+        $curso = $dao->select($condicao);
+        return $curso; // null
+    }
+
+    /*Retorna lista de cursos para situações diferentes situações
+     * @param status = 0 - Desabilitado 1ºacesso
+     * @param status = 1 - Desabilitado 2º acesso
+     * @param status = 2 - Em análise pelo administrador
+     * @param status = 3 - Habilitado
+     */ 
+    
+    public function getListaCursos_porStatus($status){
+        $dao = new CursoDAO();
+        $curso = $dao->select("status=".$status);
+        return $curso; // null
+
+    }
+    
+    
+ 
+    
+    
     public function removerCurso(Curso $curso) {
         $dao = new CursoDAO();
         $affectedrows = $dao->delete($curso);
@@ -305,21 +330,33 @@ class controllerCurso {
 
         return $tabela;
     }
-    
-    public function modulosCurso(){
+
+    public function modulosCurso() {
         $lista = null;
         $moduloDAO = new ModuloDAO();
-        $modulos = $moduloDAO->select("id_curso=". $_GET['id']);
-        
+        $modulos = $moduloDAO->select("id_curso=" . $_GET['id']);
+
         $quant = count($modulos);
         $i = 0;
-        for(;$i<$quant; $i++){
-            $lista .= "<li><p class='navbar_item materialIcon'><a href='#'> Modulo ".$modulos[$i]->getNumero_modulo()."</a></p></li>";
+        for (; $i < $quant; $i++) {
+            $lista .= "<li><p class='navbar_item materialIcon'><a href='#'> Modulo " . $modulos[$i]->getNumero_modulo() . "</a></p></li>";
         }
-        
+
         return $lista;
     }
-    
+
+    public function comboCursos() {
+        $cursos = $this->getListaCursos();
+        $options = null;
+        if ($cursos != null) {
+            $options = "";
+            for ($j = 0; $j < count($cursos); $j++) {
+                $options .= "<option value='" . $cursos[$j]->getId_curso() . "'>" . $cursos[$j]->getNome() . "</option>";
+            }
+        }
+        return $options;
+    }
+
     public function comboTodos_Professores() {
         $this->controller = new controllerUsuario();
         $todos_professores = $this->controller->getListaUsuarioProfessor();
@@ -371,11 +408,51 @@ class controllerCurso {
     public function getProfessores() {
         $this->controller = new controllerUsuario();
         return $this->controller->getListaUsuarioProfessor();
-    }
+    }        
 
     /*
      * FIM: FUNÇÕES AUXILIARES
      */
+
+    /*
+     * CRUD: MÓDULOS
+     */
+    public function setModulo_post() {
+        if (!empty($_POST)) {
+            if ($this->modulo == null) {
+                $this->modulo = new Modulo();
+            }
+            foreach ($_POST as $k => $v) {
+                $setAtributo = 'set' . ucfirst($k);
+                if (method_exists($this->modulo, $setAtributo)) {
+                    $this->modulo->$setAtributo($v);
+                }
+            }
+        }
+    }
+
+    public function novoModulo_post() {
+        //seta modulo via post
+        $this->setModulo_post();
+        //insere novo modulo
+        $this->novoModulo($this->modulo);
+    }
+    
+    public function novoModulo(Modulo $modulo) {
+        if ($modulo) {
+            $dao = new ModuloDAO();
+            //se realmente não existe registro com o mesmo nome, insere
+            if ($dao->select("titulo_modulo='" . $modulo->getTitulo_modulo() . "'") == null) {
+                $dao->insert($modulo);
+            } else {
+                //caso contrário, enviar para a página principal
+                trigger_error("1 Reenvio de formulario, modulo ja cadastrado");
+            }
+        } else {
+            return 'ERRO: funcao novoModulo - [controllerCurso]';
+        }
+    }
+
 }
 
 ?>

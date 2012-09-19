@@ -32,7 +32,7 @@ if (isset($this->curso)) {
             $('#cadastro').attr({action: 'index.php?c=ead&a=atualizar_curso&id='+$("#i_editar").val()});
         }
         else{            
-            $("#id").val('');
+            $("#id").val(-1);
             $("#form_cadastro").hide();
         }
         $("#tabela_cursos").dataTable({
@@ -103,15 +103,7 @@ if (isset($this->curso)) {
             if (tecla==8 || tecla==0) return true;
             else  return false;
         }
-    }
-    
-    function checkSelectProfessores(field, rules, i, options){        
-        alert('teste');
-        if($("#professores").length == 0){
-            return "* Nenhum professor selecionado";
-            //            return options.allrules.checkSelectProfessores.alertText;
-        }else return true;
-    }
+    }        
 
 </script>
 <style>
