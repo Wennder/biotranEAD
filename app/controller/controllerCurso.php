@@ -231,6 +231,58 @@ class controllerCurso {
      * INICIO: FUNÇÕES AUXILIARES (geração de documento em html e funções de suporte)
      */
 
+    public function listaCursos_professor() {
+        //Lista todos os cursos existentes, de acordo com o status.
+        $cursoDAO = new CursoDAO();
+        $this->cursosHabilitados = $cursoDAO->select(null, null);
+        $this->cursosDesabilitados = $cursoDAO->select(null, null);
+        $this->cursosAnalise = $cursoDAO->select(null, null);
+        
+        // Lista os cursos habilitados
+            $quant = count($this->cursosHabilitados);
+            $listaCursos = "<p><a>Cursos Habilitados</a></p>";
+            $listaCursos .= "<div><ul style='list-style-type:none;'>";
+            
+            if ($quant > 0) {
+                for ($i = 0; $i < $quant; $i++) {
+                    $listaCursos .= "<li><p><a>" . $this->cursosHabilitados[$i]->getNome() . "</a></p></li>";
+                }
+            } else {
+                $listaCursos = "<li><p>Não existem cursos habilitados no momento!</p></li>";
+            }
+            $listaCursos .= "</ul></div>";
+            
+        // Lista os cursos desabilitados
+            $quant = count($this->cursosDesabilitados);
+            $listaCursos .= "<p><a>Cursos Desabilitados</a></p>";
+            $listaCursos .= "<div><ul style='list-style-type:none;'>";
+            
+            if ($quant > 0) {
+                for ($i = 0; $i < $quant; $i++) {
+                    $listaCursos .= "<li><p><a>" . $this->cursosDesabilitados[$i]->getNome() . "</a></p></li>";
+                }
+            } else {
+                $listaCursos = "<li><p>Não existem cursos desabilitados no momento!</p></li>";
+            }
+            $listaCursos .= "</ul></div>";
+            
+        // Lista os cursos em análise
+            $quant = count($this->cursosAnalise);
+            $listaCursos .= "<p><a>Cursos em Análise</a></p>";
+            $listaCursos .= "<div><ul style='list-style-type:none;'>";
+            
+            if ($quant > 0) {
+                for ($i = 0; $i < $quant; $i++) {
+                    $listaCursos .= "<li><p><a>" . $this->cursosAnalise[$i]->getNome() . "</a></p></li>";
+                }
+            } else {
+                $listaCursos = "<li><p>Não existem cursos em análise no momento!</p></li>";
+            }
+            $listaCursos .= "</ul></div>";
+
+        return $listaCursos;
+    }
+
     public function tabelaCursos() {
         $tabela = "<table id='tabela_cursos' width='100%' align='center'>
          <thead> 
@@ -305,21 +357,21 @@ class controllerCurso {
 
         return $tabela;
     }
-    
-    public function modulosCurso(){
+
+    public function modulosCurso() {
         $lista = null;
         $moduloDAO = new ModuloDAO();
-        $modulos = $moduloDAO->select("id_curso=". $_GET['id']);
-        
+        $modulos = $moduloDAO->select("id_curso=" . $_GET['id']);
+
         $quant = count($modulos);
         $i = 0;
-        for(;$i<$quant; $i++){
-            $lista .= "<li><p class='navbar_item materialIcon'><a href='#'> Modulo ".$modulos[$i]->getNumero_modulo()."</a></p></li>";
+        for (; $i < $quant; $i++) {
+            $lista .= "<li><p class='navbar_item materialIcon'><a href='#'> Modulo " . $modulos[$i]->getNumero_modulo() . "</a></p></li>";
         }
-        
+
         return $lista;
     }
-    
+
     public function comboTodos_Professores() {
         $this->controller = new controllerUsuario();
         $todos_professores = $this->controller->getListaUsuarioProfessor();

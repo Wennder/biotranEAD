@@ -9,6 +9,36 @@ body {
     padding: 0;
 }
 
+.accordion_cursos{
+    border: 1.5px solid black;
+    border-radius:10px;
+    width:1000px;
+    margin:10px;
+    padding: 0 10px;
+    text-align:center;
+    
+}
+
+.accordion_cursos p{
+    border: 1px dashed black;
+    border-radius:5px;
+    font-size: 20;
+    color:blue;
+    padding:0;
+}
+
+.accordion_cursos div {
+    text-align:left;
+    paddding: 0 ;
+}
+
+.accordion_cursos div li p{
+    border: 1px dotted black;
+    border-radius:5px;
+    font-size:15;
+    color:black;
+}
+
 .eadbiotran_topbar{
     background-color: #F5F5F5;
     border: 1px solid #BCBEC0;

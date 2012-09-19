@@ -48,7 +48,14 @@
             <ul style="list-style-type:none;">
                 <li>
                     <p class="navbar_item moduloIcon">
-                        <a href="index.php?c=ead&a=adicionar_modulo"> Adicionar Módulo</a>
+                        <a href="index.php?c=ead&a=gerenciar_conteudo"> Gerenciar Conteúdo do Curso</a>
+                    <div>
+                        <ul>
+                            <li>
+                                <a href="index.php?c=ead&a=adicionar_modulo"> Adicionar Módulo </a>
+                            </li>
+                        </ul>
+                    </div>
                     </p>
                 </li>
                 <li>
