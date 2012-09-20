@@ -37,6 +37,14 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
+    public function actionListaCursos_professor() {
+      // echo 'teste';        die();
+        $this->controller = new controllerCurso();
+        $id_usuario = $_SESSION['usuarioLogado']->getId_usuario();
+        $this->visao->lista = $this->controller->listaCursos_professor($id_usuario);
+        Biotran_Mvc::pegarInstancia()->mudarAcao("cursos_professor");
+        $this->renderizar();
+    }
     public function actionAtualizar_cadastro_usuario() {
         $this->controller = new controllerUsuario();
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
@@ -178,11 +186,18 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionAdicionar_bibliografia() {
         $this->renderizar();
     }
-
-    public function actionAdicionar_materialcomplementar() {
+    
+    public function actionPrimeiro_acesso_curso(){
+         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->controller = new controllerCurso();
+        $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
         $this->renderizar();
     }
-
+ 
+    public function actionProfessor_editar_curso(){
+        $this->renderizar();
+    }
+    
 }
 
 ?>
