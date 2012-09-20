@@ -22,11 +22,11 @@ class ModuloDAO extends PDOConnectionFactory{
      public function insert(Modulo $modulo) {
         try {
             $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("INSERT INTO modulo(id_modulo, numero_modulo, id_curso, titulo_modulo) VALUES (?,?,?,?)");
-            $stmt->bindValue(1, $modulo->getId_modulo());
+            $stmt = $this->conex->prepare("INSERT INTO modulo(id_curso, numero_modulo, titulo_modulo, descricao) VALUES (?,?,?,?)");
+            $stmt->bindValue(1, $modulo->getId_curso());
             $stmt->bindValue(2, $modulo->getNumero_modulo());
-            $stmt->bindValue(3, $modulo->getId_curso());
-            $stmt->bindValue(4, $modulo->getTitulo_modulo());
+            $stmt->bindValue(3, $modulo->getTitulo_modulo());
+            $stmt->bindValue(4, $modulo->getDescricao());
             
 
             //inserindo modulo no banco
@@ -45,11 +45,11 @@ class ModuloDAO extends PDOConnectionFactory{
         try {
             if ($modulo != null) {
                 $this->conex->exec("SET NAMES 'utf8'");
-                $stmt = $this->conex->prepare("UPDATE modulo SET id_modulo=?, numero_modulo=?, id_curso=?, titulo_modulo=? WHERE id_modulo=?");
-                $stmt->bindValue(1, $modulo->getId_modulo());
+                $stmt = $this->conex->prepare("UPDATE modulo SET id_curso=?, numero_modulo=?, titulo_modulo=?, descricao=? WHERE id_modulo=?");
+                $stmt->bindValue(1, $modulo->getId_curso());
                 $stmt->bindValue(2, $modulo->getNumero_modulo());
-                $stmt->bindValue(3, $modulo->getId_curso());
-                $stmt->bindValue(4, $modulo->getTitulo_modulo());
+                $stmt->bindValue(3, $modulo->getTitulo_modulo());
+                $stmt->bindValue(4, $modulo->getDescricao());
                 $stmt->bindValue(5, $modulo->getId_modulo());
                
                 $stmt->execute();

@@ -221,12 +221,7 @@ class controllerCurso {
         $dao = new CursoDAO();
         $curso = $dao->select("status=".$status);
         return $curso; // null
-
     }
-    
-    
- 
-    
     
     public function removerCurso(Curso $curso) {
         $dao = new CursoDAO();
