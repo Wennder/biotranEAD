@@ -158,12 +158,51 @@ switch ($papel) {
         $('#btn_add').click(function(){
             $('#button_cadastrar').show();
             $('#button_atualizar').hide();
-            $('#form_cadastro').dialog({width:800,height:600, modal:true});
+            
+            var _HTML = $('#dialog_form').html();
+                
+                _HTML = _HTML.replace('#NOME_COMPLETO#', '');
+                _HTML = _HTML.replace('#CPF_PASSAPORTE#', '');
+                _HTML = _HTML.replace('#RG#', '');
+                _HTML = _HTML.replace('#DATA_NASCIMENTO#', '');
+                _HTML = _HTML.replace('#TEL_PRINCIPAL#', '');
+                _HTML = _HTML.replace('#TEL_SECUNDARIO#', '');
+                _HTML = _HTML.replace('#ID_PROFISSIONAL#', '');
+                _HTML = _HTML.replace('#DESCRICAO_PESSOAL#', '');
+                _HTML = _HTML.replace('#RUA#', '');
+                _HTML = _HTML.replace('#NUMERO#', '');
+                _HTML = _HTML.replace('#COMPLEMENTO#', '');
+                _HTML = _HTML.replace('#BAIRRO#', '');
+                _HTML = _HTML.replace('#CIDADE#', '');
+                _HTML = _HTML.replace('#PAIS#', '');
+                _HTML = _HTML.replace('#EMAIL#', '');
+            
+            $(_HTML).dialog({width:800,height:600, modal:true});
         });
     
     
         $('#btn_view').click(function(){
-            $('#profile').dialog({width:800,height:600, modal:true});
+            elem = $('tr.row_selected');
+            if (elem.length) {
+                var _data = oTable.fnGetData(elem[0]);
+            var _HTML = $('#dialog_profile').html();
+                _HTML = _HTML.replace('#ATUACAO#', _data[2]);
+                _HTML = _HTML.replace('#SEXO#', _data[9]);
+                _HTML = _HTML.replace('#PAPEL#', _data[1]);
+                _HTML = _HTML.replace('#NOME_COMPLETO#', _data[0]);
+               
+                _HTML = _HTML.replace('#DATA_NASCIMENTO#', _data[3]);
+                
+                
+                _HTML = _HTML.replace('#DESCRICAO#', _data[8]);
+               
+
+                _HTML = _HTML.replace('#CIDADE#', _data[17]);
+               
+                _HTML = _HTML.replace('#EMAIL#', _data[12]);
+            
+            $(_HTML).dialog({width:800,height:600, modal:true});
+            }
         });
     
         $('btn_del').click(function(){
@@ -365,7 +404,7 @@ switch ($papel) {
                         </td>
                         <td>
                             <select id="atuacao" name="atuacao" class="validate[required]" data-prompt-position="centerRight">
-                                <option value></option>
+                                <option  value></option>
                                 <option id="Agrônomo" value="Agrônomo">Agrônomo</option>
                                 <option id="Estudante" value="Estudante">Estudante</option>
                                 <option id="Produtor" value="Produtor">Produtor</option>
@@ -627,84 +666,5 @@ switch ($papel) {
     <input type="text" id="i_estado" name="i_estado" value="<?php echo $this->endereco == null ? '' : $this->endereco->getEstado(); ?>"/>    
 </div>
 
-<div id="profile" class="profile" style="display:none;">
-    <fieldset style="width: 650px;">
-        <legend>Profile</legend>
-        <table style="width: 650px;">
-            <tr>
-                <td style="width: 120px;">
-                    <div id="foto_usuario">
-                        <img src="img/profile/<?php
-    if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
-        echo $this->usuario->getId_usuario() . '.jpg';
-    } else {
-        echo '00.jpg';
-    }
-    ?>" alt="" height="120" width="100" />
-                    </div>
-                </td>
-                <td>
-                    <table>
-                        <tr>
-                            <td>
-                                <label class="label_profile">Nome: </label>
-                                <label class="label_profile"><?php echo $this->usuario->getNome_completo(); ?></label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="label_profile">Atuação: </label>
-                                <label class="label_profile"><?php echo $this->usuario->getAtuacao(); ?></label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="label_profile">E-mail: </label>
-                                <label class="label_profile"><?php echo $this->usuario->getEmail(); ?></label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="label_profile">Sexo: </label>
-                                <label class="label_profile"><?php echo $this->usuario->getSexo(); ?></label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="label_profile">Data de Nascimento: </label>
-                                <label class="label_profile"><?php echo $this->usuario->getData_nascimento(); ?></label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="label_profile">Cidade: </label>
-                                <label class="label_profile"><?php echo $this->usuario->getData_nascimento(); ?></label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="label_profile"><?php echo $this->usuario->getId_papel(); ?></label>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label class="label_cadastro">Descrição Pessoal: </label>
-                </td>
-                <td>
-                    <label class="label_profile"><?php echo $this->usuario->getDescricao_pessoal(); ?></label>
-                </td>
-            </tr>
-            <tr><td colspan="2"</td></tr>
-            <tr>
-                <td colspan="2" align="right">
-                    <input type="button" value="Editar" class="button" onclick="$(location).attr('href', 'index.php?c=ead&a=dados_pessoais&id=<?php echo $this->usuario->getId_usuario(); ?>');"/>
-                </td>
-            </tr>
-        </table>
-    </fieldset>
-    </br></br>
-</div>
+<?php require 'profile.php'; ?>
 <?php require 'structure/footer.php'; ?>
