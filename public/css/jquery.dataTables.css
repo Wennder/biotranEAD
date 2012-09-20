@@ -30,16 +30,18 @@ table.dataTable td.dataTables_empty {
 	text-align: center;
 }
 
-table.dataTable tr.odd { background-color: #E2E4FF; }
+table.dataTable tr.odd { background-color: #e8e8e8; }
 table.dataTable tr.even { background-color: white; }
 
-table.dataTable tr.odd td.sorting_1 { background-color: #D3D6FF; }
+/*table.dataTable tr.odd td.sorting_1 { background-color: #D3D6FF; }
 table.dataTable tr.odd td.sorting_2 { background-color: #DADCFF; }
 table.dataTable tr.odd td.sorting_3 { background-color: #E0E2FF; }
 table.dataTable tr.even td.sorting_1 { background-color: #EAEBFF; }
 table.dataTable tr.even td.sorting_2 { background-color: #F2F3FF; }
-table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
+table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }*/
 
+table.datatable tr.odd.row_selected td{background-color: #6f6f6f; color:white;}
+table.dataTable tr.even.row_selected td {background-color: #6f6f6f;color:white;}
 
 /*
  * Table wrapper
@@ -230,18 +232,18 @@ table.dataTable th:active {
 }
 
 /*Coluna primária, linhas claras hover*/
-#tabela_usuarios tr.even:hover td.sorting_1 {
+/*#tabela_usuarios tr.even:hover td.sorting_1 {
 	background-color: #B4B4B4;
         color: #FFF;
-/*        font-weight: bold;*/
+        font-weight: bold;
 }
 
-/*Coluna primária, linhas claras hover*/
+Coluna primária, linhas claras hover
 #tabela_usuarios tr.odd:hover td.sorting_1 {
 	background-color: #B4B4B4;
         color: #FFF;
-/*        font-weight: bold;*/
-}
+        font-weight: bold;
+}*/
 
 /*???*/
 #tabela_usuarios tr.even:hover {
@@ -249,14 +251,14 @@ table.dataTable th:active {
 }
 
 /*???*/
-#tabela_usuarios tr.even:hover td.sorting_2 {
+/*#tabela_usuarios tr.even:hover td.sorting_2 {
 	background-color: #E7FF9E;
 }
 
-/*???*/
+???
 #tabela_usuarios tr.even:hover td.sorting_3 {
 	background-color: #E2FF89;
-}
+}*/
 
 /*???*/
 #tabela_usuarios tr.odd:hover {
@@ -264,14 +266,14 @@ table.dataTable th:active {
 }
 
 /*???*/
-#tabela_usuarios tr.odd:hover td.sorting_2 {
+/*#tabela_usuarios tr.odd:hover td.sorting_2 {
 	background-color: #E0FF84;
 }
 
-/*???*/
+???
 #tabela_usuarios tr.odd:hover td.sorting_3 {
 	background-color: #DBFF70;
-}
+}*/
 
 /* Hover nas entradas da tabela dos cursos */
 
@@ -298,6 +300,8 @@ table.dataTable th:active {
         color: #FFF;
 /*        font-weight: bold;*/
 }
+
+#div_update label {display:block;width:100%;padding:10px 0;}
 
 .dataTables_length{
     display: none;
