@@ -1,6 +1,7 @@
 function editarCurso(id){
     id = id.substr(6,6);
-    $(location).attr('href', 'index.php?c=ead&a=gerenciar_cursos&id='+id+'');
+//    $(location).attr('href', 'index.php?c=ead&a=gerenciar_cursos&id='+id+'');
+   
 }
     
 function visualizarCurso(id){

@@ -42,10 +42,21 @@ switch ($papel) {
 
 <script>
     
+    var dialog, oTable, elem;
     
+    
+    
+    function updateDataTables(_form){							//Adicionar essa função
+		var form_fields = ['nome_completo','id_papel','atuacao','sexo','cpf_passaporte' , 'rg'];
+		var fields_value = new Array();
+		for (var i=0; i<form_fields.length; i++) {
+			fields_value.push($(_form).find('input[name="'+form_fields[i]+'"]').val());
+		}
+		oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));
+	}
     
     $(document).ready(function(){
-         var oTable = $("#tabela_usuarios").dataTable({
+          oTable = $("#tabela_usuarios").dataTable({
             "aoColumnDefs": [ 
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 3 ], "sTitle":"rendering" },
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 4 ], "sTitle":"rendering" },
@@ -85,18 +96,33 @@ switch ($papel) {
             }
         });
         
-        $('#btn_edit').click(function(){
-            var elem = $('tr.row_selected');
+        
+ 
+        
+        $('#btn_edit').live('click',function(){
+            elem = $('tr.row_selected');
             if (elem.length) {
                 var _data = oTable.fnGetData(elem[0]);
+                
                 $('#nome_completo').val(_data[0]);
                 $('#button_cadastrar').hide();
                 $('#button_atualizar').show();
                 $('#form_cadastro').dialog({width:800, height:600, modal: true});
+
             }
         });
         
+        $('#btn_update').live('click',function(){			//adicionar esse evento
+			
+			//Chamada do AJAX
+
+			updateDataTables($(this).parent());
+			$(dialog).dialog('destroy');
+		});
+        
     $('#btn_add').click(function(){
+        $('#button_cadastrar').show();
+        $('#button_atualizar').hide();
         $('#form_cadastro').dialog({width:800,height:600, modal:true});
     });
     
@@ -108,7 +134,7 @@ switch ($papel) {
     $('btn_del').click(function(){
        var elem = $('tr.row_selected');
             if (elem.length) {
-                var _data = oTable.fnGetData(elem[0]);
+                
                 
             }
         

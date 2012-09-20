@@ -315,7 +315,7 @@ class controllerUsuario {
             $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";
             $tabela .= "<td width='15%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
             
-            $tabela .= "<td width='55%' id='login'>" . $this->usuarios[$i]->getLogin() . "</td>";
+            
             $tabela .= "<td width='55%' id='data_nascimento'>" . $this->usuarios[$i]->getData_nascimento() . "</td>";
             $tabela .= "<td width='55%' id='cpf_passaporte'>" . $this->usuarios[$i]->getCpf_passaporte() . "</td>";
             $tabela .= "<td width='55%' id='rg'>" . $this->usuarios[$i]->getRg() . "</td>";
