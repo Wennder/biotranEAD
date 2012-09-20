@@ -11,13 +11,18 @@ class CursoDAO extends PDOConnectionFactory {
     public function insert(Curso $curso, array $curso_professor) {
         try {
             $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("INSERT INTO curso(id_curso, nome, descricao, tempo, gratuito, valor) VALUES (?,?,?,?,?,?)");
+            $stmt = $this->conex->prepare("INSERT INTO curso(id_curso, nome, descricao, tempo, gratuito, valor, status, numero_modulos, objetivo, justificativa, obs) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
             $stmt->bindValue(1, $curso->getId_curso());
             $stmt->bindValue(2, $curso->getNome());
             $stmt->bindValue(3, $curso->getDescricao());
             $stmt->bindValue(4, $curso->getTempo());
             $stmt->bindValue(5, $curso->getGratuito(1));
             $stmt->bindValue(6, $curso->getValor());
+            $stmt->bindValue(7, $curso->getStatus());
+            $stmt->bindValue(8, $curso->getNumero_modulos());
+            $stmt->bindValue(9, $curso->getObjetivo());
+            $stmt->bindValue(10, $curso->getJustificativa());
+            $stmt->bindValue(11, $curso->getObs());
 
             //inserindo curso no banco
             if (!$stmt->execute()) {
@@ -49,14 +54,18 @@ class CursoDAO extends PDOConnectionFactory {
         try {
             if ($curso != null) {
                 $this->conex->exec("SET NAMES 'utf8'");
-                $stmt = $this->conex->prepare("UPDATE curso SET id_curso=?, nome=?, descricao=?, tempo=?, gratuito=?, valor=? WHERE id_curso=?");
+                $stmt = $this->conex->prepare("UPDATE curso SET id_curso=?, nome=?, descricao=?, tempo=?, gratuito=?, valor=?, status=?, numero_modulos=?, objetivo=?, justificativa=?, obs=? WHERE id_curso=?");
                 $stmt->bindValue(1, $curso->getId_curso());
                 $stmt->bindValue(2, $curso->getNome());
                 $stmt->bindValue(3, $curso->getDescricao());
                 $stmt->bindValue(4, $curso->getTempo());
                 $stmt->bindValue(5, $curso->getGratuito());
                 $stmt->bindValue(6, $curso->getValor());
-                $stmt->bindValue(7, $curso->getId_curso());
+                $stmt->bindValue(7, $curso->getStatus());
+                $stmt->bindValue(8, $curso->getNumero_modulos());
+                $stmt->bindValue(9, $curso->getObjetivo());
+                $stmt->bindValue(10, $curso->getJustificativa());
+                $stmt->bindValue(11, $curso->getObs());                
                 $stmt->execute();
 
                 if ($cp != null) {
@@ -90,13 +99,13 @@ class CursoDAO extends PDOConnectionFactory {
 
     public function select($condicao = null) {
         try {
-            $stmt = null;
+            $stmt = null;            
             if ($condicao == null) {
                 $stmt = $this->conex->query("SELECT * FROM curso");
             } else {
                 $stmt = $this->conex->query("SELECT * FROM curso WHERE " . $condicao);
             }            
-            $curso = array();
+            $curso = array();            
             for ($i = 0; $i < $stmt->rowCount(); $i++) {
                 $curso[$i] = $stmt->fetchObject('Curso');
             }

@@ -7,7 +7,11 @@ class Curso {
     private $descricao = '';
     private $tempo = '';
     private $gratuito = '';
-    private $valor = '';
+    private $status = '';    
+    private $numero_modulos = '';    
+    private $objetivo = '';    
+    private $justificativa = '';    
+    private $obs = '';    
     
     function __construct() {
         
@@ -74,6 +78,47 @@ class Curso {
     public function setValor($valor) {
         $this->valor = $valor;
     }
+    
+    public function getStatus() {
+        return $this->status;
+    }
+
+    public function setStatus($status) {
+        $this->status = $status;
+    }
+
+    public function getNumero_modulos() {
+        return $this->numero_modulos;
+    }
+
+    public function setNumero_modulos($numero_modulos) {
+        $this->numero_modulos = $numero_modulos;
+    }
+
+    public function getObjetivo() {
+        return $this->objetivo;
+    }
+
+    public function setObjetivo($objetivo) {
+        $this->objetivo = $objetivo;
+    }
+
+    public function getJustificativa() {
+        return $this->justificativa;
+    }
+
+    public function setJustificativa($justificativa) {
+        $this->justificativa = $justificativa;
+    }
+
+    public function getObs() {
+        return $this->obs;
+    }
+
+    public function setObs($obs) {
+        $this->obs = $obs;
+    }
+
 
 }
 

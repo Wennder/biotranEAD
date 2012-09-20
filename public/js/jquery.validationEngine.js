@@ -286,7 +286,6 @@
 
 			// this variable is set to true if an error is found
 			var errorFound = false;
-
 			// Trigger hook, start validation
 			form.trigger("jqv.form.validating");
 			// first, evaluate status of non ajax fields

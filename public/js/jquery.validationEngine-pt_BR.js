@@ -3,7 +3,7 @@
     $.validationEngineLanguage = {
         newLang: function(){
             $.validationEngineLanguage.allRules = {
-                "required": {
+                "required": {                    
                     "regex": "none",
                     "alertText": "* Este campo é obrigatório",
                     "alertTextCheckboxMultiple": "* Favor selecionar uma opção",

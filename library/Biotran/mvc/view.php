@@ -5,7 +5,7 @@ class Biotran_Mvc_View {
     public $curso = null;
     public $usuario = null;
     public $endereco = null;
-    public $options = null;
+    public $options = null;    
     
     public $msgErro_html = null;
     
