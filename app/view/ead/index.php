@@ -11,7 +11,7 @@ switch ($papel) {
         require 'structure/leftcolumn_gestor.php';
         break;
     case 3:
-        require 'structure/leftcolumn_professor.php';
+        require 'structure/leftcolumn_professor_home.php';
         break;
     case 4:
         require 'structure/leftcolumn_aluno.php';

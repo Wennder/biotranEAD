@@ -59,8 +59,46 @@
         <p class="navbar_item cursosIcon accord">
             <a href="index.php?c=ead&a=index"> Liberar Acesso</a>
         </p>
-        <div style="display:none;"></div>
-        
+        <div></div>
+        <p class="navbar_item gerenciarIcon">
+            <a href="#">Gerenciar Curso</a>
+        </p>
+        <div>
+            <ul style="list-style-type:none;">
+                <li>
+                    <p class="navbar_item moduloIcon">
+                        <a href="index.php?c=ead&a=gerenciar_conteudo"> Gerenciar Conteúdo do Curso</a>
+                    <div>
+                        <ul>
+                            <li>
+                                <a href="index.php?c=ead&a=adicionar_modulo"> Adicionar Módulo </a>
+                            </li>
+                        </ul>
+                    </div>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar_item videoIcon">
+                        <a href="index.php?c=ead&a=adicionar_videoaula"> Adicionar Vídeo Aula</a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar_item materialIcon">
+                        <a href="index.php?c=ead&a=adicionar_bibliografia"> Adicionar Bibliografia</a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar_item materialIcon">
+                        <a href="index.php?c=ead&a=adicionar_materialcomplementar"> Adicionar Material Complementar</a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar_item exerciciosIcon">
+                        <a href="index.php?c=ead&a=adicionar_exercicio"> Adicionar Exercício</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
     </div>
     <p class="navbar_item gerenciarIcon">
         <a href="#"> Gerenciar Sistema</a>

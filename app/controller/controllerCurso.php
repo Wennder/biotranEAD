@@ -7,7 +7,7 @@ class controllerCurso {
     private $controller = null;
     private $modulo = null;
 
-    public function validarNome($nome, $id_curso = -1) {        
+    public function validarNome($nome, $id_curso = -1) {
         $user = $this->getCurso("nome='" . $nome . "'");
         if ($user != null) {
             if ($id_curso != -1) {
@@ -210,24 +210,19 @@ class controllerCurso {
         return $curso; // null
     }
 
-    /*Retorna lista de cursos para situações diferentes situações
+    /* Retorna lista de cursos para situações diferentes situações
      * @param status = 0 - Desabilitado 1ºacesso
      * @param status = 1 - Desabilitado 2º acesso
      * @param status = 2 - Em análise pelo administrador
      * @param status = 3 - Habilitado
-     */ 
-    
-    public function getListaCursos_porStatus($status){
-        $dao = new CursoDAO();
-        $curso = $dao->select("status=".$status);
-        return $curso; // null
+     */
 
+    public function getListaCursos_porStatus($status, $id) {
+        $dao = new CursoDAO();
+        $curso = $dao->select("status=" . $status);
+        return $curso; // null
     }
-    
-    
- 
-    
-    
+
     public function removerCurso(Curso $curso) {
         $dao = new CursoDAO();
         $affectedrows = $dao->delete($curso);
@@ -255,6 +250,60 @@ class controllerCurso {
      * FIM: FUNÇÕES DE CRUD
      * INICIO: FUNÇÕES AUXILIARES (geração de documento em html e funções de suporte)
      */
+
+    public function listaCursos_professor($id_professor) {
+        //Lista todos os cursos existentes, de acordo com o status.
+        $this->controller = new controllerCurso_professor();
+        $id_curso = $this->controller->getCurso_professor("id_usuario =" . $id_professor)->getId_curso();
+        $this->cursos = $this->getListaCursos("id_curso=" . $id_curso);
+        $habilitados = "";
+        $desabilitados = "";
+        $analise = "";
+        
+        for ($i = 0; $i < count($this->cursos); $i++) {
+            if (($this->cursos[$i]->getStatus() == 0) || ($this->cursos[$i]->getStatus() == 1)) {
+                $desabilitados .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+            } else if ($this->cursos[$i]->getStatus() == 2) {
+                $analise .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+            } else if ($this->cursos[$i]->getStatus() == 3) {
+                $habilitados .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+            }
+        }
+
+        // Lista os cursos habilitados
+        
+        $listaCursos = "<p><a>Cursos Habilitados</a></p>";
+        $listaCursos .= "<div><ul style='list-style-type:none;'>";
+        if ($habilitados != "") {
+            $listaCursos .= $habilitados;
+        } else {
+            $listaCursos .= "<li><p>Não existem cursos habilitados no momento!</p></li>";
+        }
+        $listaCursos .= "</ul></div>";
+
+        // Lista os cursos desabilitados
+        $listaCursos .= "<p><a>Cursos Desabilitados</a></p>";
+        $listaCursos .= "<div><ul style='list-style-type:none;'>";
+
+        if ($desabilitados != "") {           
+            $listaCursos .= $desabilitados;
+        } else {
+            $listaCursos .= "<li><p>Não existem cursos desabilitados no momento!</p></li>";
+        }
+        $listaCursos .= "</ul></div>";
+
+        // Lista os cursos em análise
+        $listaCursos .= "<p><a>Cursos em Análise</a></p>";
+        $listaCursos .= "<div><ul style='list-style-type:none;'>";
+
+        if ($analise != "") {
+            $listaCursos .= $analise;
+        } else {
+            $listaCursos .= "<li><p>Não existem cursos em análise no momento!</p></li>";
+        }
+        $listaCursos .= "</ul></div>";
+        return $listaCursos;
+    }
 
     public function tabelaCursos() {
         $tabela = "<table id='tabela_cursos' width='100%' align='center'>
@@ -408,7 +457,7 @@ class controllerCurso {
     public function getProfessores() {
         $this->controller = new controllerUsuario();
         return $this->controller->getListaUsuarioProfessor();
-    }        
+    }
 
     /*
      * FIM: FUNÇÕES AUXILIARES
@@ -417,6 +466,7 @@ class controllerCurso {
     /*
      * CRUD: MÓDULOS
      */
+
     public function setModulo_post() {
         if (!empty($_POST)) {
             if ($this->modulo == null) {
@@ -437,7 +487,7 @@ class controllerCurso {
         //insere novo modulo
         $this->novoModulo($this->modulo);
     }
-    
+
     public function novoModulo(Modulo $modulo) {
         if ($modulo) {
             $dao = new ModuloDAO();

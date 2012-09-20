@@ -15,10 +15,22 @@
     <p class="navbar_item homeIcon">
         <a href="<?php echo "index.php?c=ead" ?>"> Home </a>
     </p>
+    <p class="navbar_item gerenciarIcon">
+        <a href="#">Cursos</a>
+    </p>
     <div id="menu_accordion">
-        <p class="navbar_item gerenciarIcon">
-            <a href="">Gerenciar Curso</a>
+        <p>
+            <a>Conteúdo</a>
         </p>
-        
+        <div>
+            <ul style="list-style-type:none;">
+                <li>
+                    <p class="navbar_item moduloIcon">
+<!--                        <a href="index.php?c=ead&a=index"> Adicionar Módulo</a>-->
+                    </p>
+                </li>
+                <!-- Função de listar módulos -->
+            </ul>
+        </div>
     </div>
 </div>
