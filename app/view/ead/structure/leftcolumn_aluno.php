@@ -1,3 +1,17 @@
+<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+
+<script>
+    $(function() {
+        $( "#menu_accordion" ).accordion({
+            active: false,
+            autoHeight: false,
+            navigation: true,
+            collapsible: true
+        });
+    });
+    
+   </script>
+   
 <div id="page-leftcolumn" class="leftcolumn page-leftcolumn">
     <ul style="list-style-type:none;margin-left:0px;padding:0px;">
         <li>
