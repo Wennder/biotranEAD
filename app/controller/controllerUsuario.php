@@ -44,7 +44,7 @@ class controllerUsuario {
      * Insere novo usuario a partir de um formulario enviado via POST     
      */
 
-    public function inserirNovoUsuario_post() {
+    public function inserirUsuario_post() {
         //setando o objeto usuario e endereco via post
         $this->setUsuario_post();
         //inserindo os objetos         

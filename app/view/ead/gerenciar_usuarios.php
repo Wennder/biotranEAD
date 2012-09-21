@@ -49,7 +49,12 @@ switch ($papel) {
     function updateDataTables(_form){//Adicionar essa função        
         var fields_value = new Array();
         for (var i=0; i<nomeColunas.length; i++) {
-            fields_value.push($(_form).find('#'+nomeColunas[i]).val());
+            if(nomeColunas[i] == 'sexo'){
+                alert($(_form).find('input[name="'+nomeColunas[i]+'"]').val());
+                fields_value.push($(_form).find('input[name="'+nomeColunas[i]+'"]').val());
+            }else{                
+                fields_value.push($(_form).find('#'+nomeColunas[i]).val());
+            }
         }
         oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));
     }
@@ -123,20 +128,21 @@ switch ($papel) {
                 var _column = oTable.fnGetData(elem[0]);
                 $('#button_cadastrar').hide();
                 $('#button_atualizar').show();
-                //preselecionando combos:                
+                
+                //preselecionando combos e radio inputs:                
                 _data[2] = _data[2].replace(/\ /g, '_');                
                 _data[19] = _data[19].replace(/\ /g,'_');                
-                $('#'+_data[1]).attr('selected', 'selected');                              
-                $('#'+_data[2]).attr('selected', 'selected');                                
-                $('#'+_data[19]).attr('selected', 'selected');
+                $('#'+_data[1]).attr('selected', 'selected');//atuacao
+                $('#'+_data[2]).attr('selected', 'selected');//permissao                                
+                $('#'+_data[19]).attr('selected', 'selected');//estado                
+                $('#_id_'+_data[9]).attr('checked', 'true');//sexo
                 if(_data[18] == 'Brasil'){                      
                     $("#endereco_estado").show();
                     $("#label_estado").show();
                 }else{
                     $("#endereco_estado").hide();
                     $("#label_estado").hide();
-                }                                                
-                
+                }                                
                 var _HTML = $('#dialog_form').html();
                 
                 //alterando ids e names                
@@ -149,6 +155,10 @@ switch ($papel) {
                 for(i = 0; i < nomeColunas.length; i++){
                     _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
                     _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
+                    if(nomeColunas[i] == 'sexo'){
+                        _HTML = _HTML.replace('_id_Masculino', 'Masculino');    
+                        _HTML = _HTML.replace('_id_Feminino', 'Feminino');    
+                    }
                 }
                 //--
                 //alterando valores
@@ -173,10 +183,11 @@ switch ($papel) {
                 dialog = $(_HTML).dialog({width:800, height:600, modal: true,
                     close: function(event,ui){                
                         //deselecionando combos
-                        $('#'+_data[1]).removeAttr('selected');                                                  
-                        $('#'+_data[2]).removeAttr('selected');
-                        $('#'+_data[19]).removeAttr('selected');                        
-                                                
+                        $('#'+_data[1]).removeAttr('selected');//atuacao                                 
+                        $('#'+_data[2]).removeAttr('selected');//permissao
+                        $('#'+_data[19]).removeAttr('selected');//estado                        
+                        $('#_id_'+_data[9]).removeAttr('checked');//sexo
+                        
                         $("#cadastro").validationEngine("detach");                        
                         dialog.dialog('destroy');
                     },
@@ -184,10 +195,10 @@ switch ($papel) {
                         //Habilita a validação automática no formulário de cadastro
                         var form = $(this).find('#cadastro');
                         form.validationEngine();                                                
-                        
+                        //console.log(form.html());
                         $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento                                                        
                             if(form.validationEngine('validate')){                                
-                                $.post('ajax/crud_usuario.php', form.serialize(), function(json) {
+                                $.post('ajax/crud_usuario.php?acao=atualizar', form.serialize(), function(json) {
                                     // handle response
                                     updateDataTables(form);
                                     dialog.dialog('close');
@@ -195,12 +206,6 @@ switch ($papel) {
                                 //Chamada do AJAX            
                             }
                         });                        
-                        //                        $(this).find('#cadastro').submit(function(e) {                            
-                        //                            e.preventDefault();
-                        //                            $.post('ajax/crud_usuario.php', $(this).serialize(), function(json) {
-                        //                                // handle response
-                        //                            }, "json");
-                        //                        });
                     }
                 });                
             }
@@ -218,7 +223,21 @@ switch ($papel) {
             $('#button_cadastrar').show();
             $('#button_atualizar').hide();                                   
             var _HTML = $('#dialog_form').html();
-                
+            //alterando ids e names                
+            _HTML = _HTML.replace('_ID_FORM_', 'cadastro');                                
+            _HTML = _HTML.replace('_ID_FORM_', 'cadastro');
+            _HTML = _HTML.replace('_id_senha', 'senha');
+            _HTML = _HTML.replace('_id_senha', 'senha');
+            _HTML = _HTML.replace('_id_senha2', 'senha2');
+            _HTML = _HTML.replace('_id_senha2', 'senha2');                                
+            for(i = 0; i < nomeColunas.length; i++){
+                _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
+                _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
+                if(nomeColunas[i] == 'sexo'){
+                    _HTML = _HTML.replace('_id_Masculino', 'Masculino');    
+                    _HTML = _HTML.replace('_id_Feminino', 'Feminino');    
+                }
+            }
             _HTML = _HTML.replace('_ID_FORM_', 'formulario');
             _HTML = _HTML.replace('#NOME_COMPLETO#', '');
             _HTML = _HTML.replace('#CPF_PASSAPORTE#', '');
@@ -240,13 +259,26 @@ switch ($papel) {
             
             dialog = $(_HTML).dialog({width:900,height:600, modal:true,
                 close: function(event,ui){                
-                    //deselecionando combos
-                    $("#cadastro").validationEngine("detach");
+                    $("#cadastro").validationEngine("detach");                        
+                    dialog.dialog('destroy');
                 },
-                open: function(event, ui) { //Habilita a validação automática no formulário de cadastro
-                    //$("#cadastro").validationEngine();
-                }});
-            
+                open: function(event, ui) { 
+                    //Habilita a validação automática no formulário de cadastro
+                    var form = $(this).find('#cadastro');
+                    form.validationEngine();                                                
+                    //console.log(form.html());
+                    $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento                                                        
+                        if(form.validationEngine('validate')){                                
+                            $.post('ajax/crud_usuario.php?acao=inserir', form.serialize(), function(json) {
+                                // handle response
+                                updateDataTables(form);
+                                dialog.dialog('close');
+                            }, "json");
+                            //Chamada do AJAX            
+                        }
+                    });                        
+                }
+            });            
         });
     
     
@@ -456,7 +488,7 @@ switch ($papel) {
                             <label class="label_cadastro">*Sexo: </label>
                         </td>
                         <td>
-                            <input type="radio" name="_id_sexo" id="_id_Masculino" <?php echo ($this->usuario == null ? '' : ($this->usuario->getSexo() == "Masculino") ? "checked" : ""); ?> value="Masculino" class="validate[required] radio" data-prompt-position="centerRight">
+                            <input type="radio" name="_id_sexo" id="_id_Masculino" value="Masculino" class="validate[required] radio" data-prompt-position="centerRight">
                             <label class="label_cadastro">Masculino </label>
                             <input type="radio" name="_id_sexo" id="_id_Feminino" <?php echo ($this->usuario == null ? '' : ($this->usuario->getSexo() == "Feminino") ? "checked" : ""); ?> value="Feminino" class="validate[required] radio" data-prompt-position="centerRight">
                             <label class="label_cadastro">Feminino </label>
