@@ -73,6 +73,7 @@ class controllerUsuario {
         $this->atualizarUsuario($this->usuario, $this->end);
         //atualiza a foto
         $this->inserirFotoUsuario($this->usuario->getId_usuario());
+        return true;
     }
 
     /*

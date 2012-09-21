@@ -46,11 +46,10 @@ switch ($papel) {
     
     
     
-    function updateDataTables(_form){							//Adicionar essa função
-        var form_fields = ['nome_completo','id_papel','atuacao','sexo','cpf_passaporte' , 'rg'];
+    function updateDataTables(_form){//Adicionar essa função        
         var fields_value = new Array();
-        for (var i=0; i<form_fields.length; i++) {
-            fields_value.push($(_form).find('input[name="'+form_fields[i]+'"]').val());
+        for (var i=0; i<nomeColunas.length; i++) {
+            fields_value.push($(_form).find('#'+nomeColunas[i]).val());
         }
         oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));
     }
@@ -146,7 +145,7 @@ switch ($papel) {
                 _HTML = _HTML.replace('_id_senha', 'senha');
                 _HTML = _HTML.replace('_id_senha', 'senha');
                 _HTML = _HTML.replace('_id_senha2', 'senha2');
-                _HTML = _HTML.replace('_id_senha2', 'senha2');                
+                _HTML = _HTML.replace('_id_senha2', 'senha2');                                
                 for(i = 0; i < nomeColunas.length; i++){
                     _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
                     _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
@@ -171,29 +170,46 @@ switch ($papel) {
                 _HTML = _HTML.replace('#ID_USUARIO#', _data[20]);
                 _HTML = _HTML.replace('#ID_FOTO#', _data[20]);
                 //--gerando dialog
-                $(_HTML).dialog({width:800, height:600, modal: true,
+                dialog = $(_HTML).dialog({width:800, height:600, modal: true,
                     close: function(event,ui){                
                         //deselecionando combos
                         $('#'+_data[1]).removeAttr('selected');                                                  
                         $('#'+_data[2]).removeAttr('selected');
                         $('#'+_data[19]).removeAttr('selected');                        
-                        
-                        $("#cadastro").validationEngine("detach");
+                                                
+                        $("#cadastro").validationEngine("detach");                        
+                        dialog.dialog('destroy');
                     },
                     open: function(event, ui) { 
                         //Habilita a validação automática no formulário de cadastro
-                        $(this).find('#cadastro').validationEngine();
-                        console.log($(this).html());                        
-                                                
+                        var form = $(this).find('#cadastro');
+                        form.validationEngine();                                                
+                        
+                        $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento                                                        
+                            if(form.validationEngine('validate')){                                
+                                $.post('ajax/crud_usuario.php', form.serialize(), function(json) {
+                                    // handle response
+                                    updateDataTables(form);
+                                    dialog.dialog('close');
+                                }, "json");
+                                //Chamada do AJAX            
+                            }
+                        });                        
+                        //                        $(this).find('#cadastro').submit(function(e) {                            
+                        //                            e.preventDefault();
+                        //                            $.post('ajax/crud_usuario.php', $(this).serialize(), function(json) {
+                        //                                // handle response
+                        //                            }, "json");
+                        //                        });
                     }
                 });                
             }
         });                    
         
+        
         $('#btn_update').live('click',function(){			//adicionar esse evento
 			
-            //Chamada do AJAX
-
+            //Chamada do AJAX            
             updateDataTables($(this).parent());
             $(dialog).dialog('destroy');
         });
@@ -648,7 +664,7 @@ switch ($papel) {
             </fieldset>
             <br>
             <input type="submit" id="button_cadastrar" name="button_cadastrar" value="Cadastrar" class="button"/>
-            <input type="button" id="button_atualizar" onclick="atualizarCadastro(<?php echo ($this->usuario == null ? '' : $this->usuario->getId_usuario()); ?>)" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
+            <input type="button" id="button_atualizar" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
             <div id="div_hidden" style="display: none;">
                 <input type="text" id="id" name="id" value="#ID_USUARIO#"/>
             </div>
