@@ -1,15 +1,5 @@
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-
-<script>
-    $(function() {
-        $( "#menu_accordion" ).accordion({
-            active: false,
-            autoHeight: false,
-            navigation: true,
-            collapsible: true
-        });
-    });
-</script>
+<script src="js/accordion.js" type="text/javascript"></script>
 
 <div id="page-leftcolumn" class="leftcolumn page-leftcolumn">
     <p class="navbar_item homeIcon">
@@ -18,7 +8,7 @@
     <p class="navbar_item gerenciarIcon">
         <a href="index.php?c=ead&a=listaCursos_professor">Cursos</a>
     </p>
-    <div id="menu_accordion">
+    <div class="accordion_leftcolumn">
         <p>
             <a>Conteúdo</a>
         </p>

@@ -3,19 +3,7 @@
 <?php require 'structure/content.php'; ?>
 
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-<script>
-    $(function() {
-        $( ".menu_accordion" ).accordion({
-            active: false,
-            //            animated: 'bounceslice',
-            //            clearStyle: true,
-            //            fillSpace: true,
-            autoHeight: false,
-            navigation: true,
-            collapsible: false
-        });
-    });
-</script>
+<script src="js/accordion.js" type="text/javascript"></script>
 <style>
     #div_conteudo_professor_editar_modulo{
         position: relative;
@@ -77,7 +65,7 @@
             Modulo muito bacana!
         </div>
         <h4>Conteudo: </h4>
-        <div class="menu_accordion">
+        <div class="accordion_body">
             <p>
                 <a>Video Aulas</a>
             </p>

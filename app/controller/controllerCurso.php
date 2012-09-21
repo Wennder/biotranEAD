@@ -391,7 +391,7 @@ class controllerCurso {
         $quant = count($modulos);
         $i = 0;
         for (; $i < $quant; $i++) {
-            $lista .= "<li><p class='navbar_item materialIcon'><a href='#'> Modulo " . $modulos[$i]->getNumero_modulo() . "</a></p></li>";
+            $lista .= "<li><h4 class='navbar_item materialIcon'><a href='#'> Modulo " . $modulos[$i]->getNumero_modulo() . "</a></h4></li>";
         }
 
         return $lista;
