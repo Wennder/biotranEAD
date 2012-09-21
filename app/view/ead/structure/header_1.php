@@ -59,6 +59,40 @@
                 margin: 10px 0px;
             }
             
+            #menuDrop{
+                display: none;
+                position: absolute;
+                right:10px;
+                top:65px;
+                
+                z-index: 3;
+                background-color: white;
+                border:1px solid #eeeeee;
+                padding:10px 30px;
+                
+            }
+            
+            #menuDrop a{
+                color:black;
+            }
+            
+            #menuDrop a:hover,a:visited, a:active, a:link{
+                font-size:18px;
+                font-weight: 500;
+                line-height: 100%;
+                text-decoration: none;
+            }
+            
+            #menuDrop li{
+                display:block;
+                float:none;
+            }
+            
+            #settings:hover{
+                cursor:pointer;
+                clear:right;
+            }
+            
         </style>
     </head>
     <body>
@@ -84,12 +118,31 @@
                             administrador
                         </h3>
                     </li>
-                    <li style="float:right; margin:0px 15px; margin-top:15px;">
-                        <img src="img/settings.png" />
+                    
+                        
+                    
+                    <li style="float:right;clear:right; margin:0px 15px; margin-top:15px;">
+                        <img src="img/settings.png" id="settings" onclick="expandir('#menuDrop')" />
+                        
                     </li>
                     <li style="float:right; margin-top:15px;">
                         <h2>EAD Biotran</h2>
                     </li>
+                    <div id="menuDrop"
+                             onmouseover="zerarCronometro()" 
+                             onmouseout="iniciarCronometro()">
+                        <ul >
+                            <li>
+                            <a  href="index.php?c=ead&a=profile&id=<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>">Perfil</a>
+                                
+                            </li>
+                            <li>
+                                
+                            <a href="index.php?c=seguranca&a=logout">Logout</a>
+                            </li>
+                            
+                        </ul>
+                    </div>
                 </ul>
                 
             </div>

@@ -9,16 +9,19 @@ function expandir(id)
 	zerarCronometro();
 
 	// Fecha outra aba aberta
-	if(item) item.style.visibility = "hidden";
+       
+	if(item) {$(item).hide(); item=0;}
     // Abre a aba
-    item = document.getElementById(id);
-    item.style.visibility = "visible";
+    else{
+    item = $(id);
+    $(item).show();}
 }
 // Fecha a aba
 function comprimir()
 {
     if(item) {
-        item.style.visibility = "hidden";
+        $(item).hide();
+        item=0;
     } 
 }
 // Fecha a aba de a acordo com a variável "tempo"
