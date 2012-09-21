@@ -1,15 +1,42 @@
-body {
-    background-color: #EFEFEF;
-    color: #404040;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 13px;
-    font-weight: normal;
-    line-height: 18px;
-    margin: 0;
-    padding: 0;
-}
+@charset "utf-8";
+/* CSS Document */
+html, body, div, span, applet, object, iframe,  
+   h1, h2, h3, h4, h5, h6, p, blockquote, pre,  
+   a, abbr, acronym, address, big, cite, code,  
+   del, dfn, em, img, ins, kbd, q, s, samp,  
+   small, strike, strong, sub, sup, tt, var,  
+   b, u, i, center,  
+   dl, dt, dd, ol, ul, li,  
+   fieldset, form, label, legend,  
+   table, caption, tbody, tfoot, thead, tr, th, td,  
+   article, aside, canvas, details, embed,  
+   figure, figcaption, footer, header, hgroup,  
+   menu, nav, output, ruby, section, summary,  
+   time, mark, audio, video {  
+       margin: 0px;  
+       padding: 0px;  
+       border: 0px;          
+       vertical-align: baseline;
+	   font-size:100%;
+	   font:normal 16px/30px Arial, Helvetica, sans-serif;
+   }
 
-.accordion_body{
+html{
+	height:100%;
+	width:100%;}
+
+body{
+    height:100%;
+width:100%;
+background-color:#eeeeee;
+min-width:800px;
+min-height:600px;
+/*background-image:url(bg_pagina.png);
+background-repeat:repeat-x repeat-y;*/
+vertical-align:baseline;}
+
+
+.accordion_cursos{
     border: 1.5px solid black;
     border-radius:10px;
     width:1000px;
@@ -19,7 +46,7 @@ body {
     
 }
 
-.accordion_body p{
+.accordion_cursos p{
     border: 1px dashed black;
     border-radius:5px;
     font-size: 20;
@@ -27,24 +54,35 @@ body {
     padding:0;
 }
 
-.accordion_body div {
+.accordion_cursos div {
     text-align:left;
     paddding: 0 ;
 }
 
-.accordion_body div li p{
+.accordion_cursos div li p{
     border: 1px dotted black;
     border-radius:5px;
     font-size:15;
     color:black;
 }
 
+#pic_holder{
+    padding: 2px;
+    height:50px;
+    width:50px;
+    background-color: #1a344a;
+}
+
+.eadbiotran_topbar *{
+    color:white;
+}
+
 .eadbiotran_topbar{
-    background-color: #F5F5F5;
-    border: 1px solid #BCBEC0;
-    height: 40px;
+    background-color: #275175;
+   
+    height: 70px;
     margin: 0;
-    padding: 0;
+    padding: 0px 10px;
 }
 
 .eadbiotran_topbar_dropdown {
@@ -55,11 +93,12 @@ body {
 
 .eadbiotran_topbar_dropdown li {
     margin: 0;
+    position:relative;
     padding: 0;
     list-style: none;
     float: left;
     cursor:pointer;
-    min-width: 60px;
+    
 }
 
 .eadbiotran_topbar_dropdown li a {
@@ -88,8 +127,7 @@ body {
 .eadbiotran_topbar_dropdown div a  {
     position: relative;
     display: block;
-    margin: 3px;
-    padding: 0 2px;
+    
     width: auto;
     color:#111111;
     background: #EEF;
@@ -108,12 +146,12 @@ body {
 }
 
 .eadbiotran_navbar_container {
-    float: right;
+   
 }
 
 ul.eadbiotran_toplevel_nav {
     list-style-type: none;
-    margin-right: 15px;
+    
 }
 
 li.eadbiotran_top_item {
@@ -123,10 +161,8 @@ li.eadbiotran_top_item {
     font-size: 15px;
     height: 30px;
     letter-spacing: 1px;
-    margin-left: 10px;
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 10px;
+    
+   
 }
 
 #banner_top{
@@ -158,20 +194,27 @@ li.eadbiotran_top_item {
 
 .content_fluid{
     min-width: 940px;
-    padding-left: 20px;
+   
     /*    padding-right: 20px;*/
     position: relative;
 }
 
+.leftcolumn *{
+    color:white;
+}
+
 .content_fluid > .leftcolumn{
-    left: 20px;
-    position: absolute;
-    top: 0;
-    width: 210px;
+    height:100%;
+	
+	float:left;
+	position:relative;
+	z-index:1;
+    background-color: #275175;
+    
 }
 
 .page-leftcolumn {
-    padding-top: 25px;
+    
 }
 
 .content_fluid > .content {

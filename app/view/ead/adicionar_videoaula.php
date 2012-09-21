@@ -1,5 +1,15 @@
 <?php require 'structure/header.php'?>
-<?php require 'structure/leftcolumn_admin.php'?>
+<?php
+$papel = $_SESSION["usuarioLogado"]->getId_papel();
+switch ($papel) {
+    case 1:
+        require 'structure/leftcolumn_admin.php';
+        break;
+    case 3:
+        require 'structure/leftcolumn_professor_curso.php';
+        break;
+   }
+?>
 <?php require 'structure/content.php'?>
 
 <div id="form_cadastro" style="">

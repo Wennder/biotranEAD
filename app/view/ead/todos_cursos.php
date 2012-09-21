@@ -1,5 +1,5 @@
 <?php require 'structure/header.php'; ?>
-<?php require 'structure/leftcolumn_aluno.php';?>
+<?php require 'structure/leftcolumn_aluno_home.php';?>
 <?php require 'structure/content.php'; ?>
 
 <script>

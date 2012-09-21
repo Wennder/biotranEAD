@@ -1,5 +1,5 @@
 <?php require 'structure/header.php'; ?>
-<?php require 'structure/leftcolumn_professor.php' ?>
+<?php require 'structure/leftcolumn_professor_home.php' ?>
 <?php require 'structure/content.php'; ?>
 
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>

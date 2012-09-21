@@ -271,7 +271,6 @@ class controllerCurso {
         }
 
         // Lista os cursos habilitados
-        
         $listaCursos = "<p><a>Cursos Habilitados</a></p>";
         $listaCursos .= "<div><ul style='list-style-type:none;'>";
         if ($habilitados != "") {
@@ -303,6 +302,10 @@ class controllerCurso {
         }
         $listaCursos .= "</ul></div>";
         return $listaCursos;
+    }
+    
+    public function listaConteudo_curso($id_curso) {
+        //Lista todo o conteúdo do curso
     }
 
     public function tabelaCursos() {
@@ -388,7 +391,7 @@ class controllerCurso {
         $quant = count($modulos);
         $i = 0;
         for (; $i < $quant; $i++) {
-            $lista .= "<li><p class='navbar_item materialIcon'><a href='#'> Modulo " . $modulos[$i]->getNumero_modulo() . "</a></p></li>";
+            $lista .= "<li><h4 class='navbar_item materialIcon'><a href='#'> Modulo " . $modulos[$i]->getNumero_modulo() . "</a></h4></li>";
         }
 
         return $lista;
