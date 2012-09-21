@@ -289,7 +289,6 @@ class controllerUsuario {
                     <th>Nome</th> 
                     <th>Permissão</th> 
                     <th>Atuação</th>            
-                    <th>login</th> 
                     <th>data_nascimento</th> 
                     <th>cpf_passaporte</th> 
                     <th>rg</th> 
@@ -299,16 +298,25 @@ class controllerUsuario {
                     <th>sexo</th> 
                     <th>tel_principal</th> 
                     <th>tel_secundario</th> 
-                    <th>email</th> 
+                    <th>email</th>
+                    <th>rua</th>
+                    <th>numero</th>
+                    <th>complemento</th>
+                    <th>bairro</th>
+                    <th>cidade</th>
+                    <th>pais</th>
+                    <th>estado</th>
                 </tr> 
             </thead> 
             <tbody>";
         $usuarioDAO = new UsuarioDAO();
         $papelDAO = new PapelDAO();
+        $this->controller = new controllerEndereco();
         $this->usuarios = $usuarioDAO->select(null);
         $quant = count($this->usuarios);
         $i = 0;
         for (; $i < $quant; $i++) {
+            
             $tabela .= "<tr id=tabela_linha" . $this->usuarios[$i]->getId_usuario() . ">";
             $tabela .= "<td width='55%' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
             $papel = $papelDAO->select("id_papel=" . $this->usuarios[$i]->getId_papel());
@@ -326,6 +334,17 @@ class controllerUsuario {
             $tabela .= "<td width='55%' id='tel_principal'>" . $this->usuarios[$i]->getTel_principal() . "</td>";
             $tabela .= "<td width='55%' id='tel_secundario'>" . $this->usuarios[$i]->getTel_secundario() . "</td>";
             $tabela .= "<td width='55%' id='email'>" . $this->usuarios[$i]->getEmail() . "</td>";
+            
+            $endereco = $this->controller->getEndereco("id_usuario=".$this->usuarios[$i]->getId_usuario());
+            
+            $tabela .= "<td width='55%' id='rua'>" . $endereco->getRua() . "</td>";
+            $tabela .= "<td width='55%' id='numero'>" . $endereco->getNumero() . "</td>";
+            $tabela .= "<td width='55%' id='complemento'>" . $endereco->getComplemento() . "</td>";
+            $tabela .= "<td width='55%' id='bairro'>" . $endereco->getBairro() . "</td>";
+            $tabela .= "<td width='55%' id='cidade'>" . $endereco->getCidade() . "</td>";
+            $tabela .= "<td width='55%' id='pais'>" . $endereco->getPais() . "</td>";
+            $tabela .= "<td width='55%' id='estado'>" . $endereco->getEstado() . "</td>";
+            
             $tabela .= "</tr>";
         }
         $tabela .= "</tbody></table>";
