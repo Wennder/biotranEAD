@@ -306,6 +306,7 @@ class controllerUsuario {
                     <th>cidade</th>
                     <th>pais</th>
                     <th>estado</th>
+                    <th>id_usuario</th>
                 </tr> 
             </thead> 
             <tbody>";
@@ -344,6 +345,7 @@ class controllerUsuario {
             $tabela .= "<td width='55%' id='cidade'>" . $endereco->getCidade() . "</td>";
             $tabela .= "<td width='55%' id='pais'>" . $endereco->getPais() . "</td>";
             $tabela .= "<td width='55%' id='estado'>" . $endereco->getEstado() . "</td>";
+            $tabela .= "<td width='55%' id='id_usuario'>" . $this->usuarios[$i]->getId_usuario() . "</td>";
             
             $tabela .= "</tr>";
         }
