@@ -60,10 +60,10 @@
             <a href="index.php?c=ead&a=index"> Liberar Acesso</a>
         </p>
         <div></div>
-        <p class="navbar_item gerenciarIcon">
-            <a href="#">Gerenciar Curso</a>
+        <p class="navbar_item gerenciarIcon accord">
+            Gerenciar Curso
         </p>
-        <div>
+        <div class="acord_content" style="display:none;">
             <ul style="list-style-type:none;">
                 <li>
                     <p class="navbar_item moduloIcon">
