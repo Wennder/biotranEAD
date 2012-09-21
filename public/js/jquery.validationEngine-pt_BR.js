@@ -138,6 +138,7 @@
                     "alertTextOk": "Registro válido!",
                     "alertTextLoad": "* Validando, por favor espere!"
                 }
+                
             };
             
         }
