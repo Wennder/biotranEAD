@@ -2,21 +2,21 @@
 <script src="js/accordion.js" type="text/javascript"></script>
 
 <div id="page-leftcolumn" class="leftcolumn page-leftcolumn">
-    <p class="navbar_item homeIcon">
+    <h3 class="navbar_item homeIcon">
         <a href="<?php echo "index.php?c=ead" ?>"> Home </a>
-    </p>
-    <p class="navbar_item gerenciarIcon">
+    </h3>
+    <h3 class="navbar_item gerenciarIcon">
         <a href="index.php?c=ead&a=listaCursos_professor">Cursos</a>
-    </p>
+    </h3>
     <div class="accordion_leftcolumn">
-        <p>
+        <h3>
             <a>Conteúdo</a>
-        </p>
+        </h3>
         <div>
             <ul style="list-style-type:none;">
                 <li>
                     <p class="navbar_item moduloIcon">
-<!--                        <a href="index.php?c=ead&a=index"> Adicionar Módulo</a>-->
+                        <a href="index.php?c=ead&a=adicionar_modulo"> Adicionar Módulo</a>
                     </p>
                 </li>
                 <!-- Função de listar módulos -->
