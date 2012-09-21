@@ -1,6 +1,20 @@
 <?php require 'structure/header.php'; ?>
-<?php require 'structure/leftcolumn_professor.php' ?>
+<?php require 'structure/leftcolumn_professor_curso.php' ?>
 <?php require 'structure/content.php'; ?>
+<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+<script>
+    $(function() {
+        $( ".accordion_cursos" ).accordion({
+            active: false,
+            //            animated: 'bounceslice',
+            //            clearStyle: true,
+            //            fillSpace: true,
+            autoHeight: false,
+            navigation: true,
+            collapsible: false
+        });
+    });
+</script>
 <style>
     #div_conteudo_professor_editar_curso{
         position: relative;
@@ -75,7 +89,7 @@
 </style>
 
 <div id="div_conteudo_professor_editar_curso">
-    <h1>Curso tchu tcha</h1>
+    <h1>Nome do Curso</h1>
     <div id="disposicao_conteudo_professor_editar_curso">
         <h4>Descricao: </h4>
         <div class="quadro_de_conteudo_especifico">
@@ -86,17 +100,17 @@
             <ul>
                 <a href="#"> 
                     <li>
-                        <h4 style="float:left; margin-right: 3px;">Modulo 1: </h4> eu quero tchu eu quero tcha, eu quero tchu tcha tcha!
+                        <h4 style="float:left; margin-right: 3px;">Modulo 1: </h4> modulo muito bacana tambem!
                     </li>
                 </a>
                 <a href="#"> 
                     <li>
-                        <h4 style="float:left; margin-right:  3px;">Modulo 2: </h4> tchu tchu tcha, tchu tcha tcha tchu tchu tcha!
+                        <h4 style="float:left; margin-right:  3px;">Modulo 2: </h4> modulo muito mais bacana que o outro!
                     </li>
                 </a>
                 <a href="#"> 
                     <li>
-                        <h4 style="float:left; margin-right: 3px;">Modulo 3: </h4> musica ruim dos infernos!
+                        <h4 style="float:left; margin-right: 3px;">Modulo 3: </h4> modulo ultra bacana!
                     </li>
                 </a>
             </ul>
@@ -105,4 +119,8 @@
         </div>
     </div>
 </div>
+<div class="menu_accordion">
+    
+</div>
+
 <?php require 'structure/footer.php'; ?>

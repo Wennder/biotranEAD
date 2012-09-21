@@ -187,6 +187,13 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
     
+    public function actionAdicionar_materialcomplementar() {
+        $this->renderizar();
+    }
+    public function actionAdicionar_exercicio() {
+        $this->renderizar();
+    }
+    
     public function actionPrimeiro_acesso_curso(){
          $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->controller = new controllerCurso();
@@ -195,6 +202,10 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
  
     public function actionProfessor_editar_curso(){
+        $this->renderizar();
+    }
+    
+    public function actionProfessor_editar_modulo(){
         $this->renderizar();
     }
     

@@ -35,10 +35,6 @@
                         <select style="width: 500px;" class="validate[required] text-input" multiple="multiple" />
                     </td>
                 </tr>
-                
-                
-                
-                
             </table>
         </fieldset>
         <br>

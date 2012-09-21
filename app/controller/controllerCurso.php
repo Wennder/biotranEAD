@@ -271,7 +271,6 @@ class controllerCurso {
         }
 
         // Lista os cursos habilitados
-        
         $listaCursos = "<p><a>Cursos Habilitados</a></p>";
         $listaCursos .= "<div><ul style='list-style-type:none;'>";
         if ($habilitados != "") {
@@ -303,6 +302,10 @@ class controllerCurso {
         }
         $listaCursos .= "</ul></div>";
         return $listaCursos;
+    }
+    
+    public function listaConteudo_curso($id_curso) {
+        //Lista todo o conteúdo do curso
     }
 
     public function tabelaCursos() {
