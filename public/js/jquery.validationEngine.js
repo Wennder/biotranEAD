@@ -19,7 +19,7 @@
 		 /**
 		 * Kind of the constructor, called before any action
 		 * @param {Map} user options
-		 */
+		 */                 
 		 init: function(options) {
 			 var form = this;
 			 if (!form.data('jqv') || form.data('jqv') == null ) {
@@ -45,8 +45,7 @@
 			if(!$(this).is("form")) {
 				alert("Sorry, jqv.attach() only applies to a form");
 				return this;
-			}
-			
+			}			
 			var form = this;
 			var options;
 
@@ -829,7 +828,7 @@
 		*/
 		_equals: function(field, rules, i, options) {
 			var equalsField = rules[i + 1];
-
+                        
 			if (field.val() != $("#" + equalsField).val())
 				return options.allrules.equals.alertText;
 		},
