@@ -9,7 +9,7 @@ body {
     padding: 0;
 }
 
-.accordion_cursos{
+.accordion_body{
     border: 1.5px solid black;
     border-radius:10px;
     width:1000px;
@@ -19,7 +19,7 @@ body {
     
 }
 
-.accordion_cursos p{
+.accordion_body p{
     border: 1px dashed black;
     border-radius:5px;
     font-size: 20;
@@ -27,12 +27,12 @@ body {
     padding:0;
 }
 
-.accordion_cursos div {
+.accordion_body div {
     text-align:left;
     paddding: 0 ;
 }
 
-.accordion_cursos div li p{
+.accordion_body div li p{
     border: 1px dotted black;
     border-radius:5px;
     font-size:15;
