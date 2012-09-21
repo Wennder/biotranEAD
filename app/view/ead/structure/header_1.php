@@ -12,7 +12,9 @@
                 document.onClick = comprimir(); 
             });
         </script>
+
         <link rel='stylesheet' href='css/estilos.css' />
+        
         <style>
             .eadbiotran_topbar{
                 position:relative;
@@ -102,7 +104,7 @@
                 <ul>
                     <li>
                         <div id="pic_holder">
-                            <img src="img/profile/pic/00.jpg" />
+                            <img src="img/profile/pic/33.jpg" />
                         </div>
                     </li>
                     <li style="margin-top:15px;">
@@ -118,9 +120,6 @@
                             administrador
                         </h3>
                     </li>
-                    
-                        
-                    
                     <li style="float:right;clear:right; margin:0px 15px; margin-top:15px;">
                         <img src="img/settings.png" id="settings" onclick="expandir('#menuDrop')" />
                         
@@ -143,11 +142,8 @@
                             
                         </ul>
                     </div>
-                </ul>
-                
+                </ul>              
             </div>
-
-            
         </div>
         
         <div class="content_fluid">
