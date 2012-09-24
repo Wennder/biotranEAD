@@ -1,16 +1,6 @@
-<?php require 'structure/header.php'?>
-<?php
-$papel = $_SESSION["usuarioLogado"]->getId_papel();
-switch ($papel) {
-    case 1:
-        require 'structure/leftcolumn_admin.php';
-        break;
-    case 3:
-        require 'structure/leftcolumn_professor_curso.php';
-        break;
-   }
-?>
-<?php require 'structure/content.php'?>
+<?php require 'structure/header.php' ?>
+<?php require 'structure/leftcolumn_professor_curso.php' ?>
+<?php require 'structure/content.php' ?>
 
 <div id="form_cadastro" style="">
     <form id="" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_videoaula" enctype="multipart/form-data">
@@ -32,7 +22,7 @@ switch ($papel) {
                     <td>
                         <input type="file" id="" style="width:500px;" value="" class="validate[required] text-input" />
                     </td>
-                    
+
                 </tr>
                 <tr>
                     <td>
@@ -50,17 +40,17 @@ switch ($papel) {
                         <select style="width: 500px;" class="validate[required] text-input" multiple="multiple" />
                     </td>
                 </tr>
-                
-                
-                
-                
+
+
+
+
             </table>
         </fieldset>
         <br>
         <input type="submit" id="button_add_videoaula" name="button_cadastrar" value="Adicionar" class="button"/>
-        
+
     </form>
     </br></br>
 </div>
 
-<?php require 'structure/footer.php'?>
+<?php require 'structure/footer.php' ?>

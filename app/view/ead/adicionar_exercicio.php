@@ -1,16 +1,5 @@
 <?php require 'structure/header.php' ?>
-<?php
-
-$papel = $_SESSION["usuarioLogado"]->getId_papel();
-switch ($papel) {
-    case 1:
-        require 'structure/leftcolumn_admin.php';
-        break;
-    case 3:
-        require 'structure/leftcolumn_professor_curso.php';
-        break;
-}
-?>
+<?php require 'structure/leftcolumn_professor_curso.php' ?>
 <?php require 'structure/content.php' ?>
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <script src="js/accordion.js" type="text/javascript"></script>

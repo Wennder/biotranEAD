@@ -23,7 +23,7 @@
                 </li>
                 <li>
                     <p class="navbar_item gerenciarIcon">
-                        <a> Gerenciar Sistema</a>
+                        <a> Sistema</a>
                     </p>
                 </li>
             </ul>
