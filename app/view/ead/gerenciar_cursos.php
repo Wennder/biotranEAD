@@ -13,43 +13,71 @@ if (isset($this->curso)) {
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
 <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="js/jquery.ui.widget.js" type="text/javascript"></script>
 <script src="js/jquery-picklist.js" type="text/javascript"></script>
 <script src="js/validarNomeCurso.js" type="text/javascript"></script>
+
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 <link rel="stylesheet" href="css/jquery.dataTables.css" type="text/css"/>
+
+<style type="text/css" title="currentStyle">
+    
+    @import "http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css";
+    #div_update label {display:block;width:100%;padding:10px 0;}
+    #form_gerenciar{
+        padding: 50px;
+        overflow: hidden;
+        
+    }
+    
+    .ui-dialog-titlebar{
+        background-image: url('img/header_ead_background.png');
+        background-repeat: repeat;
+        height: 10px;
+    }
+    
+    .botao_gerencia_data_table{
+        padding: 7px 7px;
+        color: #444444;
+        background-color: #eeeeee;
+        border:1px solid #999999;
+        font-weight: 600;
+        border-radius: 5px;
+    }
+    
+    .botao_gerencia_data_table:hover{
+        cursor:pointer;
+        border:1px solid #111111;
+    }
+</style>
 
 <script>
     $(document).ready(function(){
         $("#cadastro").validationEngine();
         $("#editar").validationEngine();
         
-        if($("#i_editar").val() != "false"){
-            $("#form_cadastro").show();
-            $("#opcoes_cadastro").hide();
-            $("#button_cadastrar").hide();
-            $("#button_atualizar").show();
-            $('#cadastro').attr({action: 'index.php?c=ead&a=atualizar_curso&id='+$("#i_editar").val()});
-        }
-        else{            
-            $("#id").val(-1);
-            $("#form_cadastro").hide();
-        }
+        
+        
         $("#tabela_cursos").dataTable({
+            "aoColumnDefs": [ 
+               
+                                
+            ],
+            "bJQueryUI":true,
             "bPaginate": true,
             "bFilter": true,
             "bSort": true,
             "bInfo": true,
-            "bLengthMenu": false,
+            "bLengthMenu": true,
             "sPaginationType": "full_numbers",
             "oLanguage": {
                 "sLengthMenu": "Mostrar _MENU_ usuário(s)",
                 "sZeroRecords": "Nada encontrado",
                 "sInfo": "Showing _START_ to _END_ of _TOTAL_ records",
                 "sInfoEmpty": "Mostrando 0 até 0 de 0 usuário(s)",
-                "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ curso(s)",
+                "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ usuário(s)",
                 "sSearch": "Pesquisar"
             }
+            
         });
         
         //JS DO PICKLIST DO JAN
@@ -122,11 +150,11 @@ if (isset($this->curso)) {
     }
 </style>
 
-<div id="opcoes_cadastro">
+<!--<div id="opcoes_cadastro">
     <input type="button" value="Cadastro" class="button" onclick="mostrar('cadastro');"/>
     <input type="button" value="Gerência" class="button" onclick="mostrar('gerenciar');" style="margin-left: 10px;"/>
-</div>
-
+</div>-->
+<div>
 <div id="form_cadastro" style="display: none;">
     <form id="cadastro" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_curso" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
@@ -251,8 +279,13 @@ if (isset($this->curso)) {
     </form>
     </br></br>
 </div>
+</div>
 
-<div id="form_gerenciar" style="display: none;">
+<div id="form_gerenciar" style="">
+    <input type="button" value="Adicionar curso" id="btn_add" class="botao_gerencia_data_table" />
+    <input type="button" value="Editar" id="btn_edit"  class="botao_gerencia_data_table"/>
+    <input type="button" value="Remover" id="btn_del" class="botao_gerencia_data_table"/>
+    <input type="button" value="Ver" id="btn_view" class="botao_gerencia_data_table"/>
     <?php
     if (!isset($this->tabela)) {
         $controllerCurso = new controllerCurso();

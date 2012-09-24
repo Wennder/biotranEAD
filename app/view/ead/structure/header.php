@@ -6,42 +6,111 @@
         <script src="js/menuDropDown.js" type="text/javascript"></script>
 <!--        <link rel='stylesheet' href='css/styleEAD.css' />-->
         <script type="text/javascript">
+             
+             function resize_leftcolumn(){
+                 $('#page-leftcolumn').css('height',$('html').css('height') );
+             }
+             
             $(document).ready(function(){
+                $height = $('html').css('height');
+                
+                $('#page-leftcolumn').css('height',$height );
+                
+
+                $('#right_menu_holder').css('height', $height );
+                
+                $right = $('#right_menu_holder').css('height');
+                
+                $right_num = parseInt($right);
+                $right_num-=25;
+                
+               
+                
+                $('#right_menu_holder').css('height', $right_num );
+                
                 $(".eadbiotran_topbar").disableSelection();
                 // Fecha a aba se clicado fora
+//                alert($('#page-leftcolumn').css('height') );
+//                alert($('#right_menu_holder').css('height') );
                 document.onClick = comprimir(); 
             });
         </script>
-        <link rel='stylesheet' href='css/styleEAD.css' />
+
+        <link rel='stylesheet' href='css/estilos.css' />
+        
+        <style>
+            
+        </style>
     </head>
     <body>
+        <div id="main">
         <div class="eadbiotran_topbar">
             <div class="eadbiotran_navbar_container">
-                <ul class="eadbiotran_topbar_dropdown" >
-                    <li class="eadbiotran_top_item" style="">
-                        <a target="_new" href="index.php?c=index&a=cursos">Cursos</a>
-                    </li>
-                    <li class="eadbiotran_top_item" style="">
-                        <a href="#" onmouseover="expandir('menuDrop')" onmouseout="iniciarCronometro()"><?php echo $_SESSION["usuarioLogado"]->getNome_completo(); ?></a>
-                        <div id="menuDrop"
-                             onmouseover="zerarCronometro()" 
-                             onmouseout="iniciarCronometro()">
-                            <a href="index.php?c=ead&a=profile&id=<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>">Perfil</a>
-                            <a href="index.php?c=seguranca&a=logout">Logout</a>
+                <ul>
+                    <li>
+                        <div id="pic_holder">
+                            <img src="img/profile/pic/<?php
+                                        $this->usuario = $_SESSION['usuarioLogado'];
+                                        if ($this->usuario == null) {
+                                            echo '00.jpg';
+                                        } else if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
+                                            echo $this->usuario->getId_usuario() . '.jpg';
+                                        } else {
+                                            echo '00.jpg';
+                                        }
+                                        ?>"  />
                         </div>
                     </li>
-                </ul>
-                <div style="clear:both"></div>
+                    <li style="margin-top:15px;">
+                        <h2 >
+                            <?php echo $_SESSION["usuarioLogado"]->getNome_completo(); ?>
+                        </h2>
+                    </li>
+                    <li style="margin: 0px 7px; margin-top:15px;">
+                         -
+                    </li>
+                    <li style="margin-top:15px;">
+                        <h3>
+                            <?php 
+                            $papel = $_SESSION["usuarioLogado"]->getId_papel();
+                            if($papel == 1){
+                                echo 'administrado';
+                            }
+                            else if($papel == 2){
+                                echo 'gestor';
+                            }
+                            else if($papel == 3){
+                                echo 'professor(a)';
+                            }
+                            else if($papel == 4){
+                                echo 'aluno';
+                            }
+                            ?>
+                        </h3>
+                    </li>
+                    <li style="float:right;clear:right; margin:0px 15px; margin-top:15px;">
+                        <img src="img/settings.png" id="settings" onclick="expandir('#menuDrop')" />
+                        
+                    </li>
+                    <li style="float:right; margin-top:15px;">
+                        <h2>EAD Biotran</h2>
+                    </li>
+                    <div id="menuDrop"
+                             onmouseover="zerarCronometro()" 
+                             onmouseout="iniciarCronometro()">
+                        <ul >
+                            <li>
+                            <a  href="index.php?c=ead&a=profile&id=<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>">Perfil</a>
+                                
+                            </li>
+                            <li>
+                                
+                            <a href="index.php?c=seguranca&a=logout">Logout</a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </ul>              
             </div>
-
-            <div class="eadbiotran_logo">
-                <a href="<?php echo "index.php?c=ead&a=index" ?>">
-                    <img alt="Biotran EAD" src="img/eadbiotran_logo.png">
-                </a>
-            </div>
-        </div>
-        <div id="banner_top">
-            <br>
-                <label style="color: #fff;">. Versão 0.1</label>
-        </div>
+        </div> 
         <div class="content_fluid">

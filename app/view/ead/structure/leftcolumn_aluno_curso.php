@@ -1,15 +1,15 @@
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-<script src="js/accordion.js" type="text/javascript"></script>
+
 
 <div id="page-leftcolumn" class="leftcolumn page-leftcolumn">
-    <h3 class="navbar_item homeIcon">
+    <h3 class="navbar_item ">
         <a href="index.php?c=ead"> Home </a>
     </h3>
-    <h3 class="navbar_item cursosIcon">
+    <h3 class="navbar_item ">
         <a href="index.php?c=ead&a=todos_cursos"> Todos os Cursos </a>
     </h3>
-    <div id="accordion_leftcolumn">
-        <h3 class="navbar_item moduloIcon">
+    <div id="">
+        <h3 class="navbar_item ">
             <a> Meu Curso </a>
         </h3>
         <div>
@@ -20,7 +20,7 @@
             </ul>
         </div>
     </div>
-    <h3 class="navbar_item forumIcon">
+    <h3 class="navbar_item ">
         <a href="#"> Fórum </a>
     </h3>
 </div>

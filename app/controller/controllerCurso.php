@@ -316,9 +316,7 @@ class controllerCurso {
                     <th>Tempo</th> 
                     <th>Gratuito</th>
                     <th>Valor</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                   
                 </tr> 
             </thead> 
             <tbody>";
@@ -329,16 +327,11 @@ class controllerCurso {
         for (; $i < $quant; $i++) {
             $tabela .= "<tr id=tabela_linha" . $this->cursos[$i]->getId_curso() . ">";
             $tabela .= "<td width='59%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
-            $tabela .= "<td width='7%' id='tempo' align='center'>" . $this->cursos[$i]->getTempo() . " dias</td>";
-            $tabela .= "<td width='8%' id='gratuito' align='center'>" . $this->cursos[$i]->getGratuito(0) . "</td>";
+            $tabela .= "<td width='10%' id='tempo' align='center'>" . $this->cursos[$i]->getTempo() . " dias</td>";
+            $tabela .= "<td width='10%' id='gratuito' align='center'>" . $this->cursos[$i]->getGratuito(0) . "</td>";
             $tabela .= "<td width='14%' id='valor' align='center'>R$" . $this->cursos[$i]->getValor() . "</td>";
-            $tabela .= "<td width='3%' id='b_visualizar' align='center'>
-                <input type='button' title='Visualizar dados do Curso' id='b_vis-" . $this->cursos[$i]->getId_curso() . "' value='' onclick='visualizarCurso(this.id);' class='botaoVisualizar' /> </td>";
-            $tabela .= "<td width='3%' id='b_editar' align='center'>
-                <input type='button' title='Editar dados do Curso' id='b_edt-" . $this->cursos[$i]->getId_curso() . "' value='' onclick='editarCurso(this.id);' class='botaoEditar' /> </td>";
-            $tabela .= "<td width='3%' id='b_excluir' align='center'>
-                <input type='button' title='Excluir Curso' id='b_exc-" . $this->cursos[$i]->getId_curso() . "' value='' onclick='removerCurso(this.id);' class='botaoExcluir' /> </td>";
-            $tabela .= "</tr>";
+            
+           
         }
         $tabela .= "</tbody></table>";
         return $tabela;

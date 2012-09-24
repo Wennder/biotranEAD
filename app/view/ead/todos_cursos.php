@@ -20,6 +20,20 @@
 
 </script>
 
+
+<style>
+    #cursos_aluno *{
+        background-color: #eeeeee;
+        color: #333333;
+    }
+    
+    .detalhe{
+        position: relative;
+        height:1px;
+        background-color: white;
+    }
+</style>
+
 <div id="cursos_top_bar">
     <h2 align="center">CURSOS</h2>
     <label>Exibir: </label>
