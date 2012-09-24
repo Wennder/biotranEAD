@@ -49,11 +49,14 @@ switch ($papel) {
     function updateDataTables(_form){//Adicionar essa função        
         var fields_value = new Array();
         for (var i=0; i<nomeColunas.length; i++) {
-            if(nomeColunas[i] == 'sexo'){
-                alert($(_form).find('input[name="'+nomeColunas[i]+'"]').val());
-                fields_value.push($(_form).find('input[name="'+nomeColunas[i]+'"]').val());
-            }else{                
-                fields_value.push($(_form).find('#'+nomeColunas[i]).val());
+            if(nomeColunas[i] == 'sexo'){                
+                fields_value.push($(_form).find('input[name="'+nomeColunas[i]+'"]:checked').val());
+            }else{    
+                valorCampo = $(_form).find('#'+nomeColunas[i]).val();
+                if(nomeColunas[i] == 'id_papel'){
+                    valorCampo = getNomePapel(valorCampo);
+                }
+                fields_value.push(valorCampo);                
             }
         }
         oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));
@@ -136,6 +139,9 @@ switch ($papel) {
                 $('#'+_data[2]).attr('selected', 'selected');//permissao                                
                 $('#'+_data[19]).attr('selected', 'selected');//estado                
                 $('#_id_'+_data[9]).attr('checked', 'true');//sexo
+                //retirando required dos campos de senha:
+                $('#_id_senha').attr('class', 'text-input');
+                $('#_id_senha2').attr('class', 'validate[equals[senha]] text-input');
                 if(_data[18] == 'Brasil'){                      
                     $("#endereco_estado").show();
                     $("#label_estado").show();
@@ -187,6 +193,9 @@ switch ($papel) {
                         $('#'+_data[2]).removeAttr('selected');//permissao
                         $('#'+_data[19]).removeAttr('selected');//estado                        
                         $('#_id_'+_data[9]).removeAttr('checked');//sexo
+                        //readcionando required nos campos senha
+                        $('#_id_senha').attr('class', 'validate[required] text-input');
+                        $('#_id_senha2').attr('class', 'validate[required,equals[senha]] text-input');
                         
                         $("#cadastro").validationEngine("detach");                        
                         dialog.dialog('destroy');
@@ -196,7 +205,7 @@ switch ($papel) {
                         var form = $(this).find('#cadastro');
                         form.validationEngine();                                                
                         //console.log(form.html());
-                        $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento                                                        
+                        $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento
                             if(form.validationEngine('validate')){                                
                                 $.post('ajax/crud_usuario.php?acao=atualizar', form.serialize(), function(json) {
                                     // handle response
@@ -336,8 +345,22 @@ switch ($papel) {
         }
       
         function zeraForm(){
-            $('#nome_completo').val();
-            
+            $('#nome_completo').val();            
+        }
+        
+        function getNomePapel(id){
+            if(id = 1){
+                return 'Administrador';
+            }
+            if(id = 2){
+                return 'Gestor';
+            }
+            if(id = 3){
+                return 'Professor';
+            }
+            if(id = 4){
+                return 'Estudante';
+            }
         }
               
         //Verifica se é o modo de edição

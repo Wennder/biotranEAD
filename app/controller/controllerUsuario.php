@@ -300,14 +300,14 @@ class controllerUsuario {
                     <th>tel_principal</th> 
                     <th>tel_secundario</th> 
                     <th>email</th>
-                    <th>rua</th>
-                    <th>numero</th>
-                    <th>complemento</th>
-                    <th>bairro</th>
-                    <th>cidade</th>
-                    <th>pais</th>
-                    <th>estado</th>
-                    <th>id_usuario</th>
+                    <th>endereco_rua</th>
+                    <th>endereco_numero</th>
+                    <th>endereco_complemento</th>
+                    <th>endereco_bairro</th>
+                    <th>endereco_cidade</th>
+                    <th>endereco_pais</th>
+                    <th>endereco_estado</th>
+                    <th>id</th>
                 </tr> 
             </thead> 
             <tbody>";
