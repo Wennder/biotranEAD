@@ -44,6 +44,25 @@ switch ($papel) {
     #tabela_usuarios .nome_usuario_datatable{
         text-align: left;
     }
+    
+    .botao_gerencia_data_table{
+        padding: 7px 7px;
+        color: #444444;
+        background-color: #eeeeee;
+        border:1px solid #999999;
+        font-weight: 600;
+        border-radius: 5px;
+    }
+    
+    .botao_gerencia_data_table:hover{
+        cursor:pointer;
+        border:1px solid #111111;
+    }
+    .ui-dialog-titlebar{
+        background-image: url('img/header_ead_background.png');
+        background-repeat: repeat;
+        height: 10px;
+    }
 </style>
 
 
@@ -769,10 +788,10 @@ switch ($papel) {
 </div>
 
 <div id="form_gerenciar" style="">
-    <input type="button" value="Adicionar usuario" id="btn_add" />
-    <input type="button" value="Editar" id="btn_edit" />
-    <input type="button" value="Remover" id="btn_del" />
-    <input type="button" value="Ver" id="btn_view" />
+    <input type="button" value="Adicionar usuario" id="btn_add" class="botao_gerencia_data_table" />
+    <input type="button" value="Editar" id="btn_edit"  class="botao_gerencia_data_table"/>
+    <input type="button" value="Remover" id="btn_del" class="botao_gerencia_data_table"/>
+    <input type="button" value="Ver" id="btn_view" class="botao_gerencia_data_table"/>
     <?php
     if (!isset($this->tabela)) {
         $controllerUsuario = new controllerUsuario();
@@ -789,5 +808,5 @@ switch ($papel) {
     <input type="text" id="i_estado" name="i_estado" value="<?php echo $this->endereco == null ? '' : $this->endereco->getEstado(); ?>"/>    
 </div>
 
-<?php require 'profile.php'; ?>
+<?php require 'profile_dialog.php'; ?>
 <?php require 'structure/footer.php'; ?>

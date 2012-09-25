@@ -316,7 +316,13 @@ class controllerCurso {
                     <th>Tempo</th> 
                     <th>Gratuito</th>
                     <th>Valor</th>
-                   
+                    <th>Status</th>                                       
+                    <th>descricao</th> 
+                    <th>numero_modulos</th> 
+                    <th>objetivo</th>
+                    <th>justificativa</th>
+                    <th>obs</th>                   
+                    <th>id</th>                   
                 </tr> 
             </thead> 
             <tbody>";
@@ -326,12 +332,18 @@ class controllerCurso {
         $i = 0;
         for (; $i < $quant; $i++) {
             $tabela .= "<tr id=tabela_linha" . $this->cursos[$i]->getId_curso() . ">";
-            $tabela .= "<td width='59%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
+            $tabela .= "<td width='45%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
             $tabela .= "<td width='10%' id='tempo' align='center'>" . $this->cursos[$i]->getTempo() . " dias</td>";
             $tabela .= "<td width='10%' id='gratuito' align='center'>" . $this->cursos[$i]->getGratuito(0) . "</td>";
-            $tabela .= "<td width='14%' id='valor' align='center'>R$" . $this->cursos[$i]->getValor() . "</td>";
+            $tabela .= "<td width='14%' id='valor' align='center'>" . $this->cursos[$i]->getValor() . "</td>";            
+            $tabela .= "<td width='14%' id='status' align='center'>" . $this->getNomeStatus($this->cursos[$i]->getStatus()) . "</td>";
+            $tabela .= "<td width='14%' id='descricao' align='center'>" . $this->cursos[$i]->getDescricao() . "</td>";            
+            $tabela .= "<td width='14%' id='numero_modulos' align='center'>" . $this->cursos[$i]->getNumero_modulos() . "</td>";
+            $tabela .= "<td width='14%' id='objetivo' align='center'>" . $this->cursos[$i]->getObjetivo() . "</td>";            
+            $tabela .= "<td width='14%' id='justificativa' align='center'>" . $this->cursos[$i]->getJustificativa() . "</td>";
+            $tabela .= "<td width='14%' id='obs' align='center'>" . $this->cursos[$i]->getObs() . "</td>";            
+            $tabela .= "<td width='14%' id='id_curso' align='center'>" . $this->cursos[$i]->getId_curso() . "</td>";
             
-           
         }
         $tabela .= "</tbody></table>";
         return $tabela;
@@ -497,6 +509,25 @@ class controllerCurso {
         } else {
             return 'ERRO: funcao novoModulo - [controllerCurso]';
         }
+    }
+    
+    public function getNomeStatus($status){
+        if($status == 0){
+            return 'Em construção';
+        }
+        if($status == 1){
+            return 'Não avaliado';
+        }
+        if($status == 2){
+            return 'Rejeitado';
+        }
+        if($status == 3){
+            return 'Aprovado e indisponível';
+        }
+        if($status == 3){
+            return 'Aprovado e disponível';
+        }
+        
     }
 
 }
