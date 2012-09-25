@@ -10,7 +10,7 @@ class UsuarioDAO extends PDOConnectionFactory {
 
     public function insert(Usuario $user, Endereco $end) {
         try {
-            $this->conex->exec("SET NAMES 'utf8'");
+            $this->conex->exec("SET NAMES 'utf-8_unicode_ci'");
             $stmt = $this->conex->prepare("INSERT INTO usuario(login, senha, id_papel, nome_completo, 
                 data_nascimento, cpf_passaporte, rg, id_profissional, atuacao, descricao_pessoal, sexo, tel_principal, 
                 tel_secundario, email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -48,7 +48,7 @@ class UsuarioDAO extends PDOConnectionFactory {
     public function update(Usuario $user = null, Endereco $end = null) {
         try {                
             if($user != null){ 
-                $this->conex->exec("SET NAMES 'utf8'");
+                $this->conex->exec("SET NAMES 'utf-8_unicode_ci'");                
                 $stmt = $this->conex->prepare("UPDATE usuario SET login=?, senha=?, id_papel=?, nome_completo=?, 
                 data_nascimento=?, cpf_passaporte=?, rg=?, id_profissional=?, atuacao=?, descricao_pessoal=?, sexo=?, tel_principal=?, tel_secundario=?, email=? WHERE id_usuario=?");
                 $stmt->bindValue(1, $user->getEmail());
@@ -97,6 +97,7 @@ class UsuarioDAO extends PDOConnectionFactory {
     //$condicao entra no formato, ex: 'nome_coluna = valor'
     public function select($condicao = null) {
         try {
+            $this->conex->exec("SET NAMES 'utf-8_unicode_ci'");
             $stmt = null;
             if ($condicao == null) {
                 $stmt = $this->conex->query("SELECT * FROM usuario");

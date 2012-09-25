@@ -209,6 +209,9 @@ switch ($papel) {
                             if(form.validationEngine('validate')){                                
                                 $.post('ajax/crud_usuario.php?acao=atualizar', form.serialize(), function(json) {
                                     // handle response
+                                    if(json == true){
+                                        
+                                    }                                                                        
                                     updateDataTables(form);
                                     dialog.dialog('close');
                                 }, "json");
@@ -346,22 +349,7 @@ switch ($papel) {
       
         function zeraForm(){
             $('#nome_completo').val();            
-        }
-        
-        function getNomePapel(id){
-            if(id = 1){
-                return 'Administrador';
-            }
-            if(id = 2){
-                return 'Gestor';
-            }
-            if(id = 3){
-                return 'Professor';
-            }
-            if(id = 4){
-                return 'Estudante';
-            }
-        }
+        }                
               
         //Verifica se é o modo de edição
         if($("#i_editar").val() != "false"){
@@ -385,6 +373,21 @@ switch ($papel) {
         //Verifica se o país é Brasil, captura o estado do usuário a ser editado e seta o combobox
         var estado = $("#i_estado");                               
     });
+    
+    function getNomePapel(id){
+            if(id == '1'){
+                return 'Administrador';
+            }
+            if(id == '2'){
+                return 'Gestor';
+            }
+            if(id == '3'){
+                return 'Professor';
+            }
+            if(id == '4'){
+                return 'Estudante';
+            }
+        }
    
     //Alterna entre a exibição do formulario de cadastro e a tabela de consulta
     function mostrar(opcao){
