@@ -1,6 +1,6 @@
-                </div>    
+                   
             </div>
-            <div id="footer">
+            <div id="footer" style="clear:both;">
                 <div id="content_footer">
                     <table style="width: 800px; height: 100px; margin: 20px 90px; position: absolute;">
                         <tr style="width: 800px; height: 100px;">
