@@ -26,16 +26,6 @@
                         <input type="file" id="" style="width:500px;" value="" class="validate[required] text-input" />
                     </td>
                 </tr>
-                
-                <tr>
-                    <td>
-                        <label class="label_cadastro">Adicionar em: </label>
-                    </td>
-                    <td>
-                        <select style="width: 500px;" class="validate[required] text-input" multiple="multiple" />
-                    </td>
-                </tr>
-         
             </table>
         </fieldset>
         <br>
