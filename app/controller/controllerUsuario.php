@@ -44,7 +44,7 @@ class controllerUsuario {
      * Insere novo usuario a partir de um formulario enviado via POST     
      */
 
-    public function inserirUsuario_post() {
+    public function inserirUsuario() {
         //setando o objeto usuario e endereco via post
         $this->setUsuario_post();
         //inserindo os objetos         
@@ -57,20 +57,21 @@ class controllerUsuario {
             //insere foto do usuario
             $this->inserirFotoUsuario($this->usuario->getId_usuario());
         }
+        return $this->getUsuario("email='".$this->usuario->getEmail()."'")->getId_usuario();
     }
 
     /*
      * Atualiza Usuario a partir de um formulário enviado via POST
      */
 
-    public function atualizarUsuario_post($id_usuario) {
+    public function atualizarUsuario($id_usuario) {
         //se usuario já está cadastrado
         $this->usuario = $this->getUsuario("id_usuario=" . $id_usuario);
         $this->end = $this->getEndereco_usuario($id_usuario);
         //captura as informações de usuario via post!
         $this->setUsuario_post();
         //atualiza usuario
-        $this->atualizarUsuario($this->usuario, $this->end);
+        $this->updateUsuario($this->usuario, $this->end);
         //atualiza a foto
         $this->inserirFotoUsuario($this->usuario->getId_usuario());
         return true;
@@ -80,7 +81,7 @@ class controllerUsuario {
      * Atualiza Usuario no banco. Faz acesso ao UsuarioDAO
      */
 
-    public function atualizarUsuario(Usuario $user = null, Endereco $end = null) {
+    public function updateUsuario(Usuario $user = null, Endereco $end = null) {
         //atualiza usuario
         if ($user != null) {
             $dao = new UsuarioDAO();
@@ -154,7 +155,8 @@ class controllerUsuario {
      * @return int - valor lógico referente ao sucesso da acao.
      */
 
-    public function removerUsuario(Usuario $user) {
+    public function removerUsuario($id_usuario) {
+        $user = $this->getUsuario("id_usuario=".$id_usuario);
         $dao = new EnderecoDAO();
         $affectedrows = $dao->deleteEnderecoUsuario($user->getId_usuario());
         if ($affectedrows > 0) {
@@ -320,7 +322,7 @@ class controllerUsuario {
         for (; $i < $quant; $i++) {
             
             $tabela .= "<tr id=tabela_linha" . $this->usuarios[$i]->getId_usuario() . ">";
-            $tabela .= "<td width='55%' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
+            $tabela .= "<td width='55%' class='nome_usuario_datatable' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
             $papel = $papelDAO->select("id_papel=" . $this->usuarios[$i]->getId_papel());
             $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";
             $tabela .= "<td width='15%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
