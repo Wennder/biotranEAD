@@ -36,6 +36,14 @@ switch ($papel) {
 
     @import "http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css";
     #div_update label {display:block;width:100%;padding:10px 0;}
+
+    #tabela_usuarios td {
+        text-align: center;
+    }
+
+    #tabela_usuarios .nome_usuario_datatable{
+        text-align: left;
+    }
 </style>
 
 
@@ -60,9 +68,31 @@ switch ($papel) {
             }
         }
         oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));
+        
     }
     
-    $(document).ready(function(){        
+    
+    
+    function insertDataTables(_form){//Adicionar essa função  
+        var fields_value = new Array();
+        for (var i=0; i<nomeColunas.length; i++) {
+            if(nomeColunas[i] == 'sexo'){                
+                fields_value.push($(_form).find('input[name="'+nomeColunas[i]+'"]:checked').val());
+            }else{    
+                valorCampo = $(_form).find('#'+nomeColunas[i]).val();
+                if(nomeColunas[i] == 'id_papel'){
+                    valorCampo = getNomePapel(valorCampo);
+                }
+                fields_value.push(valorCampo);                
+            }
+        }
+        oTable.fnAddData(fields_value, true);        
+      
+        //        alert('merda');
+        //        $('#tabela_usuarios').load(oTable.$('tr').click());
+    }
+    
+    $(document).ready(function a(){        
         //capturando nome das colunas da tabela para lógica replace de ids
         i = 0;
         $('thead th').each(function(){            
@@ -93,14 +123,17 @@ switch ($papel) {
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 17 ], "sTitle":"rendering" },
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 18 ], "sTitle":"rendering" },
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 19 ], "sTitle":"rendering" },
-                { "bSearchable": false, "bVisible": false, "aTargets": [ 20 ], "sTitle":"rendering" },                                
-            ],
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 20 ], "sTitle":"rendering" },
+                {"sClass": "nome_usuario_datatable",
+                "aTargets":[0]            
+                },                
+            ],                        
             "bJQueryUI":true,
             "bPaginate": true,
             "bFilter": true,
             "bSort": true,
             "bInfo": true,
-            "bLengthMenu": true,
+            "bLengthMenu": true,            
             "sPaginationType": "full_numbers",
             "oLanguage": {
                 "sLengthMenu": "Mostrar _MENU_ usuário(s)",
@@ -112,7 +145,7 @@ switch ($papel) {
             }
         });                
         
-        oTable.$('tr').click(function(e){
+        $('#tabela_usuarios tr').live('click',function(e){
             if ( $(this).hasClass('row_selected') ) {
                 $(this).removeClass('row_selected');
             } else {
@@ -209,11 +242,10 @@ switch ($papel) {
                             if(form.validationEngine('validate')){                                
                                 $.post('ajax/crud_usuario.php?acao=atualizar', form.serialize(), function(json) {
                                     // handle response
-                                    if(json == true){
-                                        
+                                    if(json != false){
+                                        updateDataTables(form);
+                                        dialog.dialog('close');                                        
                                     }                                                                        
-                                    updateDataTables(form);
-                                    dialog.dialog('close');
                                 }, "json");
                                 //Chamada do AJAX            
                             }
@@ -234,57 +266,60 @@ switch ($papel) {
         $('#btn_add').click(function(){
             $('#button_cadastrar').show();
             $('#button_atualizar').hide();                                   
-            var _HTML = $('#dialog_form').html();
+            var _HTML2 = $('#dialog_form').html();
             //alterando ids e names                
-            _HTML = _HTML.replace('_ID_FORM_', 'cadastro');                                
-            _HTML = _HTML.replace('_ID_FORM_', 'cadastro');
-            _HTML = _HTML.replace('_id_senha', 'senha');
-            _HTML = _HTML.replace('_id_senha', 'senha');
-            _HTML = _HTML.replace('_id_senha2', 'senha2');
-            _HTML = _HTML.replace('_id_senha2', 'senha2');                                
+            _HTML2 = _HTML2.replace('_ID_FORM_', 'cadastro2');                                
+            _HTML2 = _HTML2.replace('_ID_FORM_', 'cadastro2');
+            _HTML2 = _HTML2.replace('_id_senha', 'senha');
+            _HTML2 = _HTML2.replace('_id_senha', 'senha');
+            _HTML2 = _HTML2.replace('_id_senha2', 'senha2');
+            _HTML2 = _HTML2.replace('_id_senha2', 'senha2');                                
             for(i = 0; i < nomeColunas.length; i++){
-                _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
-                _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
+                _HTML2 = _HTML2.replace('_id_'+nomeColunas[i], nomeColunas[i]);
+                _HTML2 = _HTML2.replace('_id_'+nomeColunas[i], nomeColunas[i]);
                 if(nomeColunas[i] == 'sexo'){
-                    _HTML = _HTML.replace('_id_Masculino', 'Masculino');    
-                    _HTML = _HTML.replace('_id_Feminino', 'Feminino');    
+                    _HTML2 = _HTML2.replace('_id_Masculino', 'Masculino');    
+                    _HTML2 = _HTML2.replace('_id_Feminino', 'Feminino');    
                 }
             }
-            _HTML = _HTML.replace('_ID_FORM_', 'formulario');
-            _HTML = _HTML.replace('#NOME_COMPLETO#', '');
-            _HTML = _HTML.replace('#CPF_PASSAPORTE#', '');
-            _HTML = _HTML.replace('#RG#', '');
-            _HTML = _HTML.replace('#DATA_NASCIMENTO#', '');
-            _HTML = _HTML.replace('#TEL_PRINCIPAL#', '');
-            _HTML = _HTML.replace('#TEL_SECUNDARIO#', '');
-            _HTML = _HTML.replace('#ID_PROFISSIONAL#', '');
-            _HTML = _HTML.replace('#DESCRICAO_PESSOAL#', '');
-            _HTML = _HTML.replace('#RUA#', '');
-            _HTML = _HTML.replace('#NUMERO#', '');
-            _HTML = _HTML.replace('#COMPLEMENTO#', '');
-            _HTML = _HTML.replace('#BAIRRO#', '');
-            _HTML = _HTML.replace('#CIDADE#', '');
-            _HTML = _HTML.replace('#PAIS#', 'Brasil');
-            _HTML = _HTML.replace('#EMAIL#', '');
-            _HTML = _HTML.replace('#ID_USUARIO#', -1);
-            _HTML = _HTML.replace('#ID_FOTO#', '00');
+            _HTML2 = _HTML2.replace('_ID_FORM_', 'formulario');
+            _HTML2 = _HTML2.replace('#NOME_COMPLETO#', '');
+            _HTML2 = _HTML2.replace('#CPF_PASSAPORTE#', '');
+            _HTML2 = _HTML2.replace('#RG#', '');
+            _HTML2 = _HTML2.replace('#DATA_NASCIMENTO#', '');
+            _HTML2 = _HTML2.replace('#TEL_PRINCIPAL#', '');
+            _HTML2 = _HTML2.replace('#TEL_SECUNDARIO#', '');
+            _HTML2 = _HTML2.replace('#ID_PROFISSIONAL#', '');
+            _HTML2 = _HTML2.replace('#DESCRICAO_PESSOAL#', '');
+            _HTML2 = _HTML2.replace('#RUA#', '');
+            _HTML2 = _HTML2.replace('#NUMERO#', '');
+            _HTML2 = _HTML2.replace('#COMPLEMENTO#', '');
+            _HTML2 = _HTML2.replace('#BAIRRO#', '');
+            _HTML2 = _HTML2.replace('#CIDADE#', '');
+            _HTML2 = _HTML2.replace('#PAIS#', 'Brasil');
+            _HTML2 = _HTML2.replace('#EMAIL#', '');
+            _HTML2 = _HTML2.replace('#ID_USUARIO#', -1);
+            _HTML2 = _HTML2.replace('#ID_FOTO#', '00');
             
-            dialog = $(_HTML).dialog({width:900,height:600, modal:true,
+            dialog2 = $(_HTML2).dialog({width:900,height:600, modal:true,
                 close: function(event,ui){                
-                    $("#cadastro").validationEngine("detach");                        
-                    dialog.dialog('destroy');
+                    $("#cadastro2").validationEngine("detach");                         
+                    dialog2.dialog('destroy');
                 },
                 open: function(event, ui) { 
                     //Habilita a validação automática no formulário de cadastro
-                    var form = $(this).find('#cadastro');
+                    var form = $(this).find('#cadastro2');
                     form.validationEngine();                                                
                     //console.log(form.html());
-                    $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento                                                        
+                    $(this).find('#button_cadastrar').live('click',function(){//adicionar esse evento                                                        
                         if(form.validationEngine('validate')){                                
                             $.post('ajax/crud_usuario.php?acao=inserir', form.serialize(), function(json) {
                                 // handle response
-                                updateDataTables(form);
-                                dialog.dialog('close');
+                                if(json != false){
+                                    form.find('#id').val(json);
+                                    insertDataTables(form);                                       
+                                    dialog2.dialog('close');                                    
+                                }
                             }, "json");
                             //Chamada do AJAX            
                         }
@@ -313,10 +348,21 @@ switch ($papel) {
             }
         });
     
-        $('btn_del').click(function(){
-            var elem = $('tr.row_selected');
-            if (elem.length) {                
-                
+        $('#btn_del').live('click',function(){
+            var elem = $('tr.row_selected');                                
+            if (elem.length == 1) { 
+                var r = confirm('Deseja realmente deletar esse usuario?');
+                if(r == true){                    
+                    $.getJSON('ajax/crud_usuario.php?acao=remover',{
+                        id_usuario: oTable.fnGetData(elem[0], 20),       
+                        ajax: 'true'
+                    }, function(j){
+                        //usuario excluido         
+                        if(j == 1){                            
+                            oTable.fnDeleteRow(elem[0], null, true);                            
+                        }
+                    });  
+                }
             }
         
         });
@@ -375,19 +421,19 @@ switch ($papel) {
     });
     
     function getNomePapel(id){
-            if(id == '1'){
-                return 'Administrador';
-            }
-            if(id == '2'){
-                return 'Gestor';
-            }
-            if(id == '3'){
-                return 'Professor';
-            }
-            if(id == '4'){
-                return 'Estudante';
-            }
+        if(id == '1'){
+            return 'Administrador';
         }
+        if(id == '2'){
+            return 'Gestor';
+        }
+        if(id == '3'){
+            return 'Professor';
+        }
+        if(id == '4'){
+            return 'Estudante';
+        }
+    }
    
     //Alterna entre a exibição do formulario de cadastro e a tabela de consulta
     function mostrar(opcao){
@@ -721,7 +767,7 @@ switch ($papel) {
                 </table>
             </fieldset>
             <br>
-            <input type="submit" id="button_cadastrar" name="button_cadastrar" value="Cadastrar" class="button"/>
+            <input type="button" id="button_cadastrar" name="button_cadastrar" value="Cadastrar" class="button"/>
             <input type="button" id="button_atualizar" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
             <div id="div_hidden" style="display: none;">
                 <input type="text" id="id" name="id" value="#ID_USUARIO#"/>
