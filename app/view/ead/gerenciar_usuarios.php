@@ -126,7 +126,7 @@ switch ($papel) {
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 19 ], "sTitle":"rendering" },
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 20 ], "sTitle":"rendering" },
                 {"sClass": "nome_usuario_datatable",
-                "aTargets":[0]            
+                    "aTargets":[0]            
                 },                
             ],                        
             "bJQueryUI":true,
@@ -220,7 +220,10 @@ switch ($papel) {
                 _HTML = _HTML.replace('#ID_USUARIO#', _data[20]);
                 _HTML = _HTML.replace('#ID_FOTO#', _data[20]);
                 //--gerando dialog
-                dialog = $(_HTML).dialog({width:800, height:600, modal: true,
+                dialog = $(_HTML).dialog({
+                    width:800, 
+                    height:600, 
+                    modal: true,                    
                     close: function(event,ui){                
                         //deselecionando combos
                         $('#'+_data[1]).removeAttr('selected');//atuacao                                 
@@ -237,7 +240,7 @@ switch ($papel) {
                     open: function(event, ui) { 
                         //Habilita a validação automática no formulário de cadastro
                         var form = $(this).find('#cadastro');
-                        form.validationEngine();                                                
+                        form.validationEngine('attach', {scroll: false});                                                
                         //console.log(form.html());
                         $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento
                             if(form.validationEngine('validate')){                                
@@ -251,7 +254,7 @@ switch ($papel) {
                                 //Chamada do AJAX            
                             }
                         });                        
-                    }
+                    }                    
                 });                
             }
         });                    
@@ -496,7 +499,7 @@ switch ($papel) {
 </div>-->
 
 <div id="dialog_form">
-    <div id="form_cadastro" style="display: none; position: relative;">
+    <div id="form_cadastro" style="display: none; position: relative;">        
         <form id="_ID_FORM_" name="_ID_FORM_" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_usuario" enctype="multipart/form-data">
             <fieldset style="width: 100%;">
                 <legend>Dados Pessoais</legend>
