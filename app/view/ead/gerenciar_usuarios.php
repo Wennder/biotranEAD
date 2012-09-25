@@ -44,10 +44,10 @@ switch ($papel) {
     
     var dialog, oTable, elem;
     
-     
+     var nomeColunas = ['nome_completo','id_papel','atuacao','sexo','cpf_passaporte' , 'rg'];
     
     function updateDataTables(_form){							//Adicionar essa função
-        var form_fields = ['nome_completo','id_papel','atuacao','sexo','cpf_passaporte' , 'rg'];
+        //var form_fields = ['nome_completo','id_papel','atuacao','sexo','cpf_passaporte' , 'rg'];
         var fields_value = new Array();
         for (var i=0; i<nomeColunas.length; i++) {
             if(nomeColunas[i] == 'sexo'){                
@@ -115,6 +115,7 @@ switch ($papel) {
         
         $('#btn_edit').live('click',function(){
             elem = $('tr.row_selected');
+            
             if (elem.length) {
                 var _data = oTable.fnGetData(elem[0]);
                 $('#button_cadastrar').hide();
@@ -154,6 +155,7 @@ switch ($papel) {
                         _HTML = _HTML.replace('_id_Feminino', 'Feminino');    
                     }
                 }
+                
                 //--
                 //alterando valores
                 _HTML = _HTML.replace('#NOME_COMPLETO#', _data[0]);
@@ -174,6 +176,7 @@ switch ($papel) {
                 _HTML = _HTML.replace('#ID_USUARIO#', _data[20]);
                 _HTML = _HTML.replace('#ID_FOTO#', _data[20]);
                 //--gerando dialog
+                
                 dialog = $(_HTML).dialog({width:800, height:600, modal: true,
                     close: function(event,ui){                
                         //deselecionando combos
