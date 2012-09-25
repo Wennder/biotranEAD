@@ -104,6 +104,7 @@ switch ($papel) {
                 nomeColunas[i++] = 'atuacao';                                
             }else nomeColunas[i++] = $(this).text();
         });
+        
         oTable = $("#tabela_usuarios").dataTable({
             "aoColumnDefs": [ 
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 3 ], "sTitle":"rendering" },
@@ -433,19 +434,7 @@ switch ($papel) {
         if(id == '4'){
             return 'Estudante';
         }
-    }
-   
-    //Alterna entre a exibição do formulario de cadastro e a tabela de consulta
-    function mostrar(opcao){
-        if(opcao == "cadastro"){
-            $("#form_cadastro").show();
-            $("#form_gerenciar").hide();
-        }
-        else if(opcao == "gerenciar"){
-            $("#form_cadastro").hide();
-            $("#form_gerenciar").show();
-        }
-    }        
+    }          
     
     //Altera a action do form e submete para atualização dos dados do usuário
     function atualizarCadastro(idusuario){
@@ -528,8 +517,7 @@ switch ($papel) {
                             </td>
                             <td style="width: 500px;">
                                 <select id="_id_id_papel" name="_id_id_papel" class="validate[required]" data-prompt-position="centerRight">
-                                    <option></option>
-                                    <option id="Administrador" value="1">Administrador</option>
+                                    <option></option>                                    
                                     <option id="Gestor" value="2">Gestor</option>
                                     <option id="Professor" value="3">Professor</option>
                                     <option id="Estudante" value="4">Estudante</option>

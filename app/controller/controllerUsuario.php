@@ -320,37 +320,37 @@ class controllerUsuario {
         $quant = count($this->usuarios);
         $i = 0;
         for (; $i < $quant; $i++) {
-            
-            $tabela .= "<tr id=tabela_linha" . $this->usuarios[$i]->getId_usuario() . ">";
-            $tabela .= "<td width='55%' class='nome_usuario_datatable' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
             $papel = $papelDAO->select("id_papel=" . $this->usuarios[$i]->getId_papel());
-            $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";
-            $tabela .= "<td width='15%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
-            
-            
-            $tabela .= "<td width='55%' id='data_nascimento'>" . $this->usuarios[$i]->getData_nascimento() . "</td>";
-            $tabela .= "<td width='55%' id='cpf_passaporte'>" . $this->usuarios[$i]->getCpf_passaporte() . "</td>";
-            $tabela .= "<td width='55%' id='rg'>" . $this->usuarios[$i]->getRg() . "</td>";
-            $tabela .= "<td width='55%' id='id_profissional'>" . $this->usuarios[$i]->getId_profissional() . "</td>";
-            $tabela .= "<td width='55%' id='atuacao'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
-            $tabela .= "<td width='55%' id='descricao_pessoal'>" . $this->usuarios[$i]->getDescricao_pessoal() . "</td>";
-            $tabela .= "<td width='55%' id='sexo'>" . $this->usuarios[$i]->getSexo() . "</td>";
-            $tabela .= "<td width='55%' id='tel_principal'>" . $this->usuarios[$i]->getTel_principal() . "</td>";
-            $tabela .= "<td width='55%' id='tel_secundario'>" . $this->usuarios[$i]->getTel_secundario() . "</td>";
-            $tabela .= "<td width='55%' id='email'>" . $this->usuarios[$i]->getEmail() . "</td>";
-            
-            $endereco = $this->controller->getEndereco("id_usuario=".$this->usuarios[$i]->getId_usuario());
-            
-            $tabela .= "<td width='55%' id='rua'>" . $endereco->getRua() . "</td>";
-            $tabela .= "<td width='55%' id='numero'>" . $endereco->getNumero() . "</td>";
-            $tabela .= "<td width='55%' id='complemento'>" . $endereco->getComplemento() . "</td>";
-            $tabela .= "<td width='55%' id='bairro'>" . $endereco->getBairro() . "</td>";
-            $tabela .= "<td width='55%' id='cidade'>" . $endereco->getCidade() . "</td>";
-            $tabela .= "<td width='55%' id='pais'>" . $endereco->getPais() . "</td>";
-            $tabela .= "<td width='55%' id='estado'>" . $endereco->getEstado() . "</td>";
-            $tabela .= "<td width='55%' id='id_usuario'>" . $this->usuarios[$i]->getId_usuario() . "</td>";
-            
-            $tabela .= "</tr>";
+            if($papel[0]->getId_papel() != 1){                
+                $tabela .= "<tr id=tabela_linha" . $this->usuarios[$i]->getId_usuario() . ">";
+                $tabela .= "<td width='55%' class='nome_usuario_datatable' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
+                $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";
+                $tabela .= "<td width='15%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
+
+                $tabela .= "<td width='55%' id='data_nascimento'>" . $this->usuarios[$i]->getData_nascimento() . "</td>";
+                $tabela .= "<td width='55%' id='cpf_passaporte'>" . $this->usuarios[$i]->getCpf_passaporte() . "</td>";
+                $tabela .= "<td width='55%' id='rg'>" . $this->usuarios[$i]->getRg() . "</td>";
+                $tabela .= "<td width='55%' id='id_profissional'>" . $this->usuarios[$i]->getId_profissional() . "</td>";
+                $tabela .= "<td width='55%' id='atuacao'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
+                $tabela .= "<td width='55%' id='descricao_pessoal'>" . $this->usuarios[$i]->getDescricao_pessoal() . "</td>";
+                $tabela .= "<td width='55%' id='sexo'>" . $this->usuarios[$i]->getSexo() . "</td>";
+                $tabela .= "<td width='55%' id='tel_principal'>" . $this->usuarios[$i]->getTel_principal() . "</td>";
+                $tabela .= "<td width='55%' id='tel_secundario'>" . $this->usuarios[$i]->getTel_secundario() . "</td>";
+                $tabela .= "<td width='55%' id='email'>" . $this->usuarios[$i]->getEmail() . "</td>";
+
+                $endereco = $this->controller->getEndereco("id_usuario=" . $this->usuarios[$i]->getId_usuario());
+
+                $tabela .= "<td width='55%' id='rua'>" . $endereco->getRua() . "</td>";
+                $tabela .= "<td width='55%' id='numero'>" . $endereco->getNumero() . "</td>";
+                $tabela .= "<td width='55%' id='complemento'>" . $endereco->getComplemento() . "</td>";
+                $tabela .= "<td width='55%' id='bairro'>" . $endereco->getBairro() . "</td>";
+                $tabela .= "<td width='55%' id='cidade'>" . $endereco->getCidade() . "</td>";
+                $tabela .= "<td width='55%' id='pais'>" . $endereco->getPais() . "</td>";
+                $tabela .= "<td width='55%' id='estado'>" . $endereco->getEstado() . "</td>";
+                $tabela .= "<td width='55%' id='id_usuario'>" . $this->usuarios[$i]->getId_usuario() . "</td>";
+
+                $tabela .= "</tr>";
+            }
         }
         $tabela .= "</tbody></table>";
         return $tabela;
