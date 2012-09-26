@@ -280,8 +280,7 @@ switch ($papel) {
         });                    
         
         
-        $('#btn_update').live('click',function(){			//adicionar esse evento
-			
+        $('#btn_update').live('click',function(){//adicionar esse evento			
             //Chamada do AJAX            
             updateDataTables($(this).parent());
             $(dialog).dialog('destroy');

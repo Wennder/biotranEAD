@@ -54,18 +54,18 @@ class CursoDAO extends PDOConnectionFactory {
         try {
             if ($curso != null) {
                 $this->conex->exec("SET NAMES 'utf8'");
-                $stmt = $this->conex->prepare("UPDATE curso SET id_curso=?, nome=?, descricao=?, tempo=?, gratuito=?, valor=?, status=?, numero_modulos=?, objetivo=?, justificativa=?, obs=? WHERE id_curso=?");
-                $stmt->bindValue(1, $curso->getId_curso());
-                $stmt->bindValue(2, $curso->getNome());
-                $stmt->bindValue(3, $curso->getDescricao());
-                $stmt->bindValue(4, $curso->getTempo());
-                $stmt->bindValue(5, $curso->getGratuito());
-                $stmt->bindValue(6, $curso->getValor());
-                $stmt->bindValue(7, $curso->getStatus());
-                $stmt->bindValue(8, $curso->getNumero_modulos());
-                $stmt->bindValue(9, $curso->getObjetivo());
-                $stmt->bindValue(10, $curso->getJustificativa());
-                $stmt->bindValue(11, $curso->getObs());                
+                $stmt = $this->conex->prepare("UPDATE curso SET nome=?, descricao=?, tempo=?, gratuito=?, valor=?, status=?, numero_modulos=?, objetivo=?, justificativa=?, obs=? WHERE id_curso=?");
+                $stmt->bindValue(1, $curso->getNome());
+                $stmt->bindValue(2, $curso->getDescricao());
+                $stmt->bindValue(3, $curso->getTempo());
+                $stmt->bindValue(4, $curso->getGratuito(1));
+                $stmt->bindValue(5, $curso->getValor());
+                $stmt->bindValue(6, $curso->getStatus());
+                $stmt->bindValue(7, $curso->getNumero_modulos());
+                $stmt->bindValue(8, $curso->getObjetivo());
+                $stmt->bindValue(9, $curso->getJustificativa());
+                $stmt->bindValue(10, $curso->getObs());                
+                $stmt->bindValue(11, $curso->getId_curso());
                 $stmt->execute();
 
                 if ($cp != null) {
