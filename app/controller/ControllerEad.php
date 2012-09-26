@@ -181,9 +181,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionEditar_modulo() {
         $this->controller = new controllerCurso();
         $this->visao->options = $this->controller->comboCursos();
-        if ($this->visao->options != null) {
-            $this->renderizar();
-        }//possivel parada de erro
+//        if ($this->visao->options != null) {
+//            $this->renderizar();
+//        }//possivel parada de erro
         $this->renderizar();
     }
 
