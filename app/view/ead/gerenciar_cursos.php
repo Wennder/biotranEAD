@@ -54,17 +54,26 @@ if (isset($this->curso)) {
     
     var dialog, oTable, elem, nomeColunas = new Array();
             
-    function updateDataTables(_form){//Adicionar essa função        
+    function getGratuito(flag){
+        if(flag == 1){
+            return 'Sim';
+        }
+        if(flag == 0){
+            return 'Não';
+        }
+    }
+            
+    function updateDataTables(_form, _data){//Adicionar essa função        
         var fields_value = new Array();
         for (var i=0; i<nomeColunas.length; i++) {
-            if(nomeColunas[i] == 'sexo'){                
-                fields_value.push($(_form).find('input[name="'+nomeColunas[i]+'"]:checked').val());
-            }else{    
-                valorCampo = $(_form).find('#'+nomeColunas[i]).val();
-                if(nomeColunas[i] == 'id_papel'){
-                    valorCampo = getNomePapel(valorCampo);
-                }
-                fields_value.push(valorCampo);                
+            if(i > 3){
+                fields_value.push(_data[i]);
+            }else{
+                if(nomeColunas[i] == 'gratuito'){                                               
+                    fields_value.push(getGratuito($(_form).find('input[name="'+nomeColunas[i]+'"]:checked').val()));//com valor filtrado getGratuito()
+                }else{                    
+                    fields_value.push($(_form).find('#'+nomeColunas[i]).val());                
+                }                
             }
         }
         oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));        
@@ -73,14 +82,14 @@ if (isset($this->curso)) {
     function insertDataTables(_form){//Adicionar essa função  
         var fields_value = new Array();
         for (var i=0; i<nomeColunas.length; i++) {
-            if(nomeColunas[i] == 'sexo'){                
-                fields_value.push($(_form).find('input[name="'+nomeColunas[i]+'"]:checked').val());
-            }else{    
-                valorCampo = $(_form).find('#'+nomeColunas[i]).val();
-                if(nomeColunas[i] == 'id_papel'){
-                    valorCampo = getNomePapel(valorCampo);
-                }
-                fields_value.push(valorCampo);                
+            if(i > 3){
+                fields_value.push(_data[i]);
+            }else{
+                if(nomeColunas[i] == 'gratuito'){                                               
+                    fields_value.push(getGratuito($(_form).find('input[name="'+nomeColunas[i]+'"]:checked').val()));//com valor filtrado getGratuito()
+                }else{                    
+                    fields_value.push($(_form).find('#'+nomeColunas[i]).val());                
+                }                
             }
         }
         oTable.fnAddData(fields_value, true);   
@@ -88,8 +97,10 @@ if (isset($this->curso)) {
     
     $(document).ready(function(){               
         //capturando nome das colunas da tabela para lógica replace de ids        
-        $('thead th').each(function(){            
-            nomeColunas.push($(this).text().toLowerCase());
+        $('thead th').each(function(){
+            var texto = $(this).text().split(' ');
+            texto = texto[0].toLowerCase();
+            nomeColunas.push(texto);
         });
         
         oTable = $("#tabela_cursos").dataTable({
@@ -126,23 +137,7 @@ if (isset($this->curso)) {
                 oTable.$('tr.row_selected').removeClass('row_selected');
                 $(this).addClass('row_selected');
             }
-        });
-        
-        //JS DO PICKLIST DO JAN
-        $('#add').click(function(){
-            $('#origem option:selected').each(function(){
-                $('#destino').append('<option selected="selected" value="'+$(this).val()+'">'+$(this).text()+'</option>');
-                $(this).remove();
-            });
-        });
-	
-        $('#remover').click(function(){
-            $('#destino option:selected').each(function(){
-                $('#origem').append('<option value="'+$(this).val()+'">'+$(this).text()+'</option>');
-                $(this).remove();
-            });
         });                
-        //-----------fim js janquery picklist
         
         $('#btn_edit').live('click',function(){
             elem = $('tr.row_selected');
@@ -153,40 +148,45 @@ if (isset($this->curso)) {
                 $('#button_atualizar').show();
                 
                 //preselecionando combos e radio inputs: 
-                if(_data[2] == 1){
+                if(_data[2] == 'Sim'){
                     $('#_id_gratuitoSim').attr('checked', 'true');//sexo                    
                 }else{
                     $('#_id_gratuitoNao').attr('checked', 'true');//sexo                    
                 }
                 
-                var _HTML = $('#dialog_form').html();                
-                //alterando ids e names                
-                _HTML = _HTML.replace('_ID_FORM_', 'cadastro');
-                _HTML = _HTML.replace('_ID_FORM_', 'cadastro');
+                var _HTML = $('#dialog_form').html();                                
                 //preparando picklist do curso:                
                 $.getJSON('ajax/combosPickList_cadastroCurso.php?acao=comID',{
                     id_curso: _data[10],       
                     ajax: 'true'
                 }, function(j){   
+                    //preenchendo picklist
                     _HTML = _HTML.replace('#OPTIONS_TODOS_PROFESSORES#', j.prof_dispo);                    
                     _HTML = _HTML.replace('#OPTIONS_PROFESSORES_RESPONSAVEIS#', j.prof_curso);
-                    console.log(_HTML);
-                    console.log('2');
+                    //alternando id's'
+                    //alterando ids e names                
+                    _HTML = _HTML.replace('_id_cadastro', 'cadastro');
+                    _HTML = _HTML.replace('_id_cadastro', 'cadastro');
                     for(i = 0; i < nomeColunas.length; i++){
+                        //inputs
                         _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
                         _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
                     }
+                    //picklist
+                    _HTML = _HTML.replace('_id_origem', 'origem');
+                    _HTML = _HTML.replace('_id_origem', 'origem');
+                    _HTML = _HTML.replace('_id_add', 'add');
+                    _HTML = _HTML.replace('_id_remover', 'remover');
+                    _HTML = _HTML.replace('_id_destino', 'destino');
+                    _HTML = _HTML.replace('_id_destino', 'destino');                    
                     //--
                     //alterando valores
-                    _HTML = _HTML.replace('_id_origem', 'origem');
-                    _HTML = _HTML.replace('_id_origem', 'origem');
-                    _HTML = _HTML.replace('_id_destino', 'destino');
-                    _HTML = _HTML.replace('_id_destino', 'destino');
                     _HTML = _HTML.replace('#NOME#', _data[0]);
                     _HTML = _HTML.replace('#TEMPO#', _data[1]);                
                     _HTML = _HTML.replace('#VALOR#', _data[3]);
-                    _HTML = _HTML.replace('#ID_CURSO#', _data[11]);
-                    _HTML = _HTML.replace('#ID_FOTO#', _data[11]);
+                    _HTML = _HTML.replace('#DESCRICAO#', _data[5]);
+                    _HTML = _HTML.replace('#ID_CURSO#', _data[10]);
+                    _HTML = _HTML.replace('#ID_FOTO#', _data[10]);
                     //--gerando dialog
                     dialog = $(_HTML).dialog({
                         width:800, 
@@ -206,13 +206,27 @@ if (isset($this->curso)) {
                             //Habilita a validação automática no formulário de cadastro
                             var form = $(this).find('#cadastro');
                             form.validationEngine('attach', {scroll: false});                                                
-                            //console.log(form.html());
+                            //JS DO PICKLIST DO JAN
+                            $(this).find('#add').live('click',function(){
+                                $('#origem option:selected').each(function(){
+                                    $('#destino').append('<option selected="selected" value="'+$(this).val()+'">'+$(this).text()+'</option>');
+                                    $(this).remove();
+                                });
+                            });
+	
+                            $(this).find('#remover').live('click',function(){
+                                $('#destino option:selected').each(function(){
+                                    $('#origem').append('<option value="'+$(this).val()+'">'+$(this).text()+'</option>');
+                                    $(this).remove();
+                                });
+                            });                
+                            //-----------fim js janquery picklist
                             $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento
-                                if(form.validationEngine('validate')){                                
+                                if(form.validationEngine('validate')){                                       
                                     $.post('ajax/crud_curso.php?acao=atualizar', form.serialize(), function(json) {
                                         // handle response
                                         if(json != false){
-                                            updateDataTables(form);
+                                            updateDataTables(form, _data);
                                             dialog.dialog('close');                                        
                                         }                                                                        
                                     }, "json");
@@ -222,9 +236,96 @@ if (isset($this->curso)) {
                         }                    
                     });                
                 }); 
-                console.log(_HTML);
-                console.log('1');
             }
+        });               
+        
+        $('#btn_add').live('click',function(){                        
+            $('#button_cadastrar').show();
+            $('#button_atualizar').hide();                
+                
+            var _HTML = $('#dialog_form').html();                                
+            //preparando picklist do curso:                
+            $.getJSON('ajax/combosPickList_cadastroCurso.php?acao=semID',{                       
+                ajax: 'true'
+            }, function(j){   
+                //preenchendo picklist
+                _HTML = _HTML.replace('#OPTIONS_TODOS_PROFESSORES#', j);                    
+                _HTML = _HTML.replace('#OPTIONS_PROFESSORES_RESPONSAVEIS#', '');
+                //alternando id's'
+                //alterando ids e names                
+                _HTML = _HTML.replace('_id_cadastro', 'cadastro');
+                _HTML = _HTML.replace('_id_cadastro', 'cadastro');
+                for(i = 0; i < nomeColunas.length; i++){
+                    //inputs
+                    _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
+                    _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
+                }
+                //picklist
+                _HTML = _HTML.replace('_id_origem', 'origem');
+                _HTML = _HTML.replace('_id_origem', 'origem');
+                _HTML = _HTML.replace('_id_add', 'add');
+                _HTML = _HTML.replace('_id_remover', 'remover');
+                _HTML = _HTML.replace('_id_destino', 'destino');
+                _HTML = _HTML.replace('_id_destino', 'destino');                    
+                //--
+                //alterando valores
+                _HTML = _HTML.replace('#NOME#', '');
+                _HTML = _HTML.replace('#TEMPO#', '');                
+                _HTML = _HTML.replace('#VALOR#', '');
+                _HTML = _HTML.replace('#DESCRICAO#', '');
+                _HTML = _HTML.replace('#ID_CURSO#', -1);
+                _HTML = _HTML.replace('#ID_FOTO#', '00');
+                //--gerando dialog
+                dialog = $(_HTML).dialog({
+                    width:800, 
+                    height:600, 
+                    modal: true,                    
+                    close: function(event,ui){                                           
+                        $("#cadastro").validationEngine("detach");                        
+                        dialog.dialog('destroy');
+                    },
+                    open: function(event, ui) { 
+                        //Habilita a validação automática no formulário de cadastro
+                        var form = $(this).find('#cadastro');
+                        form.validationEngine('attach', {scroll: false});                                                
+                            
+                        //JS DO PICKLIST DO JAN
+                        $(this).find('#add').live('click',function(){
+                            $('#origem option:selected').each(function(){
+                                $('#destino').append('<option selected="selected" value="'+$(this).val()+'">'+$(this).text()+'</option>');
+                                $(this).remove();
+                            });
+                        });
+	
+                        $(this).find('#remover').live('click',function(){
+                            $('#destino option:selected').each(function(){
+                                $('#origem').append('<option value="'+$(this).val()+'">'+$(this).text()+'</option>');
+                                $(this).remove();
+                            });
+                        });                
+                        //-----------fim js janquery picklist
+                            
+                        $(this).find('#button_cadastrar').live('click',function(){//adicionar esse evento
+                            if(form.validationEngine('validate')){                                
+                                $.post('ajax/crud_curso.php?acao=inserir&getCurso=1', form.serialize(), function(json) {
+                                    // handle response
+                                    var data = new Array();
+                                    if(json != false){ 
+                                        data.push('Em construcao');
+                                        //PAREI AQUI!
+                                        data.push(0);
+                                        data.push('Em construcao');
+                                        form.find('#id').val(json);
+                                        insertDataTables(form);
+                                        dialog.dialog('close');                                        
+                                    }                                                                        
+                                }, "json");
+                                //Chamada do AJAX            
+                            }
+                        });                        
+                    }                    
+                });                
+            });            
         });                    
     });       
         

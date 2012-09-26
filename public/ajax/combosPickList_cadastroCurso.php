@@ -15,7 +15,7 @@ if($_GET['acao']=='comID'){
     );
 }else{
     $controller = new controllerCurso();
-    $resposta = $controller->comboTodos_Professores;
+    $resposta = $controller->comboTodos_Professores();
 }
 
 
