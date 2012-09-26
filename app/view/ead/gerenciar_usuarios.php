@@ -180,6 +180,7 @@ switch ($papel) {
         $('#btn_edit').live('click',function(){
             elem = $('tr.row_selected');
             if (elem.length) {
+                alert(oTable.fnGetData(elem[0])[0]);
                 var _data = oTable.fnGetData(elem[0]);
                 var _column = oTable.fnGetData(elem[0]);
                 $('#button_cadastrar').hide();
