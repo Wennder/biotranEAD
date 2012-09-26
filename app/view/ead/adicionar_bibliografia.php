@@ -6,7 +6,7 @@
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
 
 <div id="form_cadastro" style="">
-    <form id="" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_bibliografia" enctype="multipart/form-data">
+    <form id="" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_bibliografia<?php echo (isset($_GET['id'])?"&id=".$_GET['id'] : '') ?>" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados do material</legend>
             <table>
@@ -24,15 +24,6 @@
                     </td>
                     <td>
                         <input type="file" id="" style="width:500px;" value="" class="validate[required] text-input" />
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td>
-                        <label class="label_cadastro">Adicionar em: </label>
-                    </td>
-                    <td>
-                        <select style="width: 500px;" class="validate[required] text-input" multiple="multiple" />
                     </td>
                 </tr>
             </table>

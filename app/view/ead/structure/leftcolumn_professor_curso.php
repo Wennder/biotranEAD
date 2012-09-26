@@ -1,3 +1,4 @@
+
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <script src="js/accordion.js" type="text/javascript"></script>
 
@@ -14,12 +15,13 @@
         </h3>
         <div>
             <ul style="list-style-type:none;">
-                <li>
-                    <p class="navbar_item moduloIcon">
-                        <a href="index.php?c=ead&a=adicionar_modulo"> Adicionar Módulo</a>
-                    </p>
-                </li>
-                <!-- Função de listar módulos -->
+                <?php
+                if (isset($_GET['id'])) {
+                    $id_curso = $_GET['id'];
+                    $controllerModulo = new controllerModulo();
+                    echo $controllerModulo->listaAdicionar_conteudo_modulo($id_curso);
+                }
+                ?>
             </ul>
         </div>
     </div>
