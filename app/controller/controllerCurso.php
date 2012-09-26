@@ -224,8 +224,9 @@ class controllerCurso {
         return $curso; // null
     }
 
-    public function removerCurso(Curso $curso) {
+    public function removerCurso($id_curso) {
         $dao = new CursoDAO();
+        $curso = $this->getCurso("id_curso=".$id_curso);
         $affectedrows = $dao->delete($curso);
         if ($affectedrows >= 1) {
             $caminho = ROOT_PATH . '/public/cursos/' . $curso->getId_curso();
