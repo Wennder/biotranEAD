@@ -30,7 +30,7 @@ class controllerCurso {
      * a partir de dados enviados via POST
      */
 
-    public function setCurso_post() {
+    public function setCurso_post() {        
         if (!empty($_POST)) {
             if ($this->curso == null) {
                 $this->curso = new Curso();
@@ -123,22 +123,23 @@ class controllerCurso {
      * insere novo curso via formulário post
      */
 
-    public function novoCurso_post() {
+    public function inserirCurso() {
         //seta as variaveis $this->curso e $this->cp
         $this->setCurso_post();
         $this->novoCurso($this->curso, $this->curso_professor);
 
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
+        $this->curso = $this->getCurso("nome='" . $this->curso->getNome() . "'");
         if (isset($_FILES["imagem"])) {
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/
-            $this->curso = $this->getCurso("nome='" . $this->curso->getNome() . "'");
             $this->inserirFotoCurso($this->curso->getId_curso());
         }
 
         //cria o diretório do curso na pasta pdf
         $this->criaDiretorioCurso($this->curso->getId_curso());
         $this->criaDiretorioCurso_videoAula($this->curso->getId_curso());
-        $this->criaDiretorioCurso_textos($this->curso->getId_curso());
+        $this->criaDiretorioCurso_textos($this->curso->getId_curso());        
+        return $this->curso->getId_curso();
     }
 
     public function criaDiretorioCurso($id) {
@@ -163,7 +164,7 @@ class controllerCurso {
      * Atualiza Curso no banco. Faz acesso ao CursoDAO
      */
 
-    public function atualizarCurso(Curso $curso = null, array $cp = null) {
+    public function updateCurso(Curso $curso = null, array $cp = null) {
         //atualiza usuario
         if ($curso != null) {
             $dao = new CursoDAO();
@@ -177,7 +178,7 @@ class controllerCurso {
         }
     }
 
-    public function atualizarCurso_post($id_curso) {
+    public function atualizarCurso($id_curso) {
         $this->curso = $this->getCurso("id_curso = " . $id_curso);
         //seta as variaveis $this->curso e $this->cp
         $this->setCurso_post();
@@ -187,7 +188,7 @@ class controllerCurso {
         $this->controller->removeProfessoresCurso($id_curso);
 
         //atualizar
-        $this->atualizarCurso($this->curso, $this->curso_professor);
+        $this->updateCurso($this->curso, $this->curso_professor);
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
         if (isset($_FILES["imagem"])) {
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/            
@@ -313,12 +314,16 @@ class controllerCurso {
          <thead> 
                 <tr> 
                     <th>Nome</th> 
-                    <th>Tempo</th> 
+                    <th>Tempo (dias)</th> 
                     <th>Gratuito</th>
                     <th>Valor</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>Status</th>                                       
+                    <th>descricao</th> 
+                    <th>numero_modulos</th> 
+                    <th>objetivo</th>
+                    <th>justificativa</th>
+                    <th>obs</th>                   
+                    <th>id</th>                   
                 </tr> 
             </thead> 
             <tbody>";
@@ -328,17 +333,18 @@ class controllerCurso {
         $i = 0;
         for (; $i < $quant; $i++) {
             $tabela .= "<tr id=tabela_linha" . $this->cursos[$i]->getId_curso() . ">";
-            $tabela .= "<td width='59%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
-            $tabela .= "<td width='7%' id='tempo' align='center'>" . $this->cursos[$i]->getTempo() . " dias</td>";
-            $tabela .= "<td width='8%' id='gratuito' align='center'>" . $this->cursos[$i]->getGratuito(0) . "</td>";
-            $tabela .= "<td width='14%' id='valor' align='center'>R$" . $this->cursos[$i]->getValor() . "</td>";
-            $tabela .= "<td width='3%' id='b_visualizar' align='center'>
-                <input type='button' title='Visualizar dados do Curso' id='b_vis-" . $this->cursos[$i]->getId_curso() . "' value='' onclick='visualizarCurso(this.id);' class='botaoVisualizar' /> </td>";
-            $tabela .= "<td width='3%' id='b_editar' align='center'>
-                <input type='button' title='Editar dados do Curso' id='b_edt-" . $this->cursos[$i]->getId_curso() . "' value='' onclick='editarCurso(this.id);' class='botaoEditar' /> </td>";
-            $tabela .= "<td width='3%' id='b_excluir' align='center'>
-                <input type='button' title='Excluir Curso' id='b_exc-" . $this->cursos[$i]->getId_curso() . "' value='' onclick='removerCurso(this.id);' class='botaoExcluir' /> </td>";
-            $tabela .= "</tr>";
+            $tabela .= "<td width='45%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
+            $tabela .= "<td width='10%' id='tempo' align='center'>" . $this->cursos[$i]->getTempo() . "</td>";
+            $tabela .= "<td width='10%' id='gratuito' align='center'>" . $this->cursos[$i]->getGratuito(0) . "</td>";
+            $tabela .= "<td width='14%' id='valor' align='center'>" . $this->cursos[$i]->getValor() . "</td>";            
+            $tabela .= "<td width='14%' id='status' align='center'>" . $this->getNomeStatus($this->cursos[$i]->getStatus()) . "</td>";
+            $tabela .= "<td width='14%' id='descricao' align='center'>" . $this->cursos[$i]->getDescricao() . "</td>";            
+            $tabela .= "<td width='14%' id='numero_modulos' align='center'>" . $this->cursos[$i]->getNumero_modulos() . "</td>";
+            $tabela .= "<td width='14%' id='objetivo' align='center'>" . $this->cursos[$i]->getObjetivo() . "</td>";            
+            $tabela .= "<td width='14%' id='justificativa' align='center'>" . $this->cursos[$i]->getJustificativa() . "</td>";
+            $tabela .= "<td width='14%' id='obs' align='center'>" . $this->cursos[$i]->getObs() . "</td>";            
+            $tabela .= "<td width='14%' id='id_curso' align='center'>" . $this->cursos[$i]->getId_curso() . "</td>";
+            
         }
         $tabela .= "</tbody></table>";
         return $tabela;
@@ -504,6 +510,25 @@ class controllerCurso {
         } else {
             return 'ERRO: funcao novoModulo - [controllerCurso]';
         }
+    }
+    
+    public function getNomeStatus($status){
+        if($status == 0){
+            return 'Em construção';
+        }
+        if($status == 1){
+            return 'Não avaliado';
+        }
+        if($status == 2){
+            return 'Rejeitado';
+        }
+        if($status == 3){
+            return 'Aprovado e indisponível';
+        }
+        if($status == 3){
+            return 'Aprovado e disponível';
+        }
+        
     }
 
 }

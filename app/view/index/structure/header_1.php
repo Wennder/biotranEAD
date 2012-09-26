@@ -5,7 +5,7 @@
         <script src="js/jquery.js" type="text/javascript"></script>  
         <script src="js/login.js" type="text/javascript"></script>  
         <script src="js/jqFancyTransitions.1.8.js" type="text/javascript"></script>
-<!--        <link rel='stylesheet' href='css/style.css' />-->
+        <link rel='stylesheet' href='css/style.css' />
 
         <script type="text/javascript">
             function checarBotao(e)
@@ -17,72 +17,12 @@
             }
         </script>
     </head>
-    
-    <style>
-        *{
-            font:normal 16px/30px "eras ITC","eras medium ITC";
-            margin:0;
-            padding:0;
-        }
-        
-        body{
-            
-            min-height: 600px;
-            min-width: 980px;
-        }
-        
-        #eadbiotran{
-            hieght:100%;
-            width:100%;
-            
-        }
-        
-        #header{
-            height:110px;
-            background-color: #275175;
-        }
-        
-        #header *{
-            color:white;
-            font-size:22px;
-            text-transform: lowercase;
-            text-decoration: none;
-        }
-        
-        #topmenu ul{
-            position: relative;
-            padding-top: 60px;
-            padding-right: 25px;
-            list-style: none;
-            float:right;
-        }
-        
-        #topmenu ul li{
-            display: inline;
-            margin-left:15px;
-            foat:left;
-        }
-        
-#footer{
-    height: 150px;
-    clear: both;
-    background-color: #275175;
-}
-
-#content_footer{
-    height: 150px;
-    width: 980px;
-    margin: 0 auto;
-    position: relative;
-}
-    </style>
     <body onLoad="self.focus();document.form_login.login.focus();">
         
         <div id="eadbiotran">
-            
+            <div id="main">
                 <div id="header">
                     <div id="topmenu">
-                        <img style="padding-top: 20px;" src="img/header.png"/>
                         <ul>
                             <li><a href="index.php">HOME</a></li>
                             <li><a href="index.php?c=index&a=cursos">CURSOS</a></li>
@@ -92,7 +32,7 @@
                         </ul>
                     </div>
                     <?php
-                    /*if (isset($_SESSION["usuarioLogado"])) {
+                    if (isset($_SESSION["usuarioLogado"])) {
                         echo('
                             <div id="div_logado">
                                 <table align="right">
@@ -142,5 +82,5 @@
                             </div>
                         ');
                     }
-                    */?>
+                    ?>
                 </div>

@@ -1,3 +1,22 @@
+<div id="right_menu_holder" style="width:280px; float: right; padding-top: 15px; padding-bottom: 10px ;margin: 0;" >
+        <div style="border-left: 1px solid #cccccc; height: 100%; padding-left: 10px;">
+            <h4>infos</h3>
+            <ul style="list-style: none; padding: 10px;">
+                
+                <li>
+                    Cursos
+                    <ul style="list-style: none; padding:10px;">
+                        <li>
+                          20 completos  
+                        </li>
+                        <li>
+                            5 a serem analisados
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
 <div id="page-content" class="content page-content">
     
 <!--    <div style="width:240px;float:right;background-color:#f8f8f8;padding:20px;border:1px solid #d0d0d0;">-->

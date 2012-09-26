@@ -1,80 +1,383 @@
 html, body, div, span, applet, object, iframe,  
-   h1, h2, h3, h4, h5, h6, p, blockquote, pre,  
-   a, abbr, acronym, address, big, cite, code,  
-   del, dfn, em, img, ins, kbd, q, s, samp,  
-   small, strike, strong, sub, sup, tt, var,  
-   b, u, i, center,  
-   dl, dt, dd, ol, ul, li,  
-   fieldset, form, label, legend,  
-   table, caption, tbody, tfoot, thead, tr, th, td,  
-   article, aside, canvas, details, embed,  
-   figure, figcaption, footer, header, hgroup,  
-   menu, nav, output, ruby, section, summary,  
-   time, mark, audio, video {  
-       margin: 0px;  
-       padding: 0px;  
-       border: 0px;          
-       vertical-align: baseline;
-	   font-size:100%;
-	   font:normal 16px/30px "eras ITC","eras medium ITC";
-   }
-   
-   .leftcolumn{
-       float:left;
-       width:150px;
-       padding-top:10px;
-       padding-left:10px;
-       height: 100%;
-       background-color: #336666;
-   }
-   
-   .leftcolumn a:link,a:visited,a:hover,a:active{
-       color:white;
-       text-decoration: none;
-       
-       font-size: 16px;
-       font-weight: 600;
-       line-height: 100%;
-   }
-   
-   
-   
-   .navbar_item {
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,  
+a, abbr, acronym, address, big, cite, code,  
+del, dfn, em, img, ins, kbd, q, s, samp,  
+small, strike, strong, sub, sup, tt, var,  
+b, u, i, center,  
+dl, dt, dd, ol, ul, li,  
+fieldset, form, label, legend,  
+table, caption, tbody, tfoot, thead, tr, th, td,  
+article, aside, canvas, details, embed,  
+figure, figcaption, footer, header, hgroup,  
+menu, nav, output, ruby, section, summary,  
+time, mark, audio, video  {  
+    margin: 0px;  
+    padding: 0px;  
+    border: 0px;          
+    font-size:100%;
+    color:#565656;
+    font:normal 16px/30px "eras ITC","eras medium ITC";
+}
+
+
+html, body {
+    min-height: 100%;
+}
+
+body{min-width: 800px;}
+
+h1{
+    font-size: 30px;
+}
+
+h2{
+    font-size: 26px;
+}
+
+h3{
+    font-size: 24px;
+}
+
+.leftcolumn{
+    position:relative;
+    float:left;
+    width:150px;
+    padding-top:10px;
+    padding-left:10px;
+    margin: 0;
+    background-color: #336666;
+}
+
+.leftcolumn a:link,a:visited,a:hover,a:active{
+    color:white;
+    text-decoration: none;
+
     font-size: 16px;
-    
+    font-weight: 600;
+    line-height: 100%;
+}
+
+
+
+.navbar_item {
+    font-size: 16px;
+
     padding-left: 5px;
+
+}
+
+#form_cadastro, #profile, #form_editar{
+    margin: 10px 30px 0 30px;
+}
+
+fieldset legend{
+    font-size: 15px;
+}
+
+#form_cadastro legend{
+    font-size: 16px;
+}
+
+#cursos_aluno{
+    margin: 50px 30px 0 30px;
+}
+
+#cursos_aluno table{
+    margin: 0 0 30px 0;
+    padding: 5px;
+    border: 1px solid #555555;
+}
+
+#form_gerenciar{
+    padding: 20px 30px 0;
+}
+
+#form_cadastro tr, #form_editar tr{
+    height: 35px;
+}
+
+#profile tr{
+    height: 25px;
+}
+
+form.form_cadastro, form.form_editar{
+
+    font-size: 16px;
+    width: 98%;
+}
+
+.label_cadastro, .label_profile, .label_editar{
+    font-size: 15px;
+}
+
+#form_cadastro .label_cadastro_legend, #form_editar .label_editar_legend{
+    font-size: 13px;
+    color: #555555;
+}
+
+#form_cadastro legend, #profile legend, #form_editar legend{
+    font-size: 11px;
+    color: #555555;
+
+}
+
+#form_cadastro fieldset, #profile fieldset, #form_editar fieldset{
+    border:1px solid #DCDCDC;
+}    
+
+.form_cadastro .text-input, .profile .text-input, .form_editar .text-input{
+    background: none repeat-x scroll 0 0 #FFFFFF;
+    border: 1px solid #B5B8C8;
+    color: #555555;
+    font-size: 14px;
+    margin-top: 4px;
+    padding: 4px;
+    width: 250px;
+
+}
+
+#foto_usuario{
+    height: 120px;
+    width: 100px;
+    background-color: #DCDCDC;
+    border: solid 1px #B5B8C8;
+}
+
+#imagem_curso{
+    height: 180px;
+    width: 240px;
+    background-color: #DCDCDC;
+    border: solid 1px #B5B8C8;
+}
+
+#opcoes_cadastro{
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#form_cadastro fieldset{
+    padding:20px 10px;
+}
+
+.leftcolumn li{
+
+    position:relative;
+    list-style: none;
+    padding:3px;
+}
+
+.leftcolumn li div{
+    height: 0px;
+    background-image: url('../img/dark_blue_ead.png');
+    background-repeat: repeat-x;
+    width:40px;
+}
+
+.leftcolumn li:hover div{
+    height: 1px;
+
+
+}
+
+.content{
+    margin-left:165px;
+    margin-right: 280px;
+    position: relative;
+}
+
+#main{
+    width: 100%;
+    margin: 0 ;
+}
+
+#dialog_profile fieldset{
+    padding: 10px;
+}
+
+#page-leftcolumn{
+    background-image: url('../img/header_ead_background.png');
+}
+
+.accord_content li{
+    position:relative;
+
+}
+
+#div_update label {display:block;width:100%;padding:10px 0;}
+#form_gerenciar{
+    padding: 50px;
+    overflow: hidden;
+
+}
+
+
+#form_gerenciar{
+    padding: 50px;
+    overflow: hidden;
+
+}
+
+.ui-dialog-titlebar{
+    background-image: url('img/header_ead_background.png');
+    background-repeat: repeat;
+    height: 10px;
+}
+
+.botao_gerencia_data_table{
+    padding: 7px 7px;
+    color: #444444;
+    background-color: #eeeeee;
+    border:1px solid #999999;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+.botao_gerencia_data_table:hover{
+    cursor:pointer;
+    border:1px solid #111111;
+}
+
+.eadbiotran_topbar{
+    position:relative;
+    margin:0;
+    height:75px;
+    background-image: url('../img/header_ead_background.png');
+}
+
+.eadbiotran_navbar_container{
+    position:relative;
+    height:100%;
+
+}
+
+.eadbiotran_navbar_container *{
+    color:white;
+    font-size: 26px;
+
+}
+
+.eadbiotran_navbar_container h3{
+    font-size: 20px;
+}
+
+.eadbiotran_navbar_container ul{
+    float:left;
+    width:100%;
+    padding:0;
+    margin:0;
+    list-style-type:none;
+}
+
+.eadbiotran_topbar ul li{
+    float:left;
+    display:inline;
+}
+
+#pic_holder{
+    padding:4px;
+    background-image: url('../img/dark_blue_ead.png');
+    margin: 0px 15px;
+}
+
+.eadbiotran_navbar_container ul{
+    margin: 10px 0px;
+}
+
+#menuDrop{
+    display: none;
+    position: absolute;
+    right:10px;
+    top:65px;
+
+    z-index: 3;
+    background-color: white;
+    border:1px solid #eeeeee;
+    padding:10px 30px;
+
+}
+
+#menuDrop a{
+    color:black;
+}
+
+#menuDrop a:hover,a:visited, a:active, a:link{
+    font-size:18px;
+    font-weight: 500;
+    line-height: 100%;
+    text-decoration: none;
+}
+
+#menuDrop li{
+    display:block;
+    float:none;
+}
+
+#settings:hover{
+    cursor:pointer;
+    clear:right;
+}
+
+#index_admin{
+    padding:30px 50px;;
+}
+
+
+
+#index_admin h4{
+    font-weight: 300;
+    font-size: 20px;
     
 }
-   
+
+.detalhe{
+    height:1px;
+    background-color: #ffffff;
+}
+
+.detalhe1{
+    height:1px;
+    background-color: #edf7ff;
+}
+
+.list_index_admin_blue{
+    height:37px;
+    background-image: url('../img/list_blue_background.png');
+    border:1px solid #cbdcea;
+    margin: 10px;
+    
+}
 
 
-   .leftcolumn li{
-       
-       position:relative;
-       list-style: none;
-       padding:3px;
-   }
-   
-   .leftcolumn li div{
-       height: 0px;
-       background-image: url('img/dark_blue_ead.png');
-       background-repeat: repeat-x;
-       width:40px;
-   }
-   
-   .leftcolumn li:hover div{
-       height: 1px;
-       
-       
-   }
-   
-   #main{
-       vertical-align: baseline;
-       position:relative;
-       height:100%;
-       width:100%;
-       
-   }
+.list_index_admin_gray{
+    height:37px;
+    background-color: #f0f0f0;
+    border:1px solid #e4e4e4;
+    margin: 10px;
+}
 
-   
-  
+.h3_gray{
+    margin-left: 10px;
+    color:#717171;
+    font-weight: 700;
+    float:left;
+}
+
+.h3_blue{
+    margin-left: 10px;
+    font-weight: 700;
+    color:#275175;
+    float:left;
+}
+
+#list_holder{
+    padding: 0px 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #cccccc;
+}
+
+#list_holder img{
+    float:right;
+    margin-top: 8px;
+    margin-right: 15px;
+}

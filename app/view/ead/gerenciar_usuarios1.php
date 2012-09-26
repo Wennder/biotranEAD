@@ -7,12 +7,12 @@ if (isset($this->usuario)) {
 }
 ?>
 
-<?php require 'structure/header_1.php'; ?>
+<?php require 'structure/header.php'; ?>
 <?php
 $papel = $_SESSION["usuarioLogado"]->getId_papel();
 switch ($papel) {
     case 1:
-        require 'structure/leftcolumn_admin_1.php';
+        require 'structure/leftcolumn_admin.php';
         break;
     case 2:
         require 'structure/leftcolumn_gestor.php';
@@ -35,26 +35,7 @@ switch ($papel) {
 <style type="text/css" title="currentStyle">
     
     @import "http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css";
-    #div_update label {display:block;width:100%;padding:10px 0;}
-    #form_gerenciar{
-        padding: 50px;
-        overflow: hidden;
-        
-    }
     
-    .botao_gerencia_data_table{
-        padding: 7px 7px;
-        color: #444444;
-        background-color: #eeeeee;
-        border:1px solid #999999;
-        font-weight: 600;
-        border-radius: 5px;
-    }
-    
-    .botao_gerencia_data_table:hover{
-        cursor:pointer;
-        border:1px solid #111111;
-    }
 </style>
 
 
@@ -63,13 +44,21 @@ switch ($papel) {
     
     var dialog, oTable, elem;
     
-    
+     var nomeColunas = ['nome_completo','id_papel','atuacao','sexo','cpf_passaporte' , 'rg'];
     
     function updateDataTables(_form){							//Adicionar essa função
-        var form_fields = ['nome_completo','id_papel','atuacao','sexo','cpf_passaporte' , 'rg'];
+        //var form_fields = ['nome_completo','id_papel','atuacao','sexo','cpf_passaporte' , 'rg'];
         var fields_value = new Array();
-        for (var i=0; i<form_fields.length; i++) {
-            fields_value.push($(_form).find('input[name="'+form_fields[i]+'"]').val());
+        for (var i=0; i<nomeColunas.length; i++) {
+            if(nomeColunas[i] == 'sexo'){                
+                fields_value.push($(_form).find('input[name="'+nomeColunas[i]+'"]:checked').val());
+            }else{    
+                valorCampo = $(_form).find('#'+nomeColunas[i]).val();
+                if(nomeColunas[i] == 'id_papel'){
+                    valorCampo = getNomePapel(valorCampo);
+                }
+                fields_value.push(valorCampo);                
+            }
         }
         oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));
     }
@@ -94,6 +83,7 @@ switch ($papel) {
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 17 ], "sTitle":"rendering" },
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 18 ], "sTitle":"rendering" },
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 19 ], "sTitle":"rendering" },
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 20 ], "sTitle":"rendering" },
                                 
             ],
             "bJQueryUI":true,
@@ -123,24 +113,51 @@ switch ($papel) {
         });
         
         
- 
-        
         $('#btn_edit').live('click',function(){
             elem = $('tr.row_selected');
+            
             if (elem.length) {
                 var _data = oTable.fnGetData(elem[0]);
                 $('#button_cadastrar').hide();
                 $('#button_atualizar').show();
-                $('#'+_data[1]).attr('selected', 'selected');              
-                _data[2] = _data[2].replace(/\ /g, '_');
                 
-                $('#'+_data[2]).attr('selected', 'selected');
-                
-                _data[19] = _data[19].replace(/\ /g,'_');
-                
-                $('#'+_data[19]).attr('selected', 'selected');
+                //preselecionando combos e radio inputs:                
+                _data[2] = _data[2].replace(/\ /g, '_');                
+                _data[19] = _data[19].replace(/\ /g,'_');                
+                $('#'+_data[1]).attr('selected', 'selected');//atuacao
+                $('#'+_data[2]).attr('selected', 'selected');//permissao                                
+                $('#'+_data[19]).attr('selected', 'selected');//estado                
+                $('#_id_'+_data[9]).attr('checked', 'true');//sexo
+                //retirando required dos campos de senha:
+                $('#_id_senha').attr('class', 'text-input');
+                $('#_id_senha2').attr('class', 'validate[equals[senha]] text-input');
+                if(_data[18] == 'Brasil'){                      
+                    $("#endereco_estado").show();
+                    $("#label_estado").show();
+                }else{
+                    $("#endereco_estado").hide();
+                    $("#label_estado").hide();
+                }                                
                 var _HTML = $('#dialog_form').html();
-            
+                
+                //alterando ids e names                
+                _HTML = _HTML.replace('_ID_FORM_', 'cadastro');                                
+                _HTML = _HTML.replace('_ID_FORM_', 'cadastro');
+                _HTML = _HTML.replace('_id_senha', 'senha');
+                _HTML = _HTML.replace('_id_senha', 'senha');
+                _HTML = _HTML.replace('_id_senha2', 'senha2');
+                _HTML = _HTML.replace('_id_senha2', 'senha2');                                
+                for(i = 0; i < nomeColunas.length; i++){
+                    _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
+                    _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
+                    if(nomeColunas[i] == 'sexo'){
+                        _HTML = _HTML.replace('_id_Masculino', 'Masculino');    
+                        _HTML = _HTML.replace('_id_Feminino', 'Feminino');    
+                    }
+                }
+                
+                //--
+                //alterando valores
                 _HTML = _HTML.replace('#NOME_COMPLETO#', _data[0]);
                 _HTML = _HTML.replace('#CPF_PASSAPORTE#', _data[4]);
                 _HTML = _HTML.replace('#RG#', _data[5]);
@@ -156,11 +173,44 @@ switch ($papel) {
                 _HTML = _HTML.replace('#CIDADE#', _data[17]);
                 _HTML = _HTML.replace('#PAIS#', _data[18]);
                 _HTML = _HTML.replace('#EMAIL#', _data[12]);
+                _HTML = _HTML.replace('#ID_USUARIO#', _data[20]);
+                _HTML = _HTML.replace('#ID_FOTO#', _data[20]);
+                //--gerando dialog
                 
-                
-                
-                $(_HTML).dialog({width:800, height:600, modal: true});
-                
+                dialog = $(_HTML).dialog({width:800, height:600, modal: true,
+                    close: function(event,ui){                
+                        //deselecionando combos
+                        $('#'+_data[1]).removeAttr('selected');//atuacao                                 
+                        $('#'+_data[2]).removeAttr('selected');//permissao
+                        $('#'+_data[19]).removeAttr('selected');//estado                        
+                        $('#_id_'+_data[9]).removeAttr('checked');//sexo
+                        //readcionando required nos campos senha
+                        $('#_id_senha').attr('class', 'validate[required] text-input');
+                        $('#_id_senha2').attr('class', 'validate[required,equals[senha]] text-input');
+                        
+                        $("#cadastro").validationEngine("detach");                        
+                        dialog.dialog('destroy');
+                    },
+                    open: function(event, ui) { 
+                        //Habilita a validação automática no formulário de cadastro
+                        var form = $(this).find('#cadastro');
+                        form.validationEngine();                                                
+                        //console.log(form.html());
+                        $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento
+                            if(form.validationEngine('validate')){                                
+                                $.post('ajax/crud_usuario.php?acao=atualizar', form.serialize(), function(json) {
+                                    // handle response
+                                    if(json == true){
+                                        
+                                    }                                                                        
+                                    updateDataTables(form);
+                                    dialog.dialog('close');
+                                }, "json");
+                                //Chamada do AJAX            
+                            }
+                        });                        
+                    }
+                });                
             }
         });
         
@@ -179,24 +229,62 @@ switch ($papel) {
             $('#button_atualizar').hide();
             
             var _HTML = $('#dialog_form').html();
-                
-                _HTML = _HTML.replace('#NOME_COMPLETO#', '');
-                _HTML = _HTML.replace('#CPF_PASSAPORTE#', '');
-                _HTML = _HTML.replace('#RG#', '');
-                _HTML = _HTML.replace('#DATA_NASCIMENTO#', '');
-                _HTML = _HTML.replace('#TEL_PRINCIPAL#', '');
-                _HTML = _HTML.replace('#TEL_SECUNDARIO#', '');
-                _HTML = _HTML.replace('#ID_PROFISSIONAL#', '');
-                _HTML = _HTML.replace('#DESCRICAO_PESSOAL#', '');
-                _HTML = _HTML.replace('#RUA#', '');
-                _HTML = _HTML.replace('#NUMERO#', '');
-                _HTML = _HTML.replace('#COMPLEMENTO#', '');
-                _HTML = _HTML.replace('#BAIRRO#', '');
-                _HTML = _HTML.replace('#CIDADE#', '');
-                _HTML = _HTML.replace('#PAIS#', '');
-                _HTML = _HTML.replace('#EMAIL#', '');
+            //alterando ids e names                
+            _HTML = _HTML.replace('_ID_FORM_', 'cadastro');                                
+            _HTML = _HTML.replace('_ID_FORM_', 'cadastro');
+            _HTML = _HTML.replace('_id_senha', 'senha');
+            _HTML = _HTML.replace('_id_senha', 'senha');
+            _HTML = _HTML.replace('_id_senha2', 'senha2');
+            _HTML = _HTML.replace('_id_senha2', 'senha2');                                
+            for(i = 0; i < nomeColunas.length; i++){
+                _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
+                _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
+                if(nomeColunas[i] == 'sexo'){
+                    _HTML = _HTML.replace('_id_Masculino', 'Masculino');    
+                    _HTML = _HTML.replace('_id_Feminino', 'Feminino');    
+                }
+            }
+            _HTML = _HTML.replace('_ID_FORM_', 'formulario');
+            _HTML = _HTML.replace('#NOME_COMPLETO#', '');
+            _HTML = _HTML.replace('#CPF_PASSAPORTE#', '');
+            _HTML = _HTML.replace('#RG#', '');
+            _HTML = _HTML.replace('#DATA_NASCIMENTO#', '');
+            _HTML = _HTML.replace('#TEL_PRINCIPAL#', '');
+            _HTML = _HTML.replace('#TEL_SECUNDARIO#', '');
+            _HTML = _HTML.replace('#ID_PROFISSIONAL#', '');
+            _HTML = _HTML.replace('#DESCRICAO_PESSOAL#', '');
+            _HTML = _HTML.replace('#RUA#', '');
+            _HTML = _HTML.replace('#NUMERO#', '');
+            _HTML = _HTML.replace('#COMPLEMENTO#', '');
+            _HTML = _HTML.replace('#BAIRRO#', '');
+            _HTML = _HTML.replace('#CIDADE#', '');
+            _HTML = _HTML.replace('#PAIS#', 'Brasil');
+            _HTML = _HTML.replace('#EMAIL#', '');
+            _HTML = _HTML.replace('#ID_USUARIO#', -1);
+            _HTML = _HTML.replace('#ID_FOTO#', '00');
             
-            $(_HTML).dialog({width:800,height:600, modal:true});
+            dialog = $(_HTML).dialog({width:900,height:600, modal:true,
+                close: function(event,ui){                
+                    $("#cadastro").validationEngine("detach");                        
+                    dialog.dialog('destroy');
+                },
+                open: function(event, ui) { 
+                    //Habilita a validação automática no formulário de cadastro
+                    var form = $(this).find('#cadastro');
+                    form.validationEngine();                                                
+                    //console.log(form.html());
+                    $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento                                                        
+                        if(form.validationEngine('validate')){                                
+                            $.post('ajax/crud_usuario.php?acao=inserir', form.serialize(), function(json) {
+                                // handle response
+                                updateDataTables(form);
+                                dialog.dialog('close');
+                            }, "json");
+                            //Chamada do AJAX            
+                        }
+                    });                        
+                }
+            });            
         });
     
     
@@ -205,6 +293,7 @@ switch ($papel) {
             if (elem.length) {
                 var _data = oTable.fnGetData(elem[0]);
             var _HTML = $('#dialog_profile').html();
+            _HTML = _HTML.replace('#FOTO#',_data[20]);
                 _HTML = _HTML.replace('#ATUACAO#', _data[2]);
                 _HTML = _HTML.replace('#SEXO#', _data[9]);
                 _HTML = _HTML.replace('#PAPEL#', _data[1]);
@@ -259,13 +348,14 @@ switch ($papel) {
             }
         }
       
-        function zeraForm(){
-            $('#nome_completo').val();
-            
-        }
+     
+        
+   
       
-        //Habilita a validação automática no formulário de cadastro
-        $("#cadastro").validationEngine();
+        function zeraForm(){
+            $('#nome_completo').val();            
+        }                
+              
         //Verifica se é o modo de edição
         if($("#i_editar").val() != "false"){
             $("#form_cadastro").show();
@@ -296,6 +386,21 @@ switch ($papel) {
         //Instanciação e configuração da tabela
        
     });
+    
+    function getNomePapel(id){
+            if(id == '1'){
+                return 'Administrador';
+            }
+            if(id == '2'){
+                return 'Gestor';
+            }
+            if(id == '3'){
+                return 'Professor';
+            }
+            if(id == '4'){
+                return 'Estudante';
+            }
+        }
    
     //Alterna entre a exibição do formulario de cadastro e a tabela de consulta
     function mostrar(opcao){
@@ -439,7 +544,7 @@ switch ($papel) {
                             <label class="label_cadastro">*Sexo: </label>
                         </td>
                         <td>
-                            <input type="radio" name="sexo" id="Masculino" <?php echo ($this->usuario == null ? '' : ($this->usuario->getSexo() == "Masculino") ? "checked" : ""); ?> value="Masculino" class="validate[required] radio" data-prompt-position="centerRight">
+                            <input type="radio" name="_id_sexo" id="_id_Masculino" value="Masculino" class="validate[required] radio" data-prompt-position="centerRight">
                             <label class="label_cadastro">Masculino </label>
                             <input type="radio" name="sexo" id="Feminino" <?php echo ($this->usuario == null ? '' : ($this->usuario->getSexo() == "Feminino") ? "checked" : ""); ?> value="Feminino" class="validate[required] radio" data-prompt-position="centerRight">
                             <label class="label_cadastro">Feminino </label>
@@ -685,5 +790,5 @@ switch ($papel) {
     <input type="text" id="i_estado" name="i_estado" value="<?php echo $this->endereco == null ? '' : $this->endereco->getEstado(); ?>"/>    
 </div>
 
-<?php require 'profile.php'; ?>
-<?php require 'structure/footer_1.php'; ?>
+<?php require 'profile_dialog.php'; ?>
+<?php require 'structure/footer.php'; ?>
