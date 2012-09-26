@@ -7,7 +7,7 @@ class Curso {
     private $descricao = '';
     private $tempo = '';
     private $gratuito = '';
-    private $status = '';    
+    private $status = 0;    
     private $numero_modulos = '';    
     private $objetivo = '';    
     private $justificativa = '';    

@@ -62,11 +62,29 @@ if (isset($this->curso)) {
             return 'Não';
         }
     }
+    function getStatus(status){
+        if(status == 0){
+            return 'Em construção';
+        }
+        if(status == 1){
+            return 'Não avaliado';
+        }
+        if(status == 2){
+            return 'Rejeitado';
+        }
+        if(status == 3){
+            return 'Aprovado e indisponível';
+        }
+        if(status == 3){
+            return 'Aprovado e disponível';
+        }
+        
+    }
             
     function updateDataTables(_form, _data){//Adicionar essa função        
         var fields_value = new Array();
         for (var i=0; i<nomeColunas.length; i++) {
-            if(i > 3){
+            if(i > 4){
                 fields_value.push(_data[i]);
             }else{
                 if(nomeColunas[i] == 'gratuito'){                                               
@@ -79,20 +97,26 @@ if (isset($this->curso)) {
         oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));        
     }        
     
-    function insertDataTables(_form){//Adicionar essa função  
+    function insertDataTables(_form, json){//Adicionar essa função  
         var fields_value = new Array();
-        for (var i=0; i<nomeColunas.length; i++) {
-            if(i > 3){
-                fields_value.push(_data[i]);
-            }else{
-                if(nomeColunas[i] == 'gratuito'){                                               
+        for (var i=0; i<6; i++) {            
+            if(i == 4){                
+                fields_value.push(getStatus(json.status));
+            }else{                
+                if(nomeColunas[i] == 'gratuito'){
                     fields_value.push(getGratuito($(_form).find('input[name="'+nomeColunas[i]+'"]:checked').val()));//com valor filtrado getGratuito()
                 }else{                    
-                    fields_value.push($(_form).find('#'+nomeColunas[i]).val());                
-                }                
+                    fields_value.push($(_form).find('#'+nomeColunas[i]).val());
+                }            
             }
         }
-        oTable.fnAddData(fields_value, true);   
+        fields_value.push(json.numero_modulos);        
+        fields_value.push(json.objetivo);       
+        fields_value.push(json.justificativa);        
+        fields_value.push(json.obs);        
+        fields_value.push(json.id);        
+        
+        oTable.fnAddData(fields_value, true);
     }
     
     $(document).ready(function(){               
@@ -140,7 +164,7 @@ if (isset($this->curso)) {
         });                
         
         $('#btn_edit').live('click',function(){
-            elem = $('tr.row_selected');
+            elem = $('tbody tr.row_selected');
             if (elem.length) {
                 var _data = oTable.fnGetData(elem[0]);
                 var _column = oTable.fnGetData(elem[0]);
@@ -191,16 +215,19 @@ if (isset($this->curso)) {
                     dialog = $(_HTML).dialog({
                         width:800, 
                         height:600, 
-                        modal: true,                    
+                        modal: true,
+                        zIndex: 3999,                           
                         close: function(event,ui){                
+                            var form = $(this).find('#cadastro');
                             //des-preselecionando combos e radio inputs: 
                             if(_data[2] == 1){
                                 $('#_id_gratuitoSim').removeAttr('checked');//sexo                    
                             }else{
                                 $('#_id_gratuitoNao').removeAttr('checked');//sexo                    
                             }
-                            $("#cadastro").validationEngine("detach");                        
+                            form.validationEngine("detach");                        
                             dialog.dialog('destroy');
+                            dialog.remove();
                         },
                         open: function(event, ui) { 
                             //Habilita a validação automática no formulário de cadastro
@@ -274,20 +301,22 @@ if (isset($this->curso)) {
                 _HTML = _HTML.replace('#VALOR#', '');
                 _HTML = _HTML.replace('#DESCRICAO#', '');
                 _HTML = _HTML.replace('#ID_CURSO#', -1);
-                _HTML = _HTML.replace('#ID_FOTO#', '00');
+                _HTML = _HTML.replace('#ID_FOTO#', '00');                
                 //--gerando dialog
                 dialog = $(_HTML).dialog({
                     width:800, 
                     height:600, 
                     modal: true,                    
                     close: function(event,ui){                                           
-                        $("#cadastro").validationEngine("detach");                        
+                        var form = $(this).find('#cadastro');
+                        form.validationEngine("detach");                        
                         dialog.dialog('destroy');
+                        dialog.remove();
                     },
                     open: function(event, ui) { 
                         //Habilita a validação automática no formulário de cadastro
                         var form = $(this).find('#cadastro');
-                        form.validationEngine('attach', {scroll: false});                                                
+                        form.validationEngine('attach', {scroll: false});
                             
                         //JS DO PICKLIST DO JAN
                         $(this).find('#add').live('click',function(){
@@ -311,12 +340,8 @@ if (isset($this->curso)) {
                                     // handle response
                                     var data = new Array();
                                     if(json != false){ 
-                                        data.push('Em construcao');
-                                        //PAREI AQUI!
-                                        data.push(0);
-                                        data.push('Em construcao');
-                                        form.find('#id').val(json);
-                                        insertDataTables(form);
+                                        //                                        form.find('#id').val(json.id);
+                                        insertDataTables(form, json);
                                         dialog.dialog('close');                                        
                                     }                                                                        
                                 }, "json");
@@ -326,7 +351,26 @@ if (isset($this->curso)) {
                     }                    
                 });                
             });            
-        });                    
+        });
+        
+        $('#btn_del').live('click',function(){
+            elem = $('tbody tr.row_selected');
+            if (elem.length == 1) { 
+                var r = confirm('Deseja realmente deletar esse curso?');
+                if(r == true){                    
+                    $.getJSON('ajax/crud_curso.php?acao=remover',{
+                        id_curso: oTable.fnGetData(elem[0], 10),       
+                        ajax: 'true'
+                    }, function(j){
+                        //usuario excluido         
+                        if(j == 1){                            
+                            oTable.fnDeleteRow(elem[0], null, true);                            
+                        }
+                    });  
+                }
+            }
+        
+        });
     });       
         
     
@@ -454,7 +498,7 @@ if (isset($this->curso)) {
                                 <tr>
                                     <td>
                                         <div id="imagem_curso">
-                                            <img src="img/cursos/#ID_FOTO#" alt="" height="180" width="240" />
+                                            <img src="img/cursos/#ID_FOTO#.jpg" alt="" height="180" width="240" />
                                         </div>
                                     </td>
                                 </tr>

@@ -81,5 +81,4 @@
     </br></br>
 </div>
 
-
 <?php require 'structure/footer.php' ?>

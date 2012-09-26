@@ -178,7 +178,7 @@ switch ($papel) {
  
         
         $('#btn_edit').live('click',function(){
-            elem = $('tr.row_selected');
+            elem = $('tbody tr.row_selected');
             if (elem.length) {
                 alert(oTable.fnGetData(elem[0])[0]);
                 var _data = oTable.fnGetData(elem[0]);
@@ -245,6 +245,7 @@ switch ($papel) {
                     height:600, 
                     modal: true,                    
                     close: function(event,ui){                
+                        var form = $(this).find('#cadastro');
                         //deselecionando combos
                         $('#'+_data[1]).removeAttr('selected');//atuacao                                 
                         $('#'+_data[2]).removeAttr('selected');//permissao
@@ -254,13 +255,14 @@ switch ($papel) {
                         $('#_id_senha').attr('class', 'validate[required] text-input');
                         $('#_id_senha2').attr('class', 'validate[required,equals[senha]] text-input');
                         
-                        $("#cadastro").validationEngine("detach");                        
+                        form.validationEngine("detach");                        
                         dialog.dialog('destroy');
+                        dialog.remove();
                     },
                     open: function(event, ui) { 
                         //Habilita a validação automática no formulário de cadastro
                         var form = $(this).find('#cadastro');
-                        form.validationEngine('attach', {scroll: false});                                                
+                        form.validationEngine('attach', {scroll: true});                                                
                         //console.log(form.html());
                         $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento
                             if(form.validationEngine('validate')){                                
@@ -326,8 +328,10 @@ switch ($papel) {
             
             dialog2 = $(_HTML2).dialog({width:900,height:600, modal:true,
                 close: function(event,ui){                
-                    $("#cadastro2").validationEngine("detach");                         
+                    var form = $(this).find('#cadastro2');
+                    form.validationEngine("detach");                         
                     dialog2.dialog('destroy');
+                    dialog2.remove();
                 },
                 open: function(event, ui) { 
                     //Habilita a validação automática no formulário de cadastro
@@ -353,7 +357,7 @@ switch ($papel) {
     
     
         $('#btn_view').click(function(){
-            elem = $('tr.row_selected');
+            elem = $('tbody tr.row_selected');
             if (elem.length) {
                 var _data = oTable.fnGetData(elem[0]);
                 var _HTML = $('#dialog_profile').html();
@@ -372,7 +376,7 @@ switch ($papel) {
         });
     
         $('#btn_del').live('click',function(){
-            var elem = $('tr.row_selected');                                
+            elem = $('tbody tr.row_selected');
             if (elem.length == 1) { 
                 var r = confirm('Deseja realmente deletar esse usuario?');
                 if(r == true){                    
