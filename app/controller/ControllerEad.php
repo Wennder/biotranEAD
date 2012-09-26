@@ -184,7 +184,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
         if ($this->visao->options != null) {
             $this->renderizar();
         }//possivel parada de erro
-        $this->renderizar();
+        else{
+            $this->renderizar();
+        }
     }
 
     public function actionCadastrar_modulo() {

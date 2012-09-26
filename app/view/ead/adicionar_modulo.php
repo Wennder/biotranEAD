@@ -26,7 +26,7 @@
     });
 </script>
 
-<div id="form_cadastro" style="">
+<div id="form_cadastro" style="margin-top:0px;">
     <form id="cadastro" name="cadastro" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_modulo" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados do modulo</legend>

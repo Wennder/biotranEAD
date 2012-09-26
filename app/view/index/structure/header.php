@@ -28,7 +28,7 @@
         body{
             
             min-height: 600px;
-            min-width: 980px;
+            min-width: 1024px;
         }
         
         #eadbiotran{
