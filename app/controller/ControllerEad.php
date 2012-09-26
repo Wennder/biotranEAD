@@ -178,15 +178,13 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
-    public function actionAdicionar_modulo() {
+    public function actionEditar_modulo() {
         $this->controller = new controllerCurso();
         $this->visao->options = $this->controller->comboCursos();
-        if ($this->visao->options != null) {
-            $this->renderizar();
-        }//possivel parada de erro
-        else{
-            $this->renderizar();
-        }
+//        if ($this->visao->options != null) {
+//            $this->renderizar();
+//        }//possivel parada de erro
+        $this->renderizar();
     }
 
     public function actionCadastrar_modulo() {
@@ -205,6 +203,11 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionAdicionar_bibliografia() {
         $this->renderizar();
     }
+    
+//    public function actionCadastrar_bibliografia() {
+//        $this->controller = new controllerModulo();
+//        $this->
+//    }
     
     public function actionAdicionar_materialcomplementar() {
         $this->renderizar();

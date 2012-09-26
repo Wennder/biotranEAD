@@ -32,18 +32,6 @@
                         <textarea id="descricao" style="width:500px;" name="descricao" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <label class="label_cadastro">Adicionar em: </label>
-                    </td>
-                    <td>
-                        <select style="width: 500px;" class="validate[required] text-input" multiple="multiple" />
-                    </td>
-                </tr>
-
-
-
-
             </table>
         </fieldset>
         <br>
