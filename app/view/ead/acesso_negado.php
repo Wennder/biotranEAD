@@ -12,7 +12,7 @@ switch ($papel) {
         require 'structure/leftcolumn_professor_home.php';
         break;
     case 4:
-        require 'structure/leftcolumn_aluno.php';
+        require 'structure/leftcolumn_aluno_home.php';
         break;
 }
 ?>
