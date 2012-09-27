@@ -253,28 +253,28 @@ class controllerCurso {
      * INICIO: FUNÇÕES AUXILIARES (geração de documento em html e funções de suporte)
      */
 
-    public function listaCursos_professor($id_professor) {
+    public function listaCursos_professor($id_professor) {        
         //Lista todos os cursos existentes, de acordo com o status.
         $this->controller = new controllerCurso_professor();
-        $id_curso = $this->controller->getCurso_professor("id_usuario =" . $id_professor)->getId_curso();
-        $this->cursos = $this->getListaCursos("id_curso=" . $id_curso);
-        $contrucao = "";
-        $nao_avalidado = "";
+        $cursos_professor = $this->controller->getListaCurso_professor("id_usuario =" . $id_professor);        
+        $construcao = "";
+        $nao_avaliado = "";
         $rejeitado = "";
         $aprovado_indisponivel = "";
         $aprovado_disponivel = "";
 
-        for ($i = 0; $i < count($this->cursos); $i++) {
-            if ($this->cursos[$i]->getStatus(1) == 0) {
-                $contrucao .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
-            } else if ($this->cursos[$i]->getStatus(1) == 1) {
-                $nao_avaliado .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+        for ($i = 0; $i < count($cursos_professor); $i++) {
+            $this->cursos = $this->getCurso("id_curso=" . $cursos_professor[$i]->getId_curso());
+            if ($this->cursos->getStatus(1) == 0) {
+                $construcao .= "<li><p><a>" . $this->cursos->getNome() . "</a></p></li>";
+            } else if ($this->cursos->getStatus(1) == 1) {
+                $nao_avaliado .= "<li><p><a>" . $this->cursos->getNome() . "</a></p></li>";
             } else if ($this->cursos[$i]->getStatus(1) == 2) {
-                $rejeitado .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
-            } else if ($this->cursos[$i]->getStatus(1) == 3) {
-                $aprovado_indisponivel .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
-            } else if ($this->cursos[$i]->getStatus(1) == 4) {
-                $aprovado_disponivel .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+                $rejeitado .= "<li><p><a>" . $this->cursos->getNome() . "</a></p></li>";
+            } else if ($this->cursos->getStatus(1) == 3) {
+                $aprovado_indisponivel .= "<li><p><a>" . $this->cursos->getNome() . "</a></p></li>";
+            } else if ($this->cursos->getStatus(1) == 4) {
+                $aprovado_disponivel .= "<li><p><a>" . $this->cursos->getNome() . "</a></p></li>";
             }
 
             $listaCursos = "";
