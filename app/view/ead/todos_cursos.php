@@ -1,6 +1,8 @@
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/leftcolumn_aluno_home.php';?>
 <?php require 'structure/content.php'; ?>
+<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+<script src="js/accordion.js" type="text/javascript"></script>
 
 <script>
     function todos(){
@@ -45,7 +47,7 @@
     </br>
 </div>
 
-<div id="cursos_aluno">
+<div class="accordion_body">
     <?php $controllerCurso = new controllerCurso(); 
     echo $controllerCurso->cursosAluno(); ?>
 </div>

@@ -80,8 +80,8 @@ class controllerModulo {
         $i = 0;
         $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<li><div class='accordion_body'><h4><a>Modulo " . $modulos[$i]->getNumero_modulo() . ": " . $modulos[$i]->getTitulo_modulo() . "</a></h4><div><ul>";
-            $listaModulos .= "<li><p>Descricao: " .$modulos[$i]->getDescricao() ."</p></li></ul></div></div></li>";
+            $listaModulos .= "<li><div class='accordion_body'><a><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />Modulo " . $modulos[$i]->getNumero_modulo() . ": " . $modulos[$i]->getTitulo_modulo() . "</div></a><div><ul style='list-style-type:none'>";
+            $listaModulos .= "<li><div style='border: 1px solid'>Descricao: " .$modulos[$i]->getDescricao() ."</div></li></ul></div></div></li>";
         }
         return $listaModulos;
     }
