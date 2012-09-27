@@ -125,14 +125,14 @@ $this->cursos = $cursoDAO->select("id_curso=" . $id_curso);
             <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getObs() ?>"/>
         </div>
         
-        <div class="quadro_de_conteudo_especifico">
+        <div style="border:1px solid;">
             <input type="button" value="Editar" float="right" />
             <div class="accordion_body" float="left">
                 <h3>
-                    <a>Modulos: Clique para expandir</a>
+                    <a><div class='list_index_admin_gray'><div class='detalhe'></div><img  src='img/seta_gray.png' />Modulos: Clique para expandir</div></a>
                 </h3>
                 <div>
-                    <ul>
+                    <ul style="list-style-type:none;">
                         <?php
                         $controllerModulo = new ControllerModulo();
                         echo $controllerModulo->listaModulos($id_curso);
