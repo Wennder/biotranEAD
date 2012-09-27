@@ -1,113 +1,172 @@
-html, body, div, span, applet, object, iframe,  
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,  
-a, abbr, acronym, address, big, cite, code,  
-del, dfn, em, img, ins, kbd, q, s, samp,  
-small, strike, strong, sub, sup, tt, var,  
-b, u, i, center,  
-dl, dt, dd, ol, ul, li,  
-fieldset, form, label, legend,  
-table, caption, tbody, tfoot, thead, tr, th, td,  
-article, aside, canvas, details, embed,  
-figure, figcaption, footer, header, hgroup,  
-menu, nav, output, ruby, section, summary,  
-time, mark, audio, video  {  
-    margin: 0px;  
-    padding: 0px;  
-    border: 0px;          
-    font-size:100%;
-    color:#565656;
-    font:normal 16px/30px "eras ITC","eras medium ITC";
-    
-  
-}
+/*---------------------------------*/
+/*     estilos EAD                 */
+/*---------------------------------*/
 
-html, body {
-   margin:0;
-   padding:0;
-   
-}
 
-body{height:100%;}
+    /*---------------------------------*/
+    /*     estilos gerais              *//*-----------------------------------*/
+    /*---------------------------------*/
+    html, body, div, span, applet, object, iframe,  
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,  
+    a, abbr, acronym, address, big, cite, code,  
+    del, dfn, em, img, ins, kbd, q, s, samp,  
+    small, strike, strong, sub, sup, tt, var,  
+    b, u, i, center,  
+    dl, dt, dd, ol, ul, li,  
+    fieldset, form, label, legend,  
+    table, caption, tbody, tfoot, thead, tr, th, td,  
+    article, aside, canvas, details, embed,  
+    figure, figcaption, footer, header, hgroup,  
+    menu, nav, output, ruby, section, summary,  
+    time, mark, audio, video  {  
+        margin: 0px;  
+        padding: 0px;  
+        border: 0px;          
+        font-size:100%;
+        color:#565656;
+        font:normal 16px/30px "eras ITC","eras medium ITC";
 
-.eadbiotran_topbar{
-    position:relative;
-    margin:0;
-    height:75px;
-    background-image: url('../img/header_ead_background.png');
-}
 
-.eadbiotran_navbar_container{
-    position:relative;
-/*    height:100%;*/
+    }
 
-}
+    html, body {
+        margin:0;
+        padding:0;
 
-.eadbiotran_navbar_container *{
-    color:white;
-    font-size: 26px;
+    }
 
-}
-
-.eadbiotran_navbar_container h3{
-    font-size: 20px;
-}
-
-.eadbiotran_navbar_container ul{
-    float:left;
-    width:100%;
-    padding:0;
-    margin:10px 0px;
-    list-style-type:none;
-}
-
-.eadbiotran_topbar ul li{
-    float:left;
-    display:inline;
-}
-
-#pic_holder{
-    padding:4px;
-    background-image: url('../img/dark_blue_ead.png');
-    margin: 0px 15px;
-}
-
-#menuDrop{
-    display: none;
-    position: absolute;
-    right:10px;
-    top:65px;
-
-    z-index: 3;
-    background-color: white;
-    border:1px solid #eeeeee;
-    padding:10px 30px;
-
-}
-
-#menuDrop a{
-    color:black;
-}
-
-#menuDrop a:hover,a:visited, a:active, a:link{
-    font-size:18px;
+    .button{
+        background-color: #23496a;
+/*    background: -webkit-gradient(linear, left top, left bottom, from(#23056a), to(#23496a));
+    background: -webkit-linear-gradient(top, #23056a, #23496a);
+    background: -moz-linear-gradient(top, #23056a, #23496a);
+    background: -ms-linear-gradient(top, #23056a, #23496a);
+    background: -o-linear-gradient(top, #23056a, #23496a);
+    background: linear-gradient(top, #23056a, #23496a);*/
+    border: 1px solid #1b3952;    
+    border-bottom: 1px solid #23496a;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    box-shadow: 2px 2px 2px #888888, inset 0 1px 0 0 #3871a1;
+    -webkit-box-shadow:2px 2px 2px #888888, 0 1px 0 0 #3871a1 inset ;
+    -moz-box-shadow:2px 2px 2px #888888, 0 1px 0 0 #3871a1 inset;
+    -ms-box-shadow:2px 2px 2px #888888, 0 1px 0 0 #3871a1 inset;
+    -o-box-shadow: 0 1px 0 0 #3871a1 inset;
+    color: white;
+	font-size:15px;
     font-weight: 500;
-    line-height: 100%;
-    text-decoration: none;
+    padding: 3px 15px;
+    text-align: center;
+    cursor:pointer;
+	z-index:5;
+    }
+    
+    body{height:100%;min-width: 1024px;}
+
+    h1{
+        font-size: 30px;
+    }
+    h2{
+    font-size: 26px;
 }
 
-#menuDrop li{
-    display:block;
-    float:none;
-}
+    h3{
+        font-size: 24px;
+    }
+    
+    ul{
+        list-style:none;
+        padding-left:10px;
+    }
+    a{
+        text-decoration: none;
+    }
+   
+    /*--------------------------------------------------------------------------*/
 
-#main{
-/*    height:100%;*/
-}
 
-.content_fluid{
-/*    height:100%;*/
+    
+    
+    /*---------------------------------*/
+    /*     estilos do header           *//*-------------------------------------------*/
+    /*---------------------------------*/
+    .eadbiotran_topbar{
+        position:relative;
+        margin:0;
+        height:75px;
+        background-image: url('../img/header_ead_background.png');
+    }
 
-}
+        .eadbiotran_navbar_container{
+            position:relative;
+        /*    height:100%;*/
+
+        }
+
+            .eadbiotran_navbar_container *{
+                color:white;
+                font-size: 26px;
+
+            }
+
+            .eadbiotran_navbar_container h3{
+                font-size: 20px;
+            }
+
+            .eadbiotran_navbar_container ul{
+                float:left;
+                width:100%;
+                padding:0;
+                margin:10px 0px;
+                list-style-type:none;
+            }
+
+                .eadbiotran_topbar ul li{
+                    float:left;
+                    display:inline;
+                }
+
+        #pic_holder{
+            padding:4px;
+            background-image: url('../img/dark_blue_ead.png');
+            margin: 0px 15px;
+    }
+    /*-------------------------------------*/
+
+
+    /*---------------------------------*/
+    /*     Menu Logout                 *//*-------------------------------------*/
+    /*---------------------------------*/
+        #menuDrop{
+            display: none;
+            position: absolute;
+            right:10px;
+            top:65px;
+
+            z-index: 3;
+            background-color: white;
+            border:1px solid #eeeeee;
+            padding:10px 30px;
+
+        }
+
+        #menuDrop a{
+            color:black;
+        }
+
+       
+
+        #menuDrop li{
+            display:block;
+            float:none;
+        }
+        /*-------------------------------------------------------------------*/
+
+
+
 
 
 .leftcolumn{
@@ -121,10 +180,30 @@ body{height:100%;}
     background-image: url('../img/header_ead_background.png');
 }
 
-.leftcolumn a:link,a:visited,a:hover,a:active{
+.leftcolumn a:link{
     color:white;
     text-decoration: none;
-
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 100%;
+}
+.leftcolumn a:visited{
+    color:white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 100%;
+}
+.leftcolumn a:hover{
+    color:white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 100%;
+}
+.leftcolumn a:active{
+    color:white;
+    text-decoration: none;
     font-size: 16px;
     font-weight: 600;
     line-height: 100%;
@@ -139,8 +218,8 @@ body{height:100%;}
 
 .content{
 /*    height: 100%;*/
-
-
+    margin:0px;
+    padding-top: 20px;
     margin-left:165px;
     margin-right: 280px;
     position: relative;
@@ -148,16 +227,7 @@ body{height:100%;}
 }
 
 
-/*
-html, body {
-    min-height: 100%;
-}
 
-*/body{min-width: 1024px;}/*
-
-*/h1{
-    font-size: 30px;
-}
 
 #right_menu_holder{
     height: 100%;
@@ -167,13 +237,7 @@ html, body {
     padding:15px 0px 10px 0px;
 }
 
-h2{
-    font-size: 26px;
-}
 
-h3{
-    font-size: 24px;
-}
 
 .leftcolumn{
     position:relative;
@@ -187,14 +251,6 @@ h3{
     background-color: #336666;
 }
 
-.leftcolumn a:link,a:visited,a:hover,a:active{
-    color:white;
-    text-decoration: none;
-
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 100%;
-}
 
 
 
@@ -415,7 +471,25 @@ form.form_cadastro, form.form_editar{
     color:black;
 }
 
-#menuDrop a:hover,a:visited, a:active, a:link{
+#menuDrop a:hover{
+    font-size:18px;
+    font-weight: 500;
+    line-height: 100%;
+    text-decoration: none;
+}
+#menuDrop a:link{
+    font-size:18px;
+    font-weight: 500;
+    line-height: 100%;
+    text-decoration: none;
+}
+#menuDrop a:active{
+    font-size:18px;
+    font-weight: 500;
+    line-height: 100%;
+    text-decoration: none;
+}
+#menuDrop a:visited{
     font-size:18px;
     font-weight: 500;
     line-height: 100%;
@@ -459,7 +533,7 @@ form.form_cadastro, form.form_editar{
     background-image: url('../img/list_blue_background.png');
     border:1px solid #cbdcea;
     margin: 10px;
-    
+    cursor:pointer;
 }
 
 
@@ -468,6 +542,7 @@ form.form_cadastro, form.form_editar{
     background-color: #f0f0f0;
     border:1px solid #e4e4e4;
     margin: 10px;
+    cursor:pointer;
 }
 
 .h3_gray{

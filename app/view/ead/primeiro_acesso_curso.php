@@ -10,6 +10,12 @@
         $('#cadastro').validationEngine();
     });
 </script>
+<style>
+    #form_cadastro h2{
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+</style>
 <div id="form_cadastro" >
     <h2><?php echo $this->curso->getNome(); ?></h2>
 <p style="text-indent: 10px;"> Por favor, preencha o formulario para continuar!</p>
