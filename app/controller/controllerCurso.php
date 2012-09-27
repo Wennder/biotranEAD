@@ -30,8 +30,8 @@ class controllerCurso {
      * a partir de dados enviados via POST
      */
 
-    public function setCurso_post() {        
-        if (!empty($_POST)) {
+    public function setCurso_post() {     
+          if (!empty($_POST)) {
             if ($this->curso == null) {
                 $this->curso = new Curso();
             }
@@ -49,7 +49,8 @@ class controllerCurso {
                     $setAtributo = 'set' . ucfirst($k);
                     if (method_exists($this->curso, $setAtributo)) {
                         $this->curso->$setAtributo($v);
-                    }
+       
+                        }
                 }
             }
         }
@@ -253,9 +254,11 @@ class controllerCurso {
      */
 
     public function listaCursos_professor($id_professor) {
+        //echo $id_professor;die();
         //Lista todos os cursos existentes, de acordo com o status.
         $this->controller = new controllerCurso_professor();
-        $id_curso = $this->controller->getCurso_professor("id_usuario =" . $id_professor)->getId_curso();
+        $id_curso = $this->controller->getCurso_professor("id_usuario =" . $id_professor);
+        $id_curso = $id_curso->getId_curso();
         $this->cursos = $this->getListaCursos("id_curso=" . $id_curso);
         $habilitados = "";
         $desabilitados = "";
@@ -263,11 +266,11 @@ class controllerCurso {
         
         for ($i = 0; $i < count($this->cursos); $i++) {
             if (($this->cursos[$i]->getStatus() == 0) || ($this->cursos[$i]->getStatus() == 1)) {
-                $desabilitados .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+                $desabilitados .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso&id=$id_curso>" . $this->cursos[$i]->getNome() . "</a></p></li>";
             } else if ($this->cursos[$i]->getStatus() == 2) {
                 $analise .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
             } else if ($this->cursos[$i]->getStatus() == 3) {
-                $habilitados .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+                $habilitados .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso>" . $this->cursos[$i]->getNome() . "</a></p></li>";
             }
         }
 
@@ -531,6 +534,21 @@ class controllerCurso {
         
     }
 
+    public function primeiro_acesso($id_curso) {    
+        
+       $this->curso = $this->getCurso("id_curso=" . $id_curso);
+       $this->setCurso_post();
+       $this->updateCurso($this->curso);
+       $this->controller= new controllerModulo();       
+       for($i = 0; $i < $this->curso->getNumero_modulos(); $i++){
+            $modulo = new Modulo();
+            $modulo->setId_curso($this->curso->getId_curso());
+            $modulo->setNumero_modulo($i+1);
+            $this->controller->inserirModulo($modulo);
+        }
+       
+       
+       
+    }
 }
-
 ?>

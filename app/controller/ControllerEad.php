@@ -37,6 +37,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
     
+
+    
+    
     public function actionGerenciar_usuarios_1() {
         $this->visao->titulo = "Gerenciar Usuários";
         $this->controller = new controllerUsuario();
@@ -103,7 +106,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->tabela = $this->controller->tabelaCursos();
         $this->renderizar();
     }
-
+    
+    
     public function actionCadastrar_curso() {
 
         $this->controller = new controllerCurso();
@@ -211,17 +215,31 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
     
-    public function actionPrimeiro_acesso_curso(){
-         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->controller = new controllerCurso();
-        $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
-        $this->renderizar();
+  //  public function actionCadastrar_primeiro_acesso_curso(){
+    
+    public function actionProfessor_editar_curso(){
+      // $this->renderizar();
+       $this->controller = new controllerCurso();        
+       $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();                           
+       $this->controller->primeiro_acesso($id_curso);               
+       $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");                              
+      //Biotran_Mvc::pegarInstancia()->mudarAcao('index');      
+       $this->renderizar();        
+  
+        }
+
+
+    public function actionPrimeiro_acesso_curso(){        
+       $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();                                         
+       $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");                             
+        $this->renderizar();        
     }
  
-    public function actionProfessor_editar_curso(){
-        $this->renderizar();
-    }
-    
+//    public function actionProfessor_editar_curso(){
+//        $this->renderizar();
+//    }
+//    
     public function actionProfessor_editar_modulo(){
         $this->renderizar();
     }

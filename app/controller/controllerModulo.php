@@ -51,7 +51,20 @@ class controllerModulo {
         $modulo = $dao->select();
         return $modulo;
     }
-        
+
+    public function inserirModulo (Modulo $modulo){
+        $dao=new ModuloDAO();
+        $modulo=$dao->insert($modulo);
+        return $modulo;
+
+        }
+    
+    
+    
+    
+    
+    
+    
 }
 
 ?>
