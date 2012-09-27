@@ -125,7 +125,7 @@ class controllerCurso {
 
     public function inserirCurso() {
         //seta as variaveis $this->curso e $this->cp
-        $this->setCurso_post();
+        $this->setCurso_post();        
         $this->novoCurso($this->curso, $this->curso_professor);
 
         //se existir foto: para filtrar os cadastros feitos pela pag inicial

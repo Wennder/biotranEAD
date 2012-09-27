@@ -1,6 +1,6 @@
-<?php require 'structure/header.php'; ?>
-<?php require 'structure/leftcolumn_professor_home.php' ?>
-<?php require 'structure/content.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/header.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/leftcolumn_professor_home.php' ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/content.php'; ?>
 
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
@@ -10,6 +10,12 @@
         $('#cadastro').validationEngine();
     });
 </script>
+<style>
+    #form_cadastro h2{
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+</style>
 <div id="form_cadastro" >
     <h2><?php echo $this->curso->getNome();?></h2>
     <!-- -->
@@ -61,4 +67,4 @@
         
     </form>
 </div>
-<?php require 'structure/footer.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/footer.php'; ?>

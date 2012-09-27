@@ -5,7 +5,7 @@ $controller = new controllerPapel();
 $papel = $controller->getPapel("id_papel=".$_SESSION["usuarioLogado"]->getId_papel());
 
 //left_column
-require 'structure/leftcolumn_admin.php';
+require 'structure/leftcolumn.php';
 
 //content
 require 'structure/content.php';

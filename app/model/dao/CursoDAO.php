@@ -18,7 +18,7 @@ class CursoDAO extends PDOConnectionFactory {
             $stmt->bindValue(4, $curso->getTempo());
             $stmt->bindValue(5, $curso->getGratuito(1));
             $stmt->bindValue(6, $curso->getValor());
-            $stmt->bindValue(7, $curso->getStatus());
+            $stmt->bindValue(7, $curso->getStatus(1));
             $stmt->bindValue(8, $curso->getNumero_modulos());
             $stmt->bindValue(9, $curso->getObjetivo());
             $stmt->bindValue(10, $curso->getJustificativa());
@@ -60,7 +60,7 @@ class CursoDAO extends PDOConnectionFactory {
                 $stmt->bindValue(3, $curso->getTempo());
                 $stmt->bindValue(4, $curso->getGratuito(1));
                 $stmt->bindValue(5, $curso->getValor());
-                $stmt->bindValue(6, $curso->getStatus());
+                $stmt->bindValue(6, $curso->getStatus(1));
                 $stmt->bindValue(7, $curso->getNumero_modulos());
                 $stmt->bindValue(8, $curso->getObjetivo());
                 $stmt->bindValue(9, $curso->getJustificativa());

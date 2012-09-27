@@ -1,6 +1,6 @@
-<?php require 'structure/header.php'; ?>
-<?php require 'structure/leftcolumn_professor_curso.php' ?>
-<?php require 'structure/content.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/header.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/leftcolumn.php' ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/content.php'; ?>
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <script src="js/accordion.js" type="text/javascript"></script>
 <style>
@@ -29,6 +29,8 @@
         border:1px solid #CCCCCC;
         padding: 10px;
         color: #888888;
+        overflow: auto;
+	width: 100%;
     }
 
     .quadro_de_conteudo_especifico ul{
@@ -78,6 +80,27 @@
         border-color: black;
         text-decoration: none;
     }
+    
+    [readonly = readonly] {
+        border:0px;
+        border:1px none;
+    }
+    
+    #image_holder{
+        padding:3px;
+        border:1px solid #cbdcea;
+        float:left;
+        background-color: white;
+    }
+    
+    #titulo_holder{
+        position: relative;
+        float:left; 
+        clear:right; 
+    }
+    #div_conteudo_professor_editar_curso *{
+        position:relative;
+    }
 </style>
 <?php
 if (isset($_GET['id'])) {
@@ -87,50 +110,51 @@ $cursoDAO = new CursoDAO();
 $this->cursos = $cursoDAO->select("id_curso=" . $id_curso);
 ?>
 <div id="div_conteudo_professor_editar_curso">
-    
-    <img src="<?php echo "img/cursos/" .$id_curso .".jpg" ?>" alt="Imagem do Curso" />    
-    <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getNome() ?>"/>
-    <input type="button" value="Editar" />
+   
+<!--    <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getNome() ?>"/>-->
+<!--    <input type="button" value="Editar" />-->
     <div id="disposicao_conteudo_professor_editar_curso">
-        <h4>Descricao: </h4>
-        <div class="quadro_de_conteudo_especifico">
-            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getDescricao() ?>"/>
+        <div class="quadro_de_conteudo_especifico" style="background-color:#f0f0f0;">
+         <div id="image_holder">
+        <img src="<?php echo "img/cursos/" .$id_curso .".jpg" ?>" alt="Imagem do Curso" />    </div>
+            <div id="titulo_holder" style="">
+            <h2 style=""><?php echo $this->cursos[0]->getNome();?></h2></div>
         </div>
+        <div class="quadro_de_conteudo_especifico">
+            <h4>Descricao: </h4>
+            <input type="text-field" readonly="readonly" value="<?php echo $this->cursos[0]->getDescricao() ?>"/>
         <h4>Tempo: </h4>
-        <div class="quadro_de_conteudo_especifico">
-            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getTempo() ?> Dias"/>
-        </div>
-        <h4>Status: </h4>
-        <div class="quadro_de_conteudo_especifico">
-            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getStatus(0) ?>"/>
-        </div>
-        <h4>Gratuito: </h4>
-        <div class="quadro_de_conteudo_especifico">
-            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getGratuito() ?>"/>
-        </div>
-        <h4>Valor: </h4>
-        <div class="quadro_de_conteudo_especifico">
-            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getValor() ?>"/>
-        </div>
-        <h4>Objetivo: </h4>
-        <div class="quadro_de_conteudo_especifico">
-            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getObjetivo() ?>"/>
-        </div>
-        <h4>Justificativa: </h4>
-        <div class="quadro_de_conteudo_especifico">
-            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getJustificativa() ?>"/>
-        </div>
-        <h4>Observacoes: </h4>
-        <div class="quadro_de_conteudo_especifico">
-            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getObs() ?>"/>
-        </div>
         
-        <div style="border:1px solid;">
+            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getTempo() ?> Dias"/>
+       
+        <h4>Status: </h4>
+        
+            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getStatus(0) ?>"/>
+        
+        <h4>Gratuito: </h4>
+        
+            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getGratuito() ?>"/>
+        
+        <h4>Valor: </h4>
+      
+            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getValor() ?>"/>
+       
+        <h4>Objetivo: </h4>
+       
+            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getObjetivo() ?>"/>
+        
+        <h4>Justificativa: </h4>
+       
+            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getJustificativa() ?>"/>
+       
+        <h4>Observacoes: </h4>
+       
+            <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getObs() ?>"/>
+      </div>
+        
+        
             <input type="button" value="Editar" float="right" />
-            <div class="accordion_body" float="left">
-                <h3>
-                    <a><div class='list_index_admin_gray'><div class='detalhe'></div><img  src='img/seta_gray.png' />Modulos: Clique para expandir</div></a>
-                </h3>
+            
                 <div>
                     <ul style="list-style-type:none;">
                         <?php
@@ -139,8 +163,8 @@ $this->cursos = $cursoDAO->select("id_curso=" . $id_curso);
                         ?>
                     </ul>
                 </div>
-            </div>
+           
         </div>
     </div>
 </div>
-<?php require 'structure/footer.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/footer.php'; ?>
