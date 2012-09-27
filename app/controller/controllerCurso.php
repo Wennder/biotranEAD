@@ -49,7 +49,8 @@ class controllerCurso {
                     $setAtributo = 'set' . ucfirst($k);
                     if (method_exists($this->curso, $setAtributo)) {
                         $this->curso->$setAtributo($v);
-                    }
+       
+                        }
                 }
             }
         }
@@ -254,6 +255,7 @@ class controllerCurso {
      */
 
     public function listaCursos_professor($id_professor) {
+        //echo $id_professor;die();
         //Lista todos os cursos existentes, de acordo com o status.
         $this->controller = new controllerCurso_professor();
         $cursos = $this->controller->getListaCurso_professor("id_usuario =" . $id_professor);
@@ -272,19 +274,19 @@ class controllerCurso {
             $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());
             
             if ($this->curso->getStatus(1) == 0) {
-                $construcao .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
+                $construcao .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></p></li>";
                 $a++;
             } else if ($this->curso->getStatus(1) == 1) {
-                $nao_avaliado .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
+                $nao_avaliado .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></p></li>";
                 $b++;
             } else if ($this->curso->getStatus(1) == 2) {
-                $rejeitado .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
+                $rejeitado .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></p></li>";
                 $c++;
             } else if ($this->curso->getStatus(1) == 3) {
-                $aprovado_indisponivel .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
+                $aprovado_indisponivel .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></p></li>";
                 $d++;
             } else if ($this->curso->getStatus(1) == 4) {
-                $aprovado_disponivel .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
+                $aprovado_disponivel .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></p></li>";
                 $e++;
             }
 
@@ -572,6 +574,21 @@ class controllerCurso {
         }
     }
 
+    public function primeiro_acesso($id_curso) {    
+        
+       $this->curso = $this->getCurso("id_curso=" . $id_curso);
+       $this->setCurso_post();
+       $this->updateCurso($this->curso);
+       $this->controller= new controllerModulo();       
+       for($i = 0; $i < $this->curso->getNumero_modulos(); $i++){
+            $modulo = new Modulo();
+            $modulo->setId_curso($this->curso->getId_curso());
+            $modulo->setNumero_modulo($i+1);
+            $this->controller->inserirModulo($modulo);
+        }
+       
+       
+       
+    }
 }
-
 ?>
