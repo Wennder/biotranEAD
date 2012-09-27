@@ -44,7 +44,7 @@
 </script>
 
 <div id="page-leftcolumn" class="leftcolumn page-leftcolumn">
-    <div id="menu_accordion">
+    <div id="menu_accordion" style="">
         <p class="navbar_item ">
             <a style="font-size:16px;" href="<?php echo "index.php?c=ead" ?>"> Home </a>
         </p>

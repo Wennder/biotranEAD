@@ -7,26 +7,37 @@
         <!--        <link rel='stylesheet' href='css/styleEAD.css' />-->
         <script type="text/javascript">
              
-            function resize_leftcolumn(){
-                $('#page-leftcolumn').css('height',$('html').css('height') );
+            function resize_content_fluid(){
+                var height = $('.content').height();
+              
+                    if(height < $(window).height()){
+                        height+=75;
+                        height +='px';
+                        $(".content_fluid").css('height',height);
+                    }
+              
+                
+
             }
              
             $(document).ready(function(){
-                $height = $('html').css('height');
-                
-                              $('#page-leftcolumn').css('height',$height );
-                                
-                
-                                $('#right_menu_holder').css('height', $height );
-                
-                $right = $('#right_menu_holder').css('height');
-                
-                $right_num = parseInt($right);
-                $right_num-=25;
-                
-               
-                
-                $('#right_menu_holder').css('height', $right_num );
+                resize_content_fluid();
+                $(window).bind('resize', resize_content_fluid);
+
+                //                
+                //                //                $('#page-leftcolumn').css('height',$height );
+                //                //                
+                //                //
+                //                //                $('#right_menu_holder').css('height', $height );
+                //                
+                //                $right = $('#right_menu_holder').css('height');
+                //                
+                //                $right_num = parseInt($right);
+                //                $right_num-=25;
+                //                
+                //               
+                //                
+                //                $('#right_menu_holder').css('height', $right_num );
                 
                 $(".eadbiotran_topbar").disableSelection();
                 // Fecha a aba se clicado fora
@@ -36,29 +47,29 @@
             });
         </script>
 
-        <link rel='stylesheet' href='css/estilos.css' />
+        <link rel='stylesheet' href='css/estilos_1.css' />
 
         <style>
 
         </style>
     </head>
     <body>
-        
+        <div id="main">
             <div class="eadbiotran_topbar">
                 <div class="eadbiotran_navbar_container">
                     <ul>
                         <li>
                             <div id="pic_holder">
                                 <img src="img/profile/pic/<?php
-                                $this->usuario = $_SESSION['usuarioLogado'];
-                                if ($this->usuario == null) {
-                                    echo '00.jpg';
-                                } else if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
-                                    echo $this->usuario->getId_usuario() . '.jpg';
-                                } else {
-                                    echo '00.jpg';
-                                }
-                                ?>"  />
+$this->usuario = $_SESSION['usuarioLogado'];
+if ($this->usuario == null) {
+    echo '00.jpg';
+} else if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
+    echo $this->usuario->getId_usuario() . '.jpg';
+} else {
+    echo '00.jpg';
+}
+?>"  />
                             </div>
                         </li>
                         <li style="margin-top:15px;">
