@@ -270,15 +270,14 @@ class controllerCurso {
 
         for ($i = 0; $i < count($cursos); $i++) {
             $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());
-            echo $cursos[$i]->getId_curso() . "-" . $this->curso->getStatus(0);
-            die();
-            if ($this->curso->getStatus(0) == 0) {
+            
+            if ($this->curso->getStatus(1) == 0) {
                 $construcao .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
                 $a++;
-            } else if ($this->curso->getStatus(0) == 1) {
+            } else if ($this->curso->getStatus(1) == 1) {
                 $nao_avaliado .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
                 $b++;
-            } else if ($this->curso->getStatus(0) == 2) {
+            } else if ($this->curso->getStatus(1) == 2) {
                 $rejeitado .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
                 $c++;
             } else if ($this->curso->getStatus(1) == 3) {
