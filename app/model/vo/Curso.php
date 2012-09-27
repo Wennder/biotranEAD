@@ -7,7 +7,7 @@ class Curso {
     private $descricao = '';
     private $tempo = '';
     private $gratuito = '';
-    private $status = '';    
+    private $status = 0;    
     private $numero_modulos = '';    
     private $objetivo = '';    
     private $justificativa = '';    
@@ -49,7 +49,7 @@ class Curso {
         $this->tempo = $tempo;
     }
     
-    //Se boolean == 0, retorna 0 ou 1. Se boolean == 1, retorna Sim ou Não.
+    //Se boolean == 1, retorna 0 ou 1. Se boolean == 0, retorna Sim ou Não.
     public function getGratuito($boolean) {
         if($boolean == 1){
             return $this->gratuito;
@@ -79,7 +79,33 @@ class Curso {
         $this->valor = $valor;
     }
     
-    public function getStatus() {
+    //Se $boolean == 1, retorna 0 ou 1, senao, retorna os status
+    public function getStatus($boolean) {
+        if($boolean == 1){
+            return $this->status;
+        }
+        else {
+            if ($this->status == 0) {
+                $this->status = "Em construcao";
+                return $this->status;
+            }
+            else if ($this->status == 1) {
+                $this->status = "Nao avaliado";
+                return $this->status;
+            }
+            else if ($this->status == 2) {
+                $this->status = "Rejeitado";
+                return $this->status;
+            }
+            else if ($this->status == 3) {
+                $this->status = "Aprovado e indisponivel";
+                return $this->status;
+            }
+            else if ($this->status == 4) {
+                $this->status = "Aprovado e disponivel";
+                return $this->status;
+            }
+        }
         return $this->status;
     }
 

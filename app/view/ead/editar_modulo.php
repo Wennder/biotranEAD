@@ -47,39 +47,12 @@
                         <textarea id="descricao" style="width:500px;" name="descricao" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <label class="label_cadastro">*Adicionar em: </label>
-                    </td>
-                    <td>
-                        <select multiple="single" style="width: 500px;" id="id_curso" name="id_curso" class="validate[required] text-input">
-                            <?php
-                            if ($this->options != null) {
-                                echo $this->options;
-                            }
-                            ?>
-                        </select>
-                    </td>
-                <tr>
-                    <td style="width: 150px;">
-                        <label class="label_cadastro">*Numero do modulo: </label>
-                    </td>
-                    <td style="width: 600px;">
-                        <select style="width: 500px;" id="numero_modulo" name="numero_modulo" class="validate[required] text-input">
-                            
-                        </select>
-                    </td>
-                </tr>
-
-                </tr>                                                                
             </table>
         </fieldset>
-        <br>
+        </br>
         <input type="submit" id="button_cadastrar" name="button_cadastrar" value="Adicionar" class="button"/>
-
     </form>
     </br></br>
 </div>
-
 
 <?php require 'structure/footer.php' ?>
