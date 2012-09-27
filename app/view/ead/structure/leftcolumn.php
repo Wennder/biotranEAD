@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
 $controllerModulo = new controllerModulo();
 $controllerCurso = new ControllerCurso();
 ?>
-<div id="leftcolumn">
+<div class="leftcolumn">
     <h4>
         <a href="<?php echo "index.php?c=ead" ?>"><h4>Home</h4></a>
     </h4>

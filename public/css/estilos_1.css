@@ -223,7 +223,8 @@
     margin-left:165px;
     margin-right: 280px;
     position: relative;
-
+    
+	
 }
 
 
@@ -569,4 +570,9 @@ form.form_cadastro, form.form_editar{
     float:right;
     margin-top: 8px;
     margin-right: 15px;
+}
+
+.content_fluid{
+    overflow: auto;
+    width:100%;
 }

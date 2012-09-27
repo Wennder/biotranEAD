@@ -21,8 +21,8 @@
             }
              
             $(document).ready(function(){
-                resize_content_fluid();
-                $(window).bind('resize', resize_content_fluid);
+//                resize_content_fluid();
+//                $(window).bind('resize', resize_content_fluid);
 
                 //                
                 //                //                $('#page-leftcolumn').css('height',$height );
