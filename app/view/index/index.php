@@ -30,6 +30,47 @@
         float:left;
     }
 
+/*    #content_up{
+        padding:40px;
+    }*/
+    
+    h4{
+        color:#7a7a7a;
+        font-size:20px;
+        font-weight:600;
+        padding-right: 3px;
+    }
+    
+    #button_login{
+background-color: #23496a;
+/*    background: -webkit-gradient(linear, left top, left bottom, from(#23056a), to(#23496a));
+    background: -webkit-linear-gradient(top, #23056a, #23496a);
+    background: -moz-linear-gradient(top, #23056a, #23496a);
+    background: -ms-linear-gradient(top, #23056a, #23496a);
+    background: -o-linear-gradient(top, #23056a, #23496a);
+    background: linear-gradient(top, #23056a, #23496a);*/
+    border: 1px solid #1b3952;    
+    border-bottom: 1px solid #23496a;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    box-shadow: 2px 2px 2px #888888, inset 0 1px 0 0 #3871a1;
+    -webkit-box-shadow:2px 2px 2px #888888, 0 1px 0 0 #3871a1 inset ;
+    -moz-box-shadow:2px 2px 2px #888888, 0 1px 0 0 #3871a1 inset;
+    -ms-box-shadow:2px 2px 2px #888888, 0 1px 0 0 #3871a1 inset;
+    -o-box-shadow: 0 1px 0 0 #3871a1 inset;
+    color: white;
+	font-size:15px;
+    font-weight: 500;
+    padding: 3px 15px;
+    text-align: center;
+    
+	z-index:5;
+	
+}
+    
     ul{
         list-style: none;
     }
@@ -42,11 +83,13 @@
     }
     #sliderShow{
         float: left;
-        box-shadow: 2px 2px 10px #AAAAAA;
-        -moz-box-shadow: 2px 2px 10px #AAAAAA;
-        -webkit-box-shadow: 2px 2px 10px #AAAAAA;
+        border:3px solid #275175;
     }
 
+    #titulo_parceiros{
+        background-color: #275175;
+    }
+    
     #menu_destaque{
         min-width: 320px;
         width:40%;
@@ -54,7 +97,7 @@
         float: left;
         color: #CCCCCC;
         padding-top:20px;
-        padding-left:10px;
+        padding-left:0px;
     }
 
     #menu_destaque ul{
@@ -131,7 +174,7 @@
 
     #login_area{
         /*        margin:20px 20px;*/
-        height: 110px;
+        height: 125px;
         background-color: #f7f7f7;
         border:1px solid #e3e3e3;
         padding:20px;
@@ -167,6 +210,28 @@
         background-image: url('img/news_background.png')  ;
         
     }
+    
+    #list_news{
+        background: white;
+        border:1px solid #e3e3e3;
+        height: 300px;
+        padding:0px 10px;
+    }
+    
+    #indice_news{
+        width: 100%;
+        text-align: center;
+    }
+    
+    #indice_news h4{
+        float:left;
+    }
+    
+    #patrocinadores_holder{
+        
+        margin-top:20px;
+    }
+    
 </style>
 <div id="content_left_holder" style="">
 
@@ -208,7 +273,22 @@
         </ul>
     </div>
     <div id="news_holder">
-        <span id="news_image" style="color:white;"><h3 style="padding-left:20px;font-size: 20px;font-weight: 600;">news</h3></span>
+        <span id="news_image" style="color:white;"><h3 style="padding-left:20px;font-size: 24px;font-weight: 600;">news</h3></span>
+        <div style="height:50px;"></div>
+        <div id="list_news">
+            <ul>
+                <li style="border-bottom: 1px solid #e3e3e3;padding: 2px;">
+                    Conheça o nosso novo curso
+                </li>
+            </ul>
+        </div>
+        <div id="indice_news">
+            <h4>< </h4>
+            <h4>1 </h4>
+            <h4>de </h4>
+            <h4> 3</h4>
+            <h4> ></h4>
+        </div>
     </div>
 
 </div>
@@ -229,7 +309,7 @@
                         ');
         } else {
             echo('
-                            <div id="div_login" style="height:auto;">
+                            <div id="div_login" style="">
                                 <form id="form_login" name="form_login" method="post" action="index.php?c=index&a=login">
                                     <ul style="display:block;"><li>
                                                 <h4 style="">E-mail: </h4>
@@ -253,7 +333,7 @@
         ?>
     </div>
     <div id="pratocinadores_holder">
-        <div>Parceiros:</div>
+        <div id="titulo_parceiros">Parceiros:</div>
         <ul>
             <li>
                 <div>TriBit Jr.</div>

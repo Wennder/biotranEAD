@@ -1,5 +1,5 @@
-<div id="right_menu_holder" style="width:280px; float: right; padding-top: 15px; padding-bottom: 10px ;margin: 0;" >
-        <div style="border-left: 1px solid #cccccc; height: 100%; padding-left: 10px;">
+<div id="right_menu_holder" style="" >
+        <div style="border-left: 1px solid #cccccc; height: auto; padding-left: 10px;">
             <h4>infos</h3>
             <ul style="list-style: none; padding: 10px;">
                 

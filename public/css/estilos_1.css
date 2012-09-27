@@ -17,9 +17,136 @@ time, mark, audio, video  {
     font-size:100%;
     color:#565656;
     font:normal 16px/30px "eras ITC","eras medium ITC";
+    position:relative;
+    overflow:inherit;
+}
+
+html, body {
+   margin:0;
+   padding:0;
+   height:100%;
+}
+
+.eadbiotran_topbar{
+    position:relative;
+    margin:0;
+    height:75px;
+    background-image: url('../img/header_ead_background.png');
+}
+
+.eadbiotran_navbar_container{
+    position:relative;
+    height:100%;
+
+}
+
+.eadbiotran_navbar_container *{
+    color:white;
+    font-size: 26px;
+
+}
+
+.eadbiotran_navbar_container h3{
+    font-size: 20px;
+}
+
+.eadbiotran_navbar_container ul{
+    float:left;
+    width:100%;
+    padding:0;
+    margin:10px 0px;
+    list-style-type:none;
+}
+
+.eadbiotran_topbar ul li{
+    float:left;
+    display:inline;
+}
+
+#pic_holder{
+    padding:4px;
+    background-image: url('../img/dark_blue_ead.png');
+    margin: 0px 15px;
+}
+
+#menuDrop{
+    display: none;
+    position: absolute;
+    right:10px;
+    top:65px;
+
+    z-index: 3;
+    background-color: white;
+    border:1px solid #eeeeee;
+    padding:10px 30px;
+
+}
+
+#menuDrop a{
+    color:black;
+}
+
+#menuDrop a:hover,a:visited, a:active, a:link{
+    font-size:18px;
+    font-weight: 500;
+    line-height: 100%;
+    text-decoration: none;
+}
+
+#menuDrop li{
+    display:block;
+    float:none;
+}
+
+#main{
+    height:100%;
+}
+
+.content_fluid{
+    height:100%;
 }
 
 
+.leftcolumn{
+    position:relative;
+    float:left;
+    width:150px;
+    padding-top:10px;
+    padding-left:10px;
+    margin: 0;
+    height:100%;
+    background-image: url('../img/header_ead_background.png');
+}
+
+.leftcolumn a:link,a:visited,a:hover,a:active{
+    color:white;
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 100%;
+}
+
+.leftcolumn li{
+
+    position:relative;
+    list-style: none;
+    padding:3px;
+}
+
+.content{
+    height: 100%;
+    margin-left:165px;
+    margin-right: 280px;
+    position: relative;
+}
+
+#right_menu_holder{
+    height: 100%;
+    float:right;
+    position:relative;
+}
+/*
 html, body {
     min-height: 100%;
 }
@@ -164,36 +291,11 @@ form.form_cadastro, form.form_editar{
     padding:20px 10px;
 }
 
-.leftcolumn li{
-
-    position:relative;
-    list-style: none;
-    padding:3px;
-}
-
-.leftcolumn li div{
-    height: 0px;
-    background-image: url('../img/dark_blue_ead.png');
-    background-repeat: repeat-x;
-    width:40px;
-}
-
-.leftcolumn li:hover div{
-    height: 1px;
 
 
-}
 
-.content{
-    margin-left:165px;
-    margin-right: 280px;
-    position: relative;
-}
 
-#main{
-    width: 100%;
-    margin: 0 ;
-}
+
 
 #dialog_profile fieldset{
     padding: 10px;
@@ -384,4 +486,4 @@ form.form_cadastro, form.form_editar{
     float:right;
     margin-top: 8px;
     margin-right: 15px;
-}
+}*/
