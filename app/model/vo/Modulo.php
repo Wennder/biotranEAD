@@ -12,11 +12,11 @@
  */
 class Modulo {
      
-     private $id_modulo;
-     private $numero_modulo;
-     private $id_curso;
-     private $titulo_modulo;
-     private $descricao;
+     private $id_modulo = '';
+     private $numero_modulo = 0;
+     private $id_curso = '';
+     private $titulo_modulo = '';
+     private $descricao = '';
      
      public function getId_modulo() {
          return $this->id_modulo;
