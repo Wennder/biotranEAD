@@ -25,10 +25,9 @@ class PapelDAO extends PDOConnectionFactory {
     public function update(Papel $papel, $condicao) {
         try {
             $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("UPDATE papel SET id_papel=?, papel=? WHERE id_papel=?");
-            $stmt->bindValue(1, $papel->getId_papel());
-            $stmt->bindValue(2, $papel->getPapel());
-            $stmt->bindValue(7, $condicao);
+            $stmt = $this->conex->prepare("UPDATE papel SET papel=? WHERE id_papel=?");
+            $stmt->bindValue(1, $papel->getPapel());
+            $stmt->bindValue(2, $papel->getId_papel());            
             $stmt->execute();
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();

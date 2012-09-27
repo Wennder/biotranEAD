@@ -19,6 +19,6 @@ switch ($papel) {
 <?php require 'structure/content.php'; ?>
 
 <?php
-echo "YOU SHALL NOT PASS! --> Você não tem permissão para acessar essa página!";
+echo "--> Você não tem permissão para acessar essa página!";
 ?>
 <?php require 'structure/footer.php'; ?>
