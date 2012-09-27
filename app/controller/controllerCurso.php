@@ -277,16 +277,16 @@ class controllerCurso {
                 $construcao .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></p></li>";
                 $a++;
             } else if ($this->curso->getStatus(1) == 1) {
-                $nao_avaliado .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
+                $nao_avaliado .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></p></li>";
                 $b++;
             } else if ($this->curso->getStatus(1) == 2) {
-                $rejeitado .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
+                $rejeitado .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></p></li>";
                 $c++;
             } else if ($this->curso->getStatus(1) == 3) {
-                $aprovado_indisponivel .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
+                $aprovado_indisponivel .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></p></li>";
                 $d++;
             } else if ($this->curso->getStatus(1) == 4) {
-                $aprovado_disponivel .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
+                $aprovado_disponivel .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></p></li>";
                 $e++;
             }
 
