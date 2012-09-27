@@ -274,7 +274,7 @@ class controllerCurso {
             $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());
             
             if ($this->curso->getStatus(1) == 0) {
-                $construcao .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
+                $construcao .= "<li><p><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></p></li>";
                 $a++;
             } else if ($this->curso->getStatus(1) == 1) {
                 $nao_avaliado .= "<li><p><a>" . $this->curso->getNome() . "</a></p></li>";
