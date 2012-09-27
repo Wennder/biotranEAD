@@ -557,7 +557,7 @@ class controllerCurso {
         if ($status == 3) {
             return 'Aprovado e indisponível';
         }
-        if ($status == 3) {
+        if($status == 4){
             return 'Aprovado e disponível';
         }
     }

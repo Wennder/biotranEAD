@@ -24,7 +24,7 @@ html, body {
     min-height: 100%;
 }
 
-body{min-width: 800px;}
+body{min-width: 1024px;}
 
 h1{
     font-size: 30px;
