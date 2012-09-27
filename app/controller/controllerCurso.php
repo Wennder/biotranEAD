@@ -343,10 +343,8 @@ class controllerCurso {
                 $listaCursos .= "<li><p>Não existem cursos com esse status no momento!</p></li>";
             }
             $listaCursos .= "</ul></div>";
-
-
-            return $listaCursos;
         }
+        return $listaCursos;
     }
 
     public function listaConteudo_curso($id_curso) {
@@ -433,10 +431,10 @@ class controllerCurso {
         return $tabela;
     }
 
-    public function modulosCurso() {
+    public function modulosCurso($id_curso) {
         $lista = null;
         $moduloDAO = new ModuloDAO();
-        $modulos = $moduloDAO->select("id_curso=" . $_GET['id']);
+        $modulos = $moduloDAO->select("id_curso=" . $id_curso);
 
         $quant = count($modulos);
         $i = 0;
