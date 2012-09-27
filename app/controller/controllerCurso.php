@@ -258,29 +258,39 @@ class controllerCurso {
         $this->controller = new controllerCurso_professor();
         $id_curso = $this->controller->getCurso_professor("id_usuario =" . $id_professor)->getId_curso();
         $this->cursos = $this->getListaCursos("id_curso=" . $id_curso);
-        $contrucao = "";
-        $nao_avalidado = "";
+        $construcao = "";
+        $nao_avaliado = "";
         $rejeitado = "";
         $aprovado_indisponivel = "";
         $aprovado_disponivel = "";
+        $a = 0;
+        $b = 0;
+        $c = 0;
+        $d = 0;
+        $e = 0;
 
         for ($i = 0; $i < count($this->cursos); $i++) {
             if ($this->cursos[$i]->getStatus(1) == 0) {
-                $contrucao .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+                $construcao .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+                $a++;
             } else if ($this->cursos[$i]->getStatus(1) == 1) {
                 $nao_avaliado .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+                $b++;
             } else if ($this->cursos[$i]->getStatus(1) == 2) {
                 $rejeitado .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+                $c++;
             } else if ($this->cursos[$i]->getStatus(1) == 3) {
                 $aprovado_indisponivel .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+                $d++;
             } else if ($this->cursos[$i]->getStatus(1) == 4) {
                 $aprovado_disponivel .= "<li><p><a>" . $this->cursos[$i]->getNome() . "</a></p></li>";
+                $e++;
             }
 
             $listaCursos = "";
             
             // Lista os cursos em construcao
-            $listaCursos .= "<a><div class='list_index_admin_gray'><div class='detalhe'></div><img  src='img/seta_gray.png' />Cursos em Construcao</div></a>";
+            $listaCursos .= "<a><div class='list_index_admin_gray'><div class='detalhe'></div><img  src='img/seta_gray.png' />Cursos em Construcao ($a Curso(s))</div></a>";
             $listaCursos .= "<div><ul style='list-style-type:none;'>";
 
             if ($construcao != "") {
@@ -291,7 +301,7 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
             
             // Lista os cursos aprovados e disponiveis
-            $listaCursos .= "<a><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />Cursos Aprovados e Disponíveis</div></a>";
+            $listaCursos .= "<a><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />Cursos Aprovados e Disponíveis ($e Curso(s))</div></a>";
             $listaCursos .= "<div><ul style='list-style-type:none;'>";
             if ($aprovado_disponivel != "") {
                 $listaCursos .= $aprovado_disponivel;
@@ -301,7 +311,7 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos aprovados e indisponiveis
-            $listaCursos .= "<a><div class='list_index_admin_gray'><div class='detalhe'></div><img  src='img/seta_gray.png' />Cursos Aprovados e Indisponíveis</div></a>";
+            $listaCursos .= "<a><div class='list_index_admin_gray'><div class='detalhe'></div><img  src='img/seta_gray.png' />Cursos Aprovados e Indisponíveis ($d Curso(s))</div></a>";
             $listaCursos .= "<div><ul style='list-style-type:none;'>";
 
             if ($aprovado_indisponivel != "") {
@@ -312,7 +322,7 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos nao avaliados
-            $listaCursos .= "<a><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />Cursos Não Avaliados</div></a>";
+            $listaCursos .= "<a><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />Cursos Não Avaliados ($b Curso(s))</div></a>";
             $listaCursos .= "<div><ul style='list-style-type:none;'>";
 
             if ($nao_avaliado != "") {
@@ -323,7 +333,7 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
             
             // Lista os cursos rejeitados
-            $listaCursos .= "<a><div class='list_index_admin_gray'><div class='detalhe'></div><img  src='img/seta_gray.png' />Cursos Rejeitados</div></a>";
+            $listaCursos .= "<a><div class='list_index_admin_gray'><div class='detalhe'></div><img  src='img/seta_gray.png' />Cursos Rejeitados ($c Curso(s))</div></a>";
             $listaCursos .= "<div><ul style='list-style-type:none;'>";
 
             if ($rejeitado != "") {
