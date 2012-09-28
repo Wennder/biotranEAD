@@ -7,19 +7,19 @@ if (isset($this->usuario)) {
 }
 ?>
 
-<?php require 'structure/header.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/header.php'; ?>
 <?php
 $papel = $_SESSION["usuarioLogado"]->getId_papel();
 switch ($papel) {
     case 1:
-        require 'structure/leftcolumn_admin.php';
+        require ROOT_PATH.'/app/view/ead/structure/leftcolumn_admin.php';
         break;
     case 2:
-        require 'structure/leftcolumn_gestor.php';
+        require ROOT_PATH.'/app/view/ead/structure/leftcolumn_gestor.php';
         break;
 }
 ?>
-<?php require 'structure/content.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/content.php'; ?>
 <!--<script src="js/jquery-1.8.0.min.js" type="text/javascript"></script>-->
 <script src="js/validarCpf_passaporteCadastro.js" type="text/javascript"></script>
 <script src="js/crudTabelaUsuario.js" type="text/javascript"></script>
@@ -189,8 +189,8 @@ switch ($papel) {
                 //preselecionando combos e radio inputs:                
                 _data[2] = _data[2].replace(/\ /g, '_');                
                 _data[19] = _data[19].replace(/\ /g,'_');                
-                $('#'+_data[1]).attr('selected', 'selected');//atuacao
-                $('#'+_data[2]).attr('selected', 'selected');//permissao                                
+                $('#perm_'+_data[1]).attr('selected', 'selected');//permissao
+                $('#'+_data[2]).attr('selected', 'selected');//atuacao                                
                 $('#'+_data[19]).attr('selected', 'selected');//estado                
                 $('#_id_'+_data[9]).attr('checked', 'true');//sexo
                 //retirando required dos campos de senha:
@@ -544,9 +544,9 @@ switch ($papel) {
                             <td style="width: 500px;">
                                 <select id="_id_id_papel" name="_id_id_papel" class="validate[required]" data-prompt-position="centerRight">
                                     <option></option>                                    
-                                    <option id="Gestor" value="2">Gestor</option>
-                                    <option id="Professor" value="3">Professor</option>
-                                    <option id="Estudante" value="4">Estudante</option>
+                                    <option id="perm_Gestor" value="2">Gestor</option>
+                                    <option id="perm_Professor" value="3">Professor</option>
+                                    <option id="perm_Estudante" value="4">Estudante</option>
                                 </select>
                             </td>
                         </tr>');
@@ -812,5 +812,5 @@ switch ($papel) {
     <input type="text" id="i_estado" name="i_estado" value="<?php echo $this->endereco == null ? '' : $this->endereco->getEstado(); ?>"/>    
 </div>
 
-<?php require 'profile_dialog.php'; ?>
-<?php require 'structure/footer.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/profile_dialog.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/footer.php'; ?>

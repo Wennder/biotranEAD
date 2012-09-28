@@ -6,9 +6,10 @@ if (isset($this->curso)) {
 }
 ?>
 
-<?php require 'structure/header.php'; ?>
-<?php require 'structure/leftcolumn_admin.php'; ?>
-<?php require 'structure/content.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn_admin.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
+
 <script src="js/crudTabelaCurso.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
@@ -84,13 +85,17 @@ if (isset($this->curso)) {
     function updateDataTables(_form, _data){//Adicionar essa função        
         var fields_value = new Array();
         for (var i=0; i<nomeColunas.length; i++) {
-            if(i > 4){
+            if(i > 5){
                 fields_value.push(_data[i]);
             }else{
                 if(nomeColunas[i] == 'gratuito'){                                               
                     fields_value.push(getGratuito($(_form).find('input[name="'+nomeColunas[i]+'"]:checked').val()));//com valor filtrado getGratuito()
                 }else{                    
-                    fields_value.push($(_form).find('#'+nomeColunas[i]).val());                
+                    if(i == 4){
+                        fields_value.push(_data[i]);
+                    }else{                        
+                        fields_value.push($(_form).find('#'+nomeColunas[i]).val());                
+                    }
                 }                
             }
         }
@@ -542,4 +547,4 @@ if (isset($this->curso)) {
     <input type="text" id="i_professores" name="i_professores" value="<?php echo $this->professores; ?>"/>
 </div>
 
-<?php require 'structure/footer.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

@@ -1,39 +1,24 @@
 <?php
 
 require 'structure/header.php';
+$controller = new controllerPapel();
+$papel = $controller->getPapel("id_papel=".$_SESSION["usuarioLogado"]->getId_papel());
+
+//left_column
 require 'structure/leftcolumn.php';
 
-//$papel = $_SESSION["usuarioLogado"]->getId_papel();
-//switch ($papel) {
-//    case 1:
-//        require 'structure/leftcolumn_admin.php';
-//        break;
-//    case 2:
-//        require 'structure/leftcolumn_gestor.php';
-//        break;
-//    case 3:
-//        require 'structure/leftcolumn_professor_home.php';
-//        break;
-//    case 4:
-//        require 'structure/leftcolumn_aluno_home.php';
-//        break;
-//}
-
+//content
 require 'structure/content.php';
-switch ($papel) {
-    case 1:
-        require 'structure/index_admin.php';
-        break;
-    case 2:
-        require 'structure/index_gestor.php';
-        break;
-    case 3:
-        require 'structure/index_professor.php';
-        break;
-    case 4:
-        require 'structure/index_aluno.php';
-        break;
+
+//index
+if($papel->getPapel() == 'Administrador' || $papel->getPapel() == 'Gestor'){
+    require 'sistema/'. strtolower($papel->getPapel()).'/index.php';
+}else{
+    require strtolower($papel->getPapel()).'/index.php';
 }
+
+
+//footer
 require 'structure/footer.php';
 
 ?>

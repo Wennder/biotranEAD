@@ -49,8 +49,7 @@ class controllerCurso {
                     $setAtributo = 'set' . ucfirst($k);
                     if (method_exists($this->curso, $setAtributo)) {
                         $this->curso->$setAtributo($v);
-       
-                        }
+                    }
                 }
             }
         }
@@ -126,7 +125,7 @@ class controllerCurso {
 
     public function inserirCurso() {
         //seta as variaveis $this->curso e $this->cp
-        $this->setCurso_post();
+        $this->setCurso_post();        
         $this->novoCurso($this->curso, $this->curso_professor);
 
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
@@ -271,8 +270,7 @@ class controllerCurso {
         $e = 0;
 
         for ($i = 0; $i < count($cursos); $i++) {
-            $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());
-            
+            $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());            
             if ($this->curso->getStatus(1) == 0) {
                 $construcao .= "<li><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></li>";
                 $a++;
@@ -574,21 +572,20 @@ class controllerCurso {
         }
     }
 
-    public function primeiro_acesso($id_curso) {    
-        
-       $this->curso = $this->getCurso("id_curso=" . $id_curso);
-       $this->setCurso_post();
-       $this->updateCurso($this->curso);
-       $this->controller= new controllerModulo();       
-       for($i = 0; $i < $this->curso->getNumero_modulos(); $i++){
+    public function primeiro_acesso($id_curso) {
+
+        $this->curso = $this->getCurso("id_curso=" . $id_curso);
+        $this->setCurso_post();
+        $this->updateCurso($this->curso);
+        $this->controller = new controllerModulo();
+        for ($i = 0; $i < $this->curso->getNumero_modulos(); $i++) {
             $modulo = new Modulo();
             $modulo->setId_curso($this->curso->getId_curso());
-            $modulo->setNumero_modulo($i+1);
+            $modulo->setNumero_modulo($i + 1);
             $this->controller->inserirModulo($modulo);
         }
-       
-       
-       
     }
+
 }
+
 ?>
