@@ -1,6 +1,6 @@
-<?php require 'structure/header.php'; ?>
-<?php require 'structure/leftcolumn_aluno_home.php';?>
-<?php require 'structure/content.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/header.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/leftcolumn.php' ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/content.php'; ?>
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <script src="js/accordion.js" type="text/javascript"></script>
 
@@ -38,12 +38,6 @@
 
 <div id="cursos_top_bar">
     <h2 align="center">CURSOS</h2>
-    <label>Exibir: </label>
-    <select>
-        <option value="Todos" onclick="todos()">Todos</option>
-        <option value="Matriculado" onclick="matriculados()" >Matriculado</option>
-        <option value="Não Matriculado" onclick="nao_matriculados()">Não Matriculado</option>
-    </select>
     </br>
 </div>
 
@@ -52,4 +46,4 @@
     echo $controllerCurso->cursosAluno(); ?>
 </div>
 
-<?php require 'structure/footer.php'; ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/footer.php'; ?>
