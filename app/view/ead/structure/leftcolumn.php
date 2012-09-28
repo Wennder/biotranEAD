@@ -9,9 +9,9 @@ $controllerModulo = new controllerModulo();
 $controllerCurso = new ControllerCurso();
 ?>
 <div class="leftcolumn">
-    <h4>
-        <a href="<?php echo "index.php?c=ead" ?>"><h4>Home</h4></a>
-    </h4>
+    <h3>
+        <a href="<?php echo "index.php?c=ead" ?>">Home</a>
+    </h3>
     <?php
     switch ($usuario) {
         case 1:
