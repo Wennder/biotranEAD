@@ -420,10 +420,10 @@ class controllerCurso {
         for (; $i < $quant; $i++) {
             if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() .
                             " AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
-                $tabela.="<li><a><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />
-                    <table style='width: 100%;' class='nao_matriculado'><label>" . $this->cursos[$i]->getNome() . "</label>";
-                $tabela.="<td align='right'><a href='index.php?c=ead&a=matricula&id=" . $this->cursos[$i]->getId_curso() . "' class='button'>Matricular</a></td></tr>";
-                $tabela.= "<tr><td><label style='font-size: 12px'>Duração do curso:" . $this->cursos[$i]->getTempo() . "</label></td>";
+                $tabela.="<li><a><div class='list_index_admin_blue'><div class='detalhe1'></div><table style='width: 100%;' class='nao_matriculado'>
+                    <tr ><td align='left'><img  src='img/seta_blue.png'  />" . $this->cursos[$i]->getNome() . "</td>";
+                $tabela.="<td align='right' ><a href='index.php?c=ead&a=matricula&id=" . $this->cursos[$i]->getId_curso() . "' class='button'>Matricular</a></td></tr>";
+                $tabela.= "<tr><td style='font-size:12px;'>Duração do curso:" . $this->cursos[$i]->getTempo() . "</td></tr>";
                 $tabela.="</table></div></a></li>";
             }
         }

@@ -1,5 +1,5 @@
 <?php require ROOT_PATH.'/app/view/ead/structure/header.php'; ?>
-<?php require ROOT_PATH.'/app/view/ead/structure/leftcolumn_professor_home.php' ?>
+<?php require ROOT_PATH.'/app/view/ead/structure/leftcolumn.php' ?>
 <?php require ROOT_PATH.'/app/view/ead/structure/content.php'; ?>
 
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>

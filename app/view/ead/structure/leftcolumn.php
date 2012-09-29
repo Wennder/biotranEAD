@@ -20,9 +20,9 @@ switch ($usuario) {
         break;
     case 4: 
         if ($_GET['a'] == "curso") {
-            require 'leftcolumn_professor_curso.php';
+            require 'leftcolumn_aluno_curso.php';
         } else {
-            require 'leftcolumn_professor_home.php';
+            require 'leftcolumn_aluno_home.php';
         }
 }
 ?>
