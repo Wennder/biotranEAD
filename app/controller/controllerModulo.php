@@ -89,8 +89,30 @@ class controllerModulo {
     
     public function inserirModulo(Modulo $modulo) {
         $dao = new ModuloDAO();
-        $modulo = $dao->insert($modulo);
+        $modulo = $dao->insert($modulo);                
         return $modulo;
+    }
+    
+    /*
+     * cria toda a estrutura de diretórios do módulo
+     * id_curso/modulos/id_modulo:
+     * -video
+     * -texto
+     * -material
+     */
+    public function criaDiretorioModulo(Modulo $modulo) {       
+        $caminho = ROOT_PATH . '/public/cursos/' . $modulo->getId_curso() . '/modulos/'. $modulo->getId_modulo();
+        if (!mkdir($caminho, 0777, true))
+            trigger_error("Não foi possível criar o diretório de modulos");
+        $video = $caminho.'/video_aula';
+        if (!mkdir($video, 0777, true))
+            trigger_error("Não foi possível criar o diretório de video_aulas");
+        $texto = $caminho.'/texto_referencia';
+        if (!mkdir($texto, 0777, true))
+            trigger_error("Não foi possível criar o diretório de texto_referencia");
+        $material = $caminho.'/material_complementar';
+        if (!mkdir($material, 0777, true))
+            trigger_error("Não foi possível criar o diretório de material_complementar");
     }
 
 }

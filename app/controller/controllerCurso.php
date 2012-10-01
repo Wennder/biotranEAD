@@ -142,14 +142,23 @@ class controllerCurso {
         return $this->curso->getId_curso();
     }
 
-    public function criaDiretorioCurso($id) {
-        $caminho = ROOT_PATH . '/public/cursos/' . $id . '/';
-        if (!mkdir($caminho, 0777))
-            trigger_error("Não foi possível criar o diretório do curso" . $id);
+    /*
+     * Ao criar um curso serão criados os diretórios do curso e de módulos
+     * ao criar um módulo será criado as pastas:
+     * video_aula
+     * texto_referencia
+     * material_complementar
+     */
+    public function criaDiretorioCurso($id) {       
+        $caminho = ROOT_PATH . '/public/cursos/' . $id . '/modulos/';
+        if (!mkdir($caminho, 0777, true))
+            trigger_error("Não foi possível criar o diretório de modulos");
     }
 
     public function criaDiretorioCurso_videoAula($id) {
-        $caminho = ROOT_PATH . '/public/cursos/' . $id . '/videoAulas/';
+        $caminho = ROOT_PATH . '/public/cursos/' . $id . '/video_aula/';
+        $caminho = ROOT_PATH . '/public/cursos/' . $id . '/texto_referencia/';
+        $caminho = ROOT_PATH . '/public/cursos/' . $id . '/material_complementar/';        
         if (!mkdir($caminho))
             trigger_error("Não foi possível criar o diretório de video aulas do curso" . $id);
     }
@@ -583,6 +592,10 @@ class controllerCurso {
             $modulo->setId_curso($this->curso->getId_curso());
             $modulo->setNumero_modulo($i + 1);
             $this->controller->inserirModulo($modulo);
+        }
+        $modulos = $this->controller->getListaModulo("id_curso=".$this->curso->getId_curso());
+        for ($i = 0; $i < count($modulos); $i++) {
+            $this->controller->criaDiretorioModulo($modulos[$i]);
         }
     }
 
