@@ -36,10 +36,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->tabela = $this->controller->tabelaUsuarios();
         $this->renderizar();
     }
-    
 
-    
-    
     public function actionGerenciar_usuarios_1() {
         $this->visao->titulo = "Gerenciar Usuários";
         $this->controller = new controllerUsuario();
@@ -58,7 +55,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionListaCursos_professor() {
-      // echo 'teste';        die();
+        // echo 'teste';        die();
         $this->controller = new controllerCurso();
         $id_usuario = $_SESSION['usuarioLogado']->getId_usuario();
         $this->visao->lista = $this->controller->listaCursos_professor($id_usuario);
@@ -67,6 +64,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         Biotran_Mvc::pegarInstancia()->mudarAcao("cursos_professor");
         $this->renderizar();
     }
+
     public function actionAtualizar_cadastro_usuario() {
         $this->controller = new controllerUsuario();
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
@@ -108,8 +106,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->tabela = $this->controller->tabelaCursos();
         $this->renderizar();
     }
-    
-    
+
     public function actionCadastrar_curso() {
 
         $this->controller = new controllerCurso();
@@ -209,7 +206,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionAdicionar_bibliografia() {
         $this->renderizar();
     }
-    
+
 //    public function actionCadastrar_bibliografia() {
 //        $this->controller = new controllerModulo();
 //        $this->
@@ -218,39 +215,47 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionAdicionar_material_complementar() {
         $this->renderizar();
     }
+
     public function actionAdicionar_exercicio() {
         $this->renderizar();
     }
-    
-  //  public function actionCadastrar_primeiro_acesso_curso(){
-    
-    public function actionProfessor_editar_curso(){
-      // $this->renderizar();
-       $this->controller = new controllerCurso();        
-       $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();                           
-       $this->controller->primeiro_acesso($id_curso);               
-       $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");                              
-      //Biotran_Mvc::pegarInstancia()->mudarAcao('index');      
-       $this->renderizar();        
-  
+
+    public function actionCadastrar_primeiro_acesso_curso() {
+        $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");        
+        if ($this->visao->curso->getStatus(1) == 0) {
+            $this->controller->primeiro_acesso($this->visao->curso);
         }
-
-
-    public function actionPrimeiro_acesso_curso(){        
-       $this->controller = new controllerCurso();
-        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();                                         
-       $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");                             
-        $this->renderizar();        
+        Biotran_Mvc::pegarInstancia()->mudarAcao('professor_editar_curso');
+        $this->renderizar();
     }
- 
+
+    public function actionProfessor_editar_curso() {
+        $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
+        if ($this->visao->curso->getStatus(1) == 0) {
+            Biotran_Mvc::pegarInstancia()->mudarAcao('primeiro_acesso_curso');
+        }
+        $this->renderizar();
+    }
+
+    public function actionPrimeiro_acesso_curso() {
+        $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
+        $this->renderizar();
+    }
+
 //    public function actionProfessor_editar_curso(){
 //        $this->renderizar();
 //    }
 //    
-    public function actionProfessor_editar_modulo(){
+    public function actionProfessor_editar_modulo() {
         $this->renderizar();
     }
-    
+
 }
 
 ?>

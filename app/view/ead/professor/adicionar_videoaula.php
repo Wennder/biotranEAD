@@ -1,8 +1,4 @@
-<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
-
-<div id="form_cadastro" style="">
+div id="form_cadastro" style="">
     <form id="" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_videoaula" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados da video-aula</legend>
@@ -40,5 +36,3 @@
     </form>
     </br></br>
 </div>
-
-<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>
