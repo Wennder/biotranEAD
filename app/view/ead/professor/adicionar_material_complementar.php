@@ -1,6 +1,6 @@
-<?php require 'structure/header.php'?>
-<?php require 'structure/leftcolumn_professor_curso.php'?>
-<?php require 'structure/content.php'?>
+<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
@@ -36,4 +36,4 @@
 </div>
 
 
-<?php require 'structure/footer.php'?>
+<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>
