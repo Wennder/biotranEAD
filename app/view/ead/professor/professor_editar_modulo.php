@@ -1,6 +1,6 @@
-<?php require 'structure/header.php'; ?>
-<?php require 'structure/leftcolumn_professor_curso.php' ?>
-<?php require 'structure/content.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <script src="js/accordion.js" type="text/javascript"></script>
@@ -56,88 +56,97 @@
 
     }
 </style>
+<?php
+if (isset($_GET['id'])) {
+    $id_modulo = $_GET['id'];
+}
+$moduloDAO = new ModuloDAO();
+$this->modulos = $moduloDAO->select("id_modulo=" . $id_modulo);
+?>
 
 <div id="div_conteudo_professor_editar_modulo">
-    <h1>Título do Módulo</h1>
+    <h1>Modulo <?php echo $this->modulos[0]->getNumero_modulo() ?>: <?php echo $this->modulos[0]->getTitulo_modulo() ?></h1>
     <div id="disposicao_conteudo_professor_editar_modulo">
         <h4>Descricao: </h4>
         <div class="quadro_de_conteudo_especifico">
-            Modulo muito bacana!
+            <?php echo $this->modulos[0]->getDescricao() ?>
         </div>
-        <h4>Conteudo: </h4>
-        <div class="accordion_body">
-            <p>
-                <a>Video Aulas</a>
-            </p>
-            <div>
-                <ul>
-                    <li>
-                        <a href="index.php?c=ead&a=adicionar_videoaula">Adicionar nova video aula</a>
-                    </li>
-                    <li>
-                        <a style="float:left; margin-right: 3px;">Video 1</a>
-                    </li>
-                    <li>
-                        <a style="float:left; margin-right: 3px;">Video 2</a>
-                    </li>
-                </ul>
-            </div>
-            <p>
-                <a>Texto de Referencia</a>
-            </p>
-            <div>
-                <ul>
-                    <li>
-                        <a style="float:left; margin-right: 3px;">Adicionar novo texto de referencia</a>
-                    </li>
-                    <li>
-                        <a style="float:left; margin-right: 3px;">Texto 1</a>
-                    </li>
-                    <li>
-                        <a style="float:left; margin-right: 3px;">Texto 2</a>
-                    </li>
-                </ul>
-            </div>
-            <p>
-                <a>Material Complementar</a>
-            </p>
-            <div>
-                <ul>
-                    <li>
-                        <a style="float:left; margin-right: 3px;">Adicionar novo material complementar</a>
-                    </li>
-                    <li>
-                        <a style="float:left; margin-right: 3px;">Material 1</a>
-                    </li>
-                    <li>
-                        <a style="float:left; margin-right: 3px;">Material 2</a>
-                        </li>
-                    </ul>
-                </div>
-                <p>
-                    <a>Exercicios</a>
-                </p>
-                <div>
-                    <ul style="list-style-type:none;">
-                        <li>
-                            <p>
-                                <a style="float:left; margin-right: 3px;">Adicionar novo exercicio</a>
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                <a style="float:left; margin-right: 3px;">Exercicio 1</a>
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                <a style="float:left; margin-right: 3px;">Exercicio 2</a>
-                            </p>
-                        </li>
-                    </ul>
-                </div>
 
+        <div class="accordion_body">
+            <div class='list_index_admin_gray' style='margin-top:0px;'>
+                <a><div class='detalhe'></div>
+                    <img class='seta_formatacao' src='img/seta_gray.png' />Conteudo
+                </a>
+            </div>
+            <div>
+                <ul>
+                    <li>
+                        <div class="accordion_body">
+                            <div class='list_index_admin_blue'>
+                                <a><div class='detalhe1'></div>
+                                    <img  src='img/seta_blue.png' />Video Aulas
+                                </a>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $id_modulo ?>">Adicionar nova video aula</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="accordion_body">
+                            <div class='list_index_admin_blue'>
+                                <a><div class='detalhe1'></div>
+                                    <img  src='img/seta_blue.png' />Textos de Referencia
+                                </a>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $id_modulo ?>">Adicionar novo texto de referencia</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="accordion_body">
+                            <div class='list_index_admin_blue'>
+                                <a><div class='detalhe1'></div>
+                                    <img  src='img/seta_blue.png' />Material Complementar
+                                </a>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $id_modulo ?>">Adicionar nova material complementar</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="accordion_body">
+                            <div class='list_index_admin_blue'>
+                                <a><div class='detalhe1'></div>
+                                    <img  src='img/seta_blue.png' />Exercicios
+                                </a>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $id_modulo ?>">Adicionar nova exercicio</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-    <?php require 'structure/footer.php'; ?>
+</div>
+<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

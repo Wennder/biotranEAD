@@ -80,6 +80,10 @@ h3{
 
 }
 
+.accordion_leftcolumn h3 {
+    color:white;
+}
+
 #form_cadastro, #profile, #form_editar{
     margin: 10px 30px 0 30px;
 }

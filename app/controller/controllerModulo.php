@@ -54,6 +54,23 @@ class controllerModulo {
         $modulo = $dao->select();
         return $modulo;
     }
+    
+    public function listaModulos_leftcolumn($id_curso) {
+        $modulos = $this->getListaModulo('id_curso=' . $id_curso);
+        $quant = count($modulos);
+        $i = 0;
+        $listaModulos = "";
+        for (; $i < $quant; $i++) {
+            $listaModulos .= "<div class='accordion_leftcolumn'><h3>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3><div><ul style='list-style-type:none;'>";
+            $listaModulos .= "<li><p><a href='index.php?c=ead&a=editar_modulo&id=" . $modulos[$i]->getId_curso() . "'>Editar Modulo</a></p></li>";
+            $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_videoaula&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Video Aula</a></p></li>";
+            $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_bibliografia&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Bibliografia</a></p></li>";
+            $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_materialcomplementar&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Material Complementar</a></p></li>";
+            $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_exercicio&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Exercicio</a></p></li>";
+            $listaModulos .= "</ul></div></div>";
+        }
+        return $listaModulos;
+    }
 
     //Lista lateral para adicionar o conteudo dos modulos
     //Lista todos os modulos existentes e opcao de adicionar conteudo em cada
@@ -80,13 +97,11 @@ class controllerModulo {
         $i = 0;
         $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<li><div class='accordion_body'><a><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />Modulo " . $modulos[$i]->getNumero_modulo() . ": " . $modulos[$i]->getTitulo_modulo() . "</div></a><div><ul style='list-style-type:none'>";
-            $listaModulos .= "<li><div style='border: 1px solid'>Descricao: " .$modulos[$i]->getDescricao() ."</div></li></ul></div></div></li>";
+            $listaModulos .= "<li><div class=''><a href='index.php?c=ead&a=professor_editar_modulo&id=".$modulos[$i]->getId_modulo()."' ><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />Modulo " . $modulos[$i]->getNumero_modulo() . ": " . $modulos[$i]->getTitulo_modulo() . "</div></a></div></li>";
         }
         return $listaModulos;
     }
 
-    
     public function inserirModulo(Modulo $modulo) {
         $dao = new ModuloDAO();
         $modulo = $dao->insert($modulo);                
