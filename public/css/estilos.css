@@ -69,11 +69,15 @@ h3{
 
 
 
-.navbar_item {
+.navbar_item * {
     font-size: 16px;
-
+    color:white;
     padding-left: 5px;
 
+}
+
+.accordion_leftcolumn h3 {
+    color:white;
 }
 
 #form_cadastro, #profile, #form_editar{
