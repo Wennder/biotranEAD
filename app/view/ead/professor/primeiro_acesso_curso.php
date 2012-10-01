@@ -21,7 +21,7 @@
     <!-- -->
 <p style="text-indent: 10px;"> Por favor, preencha o formulario para continuar!</p>
     
-<form id="cadastro" class="form_cadastro" method="post" action="index.php?c=ead&a=professor_editar_curso&id=<?php echo $_GET['id']?>" enctype="multipart/form-data">
+<form id="cadastro" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_primeiro_acesso_curso&id=<?php echo $_GET['id']?>" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Definicões do Curso</legend>
             <table>

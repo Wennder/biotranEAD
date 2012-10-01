@@ -572,12 +572,12 @@ class controllerCurso {
         }
     }
 
-    public function primeiro_acesso($id_curso) {
-
-        $this->curso = $this->getCurso("id_curso=" . $id_curso);
+    public function primeiro_acesso(Curso $curso) {
+        $this->curso = $curso;
         $this->setCurso_post();
+        $this->curso->setStatus(1);        
         $this->updateCurso($this->curso);
-        $this->controller = new controllerModulo();
+        $this->controller = new controllerModulo();        
         for ($i = 0; $i < $this->curso->getNumero_modulos(); $i++) {
             $modulo = new Modulo();
             $modulo->setId_curso($this->curso->getId_curso());
