@@ -1,9 +1,3 @@
-<?php 
-//define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'].'/biotranEAD');
-//include ROOT_PATH . "/app/model/pdo/PDOConnectionFactory.class.php";
-//include ROOT_PATH . '/app/model/dao/CursoDAO.php';
-?>
-
 <style>
     #div_conteudo_professor_editar_curso{
         position: relative;
@@ -103,47 +97,85 @@
         position:relative;
     }
 </style>
+
+<script>
+    $('#btn_editar').click(function(){
+        alert($('#id').val());
+        $('#descricao').removeAttr('readonly');
+        $('#justificativa').removeAttr('readonly');
+        $('#objetivo').removeAttr('readonly');
+        $('#obs').removeAttr('readonly');
+        $('#div_atualizar').removeAttr('style');
+    });
+    
+    $('#btn_atualizar').click(function(){
+        $.post('ajax/crud_curso.php?acao=atualizar', $('#form_editar_curso').serialize(), function(json) {
+            // handle response
+            if(json != false){
+                $('#descricao').attr('readonly', 'true');
+                $('#justificativa').attr('readonly', 'true');
+                $('#objetivo').attr('readonly', 'true');
+                $('#obs').attr('readonly', 'true');
+                $('#div_atualizar').attr('style', 'display:none;');        
+                alert('Dados atualizados');
+            }                                                                
+        }, "json");                
+    });
+</script>
 <?php
 if (isset($_GET['id'])) {
-    $id_curso = $_GET['id'];    
+    $id_curso = $_GET['id'];
 }
 $controller = new controllerCurso();
 $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
 ?>
 <div id="disposicao_conteudo_professor_editar_curso">
-    <div class="quadro_de_conteudo_especifico" style="background-color:#f0f0f0;">
-        <div id="image_holder">
-            <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
-        <div id="titulo_holder" style="">
-            <h2 style=""><?php echo $this->curso->getNome(); ?></h2>
+    <form id="form_editar_curso">
+        <div class="quadro_de_conteudo_especifico" style="background-color:#f0f0f0;">
+
+            <div id="div_editar" align="right">
+                <input type="button" id="btn_editar" value="Editar"/>
+            </div>
+
+            <div id="image_holder">
+                <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
+            <div id="titulo_holder" style="">
+                <h2 style=""><?php echo $this->curso->getNome(); ?></h2>
+            </div>
+            <h4>Descricao: </h4>
+            <textarea id="descricao" name="descricao" type="text-field" readonly="readonly"><?php echo $this->curso->getDescricao() ?></textarea>
+
+            <h4>Tempo: </h4>
+            <input id="input1" type="text" readonly="readonly" value="<?php echo $this->curso->getTempo() ?> Dias"/>
+
+            <h4>Status: </h4>
+            <input id="input2" type="text"  readonly="readonly" value="<?php echo $this->curso->getStatus(0) ?>"/>
+
+            <h4>Gratuito: </h4>
+            <input id="input3" type="text" readonly="readonly" value="<?php echo $this->curso->getGratuito() ?>"/>
+
+            <h4>Valor: </h4>
+            <input id="input4" type="text" readonly="readonly" value="<?php echo $this->curso->getValor() ?>"/>
+
+            <h4>Objetivo: </h4>
+            <textarea id="objetivo" name="objetivo" type="text" readonly="readonly"> <?php echo $this->curso->getObjetivo() ?> </textarea>
+
+            <h4>Justificativa: </h4>
+            <textarea id="justificativa" name="justificativa" type="text" readonly="readonly"> <?php echo $this->curso->getJustificativa() ?> </textarea>
+
+            <h4>Observacoes: </h4>
+            <textarea id="obs" name="obs" type="text" readonly="readonly"> <?php echo $this->curso->getObs() ?> </textarea>
+
+            <div id="div_atualizar" style="display: none">
+                <input id="btn_atualizar" type="button" value="Atualizar"/>    
+            </div>
+
+            <div id="div_atualizar" style="display: none">
+                <input id="id" name="id" type="text" value="<?php echo $this->curso->getId_curso() ?>"/>    
+            </div>
 
         </div>
-        <h4>Descricao: </h4>
-        <input type="text-field" readonly="readonly" value="<?php echo $this->curso->getDescricao() ?>"/>
-
-        <h4>Tempo: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getTempo() ?> Dias"/>
-
-        <h4>Status: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getStatus(0) ?>"/>
-
-        <h4>Gratuito: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getGratuito() ?>"/>
-
-        <h4>Valor: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getValor() ?>"/>
-
-        <h4>Objetivo: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getObjetivo() ?>"/>
-
-        <h4>Justificativa: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getJustificativa() ?>"/>
-
-        <h4>Observacoes: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getObs() ?>"/>
-
-    </div>
-
+    </form>
     <div id="lista_de_modulos">
         <ul style="list-style-type:none;">
             <?php

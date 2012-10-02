@@ -82,6 +82,9 @@ h3{
 
 .accordion_leftcolumn h3 {
     color:white;
+    font-size: 16px;
+    color:white;
+    padding-left: 5px;
 }
 
 #form_cadastro, #profile, #form_editar{

@@ -2,7 +2,7 @@ $(function() {
     $( ".accordion_body" ).accordion({
         active: false,
         //            animated: 'bounceslice',
-        //            clearStyle: true,
+                    clearStyle: true,
         //            fillSpace: true,
         autoHeight: false,
         navigation: true,

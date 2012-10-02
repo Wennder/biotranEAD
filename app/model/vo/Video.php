@@ -13,8 +13,7 @@
 class Video {
     
     private $id_video;
-    private $descricao;
-    private $id_diretorio;
+    private $descricao;    
     private $titulo;
     private $id_modulo;
     
@@ -32,15 +31,7 @@ class Video {
 
     public function setDescricao($descricao) {
         $this->descricao = $descricao;
-    }
-
-    public function getId_diretorio() {
-        return $this->id_diretorio;
-    }
-
-    public function setId_diretorio($id_diretorio) {
-        $this->id_diretorio = $id_diretorio;
-    }
+    }  
 
     public function getTitulo() {
         return $this->titulo;

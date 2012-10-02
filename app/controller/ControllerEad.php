@@ -200,6 +200,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionAdicionar_videoaula() {
+        $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->controller = new controllerModulo();
+        $this->visao->modulo = $this->controller->getModulo("id_modulo=".$id_modulo);
         $this->renderizar();
     }
 
@@ -231,6 +234,15 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
+    public function actionEditar_curso() {
+        $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
+        if ($this->visao->curso->getStatus(1) == 0) {
+            Biotran_Mvc::pegarInstancia()->mudarAcao('primeiro_acesso_curso');
+        }
+        $this->renderizar();
+    }
     public function actionProfessor_editar_curso() {
         $this->controller = new controllerCurso();
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();

@@ -54,7 +54,7 @@ class controllerModulo {
         $modulo = $dao->select();
         return $modulo;
     }
-    
+
     public function listaModulos_leftcolumn($id_curso) {
         $modulos = $this->getListaModulo('id_curso=' . $id_curso);
         $quant = count($modulos);
@@ -80,7 +80,7 @@ class controllerModulo {
         $i = 0;
         $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<div class='accordion_leftcolumn'><h3><a href='index.php?c=ead&a=professor_editar_modulo&id=". $modulos[$i]->getId_modulo() ."'>Modulo " . $modulos[$i]->getNumero_modulo() . "</a></h3><div><ul style='list-style-type:none;'>";
+            $listaModulos .= "<div class='accordion_leftcolumn'><h3><a href='index.php?c=ead&a=editar_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</a></h3><div><ul style='list-style-type:none;'>";
             $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_videoaula&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Video Aula</a></p></li>";
             $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_bibliografia&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Bibliografia</a></p></li>";
             $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_materialcomplementar&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Material Complementar</a></p></li>";
@@ -96,17 +96,17 @@ class controllerModulo {
         $i = 0;
         $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<li><div class=''><h3 id=".$modulos[$i]->getId_modulo()." ><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />Modulo " . $modulos[$i]->getNumero_modulo() . ": " . $modulos[$i]->getTitulo_modulo() . "</div></h3></div></li>";
+            $listaModulos .= "<li><div class=''><h3 id=" . $modulos[$i]->getId_modulo() . " ><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />Modulo " . $modulos[$i]->getNumero_modulo() . ": " . $modulos[$i]->getTitulo_modulo() . "</div></h3></div></li>";
         }
         return $listaModulos;
     }
 
     public function inserirModulo(Modulo $modulo) {
         $dao = new ModuloDAO();
-        $modulo = $dao->insert($modulo);                
+        $modulo = $dao->insert($modulo);
         return $modulo;
     }
-    
+
     /*
      * cria toda a estrutura de diretórios do módulo
      * id_curso/modulos/id_modulo:
@@ -114,19 +114,48 @@ class controllerModulo {
      * -texto
      * -material
      */
-    public function criaDiretorioModulo(Modulo $modulo) {       
-        $caminho = ROOT_PATH . '/public/cursos/' . $modulo->getId_curso() . '/modulos/'. $modulo->getId_modulo();
+
+    public function criaDiretorioModulo(Modulo $modulo) {
+        $caminho = ROOT_PATH . '/public/cursos/' . $modulo->getId_curso() . '/modulos/' . $modulo->getId_modulo();
         if (!mkdir($caminho, 0777, true))
             trigger_error("Não foi possível criar o diretório de modulos");
-        $video = $caminho.'/video_aula';
+        $video = $caminho . '/video_aula';
         if (!mkdir($video, 0777, true))
             trigger_error("Não foi possível criar o diretório de video_aulas");
-        $texto = $caminho.'/texto_referencia';
+        $texto = $caminho . '/texto_referencia';
         if (!mkdir($texto, 0777, true))
             trigger_error("Não foi possível criar o diretório de texto_referencia");
-        $material = $caminho.'/material_complementar';
+        $material = $caminho . '/material_complementar';
         if (!mkdir($material, 0777, true))
             trigger_error("Não foi possível criar o diretório de material_complementar");
+    }
+
+    /*
+     * seta objeto conteudo de módulo de forma genérica
+     * 
+     * $conteudo pode ser: Video, Material_complementar e Texto_referencia
+     *      
+     */
+
+    public function setConteudo($conteudo) {
+        $classe = ucfirst(strtolower($conteudo));
+        $objeto = new $classe();
+        if (!empty($_POST)) {
+            foreach ($_POST as $k => $v) {
+                $setAtributo = 'set' . ucfirst($k);
+                if (method_exists($objeto, $setAtributo)) {
+                    $objeto->$setAtributo($v);
+                }
+            }
+        }
+        return $objeto;
+    }
+
+    public function inserir_video() {        
+        $v = $this->setConteudo('video');
+        $controller = new controllerVideo();
+        $controller->novoVideo($v);
+        return 1;
     }
 
 }
