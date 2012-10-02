@@ -12,6 +12,10 @@
  */
 class controllerPapel {
     
+    public function getTeste(){
+        return 'TESTE BEM SUCEDIDO';
+    }
+    
     public function getPapel($condicao) {
         $dao = new PapelDAO();
         $papel = $dao->select($condicao);

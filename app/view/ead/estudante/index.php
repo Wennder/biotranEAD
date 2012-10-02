@@ -1,5 +1,5 @@
 <!-- TEXTOS -->
-<div>
+<div id="div_do_centro">
     <!-- TEXTO 1 -->
     <div style="border-bottom:1px solid #f0f0f0;padding-top:16px;padding-bottom:16px;">
         <div style="overflow:hidden;margin-left:50px;margin-top:-5px;padding-right:25px;">

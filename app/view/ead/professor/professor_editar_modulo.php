@@ -4,6 +4,21 @@
 
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <script src="js/accordion.js" type="text/javascript"></script>
+
+<script>
+
+    function openDialog(){
+        $.getJSON('ajax/combosPickList_cadastroCurso.php?acao=comID',{
+            id_curso: _data[10],       
+            ajax: 'true'
+        }, function(j){   
+                
+        });
+    }
+
+
+</script>
+
 <style>
     #div_conteudo_professor_editar_modulo{
         position: relative;
@@ -90,7 +105,7 @@ $this->modulos = $moduloDAO->select("id_modulo=" . $id_modulo);
                             <div>
                                 <ul>
                                     <li>
-                                        <a href="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $id_modulo ?>">Adicionar nova video aula</a>
+                                        <a onclik="openDialog();" href="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $id_modulo ?>">Adicionar nova video aula</a>
                                     </li>
                                 </ul>
                             </div>

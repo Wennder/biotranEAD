@@ -1,21 +1,19 @@
-<link rel="stylesheet" href="css/jquery.ui.accordion.css">
+
 <!--<link rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css">
 <link rel="stylesheet" href="css/jquery.ui.theme.css">-->
 <script src="js/jquery.js" type="text/javascript"></script>
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 
 <script>
-    $(function() {
-        $( "#menu_accordion" ).accordion();
-    });
+    
 </script>
-
-<div id="menu_accordion">
+<div id="div_do_centro">
+    foooooooi
     <h3>
         <a href="#"> Home </a>
     </h3>
     <div>
-        <p>teste</p>
+        <p>nao <?php echo 'fooi'; ?></p>
     </div>
     <h3>
         <a href="#"> Home2 </a>
