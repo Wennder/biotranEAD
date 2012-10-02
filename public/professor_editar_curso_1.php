@@ -1,9 +1,3 @@
-<?php 
-//define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'].'/biotranEAD');
-//include ROOT_PATH . "/app/model/pdo/PDOConnectionFactory.class.php";
-//include ROOT_PATH . '/app/model/dao/CursoDAO.php';
-?>
-
 <style>
     #div_conteudo_professor_editar_curso{
         position: relative;
@@ -105,46 +99,46 @@
 </style>
 <?php
 if (isset($_GET['id'])) {
-    $id_curso = $_GET['id'];    
+    $id_curso = $_GET['id'];
 }
-$controller = new controllerCurso();
-$this->cursos = $controller->getCurso("id_curso=" . $id_curso);
+$cursoDAO = new CursoDAO();
+$this->cursos = $cursoDAO->select("id_curso=" . $id_curso);
 ?>
 <div id="disposicao_conteudo_professor_editar_curso">
     <div class="quadro_de_conteudo_especifico" style="background-color:#f0f0f0;">
         <div id="image_holder">
             <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
         <div id="titulo_holder" style="">
-            <h2 style=""><?php echo $this->curso->getNome(); ?></h2>
+            <h2 style=""><?php echo $this->cursos[0]->getNome(); ?></h2>
 
         </div>
         <h4>Descricao: </h4>
-        <input type="text-field" readonly="readonly" value="<?php echo $this->curso->getDescricao() ?>"/>
+        <input type="text-field" readonly="readonly" value="<?php echo $this->cursos[0]->getDescricao() ?>"/>
 
         <h4>Tempo: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getTempo() ?> Dias"/>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getTempo() ?> Dias"/>
 
         <h4>Status: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getStatus(0) ?>"/>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getStatus(0) ?>"/>
 
         <h4>Gratuito: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getGratuito() ?>"/>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getGratuito() ?>"/>
 
         <h4>Valor: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getValor() ?>"/>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getValor() ?>"/>
 
         <h4>Objetivo: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getObjetivo() ?>"/>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getObjetivo() ?>"/>
 
         <h4>Justificativa: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getJustificativa() ?>"/>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getJustificativa() ?>"/>
 
         <h4>Observacoes: </h4>
-        <input type="text" readonly="readonly" value="<?php echo $this->curso->getObs() ?>"/>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getObs() ?>"/>
 
     </div>
 
-    <div id="lista_de_modulos">
+    <div>
         <ul style="list-style-type:none;">
             <?php
             $controllerModulo = new ControllerModulo();

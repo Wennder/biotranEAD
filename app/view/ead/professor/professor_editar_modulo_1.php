@@ -1,44 +1,7 @@
-<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
-
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <script src="js/accordion.js" type="text/javascript"></script>
-
-<script>
-
-    function openDialog(){
-        $.getJSON('ajax/combosPickList_cadastroCurso.php?acao=comID',{
-            id_curso: _data[10],       
-            ajax: 'true'
-        }, function(j){   
-                
-        });
-    }
-
-
-</script>
-
 <style>
-    #div_conteudo_professor_editar_modulo{
-        position: relative;
-        padding:40px;
-        padding-top:0px;
-    }
-
-    #div_conteudo_professor_editar_modulo h4{
-        margin:0;
-
-        padding:0;
-    }
-
-    #disposicao_conteudo_professor_editar_modulo{
-        position: relative;
-        margin: 20px;
-        margin-top:40px;
-    }
-
-
+    
     .quadro_de_conteudo_especifico{
         margin:0px;
         margin-bottom:20px;
@@ -164,4 +127,3 @@ $this->modulos = $moduloDAO->select("id_modulo=" . $id_modulo);
         </div>
     </div>
 </div>
-<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

@@ -147,7 +147,7 @@ $this->cursos = $cursoDAO->select("id_curso=" . $id_curso);
 
         </div>
 
-        <div>
+        <div id="lista_de_modulos">
             <ul style="list-style-type:none;">
                 <?php
                 $controllerModulo = new ControllerModulo();

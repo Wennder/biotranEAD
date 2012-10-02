@@ -97,7 +97,7 @@ class CursoDAO extends PDOConnectionFactory {
         }
     }
 
-    public function select($condicao = null) {
+    public function select($condicao = null) {        
         try {
             $stmt = null;            
             if ($condicao == null) {
@@ -111,6 +111,7 @@ class CursoDAO extends PDOConnectionFactory {
             }
             if ($i == 0) {
                 $curso = null;
+                echo $curso;die();
             }
             return $curso;
         } catch (PDOException $ex) {

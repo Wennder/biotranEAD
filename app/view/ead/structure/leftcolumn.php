@@ -12,7 +12,7 @@ switch ($usuario) {
     case 1: require 'leftcolumn_admin.php';break;
     case 2: require 'leftcolumn_gestor.php';break;
     case 3:
-        if ($_GET['a'] == "professor_editar_curso") {
+        if ($_GET['a'] == "professor_editar_curso_index") {
             require 'leftcolumn_professor_curso.php';
         } else {
             require 'leftcolumn_professor_home.php';
