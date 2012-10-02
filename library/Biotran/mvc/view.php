@@ -24,6 +24,7 @@ class Biotran_Mvc_View {
             }
         } else {//controllerIndex nao tem restricao
             $local = '../app/view/';
+            echo 'aqui';
             require $local . $diretorio . '/' . $arquivo;
         }
     }

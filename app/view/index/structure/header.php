@@ -15,6 +15,17 @@
                     document.forms[0].submit();
                 }
             }
+            $(document).ready(function(){
+                 $('.n_selecionado').mouseover(function(){
+        $('.selecionado').addClass('n_selecionado');
+    });
+    $('.n_selecionado').mouseout(function(){
+        $('.selecionado').removeClass('n_selecionado');
+    });
+            });       
+   
+    
+    
         </script>
     </head>
     
@@ -28,18 +39,19 @@
         body{
             
             min-height: 600px;
-            min-width: 1024px;
+            min-width: 960px;
         }
         
         #eadbiotran{
             hieght:100%;
             width:100%;
-            
+            min-width:960px;
         }
         
         #header{
             height:110px;
-            background-color: #275175;
+            background-image: url('img/header_ead_background.png');
+/*            background-color: #2b5880;*/
         }
         
         #header *{
@@ -49,19 +61,40 @@
             text-decoration: none;
         }
         
+        #topmenu{
+            position: relative;
+            height: 100%;
+        }
+        
         #topmenu ul{
             position: relative;
             padding-top: 60px;
-            padding-right: 25px;
+            
             list-style: none;
             float:right;
+            text-align: center;
         }
         
         #topmenu ul li{
             display: inline;
-            margin-left:15px;
-            foat:left;
+            height: 50px;
+            float:left;
+           width:112px;
+            
         }
+       
+        #topmenu ul li:hover{
+            background-image: none;
+            background-color: #ffffff;
+            
+        }
+        
+        #topmenu ul li:hover a{
+            color:#333;
+        }
+       
+        
+       
         
 #footer{
     height: 150px;
@@ -75,6 +108,47 @@
     margin: 0 auto;
     position: relative;
 }
+
+.detalhe_right{
+    background-image: url('img/dark_blue_detalhe_menu.png');
+    width:1px;
+    height:50px;
+    float:right;
+}
+.detalhe_left{
+    background-image: url('img/light_blue_detalhe_menu.png');
+    width:1px;
+    height:50px;
+    float:left;
+}
+
+
+.menu_holder{
+    padding:10px;float: left;text-align: center;
+    position:relative;
+    width:90px;
+}
+
+.selecionado{
+   
+    background-color: #ffffff;
+    color:#333;
+}
+
+        
+        #topmenu ul .selecionado a{
+            color:#333;
+        }
+
+.n_selecionado{
+    background-image: url('img/menu_header_background.png');
+            background-repeat: repeat-x;
+            color:#333;
+}
+#topmenu ul .n_selecionado a{
+    color:white;
+}
+
     </style>
     <body onLoad="self.focus();document.form_login.login.focus();">
         
@@ -84,13 +158,14 @@
                     <div id="topmenu">
                         <img style="padding-top: 20px;" src="img/header.png"/>
                         <ul>
-                            <li><a href="index.php">HOME</a></li>
-                            <li><a href="index.php?c=index&a=cursos">CURSOS</a></li>
-                            <li><a href="index.php?c=index&a=contato">CONTATO</a></li>
-                            <li><a href="index.php?c=index&a=fotos">FOTOS</a></li>
-                            <li><a href="http://www.biotran.com.br" target="_blank">BIOTRAN</a></li>
+                            <li class="<?php echo $retorno = $_GET['a']=='' ? 'selecionado':'n_selecionado' ?>"><div class="menu_holder"><a href="index.php">HOME</a></div><div class="detalhe_right"></div></li>
+                            <li class="<?php echo $retorno = $_GET['a']=='cursos' ? 'selecionado':'n_selecionado' ?>"><div class="detalhe_left"></div><div class="menu_holder"><a href="index.php?c=index&a=cursos">CURSOS</a></div><div class="detalhe_right"></div></li>
+                            <li class="<?php echo $retorno = $_GET['a']=='fotos' ? 'selecionado':'n_selecionado' ?>"><div class="detalhe_left"></div><div class="menu_holder"><a href="index.php?c=index&a=contato">CONTATO</a></div><div class="detalhe_right"></div></li>
+                            <li class="<?php echo $retorno = $_GET['a']=='index' ? 'selecionado':'n_selecionado' ?>"><div class="detalhe_left"></div><div class="menu_holder"><a href="index.php?c=index&a=fotos">FOTOS</a></div><div class="detalhe_right"></div></li>
+                            <li class="<?php echo $retorno = $_GET['a']=='index' ? 'selecionado':'n_selecionado' ?>" ><div class="detalhe_left"></div><div class="menu_holder"><a href="http://www.biotran.com.br" target="_blank">BIOTRAN</a></div><div class="detalhe_right"></div></li>
                         </ul>
                     </div>
+                    
                     <?php
                     /*if (isset($_SESSION["usuarioLogado"])) {
                         echo('
