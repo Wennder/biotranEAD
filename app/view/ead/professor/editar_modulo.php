@@ -1,58 +1,122 @@
-<?php require 'structure/header.php' ?>
-<?php require 'structure/leftcolumn_professor_curso.php' ?>
-<?php require 'structure/content.php' ?>
-
-<script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
-<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
-<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
-
-<script>
-    $(document).ready(function(){
-        //Habilita a validação automática no formulário de cadastro
-        $("#cadastro").validationEngine();
-    });
+<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+<script src="js/accordion.js" type="text/javascript"></script>
+<style>
     
-    $('#numero_modulo').change(function (e){
-        var id_curso = $(this).children('option:selected').val();
-        $.getJSON('ajax/numeracaoModulo.php?search=',{
-                id_curso: id_curso,                         
-                ajax: 'true'
-            }, function(j){                         
-                if(j == 0){
-                    alert('Este e-mail já está cadastrado.');                                
-                    $('#email').val('');
-                }
-            }); 
-    });
-</script>
+    .quadro_de_conteudo_especifico{
+        margin:0px;
+        margin-bottom:20px;
+        border:1px solid #CCCCCC;
+        padding: 10px;
+        color: #888888;
+    }
 
-<div id="form_cadastro" style="">
-    <form id="cadastro" name="cadastro" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_modulo" enctype="multipart/form-data">
-        <fieldset style="width: 100%;">
-            <legend>Dados do modulo</legend>
-            <table>
-                <tr>
-                    <td style="width: 150px;">
-                        <label class="label_cadastro">*Titulo do modulo: </label>
-                    </td>
-                    <td style="width: 600px;">
-                        <input type="text" id="titulo_modulo" name="titulo_modulo" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="label_cadastro">*Descrição: </label>
-                    </td>
-                    <td>
-                        <textarea id="descricao" style="width:500px;" name="descricao" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
-        </br>
-        <input type="submit" id="button_cadastrar" name="button_cadastrar" value="Adicionar" class="button"/>
-    </form>
-    </br></br>
+    .quadro_de_conteudo_especifico ul{
+        margin:0;
+        padding: 0;
+    }
+
+    .quadro_de_conteudo_especifico ul li{
+        list-style: none;
+        color: #888888;
+        background-color: #eeeeee;
+        border:1px solid #CCCCCC;
+        padding:4px;
+    }
+
+    .quadro_de_conteudo_especifico ul li:hover{
+        border:1px solid black;
+
+    }
+
+    .quadro_de_conteudo_especifico ul a:hover,a:active,a:visited{
+        text-decoration: none;
+        outline: none;
+
+    }
+</style>
+
+<div id="div_conteudo_professor_editar_modulo">
+    <h1>Modulo <?php echo $this->modulo->getNumero_modulo() ?>: <?php echo $this->modulo->getTitulo_modulo() ?></h1>
+    <div id="disposicao_conteudo_professor_editar_modulo">
+        <h4>Descricao: </h4>
+        <div class="quadro_de_conteudo_especifico">
+            <?php echo $this->modulo->getDescricao() ?>
+        </div>
+
+        <div class="accordion_body">
+            <div class='list_index_admin_gray' style='margin-top:0px;'>
+                <a><div class='detalhe'></div>
+                    <img class='seta_formatacao' src='img/seta_gray.png' />Conteudo
+                </a>
+            </div>
+            <div>
+                <ul>
+                    <li>
+                        <div class="accordion_body">
+                            <div class='list_index_admin_blue'>
+                                <a><div class='detalhe1'></div>
+                                    <img  src='img/seta_blue.png' />Video Aulas
+                                </a>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a onclik="openDialog();" href="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>">Adicionar nova video aula</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="accordion_body">
+                            <div class='list_index_admin_blue'>
+                                <a><div class='detalhe1'></div>
+                                    <img  src='img/seta_blue.png' />Textos de Referencia
+                                </a>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>">Adicionar novo texto de referencia</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="accordion_body">
+                            <div class='list_index_admin_blue'>
+                                <a><div class='detalhe1'></div>
+                                    <img  src='img/seta_blue.png' />Material Complementar
+                                </a>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>">Adicionar nova material complementar</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="accordion_body">
+                            <div class='list_index_admin_blue'>
+                                <a><div class='detalhe1'></div>
+                                    <img  src='img/seta_blue.png' />Exercicios
+                                </a>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>">Adicionar nova exercicio</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
-
-<?php require 'structure/footer.php' ?>

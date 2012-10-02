@@ -8,7 +8,7 @@
     var centro = 1;
     $(document).ready(function(){
         if(centro == 1){            
-            centro = $('#center_content').load('index.php?c=ead&a=professor_editar_curso_1&id='+$('#id_curso_1').val(), $('#id_curso_1').val(), function (){                    
+            centro = $('#center_content').load('index.php?c=ead&a=editar_curso&id='+$('#id_curso_1').val(), $('#id_curso_1').val(), function (){                    
                 //$('#div_conteudo').append(centro);
             });
             
@@ -17,7 +17,7 @@
                     centro.find('div').remove();
                 } 
                 var id = $(this).attr('id');
-                centro = $('#center_content').load('index.php?c=ead&a=professor_editar_modulo_1&id='+id, 'oi', function (){                    
+                centro = $('#center_content').load('index.php?c=ead&a=editar_modulo&id='+id, 'oi', function (){                    
                     $('#div_conteudo').append(centro);
                 }); 
             });
