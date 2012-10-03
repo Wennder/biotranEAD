@@ -45,6 +45,10 @@ h3{
     font-size: 24px;
 }
 
+.leftcolumn ul div h3{
+    color:white;    
+}
+
 .leftcolumn{
     position:relative;
     float:left;
@@ -69,11 +73,15 @@ h3{
 
 
 
-.navbar_item {
+.navbar_item *{
     font-size: 16px;
-
+    color:white;
     padding-left: 5px;
 
+}
+
+.accordion_leftcolumn h3 {
+    color:white;
 }
 
 #form_cadastro, #profile, #form_editar{

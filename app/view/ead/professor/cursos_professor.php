@@ -19,5 +19,6 @@
     }
 </style>
 <div class="accordion_body">
+ 
     <?php echo $this->lista; ?>
 </div>

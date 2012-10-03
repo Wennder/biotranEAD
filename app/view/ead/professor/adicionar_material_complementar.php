@@ -1,7 +1,3 @@
-<?php require 'structure/header.php'?>
-<?php require 'structure/leftcolumn_professor_curso.php'?>
-<?php require 'structure/content.php'?>
-
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
 
@@ -34,6 +30,3 @@
     </form>
     </br></br>
 </div>
-
-
-<?php require 'structure/footer.php'?>

@@ -1,6 +1,6 @@
-<?php require 'structure/header.php'; ?>
-<?php require 'structure/leftcolumn_aluno_curso.php'; ?>
-<?php require 'structure/content.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
 <img id="imagem_curso_matricula" src=<?php echo "img/cursos/" . $this->curso->getId_curso() . ".jpg"; ?> style="float:left; margin:10px;"/>
      <div style="padding:15px;">
@@ -21,4 +21,4 @@
     </div>
 </fieldset>
 
-<?php require 'structure/footer.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

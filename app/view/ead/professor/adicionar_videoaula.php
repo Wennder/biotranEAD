@@ -1,8 +1,4 @@
-<?php require 'structure/header.php' ?>
-<?php require 'structure/leftcolumn_professor_curso.php' ?>
-<?php require 'structure/content.php' ?>
-
-<div id="form_cadastro" style="">
+div id="form_cadastro" style="">
     <form id="" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_videoaula" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados da video-aula</legend>
@@ -40,5 +36,3 @@
     </form>
     </br></br>
 </div>
-
-<?php require 'structure/footer.php' ?>

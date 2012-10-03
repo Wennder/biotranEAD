@@ -1,5 +1,7 @@
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <script src="js/accordion.js" type="text/javascript"></script>
+
+
 <?php
 $usuario = $_SESSION["usuarioLogado"]->getId_papel();
 if (isset($_GET['id'])) {
@@ -19,7 +21,7 @@ switch ($usuario) {
         }
         break;
     case 4: 
-        if ($_GET['a'] == "curso") {
+        if (Biotran_Mvc::pegarInstancia()->pegarAcao() == "curso") {
             require 'leftcolumn_aluno_curso.php';
         } else {
             require 'leftcolumn_aluno_home.php';

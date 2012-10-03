@@ -1,6 +1,6 @@
-<?php require 'structure/header.php' ?>
-<?php require 'structure/leftcolumn_professor_curso.php' ?>
-<?php require 'structure/content.php' ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <script src="js/accordion.js" type="text/javascript"></script>
 
@@ -28,9 +28,11 @@
             </table>
         </fieldset>
         <div class="accordion_body">
-            <h3>
-                <a>Perguntas</a>
-            </h3>
+            <div class='list_index_admin_gray' style='margin-top:0px;'>
+                <a><div class='detalhe'></div>
+                    <img class='seta_formatacao' src='img/seta_gray.png' />Perguntas
+                </a>
+            </div>
             <div>
                 <ul>
                     <li>
@@ -184,4 +186,4 @@
     </br></br>
 </div>
 
-<?php require 'structure/footer.php' ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>
