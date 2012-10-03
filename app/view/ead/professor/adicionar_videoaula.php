@@ -1,32 +1,41 @@
 
-<script src="js/jquery-ui-1.8.2.min.js" type="text/javascript"></script>
+
 <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
-<link rel="stylesheet" href="css/dialogstyle/jquery-ui-1.8.24.custom.css" type="text/css"/>
+
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 
 <script>
     
-    $(document).ready(function(){
-        $('#form_cadastrar').validationEngine();        
+    $(document).ready(function(){        
+//        $('#form_cadastrar').ajaxForm({
+//            uploadProgress: function(event, position, total, percentComplete) {
+//                $('progress').attr('value',percentComplete);
+//                $('#porcentagem').html(percentComplete+'%');
+//            },
+//            success: function(data) {                
+//                $('progress').attr('value','100');
+//                $('#porcentagem').html('100%');
+//                $('pre').html(data);
+//                if(data == 1){               
+//                    alert('Dados atualizados');
+//                    dialog.dialog('close');
+//                }                       
+//            }                    
+//        });
         
-        $('#btn_add').live('click',function(){
-            if($('#form_cadastrar').validationEngine('validate')){
-                $.post('ajax/crud_conteudo_modulo.php?acao=inserir_video', $('#form_cadastrar').serialize(), function(json) {            
-                    if(json == 1){               
-                        alert('Dados atualizados');
-                        dialog.dialog('close');
-                    }                                                                
-                }, "json");                                
-            }
-        });
+        $('#form_cadastrar').validationEngine();        
+        //        $('#btn_add').live('click',function(){
+        //            if($('#form_cadastrar').validationEngine('validate')){                
+        //            }
+        //        });
     });
     
 </script>
 
 <div id="form_cadastro" style="">
-    <form id="form_cadastrar" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_videoaula" enctype="multipart/form-data">
+    <form id="form_cadastrar" class="form_cadastro" method="post" action="ajax/crud_conteudo_modulo.php?acao=inserir_video" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados da video-aula</legend>
             <table>
@@ -42,9 +51,10 @@
                     <td>
                         <label class="label_cadastro">Video: </label>
                     </td>
-                    <td>
-                        <input type="hidden" name="MAX_FILE_SIZE" value="30000"/>
+                    <td>                                                
                         <input type="file" id="video" name="video" style="width:500px;" value="" class="validate[required] text-input" />
+                        <br ><br >
+                        <progress value="0" max="100"></progress><span id="porcentagem">0%</span>
                     </td>
 
                 </tr>
@@ -59,7 +69,7 @@
             </table>
         </fieldset>
         <br>
-        <input type="button" id="btn_add" name="btn_add" value="Adicionar" class="button"/>
+        <input type="submit" id="btn_add" name="btn_add" value="Adicionar" class="button"/>
 
         <div style="display:none;">
             <input type="text" id="id_modulo" name="id_modulo" value="<?php echo ($this->modulo != null ? $this->modulo->getId_modulo() : '') ?>" class="button"/>

@@ -1,5 +1,7 @@
 <!--<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>-->
 <script src="js/accordion.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
 
 <style>
 
@@ -35,22 +37,38 @@
 
     }
 </style>
-<script src="js/jquery-ui-1.8.2.min.js" type="text/javascript"></script>
 <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
 <link rel="stylesheet" href="css/jquery-ui-1.8.24.custom.css" type="text/css"/>
 <script>
-    
+    var dialog;
     $(function() {                
         //Se clicar no link, redireciona
-        $("#accordion_body2 div ul li h3").click(function() {
-            alert($(this).attr('id'));
+        $("#accordion_body2 div #add li h3").click(function() {            
             $('#dialog').load($(this).attr('id'), 'oi', function (){   
-               var dialog = $(this).dialog({
+                dialog = $(this).dialog({
                     width:800, 
                     height:300,
                     dialogClass:'dialogstyle',
-                    modal: true,                    
-                    close: function(event,ui){                                           
+                    modal: true,
+                    open: function(event,ui){
+                        var form = $('#dialog').find('#form_cadastrar');
+                        form.ajaxForm({
+                            uploadProgress: function(event, position, total, percentComplete) {
+                                $('progress').attr('value',percentComplete);
+                                $('#porcentagem').html(percentComplete+'%');
+                            },                            
+                            success: function(data) {                
+                                $('progress').attr('value','100');
+                                $('#porcentagem').html('100%');
+                                $('pre').html(data);
+                                if(data == 1){               
+                                    alert('Dados atualizados');
+                                    dialog.dialog('close');
+                                }                       
+                            }                    
+                        });
+                    },
+                    close: function(event,ui){                     
                         dialog.dialog('destroy');
                         dialog.find('div').remove();
                     }                  
@@ -63,7 +81,7 @@
 </script>
 
 <div id="dialog" style="display:none">
-    
+
 </div>
 
 <div id="div_conteudo_professor_editar_modulo">
@@ -88,9 +106,14 @@
                                 <a><div class='detalhe1'></div>
                                     <img  src='img/seta_blue.png' />Video Aulas
                                 </a>
-                            </div>
-                            <div>
-                                <ul>
+                            </div>                            
+                            <div id="lista_video">                                
+                                <div id="lista_videos">
+                                    <?php 
+                                        //chamda ao controlador
+                                    ?>
+                                </div>
+                                <ul id="add">
                                     <li>
                                         <h3  id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>">Adicionar nova video aula</h3>
                                     </li>
@@ -104,8 +127,8 @@
                                 <a><div class='detalhe1'></div>
                                     <img  src='img/seta_blue.png' />Textos de Referencia
                                 </a>
-                            </div>
-                            <div>
+                            </div>                            
+                            <div id="add">
                                 <ul>
                                     <li>
                                         <a href="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>">Adicionar novo texto de referencia</a>
@@ -121,7 +144,8 @@
                                     <img  src='img/seta_blue.png' />Material Complementar
                                 </a>
                             </div>
-                            <div>
+                            
+                            <div id="add">
                                 <ul>
                                     <li>
                                         <a href="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>">Adicionar nova material complementar</a>
@@ -137,7 +161,8 @@
                                     <img  src='img/seta_blue.png' />Exercicios
                                 </a>
                             </div>
-                            <div>
+                            
+                            <div id="add">
                                 <ul>
                                     <li>
                                         <a href="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>">Adicionar nova exercicio</a>

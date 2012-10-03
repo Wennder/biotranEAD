@@ -150,19 +150,19 @@ class controllerModulo {
         }
         return $objeto;
     }
-    
-    public function setArquivoVideo(Video $v){        
+
+    public function setArquivoVideo(Video $v) {                               
         $id_video = $v->getId_video();
         $id_modulo = $v->getId_modulo();
-        $id_curso = $this->getModulo("id_modulo=".$id_modulo)->getId_curso();
+        $id_curso = $this->getModulo("id_modulo=" . $id_modulo)->getId_curso();
         if (isset($_FILES["video"])) {
             if ($_FILES["video"]["name"] != '') {
-                $v = $_FILES["video"];
+                $video = $_FILES["video"];
                 $tipos = array("wmv");
-                $pasta_dir = "cursos/".$id_curso."/modulos/".$id_modulo."/video_aula/";
-                if (!in_array($v['type'], $tipos)) {
-                    $video_nome = $pasta_dir . $id_video . ".wmv";
-                    move_uploaded_file($v["tmp_name"], $video_nome);
+                $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
+                if (!in_array($video['type'], $tipos)) {
+                    $video_nome = $pasta_dir . $id_video . ".wmv";                       
+                    move_uploaded_file($_FILES['video']['tmp_name'], $video_nome);
                     return 1;
                 }
             }
@@ -170,12 +170,11 @@ class controllerModulo {
         return 0;
     }
 
-    public function inserir_video() {        
+    public function inserir_video() {
         $v = $this->setConteudo('video');
         $controller = new controllerVideo();
-        $v = $controller->novoVideo($v);
+        $v->setId_video($controller->novoVideo($v));
         return $this->setArquivoVideo($v);
-        
     }
 
 }
