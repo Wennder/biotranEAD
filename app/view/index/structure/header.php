@@ -99,7 +99,8 @@
 #footer{
     height: 150px;
     clear: both;
-    background-color: #275175;
+            background-image: url('img/header_ead_background.png');
+/*    background-color: #275175;*/
 }
 
 #content_footer{

@@ -12,7 +12,8 @@ class Biotran_Mvc_View {
     public function renderizar($diretorio, $arquivo) {
 
         //se realmente existe alguém logado
-        if ($arquivo != 'profile.php' && $arquivo != 'index.php' && $arquivo!='acesso_negado.php') {
+        if ($diretorio!='index' && $arquivo != 'profile.php' && $arquivo != 'index.php' && $arquivo!='acesso_negado.php') {
+           
             if (isset($_SESSION['usuarioLogado'])) {
                 $user = $_SESSION['usuarioLogado'];
                 $controller = new controllerPapel();
@@ -24,7 +25,6 @@ class Biotran_Mvc_View {
             }
         } else {//controllerIndex nao tem restricao
             $local = '../app/view/';
-            echo 'aqui';
             require $local . $diretorio . '/' . $arquivo;
         }
     }

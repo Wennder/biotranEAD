@@ -272,6 +272,7 @@
     #content_center_holder{
         border-left: 1px solid #CCC;
         float:left;
+        
         width:51%;
         position:relative;
         margin:20px 30px;
@@ -292,11 +293,11 @@
         margin:10px;
     }
     
-/*    #sliderShow{
+    #sliderShow{
         position:relative;
         left:50%;
         margin-left: -252px;
-    }*/
+    }
     
 </style>
 <div style="float:left; width:5%; height:100%;"></div>
