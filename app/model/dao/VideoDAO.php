@@ -27,7 +27,7 @@ class VideoDAO extends PDOConnectionFactory {
             $stmt->bindValue(3, $video->getId_modulo());
 
             $stmt->execute();
-            $stmt->conex = null;
+            return $this->conex->lastInsertId("Video");
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
         }

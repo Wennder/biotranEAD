@@ -55,7 +55,8 @@
                         dialog.find('div').remove();
                     }                  
                 });                            
-            });       
+            });
+            console.log(dialog);
         });             
     }); 
     

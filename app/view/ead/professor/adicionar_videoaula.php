@@ -43,6 +43,7 @@
                         <label class="label_cadastro">Video: </label>
                     </td>
                     <td>
+                        <input type="hidden" name="MAX_FILE_SIZE" value="30000"/>
                         <input type="file" id="video" name="video" style="width:500px;" value="" class="validate[required] text-input" />
                     </td>
 
