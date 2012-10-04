@@ -90,21 +90,28 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionGerenciar_cursos() {
         $this->visao->titulo = "Gerenciar Cursos";
-
+        
         $this->controller = new controllerCurso();
         //Pega a id passa na url e monta o objeto buscando os dados no banco
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        
         $this->visao->curso = null;
         if ($id_curso != '') {
+            
             $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
             $this->visao->optionsPC = $this->controller->comboProfessores_curso($id_curso);
             $this->visao->optionsPD = $this->controller->comboProfessoresDisponiveis($id_curso);
         } else {
+           
             $this->visao->optionsTP = $this->controller->comboTodos_Professores();
+            
         }
         //Monta a tabela de cursos
+            
         $this->visao->tabela = $this->controller->tabelaCursos();
+   
         $this->renderizar();
+         
     }
 
     public function actionCadastrar_curso() {
@@ -233,7 +240,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         if ($this->visao->curso->getStatus(1) == 0) {
             $this->controller->primeiro_acesso($this->visao->curso);
         }
-        Biotran_Mvc::pegarInstancia()->mudarAcao('professor_editar_curso');
+        Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_curso');
         $this->renderizar();
     }
 
@@ -281,8 +288,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerModulo();        
         $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
-//        $this->controller
-//        $this->visao->listaVideo
+        $this->visao->listaVideo = $this->controller->listaVideo_aulas_modulo($id_modulo);        
         $this->renderizar();
     }
     
