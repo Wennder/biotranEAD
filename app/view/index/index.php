@@ -5,9 +5,11 @@
         var width = $('#content_left_holder').width();
          width += $('#content_right_holder').width();
          width += $('#content_center_holder').width();
+         width+=50;
 //         alert(width);
-         $('#content_fit').css('width', width+10);
-         //$('body').css('min-width', width);  
+         $('#content_fit').css('width', width);
+         if(width>1024)
+            $('body').css('min-width', width);  
          width = -(width/2);
          width+='px';
 //         alert(width);
@@ -45,7 +47,7 @@ resizing();
     }
     #content_right_holder{
         overflow: auto;
-
+        padding:12px;
         float:left;
         clear:right;
         height: 100%;
@@ -56,7 +58,7 @@ resizing();
         border:3px solid #275175;
     }
     #content_left_holder{
-        
+        padding:12px;
         float:left;
      
     }
@@ -256,9 +258,6 @@ resizing();
         color:white;
         text-align: center;
     }
-    #login_area{
-        margin:10px;
-    }
 
     li{
         min-height: 30px;
@@ -270,8 +269,14 @@ resizing();
     }
 
     #div_login{
-        width:200px;
-        margin: 10px;
+       
+       padding:5px 10px;
+        min-height:220px;
+        width:160px;
+        background-color: #EEE;
+        border:1px solid #CCC;
+       margin-top:10px;
+       margin-left: 10px;
     }
 
     #coments{
@@ -279,7 +284,7 @@ resizing();
         width:180px;
         background-color: #EEE;
         border:1px solid #CCC;
-        margin:10px;
+        margin:10px 0px 10px 10px;
     }
 
 
@@ -290,7 +295,7 @@ resizing();
     <div id="content_left_holder" style="">
         <div >
             <div class="titulo_holder">Parceiros</div>
-            <img style="margin:10px" src="img/tribit.jpg" />
+            <img style="margin:10px 0px 10px 10px" src="img/tribit.jpg" />
         </div>
         <div>
             <div class ="titulo_holder">Comentarios</div>
@@ -329,16 +334,16 @@ resizing();
                                 <form id="form_login" name="form_login" method="post" action="index.php?c=index&a=login">
                                     <ul style="display:block;"><li>
                                                 <h4 style="">E-mail: </h4>
-                                                <input id="login" name="login" type="text" size="25" />
+                                                <input id="login" name="login" type="text" size="20" />
                                             </li>
                                             <li >
                                                 <h4 style="">Senha: </h4>
-                                                <input style="margin-bottom:20px;" id="senha" name="senha" type="password" size="25" onKeyPress="return checarBotao(event)" />
+                                                <input style="margin-bottom:20px;" id="senha" name="senha" type="password" size="20" onKeyPress="return checarBotao(event)" />
                                             </li>
                                             <li>
                                                 <div id="recuperar_senha" style=""><label> <a style="font-size:14px;" href="index.php?c=index&a=recuperar_senha">Esqueceu a senha?</a></label></div>
                                                 <input id="button_login" type="button" name="button_login" value="Login"/>
-                                                
+                                                <a href="">registrar</a>
                                             </li>
                                         </ul>
                                     
@@ -349,8 +354,8 @@ resizing();
             ?>
         </div>
 
-        <div class="titulo_holder">Facebook</div>
-        <div class="titulo_holder">Twitter</div>
+<!--        <div class="titulo_holder">Facebook</div>
+        <div class="titulo_holder">Twitter</div>-->
     </div>
 </div>
 
