@@ -1,0 +1,54 @@
+/* 
+    Document   : ajusteResolucaoVideo
+    Created on : 03/10/2012, 16:33:21
+    Author     : cead-p057007
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+.video-js-box ul.vjs-controls {  
+    padding-right: 215px; 
+}
+ul.vjs-controls > li.vjs-time-control { 
+    right: 140px; 
+}
+ul.vjs-controls > li.vjs-volume-control { 
+    right: 85px; 
+}
+ul.vjs-controls > li.vjs-resolution-control { 
+    idth: 45px; right: 35px; cursor: pointer !important; height: auto; font-size: 11px; 
+}
+li.vjs-resolution-control ul {
+    list-style: none; margin: 0; padding: 0; line-height:15px; text-align: center; vertical-align: top; cursor: pointer !important; 
+}
+span.vjs-resolution-current { 
+    line-height: 25px; width:100%; display: block; 
+}
+ul.vjs-resolution-selector { 
+    display:none; 
+}
+li.vjs-resolution-current_format { 
+    background-color: #263E4B 
+}
+li.vjs-resolution-resolution:after, #video-gallery span.vjs-resolution-current:after { 
+    content: 'p' 
+}
+li.vjs-resolution-current_res { 
+    background-color: #667; 
+}
+
+.vjs-controls > div.vjs-progress-control   { left: 35px;  right: 215px; }
+.vjs-controls > div.vjs-time-control       { right: 140px; }
+.vjs-controls > div.vjs-volume-control     { right: 85px; }
+.vjs-controls > div.vjs-resolution-control { width: 45px; right: 35px; cursor: pointer !important; height: auto; font-size: 11px; }
+
+div.vjs-resolution-format { font-weight: 900; }
+div.vjs-resolution-control div { margin: 0; padding: 0; line-height:15px; text-align: center; vertical-align: top; cursor: pointer !important; }
+span.vjs-resolution-current { line-height: 25px; width:100%; bottom:0; display: block; }
+div.vjs-resolution-selector { display:none; }
+div.vjs-resolution-current_format { background-color: #15708e; }
+div.vjs-resolution-resolution:after, span.vjs-resolution-current:after { content: 'p' }
+div.vjs-resolution-current_res { background-color: #1985ac; }
+
+

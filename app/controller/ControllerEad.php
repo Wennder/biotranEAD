@@ -275,7 +275,24 @@ class ControllerEad extends Biotran_Mvc_Controller {
 //    }
 //    
     public function actionEditar_modulo() {
-        $this->controller = new controllerModulo();
+        $this->controller = new controllerModulo();        
+        $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
+//        $this->controller
+//        $this->visao->listaVideo
+        $this->renderizar();
+    }
+    
+    public function actionAdicionar_texto_referencia() {
+        $this->controller = new controllerModulo();        
+        $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
+        $this->renderizar();
+    }
+    
+    public function actionTrocar_arquivo() {
+        $this->visao->titulo = $_GET['titulo'];
+        $this->controller = new controllerModulo();        
         $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
         $this->renderizar();

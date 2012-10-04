@@ -1,8 +1,10 @@
-<!--<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>-->
+
 <script src="js/accordion.js" type="text/javascript"></script>
+<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
+<link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>        
+<link href="css/jquery.dialog.css" rel="stylesheet" type="text/css"/>        
 <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
-
 <style>
 
     .quadro_de_conteudo_especifico{
@@ -37,20 +39,37 @@
 
     }
 </style>
-<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
-<link rel="stylesheet" href="css/jquery-ui-1.8.24.custom.css" type="text/css"/>
-<script>
-    var dialog;
-    $(function() {                
-        //Se clicar no link, redireciona
-        $("#accordion_body2 div #add li h3").click(function() {            
-            $('#dialog').load($(this).attr('id'), 'oi', function (){   
-                dialog = $(this).dialog({
-                    width:800, 
-                    height:300,
+
+<script>    
+    $(document).ready(function() {                                                        
+        _V_.options.flash.swf = "video-js.swf";              
+        
+        $(".btn_add").live('click', function(){
+            var btn = $(this);
+            $('#dialog').load(btn.attr('id'), 'oi', function (){
+                var width = 0;
+                var height = 0;                  
+                var tipo = btn.attr('name');
+                if(tipo == 'video'){
+                    width = 800;height = 350;
+                }else{
+                    if(tipo == 'texto'){
+                        width = 500;height = 250;
+                    }else{
+                        if(tipo == 'material'){
+                            width = 500;height = 200;
+                        }else{//novo exercício
+                            width = 500;
+                            height = 200;
+                        }
+                    }
+                }                                
+                var options = {
+                    width:width, 
+                    height:height,
                     dialogClass:'dialogstyle',
                     modal: true,
-                    open: function(event,ui){
+                    open: function(event,ui){                        
                         var form = $('#dialog').find('#form_cadastrar');
                         form.ajaxForm({
                             uploadProgress: function(event, position, total, percentComplete) {
@@ -72,24 +91,30 @@
                         dialog.dialog('destroy');
                         dialog.find('div').remove();
                     }                  
-                });                            
+                   
+                }
+                var dialog = $(this).dialog(options);
             });
-            console.log(dialog);
-        });             
-    }); 
+            
+        });
+        
+        //        $("#accordion_body2 .accordion_body .add li h3").live('click',function() {            
+        //            console.log(dialog);
+        //        });             
+    });         
     
 </script>
 
 <div id="dialog" style="display:none">
-
 </div>
-
 <div id="div_conteudo_professor_editar_modulo">
     <h1>Modulo <?php echo $this->modulo->getNumero_modulo() ?>: <?php echo $this->modulo->getTitulo_modulo() ?></h1>
     <div id="disposicao_conteudo_professor_editar_modulo">
         <h4>Descricao: </h4>
         <div class="quadro_de_conteudo_especifico">
             <?php echo $this->modulo->getDescricao() ?>
+        </div>
+        <div class="quadro_de_conteudo_especifico">
         </div>
 
         <div class="accordion_body">
@@ -98,24 +123,19 @@
                     <img class='seta_formatacao' src='img/seta_gray.png' />Conteudo
                 </a>
             </div>
-            <div>
+            <div id="accordion_body2">
                 <ul>
                     <li>
-                        <div id="accordion_body2" class="accordion_body">
+                        <div class="accordion_body">
                             <div class='list_index_admin_blue'>
                                 <a><div class='detalhe1'></div>
                                     <img  src='img/seta_blue.png' />Video Aulas
                                 </a>
                             </div>                            
-                            <div id="lista_video">                                
-                                <div id="lista_videos">
-                                    <?php 
-                                        //chamda ao controlador
-                                    ?>
-                                </div>
-                                <ul id="add">
+                            <div id="lista_video">                                                                
+                                <ul class="add">
                                     <li>
-                                        <h3  id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>">Adicionar nova video aula</h3>
+                                        <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
                                 </ul>
                             </div>
@@ -128,10 +148,10 @@
                                     <img  src='img/seta_blue.png' />Textos de Referencia
                                 </a>
                             </div>                            
-                            <div id="add">
+                            <div class="add">
                                 <ul>
                                     <li>
-                                        <a href="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>">Adicionar novo texto de referencia</a>
+                                        <input type="button" class="btn_add" name="texto" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
                                 </ul>
                             </div>
@@ -144,11 +164,11 @@
                                     <img  src='img/seta_blue.png' />Material Complementar
                                 </a>
                             </div>
-                            
-                            <div id="add">
+
+                            <div class="add">
                                 <ul>
                                     <li>
-                                        <a href="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>">Adicionar nova material complementar</a>
+                                        <input type="button" class="btn_add" name="material" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
                                 </ul>
                             </div>
@@ -161,11 +181,11 @@
                                     <img  src='img/seta_blue.png' />Exercicios
                                 </a>
                             </div>
-                            
-                            <div id="add">
+
+                            <div class="add">
                                 <ul>
                                     <li>
-                                        <a href="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>">Adicionar nova exercicio</a>
+                                        <input type="button" class="btn_add" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
                                 </ul>
                             </div>

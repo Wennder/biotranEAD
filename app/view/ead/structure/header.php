@@ -1,28 +1,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br">
-    <head>
+    <head>        
         <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
         <title>EAD Biotran</title>
+        <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
+        <script src="js/video.js"></script>                
         <script src="js/jquery.js" type="text/javascript"></script>
-        <script src="js/menuDropDown.js" type="text/javascript"></script>
-        <!--        <link rel='stylesheet' href='css/styleEAD.css' />-->
+        <script src="js/menuDropDown.js" type="text/javascript"></script>        
+                <link rel='stylesheet' href='css/styleEAD.css' />
         <script type="text/javascript">
-             
+            _V_.options.flash.swf = "video-js.swf";
             function resize_content_fluid(){
                 var height = $('.content').height();
               
-                    if(height < $(window).height()){
-                        height+=75;
-                        height +='px';
-                        $(".content_fluid").css('height',height);
-                    }
+                if(height < $(window).height()){
+                    height+=75;
+                    height +='px';
+                    $(".content_fluid").css('height',height);
+                }
               
                 
 
             }
              
             $(document).ready(function(){
-//                resize_content_fluid();
-//                $(window).bind('resize', resize_content_fluid);
+                //                resize_content_fluid();
+                //                $(window).bind('resize', resize_content_fluid);
 
                 //                
                 //                //                $('#page-leftcolumn').css('height',$height );
