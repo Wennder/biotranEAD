@@ -94,8 +94,8 @@ class controllerModulo {
         $controllerVideo = new controllerVideo();
         $modulo = new Modulo();
         $dao = new ModuloDAO();
-        $curso = $modulo->getId_curso('id_modulo=' . $id_modulo);
-        $diretorio = ROOT_PATH . "/public/cursos/" . $curso . "/modulos/" . $id_modulo . "/video_aula/";
+        $id_curso = $modulo->getId_curso('id_modulo=' . $id_modulo);
+        $diretorio = ROOT_PATH . "/public/cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
         $lista = "";
 
         $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
@@ -104,9 +104,21 @@ class controllerModulo {
             $lista .= $videos[$i]->getTitulo();
             $lista .= "</h3><input type='button' class='btn_edt' value='Editar' float='right'/><input type='button' class='btn_del' value='Excluir' float='right'/></li>";
         }
-
-
-
+        return $lista;
+    }
+    
+    public function listaTextos_referencia_modulo($id_modulo) {
+        $modulo = $this->getModulo('id_modulo='.$id_modulo);
+        $id_curso = $modulo->getId_curso();
+        $diretorio = $diretorio = ROOT_PATH . "/public/cursos/" . $id_curso . "/modulos/" . $id_modulo . "/texto_referencia/";
+        $arquivos = glob($diretorio . "*.pdf");
+        $lista = "";
+   //     print_r($arquivos); die();
+        foreach ($arquivos as $arquivo) {            
+            $lista .= "<li><h3>";
+            $lista .= basename($arquivo);
+            $lista .= "</h3><input type='button' class='btn_edt' value='Editar' float='right'/><input type='button' class='btn_del' value='Excluir' float='right'/></li>";
+        }
         return $lista;
     }
 
