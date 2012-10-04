@@ -151,7 +151,7 @@ class controllerModulo {
         return $objeto;
     }
 
-    public function setArquivoVideo(Video $v) {                               
+    public function setArquivoVideo(Video $v) {
         $id_video = $v->getId_video();
         $id_modulo = $v->getId_modulo();
         $id_curso = $this->getModulo("id_modulo=" . $id_modulo)->getId_curso();
@@ -161,9 +161,34 @@ class controllerModulo {
                 $tipos = array("wmv");
                 $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
                 if (!in_array($video['type'], $tipos)) {
-                    $video_nome = $pasta_dir . $id_video . ".wmv";                       
+                    $video_nome = $pasta_dir . $id_video . ".wmv";
                     move_uploaded_file($_FILES['video']['tmp_name'], $video_nome);
                     return 1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    /*
+     * $tipo_arquivo: material complementar, bibliográfico e texto de referencia
+     */
+
+    public function setArquivo($tipo_arquivo, $id_modulo) {
+        $id_modulo = $v->getId_modulo();
+        $id_curso = $this->getModulo("id_modulo=" . $id_modulo)->getId_curso();
+        if (isset($_FILES["arquivo"])) {
+            if ($_FILES["arquivo"]["name"] != '') {
+                $arquivo = $_FILES["arquivo"];
+                $tipos = array("pdf", "doc");
+                $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/".$tipo_arquivo ."/";
+                if (!in_array($arquivo['type'], $tipos)) {
+                    $video_nome = $pasta_dir . $_FILES["arquivo"]["name"] . ".wmv";
+                    move_uploaded_file($_FILES["arquivo"]["tmp_name"], $video_nome);
+                    return 1;
+                } else {
+                    //2 - tipo inválido
+                    return 2;
                 }
             }
         }
@@ -175,6 +200,16 @@ class controllerModulo {
         $controller = new controllerVideo();
         $v->setId_video($controller->novoVideo($v));
         return $this->setArquivoVideo($v);
+    }
+
+    public function inserir_texto_referencia() {                
+        $id_modulo = $_POST["id_modulo"];
+        return $this->setArquivo('texto_referencia', $id_modulo);
+    }
+
+    public function inserir_material_complementar() {                
+        $id_modulo = $_POST["id_modulo"];
+        return $this->setArquivo('material_complementar', $id_modulo);
     }
 
 }
