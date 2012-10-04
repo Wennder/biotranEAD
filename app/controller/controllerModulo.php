@@ -211,6 +211,17 @@ class controllerModulo {
         $id_modulo = $_POST["id_modulo"];
         return $this->setArquivo('material_complementar', $id_modulo);
     }
+    
+    public function inserir_exercicio() {
+        $e = $this->setConteudo('exercicio');
+        $controller = new controllerExercicio();
+        $e->setId_exercicio($controller->novoExercicio($e));
+        if($e->getId_exercicio() != 0){
+            return 1;            
+        }
+        return 0;
+    }
+
 
 }
 

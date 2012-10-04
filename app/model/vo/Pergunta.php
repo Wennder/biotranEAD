@@ -10,7 +10,7 @@
  *
  * @author Torres
  */
-class Exercicio {
+class Pergunta {
     
     private $id_exercicio;
     private $id_atividade;

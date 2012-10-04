@@ -59,8 +59,8 @@
                         if(tipo == 'material'){
                             width = 500;height = 200;
                         }else{//novo exercício
-                            width = 500;
-                            height = 200;
+                            width = 700;
+                            height = 300;
                         }
                     }
                 }                                
@@ -76,7 +76,8 @@
                                 $('progress').attr('value',percentComplete);
                                 $('#porcentagem').html(percentComplete+'%');
                             },                            
-                            success: function(data) {                
+                            success: function(data) {
+                                alert('SUCESSO');
                                 $('progress').attr('value','100');
                                 $('#porcentagem').html('100%');
                                 $('pre').html(data);

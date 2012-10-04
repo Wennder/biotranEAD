@@ -5,8 +5,6 @@
         <script src="js/jquery.js" type="text/javascript"></script>  
         <script src="js/login.js" type="text/javascript"></script>  
         <script src="js/jqFancyTransitions.1.8.js" type="text/javascript"></script>
-<!--        <link rel='stylesheet' href='css/style.css' />-->
-<link rel='stylesheet' href='css/styleEAD.css' />
         <script type="text/javascript">
             function checarBotao(e)
             {

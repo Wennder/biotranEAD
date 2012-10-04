@@ -220,6 +220,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionAdicionar_exercicio() {
+        $this->controller = new controllerModulo();        
+        $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
         $this->renderizar();
     }
 
@@ -288,16 +291,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
         $this->renderizar();
-    }
-    
-    public function actionTrocar_arquivo() {
-        $this->visao->titulo = $_GET['titulo'];
-        $this->controller = new controllerModulo();        
-        $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
-        $this->renderizar();
-    }
-    
+    }                    
 
 }
 

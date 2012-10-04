@@ -5,8 +5,7 @@
         <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
         <script src="js/video.js"></script>                
         <script src="js/jquery.js" type="text/javascript"></script>
-        <script src="js/menuDropDown.js" type="text/javascript"></script>        
-                <!--<link rel='stylesheet' href='css/styleEAD.css' />-->
+        <script src="js/menuDropDown.js" type="text/javascript"></script>                        
         <script type="text/javascript">
             _V_.options.flash.swf = "video-js.swf";
             function resize_content_fluid(){
