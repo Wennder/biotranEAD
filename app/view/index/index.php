@@ -1,6 +1,20 @@
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/content_up.php'; ?>
 <script>
+    function resizing(){
+        var width = $('#content_left_holder').width();
+         width += $('#content_right_holder').width();
+         width += $('#content_center_holder').width();
+         width+=50;
+//         alert(width);
+         $('#content_fit').css('width', width);
+         if(width>1024)
+            $('body').css('min-width', width);  
+         width = -(width/2);
+         width+='px';
+//         alert(width);
+         $('#content_fit').css('margin-left', width);
+        }
     $(document).ready( function(){
         $('#sliderShow').jqFancyTransitions({
             width: 500,
@@ -16,30 +30,73 @@
             direction: 'random', // left, right, alternate, random, fountain, fountainAlternate
             links: false
         });
+        
+        resizing();
+    $(window).bind('resize', resizing);
+//        var width = $(window).width();
+//
+//        width+='px';
+//        $('#content_fit').css('width', width);
+resizing();
     });
 </script>
 
 <style>
-    #content_left_holder{
-
-
-        /*        margin:20px 20px;*/
-
-
-        padding: 20px;
+    body{
+        min-width: 1024px;
+    }
+    #content_right_holder{
+        overflow: auto;
+        padding:12px;
         float:left;
-        height:100%;
+        clear:right;
+        height: 100%;
+    }
+    #sliderShow{
+
+        float: left;
+        border:3px solid #275175;
+    }
+    #content_left_holder{
+        padding:12px;
+        float:left;
+     
     }
 
-    /*    #content_up{
-            padding:40px;
-        }*/
+    #content_center_holder{
+        border-left: 1px solid #CCC;
+
+        float:left;
+
+        min-width:600px;
+
+        width:50%;
+
+        height:100%;
+        border-right: 1px solid #CCC;
+        box-shadow: 2px 2px 2px #888888; 
+        -webkit-box-shadow:2px 2px 2px #888888;
+        -moz-box-shadow:2px 2px 2px #888888;
+        -ms-box-shadow:2px 2px 2px #888888;
+        -o-box-shadow: 0 1px 0 0 #3871a1 inset;
+    }
+
+    #sliderShow{
+        position:relative;
+        left:50%;
+        margin-left: -252px;
+    }
 
     h4{
         color:#7a7a7a;
         font-size:18px;
         font-weight:600;
         padding-right: 3px;
+    }
+
+    #content_up{
+        
+        padding:20px 0px;
     }
 
     #button_login{
@@ -76,16 +133,6 @@
         list-style: none;
     }
 
-    #content_right_holder{
-        float:right;
-        padding: 20px;
-
-        height: 100%;
-    }
-    #sliderShow{
-        float: left;
-        border:3px solid #275175;
-    }
 
     #titulo_parceiros{
         background-color: #275175;
@@ -148,48 +195,8 @@
         color: #fff;
         text-shadow:-1px 1px 0px #000;
         background-color: #275175;
-
-        /*        border-radius: 0px 5px 5px 0px;*/
     }
-    /*    #slidershow{
-            float:left;
-        }
-    
-        #menu_destaque{
-            float:right;
-        }
-    
-        #menu_destaque ul{
-            list-style: none;
-            width: 100%;
-        }
-    
-    
-        #menu_destaque ul a *{
-            font-size:30px;
-            text-decoration: none;
-    
-    
-            width:100%;
-        }*/
 
-    /*    #login_area{
-                    margin:20px 20px;
-            height: 125px;
-            background-color: #f7f7f7;
-            border:1px solid #e3e3e3;
-            padding:20px;
-        }
-        #login_area input{
-            margin-bottom: 10px;
-        }
-    
-        #login_area li{
-            display:inline;
-        }
-        #login_area li h4{
-            float:left;
-        }*/
     #button_login{
         float:right;
     }
@@ -234,25 +241,22 @@
     }
 
     .titulo_holder{
-        padding:4px;
+        padding:4px 0px;
         width:200px;
         border-radius: 5px;
-/*        background-color: black;*/
+        /*        background-color: black;*/
 
         background: -webkit-gradient(linear, left top, left bottom, from(#0069b5), to(#0564aa));
-            background: -webkit-linear-gradient(top, #0069b5, #0564aa);
-            background: -moz-linear-gradient(top, #0069b5, #0564aa);
-            background: -ms-linear-gradient(top, #0069b5, #0564aa);
-            background: -o-linear-gradient(top, #0069b5, #0564aa);
-            background: linear-gradient(top, #0069b5, #0564aa);
+        background: -webkit-linear-gradient(top, #0069b5, #0564aa);
+        background: -moz-linear-gradient(top, #0069b5, #0564aa);
+        background: -ms-linear-gradient(top, #0069b5, #0564aa);
+        background: -o-linear-gradient(top, #0069b5, #0564aa);
+        background: linear-gradient(top, #0069b5, #0564aa);
     }
 
     .titulo_holder{
         color:white;
         text-align: center;
-    }
-    #login_area{
-        margin:10px;
     }
 
     li{
@@ -263,71 +267,57 @@
         font-size:16px;
         float:left;
     }
-    
+
     #div_login{
-        width:200px;
-        margin: 10px;
+       
+       padding:5px 10px;
+        min-height:220px;
+        width:160px;
+        background-color: #EEE;
+        border:1px solid #CCC;
+       margin-top:10px;
+       margin-left: 10px;
     }
-    
-    #content_center_holder{
-        border-left: 1px solid #CCC;
-        float:left;
-        
-        width:51%;
-        position:relative;
-        margin:20px 30px;
-        height:100%;
-        border-right: 1px solid #CCC;
-        box-shadow: 2px 2px 2px #888888; 
-        -webkit-box-shadow:2px 2px 2px #888888;
-        -moz-box-shadow:2px 2px 2px #888888;
-        -ms-box-shadow:2px 2px 2px #888888;
-        -o-box-shadow: 0 1px 0 0 #3871a1 inset;
-    }
-    
+
     #coments{
         height:250px;
         width:180px;
         background-color: #EEE;
         border:1px solid #CCC;
-        margin:10px;
+        margin:10px 0px 10px 10px;
     }
-    
-    #sliderShow{
-        position:relative;
-        left:50%;
-        margin-left: -252px;
-    }
-    
+
+
 </style>
-<div style="float:left; width:5%; height:100%;"></div>
-<div style="float:right; width:5%; height:100%;"></div>
-<div id="content_left_holder" style="">
-    <div >
-        <div class="titulo_holder">Parceiros</div>
-        <img style="margin:10px" src="img/tribit.jpg" />
-    </div>
-    <div>
-        <div class ="titulo_holder">Comentarios</div>
-        <div id="coments">
-            
+<!--<div style="float:left; width:5%; height:100%;"></div>-->
+<!--<div style="float:right; width:5%; height:100%;"></div>-->
+<div id="content_fit" style="  height: 100%; position:relative; left:50%;">
+    <div id="content_left_holder" style="">
+        <div >
+            <div class="titulo_holder">Parceiros</div>
+            <img style="margin:10px 0px 10px 10px" src="img/tribit.jpg" />
+        </div>
+        <div>
+            <div class ="titulo_holder">Comentarios</div>
+            <div id="coments">
+
+            </div>
         </div>
     </div>
-</div>
-<div id="content_center_holder">
-    <div id='sliderShow'>
-        <img src='img/biotran.jpg' />
-        <img src='img/curso.jpg' />
-        <img src='img/fazenda.jpg'/>
-    </div>
+    <div id="content_center_holder">
+        <div id='sliderShow'>
+            <img src='img/biotran.jpg' />
+            <img src='img/curso.jpg' />
+            <img src='img/fazenda.jpg'/>
+        </div>
 
-    
-</div>
-<div id="content_right_holder">
-    <div id="login_area">
-        <?php
-        if (isset($_SESSION["usuarioLogado"])) {
-            echo('
+
+    </div>
+    <div id="content_right_holder">
+        <div id="login_area">
+            <?php
+            if (isset($_SESSION["usuarioLogado"])) {
+                echo('
                             <div id="div_logado">
                                 
                                             Olá ' . $_SESSION["usuarioLogado"]->getNome_completo() . '!
@@ -338,35 +328,35 @@
                                 
                             </div>
                         ');
-        } else {
-            echo('          <div class="titulo_holder">Login</div>
+            } else {
+                echo('          <div class="titulo_holder">Login</div>
                             <div id="div_login" style="">
                                 <form id="form_login" name="form_login" method="post" action="index.php?c=index&a=login">
                                     <ul style="display:block;"><li>
                                                 <h4 style="">E-mail: </h4>
-                                                <input id="login" name="login" type="text" size="25" />
+                                                <input id="login" name="login" type="text" size="20" />
                                             </li>
                                             <li >
                                                 <h4 style="">Senha: </h4>
-                                                <input style="margin-bottom:20px;" id="senha" name="senha" type="password" size="25" onKeyPress="return checarBotao(event)" />
+                                                <input style="margin-bottom:20px;" id="senha" name="senha" type="password" size="20" onKeyPress="return checarBotao(event)" />
                                             </li>
                                             <li>
                                                 <div id="recuperar_senha" style=""><label> <a style="font-size:14px;" href="index.php?c=index&a=recuperar_senha">Esqueceu a senha?</a></label></div>
                                                 <input id="button_login" type="button" name="button_login" value="Login"/>
-                                                
+                                                <a href="">registrar</a>
                                             </li>
                                         </ul>
                                     
                                 </form>
                             </div>
                         ');
-        }
-        ?>
+            }
+            ?>
+        </div>
+
+<!--        <div class="titulo_holder">Facebook</div>
+        <div class="titulo_holder">Twitter</div>-->
     </div>
-
-    <div class="titulo_holder">Facebook</div>
-    <div class="titulo_holder">Twitter</div>
 </div>
-
 
 <?php require 'structure/footer.php'; ?>

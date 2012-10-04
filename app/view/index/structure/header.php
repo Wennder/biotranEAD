@@ -42,6 +42,10 @@
             min-width: 960px;
         }
         
+        html,body{
+            height:100%;
+        }
+        
         #eadbiotran{
             hieght:100%;
             width:100%;
