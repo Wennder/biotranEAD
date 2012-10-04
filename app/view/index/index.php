@@ -1,6 +1,18 @@
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/content_up.php'; ?>
 <script>
+    function resizing(){
+        var width = $('#content_left_holder').width();
+         width += $('#content_right_holder').width();
+         width += $('#content_center_holder').width();
+//         alert(width);
+         $('#content_fit').css('width', width+10);
+         //$('body').css('min-width', width);  
+         width = -(width/2);
+         width+='px';
+//         alert(width);
+         $('#content_fit').css('margin-left', width);
+        }
     $(document).ready( function(){
         $('#sliderShow').jqFancyTransitions({
             width: 500,
@@ -16,10 +28,21 @@
             direction: 'random', // left, right, alternate, random, fountain, fountainAlternate
             links: false
         });
+        
+        resizing();
+    $(window).bind('resize', resizing);
+//        var width = $(window).width();
+//
+//        width+='px';
+//        $('#content_fit').css('width', width);
+resizing();
     });
 </script>
 
 <style>
+    body{
+        min-width: 1024px;
+    }
     #content_right_holder{
         overflow: auto;
 
@@ -35,7 +58,7 @@
     #content_left_holder{
         
         float:left;
-        height:100%;
+     
     }
 
     #content_center_holder{
@@ -43,7 +66,7 @@
 
         float:left;
 
-        
+        min-width:600px;
 
         width:50%;
 
@@ -70,7 +93,7 @@
     }
 
     #content_up{
-        overflow: auto;
+        
         padding:20px 0px;
     }
 
@@ -263,7 +286,7 @@
 </style>
 <!--<div style="float:left; width:5%; height:100%;"></div>-->
 <!--<div style="float:right; width:5%; height:100%;"></div>-->
-<div style=" width:1024px;  left:50%; margin-left: -490px; position: relative; overflow: auto;">
+<div id="content_fit" style="  height: 100%; position:relative; left:50%;">
     <div id="content_left_holder" style="">
         <div >
             <div class="titulo_holder">Parceiros</div>
