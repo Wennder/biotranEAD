@@ -1,27 +1,3 @@
-<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
-<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-<script src="js/accordion.js" type="text/javascript"></script>
-
-<script>
-    var centro = 1;
-    $(document).ready(function(){
-        if(centro){
-            
-        }
-    });
-    function openCenter(s){       
-        if(centro!=1){            
-            centro.find('div').remove();
-        }  
-        var _aux = $('#center_content').load(s, 'oi', function (){                    
-        });                                   
-        centro = _aux;
-        $('#div_conteudo_professor_editar_modulo').append(centro);                
-    }    
-    
-</script>
 <style>
     #div_conteudo_professor_editar_curso{
         position: relative;
@@ -128,8 +104,46 @@ if (isset($_GET['id'])) {
 $cursoDAO = new CursoDAO();
 $this->cursos = $cursoDAO->select("id_curso=" . $id_curso);
 ?>
-<div id="div_conteudo_professor_editar_curso">
+<div id="disposicao_conteudo_professor_editar_curso">
+    <div class="quadro_de_conteudo_especifico" style="background-color:#f0f0f0;">
+        <div id="image_holder">
+            <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
+        <div id="titulo_holder" style="">
+            <h2 style=""><?php echo $this->cursos[0]->getNome(); ?></h2>
 
+        </div>
+        <h4>Descricao: </h4>
+        <input type="text-field" readonly="readonly" value="<?php echo $this->cursos[0]->getDescricao() ?>"/>
+
+        <h4>Tempo: </h4>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getTempo() ?> Dias"/>
+
+        <h4>Status: </h4>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getStatus(0) ?>"/>
+
+        <h4>Gratuito: </h4>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getGratuito() ?>"/>
+
+        <h4>Valor: </h4>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getValor() ?>"/>
+
+        <h4>Objetivo: </h4>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getObjetivo() ?>"/>
+
+        <h4>Justificativa: </h4>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getJustificativa() ?>"/>
+
+        <h4>Observacoes: </h4>
+        <input type="text" readonly="readonly" value="<?php echo $this->cursos[0]->getObs() ?>"/>
+
+    </div>
+
+    <div>
+        <ul style="list-style-type:none;">
+            <?php
+            $controllerModulo = new ControllerModulo();
+            echo $controllerModulo->listaModulos($id_curso);
+            ?>
+        </ul>
+    </div>
 </div>
-<div id="center_content"/>
-<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

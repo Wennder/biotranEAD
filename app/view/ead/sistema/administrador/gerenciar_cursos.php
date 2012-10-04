@@ -16,13 +16,16 @@ if (isset($this->curso)) {
 <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="js/jquery-picklist.js" type="text/javascript"></script>
 <script src="js/validarNomeCurso.js" type="text/javascript"></script>
+<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
+<script src="js/jquery-ui-1.8.2.min.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 <link rel="stylesheet" href="css/jquery.dataTables.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery-ui-1.8.24.custom.css" type="text/css"/>
 
 <style type="text/css" title="currentStyle">
 
-    @import "http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css";
+    
     #div_update label {display:block;width:100%;padding:10px 0;}
     #form_gerenciar{
         padding: 50px;
