@@ -1,5 +1,3 @@
-
-
 <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
