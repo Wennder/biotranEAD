@@ -113,17 +113,15 @@ class controllerModulo {
 
     public function listaArquivos(Modulo $modulo, $tipo) {
         $lista = 0;
-        if($tipo == 'texto_referencia' || $tipo == 'material_complementar'){                        
-            $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/".$tipo."/";
+        if ($tipo == 'texto_referencia' || $tipo == 'material_complementar') {
+            $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/" . $tipo . "/";
+            $arquivos = glob($diretorio . "*.pdf");
             $lista = "";
-
-            $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
-            for ($i = 0; $i < count($videos); $i++) {
-                $lista .= "<li id='video_'" . $videos[$i]->getId_video() . "><h3 name='video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
-                $lista .= $videos[$i]->getTitulo();
-                $lista .= "</h3><input type='button' class='btn_edt' name='video' value='Editar' float='right'/><input type='button' name='video' class='btn_del' value='Excluir' float='right'/></li>";
+            foreach ($arquivos as $arquivo) {
+                $lista .= "<li><h3>";
+                $lista .= "<a href='".$arquivo."'>".basename($arquivo)."</a>";
+                $lista .= "</h3><input type='button' id='".basename($arquivo)."' class='btn_del' value='Excluir' float='right'/></li>";
             }
-            
         }
         return $lista;
     }

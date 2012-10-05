@@ -1,41 +1,30 @@
-<?php require ROOT_PATH.'/app/view/ead/structure/header.php'; ?>
-<?php require ROOT_PATH.'/app/view/ead/structure/leftcolumn.php'; ?>
-<?php require ROOT_PATH.'/app/view/ead/structure/content.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
 <!--<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>-->
-<!--<script src="js/accordion.js" type="text/javascript"></script>-->
+<script src="js/accordion.js" type="text/javascript"></script>
 
-<script> $(document).ready(function(){
-        //On click any <h3> within the container
-        $('.accord').click(function(e) {
 
-            //Close all <div> but the <div> right after the clicked <a>
-            //$(e.target).next('div').siblings('div').slideUp('fast');
-            
-            //Toggle open/close on the <div> after the <h3>, opening it if not open.
-            $(e.target).next('.accord_content').slideToggle('fast');
-            $(e.target).next('img').css("transform","rotate(90 deg)");
-        });
-    });</script>
 
 <style>
     ul{
         list-style: none;
     }
-    
-    .accord_content{
+
+    .accordion_body_content{
         display: none;
     }
-    
-    .accord{
+
+    .accordion_body{
         background-color: #eeeeee;
         border-top:1px solid white;
         border-bottom: 1px solid #cccccc;
     }
-    .accord *{
+    .accordion_body *{
         cursor: pointer;
     }
-    
+
     .lista_cursos_professor{
         padding:0px 20px;
     }
@@ -43,13 +32,12 @@
         color:#565656;
         cursor: pointer;
     }
-    
+
     .seta_formatacao{
         margin:7px 7px 0px 5px;
         float:left;
     }
 </style>
-<div class="accordion_body">
- 
+<div>
     <?php echo $this->lista; ?>
 </div>
