@@ -94,8 +94,8 @@ class controllerModulo {
         $controllerVideo = new controllerVideo();
         $modulo = new Modulo();
         $dao = new ModuloDAO();
-        $curso = $modulo->getId_curso('id_modulo=' . $id_modulo);
-        $diretorio = ROOT_PATH . "/public/cursos/" . $curso . "/modulos/" . $id_modulo . "/video_aula/";
+        $id_curso = $modulo->getId_curso('id_modulo=' . $id_modulo);
+        $diretorio = ROOT_PATH . "/public/cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
         $lista = "";
 
         $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);

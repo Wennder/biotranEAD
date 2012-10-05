@@ -285,6 +285,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
         $this->visao->listaVideo = $this->controller->listaVideo_aulas_modulo($id_modulo);        
+        $this->visao->listaTexto = $this->controller->listaTextos_referencia_modulo($id_modulo);
         $this->renderizar();
     }
     
