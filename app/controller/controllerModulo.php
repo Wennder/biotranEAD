@@ -116,7 +116,21 @@ class controllerModulo {
         foreach ($arquivos as $arquivo) {            
             $lista .= "<li><h3>";
             $lista .= basename($arquivo);
-            $lista .= "</h3><input type='button' class='btn_edt' value='Editar' float='right'/><input type='button' class='btn_del' value='Excluir' float='right'/></li>";
+            $lista .= "</h3><input type='button' class='btn_del' value='Excluir' float='right'/></li>";
+        }
+        return $lista;
+    }
+    
+    public function listaMaterial_complementar_modulo($id_modulo) {
+        $modulo = $this->getModulo('id_modulo='.$id_modulo);
+        $id_curso = $modulo->getId_curso();
+        $diretorio = $diretorio = ROOT_PATH . "/public/cursos/" . $id_curso . "/modulos/" . $id_modulo . "/material_complementar/";
+        $arquivos = glob($diretorio . "*.pdf");
+        $lista = "";
+        foreach ($arquivos as $arquivo) {            
+            $lista .= "<li><h3>";
+            $lista .= basename($arquivo);
+            $lista .= "</h3><input type='button' class='btn_del' value='Excluir' float='right'/></li>";
         }
         return $lista;
     }

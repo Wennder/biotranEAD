@@ -169,6 +169,7 @@
 
                             <div class="add">
                                 <ul>
+                                    <?php echo $this->listaMaterial; ?>
                                     <li>
                                         <input type="button" class="btn_add" name="material" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
