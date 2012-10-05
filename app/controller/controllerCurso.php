@@ -361,6 +361,7 @@ class controllerCurso {
     }
 
     public function tabelaCursos() {
+      
         $tabela = "<table id='tabela_cursos' width='100%' align='center'>
          <thead> 
                 <tr> 
@@ -378,8 +379,11 @@ class controllerCurso {
                 </tr> 
             </thead> 
             <tbody>";
+           
         $cursoDAO = new CursoDAO();
+        
         $this->cursos = $cursoDAO->select(null, null);
+        
         $quant = count($this->cursos);
         $i = 0;
         for (; $i < $quant; $i++) {

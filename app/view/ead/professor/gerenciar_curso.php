@@ -39,7 +39,7 @@
 <style>
     #div_conteudo_professor_editar_modulo{
         position: relative;
-        padding:40px;
+       
         padding-top:0px;
     }
 
@@ -51,13 +51,12 @@
 
     #disposicao_conteudo_professor_editar_modulo{
         position: relative;
-        margin: 20px;
-        margin-top:40px;
+      
     }
     
     #center_content{
         position: relative;
-        padding:40px;
+       
         padding-top:0px;
     }
 
@@ -69,8 +68,7 @@
 
     #center_content{
         position: relative;
-        margin: 20px;
-        margin-top:40px;
+        
     }
     
     #center_content *{

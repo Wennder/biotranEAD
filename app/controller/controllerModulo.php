@@ -90,6 +90,38 @@ class controllerModulo {
         return $listaModulos;
     }
 
+    public function listaVideo_aulas_modulo($id_modulo) {
+        $controllerVideo = new controllerVideo();
+        $modulo = new Modulo();
+        $dao = new ModuloDAO();
+        $id_curso = $modulo->getId_curso('id_modulo=' . $id_modulo);
+        $diretorio = ROOT_PATH . "/public/cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
+        $lista = "";
+
+        $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
+        for ($i = 0; $i < count($videos); $i++) {
+            $lista .= "<li><h3 id=" . $videos[$i]->getId_video() . ">";
+            $lista .= $videos[$i]->getTitulo();
+            $lista .= "</h3><input type='button' class='btn_edt' value='Editar' float='right'/><input type='button' class='btn_del' value='Excluir' float='right'/></li>";
+        }
+        return $lista;
+    }
+    
+    public function listaTextos_referencia_modulo($id_modulo) {
+        $modulo = $this->getModulo('id_modulo='.$id_modulo);
+        $id_curso = $modulo->getId_curso();
+        $diretorio = $diretorio = ROOT_PATH . "/public/cursos/" . $id_curso . "/modulos/" . $id_modulo . "/texto_referencia/";
+        $arquivos = glob($diretorio . "*.pdf");
+        $lista = "";
+   //     print_r($arquivos); die();
+        foreach ($arquivos as $arquivo) {            
+            $lista .= "<li><h3>";
+            $lista .= basename($arquivo);
+            $lista .= "</h3><input type='button' class='btn_edt' value='Editar' float='right'/><input type='button' class='btn_del' value='Excluir' float='right'/></li>";
+        }
+        return $lista;
+    }
+
     public function listaModulos($id_curso) {
         $modulos = $this->getListaModulo('id_curso=' . $id_curso);
         $quant = count($modulos);
@@ -181,7 +213,7 @@ class controllerModulo {
             if ($_FILES["arquivo"]["name"] != '') {
                 $arquivo = $_FILES["arquivo"];
                 $tipos = array("pdf", "doc");
-                $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/".$tipo_arquivo ."/";
+                $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/" . $tipo_arquivo . "/";
                 if (!in_array($arquivo['type'], $tipos)) {
                     $video_nome = $pasta_dir . $_FILES["arquivo"]["name"] . ".wmv";
                     move_uploaded_file($_FILES["arquivo"]["tmp_name"], $video_nome);
@@ -202,12 +234,12 @@ class controllerModulo {
         return $this->setArquivoVideo($v);
     }
 
-    public function inserir_texto_referencia() {                
+    public function inserir_texto_referencia() {
         $id_modulo = $_POST["id_modulo"];
         return $this->setArquivo('texto_referencia', $id_modulo);
     }
 
-    public function inserir_material_complementar() {                
+    public function inserir_material_complementar() {
         $id_modulo = $_POST["id_modulo"];
         return $this->setArquivo('material_complementar', $id_modulo);
     }

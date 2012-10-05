@@ -134,6 +134,7 @@
                             </div>                            
                             <div id="lista_video">                                                                
                                 <ul class="add">
+                                    <?php echo $this->listaVideo; ?>
                                     <li>
                                         <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
@@ -150,6 +151,7 @@
                             </div>                            
                             <div class="add">
                                 <ul>
+                                    <?php echo $this->listaTexto; ?>
                                     <li>
                                         <input type="button" class="btn_add" name="texto" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
