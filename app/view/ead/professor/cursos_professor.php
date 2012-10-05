@@ -22,12 +22,12 @@
     ul{
         list-style: none;
     }
-    
-    .accord_content{
+
+    .accordion_body_content{
         display: none;
     }
-    
-    .accord{
+
+    .accordion_body{
         background-color: #eeeeee;
         border-top:1px solid white;
         border-bottom: 1px solid #cccccc;
@@ -35,12 +35,12 @@
         z-index: 10;
         cursor: pointer;
     }
-    .accord *{
+    .accordion_body *{
         cursor: pointer;
         position: relative;
         z-index: 8;
     }
-    
+
     .lista_cursos_professor{
         padding:0px 20px;
     }
@@ -48,13 +48,12 @@
         color:#565656;
         cursor: pointer;
     }
-    
+
     .seta_formatacao{
         margin:7px 7px 0px 5px;
         float:left;
     }
 </style>
-<div class="accordion_body">
- 
+<div>
     <?php echo $this->lista; ?>
 </div>

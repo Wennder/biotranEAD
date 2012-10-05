@@ -93,21 +93,17 @@ class ControllerEad extends Biotran_Mvc_Controller {
         
         $this->controller = new controllerCurso();
         //Pega a id passa na url e monta o objeto buscando os dados no banco
-        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-        
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();        
         $this->visao->curso = null;
-        if ($id_curso != '') {
-            
+        if ($id_curso != '') {            
             $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
             $this->visao->optionsPC = $this->controller->comboProfessores_curso($id_curso);
             $this->visao->optionsPD = $this->controller->comboProfessoresDisponiveis($id_curso);
-        } else {
-           
+        } else {           
             $this->visao->optionsTP = $this->controller->comboTodos_Professores();
             
         }
-        //Monta a tabela de cursos
-            
+        //Monta a tabela de cursos            
         $this->visao->tabela = $this->controller->tabelaCursos();
    
         $this->renderizar();
@@ -227,6 +223,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionAdicionar_exercicio() {
+        $this->controller = new controllerModulo();        
+        $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
         $this->renderizar();
     }
 
@@ -286,7 +285,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
         $this->visao->listaVideo = $this->controller->listaVideo_aulas_modulo($id_modulo);        
-        $this->visao->listaTexto = $this->controller->listaTextos_referencia_modulo($id_modulo);
+        $this->visao->listaTexto = $this->controller->listaArquivos($this->visao->modulo, 'texto_referencia');
+        $this->visao->listaMaterial = $this->controller->listaArquivos($this->visao->modulo, 'material_complementar');
+        
         $this->renderizar();
     }
     
@@ -295,16 +296,17 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
         $this->renderizar();
-    }
-    
-    public function actionTrocar_arquivo() {
-        $this->visao->titulo = $_GET['titulo'];
-        $this->controller = new controllerModulo();        
-        $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
+    }                    
+
+    public function actionJanela_video() {
+        $this->controller = new controllerVideo();
+        $id_video= Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->video = $this->controller->getVideo('id_video='. $id_video);
+        $this->controller = new controllerModulo();
+        $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $this->visao->video->getId_modulo() . "");
+//        $this->visao->caminho = ROOT_PATH . "/"
         $this->renderizar();
-    }
-    
+    }                    
 
 }
 

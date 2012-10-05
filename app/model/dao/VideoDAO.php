@@ -50,7 +50,7 @@ class VideoDAO extends PDOConnectionFactory {
 
     public function delete(Video $video) {
         try {
-            $num = $this->conex->exec("DELETE FROM video WHERE id=" . $video->getId_video());
+            $num = $this->conex->exec("DELETE FROM video WHERE id_video=" . $video->getId_video());
             // caso seja execuado ele retorna o número de rows que foram afetadas.
             if ($num >= 1) {
                 return $num;

@@ -24,7 +24,7 @@ if (isset($this->curso)) {
 <link rel="stylesheet" href="css/jquery-ui-1.8.24.custom.css" type="text/css"/>
 
 <style type="text/css" title="currentStyle">
-@import "http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css";
+@import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
     
     #div_update label {display:block;width:100%;padding:10px 0;}
     #form_gerenciar{

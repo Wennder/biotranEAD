@@ -1,5 +1,3 @@
-<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-   
 <div id="page-leftcolumn" class="leftcolumn page-leftcolumn">
     <p class="navbar_item homeIcon">
         <a href="<?php echo "index.php?c=ead" ?>"> Home </a>
