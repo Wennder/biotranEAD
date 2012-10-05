@@ -7,6 +7,7 @@ $(function() {
         autoHeight: false,
         navigation: true,
         collapsible: true
+       
     });
 });
 
@@ -16,6 +17,7 @@ $(function() {
         autoHeight: false,
         navigation: true,
         collapsible: true
+         
     });
 });
 

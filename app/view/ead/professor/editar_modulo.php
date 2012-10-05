@@ -1,12 +1,12 @@
 
-<script src="js/accordion.js" type="text/javascript"></script>
+<!--<script src="js/accordion.js" type="text/javascript"></script>-->
 <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
 <link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>        
 <link href="css/jquery.dialog.css" rel="stylesheet" type="text/css"/>        
 <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
 <style>
-
+    @import "http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css";
     .quadro_de_conteudo_especifico{
         margin:0px;
         margin-bottom:20px;

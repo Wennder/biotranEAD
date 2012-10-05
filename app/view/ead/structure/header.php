@@ -6,7 +6,7 @@
         <script src="js/video.js"></script>                
         <script src="js/jquery.js" type="text/javascript"></script>
         <script src="js/menuDropDown.js" type="text/javascript"></script>        
-                <link rel='stylesheet' href='css/styleEAD.css' />
+<!--                <link rel='stylesheet' href='css/estilos.css' />-->
         <script type="text/javascript">
             _V_.options.flash.swf = "video-js.swf";
             function resize_content_fluid(){
@@ -49,10 +49,12 @@
             });
         </script>
 
-        <link rel='stylesheet' href='css/estilos_1.css' />
+        <link rel='stylesheet' href='css/estilos.css' />
 
         <style>
-
+            #page-content{
+                padding:20px;
+            }
         </style>
     </head>
     <body>
