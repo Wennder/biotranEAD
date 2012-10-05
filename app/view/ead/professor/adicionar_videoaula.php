@@ -8,28 +8,7 @@
 <script>
     
     $(document).ready(function(){ 
-        $('#form_cadastrar').validationEngine();    
-//        $('#form_cadastrar').ajaxForm({                 
-//            uploadProgress: function(event, position, total, percentComplete) {
-//                $('progress').attr('value',percentComplete);
-//                $('#porcentagem').html(percentComplete+'%');
-//            },                            
-//            success: function(data) {                             
-//                $('progress').attr('value','100');
-//                $('#porcentagem').html('100%');
-//                $('pre').html(data);
-//                if(data != 0){                                         
-//                    if(tipo == 'video'){                                        
-//                        data = data.split('-');
-//                        insereVideo(data);
-//                    }else{//insere novo arquivo(texto/material)
-//                                    
-//                    }
-//                    var dialog = 'dialog';
-//                    $(dialog.toString()).dialog('close');
-//                }                       
-//            }                    
-//        });     
+        $('#form_cadastrar').validationEngine();         
     });
     
 </script>

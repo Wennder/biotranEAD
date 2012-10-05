@@ -50,37 +50,25 @@
         _V_.options.flash.swf = "video-js.swf";              
         
         $(".btn_edt").live('click', function(){
-            var btn = $(this);
-            var r = confirm('Tem certeza de que deseja excluir esta video aula?');
-            if(r == true){                  
-                var id = btn.attr('id');               
-                $.getJSON('ajax/crud_conteudo_modulo.php?acao=remover_'+btn.attr('name'),{
-                    id: id,       
-                    ajax: 'true'
-                }, function(j){
-                    //usuario excluido                             
-                    if(j > 0){
-                        id = '#'+btn.attr('name')+'_'+id;
-                        $(id.toString()).remove();
-                    }
-                }); 
-            }
+            alert('em construção');            
         });
         
-        $(".btn_del").live('click', function(){
+        $(".btn_del").live('click', function(){            
             var btn = $(this);
             var r = confirm('Tem certeza de que deseja excluir este registro?');
             if(r == true){                  
-                var id = btn.attr('id');               
+                var id = btn.attr('id');                
                 $.getJSON('ajax/crud_conteudo_modulo.php?acao=remover_'+btn.attr('name'),{
-                    id: id,                           
+                    id: id,
                     ajax: 'true'
                 }, function(j){
                     //usuario excluido  
                     if(j > 0){
-                        id = id.split('-')[0];
-                        id = id.replace('.', '_');
-                        id = '#'+btn.attr('name')+'_'+id;
+                        if(btn.attr('name') != 'video'){
+                            id = id.split('-')[0];                            
+                            id = id.replace('.', '_');
+                        }
+                        id = '#li_'+btn.attr('name')+'_'+id;
                         alert(id);
                         $(id.toString()).remove();
                     }
@@ -97,19 +85,18 @@
                     $("#error").html(msg + xhr.status + " " + xhr.statusText);
                 }else{
                     
-                    var width = 0;var height = 0;
+                    var width = 0;var height = 0; var title;
                     var tipo = btn.attr('name');
                     if(tipo == 'video'){
-                        width = 800;height = 350;
+                        width = 800; height = 350; title = 'Adicionar Video Aula';
                     }else{
-                        if(tipo == 'texto'){
-                            width = 500;height = 250;
+                        if(tipo == 'texto_referencia'){
+                            width = 500; height = 250; title = 'Adicionar Texto de Referencia';
                         }else{
-                            if(tipo == 'material'){
-                                width = 500;height = 200;
+                            if(tipo == 'material_complementar'){
+                                width = 500; height = 200; title = 'Adicionar Material Complementar';
                             }else{//novo exercício
-                                width = 700;
-                                height = 300;
+                                width = 700; height = 300; title = 'Adicionar Exercicio';
                             }
                         }
                     }                                            
@@ -135,19 +122,18 @@
                         close: function(event,ui){                     
                             $(dialog).dialog('destroy');
                             $(dialog).find('div').remove();
-                        }                  
-                
+                        }                                        
                     });
                 }
             });
             
         });
         
-        $("#accordion_body2 .accordion_body .lista_video li h3").live('click',function() {            
+        $("#accordion_body2 .accordion_body #lista_video li h3").live('click',function() {            
             var tag = $(this);
             if(tag.attr('name') == 'video'){                
                 $('#dialog_video').load(tag.attr('id'), 'oi', function (){                                    
-                    var options = {width:700, height:400,dialogClass:'dialogstyle',modal: true,
+                    var options = {width:700, height:400,dialogClass:'dialogstyle',
                         open: function(event,ui){                                                                                
                         },
                         close: function(event,ui){                     
@@ -162,22 +148,23 @@
     });            
     
     function insereLinha(data, tipo){
+        var id_modulo = $('#id_modulo').val();
+        var id_curso = $('#id_curso').val();
+        alert(data);
+        data = data.split('-');
+        data[0] = data[0].replace('"', '');
+        data[1] = data[1].replace('"', '');        
+        var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir"/>';
         if(tipo == 'video'){
-            data = data.split('-');
-            data[0] = data[0].replace('"', '');
-            data[1] = data[1].replace('"', '');        
             var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar"/>';
-            var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir"/>';
-            var _HTML = '<li id=video_'+data[0]+'><h3 name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1] + '</h3>' + editar + excluir + '</li>';
-        }else{            
-            data = data.split(']');
-            data[0] = data[0].replace('"', '');
-            data[2] = data[1].replace('"', '');                    
-            var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar"/>';
-            var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir"/>';
-            var _HTML = '<li id=arquivo_'+data[0]+'><a name="'+tipo+'" href="cursos/'+data[2]+'/modulos/'+data[1]+'/tipo/'+data[0]+'">'+data[1] + '</a>' + editar + excluir + '</li>';
+            var _HTML = '<li id=li_'+tipo+'_'+data[0]+'><h3 name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1] + '</h3>' + editar + excluir + '</li>';
+        }else{
+            alert(data[1]);
+            var _HTML = '<li id=li_'+tipo+'_'+data[0]+'><a name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a>' + excluir + '</li>';                            
         }
-        tipo = '.lista_'+tipo+ ' .ul_lista';        
+        tipo = '#lista_'+tipo+ ' .ul_lista';
+        alert(tipo);
+        console.log($(_HTML).html());
         $(tipo.toString()).append($(_HTML));
             
     }
@@ -214,7 +201,7 @@
                                     <img  src='img/seta_blue.png' />Video Aulas
                                 </a>
                             </div>                            
-                            <div class="lista_video">                                                                
+                            <div id="lista_video">                                                                
                                 <ul class="ul_lista">
                                     <li class="li_botao">
                                         <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
@@ -231,10 +218,10 @@
                                     <img  src='img/seta_blue.png' />Textos de Referencia
                                 </a>
                             </div>                            
-                            <div class="lista_texto">
-                                <ul>
+                            <div id="lista_texto_referencia">
+                                <ul class="ul_lista">
                                     <li>
-                                        <input type="button" class="btn_add" name="texto" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
+                                        <input type="button" class="btn_add" name="texto_referencia" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
                                     <?php echo $this->listaTexto; ?>
                                 </ul>
@@ -249,10 +236,10 @@
                                 </a>
                             </div>
 
-                            <div class="lista_material">
-                                <ul>
+                            <div id="lista_material_complementar">
+                                <ul class="ul_lista">
                                     <li>
-                                        <input type="button" class="btn_add" name="material" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
+                                        <input type="button" class="btn_add" name="material_complementar" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
                                     <?php echo $this->listaMaterial; ?>
                                 </ul>
@@ -266,11 +253,13 @@
                                     <img  src='img/seta_blue.png' />Exercicios
                                 </a>
                             </div>
-
-                            <div class="add">
-                                <ul>
+                            <div id="lista_exercicio">
+                                <ul class="ul_lista">
                                     <li>
-                                        <input type="button" class="btn_add" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
+                                        <input type="button" class="btn_add-" onclick="alert('em construção')" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
+                                    </li>
+                                    <li>
+                                        <h3>Em construção</h3>
                                     </li>
                                 </ul>
                             </div>
@@ -280,4 +269,8 @@
             </div>
         </div>
     </div>
+</div>
+<div style="display:none;">
+    <input type="text" name="id_modulo" id="id_modulo" value="<?php echo $this->modulo->getId_modulo(); ?>"/>
+    <input type="text" name="id_curso" id="id_curso" value="<?php echo $this->modulo->getId_curso(); ?>"/>
 </div>

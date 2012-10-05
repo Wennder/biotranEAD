@@ -14,16 +14,24 @@
 </script>
 
 <div id="form_cadastro" style="">
-    <form id="" class="form_cadastrar" method="post" action="ajax/crud_conteudo_modulo.php?acao=inserir_material_complementar" enctype="multipart/form-data">
+    <form id="form_cadastrar" class="form_cadastrar" method="post" action="ajax/crud_conteudo_modulo.php?acao=inserir_material_complementar" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
-            <legend>Inserir material complementarde</legend>
-            <table>                
+            <legend>Inserir material complementar</legend>
+            <table> 
+                <tr>
+                    <td>
+                        <label class="label_cadastro">Nome: </label>
+                    </td>
+                    <td>
+                        <input type="text" name="nome" id="nome" style="width:200px;" value="" class="validate[required] text-input" />
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <label class="label_cadastro">Arquivo: </label>
                     </td>
                     <td>
-                        <input type="file" id="arquivo" style="width:200px;" value="" class="validate[required] text-input" />
+                        <input type="file" name="arquivo" id="arquivo" style="width:200px;" value="" class="validate[required] text-input" />
                     </td>
                 </tr>
                 <tr>
