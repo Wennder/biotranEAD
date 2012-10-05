@@ -2,7 +2,7 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-<script src="js/accordion.js" type="text/javascript"></script>
+<!--<script src="js/accordion.js" type="text/javascript"></script>-->
 
 <script>
     var centro = 1;
@@ -39,7 +39,7 @@
 <style>
     #div_conteudo_professor_editar_modulo{
         position: relative;
-        padding:40px;
+       
         padding-top:0px;
     }
 
@@ -51,13 +51,12 @@
 
     #disposicao_conteudo_professor_editar_modulo{
         position: relative;
-        margin: 20px;
-        margin-top:40px;
+      
     }
     
     #center_content{
         position: relative;
-        padding:40px;
+       
         padding-top:0px;
     }
 
@@ -69,8 +68,7 @@
 
     #center_content{
         position: relative;
-        margin: 20px;
-        margin-top:40px;
+        
     }
     
     #center_content *{

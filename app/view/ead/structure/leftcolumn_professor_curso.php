@@ -1,24 +1,24 @@
 
-<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-<script src="js/accordion.js" type="text/javascript"></script>
+<!--<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>-->
+<!--<script src="js/accordion.js" type="text/javascript"></script>-->
 <script> 
-    $(function() {
-        //Se clicar no header, expande
-        $('.accordion_leftcolumn h3').click(function() {
-            $(this).next().toggle();
-            return false;
-        }).next().hide();
-        //Se clicar no link, redireciona
-        $(".accordion_leftcolumn h3 a").click(function() {
-            if(centro!=1){            
-                centro.find('div').remove();
-            } 
-            var id = $(this).attr('id');
-            centro = $('#center_content').load($(this).attr('href'), 'oi', function (){                                    
-            });       
-        });
-             
-    }); 
+//    $(function() {
+//        //Se clicar no header, expande
+//        $('.accordion_leftcolumn h3').click(function() {
+//            $(this).next().toggle();
+//            return false;
+//        }).next().hide();
+//        //Se clicar no link, redireciona
+//        $(".accordion_leftcolumn h3 a").click(function() {
+//            if(centro!=1){            
+//                centro.find('div').remove();
+//            } 
+//            var id = $(this).attr('id');
+//            centro = $('#center_content').load($(this).attr('href'), 'oi', function (){                                    
+//            });       
+//        });
+//             
+//    }); 
 </script>
 <?php
 if (isset($_GET['id'])) {
