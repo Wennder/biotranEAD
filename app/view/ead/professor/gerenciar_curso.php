@@ -5,9 +5,10 @@
 <script>
     var centro = 1;
     $(document).ready(function(){
-        if(centro == 1){            
+        if(centro == 1){
+            
             centro = $('#center_content').load('index.php?c=ead&a=editar_curso&id='+$('#id_curso_1').val(), $('#id_curso_1').val(), function (){                    
-                //$('#div_conteudo').append(centro);
+//                $('#div_conteudo').append(centro);
             });
             
             $('#lista_de_modulos h3').live('click',function(e){
@@ -53,7 +54,7 @@
     }
     
     #center_content{
-        position: relative;
+       
        
         padding-top:0px;
     }
@@ -64,14 +65,8 @@
         padding:0;
     }
 
-    #center_content{
-        position: relative;
-        
-    }
-    
-    #center_content *{
-        position:relative;
-    }
+  
+   
     
 </style>
 

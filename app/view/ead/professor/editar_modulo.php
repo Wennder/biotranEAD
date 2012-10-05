@@ -14,7 +14,7 @@
     .quadro_de_conteudo_especifico{
         margin:0px;
         margin-bottom:20px;
-        border:1px solid #CCCCCC;
+        border:1px solid #e0e0e0;
         padding: 10px;
         color: #888888;
     }
@@ -32,7 +32,7 @@
     .quadro_de_conteudo_especifico ul li{
         color: #888888;
         background-color: #eeeeee;
-        border:1px solid #CCCCCC;
+        border:1px solid #e0e0e0;
         padding:4px;
     }
 
@@ -45,6 +45,22 @@
         text-decoration: none;
         outline: none;
 
+    }
+    
+    #disposicao_conteudo_professor_editar_modulo{
+        padding:20px;
+    }
+    
+    .list_conteudo{
+        border-bottom:1px solid #eeeeee;
+        background-color: #fafafa;
+    }
+    
+    
+    #titulo_modulo{
+        background: #eeeeee;
+        border: 1px solid #e0e0e0;
+        padding: 5px 12px;
     }
 </style>
 
@@ -185,30 +201,27 @@
 <div id="dialog_video" style="display:none">
 </div>
 <div id="div_conteudo_professor_editar_modulo">
-    <h1>Modulo <?php echo $this->modulo->getNumero_modulo() ?>: <?php echo $this->modulo->getTitulo_modulo() ?></h1>
+    <h1 id="titulo_modulo">Modulo <?php echo $this->modulo->getNumero_modulo() ?>: <?php echo $this->modulo->getTitulo_modulo() ?></h1>
     <div id="disposicao_conteudo_professor_editar_modulo">
         <h4>Descricao: </h4>
         <div class="quadro_de_conteudo_especifico">
             <?php echo $this->modulo->getDescricao() ?>
         </div>
-        <div class="quadro_de_conteudo_especifico">
-        </div>
+       
 
-        <div class="accordion_body">
-            <div class='list_index_admin_gray accord_body' style='margin-top:0px;'>
-                <a><div class='detalhe'></div>
-                    <img class='seta_formatacao' src='img/seta_gray.png' />Conteudo
-                </a>
-            </div>
-            <div id="accordion_body2" class="accord_content_body" style="display:none;">
+        <div class="">
+            
+            <div id="accordion_body2" class="" style="">
                 <ul>
                     <li>
                         <div class="accordion_body">
-                            <div class='list_index_admin_blue accord_body'>
-                                <a><div class='detalhe1'></div>
-                                    <img  src='img/seta_blue.png' />Video Aulas
-                                </a>
-                            </div>                            
+                           
+                            <div class='list_conteudo accord_body'>
+                                
+                                   Video Aulas
+                                
+                            </div>      
+                           
                             <div id="lista_video " class="accord_content_body" style="display:none;">                                                                
                                 <ul class="add">
                                     <?php echo $this->listaVideo; ?>
@@ -222,10 +235,10 @@
                     </li>
                     <li>
                         <div class="accordion_body">
-                            <div class='list_index_admin_blue accord_body'>
-                                <a><div class='detalhe1'></div>
-                                    <img  src='img/seta_blue.png' />Textos de Referencia
-                                </a>
+                            <div class='list_conteudo accord_body'>
+                               
+                                   Textos de Referencia
+                              
                             </div>                            
                             <div class="add accord_content_body" style="display:none;">
                                 <ul>
@@ -239,10 +252,10 @@
                     </li>
                     <li>
                         <div class="accordion_body">
-                            <div class='list_index_admin_blue accord_body'>
-                                <a><div class='detalhe1'></div>
-                                    <img  src='img/seta_blue.png' />Material Complementar
-                                </a>
+                            <div class='list_conteudo accord_body'>
+                               
+                                Material Complementar
+                               
                             </div>
 
                             <div class="add accord_content_body" style="display:none;">
@@ -257,10 +270,10 @@
                     </li>
                     <li>
                         <div class="accordion_body">
-                            <div class='list_index_admin_blue accord_body'>
-                                <a><div class='detalhe1'></div>
-                                    <img  src='img/seta_blue.png' />Exercicios
-                                </a>
+                            <div class='list_conteudo accord_body'>
+                                
+                                    Exercicios
+                                
                             </div>
 
                             <div class="add accord_content_body" style="display:none;">

@@ -6,7 +6,7 @@ $(document).ready(function(){
             //$(e.target).next('div').siblings('div').slideUp('fast');
             
             //Toggle open/close on the <div> after the <h3>, opening it if not open.
-            $(e.target).next('.accord_content').slideToggle('fast');
+            $(this).next('.accord_content').slideToggle('fast');
           
         });
     });

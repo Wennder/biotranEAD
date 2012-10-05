@@ -1,24 +1,24 @@
 
-<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+<!--<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>-->
 <script src="js/accordion.js" type="text/javascript"></script>
 <script> 
-//    $(function() {
-//        //Se clicar no header, expande
+    $(function() {
+        //Se clicar no header, expande
 //        $('.accordion_leftcolumn h3').click(function() {
 //            $(this).next().toggle();
 //            return false;
 //        }).next().hide();
-//        //Se clicar no link, redireciona
-//        $(".accordion_leftcolumn h3 a").click(function() {
-//            if(centro!=1){            
-//                centro.find('div').remove();
-//            } 
-//            var id = $(this).attr('id');
-//            centro = $('#center_content').load($(this).attr('href'), 'oi', function (){                                    
-//            });       
-//        });
-//             
-//    }); 
+        //Se clicar no link, redireciona
+        $(".accord h3").click(function() {
+            if(centro!=1){            
+                centro.find('div').remove();
+            } 
+            var id = $(this).attr('id');
+            centro = $('#center_content').load($(this).attr('id'), 'oi', function (){                                    
+            });       
+        });
+             
+    }); 
 </script>
 <?php
 if (isset($_GET['id'])) {
@@ -34,10 +34,10 @@ if (isset($_GET['id'])) {
             <a href="index.php?c=ead&a=listaCursos_professor">Cursos</a>
         </h3>
         <div class="accordion_leftcolumn navbar_item">
-            <h3 class="accord">
-                <img src="img/seta_gray.png"/>
-                <a href="index.php?c=ead&a=editar_curso&id=<?php echo $id_curso ?>"><?php echo $controllerCurso->getCurso("id_curso=" . $id_curso)->getNome() ?></a>
-            </h3>
+            <div class="accord">
+                <img style="float:left;" src="img/seta_gray.png"/>
+                <h3 id="index.php?c=ead&a=editar_curso&id=<?php echo $id_curso ?>"><?php echo $controllerCurso->getCurso("id_curso=" . $id_curso)->getNome() ?></h3>
+            </div>
             <div class="accord_content">
                 <ul style="list-style-type:none;">
                     <?php

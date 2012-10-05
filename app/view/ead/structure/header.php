@@ -3,8 +3,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
         <title>EAD Biotran</title>
         <!--<script src="js/accordion.js" type="text/javascript"></script>-->
-        <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
-        <script src="js/video.js"></script>                
+<!--        <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        -->
+<!--        <script src="js/video.js"></script>                -->
         <script src="js/jquery.js" type="text/javascript"></script>
         <script src="js/menuDropDown.js" type="text/javascript"></script>                        
 <!--        <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>

@@ -2,7 +2,7 @@
 <?php require ROOT_PATH.'/app/view/ead/structure/leftcolumn.php'; ?>
 <?php require ROOT_PATH.'/app/view/ead/structure/content.php'; ?>
 
-<!--<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>-->
+<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <!--<script src="js/accordion.js" type="text/javascript"></script>-->
 
 <script> $(document).ready(function(){
@@ -23,21 +23,21 @@
         list-style: none;
     }
 
-    .accordion_body_content{
+    .accord_content{
         display: none;
     }
 
-    .accordion_body{
+    .accord{
         background-color: #eeeeee;
         border-top:1px solid white;
         border-bottom: 1px solid #cccccc;
-        position:relative;
+        
         z-index: 10;
         cursor: pointer;
     }
-    .accordion_body *{
+    .accord *{
         cursor: pointer;
-        position: relative;
+        
         z-index: 8;
     }
 

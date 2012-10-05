@@ -434,3 +434,13 @@ form.form_cadastro, form.form_editar{
     margin-top: 8px;
     margin-right: 15px;
 }
+
+
+.accord_body{
+    cursor: pointer;
+    z-index: 9999;
+   overflow: auto;
+}
+.accord_body *{
+    z-index: 0;
+}
