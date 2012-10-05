@@ -1,8 +1,8 @@
 <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
-<script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+<!--<script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> -->
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 
 <script>    

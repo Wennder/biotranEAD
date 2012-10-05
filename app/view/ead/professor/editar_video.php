@@ -7,7 +7,8 @@
 
 <script>
     
-    $(document).ready(function(){                               
+    $(document).ready(function(){                
+        $('#form_cadastrar').ajaxForm();        
         $('#form_cadastrar').validationEngine();                
     });
     
@@ -31,7 +32,7 @@
                         <label class="label_cadastro">Video: </label>
                     </td>
                     <td>                                                
-                        <input type="file" id="video" name="video" style="width:500px;" value="" class="validate[required] text-input" />
+                        <input type="file" id="video" name="video" style="width:500px;" value="" class="text-input" />
                         <br ><br >
                         <progress value="0" max="100"></progress><span id="porcentagem">0%</span>
                     </td>
@@ -51,7 +52,7 @@
         <input type="submit" id="btn_add" name="btn_add" value="Adicionar" class="button"/>
 
         <div style="display:none;">
-            <input type="text" id="id_modulo" name="id_modulo" value="<?php echo ($this->modulo != null ? $this->modulo->getId_modulo() : '') ?>" class="button"/>
+            <input type="text" id="id_video" name="id_video" value="<?php echo ($this->video != null ? $this->modulo->getId_video() : '') ?>" class="button"/>
         </div>
     </form>
     </br></br>

@@ -100,13 +100,31 @@ class controllerModulo {
 
         $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
         for ($i = 0; $i < count($videos); $i++) {
-            $lista .= "<li><h3 id=" . $videos[$i]->getId_video() . ">";
+            $lista .= "<li id='video_" . $videos[$i]->getId_video() . "' ><h3 name='video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
             $lista .= $videos[$i]->getTitulo();
-            $lista .= "</h3><input type='button' class='btn_edt' value='Editar' float='right'/><input type='button' class='btn_del' value='Excluir' float='right'/></li>";
+            $lista .= "</h3><input type='button' id='" . $videos[$i]->getId_video() . "' class='btn_edt' name='video' value='Editar' float='right'/><input id='" . $videos[$i]->getId_video() . "' type='button' name='video' class='btn_del' value='Excluir' float='right'/></li>";
         }
+        return $lista;
+    }
 
+    /*
+     * tipo pode ser: texto_referencia ou material complementar
+     */
 
+    public function listaArquivos($tipo) {
+        $controllerVideo = new controllerVideo();
+        $modulo = new Modulo();
+        $dao = new ModuloDAO();
+        $curso = $modulo->getId_curso('id_modulo=' . $id_modulo);
+        $diretorio = ROOT_PATH . "/public/cursos/" . $curso . "/modulos/" . $id_modulo . "/video_aula/";
+        $lista = "";
 
+        $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
+        for ($i = 0; $i < count($videos); $i++) {
+            $lista .= "<li id='video_'" . $videos[$i]->getId_video() . "><h3 name='video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
+            $lista .= $videos[$i]->getTitulo();
+            $lista .= "</h3><input type='button' class='btn_edt' name='video' value='Editar' float='right'/><input type='button' name='video' class='btn_del' value='Excluir' float='right'/></li>";
+        }
         return $lista;
     }
 
@@ -219,7 +237,11 @@ class controllerModulo {
         $v = $this->setConteudo('video');
         $controller = new controllerVideo();
         $v->setId_video($controller->novoVideo($v));
-        return $this->setArquivoVideo($v);
+        if ($this->setArquivoVideo($v)) {
+            $retorno = $v->getId_video() . '-' . $v->getTitulo();
+            return $retorno;
+        }
+        return 0;
     }
 
     public function inserir_texto_referencia() {
@@ -231,17 +253,29 @@ class controllerModulo {
         $id_modulo = $_POST["id_modulo"];
         return $this->setArquivo('material_complementar', $id_modulo);
     }
-    
+
     public function inserir_exercicio() {
         $e = $this->setConteudo('exercicio');
         $controller = new controllerExercicio();
         $e->setId_exercicio($controller->novoExercicio($e));
-        if($e->getId_exercicio() != 0){
-            return 1;            
+        if ($e->getId_exercicio() != 0) {
+            return 1;
         }
         return 0;
     }
 
+    public function remover_video($id_video) {
+        $controller = new controllerVideo();
+        $v = $controller->getVideo("id_video=" . $id_video);
+        $modulo = $this->getModulo("id_modulo=" . $v->getId_modulo());
+        if ($controller->deleteVideo($v) > 0) {
+            $diretorio_video = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $v->getId_modulo() . "/video_aula/" . $v->getId_video() . ".wmv";
+            if (unlink($diretorio_video)) {
+                return 1;
+            }
+        }
+        return 0;
+    }
 
 }
 

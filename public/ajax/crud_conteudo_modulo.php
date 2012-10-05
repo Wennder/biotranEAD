@@ -7,8 +7,11 @@ include ROOT_PATH . '/app/controller/controllerVideo.php';
 //include ROOT_PATH . '/app/model/vo/Exercicio.php'
 //include ROOT_PATH . '/app/model/dao/ExercicioDAO.php';
 
-
+$parametro = '';
 $metodo = $_GET['acao'];
+if(isset($_REQUEST["id"])){
+    $parametro = $_REQUEST["id"];
+}
 
 //$id_modulo = $_GET['id_modulo'];
 
@@ -16,7 +19,7 @@ $controller = new controllerModulo();
 
 if (method_exists($controller, $metodo)) {
     /* @var $id_modulo type */
-    $resposta = $controller->$metodo();
+    $resposta = $controller->$metodo($parametro);
 } else {
     $resposta = false;
 }
