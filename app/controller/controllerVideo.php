@@ -35,6 +35,11 @@ class controllerVideo {
         $v = $dao->select($condicao);
         return $v; // null
     }
+    
+    public function deleteVideo(Video $v) {
+        $dao = new VideoDAO();
+        return $dao->delete($v);        
+    }        
 
 }
 

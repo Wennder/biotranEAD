@@ -8,13 +8,15 @@
 /**
  * Description of Exercicio
  *
- * @author Torres
+ * @author cead-p057007
  */
 class Exercicio {
+    //put your code here
+    private $id_exercicio = '';
+    private $id_modulo = '';
+    private $titulo = '';
+    private $descricao = '';
     
-    private $id_exercicio;
-    private $id_atividade;
-    private $enuciado;
     
     public function getId_exercicio() {
         return $this->id_exercicio;
@@ -24,22 +26,30 @@ class Exercicio {
         $this->id_exercicio = $id_exercicio;
     }
 
-    public function getId_atividade() {
-        return $this->id_atividade;
+    public function getId_modulo() {
+        return $this->id_modulo;
     }
 
-    public function setId_atividade($id_atividade) {
-        $this->id_atividade = $id_atividade;
+    public function setId_modulo($id_modulo) {
+        $this->id_modulo = $id_modulo;
     }
 
-    public function getEnuciado() {
-        return $this->enuciado;
+    public function getTitulo() {
+        return $this->titulo;
     }
 
-    public function setEnuciado($enuciado) {
-        $this->enuciado = $enuciado;
+    public function setTitulo($titulo) {
+        $this->titulo = $titulo;
     }
 
+    public function getDescricao() {
+        return $this->descricao;
+    }
+
+    public function setDescricao($descricao) {
+        $this->descricao = $descricao;
+    }
+    
 }
 
 ?>

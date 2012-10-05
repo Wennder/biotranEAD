@@ -14,7 +14,7 @@ switch ($usuario) {
     case 1: require 'leftcolumn_admin.php';break;
     case 2: require 'leftcolumn_gestor.php';break;
     case 3:
-        if ($_GET['a'] == "gerenciar_curso" || $_GET['a'] == "cadastrar_primeiro_acesso") {
+        if ($_GET['a'] == "gerenciar_curso" || $_GET['a'] == "cadastrar_primeiro_acesso_curso") {
             require 'leftcolumn_professor_curso.php';
         } else {
             require 'leftcolumn_professor_home.php';

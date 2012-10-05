@@ -110,8 +110,7 @@ class CursoDAO extends PDOConnectionFactory {
                 $curso[$i] = $stmt->fetchObject('Curso');
             }
             if ($i == 0) {
-                $curso = null;
-                echo $curso;die();
+                $curso = null;                
             }
             return $curso;
         } catch (PDOException $ex) {

@@ -5,10 +5,11 @@
  * Contém apenas comandos de importação
  */
 define('FALHA_SISTEMA', "falha no sistema");
-define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'].'/biotranEAD');
+define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'].'biotranEAD');
 include ROOT_PATH . "/app/model/pdo/PDOConnectionFactory.class.php";
 include ROOT_PATH . '/app/model/vo/Usuario.php';
 include ROOT_PATH . '/app/model/vo/Endereco.php';
+include ROOT_PATH . '/app/model/vo/Exercicio.php';
 include ROOT_PATH . '/app/model/vo/Papel.php';
 include ROOT_PATH . '/app/model/vo/Curso.php';
 include ROOT_PATH . '/app/model/vo/Modulo.php';
@@ -16,6 +17,7 @@ include ROOT_PATH . '/app/model/vo/Matricula_curso.php';
 include ROOT_PATH . '/app/model/vo/Curso_professor.php';
 include ROOT_PATH . '/app/model/vo/Video.php';
 include ROOT_PATH . '/app/model/dao/UsuarioDAO.php';
+include ROOT_PATH . '/app/model/dao/ExercicioDAO.php';
 include ROOT_PATH . '/app/model/dao/CursoDAO.php';
 include ROOT_PATH . '/app/model/dao/ModuloDAO.php';
 include ROOT_PATH . '/app/model/dao/Curso_professorDAO.php';

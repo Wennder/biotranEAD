@@ -137,8 +137,7 @@ class controllerCurso {
 
         //cria o diretório do curso na pasta pdf
         $this->criaDiretorioCurso($this->curso->getId_curso());
-        $this->criaDiretorioCurso_videoAula($this->curso->getId_curso());
-        $this->criaDiretorioCurso_textos($this->curso->getId_curso());
+        //$this->criaDiretorioCurso_videoAula($this->curso->getId_curso());        
         return $this->curso->getId_curso();
     }
 
@@ -361,7 +360,7 @@ class controllerCurso {
     }
 
     public function tabelaCursos() {
-      
+        $this->cursos = $this->getListaCursos();        
         $tabela = "<table id='tabela_cursos' width='100%' align='center'>
          <thead> 
                 <tr> 
@@ -378,12 +377,7 @@ class controllerCurso {
                     <th>id</th>                   
                 </tr> 
             </thead> 
-            <tbody>";
-           
-        $cursoDAO = new CursoDAO();
-        
-        $this->cursos = $cursoDAO->select(null, null);
-        
+            <tbody>";                   
         $quant = count($this->cursos);
         $i = 0;
         for (; $i < $quant; $i++) {
@@ -400,7 +394,7 @@ class controllerCurso {
             $tabela .= "<td width='14%' id='obs' align='center'>" . $this->cursos[$i]->getObs() . "</td>";
             $tabela .= "<td width='14%' id='id_curso' align='center'>" . $this->cursos[$i]->getId_curso() . "</td>";
         }
-        $tabela .= "</tbody></table>";
+        $tabela .= "</tbody></table>";        
         return $tabela;
     }
 
