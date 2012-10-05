@@ -9,7 +9,7 @@
 <script type="text/javascript" src="js/jquery.form.js"></script>
 
 <style>
-    @import "http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css";
+    @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
     .quadro_de_conteudo_especifico{
         margin:0px;
         margin-bottom:20px;
@@ -195,7 +195,7 @@
                     <img class='seta_formatacao' src='img/seta_gray.png' />Conteudo
                 </a>
             </div>
-            <div id="accordion_body2">
+            <div class="accordion_body_content ">
                 <ul>
                     <li>
                         <div class="accordion_body">
@@ -204,7 +204,7 @@
                                     <img  src='img/seta_blue.png' />Video Aulas
                                 </a>
                             </div>                            
-                            <div class="lista_video">                                                                
+                            <div class="accordion_body_content lista_video">                                                                
                                 <ul class="ul_lista">
                                     <li class="li_botao">
                                         <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
@@ -221,7 +221,7 @@
                                     <img  src='img/seta_blue.png' />Textos de Referencia
                                 </a>
                             </div>                            
-                            <div class="add">
+                            <div class="accordion_body_content lista_texto">
                                 <ul>
                                     <?php echo $this->listaTexto; ?>
                                     <li>
@@ -239,7 +239,7 @@
                                 </a>
                             </div>
 
-                            <div class="add">
+                            <div class="accordion_body_content add">
                                 <ul>
                                     <?php echo $this->listaMaterial; ?>
                                     <li>
@@ -257,7 +257,7 @@
                                 </a>
                             </div>
 
-                            <div class="add">
+                            <div class="accordion_body_content add">
                                 <ul>
                                     <li>
                                         <input type="button" class="btn_add" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>

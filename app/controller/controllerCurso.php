@@ -407,7 +407,7 @@ class controllerCurso {
         $quant = count($matriculados);
         $i = 0;
 
-        $tabela .= "<a><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />Meus Cursos</div></a><div><ul>";
+        $tabela .= "<a><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />Meus Cursos</div></a><div class='accordion_body_content'><ul>";
         if ($quant > 0) {
             for (; $i < $quant; $i++) {
                 $auxCurso = $cursoDAO->select("id_curso=" . $matriculados[$i]->getId_curso());
@@ -423,7 +423,7 @@ class controllerCurso {
         $tabela .= "</ul></div>";
         $quant = count($this->cursos);
         $i = 0;
-        $tabela .= "<a><div class='list_index_admin_gray'><div class='detalhe'></div><img  src='img/seta_gray.png' />Outros Cursos</div></a><div><ul>";
+        $tabela .= "<a><div class='list_index_admin_gray'><div class='detalhe'></div><img  src='img/seta_gray.png' />Outros Cursos</div></a><div class='accordion_body_content'><ul>";
         for (; $i < $quant; $i++) {
             if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() .
                             " AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
