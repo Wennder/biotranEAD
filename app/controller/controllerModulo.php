@@ -113,7 +113,6 @@ class controllerModulo {
         $diretorio = $diretorio = ROOT_PATH . "/public/cursos/" . $id_curso . "/modulos/" . $id_modulo . "/texto_referencia/";
         $arquivos = glob($diretorio . "*.pdf");
         $lista = "";
-   //     print_r($arquivos); die();
         foreach ($arquivos as $arquivo) {            
             $lista .= "<li><h3>";
             $lista .= basename($arquivo);
