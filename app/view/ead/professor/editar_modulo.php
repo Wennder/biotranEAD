@@ -121,14 +121,10 @@
                                     $('progress').attr('value','100');
                                     $('#porcentagem').html('100%');
                                     $('pre').html(data);
-                                    if(data != 0){                                         
-                                        if(tipo == 'video'){                                        
-                                            data = data.split('-');
-                                            insereVideo(data);
-                                        }else{//insere novo arquivo(texto/material)
-                                    
-                                        }
-                                        alert('Video inserido!');
+                                    if(data != 0){                                                                             
+                                        data = data.split('-');
+                                        insereLinha(data, tipo);
+                                        alert('Arquivo inserido!');
                                         $(dialog).dialog('close');
                                     }                       
                                 }                    
@@ -161,15 +157,23 @@
                 }); 
             }
         });             
-    });         
+    });            
     
-    function insereVideo(data){
+    function insereLinha(data, tipo){
         data[0] = data[0].replace('"', '');
-        data[1] = data[1].replace('"', '');
-        var editar = '<input id="'+data[0]+'" name="video" type="button" class="btn_edt" value="Editar"/>';
-        var excluir = '<input id="'+data[0]+'" name="video" type="button" class="btn_del" value="Excluir"/>';
-        var _HTML = '<li id=video_'+data[0]+'><h3 name="video" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1] + '</h3>' + editar + excluir + '</li>';                
-        $('.lista_video .ul_lista').append($(_HTML));
+        data[1] = data[1].replace('"', '');        
+        if(tipo == 'video'){
+            var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar"/>';
+            var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir"/>';
+            var _HTML = '<li id=video_'+data[0]+'><h3 name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1] + '</h3>' + editar + excluir + '</li>';
+        }else{
+            var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar"/>';
+            var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir"/>';
+            var _HTML = '<li id=arquivo_'+data[0]+'><a name="'+tipo+'" href="cursos/'+data[2]+'/modulos/'+data[1]+'/tipo/'+data[0]+'">'+data[1] + '</a>' + editar + excluir + '</li>';
+        }
+        tipo = '.lista_'+tipo+ ' .ul_lista';        
+        $(tipo.toString()).append($(_HTML));
+            
     }
     
     
@@ -221,7 +225,7 @@
                                     <img  src='img/seta_blue.png' />Textos de Referencia
                                 </a>
                             </div>                            
-                            <div class="add">
+                            <div class="lista_texto">
                                 <ul>
                                     <?php echo $this->listaTexto; ?>
                                     <li>
@@ -239,7 +243,7 @@
                                 </a>
                             </div>
 
-                            <div class="add">
+                            <div class="lista_material">
                                 <ul>
                                     <li>
                                         <input type="button" class="btn_add" name="material" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>

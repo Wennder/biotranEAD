@@ -196,10 +196,10 @@ class controllerModulo {
         if (isset($_FILES["video"])) {
             if ($_FILES["video"]["name"] != '') {
                 $video = $_FILES["video"];
-                $tipos = array("wmv");
+                $tipos = array("mp4");
                 $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
                 if (!in_array($video['type'], $tipos)) {
-                    $video_nome = $pasta_dir . $id_video . ".wmv";
+                    $video_nome = $pasta_dir . $id_video . ".mp4";
                     move_uploaded_file($_FILES['video']['tmp_name'], $video_nome);
                     return 1;
                 }

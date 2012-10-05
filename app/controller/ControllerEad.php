@@ -302,7 +302,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->video = $this->controller->getVideo('id_video='. $id_video);
         $this->controller = new controllerModulo();
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $this->visao->video->getId_modulo() . "");
-//        $this->visao->caminho = ROOT_PATH . "/"
+        $this->visao->caminho = "cursos/".$this->visao->modulo->getId_curso()."/modulos/".  $this->visao->video->getId_modulo() . "/video_aula/".$this->visao->video->getId_video().".mp4";
         $this->renderizar();
     }                    
 
