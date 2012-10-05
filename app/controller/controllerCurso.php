@@ -299,8 +299,8 @@ class controllerCurso {
             $listaCursos = "";
 
             // Lista os cursos em construcao
-            $listaCursos .= "<div class=' accord' style='margin-top:0px;'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos em Construcao ($a Curso(s))</div>";
-            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul>";
+            $listaCursos .= "<div class='accordion_body' style='margin-top:0px;'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos em Construcao ($a Curso(s))</div>";
+            $listaCursos .= "<div class='lista_cursos_professor accordion_body_content'><ul>";
 
             if ($construcao != "") {
                 $listaCursos .= $construcao;
@@ -310,8 +310,8 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos aprovados e disponiveis
-            $listaCursos .= "<div class=' accord'><img class='seta_formatacao' src='img/seta_blue.png' />Cursos Aprovados e Disponíveis ($e Curso(s))</div>";
-            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul >";
+            $listaCursos .= "<div class='accordion_body'><img class='seta_formatacao' src='img/seta_blue.png' />Cursos Aprovados e Disponíveis ($e Curso(s))</div>";
+            $listaCursos .= "<div class='lista_cursos_professor accordion_body_content'><ul >";
             if ($aprovado_disponivel != "") {
                 $listaCursos .= $aprovado_disponivel;
             } else {
@@ -320,8 +320,8 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos aprovados e indisponiveis
-            $listaCursos .= "<div class=' accord'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos Aprovados e Indisponíveis ($d Curso(s))</div>";
-            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul >";
+            $listaCursos .= "<div class='accordion_body'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos Aprovados e Indisponíveis ($d Curso(s))</div>";
+            $listaCursos .= "<div class='lista_cursos_professor accordion_body_content'><ul >";
 
             if ($aprovado_indisponivel != "") {
                 $listaCursos .= $aprovado_indisponivel;
@@ -331,8 +331,8 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos nao avaliados
-            $listaCursos .= "<div class=' accord'><img class='seta_formatacao' src='img/seta_blue.png' />Cursos Não Avaliados ($b Curso(s))</a></div>";
-            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul style='list-style-type:none;'>";
+            $listaCursos .= "<div class='accordion_body'><img class='seta_formatacao' src='img/seta_blue.png' />Cursos Não Avaliados ($b Curso(s))</a></div>";
+            $listaCursos .= "<div class='lista_cursos_professor accordion_body_content'><ul style='list-style-type:none;'>";
 
             if ($nao_avaliado != "") {
                 $listaCursos .= $nao_avaliado;
@@ -342,8 +342,8 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos rejeitados
-            $listaCursos .= "<div class=' accord'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos Rejeitados ($c Curso(s))</div>";
-            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul style='list-style-type:none;'>";
+            $listaCursos .= "<div class='accordion_body'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos Rejeitados ($c Curso(s))</div>";
+            $listaCursos .= "<div class='lista_cursos_professor accordion_body_content'><ul style='list-style-type:none;'>";
 
             if ($rejeitado != "") {
                 $listaCursos .= $rejeitado;
