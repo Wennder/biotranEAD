@@ -14,7 +14,7 @@
             
             //Toggle open/close on the <div> after the <h3>, opening it if not open.
             $(e.target).next('.accord_content').slideToggle('fast');
-            $(e.target).next('img').css("transform","rotate(90 deg)");
+          
         });
     });</script>
 
@@ -31,9 +31,14 @@
         background-color: #eeeeee;
         border-top:1px solid white;
         border-bottom: 1px solid #cccccc;
+        position:relative;
+        z-index: 10;
+        cursor: pointer;
     }
     .accord *{
         cursor: pointer;
+        position: relative;
+        z-index: 8;
     }
     
     .lista_cursos_professor{

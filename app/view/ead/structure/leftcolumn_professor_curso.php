@@ -1,6 +1,6 @@
 
-<!--<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>-->
-<!--<script src="js/accordion.js" type="text/javascript"></script>-->
+<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+<script src="js/accordion.js" type="text/javascript"></script>
 <script> 
 //    $(function() {
 //        //Se clicar no header, expande
@@ -34,11 +34,11 @@ if (isset($_GET['id'])) {
             <a href="index.php?c=ead&a=listaCursos_professor">Cursos</a>
         </h3>
         <div class="accordion_leftcolumn navbar_item">
-            <h3>
+            <h3 class="accord">
                 <img src="img/seta_gray.png"/>
                 <a href="index.php?c=ead&a=editar_curso&id=<?php echo $id_curso ?>"><?php echo $controllerCurso->getCurso("id_curso=" . $id_curso)->getNome() ?></a>
             </h3>
-            <div>
+            <div class="accord_content">
                 <ul style="list-style-type:none;">
                     <?php
                     echo $controllerModulo->listaAdicionar_conteudo_modulo($id_curso);

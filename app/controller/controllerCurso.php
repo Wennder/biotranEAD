@@ -277,7 +277,9 @@ class controllerCurso {
         $c = 0;
         $d = 0;
         $e = 0;
-
+        
+        
+        
         for ($i = 0; $i < count($cursos); $i++) {
             $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());            
             if ($this->curso->getStatus(1) == 0) {
@@ -353,6 +355,7 @@ class controllerCurso {
             }
             $listaCursos .= "</ul></div>";
         }
+   
         return $listaCursos;
     }
 

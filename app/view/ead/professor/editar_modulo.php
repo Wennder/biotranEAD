@@ -1,7 +1,8 @@
 
-<!--<script src="js/accordion.js" type="text/javascript"></script>-->
-<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
-<link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>        
+<script src="js/accordion_1.js" type="text/javascript"></script>
+<!--<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>-->
+<link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>   
+<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <link href="css/jquery.dialog.css" rel="stylesheet" type="text/css"/>        
 <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
@@ -15,13 +16,17 @@
         color: #888888;
     }
 
+    ul{
+        list-style: none;
+    }
+    
     .quadro_de_conteudo_especifico ul{
         margin:0;
         padding: 0;
+        list-style: none;
     }
 
     .quadro_de_conteudo_especifico ul li{
-        list-style: none;
         color: #888888;
         background-color: #eeeeee;
         border:1px solid #CCCCCC;
@@ -118,21 +123,21 @@
         </div>
 
         <div class="accordion_body">
-            <div class='list_index_admin_gray' style='margin-top:0px;'>
+            <div class='list_index_admin_gray accord_body' style='margin-top:0px;'>
                 <a><div class='detalhe'></div>
                     <img class='seta_formatacao' src='img/seta_gray.png' />Conteudo
                 </a>
             </div>
-            <div id="accordion_body2">
+            <div id="accordion_body2" class="accord_content_body" style="display:none;">
                 <ul>
                     <li>
                         <div class="accordion_body">
-                            <div class='list_index_admin_blue'>
+                            <div class='list_index_admin_blue accord_body'>
                                 <a><div class='detalhe1'></div>
                                     <img  src='img/seta_blue.png' />Video Aulas
                                 </a>
                             </div>                            
-                            <div id="lista_video">                                                                
+                            <div id="lista_video " class="accord_content_body" style="display:none;">                                                                
                                 <ul class="add">
                                     <?php echo $this->listaVideo; ?>
                                     <li>
@@ -144,12 +149,12 @@
                     </li>
                     <li>
                         <div class="accordion_body">
-                            <div class='list_index_admin_blue'>
+                            <div class='list_index_admin_blue accord_body'>
                                 <a><div class='detalhe1'></div>
                                     <img  src='img/seta_blue.png' />Textos de Referencia
                                 </a>
                             </div>                            
-                            <div class="add">
+                            <div class="add accord_content_body" style="display:none;">
                                 <ul>
                                     <?php echo $this->listaTexto; ?>
                                     <li>
@@ -161,13 +166,13 @@
                     </li>
                     <li>
                         <div class="accordion_body">
-                            <div class='list_index_admin_blue'>
+                            <div class='list_index_admin_blue accord_body'>
                                 <a><div class='detalhe1'></div>
                                     <img  src='img/seta_blue.png' />Material Complementar
                                 </a>
                             </div>
 
-                            <div class="add">
+                            <div class="add accord_content_body" style="display:none;">
                                 <ul>
                                     <li>
                                         <input type="button" class="btn_add" name="material" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
@@ -178,13 +183,13 @@
                     </li>
                     <li>
                         <div class="accordion_body">
-                            <div class='list_index_admin_blue'>
+                            <div class='list_index_admin_blue accord_body'>
                                 <a><div class='detalhe1'></div>
                                     <img  src='img/seta_blue.png' />Exercicios
                                 </a>
                             </div>
 
-                            <div class="add">
+                            <div class="add accord_content_body" style="display:none;">
                                 <ul>
                                     <li>
                                         <input type="button" class="btn_add" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>

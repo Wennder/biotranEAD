@@ -80,7 +80,7 @@ class controllerModulo {
         $i = 0;
         $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<div class='accordion_leftcolumn'><h3><a href='index.php?c=ead&a=editar_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</a></h3><div><ul style='list-style-type:none;'>";
+            $listaModulos .= "<div class='accordion_leftcolumn accord'><h3><a href='index.php?c=ead&a=editar_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</a></h3><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";
             $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_videoaula&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Video Aula</a></p></li>";
             $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_bibliografia&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Bibliografia</a></p></li>";
             $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_materialcomplementar&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Material Complementar</a></p></li>";
