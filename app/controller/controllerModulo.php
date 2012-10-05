@@ -102,28 +102,28 @@ class controllerModulo {
         for ($i = 0; $i < count($videos); $i++) {
             $lista .= "<li id='video_" . $videos[$i]->getId_video() . "' ><h3 name='video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
             $lista .= $videos[$i]->getTitulo();
-            $lista .= "</h3><input type='button' id='" . $videos[$i]->getId_video() . "' class='btn_edt' name='video' value='Editar' float='right'/><input id='" . $videos[$i]->getId_video() . "' type='button' name='video' class='btn_del' value='Excluir' float='right'/></li>";
+            $lista .= "</h3><input type='button' id='" . $videos[$i]->getId_video() . "' class='btn_edt' name='video' value='Editar'/><input id='" . $videos[$i]->getId_video() . "' type='button' name='video' class='btn_del' value='Excluir'/></li>";
         }
         return $lista;
     }
 
     /*
-     * tipo pode ser: texto_referencia ou material complementar
+     * tipo pode ser: texto_referencia ou material_complementar
      */
 
-    public function listaArquivos($tipo) {
-        $controllerVideo = new controllerVideo();
-        $modulo = new Modulo();
-        $dao = new ModuloDAO();
-        $curso = $modulo->getId_curso('id_modulo=' . $id_modulo);
-        $diretorio = ROOT_PATH . "/public/cursos/" . $curso . "/modulos/" . $id_modulo . "/video_aula/";
-        $lista = "";
+    public function listaArquivos(Modulo $modulo, $tipo) {
+        $lista = 0;
+        if($tipo == 'texto_referencia' || $tipo == 'material_complementar'){                        
+            $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/".$tipo."/";
+            $lista = "";
 
-        $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
-        for ($i = 0; $i < count($videos); $i++) {
-            $lista .= "<li id='video_'" . $videos[$i]->getId_video() . "><h3 name='video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
-            $lista .= $videos[$i]->getTitulo();
-            $lista .= "</h3><input type='button' class='btn_edt' name='video' value='Editar' float='right'/><input type='button' name='video' class='btn_del' value='Excluir' float='right'/></li>";
+            $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
+            for ($i = 0; $i < count($videos); $i++) {
+                $lista .= "<li id='video_'" . $videos[$i]->getId_video() . "><h3 name='video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
+                $lista .= $videos[$i]->getTitulo();
+                $lista .= "</h3><input type='button' class='btn_edt' name='video' value='Editar' float='right'/><input type='button' name='video' class='btn_del' value='Excluir' float='right'/></li>";
+            }
+            
         }
         return $lista;
     }
