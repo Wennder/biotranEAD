@@ -114,13 +114,15 @@ class controllerModulo {
     public function listaArquivos(Modulo $modulo, $tipo) {
         $lista = 0;
         if ($tipo == 'texto_referencia' || $tipo == 'material_complementar') {
+            $link = "cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/" . $tipo . "/";
             $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/" . $tipo . "/";
             $arquivos = glob($diretorio . "*.pdf");
             $lista = "";
             foreach ($arquivos as $arquivo) {
-                $lista .= "<li><h3>";
-                $lista .= "<a href='".$arquivo."'>".basename($arquivo)."</a>";
-                $lista .= "</h3><input type='button' id='".basename($arquivo)."' class='btn_del' value='Excluir' float='right'/></li>";
+                $id = str_ireplace('.', '_', basename($arquivo));
+                $lista .= "<li id=" . $tipo . "_" . $id . "><h3>";
+                $lista .= "<a target='_blank' href='" . $link . basename($arquivo) . "'>" . basename($arquivo) . "</a>";
+                $lista .= "</h3><input type='button' name='" . $tipo . "' id='" . basename($arquivo) . "-".$modulo->getId_modulo()."' class='btn_del' value='Excluir'/></li>";
             }
         }
         return $lista;
@@ -244,7 +246,11 @@ class controllerModulo {
 
     public function inserir_texto_referencia() {
         $id_modulo = $_POST["id_modulo"];
-        return $this->setArquivo('texto_referencia', $id_modulo);
+        $resposta = 0;
+        if($this->setArquivo('texto_referencia', $id_modulo)){
+            $resposta = str_ireplace('.', '_', $_FILES['arquivo']['name']) . ']'. $id_modulo . ']'.$this->getModulo('id_modulo='.$id_modulo)->getId_curso();
+        }
+        return $resposta;
     }
 
     public function inserir_material_complementar() {
@@ -267,10 +273,31 @@ class controllerModulo {
         $v = $controller->getVideo("id_video=" . $id_video);
         $modulo = $this->getModulo("id_modulo=" . $v->getId_modulo());
         if ($controller->deleteVideo($v) > 0) {
-            $diretorio_video = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $v->getId_modulo() . "/video_aula/" . $v->getId_video() . ".wmv";
+            $diretorio_video = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $v->getId_modulo() . "/video_aula/" . $v->getId_video() . ".mp4";
             if (unlink($diretorio_video)) {
                 return 1;
             }
+        }
+        return 0;
+    }
+
+    public function remover_texto_referencia($nome_arquivo_id_modulo) {
+        $nome_arquivo_id_modulo = explode('-', $nome_arquivo_id_modulo);
+        $nome_arquivo = $nome_arquivo_id_modulo[0];
+        $id_modulo = $nome_arquivo_id_modulo[1];
+        $modulo = $this->getModulo("id_modulo=" . $id_modulo);
+        $diretorio_arq = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/texto_referencia/" . $nome_arquivo;
+        if (unlink($diretorio_arq)) {            
+            return 1;
+        }
+        return 0;
+    }
+
+    public function remover_material_complementar($id_modulo, $nome_arquivo) {
+        $modulo = $this->getModulo("id_modulo=" . $id_modulo);
+        $diretorio_arq = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/material_complementar/" . $nome_arquivo;
+        if (unlink($diretorio_arq)) {
+            return 1;
         }
         return 0;
     }

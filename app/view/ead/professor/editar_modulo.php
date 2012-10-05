@@ -58,9 +58,9 @@
                     id: id,       
                     ajax: 'true'
                 }, function(j){
-                    //usuario excluido         
+                    //usuario excluido                             
                     if(j > 0){
-                        id = '#video_'+id;
+                        id = '#'+btn.attr('name')+'_'+id;
                         $(id.toString()).remove();
                     }
                 }); 
@@ -69,16 +69,19 @@
         
         $(".btn_del").live('click', function(){
             var btn = $(this);
-            var r = confirm('Tem certeza de que deseja excluir esta video aula?');
+            var r = confirm('Tem certeza de que deseja excluir este registro?');
             if(r == true){                  
                 var id = btn.attr('id');               
                 $.getJSON('ajax/crud_conteudo_modulo.php?acao=remover_'+btn.attr('name'),{
-                    id: id,       
+                    id: id,                           
                     ajax: 'true'
                 }, function(j){
-                    //usuario excluido         
+                    //usuario excluido  
                     if(j > 0){
-                        id = '#video_'+id;
+                        id = id.split('-')[0];
+                        id = id.replace('.', '_');
+                        id = '#'+btn.attr('name')+'_'+id;
+                        alert(id);
                         $(id.toString()).remove();
                     }
                 }); 
@@ -121,8 +124,7 @@
                                     $('progress').attr('value','100');
                                     $('#porcentagem').html('100%');
                                     $('pre').html(data);
-                                    if(data != 0){                                                                             
-                                        data = data.split('-');
+                                    if(data != 0){                                                                                                                     
                                         insereLinha(data, tipo);
                                         alert('Arquivo inserido!');
                                         $(dialog).dialog('close');
@@ -160,13 +162,17 @@
     });            
     
     function insereLinha(data, tipo){
-        data[0] = data[0].replace('"', '');
-        data[1] = data[1].replace('"', '');        
         if(tipo == 'video'){
+            data = data.split('-');
+            data[0] = data[0].replace('"', '');
+            data[1] = data[1].replace('"', '');        
             var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar"/>';
             var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir"/>';
             var _HTML = '<li id=video_'+data[0]+'><h3 name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1] + '</h3>' + editar + excluir + '</li>';
-        }else{
+        }else{            
+            data = data.split(']');
+            data[0] = data[0].replace('"', '');
+            data[2] = data[1].replace('"', '');                    
             var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar"/>';
             var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir"/>';
             var _HTML = '<li id=arquivo_'+data[0]+'><a name="'+tipo+'" href="cursos/'+data[2]+'/modulos/'+data[1]+'/tipo/'+data[0]+'">'+data[1] + '</a>' + editar + excluir + '</li>';
@@ -227,10 +233,10 @@
                             </div>                            
                             <div class="lista_texto">
                                 <ul>
-                                    <?php echo $this->listaTexto; ?>
                                     <li>
                                         <input type="button" class="btn_add" name="texto" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
+                                    <?php echo $this->listaTexto; ?>
                                 </ul>
                             </div>
                         </div>
@@ -245,10 +251,10 @@
 
                             <div class="lista_material">
                                 <ul>
-                                    <?php echo $this->listaMaterial; ?>
                                     <li>
                                         <input type="button" class="btn_add" name="material" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
+                                    <?php echo $this->listaMaterial; ?>
                                 </ul>
                             </div>
                         </div>

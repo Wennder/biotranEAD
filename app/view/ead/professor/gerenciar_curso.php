@@ -18,7 +18,7 @@
                 } 
                 var id = $(this).attr('id');
                 centro = $('#center_content').load('index.php?c=ead&a=editar_modulo&id='+id, 'oi', function (){                    
-                    $('#div_conteudo').append(centro);
+                    $('#div_conteudo').append(centro);                    
                 }); 
             });
         }

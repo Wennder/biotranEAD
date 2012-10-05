@@ -39,7 +39,7 @@ $(document).ready(function(){
             //$(e.target).next('div').siblings('div').slideUp('fast');
             
             //Toggle open/close on the <div> after the <h3>, opening it if not open.
-            $(e.target).next('accordion_body_content').slideToggle('fast');
+            $(e.target).next('.accordion_body_content').slideToggle('fast');
             $(e.target).next('img').css("transform","rotate(90 deg)");
         });
     });
