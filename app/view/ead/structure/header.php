@@ -52,10 +52,12 @@
             });
         </script>
 
-        <link rel='stylesheet' href='css/estilos_1.css' />
+        <link rel='stylesheet' href='css/estilos.css' />
 
         <style>
-
+            #page-content{
+                padding:20px;
+            }
         </style>
     </head>
     <body>

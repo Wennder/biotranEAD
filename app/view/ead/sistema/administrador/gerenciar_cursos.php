@@ -24,7 +24,7 @@ if (isset($this->curso)) {
 <link rel="stylesheet" href="css/jquery-ui-1.8.24.custom.css" type="text/css"/>
 
 <style type="text/css" title="currentStyle">
-
+@import "http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css";
     
     #div_update label {display:block;width:100%;padding:10px 0;}
     #form_gerenciar{
@@ -33,11 +33,7 @@ if (isset($this->curso)) {
 
     }
 
-    .ui-dialog-titlebar{
-        background-image: url('img/header_ead_background.png');
-        background-repeat: repeat;
-        height: 10px;
-    }
+   
 
     .botao_gerencia_data_table{
         padding: 7px 7px;
@@ -224,7 +220,8 @@ if (isset($this->curso)) {
                         width:800, 
                         height:600, 
                         modal: true,
-                        zIndex: 3999,                           
+                        zIndex: 3999,
+                        dialogClass:'dialogstyle',
                         close: function(event,ui){                
                             var form = $(this).find('#cadastro');
                             //des-preselecionando combos e radio inputs: 
@@ -314,7 +311,8 @@ if (isset($this->curso)) {
                 dialog = $(_HTML).dialog({
                     width:800, 
                     height:600, 
-                    modal: true,                    
+                    modal: true,   
+                    dialogClass:'dialogstyle',
                     close: function(event,ui){                                           
                         var form = $(this).find('#cadastro');
                         form.validationEngine("detach");                        
