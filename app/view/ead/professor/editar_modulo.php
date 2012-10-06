@@ -359,7 +359,6 @@
                             </div>                            
                             <div class="add accord_content_body" style="display:none;">
                                 <ul>
-                                    <?php echo $this->listaTexto; ?>
                                     <li>
                                         <input type="button" class="btn_add" name="texto_referencia" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
@@ -378,7 +377,6 @@
 
                             <div class="add accord_content_body" style="display:none;">
                                 <ul>
-                                    <?php echo $this->listaMaterial; ?>
                                     <li>
                                         <input type="button" class="btn_add" name="material_complementar" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
