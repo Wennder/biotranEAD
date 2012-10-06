@@ -1,6 +1,6 @@
 
 <!--<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>-->
-<script src="js/accordion.js" type="text/javascript"></script>
+
 <script> 
     $(function() {
         //Se clicar no header, expande
@@ -20,6 +20,16 @@
              
     }); 
 </script>
+
+<style>
+.accord *{
+    font-weight: 600;
+    line-height: 100%;
+}
+.accord{
+    cursor: pointer;
+}
+</style>
 <?php
 if (isset($_GET['id'])) {
     $id_curso = $_GET['id'];
@@ -35,7 +45,7 @@ if (isset($_GET['id'])) {
         </h3>
         <div class="accordion_leftcolumn navbar_item">
             <div class="accord">
-                <img style="float:left;" src="img/seta_gray.png"/>
+                <h4 style="float:left;">></h4>
                 <h3 id="index.php?c=ead&a=editar_curso&id=<?php echo $id_curso ?>"><?php echo $controllerCurso->getCurso("id_curso=" . $id_curso)->getNome() ?></h3>
             </div>
             <div class="accord_content">

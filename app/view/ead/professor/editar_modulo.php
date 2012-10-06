@@ -101,12 +101,33 @@
     -moz-box-shadow: 0px 2px 2px #eeeeee inset;
     -webkit-box-shadow: 0px 2px 2px #eeeeee inset;
 }
+
+
+.btn_del{
+    float:right;
+}
+.btn_edt{
+    float:right;
+}
+
+.titulo_video{
+    float:left;
+}
+
+.video_row{
+    overflow: auto;
+    padding:1px 5px;
+    border-bottom:1px solid #f2f2f2;
+    border-top:1px solid #f2f2f2;
+}
+
 </style>
 
 <script> 
     
     var dialog;
-    $(document).ready(function() { 
+    $(document).ready(function() {                                                        
+        //_V_.options.flash.swf = "video-js.swf";              
         
         //_V_.options.flash.swf = "video-js.swf";              
         
@@ -387,6 +408,7 @@
                 </ul>
             </div>
         </div>
+    </div>
     </div>
 </div>
 <div style="display:none;">

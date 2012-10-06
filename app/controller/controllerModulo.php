@@ -83,13 +83,14 @@ class controllerModulo {
         $i = 0;
         $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<div class='accordion_leftcolumn accord'><h3 id='index.php?c=ead&a=editar_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";
+            $listaModulos .= "<div class='accordion_leftcolumn '><div class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=editar_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";
             $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_videoaula&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Video Aula</a></p></li>";
             $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_bibliografia&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Bibliografia</a></p></li>";
             $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_materialcomplementar&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Material Complementar</a></p></li>";
             $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_exercicio&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Exercicio</a></p></li>";
             $listaModulos .= "</ul></div></div>";
         }
+        
         return $listaModulos;
     }
 
@@ -98,7 +99,7 @@ class controllerModulo {
         $lista = "";
         $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
         for ($i = 0; $i < count($videos); $i++) {
-            $lista .= "<li id='li_video_" . $videos[$i]->getId_video() . "' ><h3 class='item_conteudo' name='video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
+            $lista .= "<li class='video_row' id='video_" . $videos[$i]->getId_video() . "'><h3 name='video' class='titulo_video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
             $lista .= $videos[$i]->getTitulo();
             $lista .= "</h3><input type='button' id='" . $videos[$i]->getId_video() . "' class='btn_edt' name='video' value='Editar'/><input id='" . $videos[$i]->getId_video() . "' type='button' name='video' class='btn_del' value='Excluir'/></li>";
         }
@@ -148,7 +149,7 @@ class controllerModulo {
         $i = 0;
         $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<li><div><h3 id=" . $modulos[$i]->getId_modulo() . " ><div class='list_index_admin_blue'><div class='detalhe1'></div><img  src='img/seta_blue.png' />Modulo " . $modulos[$i]->getNumero_modulo() . ": " . $modulos[$i]->getTitulo_modulo() . "</div></h3></div></li>";
+            $listaModulos .= "<li><div><h3 id=" . $modulos[$i]->getId_modulo() . " ><div class='lista_modulos'>Modulo " . $modulos[$i]->getNumero_modulo() . ": " . $modulos[$i]->getTitulo_modulo() . "</div></h3></div></li>";
         }
         return $listaModulos;
     }
