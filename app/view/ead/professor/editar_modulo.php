@@ -14,9 +14,12 @@
     .quadro_de_conteudo_especifico{
         margin:0px;
         margin-bottom:20px;
-        border:1px solid #e0e0e0;
+        border:0px solid #eeeeee;
         padding: 10px;
         color: #888888;
+        box-shadow: 0px 2px 3px #eeeeee inset;
+    -moz-box-shadow: 0px 2px 3px #eeeeee inset;
+    -webkit-box-shadow: 0px 2px 3px #eeeeee inset;
     }
 
     ul{
@@ -53,15 +56,43 @@
     
     .list_conteudo{
         border-bottom:1px solid #eeeeee;
+        border-top:1px solid #fefefe;
         background-color: #fafafa;
     }
     
     
     #titulo_modulo{
-        background: #eeeeee;
-        border: 1px solid #e0e0e0;
+        background: #ffffff;
+/*       
+    background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#f0f0f0));
+    background: -webkit-linear-gradient(top, #fafafa, #f0f0f0);
+    background: -moz-linear-gradient(top, #fafafa, #f0f0f0);
+    background: -ms-linear-gradient(top, #fafafa, #f0f0f0);
+    background: -o-linear-gradient(top, #fafafa, #f0f0f0);
+    background: linear-gradient(top, #fafafa, #f0f0f0);*/
+        border: 1px solid #e7e7e7;
+        border-top:1px solid #f6f6f6;
         padding: 5px 12px;
+        box-shadow: 0px 3px 3px #eeeeee ;
+    -moz-box-shadow: 0px 3px 3px #eeeeee ;
+    -webkit-box-shadow: 0px 3px 3px #eeeeee ;
     }
+    
+    [type = button]{
+        border:1px solid #c9f0c9;
+        background-color: #d9ffd9;
+       border-radius: 5px;
+       color:#606060;
+       font-weight: 600;
+       margin:5px;
+    }
+    
+
+.accord_content_body{
+    box-shadow: 0px 2px 2px #eeeeee inset;
+    -moz-box-shadow: 0px 2px 2px #eeeeee inset;
+    -webkit-box-shadow: 0px 2px 2px #eeeeee inset;
+}
 </style>
 
 <script> 
@@ -218,7 +249,7 @@
                            
                             <div class='list_conteudo accord_body'>
                                 
-                                   Video Aulas
+                                <img src="img/movie.png" />  Video Aulas
                                 
                             </div>      
                            
@@ -237,7 +268,7 @@
                         <div class="accordion_body">
                             <div class='list_conteudo accord_body'>
                                
-                                   Textos de Referencia
+                                   <img src="img/text_enriched.png"/>Textos de Referencia
                               
                             </div>                            
                             <div class="add accord_content_body" style="display:none;">
@@ -254,7 +285,7 @@
                         <div class="accordion_body">
                             <div class='list_conteudo accord_body'>
                                
-                                Material Complementar
+                                <img src="img/folder-icon.png"/>Material Complementar
                                
                             </div>
 
@@ -272,7 +303,7 @@
                         <div class="accordion_body">
                             <div class='list_conteudo accord_body'>
                                 
-                                    Exercicios
+                               <img src="img/check.png"/>     Exercicios
                                 
                             </div>
 
