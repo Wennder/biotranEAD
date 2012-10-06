@@ -11,8 +11,12 @@ include ROOT_PATH . '/app/controller/controllerVideo.php';
 
 $parametro = '';
 $metodo = $_GET['acao'];
-if(isset($_REQUEST["id"])){
+if (isset($_REQUEST["id"])) {
     $parametro = $_REQUEST["id"];
+} else {
+    if (isset($_GET['id'])) {
+        $parametro = $_GET["id"];
+    }
 }
 
 //$id_modulo = $_GET['id_modulo'];

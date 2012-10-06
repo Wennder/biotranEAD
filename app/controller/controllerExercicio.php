@@ -64,6 +64,11 @@ class controllerExercicio {
         }
     }
     
+    public function deleteExercicio(Exercicio $exe) {
+        $dao = new ExercicioDAO();
+        return $dao->delete($exe);        
+    }  
+    
 }
 
 ?>

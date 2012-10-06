@@ -100,12 +100,21 @@
 
 <script>
     $('#btn_editar').click(function(){
-        alert($('#id').val());
-        $('#descricao').removeAttr('readonly');
-        $('#justificativa').removeAttr('readonly');
-        $('#objetivo').removeAttr('readonly');
-        $('#obs').removeAttr('readonly');
-        $('#div_atualizar').removeAttr('style');
+        if($(this).attr('value') == 'Editar'){
+            $('#descricao').removeAttr('readonly');
+            $('#justificativa').removeAttr('readonly');
+            $('#objetivo').removeAttr('readonly');
+            $('#obs').removeAttr('readonly');
+            $('#div_atualizar').removeAttr('style');
+            $(this).attr('value', 'Cancelar');            
+        }else{
+            $('#descricao').attr('readonly', 'true');
+                $('#justificativa').attr('readonly', 'true');
+                $('#objetivo').attr('readonly', 'true');
+                $('#obs').attr('readonly', 'true');
+                $('#div_atualizar').attr('style', 'display:none;');
+                $('#btn_editar').attr('value', 'Editar');
+        }
     });
     
     $('#btn_atualizar').click(function(){
@@ -116,7 +125,8 @@
                 $('#justificativa').attr('readonly', 'true');
                 $('#objetivo').attr('readonly', 'true');
                 $('#obs').attr('readonly', 'true');
-                $('#div_atualizar').attr('style', 'display:none;');        
+                $('#div_atualizar').attr('style', 'display:none;');
+                $('#btn_editar').attr('value', 'Editar');
                 alert('Dados atualizados');
             }                                                                
         }, "json");                

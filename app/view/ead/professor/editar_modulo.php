@@ -49,8 +49,40 @@
     $(document).ready(function() {                                                        
         _V_.options.flash.swf = "video-js.swf";              
         
-        $(".btn_edt").live('click', function(){
-            alert('em construção');            
+        $(".btn_edt").live('click', function(){            
+            var btn = $(this);
+            $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
+                if (status == "error") {
+                    alert('erro');
+                    var msg = "Sorry but there was an error: ";
+                    $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                }else{                                                                                    
+                    dialog = $('#dialog').dialog({width:600, height:800,dialogClass:'dialogstyle',modal: true,
+                        focus: function(event,ui){                                                
+                            $('#form_cadastrar').ajaxForm({                                                    
+                                uploadProgress: function(event, position, total, percentComplete) {
+                                    $('progress').attr('value',percentComplete);
+                                    $('#porcentagem').html(percentComplete+'%');
+                                },                            
+                                success: function(data) {                             
+                                    $('progress').attr('value','100');
+                                    $('#porcentagem').html('100%');
+                                    $('pre').html(data);
+                                    if(data != 0){                                                                                                                    
+                                        insereLinha(data, tipo);
+                                        alert('Arquivo inserido!');
+                                        $(dialog).dialog('close');
+                                    }                       
+                                }                    
+                            });                    
+                        },
+                        close: function(event,ui){                     
+                            $(dialog).dialog('destroy');
+                            $(dialog).find('div').remove();
+                        }                                        
+                    });
+                }
+            });
         });
         
         $(".btn_del").live('click', function(){            
@@ -64,12 +96,7 @@
                 }, function(j){
                     //usuario excluido  
                     if(j > 0){
-                        if(btn.attr('name') != 'video'){
-                            id = id.split('-')[0];                            
-                            id = id.replace('.', '_');
-                        }
-                        id = '#li_'+btn.attr('name')+'_'+id;
-                        alert(id);
+                        id = '#li_'+btn.attr('name')+'_'+id;                        
                         $(id.toString()).remove();
                     }
                 }); 
@@ -111,7 +138,7 @@
                                     $('progress').attr('value','100');
                                     $('#porcentagem').html('100%');
                                     $('pre').html(data);
-                                    if(data != 0){                                                                                                                     
+                                    if(data != 0){                                                                                                                    
                                         insereLinha(data, tipo);
                                         alert('Arquivo inserido!');
                                         $(dialog).dialog('close');
@@ -149,25 +176,47 @@
     
     function insereLinha(data, tipo){
         var id_modulo = $('#id_modulo').val();
-        var id_curso = $('#id_curso').val();
-        alert(data);
+        var id_curso = $('#id_curso').val();        
         data = data.split('-');
         data[0] = data[0].replace('"', '');
         data[1] = data[1].replace('"', '');        
         var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir"/>';
-        if(tipo == 'video'){
+        if(tipo == 'video' || tipo == 'exercicio'){
             var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar"/>';
             var _HTML = '<li id=li_'+tipo+'_'+data[0]+'><h3 name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1] + '</h3>' + editar + excluir + '</li>';
-        }else{
-            alert(data[1]);
+        }else{            
             var _HTML = '<li id=li_'+tipo+'_'+data[0]+'><a name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a>' + excluir + '</li>';                            
         }
-        tipo = '#lista_'+tipo+ ' .ul_lista';
-        alert(tipo);
-        console.log($(_HTML).html());
-        $(tipo.toString()).append($(_HTML));
-            
+        tipo = '#lista_'+tipo+ ' .ul_lista';                
+        $(tipo.toString()).append($(_HTML));            
     }
+    
+    $('#btn_editar_modulo').click(function(){
+        if($(this).attr('value') == 'Editar'){
+            $('#titulo_modulo').removeAttr('readonly');
+            $('#descricao').removeAttr('readonly');
+            $('#div_atualizar_modulo').removeAttr('style');
+            $(this).attr('value', 'Cancelar');            
+        }else{
+            $('#titulo_modulo').attr('readonly', 'true');
+            $('#descricao').attr('readonly', 'true');
+            $('#div_atualizar_modulo').attr('style', 'display:none;');
+            $(this).attr('value', 'Editar');
+        }
+    });
+    
+    $('#btn_atualizar_modulo').click(function(){
+        $.post('ajax/crud_conteudo_modulo.php?acao=atualizar_descritivo&id='+$('#id_modulo').val(), $('#form_descritivo').serialize(), function(json) {
+            // handle response
+            if(json != false){
+                $('#titulo_modulo').attr('readonly', 'true');
+                $('#descricao').attr('readonly', 'true');
+                $('#div_atualizar_modulo').attr('style', 'display:none;');
+                $('#btn_editar_modulo').attr('value', 'Editar');
+                alert('Dados atualizados');
+            }                                                                
+        }, "json");                
+    });
     
     
 </script>
@@ -177,14 +226,22 @@
 <div id="dialog_video" style="display:none">
 </div>
 <div id="div_conteudo_professor_editar_modulo">
-    <h1>Modulo <?php echo $this->modulo->getNumero_modulo() ?>: <?php echo $this->modulo->getTitulo_modulo() ?></h1>
+    <h1>Modulo <?php echo $this->modulo->getNumero_modulo() ?></h1>
+        <form id="form_descritivo">
+            <div id="div_editar_modulo" align="right">
+                <input type="button" name="btn_editar_modulo" id="btn_editar_modulo" value="Editar"/>
+            </div>
+
+            <h4>Titulo: </h4>        
+            <input readonly="true" id="titulo_modulo" name="titulo_modulo" value="<?php echo $this->modulo->getTitulo_modulo(); ?>" />
+            <h4>Descricao: </h4>        
+            <textarea readonly="true" id="descricao" name="descricao"><?php echo $this->modulo->getDescricao() ?></textarea>                           
+
+            <div id="div_atualizar_modulo" style="display: none">
+                <input id="btn_atualizar_modulo" type="button" value="Atualizar"/>    
+            </div>
+        </form>    
     <div id="disposicao_conteudo_professor_editar_modulo">
-        <h4>Descricao: </h4>
-        <div class="quadro_de_conteudo_especifico">
-            <?php echo $this->modulo->getDescricao() ?>
-        </div>
-        <div class="quadro_de_conteudo_especifico">
-        </div>
 
         <div class="accordion_body">
             <div class='list_index_admin_gray' style='margin-top:0px;'>
@@ -256,11 +313,9 @@
                             <div id="lista_exercicio">
                                 <ul class="ul_lista">
                                     <li>
-                                        <input type="button" class="btn_add-" onclick="alert('em construção')" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
+                                        <input type="button" class="btn_add" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
-                                    <li>
-                                        <h3>Em construção</h3>
-                                    </li>
+                                    <?php echo $this->listaExercicio; ?>
                                 </ul>
                             </div>
                         </div>

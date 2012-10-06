@@ -49,7 +49,7 @@ class ExercicioDAO extends PDOConnectionFactory {
 
     public function delete(Exercicio $exercicio) {
         try {
-            $num = $this->conex->exec("DELETE FROM exercicio WHERE id=" . $exercicio->getId_exercicio());
+            $num = $this->conex->exec("DELETE FROM exercicio WHERE id_exercicio=" . $exercicio->getId_exercicio());
             // caso seja execuado ele retorna o número de rows que foram afetadas.
             if ($num >= 1) {
                 return $num;
