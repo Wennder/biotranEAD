@@ -111,14 +111,19 @@
 }
 
 .titulo_video{
-    float:left;
+    float:left;    
 }
 
-.video_row{
+.conteudo_row{
+    cursor: pointer;
     overflow: auto;
     padding:1px 5px;
     border-bottom:1px solid #f2f2f2;
     border-top:1px solid #f2f2f2;
+}
+
+.item_conteudo{
+    float:left;
 }
 
 </style>

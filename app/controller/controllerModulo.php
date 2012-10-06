@@ -99,7 +99,7 @@ class controllerModulo {
         $lista = "";
         $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
         for ($i = 0; $i < count($videos); $i++) {
-            $lista .= "<li class='video_row' id='video_" . $videos[$i]->getId_video() . "'><h3 name='video' class='titulo_video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
+            $lista .= "<li class='conteudo_row' id='video_" . $videos[$i]->getId_video() . "'><h3 name='video' class='titulo_video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
             $lista .= $videos[$i]->getTitulo();
             $lista .= "</h3><input type='button' id='" . $videos[$i]->getId_video() . "' class='btn_edt' name='video' value='Editar'/><input id='" . $videos[$i]->getId_video() . "' type='button' name='video' class='btn_del' value='Excluir'/></li>";
         }
@@ -111,7 +111,7 @@ class controllerModulo {
         $lista = "";
         $exercicios = $controllerExercicio->getListaExercicio('id_modulo=' . $id_modulo);
         for ($i = 0; $i < count($exercicios); $i++) {
-            $lista .= "<li id='li_exercicio_" . $exercicios[$i]->getId_exercicio() . "' ><h3 class='item_conteudo' name='exercicio' id=index.php?c=ead&a=visualizar_exericicio&id=" . $exercicios[$i]->getId_exercicio() . ">";
+            $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicios[$i]->getId_exercicio() . "' ><h3 class='item_conteudo' name='exercicio' id=index.php?c=ead&a=visualizar_exericicio&id=" . $exercicios[$i]->getId_exercicio() . ">";
             $lista .= $exercicios[$i]->getTitulo();
             $lista .= "</h3><input type='button' id='index.php?c=ead&a=editar_exercicio&id=" . $exercicios[$i]->getId_exercicio() . "' class='btn_edt' name='exercicio' value='Editar'/><input id='" . $exercicios[$i]->getId_exercicio() . "' type='button' name='exercicio' class='btn_del' value='Excluir'/></li>";
         }
@@ -135,8 +135,8 @@ class controllerModulo {
             foreach ($arquivos as $arquivo) {
                 $id = explode('.', basename($arquivo));
                 $txt = $controller->getTexto_referencia('id_texto_referencia=' . $id[0]);
-                $lista .= "<li id='li_" . $tipo . "_" . $id[0] . "'><h3>";
-                $lista .= "<a target='_blank' href='" . $link . basename($arquivo) . "'>" . $txt->getNome() . "</a>";
+                $lista .= "<li class='conteudo_row' id='li_" . $tipo . "_" . $id[0] . "'><h3>";
+                $lista .= "<a style='float: left;' target='_blank' href='" . $link . basename($arquivo) . "'>" . $txt->getNome() . "</a>";
                 $lista .= "</h3><input type='button' name='" . $tipo . "' id='" . $id[0] . "' class='btn_del' value='Excluir'/></li>";
             }
         }
