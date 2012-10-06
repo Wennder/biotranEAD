@@ -62,7 +62,31 @@ h3{
     background-color: #336666;
 }
 
-.leftcolumn a:link,a:visited,a:hover,a:active{
+.leftcolumn a:link{
+    color:white;
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 100%;
+}
+.leftcolumn a:visited{
+    color:white;
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 100%;
+}
+.leftcolumn  a:hover{
+    color:white;
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 100%;
+}
+.leftcolumn  a:active{
     color:white;
     text-decoration: none;
 
@@ -188,18 +212,7 @@ form.form_cadastro, form.form_editar{
     padding:3px;
 }
 
-.leftcolumn li div{
-    height: 0px;
-    background-image: url('../img/dark_blue_ead.png');
-    background-repeat: repeat-x;
-    width:40px;
-}
 
-.leftcolumn li:hover div{
-    height: 1px;
-
-
-}
 
 .content{
     margin-left:165px;
@@ -322,12 +335,31 @@ form.form_cadastro, form.form_editar{
     color:black;
 }
 
-#menuDrop a:hover,a:visited, a:active, a:link{
+#menuDrop a:hover{
     font-size:18px;
     font-weight: 500;
     line-height: 100%;
     text-decoration: none;
 }
+#menuDrop a:visited{
+    font-size:18px;
+    font-weight: 500;
+    line-height: 100%;
+    text-decoration: none;
+}
+#menuDrop  a:active{
+    font-size:18px;
+    font-weight: 500;
+    line-height: 100%;
+    text-decoration: none;
+}
+#menuDrop a:link{
+    font-size:18px;
+    font-weight: 500;
+    line-height: 100%;
+    text-decoration: none;
+}
+
 
 #menuDrop li{
     display:block;
@@ -401,4 +433,14 @@ form.form_cadastro, form.form_editar{
     float:right;
     margin-top: 8px;
     margin-right: 15px;
+}
+
+
+.accord_body{
+    cursor: pointer;
+    z-index: 9999;
+   overflow: auto;
+}
+.accord_body *{
+    z-index: 0;
 }

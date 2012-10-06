@@ -1,27 +1,37 @@
 <style>
     #div_conteudo_professor_editar_curso{
         position: relative;
-        padding:40px;
+
         padding-top:0px;
+    }
+
+    #div_editar{
+        float:right;
+        position: relative;
+        z-index: 20;
+    }
+
+    #div_atualizar{
+        float:right;
     }
 
     #div_conteudo_professor_editar_curso h4{
         margin:0;
-
+        font-size: 10px;
         padding:0;
     }
 
     #disposicao_conteudo_professor_editar_curso{
         position: relative;
-        margin: 20px;
-        margin-top:40px;
+        padding-right: 20px;
+
     }
 
 
     .quadro_de_conteudo_especifico{
         margin:0px;
         margin-bottom:20px;
-        border:1px solid #CCCCCC;
+        border:1px solid #eeeeee;
         padding: 10px;
         color: #888888;
         overflow: auto;
@@ -30,6 +40,11 @@
 
     .quadro_de_conteudo_especifico ul{
         margin:0;
+        padding: 0;
+    }
+    .quadro_de_conteudo_especifico h4{
+        margin:0;
+        font-size:14px;
         padding: 0;
     }
 
@@ -79,22 +94,42 @@
     [readonly = readonly] {
         border:0px;
         border:1px none;
+        background-color: #fafafa;
     }
 
     #image_holder{
         padding:3px;
-        border:1px solid #cbdcea;
+        border:1px solid #eeeeee;
         float:left;
+        margin-right: 10px;
         background-color: white;
+        min-height:180px;
+        min-width: 240px;
     }
+
+
 
     #titulo_holder{
         position: relative;
-        float:left; 
-        clear:right; 
+        z-index: 2; 
+        float:left;
     }
     #div_conteudo_professor_editar_curso *{
         position:relative;
+    }
+
+    [type = button]{
+        padding: 7px 7px;
+        color: #444444;
+        background-color: #eeeeee;
+        border:1px solid #999999;
+        font-weight: 600;
+        border-radius: 5px;
+    }
+
+    #descricao{
+        position: relative;
+       width:300px;
     }
 </style>
 
@@ -141,7 +176,7 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
 ?>
 <div id="disposicao_conteudo_professor_editar_curso">
     <form id="form_editar_curso">
-        <div class="quadro_de_conteudo_especifico" style="background-color:#f0f0f0;">
+        <div class="quadro_de_conteudo_especifico" style="background-color:#fafafa;">
 
             <div id="div_editar" align="right">
                 <input type="button" id="btn_editar" value="Editar"/>
@@ -150,11 +185,15 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
             <div id="image_holder">
                 <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
             <div id="titulo_holder" style="">
-                <h2 style=""><?php echo $this->curso->getNome(); ?></h2>
+                <h1 style=""><?php echo $this->curso->getNome(); ?></h1>
             </div>
+            <div style="padding:10px;float:left; clear:right; ">
             <h4>Descricao: </h4>
-            <textarea id="descricao" name="descricao" type="text-field" readonly="readonly"><?php echo $this->curso->getDescricao() ?></textarea>
-
+            <div style="padding:5px;">
+                <textarea id="descricao" name="descricao" rows="5" type="text-field" readonly="readonly"><?php echo $this->curso->getDescricao() ?></textarea>
+            </div>
+            </div>
+        </div><div class="quadro_de_conteudo_especifico">
             <h4>Tempo: </h4>
             <input id="input1" type="text" readonly="readonly" value="<?php echo $this->curso->getTempo() ?> Dias"/>
 
@@ -180,7 +219,7 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
                 <input id="btn_atualizar" type="button" value="Atualizar"/>    
             </div>
 
-            <div id="div_atualizar" style="display: none">
+            <div id="div_atualizar" align="right" style="display: none; ">
                 <input id="id" name="id" type="text" value="<?php echo $this->curso->getId_curso() ?>"/>    
             </div>
 

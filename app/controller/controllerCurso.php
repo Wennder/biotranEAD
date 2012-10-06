@@ -137,7 +137,8 @@ class controllerCurso {
 
         //cria o diretório do curso na pasta pdf
         $this->criaDiretorioCurso($this->curso->getId_curso());
-        //$this->criaDiretorioCurso_videoAula($this->curso->getId_curso());        
+        $this->criaDiretorioCurso_videoAula($this->curso->getId_curso());
+        $this->criaDiretorioCurso_textos($this->curso->getId_curso());
         return $this->curso->getId_curso();
     }
 
@@ -276,7 +277,9 @@ class controllerCurso {
         $c = 0;
         $d = 0;
         $e = 0;
-
+        
+        
+        
         for ($i = 0; $i < count($cursos); $i++) {
             $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());            
             if ($this->curso->getStatus(1) == 0) {
@@ -299,8 +302,8 @@ class controllerCurso {
             $listaCursos = "";
 
             // Lista os cursos em construcao
-            $listaCursos .= "<div class='accordion_body' style='margin-top:0px;'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos em Construcao ($a Curso(s))</div>";
-            $listaCursos .= "<div class='lista_cursos_professor accordion_body_content'><ul>";
+            $listaCursos .= "<div class=' accord' style='margin-top:0px;'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos em Construcao ($a Curso(s))</div>";
+            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul>";
 
             if ($construcao != "") {
                 $listaCursos .= $construcao;
@@ -310,8 +313,8 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos aprovados e disponiveis
-            $listaCursos .= "<div class='accordion_body'><img class='seta_formatacao' src='img/seta_blue.png' />Cursos Aprovados e Disponíveis ($e Curso(s))</div>";
-            $listaCursos .= "<div class='lista_cursos_professor accordion_body_content'><ul >";
+            $listaCursos .= "<div class=' accord'><img class='seta_formatacao' src='img/seta_blue.png' />Cursos Aprovados e Disponíveis ($e Curso(s))</div>";
+            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul >";
             if ($aprovado_disponivel != "") {
                 $listaCursos .= $aprovado_disponivel;
             } else {
@@ -320,8 +323,8 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos aprovados e indisponiveis
-            $listaCursos .= "<div class='accordion_body'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos Aprovados e Indisponíveis ($d Curso(s))</div>";
-            $listaCursos .= "<div class='lista_cursos_professor accordion_body_content'><ul >";
+            $listaCursos .= "<div class=' accord'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos Aprovados e Indisponíveis ($d Curso(s))</div>";
+            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul >";
 
             if ($aprovado_indisponivel != "") {
                 $listaCursos .= $aprovado_indisponivel;
@@ -331,8 +334,8 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos nao avaliados
-            $listaCursos .= "<div class='accordion_body'><img class='seta_formatacao' src='img/seta_blue.png' />Cursos Não Avaliados ($b Curso(s))</a></div>";
-            $listaCursos .= "<div class='lista_cursos_professor accordion_body_content'><ul style='list-style-type:none;'>";
+            $listaCursos .= "<div class=' accord'><img class='seta_formatacao' src='img/seta_blue.png' />Cursos Não Avaliados ($b Curso(s))</a></div>";
+            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul style='list-style-type:none;'>";
 
             if ($nao_avaliado != "") {
                 $listaCursos .= $nao_avaliado;
@@ -342,8 +345,8 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos rejeitados
-            $listaCursos .= "<div class='accordion_body'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos Rejeitados ($c Curso(s))</div>";
-            $listaCursos .= "<div class='lista_cursos_professor accordion_body_content'><ul style='list-style-type:none;'>";
+            $listaCursos .= "<div class=' accord'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos Rejeitados ($c Curso(s))</div>";
+            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul style='list-style-type:none;'>";
 
             if ($rejeitado != "") {
                 $listaCursos .= $rejeitado;
@@ -352,6 +355,7 @@ class controllerCurso {
             }
             $listaCursos .= "</ul></div>";
         }
+   
         return $listaCursos;
     }
 
@@ -360,7 +364,7 @@ class controllerCurso {
     }
 
     public function tabelaCursos() {
-        $this->cursos = $this->getListaCursos();        
+      
         $tabela = "<table id='tabela_cursos' width='100%' align='center'>
          <thead> 
                 <tr> 
@@ -377,7 +381,12 @@ class controllerCurso {
                     <th>id</th>                   
                 </tr> 
             </thead> 
-            <tbody>";                   
+            <tbody>";
+           
+        $cursoDAO = new CursoDAO();
+        
+        $this->cursos = $cursoDAO->select(null, null);
+        
         $quant = count($this->cursos);
         $i = 0;
         for (; $i < $quant; $i++) {
@@ -394,7 +403,7 @@ class controllerCurso {
             $tabela .= "<td width='14%' id='obs' align='center'>" . $this->cursos[$i]->getObs() . "</td>";
             $tabela .= "<td width='14%' id='id_curso' align='center'>" . $this->cursos[$i]->getId_curso() . "</td>";
         }
-        $tabela .= "</tbody></table>";        
+        $tabela .= "</tbody></table>";
         return $tabela;
     }
 

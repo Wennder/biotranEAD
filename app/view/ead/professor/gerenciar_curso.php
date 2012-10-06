@@ -1,15 +1,14 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
-<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-<!--<script src="js/accordion.js" type="text/javascript"></script>-->
 
 <script>
     var centro = 1;
     $(document).ready(function(){
-        if(centro == 1){            
+        if(centro == 1){
+            
             centro = $('#center_content').load('index.php?c=ead&a=editar_curso&id='+$('#id_curso_1').val(), $('#id_curso_1').val(), function (){                    
-                //$('#div_conteudo').append(centro);
+//                $('#div_conteudo').append(centro);
             });
             
             $('#lista_de_modulos h3').live('click',function(e){
@@ -55,7 +54,7 @@
     }
     
     #center_content{
-        position: relative;
+       
        
         padding-top:0px;
     }
@@ -66,14 +65,8 @@
         padding:0;
     }
 
-    #center_content{
-        position: relative;
-        
-    }
-    
-    #center_content *{
-        position:relative;
-    }
+  
+   
     
 </style>
 

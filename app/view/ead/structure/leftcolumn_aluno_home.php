@@ -1,6 +1,3 @@
-
-
-
 <div id="page-leftcolumn" class="leftcolumn ">
     <h3 class="navbar_item ">
         <a href="index.php?c=ead"> Home </a>

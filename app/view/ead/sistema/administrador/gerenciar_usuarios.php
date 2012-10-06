@@ -34,7 +34,7 @@ switch ($papel) {
 <link rel="stylesheet" href="css/jquery.dataTables.css" type="text/css"/>
 <style type="text/css" title="currentStyle">
 
-    @import "http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css";
+    @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
     #div_update label {display:block;width:100%;padding:10px 0;}
 
     #tabela_usuarios td {
