@@ -1,4 +1,3 @@
-
 <?php
 
 $usuario = $_SESSION["usuarioLogado"]->getId_papel();

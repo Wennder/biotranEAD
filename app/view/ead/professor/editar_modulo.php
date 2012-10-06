@@ -106,10 +106,11 @@
 <script> 
     
     var dialog;
-    $(document).ready(function() {                                                        
-        _V_.options.flash.swf = "video-js.swf";              
+    $(document).ready(function() { 
         
-        $(".btn_edt").live('click', function(){            
+        //_V_.options.flash.swf = "video-js.swf";              
+        
+        $(".btn_edt").live('click', function(){                        
             var btn = $(this);
             $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
                 if (status == "error") {
@@ -164,6 +165,7 @@
         });
         
         $(".btn_add").live('click', function(){
+        
             var btn = $(this);
             $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
                 if (status == "error") {
@@ -216,8 +218,8 @@
             
         });
         
-        $("#accordion_body2 .accordion_body #lista_video li h3").live('click',function() {            
-            var tag = $(this);
+        $(".item_conteudo").live('click',function() {            
+            var tag = $(this);            
             if(tag.attr('name') == 'video'){                
                 $('#dialog_video').load(tag.attr('id'), 'oi', function (){                                    
                     var options = {width:700, height:400,dialogClass:'dialogstyle',
@@ -243,12 +245,12 @@
         var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir"/>';
         if(tipo == 'video' || tipo == 'exercicio'){
             var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar"/>';
-            var _HTML = '<li id=li_'+tipo+'_'+data[0]+'><h3 name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1] + '</h3>' + editar + excluir + '</li>';
+            var _HTML = '<li id=li_'+tipo+'_'+data[0]+'><h3 class="item_conteudo" name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1] + '</h3>' + editar + excluir + '</li>';
         }else{            
             var _HTML = '<li id=li_'+tipo+'_'+data[0]+'><a name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a>' + excluir + '</li>';                            
         }
         tipo = '#lista_'+tipo+ ' .ul_lista';                
-        $(tipo.toString()).append($(_HTML));            
+        $(tipo.toString()).aftappend($(_HTML));            
     }
     
     $('#btn_editar_modulo').click(function(){
@@ -276,8 +278,7 @@
                 alert('Dados atualizados');
             }                                                                
         }, "json");                
-    });
-    
+    });        
     
 </script>
 
@@ -305,12 +306,9 @@
         <h4>Descricao: </h4>
         <div class="quadro_de_conteudo_especifico">
             <?php echo $this->modulo->getDescricao() ?>
-        </div>
-       
-
-        <div class="">
-            
-            <div id="accordion_body2" class="" style="">
+        </div>       
+        <div class="">            
+            <div id="accordion_body2">
                 <ul>
                     <li>
                         <div class="accordion_body">
@@ -322,8 +320,7 @@
                             </div>      
                            
                             <div id="lista_video " class="accord_content_body" style="display:none;">                                                                
-                                <ul class="add">
-                                    <?php echo $this->listaVideo; ?>
+                                <ul class="add">                                    
                                     <li>
                                         <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>

@@ -3,15 +3,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
         <title>EAD Biotran</title>
         <!--<script src="js/accordion.js" type="text/javascript"></script>-->
-<!--        <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        -->
-<!--        <script src="js/video.js"></script>                -->
+        <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
+        <script src="js/video.js"></script>                
         <script src="js/jquery.js" type="text/javascript"></script>
         <script src="js/menuDropDown.js" type="text/javascript"></script>                        
 <!--        <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> -->
         
         <script type="text/javascript">
-            _V_.options.flash.swf = "video-js.swf";
+//            _V_.options.flash.swf = "video-js.swf";
             function resize_content_fluid(){
                 var height = $('.content').height();
               
@@ -44,7 +44,7 @@
                 //                
                 //                $('#right_menu_holder').css('height', $right_num );
                 
-                $(".eadbiotran_topbar").disableSelection();
+//                $(".eadbiotran_topbar").disableSelection();
                 // Fecha a aba se clicado fora
                 //                alert($('#page-leftcolumn').css('height') );
                 //                alert($('#right_menu_holder').css('height') );

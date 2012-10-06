@@ -153,7 +153,7 @@
     });
     
     $('#btn_atualizar').click(function(){
-        $.post('ajax/crud_curso.php?acao=atualizar', $('#form_editar_curso').serialize(), function(json) {
+        $.post('ajax/crud_curso.php?acao=atualizarDescritivo', $('#form_editar_curso').serialize(), function(json) {
             // handle response
             if(json != false){
                 $('#descricao').attr('readonly', 'true');

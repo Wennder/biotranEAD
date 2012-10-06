@@ -4,7 +4,7 @@
 
 <script>
     var centro = 1;
-    $(document).ready(function(){
+    $(document).ready(function(){        
         if(centro == 1){
             
             centro = $('#center_content').load('index.php?c=ead&a=editar_curso&id='+$('#id_curso_1').val(), $('#id_curso_1').val(), function (){                    

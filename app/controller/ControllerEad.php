@@ -58,7 +58,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         // echo 'teste';        die();
         $this->controller = new controllerCurso();
         $id_usuario = $_SESSION['usuarioLogado']->getId_usuario();
-        $this->visao->lista = $this->controller->listaCursos_professor($id_usuario);
+        $this->visao->lista = $this->controller->listaCursos_professor($id_usuario);        
     
         $this->visao->usuario = $_SESSION['usuarioLogado'];
         Biotran_Mvc::pegarInstancia()->mudarAcao("cursos_professor");
@@ -89,7 +89,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionGerenciar_cursos() {
-        $this->visao->titulo = "Gerenciar Cursos";
+        $this->visao->titulo = "Gerenciar Cursos";   
         
         $this->controller = new controllerCurso();
         //Pega a id passa na url e monta o objeto buscando os dados no banco
@@ -103,9 +103,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
             $this->visao->optionsTP = $this->controller->comboTodos_Professores();
             
         }
+        //print_r($this->visao->curso);die();
         //Monta a tabela de cursos            
         $this->visao->tabela = $this->controller->tabelaCursos();
-   
         $this->renderizar();
          
     }
@@ -254,7 +254,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");        
         if ($this->visao->curso->getStatus(1) == 0) {
             Biotran_Mvc::pegarInstancia()->mudarAcao('primeiro_acesso_curso');
-        }
+        }        
         $this->renderizar();
     }
 
@@ -310,7 +310,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionEditar_exercicio(){
         $this->controller = new controllerExercicio();        
         $id_exercicio = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->visao->exercicio = $this->controller->getExercicio("id_modulo=" . $id_exercicio . "");
+        $this->visao->exercicio = $this->controller->getExercicio("id_exercicio=" . $id_exercicio . "");
         $this->renderizar();
     }
 

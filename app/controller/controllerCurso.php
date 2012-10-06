@@ -204,6 +204,19 @@ class controllerCurso {
             $this->inserirFotoCurso($this->curso->getId_curso());
         }
     }
+    
+    public function atualizarDescritivoCurso($id_curso) {
+        $this->curso = $this->getCurso("id_curso = " . $id_curso);
+        //seta as variaveis $this->curso e $this->cp
+        $this->setCurso_post();       
+        //atualizar
+        $this->updateCurso($this->curso);
+        //se existir foto: para filtrar os cadastros feitos pela pag inicial
+        if (isset($_FILES["imagem"])) {
+            // NOME? NÃO É UMA ENTRADA ÚNICA... =/            
+            $this->inserirFotoCurso($this->curso->getId_curso());
+        }
+    }
 
     public function getCurso($condicao) {
         $dao = new CursoDAO();
