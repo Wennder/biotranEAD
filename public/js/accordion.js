@@ -1,6 +1,6 @@
 $(document).ready(function(){
         //On click any <h3> within the container
-        $('.accord').click(function(e) {
+        $('.accord').live('click',function(e) {
 
             //Close all <div> but the <div> right after the clicked <a>
             //$(e.target).next('div').siblings('div').slideUp('fast');

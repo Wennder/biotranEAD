@@ -436,6 +436,10 @@ form.form_cadastro, form.form_editar{
 }
 
 
+.accord{
+    cursor: pointer;
+}
+
 .accord_body{
     cursor: pointer;
     z-index: 9999;

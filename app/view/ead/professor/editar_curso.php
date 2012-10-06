@@ -22,8 +22,20 @@
     }
 
     #disposicao_conteudo_professor_editar_curso{
-        position: relative;
-        padding-right: 20px;
+        background: #ffffff;
+        /*       
+            background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#f0f0f0));
+            background: -webkit-linear-gradient(top, #fafafa, #f0f0f0);
+            background: -moz-linear-gradient(top, #fafafa, #f0f0f0);
+            background: -ms-linear-gradient(top, #fafafa, #f0f0f0);
+            background: -o-linear-gradient(top, #fafafa, #f0f0f0);
+            background: linear-gradient(top, #fafafa, #f0f0f0);*/
+        border: 1px solid #e7e7e7;
+        border-top:1px solid #f6f6f6;
+        padding: 5px 12px;
+        box-shadow: 0px 3px 3px #eeeeee ;
+        -moz-box-shadow: 0px 3px 3px #eeeeee ;
+        -webkit-box-shadow: 0px 3px 3px #eeeeee ;
 
     }
 
@@ -31,11 +43,11 @@
     .quadro_de_conteudo_especifico{
         margin:0px;
         margin-bottom:20px;
-        border:1px solid #eeeeee;
+
         padding: 10px;
         color: #888888;
         overflow: auto;
-        width: 100%;
+
     }
 
     .quadro_de_conteudo_especifico ul{
@@ -51,8 +63,8 @@
     .quadro_de_conteudo_especifico ul li{
         list-style: none;
         color: #888888;
-        background-color: #eeeeee;
-        border:1px solid #CCCCCC;
+
+
         padding:4px;
     }
 
@@ -94,7 +106,7 @@
     [readonly = readonly] {
         border:0px;
         border:1px none;
-        background-color: #fafafa;
+
     }
 
     #image_holder{
@@ -129,8 +141,29 @@
 
     #descricao{
         position: relative;
-       width:300px;
+        width:300px;
     }
+
+    #nao_editavel{
+        overflow:auto;
+    }
+
+    #nao_editavel *{
+        float:left;
+    }
+    
+    #nao_editavel input{
+        height:30px;
+    }
+    
+    .lista_modulos{
+        border-bottom:1px solid #eeeeee;
+        border-top:1px solid #fefefe;
+        background-color: #fafafa;
+        padding: 2px 7px;
+        cursor: pointer;
+    }
+    
 </style>
 
 <script>
@@ -166,7 +199,7 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
 ?>
 <div id="disposicao_conteudo_professor_editar_curso">
     <form id="form_editar_curso">
-        <div class="quadro_de_conteudo_especifico" style="background-color:#fafafa;">
+        <div class="quadro_de_conteudo_especifico" style="border-bottom:1px solid #eeeeee;">
 
             <div id="div_editar" align="right">
                 <input type="button" id="btn_editar" value="Editar"/>
@@ -178,41 +211,48 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
                 <h1 style=""><?php echo $this->curso->getNome(); ?></h1>
             </div>
             <div style="padding:10px;float:left; clear:right; ">
-            <h4>Descricao: </h4>
-            <div style="padding:5px;">
-                <textarea id="descricao" name="descricao" rows="5" type="text-field" readonly="readonly"><?php echo $this->curso->getDescricao() ?></textarea>
+                <div style="float:left; overflow:auto;">
+                    <h4>Descricao: </h4>
+                    <div style="padding:5px;">
+                        <textarea id="descricao" name="descricao" rows="5" type="text-field" readonly="readonly"><?php echo $this->curso->getDescricao() ?></textarea>
+                    </div>
+                </div>
+
+
+                <div style="float:left; overflow:auto;">
+                    <h4>Objetivo: </h4>
+                    <textarea id="objetivo" name="objetivo" type="text" readonly="readonly"> <?php echo $this->curso->getObjetivo() ?> </textarea>
+                </div>
+                <div style="float:left; overflow:auto;"> 
+                    <h4>Justificativa: </h4>
+                    <textarea id="justificativa" name="justificativa" type="text" readonly="readonly"> <?php echo $this->curso->getJustificativa() ?> </textarea>
+                </div>
+                <div style="">
+                    <h4>Observacoes: </h4>
+                    <textarea id="obs" name="obs" type="text" readonly="readonly"> <?php echo $this->curso->getObs() ?> </textarea>
+                </div>
             </div>
+
+            <div id="nao_editavel" style="float:left;">
+                <h4>Tempo: </h4>
+                <input id="input1" type="text" height="30" readonly="readonly" value="<?php echo $this->curso->getTempo() ?> Dias"/>
+
+                <h4>Status: </h4>
+                <input id="input2" type="text" height="30" readonly="readonly" value="<?php echo $this->curso->getStatus(0) ?>"/>
+
+                <h4>Gratuito: </h4>
+                <input id="input3" type="text" height="30" readonly="readonly" value="<?php echo $this->curso->getGratuito() ?>"/>
+
+                <h4>Valor: </h4>
+                <input id="input4" type="text" readonly="readonly" value="<?php echo $this->curso->getValor() ?>"/>
             </div>
-        </div><div class="quadro_de_conteudo_especifico">
-            <h4>Tempo: </h4>
-            <input id="input1" type="text" readonly="readonly" value="<?php echo $this->curso->getTempo() ?> Dias"/>
-
-            <h4>Status: </h4>
-            <input id="input2" type="text"  readonly="readonly" value="<?php echo $this->curso->getStatus(0) ?>"/>
-
-            <h4>Gratuito: </h4>
-            <input id="input3" type="text" readonly="readonly" value="<?php echo $this->curso->getGratuito() ?>"/>
-
-            <h4>Valor: </h4>
-            <input id="input4" type="text" readonly="readonly" value="<?php echo $this->curso->getValor() ?>"/>
-
-            <h4>Objetivo: </h4>
-            <textarea id="objetivo" name="objetivo" type="text" readonly="readonly"> <?php echo $this->curso->getObjetivo() ?> </textarea>
-
-            <h4>Justificativa: </h4>
-            <textarea id="justificativa" name="justificativa" type="text" readonly="readonly"> <?php echo $this->curso->getJustificativa() ?> </textarea>
-
-            <h4>Observacoes: </h4>
-            <textarea id="obs" name="obs" type="text" readonly="readonly"> <?php echo $this->curso->getObs() ?> </textarea>
 
             <div id="div_atualizar" style="display: none">
-                <input id="btn_atualizar" type="button" value="Atualizar"/>    
+                <input id="btn_atualizar" type="button"  value="Atualizar"/>    
             </div>
-
             <div id="div_atualizar" align="right" style="display: none; ">
                 <input id="id" name="id" type="text" value="<?php echo $this->curso->getId_curso() ?>"/>    
             </div>
-
         </div>
     </form>
     <div id="lista_de_modulos">

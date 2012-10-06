@@ -101,13 +101,33 @@
     -moz-box-shadow: 0px 2px 2px #eeeeee inset;
     -webkit-box-shadow: 0px 2px 2px #eeeeee inset;
 }
+
+
+.btn_del{
+    float:right;
+}
+.btn_edt{
+    float:right;
+}
+
+.titulo_video{
+    float:left;
+}
+
+.video_row{
+    overflow: auto;
+    padding:1px 5px;
+    border-bottom:1px solid #f2f2f2;
+    border-top:1px solid #f2f2f2;
+}
+
 </style>
 
 <script> 
     
     var dialog;
     $(document).ready(function() {                                                        
-        _V_.options.flash.swf = "video-js.swf";              
+        //_V_.options.flash.swf = "video-js.swf";              
         
         $(".btn_edt").live('click', function(){
             var btn = $(this);
@@ -205,7 +225,7 @@
             
         });
         
-        $("#accordion_body2 .accordion_body .lista_video li h3").live('click',function() {            
+        $(" #lista_video ").live('click',function() {            
             var tag = $(this);
             if(tag.attr('name') == 'video'){                
                 $('#dialog_video').load(tag.attr('id'), 'oi', function (){                                    
@@ -240,7 +260,7 @@
 <div id="dialog_video" style="display:none">
 </div>
 <div id="div_conteudo_professor_editar_modulo">
-    <h1 id="titulo_modulo">Modulo <?php echo $this->modulo->getNumero_modulo() ?>: <?php echo $this->modulo->getTitulo_modulo() ?></h1>
+    <div id="titulo_modulo"><h1>Modulo <?php echo $this->modulo->getNumero_modulo() ?>: <?php echo $this->modulo->getTitulo_modulo() ?></h1>
     <div id="disposicao_conteudo_professor_editar_modulo">
         <h4>Descricao: </h4>
         <div class="quadro_de_conteudo_especifico">
@@ -263,7 +283,7 @@
                            
                             <div id="lista_video " class="accord_content_body" style="display:none;">                                                                
                                 <ul class="add">
-                                    <?php echo $this->listaVideo; ?>
+                                    
                                     <li>
                                         <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                                     </li>
@@ -327,5 +347,6 @@
                 </ul>
             </div>
         </div>
+    </div>
     </div>
 </div>
