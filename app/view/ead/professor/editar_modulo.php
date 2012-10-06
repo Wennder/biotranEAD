@@ -61,6 +61,14 @@
     }
     
     
+    .list_conteudo:first-letter{
+        font-weight: 600;
+    }
+    
+    .list_conteudo img{
+        float:left; margin-right: 5px;
+    }
+    
     #titulo_modulo{
         background: #ffffff;
 /*       
@@ -249,7 +257,7 @@
                            
                             <div class='list_conteudo accord_body'>
                                 
-                                <img src="img/movie.png" />  Video Aulas
+                                <img src="img/movie.png" style="float:left;" />  Video Aulas
                                 
                             </div>      
                            
@@ -268,7 +276,7 @@
                         <div class="accordion_body">
                             <div class='list_conteudo accord_body'>
                                
-                                   <img src="img/text_enriched.png"/>Textos de Referencia
+                                   <img src="img/text_enriched.png" />Textos de Referencia
                               
                             </div>                            
                             <div class="add accord_content_body" style="display:none;">
