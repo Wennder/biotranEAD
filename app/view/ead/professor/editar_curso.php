@@ -212,38 +212,38 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
             </div>
             <div style="padding:10px;float:left; clear:right; ">
                 <div style="float:left; overflow:auto;">
-                    <h4>Descricao: </h4>
+                    <h4 style="border-left:2px solid #7f98d0; line-height: 14px;">Descricao: </h4>
                     <div style="padding:5px;">
                         <textarea id="descricao" name="descricao" rows="5" type="text-field" readonly="readonly"><?php echo $this->curso->getDescricao() ?></textarea>
                     </div>
                 </div>
 
 
-                <div style="float:left; overflow:auto;">
-                    <h4>Objetivo: </h4>
+                <div style="float:left; overflow:auto; ">
+                    <h4 style="border-left:2px solid #7fd08b; line-height: 14px;" >Objetivo: </h4>
                     <textarea id="objetivo" name="objetivo" type="text" readonly="readonly"> <?php echo $this->curso->getObjetivo() ?> </textarea>
                 </div>
                 <div style="float:left; overflow:auto;"> 
-                    <h4>Justificativa: </h4>
+                    <h4 style="border-left:2px solid #7fd08b; line-height: 14px;">Justificativa: </h4>
                     <textarea id="justificativa" name="justificativa" type="text" readonly="readonly"> <?php echo $this->curso->getJustificativa() ?> </textarea>
                 </div>
                 <div style="">
-                    <h4>Observacoes: </h4>
+                    <h4 style="border-left:2px solid #7fd08b; line-height: 14px;">Observacoes: </h4>
                     <textarea id="obs" name="obs" type="text" readonly="readonly"> <?php echo $this->curso->getObs() ?> </textarea>
                 </div>
             </div>
 
             <div id="nao_editavel" style="float:left;">
-                <h4>Tempo: </h4>
+                <h4 style="border-left:2px solid #7fd08b; line-height: 14px;">Tempo: </h4>
                 <input id="input1" type="text" height="30" readonly="readonly" value="<?php echo $this->curso->getTempo() ?> Dias"/>
 
-                <h4>Status: </h4>
+                <h4 style="border-left:2px solid #7fd08b; line-height: 14px;">Status: </h4>
                 <input id="input2" type="text" height="30" readonly="readonly" value="<?php echo $this->curso->getStatus(0) ?>"/>
 
-                <h4>Gratuito: </h4>
+                <h4 style="border-left:2px solid #7fd08b; line-height: 14px;">Gratuito: </h4>
                 <input id="input3" type="text" height="30" readonly="readonly" value="<?php echo $this->curso->getGratuito() ?>"/>
 
-                <h4>Valor: </h4>
+                <h4 style="border-left:2px solid #7fd08b; line-height: 14px;">Valor: </h4>
                 <input id="input4" type="text" readonly="readonly" value="<?php echo $this->curso->getValor() ?>"/>
             </div>
 

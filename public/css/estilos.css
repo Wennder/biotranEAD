@@ -26,6 +26,10 @@ html, body {
     
 }
 
+ul{
+    list-style: none;
+}
+
 body{min-width: 1024px;}
 
 h1{
