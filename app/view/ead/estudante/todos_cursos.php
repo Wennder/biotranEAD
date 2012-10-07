@@ -59,10 +59,12 @@
     }
 
     .aluno_cursos{
+        padding:2px;
         box-shadow: 0px 2px 2px #eeeeee inset;
         -moz-box-shadow: 0px 2px 2px #eeeeee inset;
         -webkit-box-shadow: 0px 2px 2px #eeeeee inset;
     }
+   
 </style>
 
 <div id="meus_cursos"><div style="">
