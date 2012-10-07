@@ -389,12 +389,20 @@ class controllerModulo {
     }
     
     public function inserir_pergunta($id_exercicio){
-        
+        $controller = new controllerPergunta();
+        $pergunta = $controller->setPergunta();
+        $pergunta->setId_exercicio($id_exercicio);
+        $pergunta->setId_pergunta($controller->novoPergunta($pergunta));
+        $controller = new controllerAlternativa();
+        $alternativa = $controller->setTodasAlternativa();
+        for($i = 0; $i < count($alternativa); $i++){
+            $alternativa[$i]->setId_pergunta($pergunta->getId_pergunta());
+            $controller->novoAlternativa($alternativa[$i]);
+        }
+        return 1;
     }
     
-    public function setConteudo_pergunta(){
-        
-    }
+    
 
 }
 

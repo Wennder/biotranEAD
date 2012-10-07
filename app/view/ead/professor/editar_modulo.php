@@ -313,7 +313,7 @@
 <div id="dialog_video" style="display:none">
 </div>
 <div id="div_conteudo_professor_editar_modulo">
-    <h1>Modulo <?php echo $this->modulo->getNumero_modulo() ?></h1>
+    <div id="titulo_modulo"><h1>Modulo <?php echo $this->modulo->getNumero_modulo() ?></h1>
         <form id="form_descritivo">
             <div id="div_editar_modulo" align="right">
                 <input type="button" name="btn_editar_modulo" id="btn_editar_modulo" value="Editar"/>
@@ -411,6 +411,7 @@
                 </ul>
             </div>
         </div>
+    </div>
     </div>
     </div>
 </div>

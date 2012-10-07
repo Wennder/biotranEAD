@@ -2,7 +2,7 @@
 <script src="js/accordion.js" type="text/javascript"></script>
 
 <div id="form_cadastro" style="">
-    <form id="" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_exercicio" enctype="multipart/form-data">
+    <form id="form_descritivo" class="form_cadastro" method="post" action="ajax/crud_conteudo_modulo.php?acao==cadastrar_exercicio" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados do Exercicio</legend>
             <table>
@@ -24,164 +24,163 @@
                 </tr>
             </table>
         </fieldset>
-        <div class="accordion_body">
-            <div class='list_index_admin_gray' style='margin-top:0px;'>
-                <a><div class='detalhe'></div>
-                    <img class='seta_formatacao' src='img/seta_gray.png' />Perguntas
-                </a>
-            </div>
-            <div>
-                <ul>
-                    <li>
-                        <div class="accordion_body">
-                            <h4>
-                                <a>Adicionar nova pergunta</a>
-                            </h4>
-                            <div>
-                                <ul>
-                                    <li>
-                                        <form id="form_cadastrar" name="form_cadastrar" method="post" action="index.php?">
-                                            <fieldset style="width:100%;">
-                                                <legend>Nova Pergunta</legend>
-                                                <table>
-                                                    <tr>
-                                                        <td style="width: 150px;">
-                                                            <label class="label_cadastro">Numeração (ordem): </label>
-                                                        </td>
-                                                        <td style="width: 100px;">
-                                                            <input type="text" id="numeracao" name="numeracao" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 80px"/>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width: 150px;">
-                                                            <label class="label_cadastro">Enunciado: </label>
-                                                        </td>
-                                                        <td>
-                                                            <textarea id="enunciado" style="width:500px;" name="enunciado" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </fieldset>
-                                            <fieldset style="width:100%;">
-                                                <legend>Alternativa 1</legend>
-                                                <table>
-                                                    <tr>
-                                                        <td style="width: 150px;">
-                                                            <label class="label_cadastro">Resposta: </label>
-                                                        </td>
-                                                        <td style="width: 600px;">
-                                                            <input type="text" id="resposta1" name="resposta1" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width: 150px;">
-                                                            <label class="label_cadastro">Justificativa: </label>
-                                                        </td>
-                                                        <td>
-                                                            <textarea id="justificativa1" style="width:500px;" name="justificativa1" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width:150px;">
-                                                            <input type="radio" name="correta" value="alternativa1" />Alternativa Correta<br />
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </fieldset>
-                                            <fieldset style="width:100%;">
-                                                <legend>Alternativa 2</legend>
-                                                <table>
-                                                    <tr>
-                                                        <td style="width: 150px;">
-                                                            <label class="label_cadastro">Resposta: </label>
-                                                        </td>
-                                                        <td style="width: 600px;">
-                                                            <input type="text" id="resposta2" name="resposta2" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width: 150px;">
-                                                            <label class="label_cadastro">Justificativa: </label>
-                                                        </td>
-                                                        <td>
-                                                            <textarea id="justificativa2" style="width:500px;" name="justificativa2" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width:150px;">
-                                                            <input type="radio" name="correta" value="alternativa2" />Alternativa Correta<br />
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </fieldset>
-
-                                            <fieldset style="width:100%;">
-                                                <legend>Alternativa 3</legend>
-                                                <table>
-                                                    <tr>
-                                                        <td style="width: 150px;">
-                                                            <label class="label_cadastro">Resposta: </label>
-                                                        </td>
-                                                        <td style="width: 600px;">
-                                                            <input type="text" id="resposta3" name="resposta3" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width: 150px;">
-                                                            <label class="label_cadastro">Justificativa: </label>
-                                                        </td>
-                                                        <td>
-                                                            <textarea id="justificativa3" style="width:500px;" name="justificativa3" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width:150px;">
-                                                            <input type="radio" name="correta" value="alternativa3" />Alternativa Correta<br />
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </fieldset>
-
-                                            <fieldset style="width:100%;">
-                                                <legend>Alternativa 4</legend>
-                                                <table>
-                                                    <tr>
-                                                        <td style="width: 150px;">
-                                                            <label class="label_cadastro">Resposta: </label>
-                                                        </td>
-                                                        <td style="width: 600px;">
-                                                            <input type="text" id="resposta4" name="resposta4" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width: 150px;">
-                                                            <label class="label_cadastro">Justificativa: </label>
-                                                        </td>
-                                                        <td>
-                                                            <textarea id="justificativa4" style="width:500px;" name="justificativa4" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width:150px;">
-                                                            <input class="label_cadastro" type="radio" name="correta" value="alternativa4" />Alternativa Correta<br />
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </fieldset>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <br>
-        <input type="submit" id="btn_add" class="btn_add" name="btn_add" value="Adicionar" class="button"/>
-
     </form>
+    <div class="accordion_body">
+        <div class='list_index_admin_gray' style='margin-top:0px;'>
+            <a><div class='detalhe'></div>
+                <img class='seta_formatacao' src='img/seta_gray.png' />Perguntas
+            </a>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <div class="accordion_body">
+                        <h4>
+                            <a>Adicionar nova pergunta</a>
+                        </h4>
+                        <div>
+                            <ul>
+                                <li>
+                                    <form id="form_cadastrar" name="form_cadastrar" method="post" action="index.php?">
+                                        <fieldset style="width:100%;">
+                                            <legend>Nova Pergunta</legend>
+                                            <table>
+                                                <tr>
+                                                    <td style="width: 150px;">
+                                                        <label class="label_cadastro">Numeração (ordem): </label>
+                                                    </td>
+                                                    <td style="width: 100px;">
+                                                        <input type="text" id="numeracao" name="numeracao" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 80px"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;">
+                                                        <label class="label_cadastro">Enunciado: </label>
+                                                    </td>
+                                                    <td>
+                                                        <textarea id="enunciado" style="width:500px;" name="enunciado" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </fieldset>
+                                        <fieldset style="width:100%;">
+                                            <legend>Alternativa 1</legend>
+                                            <table>
+                                                <tr>
+                                                    <td style="width: 150px;">
+                                                        <label class="label_cadastro">Resposta: </label>
+                                                    </td>
+                                                    <td style="width: 600px;">
+                                                        <input type="text" id="resposta_0" name="resposta_0" value="" class="validate[required] text-input" data-prompt-position="centerRight"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;">
+                                                        <label class="label_cadastro">Justificativa: </label>
+                                                    </td>
+                                                    <td>
+                                                        <textarea id="justificativa_0" name="justificativa_0" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:150px;">
+                                                        <input type="radio" name="correta" value="0" />Alternativa Correta<br />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </fieldset>
+                                        <fieldset style="width:100%;">
+                                            <legend>Alternativa 2</legend>
+                                            <table>
+                                                <tr>
+                                                    <td style="width: 150px;">
+                                                        <label class="label_cadastro">Resposta: </label>
+                                                    </td>
+                                                    <td style="width: 600px;">
+                                                        <input type="text" id="resposta_1" name="resposta_1" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;">
+                                                        <label class="label_cadastro">Justificativa: </label>
+                                                    </td>
+                                                    <td>
+                                                        <textarea id="justificativa_1" style="width:500px;" name="justificativa_1" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:150px;">
+                                                        <input type="radio" name="correta" value="1" />Alternativa Correta<br />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </fieldset>
+
+                                        <fieldset style="width:100%;">
+                                            <legend>Alternativa 3</legend>
+                                            <table>
+                                                <tr>
+                                                    <td style="width: 150px;">
+                                                        <label class="label_cadastro">Resposta: </label>
+                                                    </td>
+                                                    <td style="width: 600px;">
+                                                        <input type="text" id="resposta_2" name="resposta_2" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;">
+                                                        <label class="label_cadastro">Justificativa: </label>
+                                                    </td>
+                                                    <td>
+                                                        <textarea id="justificativa_2" style="width:500px;" name="justificativa_2" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:150px;">
+                                                        <input type="radio" name="correta" value="2" />Alternativa Correta<br />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </fieldset>
+
+                                        <fieldset style="width:100%;">
+                                            <legend>Alternativa 4</legend>
+                                            <table>
+                                                <tr>
+                                                    <td style="width: 150px;">
+                                                        <label class="label_cadastro">Resposta: </label>
+                                                    </td>
+                                                    <td style="width: 600px;">
+                                                        <input type="text" id="resposta_3" name="resposta_3" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;">
+                                                        <label class="label_cadastro">Justificativa: </label>
+                                                    </td>
+                                                    <td>
+                                                        <textarea id="justificativa_3" style="width:500px;" name="justificativa_3" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:150px;">
+                                                        <input class="label_cadastro" type="radio" name="correta" value="3" />Alternativa Correta<br />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </fieldset>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <br>
+    <input type="submit" id="btn_add" class="btn_add" name="btn_add" value="Adicionar" class="button"/>   
     </br></br>
 </div>
 
