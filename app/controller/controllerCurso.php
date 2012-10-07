@@ -490,6 +490,9 @@ class controllerCurso {
         $this->controller = new controllerUsuario();
         $todos_professores = $this->controller->getListaUsuarioProfessor();
         $options = "";
+        if($todos_professores == null){
+            return 'erro_professor';
+        }
         foreach ($todos_professores as $professor) {
             $options .= "<option value='" . $professor->getId_usuario() . "'>" . $professor->getNome_completo() . "</option>";
         }
@@ -500,7 +503,9 @@ class controllerCurso {
         $this->controllerCP = new controllerCurso_professor();
         $professores_curso = $this->controllerCP->getProfessoresCurso($idCurso);
         $options = "";
-
+        if($professores_curso == null){
+            return 'erro_professor';
+        }
         for ($j = 0; $j < count($professores_curso); $j++) {
             $options .= "<option value='" . $professores_curso[$j]->getId_usuario() . "' selected='selected'>" . $professores_curso[$j]->getNome_completo() . "</option>";
         }

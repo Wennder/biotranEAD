@@ -99,7 +99,7 @@ class controllerModulo {
         $lista = "";
         $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
         for ($i = 0; $i < count($videos); $i++) {
-            $lista .= "<li class='conteudo_row' id='video_" . $videos[$i]->getId_video() . "'><h3 name='video' class='titulo_video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
+            $lista .= "<li class='conteudo_row' id='li_video_" . $videos[$i]->getId_video() . "'><h3 name='video' class='item_conteudo titulo_video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
             $lista .= $videos[$i]->getTitulo();
             $lista .= "</h3><input type='button' id='" . $videos[$i]->getId_video() . "' class='btn_edt' name='video' value='Editar'/><input id='" . $videos[$i]->getId_video() . "' type='button' name='video' class='btn_del' value='Excluir'/></li>";
         }
@@ -134,7 +134,8 @@ class controllerModulo {
             $controller = new $controller;
             foreach ($arquivos as $arquivo) {
                 $id = explode('.', basename($arquivo));
-                $txt = $controller->getTexto_referencia('id_texto_referencia=' . $id[0]);
+                $get = 'get'.ucfirst($tipo);
+                $txt = $controller->$get('id_'.$tipo.'=' . $id[0]);
                 $lista .= "<li class='conteudo_row' id='li_" . $tipo . "_" . $id[0] . "'><h3>";
                 $lista .= "<a style='float: left;' target='_blank' href='" . $link . basename($arquivo) . "'>" . $txt->getNome() . "</a>";
                 $lista .= "</h3><input type='button' name='" . $tipo . "' id='" . $id[0] . "' class='btn_del' value='Excluir'/></li>";

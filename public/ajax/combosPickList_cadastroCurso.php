@@ -13,6 +13,9 @@ if($_GET['acao']=='comID'){
         'prof_dispo' => $controller->comboProfessoresDisponiveis($id_curso),
         'prof_curso' => $controller->comboProfessores_curso($id_curso)
     );
+    if($resposta['prof_curso'] == 'erro_professor'){
+        $resposta = false;
+    }
 }else{
     $controller = new controllerCurso();
     $resposta = $controller->comboTodos_Professores();

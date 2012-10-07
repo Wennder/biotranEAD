@@ -1,10 +1,34 @@
-<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-<script src="js/accordion.js" type="text/javascript"></script>
+<script src="js/jquery.js"></script> 
+<script type="text/javascript" src="js/jquery.form.js"></script>
+<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
+<script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
+<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
+<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 
+<script>
+    $(document).ready(function(){                
+        $('#btn_editar_exercicio').click(function(){
+            if($(this).attr('value') == 'Editar'){
+                $('#titulo').removeAttr('readonly');
+                $('#descricao').removeAttr('readonly');
+                $('#div_atualizar_exercicio').removeAttr('style');
+                $(this).attr('value', 'Cancelar');
+            }else{
+                $('#titulo').attr('readonly', 'true');
+                $('#descricao').attr('readonly', 'true');
+                $('#div_atualizar_exercicio').attr('style', 'display:none;');
+                $(this).attr('value', 'Editar');
+            }
+        });
+    });
+</script>
 <div id="form_cadastro" style="">
-    <form id="form_descritivo" class="form_cadastro" method="post" action="ajax/crud_conteudo_modulo.php?acao==cadastrar_exercicio" enctype="multipart/form-data">
-        <fieldset style="width: 100%;">
+    <form id="form_descritivo" class="form_cadastro" method="post" action="ajax/crud_conteudo_modulo.php?acao=atualizar_exercicio" enctype="multipart/form-data">
+        <fieldset style="width: 100%;">            
             <legend>Dados do Exercicio</legend>
+            <div id="div_editar_exercicio" align="right">
+                <input type="button" name="btn_editar_exercicio" id="btn_editar_exercicio" value="Editar"/>
+            </div>
             <table>
                 <tr>
                     <td style="width: 150px;">
@@ -23,6 +47,9 @@
                     </td>
                 </tr>
             </table>
+            <div id="div_atualizar_exercicio" >
+                <input id="div_atualizar_exercicio" type="submit" value="Atualizar"/>    
+            </div>
         </fieldset>
     </form>
     <div class="accordion_body">
@@ -41,7 +68,7 @@
                         <div>
                             <ul>
                                 <li>
-                                    <form id="form_cadastrar" name="form_cadastrar" method="post" action="index.php?">
+                                    <form id="form_cadastrar" name="form_cadastrar" method="post" action="ajax/crud_conteudo_modulo.php?acao=inserir_pergunta">
                                         <fieldset style="width:100%;">
                                             <legend>Nova Pergunta</legend>
                                             <table>
@@ -169,6 +196,9 @@
                                                 </tr>
                                             </table>
                                         </fieldset>
+                                        <div id="div_inserir_pergunta" style="display: none">
+                                            <input id="btn_inserir_pergunta" type="submit" value="Cadastrar"/>    
+                                        </div>
                                     </form>
                                 </li>
                             </ul>
