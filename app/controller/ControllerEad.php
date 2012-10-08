@@ -5,7 +5,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
     private $controller = null;
 
     public function actionIndex() {
-        $this->visao->usuarioLogado = $_SESSION['usuarioLogado'];
+        $this->visao->usuarioLogado = $_SESSION['usuarioLogado'];        
         $this->renderizar();
     }
 
@@ -213,14 +213,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
-//    public function actionCadastrar_bibliografia() {
-//        $this->controller = new controllerModulo();
-//        $this->
-//    }           
-
     public function actionCadastrar_primeiro_acesso_curso() {
         $this->controller = new controllerCurso();
-        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();        
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");        
         if ($this->visao->curso->getStatus(1) == 0) {
             $this->controller->primeiro_acesso($this->visao->curso);
@@ -251,7 +246,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionGerenciar_curso() {
         $this->controller = new controllerCurso();
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");        
+        $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");                
         if ($this->visao->curso->getStatus(1) == 0) {
             Biotran_Mvc::pegarInstancia()->mudarAcao('primeiro_acesso_curso');
         }        

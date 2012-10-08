@@ -265,7 +265,7 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
             </div>
         </div>
     </form>
-    <div id="lista_de_modulos">
+    <div name="editar_curso" id="lista_de_modulos">
         <ul style="list-style-type:none;">
             <?php
             $controllerModulo = new ControllerModulo();

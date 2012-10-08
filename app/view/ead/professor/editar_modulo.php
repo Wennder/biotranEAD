@@ -1,14 +1,14 @@
 
 <script src="js/accordion_1.js" type="text/javascript"></script>
-<link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>   
+<!--<link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>   
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <link href="css/jquery.dialog.css" rel="stylesheet" type="text/css"/>        
 <script src="js/jquery.js"></script> 
-<script type="text/javascript" src="js/jquery.form.js"></script>
-<link href="css/video-js.css" rel="stylesheet" type="text/css"/>      
+<script type="text/javascript" src="js/jquery.form.js"></script>-->
+<!--<link href="css/video-js.css" rel="stylesheet" type="text/css"/>-->      
 
 <style>
-    @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
+    /*@import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";*/
     .quadro_de_conteudo_especifico{
         margin:0px;
         margin-bottom:20px;
@@ -127,8 +127,7 @@
 </style>
 
 <script> 
-    
-    var dialog;
+        
     $(document).ready(function() {                                                                        
         //_V_.options.flash.swf = "video-js.swf";              
         
@@ -178,62 +177,8 @@
                 }); 
             }
         });
-        
-        $(".btn_add").live('click', function(){
-        
-            var btn = $(this);
-            $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
-                if (status == "error") {
-                    alert('erro');
-                    var msg = "Sorry but there was an error: ";
-                    $("#error").html(msg + xhr.status + " " + xhr.statusText);
-                }else{
-                    
-                    var width = 0;var height = 0; var title;
-                    var tipo = btn.attr('name');
-                    if(tipo == 'video'){
-                        width = 800; height = 350; title = 'Adicionar Video Aula';
-                    }else{
-                        if(tipo == 'texto_referencia'){
-                            width = 500; height = 250; title = 'Adicionar Texto de Referencia';
-                        }else{
-                            if(tipo == 'material_complementar'){
-                                width = 500; height = 200; title = 'Adicionar Material Complementar';
-                            }else{//novo exercício
-                                width = 700; height = 300; title = 'Adicionar Exercicio';
-                            }
-                        }
-                    }                                            
-                    dialog = $('#dialog').dialog({width:width, height:height,dialogClass:'dialogstyle',modal: true,
-                        focus: function(event,ui){                                                
-                            $('#form_cadastrar').ajaxForm({                                                    
-                                uploadProgress: function(event, position, total, percentComplete) {
-                                    $('progress').attr('value',percentComplete);
-                                    $('#porcentagem').html(percentComplete+'%');
-                                },                            
-                                success: function(data) {                             
-                                    $('progress').attr('value','100');
-                                    $('#porcentagem').html('100%');
-                                    $('pre').html(data);
-                                    if(data != 0){                                                                                                                    
-                                        insereLinha(data, tipo);
-                                        alert('Arquivo inserido!');
-                                        $(dialog).dialog('close');
-                                    }                       
-                                }                    
-                            });                    
-                        },
-                        close: function(event,ui){                     
-                            $(dialog).dialog('destroy');
-                            $(dialog).find('div').remove();
-                        }                                        
-                    });
-                }
-            });
-            
-        });
-        
-        $(".item_conteudo").live('click',function() {            
+               
+        $(".item_conteudo").live('click',function() {
             var tag = $(this);                   
             if(tag.attr('name') == 'video'){                
                 $('#dialog_video').load(tag.attr('id'), function (){                                    
@@ -250,24 +195,7 @@
             }
         });             
     });            
-    
-    function insereLinha(data, tipo){
-        var id_modulo = $('#id_modulo').val();
-        var id_curso = $('#id_curso').val();        
-        data = data.split('-');
-        data[0] = data[0].replace('"', '');
-        data[1] = data[1].replace('"', '');        
-        var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir"/>';
-        if(tipo == 'video' || tipo == 'exercicio'){
-            var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar"/>';
-            var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><h3 class="item_conteudo titulo_video" name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1] + '</h3>' + editar + excluir + '</li>';
-        }else{            
-            var _HTML = '<li id=li_'+tipo+'_'+data[0]+'><a name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a>' + excluir + '</li>';                            
-        }
-        tipo = '#lista_'+tipo;             
-        $(tipo.toString()).append($(_HTML));            
-    }
-    
+            
     $('#btn_editar_modulo').click(function(){
         if($(this).attr('value') == 'Editar'){
             $('#titulo_modulo').removeAttr('readonly');
@@ -297,10 +225,6 @@
     
 </script>
 
-<div id="dialog" style="display:none">
-</div>
-<div id="dialog_video" style="display:none">
-</div>
 <div id="div_conteudo_professor_editar_modulo">
     <div id="titulo_modulo"><h1>Modulo <?php echo $this->modulo->getNumero_modulo() ?></h1>
         <form id="form_descritivo">
@@ -328,7 +252,7 @@
                         <li>
                             <div class="accordion_body">
 
-                                <div class='list_conteudo accord_body'>
+                                <div id="div_conteudo_video" class='list_conteudo accord_body'>
 
                                     <img src="img/movie.png" style="float:left;" />  Video Aulas
 
@@ -346,7 +270,7 @@
                         </li>
                         <li>
                             <div class="accordion_body">
-                                <div class='list_conteudo accord_body'>
+                                <div id="div_conteudo_texto_referencia" class='list_conteudo accord_body'>
                                     <img src="img/text_enriched.png" />Textos de Referencia
                                 </div>                            
                                 <div class="add accord_content_body" style="display:none;">
@@ -361,7 +285,7 @@
                         </li>
                         <li>
                             <div class="accordion_body">
-                                <div class='list_conteudo accord_body'>
+                                <div id="div_conteudo_material_complementar" class='list_conteudo accord_body'>
                                     <img src="img/folder-icon.png"/>Material Complementar
                                 </div>
                                 <div class="add accord_content_body" style="display:none;">
@@ -376,7 +300,7 @@
                         </li>
                         <li>
                             <div class="accordion_body">
-                                <div class='list_conteudo accord_body'>
+                                <div id="div_conteudo_exercicio" class='list_conteudo accord_body'>
 
                                     <img src="img/check.png"/>     Exercicios
 
@@ -398,6 +322,8 @@
         </div>
     </div>
 </div>
+</div>
+<div id="dialog_video" style="display:none">
 </div>
 <div style="display:none;">
     <input type="text" name="id_modulo" id="id_modulo" value="<?php echo $this->modulo->getId_modulo(); ?>"/>

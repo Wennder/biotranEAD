@@ -83,11 +83,11 @@ class controllerModulo {
         $i = 0;
         $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<div class='accordion_leftcolumn '><div class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=editar_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";
-            $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_videoaula&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Video Aula</a></p></li>";
-            $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_bibliografia&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Bibliografia</a></p></li>";
-            $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_materialcomplementar&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Material Complementar</a></p></li>";
-            $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_exercicio&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Exercicio</a></p></li>";
+            $listaModulos .= "<div class='accordion_leftcolumn '><div name='editar_modulo' class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=editar_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";
+            $listaModulos .= "<li><p><h3 class='btn_add' name='h3-video' id='index.php?c=ead&a=adicionar_videoaula&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Video Aula</h3></p></li>";
+            $listaModulos .= "<li><p><h3 class='btn_add' name='h3-texto_referencia' id='index.php?c=ead&a=adicionar_texto_referencia&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Texto de Referencia</h3></p></li>";
+            $listaModulos .= "<li><p><h3 class='btn_add' name='h3-material_complementar' id='index.php?c=ead&a=adicionar_material_complementar&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Material Complementar</h3></p></li>";
+            $listaModulos .= "<li><p><h3 class='btn_add' name='h3-exercicio' id='index.php?c=ead&a=adicionar_exercicio&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Exercicio</h3></p></li>";
             $listaModulos .= "</ul></div></div>";
         }
         
