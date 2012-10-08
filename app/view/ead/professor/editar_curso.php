@@ -210,11 +210,9 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
 <div id="disposicao_conteudo_professor_editar_curso">
     <form id="form_editar_curso">
         <div class="quadro_de_conteudo_especifico" style="border-bottom:1px solid #eeeeee;">
-
             <div id="div_editar" align="right">
                 <input type="button" id="btn_editar" value="Editar"/>
             </div>
-
             <div id="image_holder">
                 <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
             <div id="titulo_holder" style="">
