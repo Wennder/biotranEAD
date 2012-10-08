@@ -160,23 +160,7 @@
             });
         });
         
-        $(".btn_del").live('click', function(){            
-            var btn = $(this);
-            var r = confirm('Tem certeza de que deseja excluir este registro?');
-            if(r == true){                  
-                var id = btn.attr('id');                
-                $.getJSON('ajax/crud_conteudo_modulo.php?acao=remover_'+btn.attr('name'),{
-                    id: id,
-                    ajax: 'true'
-                }, function(j){
-                    //usuario excluido  
-                    if(j > 0){
-                        id = '#li_'+btn.attr('name')+'_'+id;                        
-                        $(id.toString()).remove();
-                    }
-                }); 
-            }
-        });
+        
                
         $(".item_conteudo").live('click',function() {
             var tag = $(this);                   
