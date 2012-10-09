@@ -64,8 +64,7 @@
                         var div = '#div_conteudo_'+btn.attr('name');
                         var gif = '<img id="ajax_loader" src="img/gif/ajax-loader.gif" />';
                         $(div.toString()).append($(gif));
-                        tipo = tipo[0];
-                        alert(tipo);
+                        tipo = tipo[0];                        
                     }else{
                         tipo = tipo[1];                        
                     }                    

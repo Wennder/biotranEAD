@@ -102,7 +102,7 @@ class controllerExercicio {
      public function inserir_pergunta($id_exercicio){
         $controller = new controllerPergunta();
         $pergunta = $controller->setPergunta();
-        $pergunta->setId_exercicio($id_exercicio);
+//        $pergunta->setId_exercicio($id_exercicio);
         $pergunta->setId_pergunta($controller->novoPergunta($pergunta));
         $controller = new controllerAlternativa();
         $alternativa = $controller->setTodasAlternativa();

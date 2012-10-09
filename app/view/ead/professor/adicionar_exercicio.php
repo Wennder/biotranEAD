@@ -10,7 +10,7 @@
 </script>
 
 <div id="form_cadastro" style="">
-    <form id="form_cadastrar" class="form_cadastro" method="post" action="ajax/crud_exercicio.php?acao=inserir" enctype="multipart/form-data">
+    <form id="form_cadastrar" class="form_cadastro" method="post" action="ajax/crud_exercicio.php?acao=inserir_exercicio" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados do Exercicio</legend>
             <table>

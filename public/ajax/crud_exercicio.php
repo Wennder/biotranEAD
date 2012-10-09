@@ -4,7 +4,7 @@ include '../../library/Biotran/importar_app.php';
 include ROOT_PATH . '/app/controller/controllerExercicio.php';
 include ROOT_PATH . '/app/controller/controllerModulo.php';
 
-$acao = $_GET['acao'] . '_exercicio';
+$acao = strtolower($_GET['acao']);
 $param='';
 if (isset($_REQUEST['id'])) {
     $param = $_REQUEST['id'];

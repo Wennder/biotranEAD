@@ -15,7 +15,7 @@ class Pergunta {
     private $id_pergunta = '';
     private $id_exercicio = '';
     private $numeracao = '';
-    private $enuciado = '';
+    private $enunciado = '';
     
     public function getId_exercicio() {
         return $this->id_exercicio;
@@ -24,21 +24,13 @@ class Pergunta {
     public function setId_exercicio($id_exercicio) {
         $this->id_exercicio = $id_exercicio;
     }
-
-    public function getId_atividade() {
-        return $this->id_atividade;
+    
+    public function getEnunciado() {
+        return $this->enunciado;
     }
 
-    public function setId_atividade($id_atividade) {
-        $this->id_atividade = $id_atividade;
-    }
-
-    public function getEnuciado() {
-        return $this->enuciado;
-    }
-
-    public function setEnuciado($enuciado) {
-        $this->enuciado = $enuciado;
+    public function setEnunciado($enunciado) {
+        $this->enunciado = $enunciado;
     }
     
     public function getId_pergunta() {
