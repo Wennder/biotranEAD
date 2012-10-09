@@ -13,8 +13,11 @@
 class controllerPergunta {
 
     public function novoPergunta(Pergunta $p) {
-        if ($p != null) {
+        if ($p != null) {            
             $dao = new PerguntaDAO();
+            if($this->getPergunta("id_pergunta=". $p->getId_pergunta()) != null){
+                return $p->getId_pergunta();
+            }
             return $dao->insert($p);
         } else {
             return 'ERRO: funcao nopoPergunta - [controllerPergunta]';
@@ -46,8 +49,8 @@ class controllerPergunta {
         if (!empty($_POST)) {
             foreach ($_POST as $k => $v) {
                 $setAtributo = 'set' . ucfirst($k);
-                if (method_exists($this->modulo, $setAtributo)) {
-                    $this->modulo->$setAtributo($v);
+                if (method_exists($pergunta, $setAtributo)) {
+                    $pergunta->$setAtributo($v);
                 }
             }
         }

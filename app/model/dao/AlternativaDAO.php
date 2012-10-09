@@ -25,7 +25,7 @@ class AlternativaDAO extends PDOConnectionFactory {
             $stmt->bindValue(1, $alternativa->getId_pergunta());
             $stmt->bindValue(2, $alternativa->getResposta());
             $stmt->bindValue(3, $alternativa->getJustificativa());
-            $stmt->bindValue(3, $alternativa->getEh_correta());
+            $stmt->bindValue(4, $alternativa->getEh_correta());
 
             $stmt->execute();
             return $this->conex->lastInsertId("Alternativa");            

@@ -16,7 +16,7 @@ class Alternativa {
     private $id_pergunta = '';
     private $resposta = '';
     private $justificativa = '';
-    private $eh_correta = '';
+    private $eh_correta = 0;
     
     public function getId_alternativa() {
         return $this->id_alternativa;

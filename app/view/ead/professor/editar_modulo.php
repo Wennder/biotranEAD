@@ -143,7 +143,6 @@
                         focus: function(event,ui){                            
                             
                             $('#form_cadastrar').ajaxForm();
-//                            alert('sdas');
                             $('#form_descritivo_exercicio').ajaxForm({
                                 success: function(data) {
                                     if(data != 0){

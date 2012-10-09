@@ -11,7 +11,7 @@
  * @author cead-p057007
  */
 class controllerAlternativa {
-    
+
     public function novoAlternativa(Alternativa $p) {
         if ($p != null) {
             $dao = new AlternativaDAO();
@@ -44,19 +44,28 @@ class controllerAlternativa {
     /*
      * retorna um vetor de Alternativa setando via post
      */
+
     public function setTodasAlternativa() {
-        $alternativa = array(new Alterantiva(), new Alternativa(), new Alternativa(), new Alternativa);        
-        if (!empty($_POST)) {            
+        $alternativa = array(new Alternativa(), new Alternativa(), new Alternativa(), new Alternativa);
+        if (!empty($_POST)) {
             foreach ($_POST as $k => $v) {
-                $k = explode('_', $k);                
-                $setAtributo = 'set' . ucfirst($k[0]);
-                if (method_exists($alternativa[$k[1]], $setAtributo)) {
-                    $$alternativa[$k[1]]->$setAtributo($v);
+                $aux = explode('-', $k);
+                if (isset($aux[1])) {
+                    $setAtributo = 'set' . ucfirst($aux[0]);
+                    if (method_exists($alternativa[$aux[1]], $setAtributo)) {
+                        $alternativa[$aux[1]]->$setAtributo($v);
+                    }
+                } else {
+                    if ($k != 'eh_correta') {
+                        $alternativa[$v]->setEh_correta(1);
+                    }
                 }
             }
         }
+        print_r($alternativa);
         return $alternativa;
-    }    
+    }
+
 }
 
 ?>
