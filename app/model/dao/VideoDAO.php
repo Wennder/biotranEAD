@@ -27,7 +27,9 @@ class VideoDAO extends PDOConnectionFactory {
             $stmt->bindValue(3, $video->getId_modulo());
 
             $stmt->execute();
-            return $this->conex->lastInsertId("Video");
+            $id = $this->conex->lastInsertId("Video");
+            $this->conex = null;
+            return $id;
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
         }
@@ -71,9 +73,13 @@ class VideoDAO extends PDOConnectionFactory {
             } else {
                 $stmt = $this->conex->query("SELECT * FROM video WHERE " . $condicao);
             }
+            $video = null;
+            if($stmt){
             $video = array();
-            for ($i = 0; $i < $stmt->rowCount(); $i++) {
-                $video[$i] = $stmt->fetchObject('Video');
+                for ($i = 0; $i < $stmt->rowCount(); $i++) {
+                    $video[$i] = $stmt->fetchObject('Video');
+                }
+                
             }
             return $video;
         } catch (PDOException $ex) {

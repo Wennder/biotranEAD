@@ -2,23 +2,21 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
-<script>
-    var centro = 1;
-    $(document).ready(function(){
-        if(centro == 1){
-            
+<script>    
+    $(document).ready(function(){        
+        if(centro == 1){            
             centro = $('#center_content').load('index.php?c=ead&a=editar_curso&id='+$('#id_curso_1').val(), $('#id_curso_1').val(), function (){                    
-//                $('#div_conteudo').append(centro);
-            });
-            
+            pag_content = 'editar_curso';
+            });            
             $('#lista_de_modulos h3').live('click',function(e){
                 if(centro!=1){            
                     centro.find('div').remove();
                 } 
                 var id = $(this).attr('id');
                 centro = $('#center_content').load('index.php?c=ead&a=editar_modulo&id='+id, 'oi', function (){                    
-                    $('#div_conteudo').append(centro);
+                    $('#div_conteudo').append(centro);                    
                 }); 
+                pag_content = 'editar_modulo';
             });
         }
     });
@@ -38,7 +36,7 @@
 <style>
     #div_conteudo_professor_editar_modulo{
         position: relative;
-       
+
         padding-top:0px;
     }
 
@@ -50,12 +48,12 @@
 
     #disposicao_conteudo_professor_editar_modulo{
         position: relative;
-      
+
     }
-    
+
     #center_content{
-       
-       
+
+
         padding-top:0px;
     }
 
@@ -65,9 +63,9 @@
         padding:0;
     }
 
-  
-   
-    
+
+
+
 </style>
 
 

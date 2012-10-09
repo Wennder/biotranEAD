@@ -169,23 +169,33 @@
 
 <script>
     $('#btn_editar').click(function(){
-        alert($('#id').val());
-        $('#descricao').removeAttr('readonly');
-        $('#justificativa').removeAttr('readonly');
-        $('#objetivo').removeAttr('readonly');
-        $('#obs').removeAttr('readonly');
-        $('#div_atualizar').removeAttr('style');
+        if($(this).attr('value') == 'Editar'){
+            $('#descricao').removeAttr('readonly');
+            $('#justificativa').removeAttr('readonly');
+            $('#objetivo').removeAttr('readonly');
+            $('#obs').removeAttr('readonly');
+            $('#div_atualizar').removeAttr('style');
+            $(this).attr('value', 'Cancelar');            
+        }else{
+            $('#descricao').attr('readonly', 'true');
+                $('#justificativa').attr('readonly', 'true');
+                $('#objetivo').attr('readonly', 'true');
+                $('#obs').attr('readonly', 'true');
+                $('#div_atualizar').attr('style', 'display:none;');
+                $('#btn_editar').attr('value', 'Editar');
+        }
     });
     
     $('#btn_atualizar').click(function(){
-        $.post('ajax/crud_curso.php?acao=atualizar', $('#form_editar_curso').serialize(), function(json) {
+        $.post('ajax/crud_curso.php?acao=atualizarDescritivo', $('#form_editar_curso').serialize(), function(json) {
             // handle response
             if(json != false){
                 $('#descricao').attr('readonly', 'true');
                 $('#justificativa').attr('readonly', 'true');
                 $('#objetivo').attr('readonly', 'true');
                 $('#obs').attr('readonly', 'true');
-                $('#div_atualizar').attr('style', 'display:none;');        
+                $('#div_atualizar').attr('style', 'display:none;');
+                $('#btn_editar').attr('value', 'Editar');
                 alert('Dados atualizados');
             }                                                                
         }, "json");                
@@ -201,11 +211,9 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
 <div id="disposicao_conteudo_professor_editar_curso">
     <form id="form_editar_curso">
         <div class="quadro_de_conteudo_especifico" style="border-bottom:1px solid #eeeeee;">
-
             <div id="div_editar" align="right">
                 <input type="button" id="btn_editar" value="Editar"/>
             </div>
-
             <div id="image_holder">
                 <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
             <div id="titulo_holder" style="">
@@ -263,7 +271,7 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
             </div>
         </div>
     </form>
-    <div id="lista_de_modulos">
+    <div name="editar_curso" id="lista_de_modulos">
         <ul style="list-style-type:none;">
             <?php
             $controllerModulo = new ControllerModulo();

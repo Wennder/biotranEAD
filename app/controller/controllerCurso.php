@@ -204,6 +204,19 @@ class controllerCurso {
             $this->inserirFotoCurso($this->curso->getId_curso());
         }
     }
+    
+    public function atualizarDescritivoCurso($id_curso) {
+        $this->curso = $this->getCurso("id_curso = " . $id_curso);
+        //seta as variaveis $this->curso e $this->cp
+        $this->setCurso_post();       
+        //atualizar
+        $this->updateCurso($this->curso);
+        //se existir foto: para filtrar os cadastros feitos pela pag inicial
+        if (isset($_FILES["imagem"])) {
+            // NOME? NÃO É UMA ENTRADA ÚNICA... =/            
+            $this->inserirFotoCurso($this->curso->getId_curso());
+        }
+    }
 
     public function getCurso($condicao) {
         $dao = new CursoDAO();
@@ -477,6 +490,9 @@ class controllerCurso {
         $this->controller = new controllerUsuario();
         $todos_professores = $this->controller->getListaUsuarioProfessor();
         $options = "";
+        if($todos_professores == null){
+            return 'erro_professor';
+        }
         foreach ($todos_professores as $professor) {
             $options .= "<option value='" . $professor->getId_usuario() . "'>" . $professor->getNome_completo() . "</option>";
         }
@@ -487,7 +503,9 @@ class controllerCurso {
         $this->controllerCP = new controllerCurso_professor();
         $professores_curso = $this->controllerCP->getProfessoresCurso($idCurso);
         $options = "";
-
+        if($professores_curso == null){
+            return 'erro_professor';
+        }
         for ($j = 0; $j < count($professores_curso); $j++) {
             $options .= "<option value='" . $professores_curso[$j]->getId_usuario() . "' selected='selected'>" . $professores_curso[$j]->getNome_completo() . "</option>";
         }

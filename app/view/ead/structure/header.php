@@ -2,16 +2,26 @@
     <head>        
         <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
         <title>EAD Biotran</title>
-<!--        <script src="js/accordion.js" type="text/javascript"></script>-->
+        <link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>   
+        <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+        <link href="css/jquery.dialog.css" rel="stylesheet" type="text/css"/>        
+        <script src="js/jquery.js"></script> 
+        <script type="text/javascript" src="js/jquery.form.js"></script>
+        <!--        <script src="js/accordion.js" type="text/javascript"></script>-->
         <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
-<!--        <script src="js/video.js"></script>                -->
+        <script src="js/video.js"></script>                
         <script src="js/jquery.js" type="text/javascript"></script>
         <script src="js/menuDropDown.js" type="text/javascript"></script>                        
         <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
 <!--        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> -->
-        
+        <style>
+            @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
+        </style>
         <script type="text/javascript">
-            _V_.options.flash.swf = "video-js.swf";
+            //            _V_.options.flash.swf = "video-js.swf";
+            var centro = 1;
+            var dialog;
+            
             function resize_content_fluid(){
                 var height = $('.content').height();
               
@@ -19,37 +29,112 @@
                     height+=75;
                     height +='px';
                     $(".content_fluid").css('height',height);
-                }
-              
-                
-
+                }              
             }
-             
-            $(document).ready(function(){
+            
+            function insereLinha(data, tipo){                                  
+                if($('#center_content').find('div').attr('id') == 'div_conteudo_professor_editar_modulo'){                                        
+                    var id_modulo = $('#id_modulo').val();
+                    var id_curso = $('#id_curso').val();        
+                    data = data.split('-');
+                    data[0] = data[0].replace('"', '');
+                    data[1] = data[1].replace('"', '');        
+                    var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir"/>';
+                    if(tipo == 'video'){
+                        var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar"/>';
+                        var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><h3 class="item_conteudo titulo_video" name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1] + '</h3>' + editar + excluir + '</li>';
+                    }else{            
+                        if(tipo == 'exercicio'){
+                            var editar = '<input name="'+tipo+'" type="button" id="index.php?c=ead&a=editar_exercicio&id='+data[0]+'" class="btn_edt" value="Editar"/>';
+                            var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><h3 class="item_conteudo titulo_exercicio" name="'+tipo+'" id="">'+data[1] + '</h3>' + editar + excluir + '</li>';                            
+                        }else{                            
+                            var _HTML = '<li id=li_'+tipo+'_'+data[0]+'><a name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a>' + excluir + '</li>';                            
+                        }
+                    }
+                    tipo = '#lista_'+tipo;   
+                    $(tipo.toString()).append($(_HTML));                                
+                }
+            }                        
+            $(document).ready(function(){                
+                document.onClick = comprimir();                 
+                $(".btn_add").live('click', function(){        
+                    var btn = $(this);
+                    var tipo = btn.attr('name').split('-');
+                    if(tipo[0] != 'h3'){
+                        var div = '#div_conteudo_'+btn.attr('name');
+                        var gif = '<img id="ajax_loader" src="img/gif/ajax-loader.gif" />';
+                        $(div.toString()).append($(gif));
+                        tipo = tipo[0];
+                        alert(tipo);
+                    }else{
+                        tipo = tipo[1];                        
+                    }                    
+                    $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
+                        if (status == "error") {
+                            alert('erro');
+                            var msg = "Sorry but there was an error: ";
+                            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                        }else{
+                            $('#ajax_loader').remove();
+                            var width = 0;var height = 0; var title;
+                            if(tipo == 'video'){
+                                width = 800; height = 350; title = 'Adicionar Video Aula';
+                            }else{
+                                if(tipo == 'texto_referencia'){
+                                    width = 500; height = 250; title = 'Adicionar Texto de Referencia';
+                                }else{
+                                    if(tipo == 'material_complementar'){
+                                        width = 500; height = 200; title = 'Adicionar Material Complementar';
+                                    }else{//novo exercício
+                                        width = 700; height = 300; title = 'Adicionar Exercicio';
+                                    }
+                                }
+                            }                                            
+                            dialog = $('#dialog').dialog({width:width, height:height,dialogClass:'dialogstyle',modal: true,
+                                focus: function(event,ui){                                                
+                                    $('#form_cadastrar').ajaxForm({                                                    
+                                        uploadProgress: function(event, position, total, percentComplete) {
+                                            $('progress').attr('value',percentComplete);
+                                            $('#porcentagem').html(percentComplete+'%');
+                                        },                            
+                                        success: function(data) {                             
+                                            $('progress').attr('value','100');
+                                            $('#porcentagem').html('100%');
+                                            $('pre').html(data);
+                                            if(data != 0){                                                                                                                    
+                                                insereLinha(data, tipo);
+                                                alert('Arquivo inserido!');
+                                                $(dialog).dialog('close');
+                                            }                       
+                                        }                    
+                                    });                    
+                                },
+                                close: function(event,ui){                     
+                                    $(dialog).dialog('destroy');
+                                    $(dialog).find('div').remove();
+                                }                                        
+                            });
+                        }
+                    });           
+                });
                 
-                //                resize_content_fluid();
-                //                $(window).bind('resize', resize_content_fluid);
-
-                //                
-                //                //                $('#page-leftcolumn').css('height',$height );
-                //                //                
-                //                //
-                //                //                $('#right_menu_holder').css('height', $height );
-                //                
-                //                $right = $('#right_menu_holder').css('height');
-                //                
-                //                $right_num = parseInt($right);
-                //                $right_num-=25;
-                //                
-                //               
-                //                
-                //                $('#right_menu_holder').css('height', $right_num );
-                
-                $(".eadbiotran_topbar").disableSelection();
-                // Fecha a aba se clicado fora
-                //                alert($('#page-leftcolumn').css('height') );
-                //                alert($('#right_menu_holder').css('height') );
-                document.onClick = comprimir(); 
+                $(".btn_del").live('click', function(){            
+                    var btn = $(this);
+                    var r = confirm('Tem certeza de que deseja excluir este registro?');                    
+                    if(r == true){                  
+                        var id = btn.attr('id');                
+                        $.getJSON('ajax/crud_conteudo_modulo.php?acao=remover_'+btn.attr('name'),{
+                            id: id,
+                            ajax: 'true'
+                        }, function(j){
+                            //usuario excluido  
+                            if(j > 0){
+                                id = '#li_'+btn.attr('name')+'_'+id;                        
+                                $(id.toString()).remove();
+                            }
+                        }); 
+                    }
+                });
             });
         </script>
 
@@ -62,6 +147,8 @@
         </style>
     </head>
     <body>
+        <div id="dialog" style="display:none">
+        </div>
         <div id="main">
             <div class="eadbiotran_topbar">
                 <div class="eadbiotran_navbar_container">

@@ -52,7 +52,7 @@ class ModuloDAO extends PDOConnectionFactory{
                 $stmt->bindValue(4, $modulo->getDescricao());
                 $stmt->bindValue(5, $modulo->getId_modulo());
                
-                $stmt->execute();
+                return $stmt->execute();
 
                 
             }

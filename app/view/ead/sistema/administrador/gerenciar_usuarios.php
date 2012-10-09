@@ -20,16 +20,16 @@ switch ($papel) {
 }
 ?>
 <?php require ROOT_PATH.'/app/view/ead/structure/content.php'; ?>
-<!--<script src="js/jquery-1.8.0.min.js" type="text/javascript"></script>-->
+
+
+<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
 <script src="js/validarCpf_passaporteCadastro.js" type="text/javascript"></script>
 <script src="js/crudTabelaUsuario.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
 <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
 
-<!--<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>-->
-
-
+<link rel="stylesheet" href="css/jquery-ui-1.8.24.custom.css" type="text/css"/>
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 <link rel="stylesheet" href="css/jquery.dataTables.css" type="text/css"/>
 <style type="text/css" title="currentStyle">
@@ -180,7 +180,6 @@ switch ($papel) {
         $('#btn_edit').live('click',function(){
             elem = $('tbody tr.row_selected');
             if (elem.length) {
-                alert(oTable.fnGetData(elem[0])[0]);
                 var _data = oTable.fnGetData(elem[0]);
                 var _column = oTable.fnGetData(elem[0]);
                 $('#button_cadastrar').hide();

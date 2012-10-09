@@ -69,6 +69,7 @@ class CursoDAO extends PDOConnectionFactory {
                 $stmt->execute();
 
                 if ($cp != null) {
+                    echo 'entrou no update';die();
                     $dao = new Curso_professorDAO();
                     for($i = 0; $i < count($cp); $i++){
                         $cp[$i]->setId_curso($curso->getId_curso());

@@ -11,6 +11,9 @@
  * @author cead-p057007
  */
 class controllerModulo {
+
+    private $modulo = null;
+
     /*
      * Retorna apenas um moduloereco de acordo com a condicao da query.
      * Se houver mais de um registro em banco, apenas o primeiro sera retornado
@@ -80,11 +83,11 @@ class controllerModulo {
         $i = 0;
         $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<div class='accordion_leftcolumn '><div class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=editar_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";
-            $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_videoaula&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Video Aula</a></p></li>";
-            $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_bibliografia&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Bibliografia</a></p></li>";
-            $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_materialcomplementar&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Material Complementar</a></p></li>";
-            $listaModulos .= "<li><p><a href='index.php?c=ead&a=adicionar_exercicio&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Exercicio</a></p></li>";
+            $listaModulos .= "<div class='accordion_leftcolumn '><div name='editar_modulo' class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=editar_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";
+            $listaModulos .= "<li><p><h3 class='btn_add' name='h3-video' id='index.php?c=ead&a=adicionar_videoaula&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Video Aula</h3></p></li>";
+            $listaModulos .= "<li><p><h3 class='btn_add' name='h3-texto_referencia' id='index.php?c=ead&a=adicionar_texto_referencia&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Texto de Referencia</h3></p></li>";
+            $listaModulos .= "<li><p><h3 class='btn_add' name='h3-material_complementar' id='index.php?c=ead&a=adicionar_material_complementar&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Material Complementar</h3></p></li>";
+            $listaModulos .= "<li><p><h3 class='btn_add' name='h3-exercicio' id='index.php?c=ead&a=adicionar_exercicio&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Exercicio</h3></p></li>";
             $listaModulos .= "</ul></div></div>";
         }
         
@@ -93,15 +96,10 @@ class controllerModulo {
 
     public function listaVideo_aulas_modulo($id_modulo) {
         $controllerVideo = new controllerVideo();
-        $modulo = new Modulo();
-        $dao = new ModuloDAO();
-        $id_curso = $modulo->getId_curso('id_modulo=' . $id_modulo);
-        $diretorio = ROOT_PATH . "/public/cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
         $lista = "";
-
         $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
         for ($i = 0; $i < count($videos); $i++) {
-            $lista .= "<li class='video_row' id='video_" . $videos[$i]->getId_video() . "'><h3 name='video' class='titulo_video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
+            $lista .= "<li class='conteudo_row' id='li_video_" . $videos[$i]->getId_video() . "'><h3 name='video' class='item_conteudo titulo_video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
             $lista .= $videos[$i]->getTitulo();
             $lista .= "</h3><input id='" . $videos[$i]->getId_video() . "' type='button' name='video' class='btn_del' value='Excluir'/><input type='button' id='" . $videos[$i]->getId_video() . "' class='btn_edt' name='video' value='Editar'/></li>";
         }
@@ -114,14 +112,21 @@ class controllerModulo {
 
     public function listaArquivos(Modulo $modulo, $tipo) {
         $lista = 0;
+        $tipo = strtolower($tipo);
         if ($tipo == 'texto_referencia' || $tipo == 'material_complementar') {
+            $link = "cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/" . $tipo . "/";
             $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/" . $tipo . "/";
             $arquivos = glob($diretorio . "*.pdf");
             $lista = "";
+            $controller = 'controller' . ucfirst($tipo);
+            $controller = new $controller;
             foreach ($arquivos as $arquivo) {
-                $lista .= "<li><h3>";
-                $lista .= "<a href='".$arquivo."'>".basename($arquivo)."</a>";
-                $lista .= "</h3><input type='button' id='".basename($arquivo)."' class='btn_del' value='Excluir' float='right'/></li>";
+                $id = explode('.', basename($arquivo));
+                $get = 'get'.ucfirst($tipo);
+                $txt = $controller->$get('id_'.$tipo.'=' . $id[0]);
+                $lista .= "<li class='conteudo_row' id='li_" . $tipo . "_" . $id[0] . "'><h3>";
+                $lista .= "<a style='float: left;' target='_blank' href='" . $link . basename($arquivo) . "'>" . $txt->getNome() . "</a>";
+                $lista .= "</h3><input type='button' name='" . $tipo . "' id='" . $id[0] . "' class='btn_del' value='Excluir'/></li>";
             }
         }
         return $lista;
@@ -188,6 +193,21 @@ class controllerModulo {
         return $objeto;
     }
 
+    public function setModulo() {
+        if (!empty($_POST)) {
+            
+            if ($this->modulo == null) {
+                $this->modulo = new Modulo();
+            }            
+            foreach ($_POST as $k => $v) {                
+                $setAtributo = 'set' . ucfirst($k);
+                if (method_exists($this->modulo, $setAtributo)) {
+                    $this->modulo->$setAtributo($v);
+                }
+            }
+        }        
+    }
+
     public function setArquivoVideo(Video $v) {
         $id_video = $v->getId_video();
         $id_modulo = $v->getId_modulo();
@@ -195,10 +215,10 @@ class controllerModulo {
         if (isset($_FILES["video"])) {
             if ($_FILES["video"]["name"] != '') {
                 $video = $_FILES["video"];
-                $tipos = array("wmv");
+                $tipos = array("mp4");
                 $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
                 if (!in_array($video['type'], $tipos)) {
-                    $video_nome = $pasta_dir . $id_video . ".wmv";
+                    $video_nome = $pasta_dir . $id_video . ".mp4";
                     move_uploaded_file($_FILES['video']['tmp_name'], $video_nome);
                     return 1;
                 }
@@ -211,17 +231,36 @@ class controllerModulo {
      * $tipo_arquivo: material complementar, bibliográfico e texto de referencia
      */
 
-    public function setArquivo($tipo_arquivo, $id_modulo) {
-        $id_modulo = $v->getId_modulo();
-        $id_curso = $this->getModulo("id_modulo=" . $id_modulo)->getId_curso();
+    public function setArquivoTexto_referencia(Texto_referencia $txt) {
+        $id_curso = $this->getModulo("id_modulo=" . $txt->getId_modulo())->getId_curso();
         if (isset($_FILES["arquivo"])) {
             if ($_FILES["arquivo"]["name"] != '') {
                 $arquivo = $_FILES["arquivo"];
-                $tipos = array("pdf", "doc");
-                $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/" . $tipo_arquivo . "/";
+                $tipos = array("pdf");
+                $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $txt->getId_modulo() . "/texto_referencia/";
                 if (!in_array($arquivo['type'], $tipos)) {
-                    $video_nome = $pasta_dir . $_FILES["arquivo"]["name"] . ".wmv";
-                    move_uploaded_file($_FILES["arquivo"]["tmp_name"], $video_nome);
+                    $arquivo_nome = $pasta_dir . $txt->getId_texto_referencia() . '.pdf';
+                    move_uploaded_file($_FILES["arquivo"]["tmp_name"], $arquivo_nome);
+                    return 1;
+                } else {
+                    //2 - tipo inválido
+                    return 2;
+                }
+            }
+        }
+        return 0;
+    }
+
+    public function setArquivoMaterial_complementar(Material_complementar $material) {
+        $id_curso = $this->getModulo("id_modulo=" . $material->getId_modulo())->getId_curso();
+        if (isset($_FILES["arquivo"])) {
+            if ($_FILES["arquivo"]["name"] != '') {
+                $arquivo = $_FILES["arquivo"];
+                $tipos = array("pdf");
+                $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $material->getId_modulo() . "/material_complementar/";
+                if (!in_array($arquivo['type'], $tipos)) {
+                    $arquivo_nome = $pasta_dir . $material->getId_material_complementar() . '.pdf';
+                    move_uploaded_file($_FILES["arquivo"]["tmp_name"], $arquivo_nome);
                     return 1;
                 } else {
                     //2 - tipo inválido
@@ -244,20 +283,31 @@ class controllerModulo {
     }
 
     public function inserir_texto_referencia() {
-        $id_modulo = $_POST["id_modulo"];
-        return $this->setArquivo('texto_referencia', $id_modulo);
+        $texto = $this->setConteudo('texto_referencia');
+        $controller = new controllerTexto_referencia();
+        $texto->setId_texto_referencia($controller->novoTexto_referencia($texto));
+        if ($this->setArquivoTexto_referencia($texto)) {
+            $retorno = $texto->getId_texto_referencia() . '-' . $texto->getNome();
+            return $retorno;
+        }
+        return 0;
     }
 
     public function inserir_material_complementar() {
-        $id_modulo = $_POST["id_modulo"];
-        return $this->setArquivo('material_complementar', $id_modulo);
-    }
+        $material = $this->setConteudo('material_complementar');
+        $controller = new controllerMaterial_complementar();
+        $material->setId_material_complementar($controller->novoMaterial_complementar($material));
+        if ($this->setArquivoMaterial_complementar($material)) {
+            $retorno = $material->getId_material_complementar() . '-' . $material->getNome();
+            return $retorno;
+        }
+        return 0;
+    }   
 
-    public function inserir_exercicio() {
-        $e = $this->setConteudo('exercicio');
+    public function remover_exercicio($id_exercicio) {
         $controller = new controllerExercicio();
-        $e->setId_exercicio($controller->novoExercicio($e));
-        if ($e->getId_exercicio() != 0) {
+        $exe = $controller->getExercicio("id_exercicio=" . $id_exercicio);
+        if ($controller->deleteExercicio($exe) > 0) {
             return 1;
         }
         return 0;
@@ -268,13 +318,53 @@ class controllerModulo {
         $v = $controller->getVideo("id_video=" . $id_video);
         $modulo = $this->getModulo("id_modulo=" . $v->getId_modulo());
         if ($controller->deleteVideo($v) > 0) {
-            $diretorio_video = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $v->getId_modulo() . "/video_aula/" . $v->getId_video() . ".wmv";
-            if (unlink($diretorio_video)) {
+            $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $v->getId_modulo() . "/video_aula/" . $v->getId_video() . ".mp4";
+            if (unlink($diretorio)) {
                 return 1;
             }
         }
         return 0;
     }
+
+    public function remover_texto_referencia($id_texto_referencia) {
+        $controller = new controllerTexto_referencia();
+        $txt = $controller->getTexto_referencia("id_texto_referencia=" . $id_texto_referencia);
+        $modulo = $this->getModulo("id_modulo=" . $txt->getId_modulo());
+        if ($controller->deleteTexto_referencia($txt) > 0) {
+            $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $txt->getId_modulo() . "/texto_referencia/" . $txt->getId_texto_referencia() . ".pdf";
+            if (unlink($diretorio)) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    public function remover_material_complementar($id_material_complementar) {
+        $controller = new controllerMaterial_complementar();
+        $material = $controller->getMaterial_complementar("id_material_complementar=" . $id_material_complementar);
+        $modulo = $this->getModulo("id_modulo=" . $material->getId_modulo());
+        if ($controller->deleteMaterial_complementar($material) > 0) {
+            $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $material->getId_modulo() . "/material_complementar/" . $material->getId_material_complementar() . ".pdf";
+            if (unlink($diretorio)) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    /*
+     * atualiza atributos descritivos do modulo
+     */
+
+    public function atualizar_descritivo($id_modulo) {
+        $this->modulo = $this->getModulo("id_modulo=".$id_modulo);
+        $this->setModulo(); 
+        $dao = new ModuloDAO();        
+        if($dao->update($this->modulo)){
+            return 1;
+        }
+        return 0;
+    }               
 
 }
 

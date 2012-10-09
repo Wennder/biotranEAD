@@ -9,7 +9,7 @@ class ControllerIndex extends Biotran_Mvc_Controller {
         return $this->controller->actionValidarLogin_ajax($login, $senha);
     }
 
-    public function actionLogin() {
+    public function actionLogin() {        
         $login = $_POST['login'];
         $senha = $_POST['senha'];
 
@@ -34,7 +34,7 @@ class ControllerIndex extends Biotran_Mvc_Controller {
     }
 
     public function actionIndex() {
-//        $this->visao->invalidado = 0;
+//        $this->visao->invalidado = 0;        
         $this->renderizar();
     }
 
