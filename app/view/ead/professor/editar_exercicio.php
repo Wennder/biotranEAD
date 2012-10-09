@@ -1,5 +1,3 @@
-<script src="js/jquery.js"></script> 
-<script type="text/javascript" src="js/jquery.form.js"></script>
 <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
@@ -9,21 +7,34 @@
     $(document).ready(function(){                
         $('#btn_editar_exercicio').click(function(){
             if($(this).attr('value') == 'Editar'){
-                $('#titulo').removeAttr('readonly');
-                $('#descricao').removeAttr('readonly');
+                $('#titulo_exercicio').removeAttr('readonly');
+                $('#descricao_exercicio').removeAttr('readonly');
                 $('#div_atualizar_exercicio').removeAttr('style');
                 $(this).attr('value', 'Cancelar');
             }else{
-                $('#titulo').attr('readonly', 'true');
-                $('#descricao').attr('readonly', 'true');
+                $('#titulo_exercicio').attr('readonly', 'true');
+                $('#descricao_exercicio').attr('readonly', 'true');
                 $('#div_atualizar_exercicio').attr('style', 'display:none;');
                 $(this).attr('value', 'Editar');
             }
         });
+        
+//        $('#btn_atualizar_exercicio').live('click', function(){
+//           $.post('ajax/crud_exercicio.php?acao=atualizar_descritivo', $('#form_descritivo').serialize(), function(json) {
+//            // handle response
+//            if(json != false){
+//                $('#titulo_modulo').attr('readonly', 'true');
+//                $('#descricao').attr('readonly', 'true');
+//                $('#div_atualizar_modulo').attr('style', 'display:none;');
+//                $('#btn_editar_modulo').attr('value', 'Editar');
+//                alert('Dados atualizados');
+//            }                                                                
+//        }, "json"); 
+//        });
     });
 </script>
 <div id="form_cadastro" style="">
-    <form id="form_descritivo" class="form_cadastro" method="post" action="ajax/crud_conteudo_modulo.php?acao=atualizar_exercicio" enctype="multipart/form-data">
+    <form id="form_descritivo_exercicio" class="form_cadastro" method="post" action="ajax/crud_exercicio.php?acao=atualizar_descritivo" enctype="multipart/form-data">
         <fieldset style="width: 100%;">            
             <legend>Dados do Exercicio</legend>
             <div id="div_editar_exercicio" align="right">
@@ -35,7 +46,7 @@
                         <label class="label_cadastro">Nome do Exercicio: </label>
                     </td>
                     <td style="width: 600px;">
-                        <input type="text" readonly="true" id="titulo" name="titulo" value="<?php echo $this->exercicio->getTitulo(); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                        <input type="text" readonly="true" id="titulo_exercicio" name="titulo_exercicio" value="<?php echo $this->exercicio->getTitulo(); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
                     </td>
                 </tr>
                 <tr>
@@ -43,13 +54,19 @@
                         <label class="label_cadastro">Descricao (opcional): </label>
                     </td>
                     <td>
-                        <textarea id="descricao" readonly="true" style="width:500px;" name="descricao" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"><?php echo $this->exercicio->getDescricao(); ?></textarea>
+                        <textarea id="descricao_exercicio" readonly="true" style="width:500px;" name="descricao_exercicio" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"><?php echo $this->exercicio->getDescricao(); ?></textarea>
                     </td>
                 </tr>
+                <div id="div_atualizar_exercicio" style="display:none;" >
+                    <input name="btn_atualizar_exercicio" id="btn_atualizar_exercicio" class="button" type="submit" value="Atualizar"/>    
+                </div>
+                <div id="div_id_exercicio" style="display:none;" >
+                    <input name="id_exercicio" id="id_exercicio" type="text" value="<?php echo $this->exercicio->getId_exercicio();?>"/>    
+                </div>
+                <div id="div_id_modulo" style="display:none;" >
+                    <input name="id_modulo" id="id_modulo" type="text" value="<?php echo $this->exercicio->getId_modulo(); ?>"/>    
+                </div>
             </table>
-            <div id="div_atualizar_exercicio" >
-                <input id="div_atualizar_exercicio" type="submit" value="Atualizar"/>    
-            </div>
         </fieldset>
     </form>
     <div class="accordion_body">

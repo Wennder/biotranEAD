@@ -314,18 +314,7 @@ class controllerModulo {
             return $retorno;
         }
         return 0;
-    }
-
-    public function inserir_exercicio() {
-        $e = $this->setConteudo('exercicio');
-        $controller = new controllerExercicio();
-        $e->setId_exercicio($controller->novoExercicio($e));
-        if ($e->getId_exercicio() != 0) {
-            $retorno = $e->getId_exercicio() . '-' . $e->getTitulo();
-            return $retorno;
-        }
-        return 0;
-    }
+    }   
 
     public function remover_exercicio($id_exercicio) {
         $controller = new controllerExercicio();
@@ -387,23 +376,7 @@ class controllerModulo {
             return 1;
         }
         return 0;
-    }
-    
-    public function inserir_pergunta($id_exercicio){
-        $controller = new controllerPergunta();
-        $pergunta = $controller->setPergunta();
-        $pergunta->setId_exercicio($id_exercicio);
-        $pergunta->setId_pergunta($controller->novoPergunta($pergunta));
-        $controller = new controllerAlternativa();
-        $alternativa = $controller->setTodasAlternativa();
-        for($i = 0; $i < count($alternativa); $i++){
-            $alternativa[$i]->setId_pergunta($pergunta->getId_pergunta());
-            $controller->novoAlternativa($alternativa[$i]);
-        }
-        return 1;
-    }
-    
-    
+    }               
 
 }
 

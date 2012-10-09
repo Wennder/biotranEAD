@@ -1,8 +1,6 @@
 <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
-<!--<script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> -->
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 
 <script>    
@@ -12,7 +10,7 @@
 </script>
 
 <div id="form_cadastro" style="">
-    <form id="form_cadastrar" class="form_cadastro" method="post" action="ajax/crud_conteudo_modulo.php?acao=inserir_exercicio" enctype="multipart/form-data">
+    <form id="form_cadastrar" class="form_cadastro" method="post" action="ajax/crud_exercicio.php?acao=inserir" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados do Exercicio</legend>
             <table>

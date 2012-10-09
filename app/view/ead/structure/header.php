@@ -40,11 +40,16 @@
                     data[0] = data[0].replace('"', '');
                     data[1] = data[1].replace('"', '');        
                     var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir"/>';
-                    if(tipo == 'video' || tipo == 'exercicio'){
+                    if(tipo == 'video'){
                         var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar"/>';
                         var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><h3 class="item_conteudo titulo_video" name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1] + '</h3>' + editar + excluir + '</li>';
                     }else{            
-                        var _HTML = '<li id=li_'+tipo+'_'+data[0]+'><a name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a>' + excluir + '</li>';                            
+                        if(tipo == 'exercicio'){
+                            var editar = '<input name="'+tipo+'" type="button" id="index.php?c=ead&a=editar_exercicio&id='+data[0]+'" class="btn_edt" value="Editar"/>';
+                            var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><h3 class="item_conteudo titulo_exercicio" name="'+tipo+'" id="">'+data[1] + '</h3>' + editar + excluir + '</li>';                            
+                        }else{                            
+                            var _HTML = '<li id=li_'+tipo+'_'+data[0]+'><a name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a>' + excluir + '</li>';                            
+                        }
                     }
                     tipo = '#lista_'+tipo;   
                     $(tipo.toString()).append($(_HTML));                                
@@ -60,6 +65,7 @@
                         var gif = '<img id="ajax_loader" src="img/gif/ajax-loader.gif" />';
                         $(div.toString()).append($(gif));
                         tipo = tipo[0];
+                        alert(tipo);
                     }else{
                         tipo = tipo[1];                        
                     }                    

@@ -41,7 +41,9 @@ class ExercicioDAO extends PDOConnectionFactory {
             $stmt->bindValue(2, $exercicio->getTitulo());
             $stmt->bindValue(3, $exercicio->getDescricao());          
             $stmt->bindValue(4, $exercicio->getId_exercicio());          
-            $stmt->execute();
+            if($stmt->execute())
+                return 1;
+            return 0;
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
         }

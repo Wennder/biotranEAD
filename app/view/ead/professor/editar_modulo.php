@@ -141,14 +141,16 @@
                 }else{                                                                                    
                     dialog = $('#dialog').dialog({width:800, height:600,dialogClass:'dialogstyle',
                         focus: function(event,ui){                            
-//                            $('#form_cadastrar').ajaxForm();
-                            $('#form_descritivo').ajaxForm({
+                            
+                            $('#form_cadastrar').ajaxForm();
+//                            alert('sdas');
+                            $('#form_descritivo_exercicio').ajaxForm({
                                 success: function(data) {
                                     if(data != 0){
                                         //insereLinha(data, tipo);
-                                        alert('Arquivo inserido!');
+                                        alert('Arquivo inserido!');                                   
                                     }                       
-                                }                    
+                                }                       
                             });                    
                         },
                         close: function(event,ui){                     
