@@ -86,10 +86,18 @@
     -webkit-box-shadow: 0px 3px 3px #eeeeee ;
     }
     
-    [type = button]{
-        border:1px solid #c9f0c9;
-        background-color: #d9ffd9;
-       border-radius: 5px;
+    [type=button]{
+        box-shadow: 2px 2px 2px #eeeeee ;
+        padding:5px 10px;
+        border-bottom: 1px solid #eeeeee;
+        border-right: 1px solid #eeeeee;
+        border-top:1px solid white;
+        border-left:1px solid white;
+        border-radius: 5px;
+    -moz-box-shadow: 2px 2px 2px #eeeeee ;
+    -webkit-box-shadow: 2px 2px 2px #eeeeee ;
+        background-color: white;
+       
        color:#606060;
        font-weight: 600;
        margin:5px;
@@ -102,12 +110,29 @@
     -webkit-box-shadow: 0px 2px 2px #eeeeee inset;
 }
 
+.btn_add{
+    background-image: url('img/list_add.png');
+background-repeat: no-repeat;
+background-position: left;
+padding-left: 24px;
+margin-left:8px;
+}
 
 .btn_del{
     float:right;
+    background-image: url('img/delete.png');
+background-repeat: no-repeat;
+background-position: left;
+padding-left: 24px;
+margin-left:8px;
 }
 .btn_edt{
     float:right;
+     background-image: url('img/document_edit.png');
+background-repeat: no-repeat;
+background-position: left;
+padding-left: 24px;
+margin-left:8px;
 }
 
 .titulo_video{
@@ -116,9 +141,16 @@
 
 .video_row{
     overflow: auto;
-    padding:1px 5px;
+    padding:1px 10px;
     border-bottom:1px solid #f2f2f2;
     border-top:1px solid #f2f2f2;
+    cursor:pointer;
+}
+
+.video_row h3{
+    font-size:18px;
+    font-weight: 600;
+    line-height: 38px;
 }
 
 </style>
@@ -197,7 +229,7 @@
                                     $('progress').attr('value',percentComplete);
                                     $('#porcentagem').html(percentComplete+'%');
                                 },                            
-                                success: function(data) {                             
+                                success: function(data){                             
                                     $('progress').attr('value','100');
                                     $('#porcentagem').html('100%');
                                     $('pre').html(data);
@@ -225,7 +257,7 @@
             
         });
         
-        $(" #lista_video ").live('click',function() {            
+        $(".titulo_video ").live('click',function() {            
             var tag = $(this);
             if(tag.attr('name') == 'video'){                
                 $('#dialog_video').load(tag.attr('id'), 'oi', function (){                                    
@@ -285,7 +317,7 @@
                                 <ul class="add">
                                     
                                     <li>
-                                        <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
+                                        <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="Adicionar"/>
                                     </li>
                                     <?php echo $this->listaVideo; ?>                                    
                                 </ul>

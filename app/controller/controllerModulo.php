@@ -103,7 +103,7 @@ class controllerModulo {
         for ($i = 0; $i < count($videos); $i++) {
             $lista .= "<li class='video_row' id='video_" . $videos[$i]->getId_video() . "'><h3 name='video' class='titulo_video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
             $lista .= $videos[$i]->getTitulo();
-            $lista .= "</h3><input type='button' id='" . $videos[$i]->getId_video() . "' class='btn_edt' name='video' value='Editar'/><input id='" . $videos[$i]->getId_video() . "' type='button' name='video' class='btn_del' value='Excluir'/></li>";
+            $lista .= "</h3><input id='" . $videos[$i]->getId_video() . "' type='button' name='video' class='btn_del' value='Excluir'/><input type='button' id='" . $videos[$i]->getId_video() . "' class='btn_edt' name='video' value='Editar'/></li>";
         }
         return $lista;
     }
