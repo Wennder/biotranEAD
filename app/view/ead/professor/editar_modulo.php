@@ -235,54 +235,10 @@ margin-left:8px;
                 <input type="button" name="btn_editar_modulo" id="btn_editar_modulo" value="Editar"/>
             </div>
 
-        <div class="">
-            
-            <div id="accordion_body2" class="" style="">
-                <ul>
-                    <li>
-                        <div class="accordion_body">
-                           
-                            <div class='list_conteudo accord_body'>
-                                
-                                <img src="img/movie.png" style="float:left;" />  Video Aulas
-                                
-                            </div>      
-                           
-                            <div id="lista_video " class="accord_content_body" style="display:none;">                                                                
-                                <ul class="add">
-                                    
-                                    <li>
-                                        <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="Adicionar"/>
-                                    </li>
-                                    <?php echo $this->listaVideo; ?>                                    
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="accordion_body">
-                            <div class='list_conteudo accord_body'>
-                               
-                                   <img src="img/text_enriched.png" />Textos de Referencia
-                              
-                            </div>                            
-                            <div class="add accord_content_body" style="display:none;">
-                                <ul>
-                                    <?php echo $this->listaTexto; ?>
-                                    <li>
-                                        <input type="button" class="btn_add" name="texto" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="accordion_body">
-                            <div class='list_conteudo accord_body'>
-                               
-                                <img src="img/folder-icon.png"/>Material Complementar
-                               
-                            </div>
+            <h4>Titulo: </h4>        
+            <input readonly="true" id="titulo_modulo" name="titulo_modulo" value="<?php echo $this->modulo->getTitulo_modulo(); ?>" />
+            <h4>Descricao: </h4>        
+            <textarea readonly="true" id="descricao" name="descricao"><?php echo $this->modulo->getDescricao() ?></textarea>                           
 
             <div id="div_atualizar_modulo" style="display: none">
                 <input id="btn_atualizar_modulo" type="button" value="Atualizar"/>    
