@@ -439,6 +439,65 @@ form.form_cadastro, form.form_editar{
     margin-right: 15px;
 }
 
+ [type=button]{
+        box-shadow: 2px 2px 2px #eeeeee ;
+        padding:5px 10px;
+        border-bottom: 1px solid #eeeeee;
+        border-right: 1px solid #eeeeee;
+        border-top:1px solid white;
+        border-left:1px solid white;
+        border-radius: 5px;
+        -moz-box-shadow: 2px 2px 2px #eeeeee ;
+        -webkit-box-shadow: 2px 2px 2px #eeeeee ;
+        background-color: white;
+       
+       color:#606060;
+       font-weight: 600;
+       margin:5px;
+    }
+    
+    [type = text]{
+        border-radius: 5px;
+        border:none;
+        border-right:1px solid #eeeeee;
+        border-bottom:1px solid #eeeeee;
+        box-shadow: 2px 3px 3px #eeeeee inset;
+        -moz-box-shadow: 2px 3px 3px #eeeeee inset ;
+        -webkit-box-shadow: 2px 3px 3px #eeeeee  inset;
+    }
+    
+    [readonly = readonly] {
+        
+        border:1px none;
+        
+    }
+    
+     .adicionar{
+        
+    background-image: url('../img/list_add.png');
+background-repeat: no-repeat;
+background-position: left;
+padding-left: 24px;
+margin-left:8px;
+    }
+
+
+.btn_del{
+    float:right;
+    background-image: url('../img/delete.png');
+background-repeat: no-repeat;
+background-position: left;
+padding-left: 24px;
+margin-left:8px;
+}
+.btn_edt{
+    float:right;
+     background-image: url('../img/document_edit.png');
+background-repeat: no-repeat;
+background-position: left;
+padding-left: 24px;
+margin-left:8px;
+}
 
 .accord{
     cursor: pointer;
@@ -448,6 +507,13 @@ form.form_cadastro, form.form_editar{
     cursor: pointer;
     z-index: 9999;
    overflow: auto;
+   
+}
+
+.accord_content_body{
+    box-shadow: 0px 2px 3px #eeeeee inset;
+        -moz-box-shadow: 0px 2px 3px #eeeeee inset;
+        -webkit-box-shadow: 0px 2px 3px #eeeeee inset;
 }
 .accord_body *{
     z-index: 0;

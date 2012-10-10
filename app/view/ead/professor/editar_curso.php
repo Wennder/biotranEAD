@@ -13,6 +13,9 @@
 
     #div_atualizar{
         float:right;
+        clear:right;
+        position:relative;
+        z-index: 20;
     }
 
     #div_conteudo_professor_editar_curso h4{
@@ -103,15 +106,11 @@
         text-decoration: none;
     }
 
-    [readonly = readonly] {
-        border:0px;
-        border:1px none;
-
-    }
+    
 
     #image_holder{
         padding:3px;
-        border:1px solid #eeeeee;
+        border:2px solid #7294e0;
         float:left;
         margin-right: 10px;
         background-color: white;
@@ -124,24 +123,16 @@
     #titulo_holder{
         position: relative;
         z-index: 2; 
-        float:left;
+        
     }
     #div_conteudo_professor_editar_curso *{
         position:relative;
     }
 
-    [type = button]{
-        padding: 7px 7px;
-        color: #444444;
-        background-color: #eeeeee;
-        border:1px solid #999999;
-        font-weight: 600;
-        border-radius: 5px;
-    }
-
+   
     #descricao{
         position: relative;
-        width:300px;
+       
     }
 
     #nao_editavel{
@@ -149,19 +140,31 @@
     }
 
     #nao_editavel *{
-        float:left;
+        
     }
-    
-    #nao_editavel input{
-        height:30px;
+
+  
+    #form_editaveis_holder{
+        margin-right: 20px;
+        overflow: auto;
+        box-shadow: 3px 0px 2px #eeeeee ;
+        -moz-box-shadow: 3px 0px 2px #eeeeee  ;
+        -webkit-box-shadow: 3px 0px 2px #eeeeee  ;
     }
-    
+
     .lista_modulos{
         border-bottom:1px solid #eeeeee;
         border-top:1px solid #fefefe;
         background-color: #fafafa;
         padding: 2px 7px;
         cursor: pointer;
+    }
+
+    #img_titulo_descricao{
+        overflow: auto;
+border-bottom: 1px solid #EEE;
+padding: 0px 0px 10px 0px;
+margin-right: 15px;
     }
     
 </style>
@@ -210,54 +213,68 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
 <div id="disposicao_conteudo_professor_editar_curso">
     <form id="form_editar_curso">
         <div class="quadro_de_conteudo_especifico" style="border-bottom:1px solid #eeeeee;">
+            <div id="nao_editavel" style="float:right; clear:right; margin-top:10px;margin-left:5px;">
             <div id="div_editar" align="right">
                 <input type="button" id="btn_editar" value="Editar"/>
             </div>
-            <div id="image_holder">
-                <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
-            <div id="titulo_holder" style="">
-                <h1 style=""><?php echo $this->curso->getNome(); ?></h1>
-            </div>
-            <div style="padding:10px;float:left; clear:right; ">
-                <div style="float:left; overflow:auto;">
-                    <h4 style="border-left:2px solid #7f98d0; line-height: 14px;">Descricao: </h4>
-                    <div style="padding:5px;">
-                        <textarea id="descricao" name="descricao" rows="5" type="text-field" readonly="readonly"><?php echo $this->curso->getDescricao() ?></textarea>
-                    </div>
-                </div>
-
-
-                <div style="float:left; overflow:auto; ">
-                    <h4 style="border-left:2px solid #7fd08b; line-height: 14px;" >Objetivo: </h4>
-                    <textarea id="objetivo" name="objetivo" type="text" readonly="readonly"> <?php echo $this->curso->getObjetivo() ?> </textarea>
-                </div>
-                <div style="float:left; overflow:auto;"> 
-                    <h4 style="border-left:2px solid #7fd08b; line-height: 14px;">Justificativa: </h4>
-                    <textarea id="justificativa" name="justificativa" type="text" readonly="readonly"> <?php echo $this->curso->getJustificativa() ?> </textarea>
-                </div>
-                <div style="">
-                    <h4 style="border-left:2px solid #7fd08b; line-height: 14px;">Observacoes: </h4>
-                    <textarea id="obs" name="obs" type="text" readonly="readonly"> <?php echo $this->curso->getObs() ?> </textarea>
-                </div>
-            </div>
-
-            <div id="nao_editavel" style="float:left;">
-                <h4 style="border-left:2px solid #7fd08b; line-height: 14px;">Tempo: </h4>
-                <input id="input1" type="text" height="30" readonly="readonly" value="<?php echo $this->curso->getTempo() ?> Dias"/>
-
-                <h4 style="border-left:2px solid #7fd08b; line-height: 14px;">Status: </h4>
-                <input id="input2" type="text" height="30" readonly="readonly" value="<?php echo $this->curso->getStatus(0) ?>"/>
-
-                <h4 style="border-left:2px solid #7fd08b; line-height: 14px;">Gratuito: </h4>
-                <input id="input3" type="text" height="30" readonly="readonly" value="<?php echo $this->curso->getGratuito() ?>"/>
-
-                <h4 style="border-left:2px solid #7fd08b; line-height: 14px;">Valor: </h4>
-                <input id="input4" type="text" readonly="readonly" value="<?php echo $this->curso->getValor() ?>"/>
-            </div>
-
-            <div id="div_atualizar" style="display: none">
+            <div id="div_atualizar" style="display: none;">
                 <input id="btn_atualizar" type="button"  value="Atualizar"/>    
             </div>
+                <h4 style="border-left:3px solid #7fd08b; line-height: 14px; clear:right;">Tempo: </h4>
+                <h5><?php echo $this->curso->getTempo() ?> <h5/>
+
+                <h4 style="border-left:3px solid #7f98d0; line-height: 14px;">Status: </h4>
+                <h5><?php echo $this->curso->getStatus(0) ?><h5/>
+
+                <h4 style="border-left:3px solid #d07f7f; line-height: 14px;">Gratuito: </h4>
+                <h5><?php echo $this->curso->getGratuito() ?></h5>
+
+                <h4 style="border-left:3px solid #cdd07f; line-height: 14px;margin-right:3px;">Valor: </h4>
+                <h5><?php echo $this->curso->getValor() ?></h5>
+            </div>
+            <div id="form_editaveis_holder">
+                <div id="img_titulo_descricao">
+                <div id="image_holder">
+                    <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
+                <div id="titulo_holder" style="">
+                    <h1 style=""><?php echo $this->curso->getNome(); ?></h1>
+                </div>
+                <div style=" overflow:auto; ">
+                    <h4 style="border-left:3px solid #7f98d0; line-height: 14px;">Descricao: </h4>
+                    <div style="padding:5px;">
+                        <textarea id="descricao" name="descricao" rows="5" type="text" readonly="readonly"><?php echo $this->curso->getDescricao() ?></textarea>
+                    </div>
+                </div>
+                </div>
+            <div style="padding:10px;float:left;  ">
+                <div style="clear:left; position:relative; margin-left: 20px;">
+                    <div style="float:left; overflow:auto; clear: left; margin-right:10px;">
+                        <h4 style="border-left:3px solid #7fd08b; line-height: 14px;" >Objetivo: </h4>
+                        <div style="padding:5px;">
+                            <textarea id="objetivo" name="objetivo" rows="5" type="text" readonly="readonly"> <?php echo $this->curso->getObjetivo() ?> </textarea>
+                        </div>
+                    </div>
+
+                    <div style="float:left; overflow:auto; margin-right:10px;"> 
+                        <h4 style="border-left:3px solid #cdd07f; line-height: 14px;">Justificativa: </h4>
+                        <div style="padding:5px;">
+                            <textarea id="justificativa" rows="5" name="justificativa" type="text" readonly="readonly"> <?php echo $this->curso->getJustificativa() ?> </textarea>
+                        </div>
+                    </div>
+                    <div style="float:left;overflow:auto;">
+                        <h4 style="border-left:3px solid #d07f7f; line-height: 14px; ">Observacoes: </h4>
+                        <div style="padding:5px;">
+                            <textarea id="obs" rows="5" name="obs" type="text" readonly="readonly"> <?php echo $this->curso->getObs() ?> </textarea>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                    
+            </div>
+
+            
+
+            
             <div id="div_atualizar" align="right" style="display: none; ">
                 <input id="id" name="id" type="text" value="<?php echo $this->curso->getId_curso() ?>"/>    
             </div>

@@ -52,6 +52,15 @@
         padding:20px;
     }
 
+    #btn_editar_modulo{
+        float:right;
+     background-image: url('img/document_edit.png');
+background-repeat: no-repeat;
+background-position: left;
+padding-left: 24px;
+margin-left:8px;
+    }
+    
     .list_conteudo{
         border-bottom:1px solid #eeeeee;
         border-top:1px solid #fefefe;
@@ -83,46 +92,25 @@
         -moz-box-shadow: 0px 3px 3px #eeeeee ;
         -webkit-box-shadow: 0px 3px 3px #eeeeee ;
     }
-
-    [type = button]{
-        border:1px solid #c9f0c9;
-        background-color: #d9ffd9;
-        border-radius: 5px;
-        color:#606060;
-        font-weight: 600;
-        margin:5px;
-    }
+    
+   
+   
 
 
-    .accord_content_body{
-        box-shadow: 0px 2px 2px #eeeeee inset;
-        -moz-box-shadow: 0px 2px 2px #eeeeee inset;
-        -webkit-box-shadow: 0px 2px 2px #eeeeee inset;
-    }
+.conteudo_row{
+    overflow: auto;
+    padding:1px 10px;
+    border-bottom:1px solid #f2f2f2;
+    border-top:1px solid #f2f2f2;
+    cursor:pointer;
+}
 
-
-    .btn_del{
-        float:right;
-    }
-    .btn_edt{
-        float:right;
-    }
-
-    .titulo_video{
-        float:left;    
-    }
-
-    .conteudo_row{
-        cursor: pointer;
-        overflow: auto;
-        padding:1px 5px;
-        border-bottom:1px solid #f2f2f2;
-        border-top:1px solid #f2f2f2;
-    }
-
-    .item_conteudo{
-        float:left;
-    }
+.conteudo_row h3{
+    float:left;
+    font-size:18px;
+    font-weight: 600;
+    line-height: 38px;
+}
 
 </style>
 
@@ -218,9 +206,9 @@
             </div>
 
             <h4>Titulo: </h4>        
-            <input readonly="true" id="titulo_modulo" name="titulo_modulo" value="<?php echo $this->modulo->getTitulo_modulo(); ?>" />
+            <input readonly="true" id="titulo_modulo" type="text" name="titulo_modulo" value="<?php echo $this->modulo->getTitulo_modulo(); ?>" />
             <h4>Descricao: </h4>        
-            <textarea readonly="true" id="descricao" name="descricao"><?php echo $this->modulo->getDescricao() ?></textarea>                           
+            <textarea readonly="true" type="text" id="descricao" name="descricao"><?php echo $this->modulo->getDescricao() ?></textarea>                           
 
             <div id="div_atualizar_modulo" style="display: none">
                 <input id="btn_atualizar_modulo" type="button" value="Atualizar"/>    
