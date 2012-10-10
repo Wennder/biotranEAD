@@ -206,9 +206,9 @@ margin-left:8px;
             </div>
 
             <h4>Titulo: </h4>        
-            <input readonly="true" id="titulo_modulo" name="titulo_modulo" value="<?php echo $this->modulo->getTitulo_modulo(); ?>" />
+            <input readonly="true" id="titulo_modulo" type="text" name="titulo_modulo" value="<?php echo $this->modulo->getTitulo_modulo(); ?>" />
             <h4>Descricao: </h4>        
-            <textarea readonly="true" id="descricao" name="descricao"><?php echo $this->modulo->getDescricao() ?></textarea>                           
+            <textarea readonly="true" type="text" id="descricao" name="descricao"><?php echo $this->modulo->getDescricao() ?></textarea>                           
 
             <div id="div_atualizar_modulo" style="display: none">
                 <input id="btn_atualizar_modulo" type="button" value="Atualizar"/>    
