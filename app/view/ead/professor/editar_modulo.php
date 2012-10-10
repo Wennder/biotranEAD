@@ -230,86 +230,67 @@
             <h4>Descricao: </h4>
             <div class="quadro_de_conteudo_especifico">
                 <?php echo $this->modulo->getDescricao() ?>
-            </div>       
+            </div>
+            
             <div class="">            
-                <div id="accordion_body2">
-                    <ul>
+                <div class="accord_body">
+                    <div id="div_conteudo_video" class='list_conteudo accord_body'>
+                        <img src="img/movie.png" style="float:left;" />  Video Aulas
+                    </div>      
+                </div>
+                <div class="accord_content_body" style="display:none;">                                                                
+                    <ul id="lista_video" class="ul_lista">                                    
                         <li>
-                            <div class="accordion_body">
-
-                                <div id="div_conteudo_video" class='list_conteudo accord_body'>
-
-                                    <img src="img/movie.png" style="float:left;" />  Video Aulas
-
-                                </div>      
-
-                                <div class="accord_content_body" style="display:none;">                                                                
-                                    <ul id="lista_video" class="ul_lista">                                    
-                                        <li>
-                                            <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
-                                        </li>
-                                        <?php echo $this->listaVideo; ?>                                    
-                                    </ul>
-                                </div>
-                            </div>
+                            <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                         </li>
+                        <?php echo $this->listaVideo; ?>                                    
+                    </ul>
+                </div>
+                <div class="accord_body">
+                    <div id="div_conteudo_texto_referencia" class='list_conteudo accord_body'>
+                        <img src="img/text_enriched.png" />Textos de Referencia
+                    </div>
+                </div>
+                <div class="add accord_content_body" style="display:none;">
+                    <ul id="lista_texto_referencia" class="ul_lista">
                         <li>
-                            <div class="accordion_body">
-                                <div id="div_conteudo_texto_referencia" class='list_conteudo accord_body'>
-                                    <img src="img/text_enriched.png" />Textos de Referencia
-                                </div>                            
-                                <div class="add accord_content_body" style="display:none;">
-                                    <ul id="lista_texto_referencia" class="ul_lista">
-                                        <li>
-                                            <input type="button" class="btn_add" name="texto_referencia" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
-                                        </li>
-                                        <?php echo $this->listaTexto; ?>
-                                    </ul>
-                                </div>
-                            </div>
+                            <input type="button" class="btn_add" name="texto_referencia" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                         </li>
+                        <?php echo $this->listaTexto; ?>
+                    </ul>
+                </div>
+                <div class="accord_body">
+                    <div id="div_conteudo_material_complementar" class='list_conteudo accord_body'>
+                        <img src="img/folder-icon.png"/>Material Complementar
+                    </div>
+                </div>
+                <div class="add accord_content_body" style="display:none;">
+                    <ul id="lista_material_complementar" class="ul_lista">
                         <li>
-                            <div class="accordion_body">
-                                <div id="div_conteudo_material_complementar" class='list_conteudo accord_body'>
-                                    <img src="img/folder-icon.png"/>Material Complementar
-                                </div>
-                                <div class="add accord_content_body" style="display:none;">
-                                    <ul id="lista_material_complementar" class="ul_lista">
-                                        <li>
-                                            <input type="button" class="btn_add" name="material_complementar" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
-                                        </li>
-                                        <?php echo $this->listaMaterial; ?>
-                                    </ul>
-                                </div>
-                            </div>
+                            <input type="button" class="btn_add" name="material_complementar" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                         </li>
+                        <?php echo $this->listaMaterial; ?>
+                    </ul>
+                </div>
+
+                <div class="accord_body">
+                    <div id="div_conteudo_exercicio" class='list_conteudo accord_body'>
+                        <img src="img/check.png"/>     Exercicios
+                    </div>
+                </div>
+                <div class="add accord_content_body" style="display:none;">
+                    <ul id="lista_exercicio" class="ul_lista">
                         <li>
-                            <div class="accordion_body">
-                                <div id="div_conteudo_exercicio" class='list_conteudo accord_body'>
-
-                                    <img src="img/check.png"/>     Exercicios
-
-                                </div>
-
-                                <div class="add accord_content_body" style="display:none;">
-                                    <ul id="lista_exercicio" class="ul_lista">
-                                        <li>
-                                            <input type="button" class="btn_add" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
-                                        </li>
-                                        <?php echo $this->listaExercicio; ?>
-                                    </ul>
-                                </div>
-                            </div>
+                            <input type="button" class="btn_add" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
                         </li>
+                        <?php echo $this->listaExercicio; ?>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
-<div id="dialog_video" style="display:none">
-</div>
+
 <div style="display:none;">
     <input type="text" name="id_modulo" id="id_modulo" value="<?php echo $this->modulo->getId_modulo(); ?>"/>
     <input type="text" name="id_curso" id="id_curso" value="<?php echo $this->modulo->getId_curso(); ?>"/>
