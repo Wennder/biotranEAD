@@ -15,34 +15,19 @@
 
 <div id="form_cadastro" style="">
     <form id="form_cadastrar" class="form_cadastrar" method="post" action="ajax/crud_conteudo_modulo.php?acao=inserir_texto_referencia" enctype="multipart/form-data">
-        <fieldset style="width: 100%;">
+        <fieldset style="width:420px; padding:0 5px 5px 5px; margin: 0 2.5px; ">
             <legend>Dados do texto de referencia</legend>
-            <table>                 
-                <tr>
-                    <td>
-                        <label class="label_cadastro">Nome: </label>
-                    </td>
-                    <td>
-                        <input type="text" name="nome" id="nome" style="width:200px;" value="" class="validate[required] text-input" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="label_cadastro">Arquivo: </label>
-                    </td>
-                    <td>
-                        <input type="file" name="arquivo" id="arquivo" style="width:200px;" value="" class="validate[required] text-input" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <progress value="0" max="100"></progress><span id="porcentagem">0%</span>
-                    </td>
-                </tr>
-            </table>
+            <fieldset style="width:400px; padding:0 5px 5px 5px; margin: 0 2.5px; ">
+                <legend>Nome</legend>
+                <input type="text" name="nome" id="nome" style="width:400px;" value="" class="validate[required] text-input" />
+            </fieldset>
+            <fieldset style="width:400px; padding:0 5px 5px 5px; margin: 0 2.5px; ">
+                <legend>Arquivo</legend>
+                <input type="file" name="arquivo" id="arquivo" style="width:400px;" value="" class="validate[required] text-input" />
+                <progress value="0" max="100"></progress><span id="porcentagem">0%</span>
+            </fieldset>
+            <input type="submit" id="button_add" name="button_cadastrar" value="Adicionar" class="button"/>
         </fieldset>
-        <br>
-        <input type="submit" id="button_add" name="button_cadastrar" value="Adicionar" class="button"/>
 
         <div style="display:none;">
             <input type="text" id="id_modulo" name="id_modulo" value="<?php echo ($this->modulo != null ? $this->modulo->getId_modulo() : '') ?>" class="button"/>
