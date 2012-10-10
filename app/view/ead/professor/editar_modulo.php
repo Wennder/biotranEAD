@@ -52,6 +52,15 @@
         padding:20px;
     }
 
+    #btn_editar_modulo{
+        float:right;
+     background-image: url('img/document_edit.png');
+background-repeat: no-repeat;
+background-position: left;
+padding-left: 24px;
+margin-left:8px;
+    }
+    
     .list_conteudo{
         border-bottom:1px solid #eeeeee;
         border-top:1px solid #fefefe;
@@ -84,50 +93,11 @@
         -webkit-box-shadow: 0px 3px 3px #eeeeee ;
     }
     
-    [type=button]{
-        box-shadow: 2px 2px 2px #eeeeee ;
-        padding:5px 10px;
-        border-bottom: 1px solid #eeeeee;
-        border-right: 1px solid #eeeeee;
-        border-top:1px solid white;
-        border-left:1px solid white;
-        border-radius: 5px;
-    -moz-box-shadow: 2px 2px 2px #eeeeee ;
-    -webkit-box-shadow: 2px 2px 2px #eeeeee ;
-        background-color: white;
-       
-       color:#606060;
-       font-weight: 600;
-       margin:5px;
-    }
-
-.btn_add{
-    background-image: url('img/list_add.png');
-background-repeat: no-repeat;
-background-position: left;
-padding-left: 24px;
-margin-left:8px;
-}
-
-.btn_del{
-    float:right;
-    background-image: url('img/delete.png');
-background-repeat: no-repeat;
-background-position: left;
-padding-left: 24px;
-margin-left:8px;
-}
-.btn_edt{
-    float:right;
-     background-image: url('img/document_edit.png');
-background-repeat: no-repeat;
-background-position: left;
-padding-left: 24px;
-margin-left:8px;
-}
+   
+   
 
 
-.video_row{
+.conteudo_row{
     overflow: auto;
     padding:1px 10px;
     border-bottom:1px solid #f2f2f2;
@@ -135,7 +105,8 @@ margin-left:8px;
     cursor:pointer;
 }
 
-.video_row h3{
+.conteudo_row h3{
+    float:left;
     font-size:18px;
     font-weight: 600;
     line-height: 38px;
@@ -263,7 +234,7 @@ margin-left:8px;
                                 <div class="accord_content_body" style="display:none;">                                                                
                                     <ul id="lista_video" class="ul_lista">                                    
                                         <li>
-                                            <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
+                                            <input type="button" class="btn_add adicionar" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="Adicionar"/>
                                         </li>
                                         <?php echo $this->listaVideo; ?>                                    
                                     </ul>
@@ -278,7 +249,7 @@ margin-left:8px;
                                 <div class="add accord_content_body" style="display:none;">
                                     <ul id="lista_texto_referencia" class="ul_lista">
                                         <li>
-                                            <input type="button" class="btn_add" name="texto_referencia" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
+                                            <input type="button" class="btn_add adicionar" name="texto_referencia" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>" value="Adicionar"/>
                                         </li>
                                         <?php echo $this->listaTexto; ?>
                                     </ul>
@@ -293,7 +264,7 @@ margin-left:8px;
                                 <div class="add accord_content_body" style="display:none;">
                                     <ul id="lista_material_complementar" class="ul_lista">
                                         <li>
-                                            <input type="button" class="btn_add" name="material_complementar" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
+                                            <input type="button" class="btn_add adicionar" name="material_complementar" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="Adicionar"/>
                                         </li>
                                         <?php echo $this->listaMaterial; ?>
                                     </ul>
@@ -311,7 +282,7 @@ margin-left:8px;
                                 <div class="add accord_content_body" style="display:none;">
                                     <ul id="lista_exercicio" class="ul_lista">
                                         <li>
-                                            <input type="button" class="btn_add" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>" value="novo"/>
+                                            <input type="button" class="btn_add adicionar" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>" value="Adicionar"/>
                                         </li>
                                         <?php echo $this->listaExercicio; ?>
                                     </ul>

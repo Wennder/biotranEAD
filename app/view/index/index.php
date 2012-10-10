@@ -4,14 +4,24 @@
     function resizing(){
         var width = $('#content_left_holder').width();
          width += $('#content_right_holder').width();
-         width += $('#content_center_holder').width();
-         width+=50;
+         width += 600;
+//var width = $(window).width() -100;
+         width+=300;
+         var center = width;
 //         alert(width);
+          center -=460;
+          if(center>600){
+              center+='px';
+              $('#content_center_holder').css('width',center);
+          }
          $('#content_fit').css('width', width);
+         
          if(width>1024)
             $('body').css('min-width', width);  
+         
          width = -(width/2);
          width+='px';
+         
 //         alert(width);
          $('#content_fit').css('margin-left', width);
         }
@@ -70,7 +80,7 @@ resizing();
 
         min-width:600px;
 
-        width:50%;
+        
 
         height:100%;
         border-right: 1px solid #CCC;
