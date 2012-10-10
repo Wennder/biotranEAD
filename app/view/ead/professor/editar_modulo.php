@@ -223,7 +223,7 @@ margin-left:8px;
             <div class="">            
                 <div class="accord_body">
                     <div id="div_conteudo_video" class='list_conteudo accord_body'>
-                        <img src="img/movie.png" style="float:left;" />  Video Aulas
+                        <img src="img/movie.png" style="float:left;" />Video Aulas
                     </div>      
                 </div>
                 <div class="accord_content_body" style="display:none;">                                                                
@@ -263,7 +263,7 @@ margin-left:8px;
 
                 <div class="accord_body">
                     <div id="div_conteudo_exercicio" class='list_conteudo accord_body'>
-                        <img src="img/check.png"/>     Exercicios
+                        <img src="img/check.png"/>Exercicios
                     </div>
                 </div>
                 <div class="add accord_content_body" style="display:none;">
