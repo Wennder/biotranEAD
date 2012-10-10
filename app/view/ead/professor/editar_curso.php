@@ -103,10 +103,16 @@
         text-decoration: none;
     }
 
+    [type = text]{
+        border-radius: 5px;
+    }
+    
     [readonly = readonly] {
-     
+        
         border:1px none;
-
+        box-shadow: 0px 3px 3px #eeeeee inset;
+        -moz-box-shadow: 0px 3px 3px #eeeeee inset ;
+        -webkit-box-shadow: 0px 3px 3px #eeeeee  inset;
     }
 
     #image_holder{
@@ -223,7 +229,7 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
                 <div style="float:left; overflow:auto;">
                     <h4 style="border-left:3px solid #7f98d0; line-height: 14px;">Descricao: </h4>
                     <div style="padding:5px;">
-                        <textarea id="descricao" name="descricao" rows="5" type="text-field" readonly="readonly"><?php echo $this->curso->getDescricao() ?></textarea>
+                        <textarea id="descricao" name="descricao" rows="5" type="text" readonly="readonly"><?php echo $this->curso->getDescricao() ?></textarea>
                     </div>
                 </div>
 
@@ -249,7 +255,7 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
                 </div>
             </div>
 
-            <div id="nao_editavel" style="float:left;">
+            <div id="nao_editavel" style="float:right;">
                 <h4 style="border-left:3px solid #7fd08b; line-height: 14px;">Tempo: </h4>
                 <input id="input1" type="text"  readonly="readonly" value="<?php echo $this->curso->getTempo() ?> Dias"/>
 
