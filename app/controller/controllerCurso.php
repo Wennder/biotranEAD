@@ -137,8 +137,6 @@ class controllerCurso {
 
         //cria o diretório do curso na pasta pdf
         $this->criaDiretorioCurso($this->curso->getId_curso());
-        $this->criaDiretorioCurso_videoAula($this->curso->getId_curso());
-        $this->criaDiretorioCurso_textos($this->curso->getId_curso());
         return $this->curso->getId_curso();
     }
 

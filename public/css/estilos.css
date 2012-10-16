@@ -518,3 +518,7 @@ margin-left:8px;
 .accord_body *{
     z-index: 0;
 }
+
+.ul_lista li{
+    overflow: auto;
+}

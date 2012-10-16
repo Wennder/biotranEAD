@@ -39,10 +39,10 @@ class AlternativaDAO extends PDOConnectionFactory {
             $this->conex->exec("SET NAMES 'utf8'");
             $stmt = $this->conex->prepare("UPDATE alternativa SET id_pergunta=?, resposta=?, justificativa=?, eh_correta=? WHERE id_alternativa=?");
             $stmt->bindValue(1, $alternativa->getId_pergunta());
-            $stmt->bindValue(2, $alternativa->getNumeracao());
+            $stmt->bindValue(2, $alternativa->getResposta());
             $stmt->bindValue(3, $alternativa->getJustificativa());          
-            $stmt->bindValue(3, $alternativa->getEh_correta());          
-            $stmt->bindValue(4, $alternativa->getId_alternativa());          
+            $stmt->bindValue(4, $alternativa->getEh_correta());          
+            $stmt->bindValue(5, $alternativa->getId_alternativa());                      
             $stmt->execute();
             return 1;
         } catch (PDOException $ex) {

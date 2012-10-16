@@ -102,8 +102,8 @@ class controllerExercicio {
     public function inserir_pergunta($id_exercicio) {
         $controller = new controllerPergunta();
         $pergunta = $controller->setPergunta();
-//        $pergunta->setId_exercicio($id_exercicio);
-        $pergunta->setId_pergunta($controller->novoPergunta($pergunta));
+        $pergunta->setId_exercicio($id_exercicio);
+        $pergunta->setId_pergunta($controller->novoPergunta($pergunta));        
         $controller = new controllerAlternativa();
         $alternativa = $controller->setTodasAlternativa();
         for ($i = 0; $i < count($alternativa); $i++) {
@@ -143,7 +143,7 @@ class controllerExercicio {
         return 1;
     }
     
-    public function deletar_pergunta($id_pergunta){
+    public function deletar_pergunta($id_pergunta){        
         $controller = new controllerPergunta();
         $p = $controller->getPergunta('id_pergunta='.$id_pergunta);
         $controller->deletePergunta($p);
@@ -157,7 +157,7 @@ class controllerExercicio {
         $controller = new controllerAlternativa();
         for ($i = 0; $i < count($p); $i++) {
             $a = $controller->getListaAlternativas("id_pergunta=" . $p[$i]->getId_pergunta());
-            $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body'><h4><a>Pergunta " . $p[$i]->getNumeracao() . "</a></h4></div>";
+            $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body list_conteudo'><h4>Pergunta " . $p[$i]->getNumeracao() . "</h4></div>";
             $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body' style='display:none;'>";
             $lista .='<form class="form_submit" id="form_atualizar_pergunta_' . $p[$i]->getId_pergunta() . '" name="form_atualizar_pergunta" method="post" action="ajax/crud_exercicio.php?acao=atualizar_pergunta">
             <fieldset style="width:640px; padding:0 5px 5px 5px; margin: 0 2.5px; ">
@@ -205,7 +205,7 @@ class controllerExercicio {
             }
             $lista .='</fieldset>
                     <input type="submit" id="btn_upd_pergunta" class="btn_submit" name="form_atualizar_pergunta_' . $p[$i]->getId_pergunta() . '" value="Atualizar" class="button"/>
-                    <input type="button" onclick="del_pergunta()" id="'.$p[$i]->getId_pergunta().'" class="btn_del_pergunta" value="Excluir"/>
+                    <input type="button" id="'.$p[$i]->getId_pergunta().'" class="btn_del_pergunta" value="Excluir"/>
                 </div>
             </fieldset>
             <div style="display:none;">                
@@ -218,7 +218,7 @@ class controllerExercicio {
 
     public function formNovaPergunta($p, $a) {
         $lista = '';
-        $lista .= "<div id='div_pergunta_" . $p->getNumeracao() . "' class='accord_body'><h4><a>Pergunta " . $p->getNumeracao() . "</a></h4></div>";
+        $lista .= "<div id='div_pergunta_" . $p->getNumeracao() . "' class='accord_body list_conteudo'><h4>Pergunta " . $p->getNumeracao() . "</h4></div>";
         $lista .= "<div id='div_pergunta_body_" . $p->getNumeracao() . "' class='accord_content_body' style='display:none;'>";
         $lista .='<form class="form_submit" id="form_atualizar_pergunta_' . $p->getId_pergunta() . '" name="form_atualizar_pergunta" method="post" action="ajax/crud_exercicio.php?acao=atualizar_pergunta">
             <fieldset style="width:640px; padding:0 5px 5px 5px; margin: 0 2.5px; ">

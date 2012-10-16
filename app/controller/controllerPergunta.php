@@ -15,7 +15,7 @@ class controllerPergunta {
     public function novoPergunta(Pergunta $p) {
         if ($p != null) {            
             $dao = new PerguntaDAO();
-            if($this->getPergunta("id_pergunta=". $p->getId_pergunta()) != null){
+            if($this->getPergunta("id_pergunta=". $p->getId_pergunta()) != null){                
                 return $p->getId_pergunta();
             }
             return $dao->insert($p);

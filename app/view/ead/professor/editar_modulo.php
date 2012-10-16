@@ -52,13 +52,13 @@
 
     #btn_editar_modulo{
         float:right;
-     background-image: url('img/document_edit.png');
-background-repeat: no-repeat;
-background-position: left;
-padding-left: 24px;
-margin-left:8px;
+        background-image: url('img/document_edit.png');
+        background-repeat: no-repeat;
+        background-position: left;
+        padding-left: 24px;
+        margin-left:8px;
     }
-    
+
     .list_conteudo{
         border-bottom:1px solid #eeeeee;
         border-top:1px solid #fefefe;
@@ -90,69 +90,31 @@ margin-left:8px;
         -moz-box-shadow: 0px 3px 3px #eeeeee ;
         -webkit-box-shadow: 0px 3px 3px #eeeeee ;
     }
-    
-   
-   
 
 
-.conteudo_row{
-    overflow: auto;
-    padding:1px 10px;
-    border-bottom:1px solid #f2f2f2;
-    border-top:1px solid #f2f2f2;
-    cursor:pointer;
-}
 
-.conteudo_row h3{
-    float:left;
-    font-size:18px;
-    font-weight: 600;
-    line-height: 38px;
-}
+
+
+    .conteudo_row{
+        overflow: auto;
+        padding:1px 10px;
+        border-bottom:1px solid #f2f2f2;
+        border-top:1px solid #f2f2f2;
+        cursor:pointer;
+    }
+
+    .conteudo_row h3{
+        float:left;
+        font-size:18px;
+        font-weight: 600;
+        line-height: 38px;
+    }
 
 </style>
 
 <script> 
         
-    $(document).ready(function() {                                                                        
-        //_V_.options.flash.swf = "video-js.swf";              
-        
-        $(".btn_edt").live('click', function(){                        
-            var btn = $(this);
-            $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
-                if (status == "error") {
-                    alert('erro');
-                    var msg = "Sorry but there was an error: ";
-                    $("#error").html(msg + xhr.status + " " + xhr.statusText);
-                }else{                                                                                    
-                    dialog = $('#dialog').dialog({width:800, height:600,dialogClass:'dialogstyle',                        
-                        close: function(event,ui){                     
-                            $(dialog).dialog('destroy');
-                            $(dialog).find('div').remove();
-                        }                                        
-                    });
-                }
-            });
-        });
-        
-        
-               
-        $(".item_conteudo").live('click',function() {
-            var tag = $(this);                   
-            if(tag.attr('name') == 'video'){                
-                $('#dialog_video').load(tag.attr('id'), function (){                                    
-                    var options = {width:700, height:400,dialogClass:'dialogstyle',
-                        open: function(event,ui){                                                                                
-                        },
-                        close: function(event,ui){                     
-                            dialog_video.dialog('destroy');
-                            dialog_video.find('div').remove();
-                        }                                     
-                    }
-                    var dialog_video = $('#dialog_video').dialog(options);
-                }); 
-            }
-        });             
+    $(document).ready(function() {                                                                                                                           
     });            
             
     $('#btn_editar_modulo').click(function(){
@@ -205,7 +167,7 @@ margin-left:8px;
             <div class="quadro_de_conteudo_especifico">
                 <?php echo $this->modulo->getDescricao() ?>
             </div>
-            
+
             <div class="">            
                 <div class="accord_body">
                     <div id="div_conteudo_video" class='list_conteudo accord_body'>

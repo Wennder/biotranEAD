@@ -2,14 +2,14 @@
     <head>        
         <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
         <title>EAD Biotran</title>
+        <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
+        <script src="js/video.js"></script>                
         <link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>   
         <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
         <link href="css/jquery.dialog.css" rel="stylesheet" type="text/css"/>        
         <script src="js/jquery.js"></script> 
         <script type="text/javascript" src="js/jquery.form.js"></script>
         <script src="js/accordion_1.js" type="text/javascript"></script>
-        <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
-        <script src="js/video.js"></script>                
         <script src="js/jquery.js" type="text/javascript"></script>
         <script src="js/menuDropDown.js" type="text/javascript"></script>                        
         <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
@@ -21,6 +21,7 @@
             //            _V_.options.flash.swf = "video-js.swf";
             var centro = 1;
             var dialog;
+            var id_exercicio;
             
             function resize_content_fluid(){
                 var height = $('.content').height();
@@ -48,15 +49,130 @@
                             var editar = '<input name="'+tipo+'" type="button" id="index.php?c=ead&a=editar_exercicio&id='+data[0]+'" class="btn_edt" value="Editar"/>';
                             var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><h3 class="item_conteudo titulo_exercicio" name="'+tipo+'" id="">'+data[1] + '</h3>' + editar + excluir + '</li>';                            
                         }else{                            
-                            var _HTML = '<li id=li_'+tipo+'_'+data[0]+'><a name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a>' + excluir + '</li>';                            
+                            var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><h3><a target="_blank" name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a></h3>' + excluir + '</li>';                            
                         }
                     }
                     tipo = '#lista_'+tipo;   
                     $(tipo.toString()).append($(_HTML));                                
                 }
-            }                        
+            }              
+            function optionsFormCadastrarPergunta(){                
+                var options = {
+                    dataType: 'json',
+                    clearForm:true,
+                    data: {id_exercicio: $('#id').val()},
+                    success: function(data){
+                        if(data != 0 && data != false){                    
+                            alert('Inserido com sucesso!');
+                            var ant = (data.numeracao - 1); 
+                            if(document.getElementById('div_pergunta_'+ant)){
+                                alert('1');
+                                $('#div_pergunta_body_'+ant.toString()).after($(data.form));
+                                $('#div_pergunta_'+data.numeracao).removeAttr('class');
+                                $('#div_pergunta_'+data.numeracao).attr('class', 'accord_body');
+                            }else{
+                                var controle = 1;
+                                var posicao = 0;
+                                while(controle < data.numeracao){
+                                    if(document.getElementById('div_pergunta_'+controle)){
+                                        posicao = controle;
+                                    }
+                                    controle++;
+                                }
+                                if(posicao == 0){
+                                    alert('2');
+                                    $('#div_cadastrar_pergunta_body').after($(data.form));
+                                }else{
+                                    alert('3');                            
+                                    $('#div_pergunta_body_'+posicao).after($(data.form));
+                                }
+                            }                        
+                            $('#id_exercicio').val($('#id').val());                            
+                            $('#a_cadastrar_pergunta').click();                    
+                        }
+                    }
+                }
+                return options;
+            }
+            function optionsFormAtualizarDescritivo(){
+                var options = {            
+                    success: function(data){
+                        if(data == 1){                    
+                            alert('Atualizado com sucesso!');
+                            $('#titulo_exercicio').attr('readonly', 'true');
+                            $('#descricao_exercicio').attr('readonly', 'true');
+                            $('#div_atualizar_exercicio').attr('style', 'display:none;');
+                            $('#btn_editar_exercicio').attr('value', 'Editar');
+                        }
+                    }
+                }
+                return options;
+            }
+            function optionsFormAtualizarPergunta(){
+                var options = {            
+                    success: function(data){
+                        if(data == 1){                    
+                            alert('Atualizado com sucesso!');
+                        }
+                    }
+                }
+                return options;
+            }
             $(document).ready(function(){                
-                document.onClick = comprimir();                 
+                document.onClick = comprimir();
+                $('.btn_del_pergunta').live('click', function(e){
+                    var r = confirm('Tem certeza de que deseja excluir este registro?');
+                    if(r == true){
+                        var id = $(this).attr('id');
+                        $.getJSON('ajax/crud_exercicio.php?acao=deletar_pergunta',{
+                            id: id,
+                            ajax: 'true'
+                        }, function(j){
+                            //j = numeracao
+                            //usuario excluido                      
+                            if(j != 0){
+                                alert('Removido com sucesso!');
+                                $('#div_pergunta_'+j).remove();
+                                $('#div_pergunta_body_'+j).remove();
+                            }
+                        }); 
+                    }
+                });
+                
+                $('#dialog form').live('submit',function(e){                 
+                    console.log($(this).parent());
+                    var name = $(this).attr('id');                    
+                    switch(name){
+                        case 'form_descritivo_exercicio':
+                            $(this).ajaxSubmit(optionsFormAtualizarDescritivo());break;
+                        case 'form_cadastrar':
+                            $(this).ajaxSubmit(optionsFormCadastrarPergunta());break;
+                        case 'deletar':
+                            $(this).ajaxSubmit(optionsFormAtualizarPergunta()); break;
+                        default://atualizar pergunta
+                            $(this).ajaxSubmit(optionsFormAtualizarPergunta()); break;
+                    }                
+                    return false;
+                });
+                
+                $(".btn_edt").live('click', function(){                        
+                    var btn = $(this);
+                    $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
+                        if (status == "error") {
+                            alert('erro');
+                            var msg = "Sorry but there was an error: ";
+                            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                        }else{                                                                                    
+                            dialog = $('#dialog').dialog({width:800, height:600,dialogClass:'dialogstyle', modal:true,                        
+                                close: function(event,ui){                     
+                                    $(dialog).dialog('destroy');
+                                    $(dialog).find('div').remove();
+                                }                                        
+                            });
+                        }
+                    });
+                });        
+                
                 $(".btn_add").live('click', function(){        
                     var btn = $(this);
                     var tipo = btn.attr('name').split('-');
@@ -108,33 +224,50 @@
                                         }                    
                                     });                    
                                 },
-                            close: function(event,ui){                     
-                                $(dialog).dialog('destroy');
-                                $(dialog).find('div').remove();
-                            }                                        
-                        });
-                    }
-                });           
-            });
-                
-            $(".btn_del").live('click', function(){            
-                var btn = $(this);
-                var r = confirm('Tem certeza de que deseja excluir este registro?');                    
-                if(r == true){                  
-                    var id = btn.attr('id');                
-                    $.getJSON('ajax/crud_conteudo_modulo.php?acao=remover_'+btn.attr('name'),{
-                        id: id,
-                        ajax: 'true'
-                    }, function(j){
-                        //usuario excluido  
-                        if(j > 0){
-                            id = '#li_'+btn.attr('name')+'_'+id;                        
-                            $(id.toString()).remove();
+                                close: function(event,ui){                     
+                                    $(dialog).dialog('destroy');
+                                    $(dialog).find('div').remove();
+                                }                                        
+                            });
                         }
-                    }); 
-                }
+                    });        
+                });
+                
+                $(".item_conteudo").live('click',function() {
+                    var tag = $(this);
+                    if(tag.attr('name') == 'video'){                                                    
+                        $('#dialog_video').load(tag.attr('id'), function (){                    
+                            var options = {width:700, height:400,dialogClass:'dialogstyle',
+                                open: function(event,ui){                                                                                
+                                },
+                                close: function(event,ui){                     
+                                    dialog_video.dialog('destroy');
+                                    dialog_video.find('div').remove();
+                                }                                     
+                            }
+                            var dialog_video = $('#dialog_video').dialog(options);
+                        }); 
+                    }
+                }); 
+                
+                $(".btn_del").live('click', function(){            
+                    var btn = $(this);
+                    var r = confirm('Tem certeza de que deseja excluir este registro?');                    
+                    if(r == true){                  
+                        var id = btn.attr('id');                
+                        $.getJSON('ajax/crud_conteudo_modulo.php?acao=remover_'+btn.attr('name'),{
+                            id: id,
+                            ajax: 'true'
+                        }, function(j){
+                            //usuario excluido  
+                            if(j > 0){
+                                id = '#li_'+btn.attr('name')+'_'+id;                        
+                                $(id.toString()).remove();
+                            }
+                        }); 
+                    }
+                });
             });
-        });
         </script>
 
         <link rel='stylesheet' href='css/estilos.css' />
@@ -147,6 +280,8 @@
     </head>
     <body>
         <div id="dialog" style="display:none">
+        </div>
+        <div id="dialog_video" style="display:none">
         </div>
         <div id="main">
             <div class="eadbiotran_topbar">

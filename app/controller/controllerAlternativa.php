@@ -20,7 +20,7 @@ class controllerAlternativa {
             return 'ERRO: funcao nopoAlternativa - [controllerAlternativa]';
         }
     }
-    
+
     public function atualizarAlternativa(Alternativa $p) {
         if ($p != null) {
             $dao = new AlternativaDAO();
@@ -57,6 +57,10 @@ class controllerAlternativa {
     public function setTodasAlternativa($alternativa = null) {
         if ($alternativa == null) {
             $alternativa = array(new Alternativa(), new Alternativa(), new Alternativa(), new Alternativa);
+        } else {
+            for ($i = 0; $i < count($alternativa); $i++) {
+                $alternativa[$i]->setEh_correta(0);
+            }
         }
         if (!empty($_POST)) {
             foreach ($_POST as $k => $v) {

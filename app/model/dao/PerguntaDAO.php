@@ -24,8 +24,7 @@ class PerguntaDAO extends PDOConnectionFactory {
             $stmt = $this->conex->prepare("INSERT INTO pergunta(id_exercicio, numeracao, enunciado) VALUES (?,?,?)");
             $stmt->bindValue(1, $pergunta->getId_exercicio());
             $stmt->bindValue(2, $pergunta->getNumeracao());
-            $stmt->bindValue(3, $pergunta->getEnunciado());
-
+            $stmt->bindValue(3, $pergunta->getEnunciado());               
             if(!$stmt->execute()){
                 echo($pergunta->getId_exercicio()); die();
             }            
@@ -38,7 +37,7 @@ class PerguntaDAO extends PDOConnectionFactory {
     public function update(Pergunta $pergunta) {
         try {
             $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("UPDATE pergunta SET id_exercicio=?, numeracao=?, descricao=? WHERE id_pergunta=?");
+            $stmt = $this->conex->prepare("UPDATE pergunta SET id_exercicio=?, numeracao=?, enunciado=? WHERE id_pergunta=?");
             $stmt->bindValue(1, $pergunta->getId_exercicio());
             $stmt->bindValue(2, $pergunta->getNumeracao());
             $stmt->bindValue(3, $pergunta->getEnunciado());          

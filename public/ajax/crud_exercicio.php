@@ -5,18 +5,22 @@ include ROOT_PATH . '/app/controller/controllerExercicio.php';
 include ROOT_PATH . '/app/controller/controllerModulo.php';
 
 $acao = strtolower($_GET['acao']);
-$param='';
+$param = '';
 if (isset($_REQUEST['id_exercicio'])) {
     $param = $_REQUEST['id_exercicio'];
 } else {
-    if (isset($_POST['id_exercicio'])){
-        $param = $_POST['id_exercicio'];
-    }
-    if(isset($_POST['id_pergunta'])){
-        $param = $_POST['id_pergunta'];
+    if (isset($_REQUEST['id'])) {
+        $param = $_REQUEST['id'];
+    } else {
+        if (isset($_POST['id_exercicio'])) {
+            $param = $_POST['id_exercicio'];
+            echo $param; die();
+        }
+        if (isset($_POST['id_pergunta'])) {
+            $param = $_POST['id_pergunta'];
+        }
     }
 }
-
 
 $controller = new controllerExercicio();
 
