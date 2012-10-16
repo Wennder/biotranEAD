@@ -20,6 +20,15 @@ class controllerAlternativa {
             return 'ERRO: funcao nopoAlternativa - [controllerAlternativa]';
         }
     }
+    
+    public function atualizarAlternativa(Alternativa $p) {
+        if ($p != null) {
+            $dao = new AlternativaDAO();
+            return $dao->update($p);
+        } else {
+            return 'ERRO: funcao nopoAlternativa - [controllerAlternativa]';
+        }
+    }
 
     public function getAlternativa($condicao) {
         $dao = new AlternativaDAO();
@@ -45,8 +54,10 @@ class controllerAlternativa {
      * retorna um vetor de Alternativa setando via post
      */
 
-    public function setTodasAlternativa() {
-        $alternativa = array(new Alternativa(), new Alternativa(), new Alternativa(), new Alternativa);
+    public function setTodasAlternativa($alternativa = null) {
+        if ($alternativa == null) {
+            $alternativa = array(new Alternativa(), new Alternativa(), new Alternativa(), new Alternativa);
+        }
         if (!empty($_POST)) {
             foreach ($_POST as $k => $v) {
                 $aux = explode('-', $k);
@@ -56,13 +67,12 @@ class controllerAlternativa {
                         $alternativa[$aux[1]]->$setAtributo($v);
                     }
                 } else {
-                    if ($k != 'eh_correta') {
+                    if ($k == 'eh_correta') {
                         $alternativa[$v]->setEh_correta(1);
                     }
                 }
             }
         }
-        print_r($alternativa);
         return $alternativa;
     }
 

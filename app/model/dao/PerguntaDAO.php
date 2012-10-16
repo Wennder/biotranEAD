@@ -44,6 +44,7 @@ class PerguntaDAO extends PDOConnectionFactory {
             $stmt->bindValue(3, $pergunta->getEnunciado());          
             $stmt->bindValue(4, $pergunta->getId_pergunta());          
             $stmt->execute();
+            return 1;
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
         }
@@ -71,7 +72,7 @@ class PerguntaDAO extends PDOConnectionFactory {
                 $stmt = $this->conex->query("SELECT * FROM pergunta");
             } else {
                 $stmt = $this->conex->query("SELECT * FROM pergunta WHERE " . $condicao);
-            }
+            }            
             $pergunta = array();
             if($stmt){                
                 for ($i = 0; $i < $stmt->rowCount(); $i++) {

@@ -54,14 +54,12 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
-    public function actionListaCursos_professor() {
-        // echo 'teste';        die();
+    public function actionCursos_professor() {        
         $this->controller = new controllerCurso();
         $id_usuario = $_SESSION['usuarioLogado']->getId_usuario();
         $this->visao->lista = $this->controller->listaCursos_professor($id_usuario);        
-    
+        
         $this->visao->usuario = $_SESSION['usuarioLogado'];
-        Biotran_Mvc::pegarInstancia()->mudarAcao("cursos_professor");
         $this->renderizar();
     }
 
@@ -261,13 +259,13 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionEditar_modulo() {
-        $this->controller = new controllerModulo();        
         $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->controller = new controllerModulo();        
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
         $this->visao->listaVideo = $this->controller->listaVideo_aulas_modulo($id_modulo);        
         $this->visao->listaTexto = $this->controller->listaArquivos($this->visao->modulo, 'texto_referencia');
         $this->visao->listaMaterial = $this->controller->listaArquivos($this->visao->modulo, 'material_complementar');
-        //$this->visao->listaExercicio = $this->controller->listaExercicio($id_modulo);        
+        $this->visao->listaExercicio = $this->controller->listaExercicio($id_modulo);        
         $this->renderizar();
     }
     
@@ -306,6 +304,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerExercicio();        
         $id_exercicio = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->exercicio = $this->controller->getExercicio("id_exercicio=" . $id_exercicio . "");
+        $this->visao->listaPerguntas = $this->controller->listaPerguntas($id_exercicio);
         $this->renderizar();
     }
 

@@ -291,7 +291,7 @@ class controllerCurso {
         $d = 0;
         $e = 0;
         
-        
+        $listaCursos = 'Nenhum curso vinculado a sua conta';
         
         for ($i = 0; $i < count($cursos); $i++) {
             $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());            

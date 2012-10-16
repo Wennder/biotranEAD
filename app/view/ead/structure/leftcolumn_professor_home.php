@@ -3,6 +3,6 @@
         <a href="<?php echo "index.php?c=ead" ?>"> Home </a>
     </p>
     <p class="navbar_item gerenciarIcon">
-        <a href="index.php?c=ead&a=listaCursos_professor">Cursos</a>
+        <a href="index.php?c=ead&a=cursos_professor">Cursos</a>
     </p>
 </div>

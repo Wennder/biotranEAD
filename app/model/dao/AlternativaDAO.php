@@ -44,6 +44,7 @@ class AlternativaDAO extends PDOConnectionFactory {
             $stmt->bindValue(3, $alternativa->getEh_correta());          
             $stmt->bindValue(4, $alternativa->getId_alternativa());          
             $stmt->execute();
+            return 1;
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
         }

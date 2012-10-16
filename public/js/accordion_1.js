@@ -4,7 +4,7 @@
 $(document).ready(function(){
         //On click any <h3> within the container
         
-            $('.accord_body').click( function(e) {
+            $('.accord_body').live('click', function(e) {
 
 
 

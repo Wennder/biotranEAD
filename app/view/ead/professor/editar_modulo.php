@@ -1,5 +1,3 @@
-
-<script src="js/accordion_1.js" type="text/javascript"></script>
 <!--<link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>   
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <link href="css/jquery.dialog.css" rel="stylesheet" type="text/css"/>        
@@ -127,19 +125,7 @@ margin-left:8px;
                     var msg = "Sorry but there was an error: ";
                     $("#error").html(msg + xhr.status + " " + xhr.statusText);
                 }else{                                                                                    
-                    dialog = $('#dialog').dialog({width:800, height:600,dialogClass:'dialogstyle',
-                        focus: function(event,ui){                            
-                            
-                            $('#form_cadastrar').ajaxForm();
-                            $('#form_descritivo_exercicio').ajaxForm({
-                                success: function(data) {
-                                    if(data != 0){
-                                        //insereLinha(data, tipo);
-                                        alert('Arquivo inserido!');                                   
-                                    }                       
-                                }                       
-                            });                    
-                        },
+                    dialog = $('#dialog').dialog({width:800, height:600,dialogClass:'dialogstyle',                        
                         close: function(event,ui){                     
                             $(dialog).dialog('destroy');
                             $(dialog).find('div').remove();

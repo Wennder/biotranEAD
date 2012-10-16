@@ -23,6 +23,15 @@ class controllerPergunta {
             return 'ERRO: funcao nopoPergunta - [controllerPergunta]';
         }
     }
+    
+    public function atualizarPergunta(Pergunta $p) {
+        if ($p != null) {            
+            $dao = new PerguntaDAO();            
+            return $dao->update($p);
+        } else {
+            return 'ERRO: funcao nopoPergunta - [controllerPergunta]';
+        }
+    }
 
     public function getPergunta($condicao) {
         $dao = new PerguntaDAO();
@@ -44,17 +53,26 @@ class controllerPergunta {
         return $dao->delete($p);
     }
 
-    public function setPergunta() {
-        $pergunta = new Pergunta();
+    public function setPergunta(Pergunta $p = null) {
+        if($p == null){
+            $p = new Pergunta();
+        }
         if (!empty($_POST)) {
             foreach ($_POST as $k => $v) {
                 $setAtributo = 'set' . ucfirst($k);
-                if (method_exists($pergunta, $setAtributo)) {
-                    $pergunta->$setAtributo($v);
+                if (method_exists($p, $setAtributo)) {
+                    $p->$setAtributo($v);
                 }
             }
         }
-        return $pergunta;
+        return $p;
+    }        
+    
+    public function getMaxNumeracao($id_exercicio){
+        $dao = new PerguntaDAO();
+        $p = $dao->select("id_exercicio=" .$id_exercicio. " ORDER BY numeracao");
+        $i = count($p);
+        return $p[($i-1)]->getNumeracao();
     }
 
 }

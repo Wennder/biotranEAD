@@ -7,7 +7,7 @@
         <link href="css/jquery.dialog.css" rel="stylesheet" type="text/css"/>        
         <script src="js/jquery.js"></script> 
         <script type="text/javascript" src="js/jquery.form.js"></script>
-        <!--        <script src="js/accordion.js" type="text/javascript"></script>-->
+        <script src="js/accordion_1.js" type="text/javascript"></script>
         <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
         <script src="js/video.js"></script>                
         <script src="js/jquery.js" type="text/javascript"></script>
@@ -108,33 +108,33 @@
                                         }                    
                                     });                    
                                 },
-                                close: function(event,ui){                     
-                                    $(dialog).dialog('destroy');
-                                    $(dialog).find('div').remove();
-                                }                                        
-                            });
-                        }
-                    });           
-                });
-                
-                $(".btn_del").live('click', function(){            
-                    var btn = $(this);
-                    var r = confirm('Tem certeza de que deseja excluir este registro?');                    
-                    if(r == true){                  
-                        var id = btn.attr('id');                
-                        $.getJSON('ajax/crud_conteudo_modulo.php?acao=remover_'+btn.attr('name'),{
-                            id: id,
-                            ajax: 'true'
-                        }, function(j){
-                            //usuario excluido  
-                            if(j > 0){
-                                id = '#li_'+btn.attr('name')+'_'+id;                        
-                                $(id.toString()).remove();
-                            }
-                        }); 
+                            close: function(event,ui){                     
+                                $(dialog).dialog('destroy');
+                                $(dialog).find('div').remove();
+                            }                                        
+                        });
                     }
-                });
+                });           
             });
+                
+            $(".btn_del").live('click', function(){            
+                var btn = $(this);
+                var r = confirm('Tem certeza de que deseja excluir este registro?');                    
+                if(r == true){                  
+                    var id = btn.attr('id');                
+                    $.getJSON('ajax/crud_conteudo_modulo.php?acao=remover_'+btn.attr('name'),{
+                        id: id,
+                        ajax: 'true'
+                    }, function(j){
+                        //usuario excluido  
+                        if(j > 0){
+                            id = '#li_'+btn.attr('name')+'_'+id;                        
+                            $(id.toString()).remove();
+                        }
+                    }); 
+                }
+            });
+        });
         </script>
 
         <link rel='stylesheet' href='css/estilos.css' />
