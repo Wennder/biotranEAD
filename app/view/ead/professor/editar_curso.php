@@ -268,13 +268,8 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
                         </div>
                     </div>
                 </div>
-                </div>
-                    
-            </div>
-
-            
-
-            
+                </div>                    
+            </div>                      
             <div id="div_atualizar" align="right" style="display: none; ">
                 <input id="id" name="id" type="text" value="<?php echo $this->curso->getId_curso() ?>"/>    
             </div>
@@ -283,7 +278,7 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
     <div name="editar_curso" id="lista_de_modulos">
         <ul style="list-style-type:none;">
             <?php
-            $controllerModulo = new ControllerModulo();
+            $controllerModulo = new controllerModulo();
             echo $controllerModulo->listaModulos($id_curso);
             ?>
         </ul>
