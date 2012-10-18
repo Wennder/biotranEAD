@@ -184,15 +184,14 @@ class controllerExercicio {
                 $lista.='<div style="font-size:12px; border: 0">
                             <input type="radio" ' . $c . ' name="eh_correta" value="' . $j . '" style="border:0"/> Alternativa ' . ($j + 1) . '
                         </div>';
-            }
-
+            }            
             $lista .='</fieldset>
                     <fieldset style="width:300px; float:left; padding:0 5px 5px 5px; margin:0 2.5px; clear:left;">
                         <legend>Respostas</legend>';
 
             for ($j = 0; $j < count($a); $j++) {
                 $lista .='<div style="padding:0; margin:0">
-                            <textarea placeholder="Resposta ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px">' . $a[$j]->getResposta() . '</textarea>
+                            <textarea placeholder="Alternativa ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px">' . $a[$j]->getResposta() . '</textarea>
                         </div>';
             }
             $lista .= '</fieldset >  
@@ -200,7 +199,7 @@ class controllerExercicio {
                         <legend>Justificativas</legend>';
             for ($j = 0; $j < count($a); $j++) {
                 $lista .= '<div>
-                            <textarea placeholder="Justificativa ' . ($j + 1) . '" id="justificativa-' . $j . '" name="justificativa-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px; ">' . $a[$j]->getJustificativa() . '</textarea>
+                            <textarea placeholder="Justificativa" id="justificativa-' . $j . '" name="justificativa-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px; ">' . $a[$j]->getJustificativa() . '</textarea>
                         </div>';
             }
             $lista .='</fieldset>
@@ -253,7 +252,7 @@ class controllerExercicio {
 
         for ($j = 0; $j < count($a); $j++) {
             $lista .='<div style="padding:0; margin:0">
-                            <textarea placeholder="Resposta ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px">' . $a[$j]->getResposta() . '</textarea>
+                            <textarea placeholder="Alternativa ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px">' . $a[$j]->getResposta() . '</textarea>
                         </div>';
         }
         $lista .= '</fieldset>
@@ -261,7 +260,7 @@ class controllerExercicio {
                         <legend>Justificativas</legend>';
         for ($j = 0; $j < count($a); $j++) {
             $lista .= '<div>
-                            <textarea placeholder="Justificativa ' . ($j + 1) . '" id="justificativa-' . $j . '" name="justificativa-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px;">' . $a[$j]->getJustificativa() . '</textarea>
+                            <textarea placeholder="Justificativa" id="justificativa-' . $j . '" name="justificativa-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px;">' . $a[$j]->getJustificativa() . '</textarea>
                         </div>';
         }
         $lista .='</fieldset>

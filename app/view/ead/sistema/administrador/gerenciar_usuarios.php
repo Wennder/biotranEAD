@@ -7,19 +7,19 @@ if (isset($this->usuario)) {
 }
 ?>
 
-<?php require ROOT_PATH.'/app/view/ead/structure/header.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
 <?php
 $papel = $_SESSION["usuarioLogado"]->getId_papel();
 switch ($papel) {
     case 1:
-        require ROOT_PATH.'/app/view/ead/structure/leftcolumn_admin.php';
+        require ROOT_PATH . '/app/view/ead/structure/leftcolumn_admin.php';
         break;
     case 2:
-        require ROOT_PATH.'/app/view/ead/structure/leftcolumn_gestor.php';
+        require ROOT_PATH . '/app/view/ead/structure/leftcolumn_gestor.php';
         break;
 }
 ?>
-<?php require ROOT_PATH.'/app/view/ead/structure/content.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
 
 <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
@@ -44,7 +44,7 @@ switch ($papel) {
     #tabela_usuarios .nome_usuario_datatable{
         text-align: left;
     }
-    
+
     .botao_gerencia_data_table{
         padding: 7px 7px;
         color: #444444;
@@ -53,7 +53,7 @@ switch ($papel) {
         font-weight: 600;
         border-radius: 5px;
     }
-    
+
     .botao_gerencia_data_table:hover{
         cursor:pointer;
         border:1px solid #111111;
@@ -211,6 +211,12 @@ switch ($papel) {
                 _HTML = _HTML.replace('_id_senha', 'senha');
                 _HTML = _HTML.replace('_id_senha2', 'senha2');
                 _HTML = _HTML.replace('_id_senha2', 'senha2');                                
+                _HTML = _HTML.replace('_id_foto', 'foto');
+                _HTML = _HTML.replace('_id_foto', 'foto');                                
+                _HTML = _HTML.replace('_id_img_usuario', 'img_usuario');
+                _HTML = _HTML.replace('_id_img_usuario', 'img_usuario');                                
+                _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');
+                _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');                                
                 for(i = 0; i < nomeColunas.length; i++){
                     _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
                     _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
@@ -235,14 +241,14 @@ switch ($papel) {
                 _HTML = _HTML.replace('#BAIRRO#', _data[16]);
                 _HTML = _HTML.replace('#CIDADE#', _data[17]);
                 _HTML = _HTML.replace('#PAIS#', _data[18]);                
-                _HTML = _HTML.replace('#EMAIL#', _data[12]);
+                _HTML = _HTML.replace('#EMAIL#', _data[12]);                
                 _HTML = _HTML.replace('#ID_USUARIO#', _data[20]);
                 _HTML = _HTML.replace('#ID_FOTO#', _data[20]);
                 //--gerando dialog
                 dialog = $(_HTML).dialog({
                     width:800, 
                     height:600, 
-                    modal: true,                    
+                    modal: true,                       
                     close: function(event,ui){                
                         var form = $(this).find('#cadastro');
                         //deselecionando combos
@@ -261,19 +267,24 @@ switch ($papel) {
                     open: function(event, ui) { 
                         //Habilita a validação automática no formulário de cadastro
                         var form = $(this).find('#cadastro');
-                        form.validationEngine('attach', {scroll: true});                                                
+                        $(this).find('#img_usuario').src = "img/profile/"+_data[20]+".jpg?" + new Date().getTime();
+
+                        form.validationEngine('attach', {scroll: true});
                         //console.log(form.html());
-                        $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento
+                        form.attr('action', 'ajax/crud_usuario.php?acao=atualizar');
+                        form.live('submit',function(){//adicionar esse evento
                             if(form.validationEngine('validate')){                                
-                                $.post('ajax/crud_usuario.php?acao=atualizar', form.serialize(), function(json) {
-                                    // handle response
-                                    if(json != false){
-                                        updateDataTables(form);
-                                        dialog.dialog('close');                                        
-                                    }                                                                        
-                                }, "json");
-                                //Chamada do AJAX            
+                                form.ajaxSubmit({
+                                    dataType:'json',
+                                    success:function(json){
+                                        if(json != false){
+                                            updateDataTables(form);
+                                            dialog.dialog('close');                                        
+                                        }                                                                        
+                                    }
+                                })                                
                             }
+                            return false;
                         });                        
                     }                    
                 });                
@@ -298,6 +309,10 @@ switch ($papel) {
             _HTML2 = _HTML2.replace('_id_senha', 'senha');
             _HTML2 = _HTML2.replace('_id_senha2', 'senha2');
             _HTML2 = _HTML2.replace('_id_senha2', 'senha2');                                
+            _HTML2 = _HTML2.replace('_id_foto', 'foto');
+            _HTML2 = _HTML2.replace('_id_foto', 'foto');                                
+            _HTML2 = _HTML2.replace('_b_button_cadastrar', 'button_cadastrar');
+            _HTML2 = _HTML2.replace('_b_button_cadastrar', 'button_cadastrar');                                
             for(i = 0; i < nomeColunas.length; i++){
                 _HTML2 = _HTML2.replace('_id_'+nomeColunas[i], nomeColunas[i]);
                 _HTML2 = _HTML2.replace('_id_'+nomeColunas[i], nomeColunas[i]);
@@ -337,18 +352,24 @@ switch ($papel) {
                     var form = $(this).find('#cadastro2');
                     form.validationEngine();                                                
                     //console.log(form.html());
-                    $(this).find('#button_cadastrar').live('click',function(){//adicionar esse evento                                                        
-                        if(form.validationEngine('validate')){                                
-                            $.post('ajax/crud_usuario.php?acao=inserir', form.serialize(), function(json) {
-                                // handle response
-                                if(json != false){
-                                    form.find('#id').val(json);
-                                    insertDataTables(form);                                       
-                                    dialog2.dialog('close');                                    
+                    form.live('submit',function(){//adicionar esse evento                                                        
+                        if($(this).validationEngine('validate')){ 
+                            dataType: 'json',
+                            $(this).ajaxSubmit({
+                                success: function(json){
+                                    if(json != false){           
+                                        json = json.replace('"', '');
+                                        json = json.replace('"', '');
+                                        json = json.replace(' ', '');                                        
+                                        form.find('#id').val(json);
+                                        insertDataTables(form);                                       
+                                        dialog2.dialog('close');                                    
+                                    }   
                                 }
-                            }, "json");
+                            });
                             //Chamada do AJAX            
                         }
+                        return false;
                     });                        
                 }
             });            
@@ -522,7 +543,7 @@ switch ($papel) {
 
 <div id="dialog_form">
     <div id="form_cadastro" style="display: none; position: relative;">        
-        <form id="_ID_FORM_" name="_ID_FORM_" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_usuario" enctype="multipart/form-data">
+        <form id="_ID_FORM_" name="_ID_FORM_" class="form_cadastro" method="post" action="ajax/crud_usuario.php?acao=inserir" enctype="multipart/form-data">
             <fieldset style="width: 100%;">
                 <legend>Dados Pessoais</legend>
                 <table>
@@ -531,7 +552,7 @@ switch ($papel) {
                             <label class="label_cadastro">*Nome completo: </label>
                         </td>
                         <td style="width: 500px;">
-                            <input type="text" id="_id_nome_completo" name="_id_nome_completo" value="#NOME_COMPLETO#" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                            <input type="text" id="_id_nome_completo" name="_id_nome_completo" value="#NOME_COMPLETO#" class="validate[required] text-input" data-prompt-position="topLeft" style="width: 500px"/>
                         </td>
                     </tr>
                     <?php
@@ -556,7 +577,7 @@ switch ($papel) {
                             <label class="label_cadastro">*Atuação: </label>
                         </td>
                         <td>
-                            <select id="_id_atuacao" name="_id_atuacao" class="validate[required]" data-prompt-position="centerRight">
+                            <select id="_id_atuacao" name="_id_atuacao" class="validate[required]" data-prompt-position="topLeft">
                                 <option  value></option>
                                 <option id="Agrônomo" value="Agrônomo">Agrônomo</option>
                                 <option id="Estudante" value="Estudante">Estudante</option>
@@ -575,7 +596,7 @@ switch ($papel) {
                         <td>
                             <input type="radio" name="_id_sexo" id="_id_Masculino" value="Masculino" class="validate[required] radio" data-prompt-position="centerRight">
                             <label class="label_cadastro">Masculino </label>
-                            <input type="radio" name="_id_sexo" id="_id_Feminino" <?php echo ($this->usuario == null ? '' : ($this->usuario->getSexo() == "Feminino") ? "checked" : ""); ?> value="Feminino" class="validate[required] radio" data-prompt-position="centerRight">
+                            <input type="radio" name="_id_sexo" id="_id_Feminino" <?php echo ($this->usuario == null ? '' : ($this->usuario->getSexo() == "Feminino") ? "checked" : ""); ?> value="Feminino" class="validate[required] radio" data-prompt-position="topLeft">
                             <label class="label_cadastro">Feminino </label>
                         </td>
                     </tr>
@@ -584,7 +605,7 @@ switch ($papel) {
                             <label class="label_cadastro">*CPF/Passaporte: </label>
                         </td>
                         <td>
-                            <input type="text" id="_id_cpf_passaporte" name="_id_cpf_passaporte" value="#CPF_PASSAPORTE#" class="validate[required, custom[onlyNumberSp], ajax[validarCpf_cadastro_ajax]] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="14"/>
+                            <input type="text" id="_id_cpf_passaporte" name="_id_cpf_passaporte" value="#CPF_PASSAPORTE#" class="validate[required, custom[onlyNumberSp], ajax[validarCpf_cadastro_ajax]] text-input" data-prompt-position="topLeft" style="width: 115px" maxlength="14"/>
                             <label class="label_cadastro_legend">XXX.XXX.XXX-XX </label>
                         </td>
                     </tr>
@@ -593,7 +614,7 @@ switch ($papel) {
                             <label class="label_cadastro">RG: </label>
                         </td>
                         <td>
-                            <input type="text" id="_id_rg" name="_id_rg" value="#RG#" class="text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="15"/>
+                            <input type="text" id="_id_rg" name="_id_rg" value="#RG#" class="text-input" data-prompt-position="topLeft" style="width: 115px" maxlength="15"/>
                         </td>
                     </tr>
                     <tr>
@@ -601,7 +622,7 @@ switch ($papel) {
                             <label class="label_cadastro">Data de nascimento: </label>
                         </td>
                         <td>
-                            <input type="text" id="_id_data_nascimento" name="_id_data_nascimento" value="#DATA_NASCIMENTO#" class="text-input" data-prompt-position="centerRight" onKeyUp='mascara_data(this)' onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="10"/>
+                            <input type="text" id="_id_data_nascimento" name="_id_data_nascimento" value="#DATA_NASCIMENTO#" class="text-input" data-prompt-position="topLeft" onKeyUp='mascara_data(this)' onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="10"/>
                             <label class="label_cadastro_legend">DD/MM/AAAA </label>
                         </td>
                     </tr>
@@ -610,7 +631,7 @@ switch ($papel) {
                             <label class="label_cadastro">Telefone Principal: </label>
                         </td>
                         <td>
-                            <input type="text" id="_id_tel_principal" name="_id_tel_principal" value="#TEL_PRINCIPAL#" class="text-input" data-prompt-position="centerRight" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="13"/>
+                            <input type="text" id="_id_tel_principal" name="_id_tel_principal" value="#TEL_PRINCIPAL#" class="text-input" data-prompt-position="topLeft" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="13"/>
                             <label class="label_cadastro_legend">(XX)XXXX-XXXX </label>
                         </td>
                     </tr>
@@ -619,7 +640,7 @@ switch ($papel) {
                             <label class="label_cadastro">Telefone Secundário: </label>
                         </td>
                         <td>
-                            <input type="text" id="_id_tel_secundario" name="_id_tel_secundario" value="#TEL_SECUNDARIO#" class="text-input" data-prompt-position="centerRight" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="13"/>
+                            <input type="text" id="_id_tel_secundario" name="_id_tel_secundario" value="#TEL_SECUNDARIO#" class="text-input" data-prompt-position="topLeft" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="13"/>
                         </td>
                     </tr>
                     <tr>                    
@@ -627,7 +648,7 @@ switch ($papel) {
                             <label class="label_cadastro">Identidade Profissional: </label>
                         </td>
                         <td>
-                            <input type="text" id="_id_id_profissional" name="_id_id_profissional" value="#ID_PROFISSIONAL#" class="text-input" data-prompt-position="centerRight" style="width: 150px" maxlength="15"/>
+                            <input type="text" id="_id_id_profissional" name="_id_id_profissional" value="#ID_PROFISSIONAL#" class="text-input" data-prompt-position="topLeft" style="width: 150px" maxlength="15"/>
                             <label class="label_cadastro_legend"> </label>
                         </td>
                     </tr>
@@ -636,7 +657,7 @@ switch ($papel) {
                             <label class="label_cadastro">Descrição Pessoal: </label>
                         </td>
                         <td>
-                            <textarea id="_id_descricao_pessoal" name="_id_descricao_pessoal" rows="3" class="text-input" data-prompt-position="centerRight" maxlength="100">#DESCRICAO_PESSOAL#</textarea>
+                            <textarea id="_id_descricao_pessoal" name="_id_descricao_pessoal" rows="3" class="text-input" data-prompt-position="topLeft" maxlength="100">#DESCRICAO_PESSOAL#</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -648,11 +669,11 @@ switch ($papel) {
                                 <tr>
                                     <td>
                                         <div id="foto_usuario">
-                                            <img src="img/profile/#ID_FOTO#.jpg" alt="" height="120" width="100" />
+                                            <img id="_id_img_usuario" src="img/profile/#ID_FOTO#.jpg" alt="" height="120" width="100" />
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="file" name="_id_foto" id="_id_foto" class="text-input" data-prompt-position="centerRight" style="margin: 100px 0 0 10px;"/>
+                                        <input type="file" name="_id_foto" id="_id_foto" class="text-input" data-prompt-position="topLeft" style="margin: 100px 0 0 10px;"/>
                                     </td>
                                 </tr>
                             </table>
@@ -669,13 +690,13 @@ switch ($papel) {
                             <label class="label_cadastro">*Rua: </label>
                         </td>
                         <td style="width: 390px;">
-                            <input type="text" id="_id_endereco_rua" name="_id_endereco_rua" value="#RUA#" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 390px"/>
+                            <input type="text" id="_id_endereco_rua" name="_id_endereco_rua" value="#RUA#" class="validate[required] text-input" data-prompt-position="topLeft" style="width: 390px"/>
                         </td>
                         <td style="width: 50px;">
                             <label class="label_cadastro">*Número: </label>
                         </td>
                         <td style="width: 60px;">
-                            <input type="text" id="_id_endereco_numero" name="_id_endereco_numero" value="#NUMERO#" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 60px"/>
+                            <input type="text" id="_id_endereco_numero" name="_id_endereco_numero" value="#NUMERO#" class="validate[required] text-input" data-prompt-position="topLeft" style="width: 60px"/>
                         </td>
                     </tr>
                     <tr>
@@ -683,7 +704,7 @@ switch ($papel) {
                             <label class="label_cadastro">Complemento: </label>
                         </td>
                         <td colspan="3" style="width: 500px;">
-                            <input type="text" id="_id_endereco_complemento" name="_id_endereco_complemento" value="#COMPLEMENTO#" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                            <input type="text" id="_id_endereco_complemento" name="_id_endereco_complemento" value="#COMPLEMENTO#" class="text-input" data-prompt-position="topLeft" style="width: 200px"/>
                         </td>
                     </tr>
                     <tr>
@@ -691,7 +712,7 @@ switch ($papel) {
                             <label class="label_cadastro">*Bairro: </label>
                         </td>
                         <td colspan="3" style="width: 500px;">
-                            <input type="text" id="_id_endereco_bairro" name="_id_endereco_bairro" value="#BAIRRO#" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                            <input type="text" id="_id_endereco_bairro" name="_id_endereco_bairro" value="#BAIRRO#" class="validate[required] text-input" data-prompt-position="topLeft" style="width: 200px"/>
                         </td>
                     </tr>
                     <tr>
@@ -699,7 +720,7 @@ switch ($papel) {
                             <label class="label_cadastro">*Cidade: </label>
                         </td>
                         <td colspan="3" style="width: 500px;">
-                            <input type="text" id="_id_endereco_cidade" name="_id_endereco_cidade" value="#CIDADE#" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                            <input type="text" id="_id_endereco_cidade" name="_id_endereco_cidade" value="#CIDADE#" class="validate[required] text-input" data-prompt-position="topLeft" style="width: 200px"/>
                         </td>
                     </tr>
                     <tr>
@@ -707,7 +728,7 @@ switch ($papel) {
                             <label class="label_cadastro">*País: </label>
                         </td>
                         <td colspan="3" style="width: 500px;">
-                            <input type="text" id="_id_endereco_pais" name="_id_endereco_pais" value="#PAIS#" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px" onkeyup="paisBrasil()"/>
+                            <input type="text" id="_id_endereco_pais" name="_id_endereco_pais" value="#PAIS#" class="validate[required] text-input" data-prompt-position="topLeft" style="width: 200px" onkeyup="paisBrasil()"/>
                         </td>
                     </tr>
                     <tr>
@@ -715,7 +736,7 @@ switch ($papel) {
                             <label id="_id_label_estado" class="label_cadastro">*Estado: </label>
                         </td>
                         <td colspan="3" style="width: 500px;">
-                            <select id="_id_endereco_estado" name="_id_endereco_estado" class="validate[required]" data-prompt-position="centerRight">
+                            <select id="_id_endereco_estado" name="_id_endereco_estado" class="validate[required]" data-prompt-position="topLeft">
                                 <option></option >
                                 <option id="Acre" value="Acre">Acre</option >
                                 <option id="Alagoas" value="Alagoas">Alagoas</option >
@@ -758,7 +779,7 @@ switch ($papel) {
                             <label class="label_cadastro">*E-mail (login): </label>
                         </td>
                         <td style="width: 500px;">
-                            <input type="text" id="_id_email" name="_id_email" value="#EMAIL#" class="validate[required, custom[email], ajax[validarLogin_ajax]] text-input" data-prompt-position="centerRight"/>
+                            <input type="text" id="_id_email" name="_id_email" value="#EMAIL#" class="validate[required, custom[email], ajax[validarLogin_ajax]] text-input" data-prompt-position="topLeft"/>
                         </td>
                     </tr>
                     <tr>
@@ -766,7 +787,7 @@ switch ($papel) {
                             <label class="label_cadastro">*Senha: </label>
                         </td>
                         <td>
-                            <input type="password" id="_id_senha" name="_id_senha" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 150px"/>
+                            <input type="password" id="_id_senha" name="_id_senha" class="validate[required] text-input" data-prompt-position="topLeft" style="width: 150px"/>
                         </td>
                     </tr>
                     <tr>
@@ -774,14 +795,14 @@ switch ($papel) {
                             <label class="label_cadastro">*Confirmar Senha: </label>
                         </td>
                         <td>
-                            <input type="password" id="_id_senha2" name="_id_senha2" class="validate[required,equals[senha]] text-input" data-prompt-position="centerRight" style="width: 150px"/>
+                            <input type="password" id="_id_senha2" name="_id_senha2" class="validate[required,equals[senha]] text-input" data-prompt-position="topLeft" style="width: 150px"/>
                         </td>
                     </tr>
                 </table>
             </fieldset>
             <br>
-            <input type="button" id="button_cadastrar" name="button_cadastrar" value="Cadastrar" class="button"/>
-            <input type="button" id="button_atualizar" name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
+            <input type="submit" id="_b_button_cadastrar" name="_b_button_cadastrar" value="Cadastrar" class="button"/>
+            <input type="button" id="_b_button_atualizar" name="_b_button_atualizar" value="Atualizar" class="button" style="display: none;"/>
             <div id="div_hidden" style="display: none;">
                 <input type="text" id="id" name="id" value="#ID_USUARIO#"/>
             </div>
@@ -811,5 +832,5 @@ switch ($papel) {
     <input type="text" id="i_estado" name="i_estado" value="<?php echo $this->endereco == null ? '' : $this->endereco->getEstado(); ?>"/>    
 </div>
 
-<?php require ROOT_PATH.'/app/view/ead/profile_dialog.php'; ?>
-<?php require ROOT_PATH.'/app/view/ead/structure/footer.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/profile_dialog.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

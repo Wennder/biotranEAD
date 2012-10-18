@@ -188,31 +188,31 @@
                         <fieldset style="width:300px; float:left; padding:0 5px 5px 5px; margin:0 2.5px; clear:left;">
                             <legend>Respostas</legend>
                             <div style="padding:0; margin:0">
-                                <textarea placeholder="Resposta 1" id="resposta-0" name="resposta-0" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px"></textarea>
+                                <textarea placeholder="Alternativa 1" id="resposta-0" name="resposta-0" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px"></textarea>
                             </div>
                             <div>
-                                <textarea placeholder="Resposta 2" id="resposta-1" name="resposta-1" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px"></textarea>
+                                <textarea placeholder="Alternativa 2" id="resposta-1" name="resposta-1" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px"></textarea>
                             </div>
                             <div>
-                                <textarea placeholder="Resposta 3" id="resposta-2" name="resposta-2" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px"></textarea>
+                                <textarea placeholder="Alternativa 3" id="resposta-2" name="resposta-2" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px"></textarea>
                             </div>
                             <div>
-                                <textarea placeholder="Resposta 4" id="resposta-3" name="resposta-3" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px"></textarea>
+                                <textarea placeholder="Alternativa 4" id="resposta-3" name="resposta-3" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px"></textarea>
                             </div>
                         </fieldset >  
                         <fieldset style="width:300px; float: left; padding:0 5px 5px 5px; margin:0 2.5px">
                             <legend>Justificativas</legend>
                             <div>
-                                <textarea placeholder="Justificativa 1" id="justificativa-0" name="justificativa-0" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px; "></textarea>
+                                <textarea placeholder="Justificativa" id="justificativa-0" name="justificativa-0" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px; "></textarea>
                             </div>
                             <div>
-                                <textarea placeholder="Justificativa 2" id="justificativa-1" name="justificativa-1" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px"></textarea>
+                                <textarea placeholder="Justificativa" id="justificativa-1" name="justificativa-1" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px"></textarea>
                             </div>
                             <div>
-                                <textarea placeholder="Justificativa 3" id="justificativa-2" name="justificativa-2" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px"></textarea>
+                                <textarea placeholder="Justificativa" id="justificativa-2" name="justificativa-2" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px"></textarea>
                             </div>
                             <div>
-                                <textarea placeholder="Justificativa 4"id="justificativa-3" name="justificativa-3" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px"></textarea>
+                                <textarea placeholder="Justificativa"id="justificativa-3" name="justificativa-3" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px"></textarea>
                             </div>
                         </fieldset>
                         <input type="submit" id="btn_add_pergunta" class="btn_submit" name="form_cadastrar" value="Adicionar" class="button"/>

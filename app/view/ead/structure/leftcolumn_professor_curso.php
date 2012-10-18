@@ -20,8 +20,14 @@
     font-weight: 600;
     line-height: 100%;
 }
+
 .accord{
     cursor: pointer;
+}
+.acao_leftcolumn {
+    cursor: pointer;
+    font-weight: 500;
+    line-height: 100%;
 }
 </style>
 

@@ -66,11 +66,11 @@ class controllerCurso {
             if ($_FILES["imagem"]["name"] != '') {
                 $imagem = $_FILES["imagem"];
                 $tipos = array("image/jpg");
-                $pasta_dir = "img/cursos/";
+                $pasta_dir = "../img/cursos/";
                 if (!in_array($imagem['type'], $tipos)) {
                     $imagem_nome = $pasta_dir . $id_curso . ".jpg";
                     move_uploaded_file($imagem["tmp_name"], $imagem_nome);
-                    $imagem_arquivo = "img/cursos/" . $id_curso . ".jpg";
+                    $imagem_arquivo = "../img/cursos/" . $id_curso . ".jpg";
                     list($altura, $largura) = getimagesize($imagem_arquivo);
                     if ($altura > 180 && $largura > 240) {
                         $img = wiImage::load($imagem_arquivo);
@@ -125,7 +125,7 @@ class controllerCurso {
 
     public function inserirCurso() {
         //seta as variaveis $this->curso e $this->cp
-        $this->setCurso_post();        
+        $this->setCurso_post();
         $this->novoCurso($this->curso, $this->curso_professor);
 
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
@@ -147,7 +147,8 @@ class controllerCurso {
      * texto_referencia
      * material_complementar
      */
-    public function criaDiretorioCurso($id) {       
+
+    public function criaDiretorioCurso($id) {
         $caminho = ROOT_PATH . '/public/cursos/' . $id . '/modulos/';
         if (!mkdir($caminho, 0777, true))
             trigger_error("Não foi possível criar o diretório de modulos");
@@ -156,7 +157,7 @@ class controllerCurso {
     public function criaDiretorioCurso_videoAula($id) {
         $caminho = ROOT_PATH . '/public/cursos/' . $id . '/video_aula/';
         $caminho = ROOT_PATH . '/public/cursos/' . $id . '/texto_referencia/';
-        $caminho = ROOT_PATH . '/public/cursos/' . $id . '/material_complementar/';        
+        $caminho = ROOT_PATH . '/public/cursos/' . $id . '/material_complementar/';
         if (!mkdir($caminho))
             trigger_error("Não foi possível criar o diretório de video aulas do curso" . $id);
     }
@@ -202,11 +203,11 @@ class controllerCurso {
             $this->inserirFotoCurso($this->curso->getId_curso());
         }
     }
-    
+
     public function atualizarDescritivoCurso($id_curso) {
         $this->curso = $this->getCurso("id_curso = " . $id_curso);
         //seta as variaveis $this->curso e $this->cp
-        $this->setCurso_post();       
+        $this->setCurso_post();
         //atualizar
         $this->updateCurso($this->curso);
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
@@ -246,6 +247,7 @@ class controllerCurso {
 
     public function removerCurso($id_curso) {
         $dao = new CursoDAO();
+//        echo $id_curso;die();
         $curso = $this->getCurso("id_curso=" . $id_curso);
         $affectedrows = $dao->delete($curso);
         if ($affectedrows >= 1) {
@@ -261,6 +263,10 @@ class controllerCurso {
                 }
                 reset($objects);
                 rmdir($caminho);
+                $caminho = ROOT_PATH . '/public/img/cursos/' . $curso->getId_curso() . '.jpg';
+                if (is_file($caminho)) {
+                    unlink($caminho);
+                }
             }
             return 1;
         } else {
@@ -288,25 +294,25 @@ class controllerCurso {
         $c = 0;
         $d = 0;
         $e = 0;
-        
+
         $listaCursos = 'Nenhum curso vinculado a sua conta';
-        
+
         for ($i = 0; $i < count($cursos); $i++) {
-            $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());            
+            $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());
             if ($this->curso->getStatus(1) == 0) {
-                $construcao .= "<li><a href=index.php?c=ead&a=primeiro_acesso_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></li>";
+                $construcao .= "<li><a href=index.php?c=ead&a=primeiro_acesso_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
                 $a++;
             } else if ($this->curso->getStatus(1) == 1) {
-                $nao_avaliado .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></li>";
+                $nao_avaliado .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
                 $b++;
             } else if ($this->curso->getStatus(1) == 2) {
-                $rejeitado .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></li>";
+                $rejeitado .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
                 $c++;
             } else if ($this->curso->getStatus(1) == 3) {
-                $aprovado_indisponivel .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></li>";
+                $aprovado_indisponivel .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
                 $d++;
             } else if ($this->curso->getStatus(1) == 4) {
-                $aprovado_disponivel .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=".$this->curso->getId_curso(). ">" . $this->curso->getNome() . "</a></li>";
+                $aprovado_disponivel .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
                 $e++;
             }
 
@@ -366,7 +372,7 @@ class controllerCurso {
             }
             $listaCursos .= "</ul></div>";
         }
-   
+
         return $listaCursos;
     }
 
@@ -375,7 +381,7 @@ class controllerCurso {
     }
 
     public function tabelaCursos() {
-      
+
         $tabela = "<table id='tabela_cursos' width='100%' align='center'>
          <thead> 
                 <tr> 
@@ -393,11 +399,11 @@ class controllerCurso {
                 </tr> 
             </thead> 
             <tbody>";
-           
+
         $cursoDAO = new CursoDAO();
-        
+
         $this->cursos = $cursoDAO->select(null, null);
-        
+
         $quant = count($this->cursos);
         $i = 0;
         for (; $i < $quant; $i++) {
@@ -488,7 +494,7 @@ class controllerCurso {
         $this->controller = new controllerUsuario();
         $todos_professores = $this->controller->getListaUsuarioProfessor();
         $options = "";
-        if($todos_professores == null){
+        if ($todos_professores == null) {
             return 'erro_professor';
         }
         foreach ($todos_professores as $professor) {
@@ -501,7 +507,7 @@ class controllerCurso {
         $this->controllerCP = new controllerCurso_professor();
         $professores_curso = $this->controllerCP->getProfessoresCurso($idCurso);
         $options = "";
-        if($professores_curso == null){
+        if ($professores_curso == null) {
             return 'erro_professor';
         }
         for ($j = 0; $j < count($professores_curso); $j++) {
@@ -607,16 +613,16 @@ class controllerCurso {
     public function primeiro_acesso(Curso $curso) {
         $this->curso = $curso;
         $this->setCurso_post();
-        $this->curso->setStatus(1);        
+        $this->curso->setStatus(1);
         $this->updateCurso($this->curso);
-        $this->controller = new controllerModulo();        
+        $this->controller = new controllerModulo();
         for ($i = 0; $i < $this->curso->getNumero_modulos(); $i++) {
             $modulo = new Modulo();
             $modulo->setId_curso($this->curso->getId_curso());
             $modulo->setNumero_modulo($i + 1);
             $this->controller->inserirModulo($modulo);
         }
-        $modulos = $this->controller->getListaModulo("id_curso=".$this->curso->getId_curso());
+        $modulos = $this->controller->getListaModulo("id_curso=" . $this->curso->getId_curso());
         for ($i = 0; $i < count($modulos); $i++) {
             $this->controller->criaDiretorioModulo($modulos[$i]);
         }

@@ -24,7 +24,7 @@ class CursoDAO extends PDOConnectionFactory {
             $stmt->bindValue(10, $curso->getJustificativa());
             $stmt->bindValue(11, $curso->getObs());
 
-            //inserindo curso no banco
+            //inserindo curso no banco            
             if (!$stmt->execute()) {
                 trigger_error("0 Erro insersao banco de dados");                
             }
@@ -68,8 +68,7 @@ class CursoDAO extends PDOConnectionFactory {
                 $stmt->bindValue(11, $curso->getId_curso());
                 $stmt->execute();
 
-                if ($cp != null) {
-                    echo 'entrou no update';die();
+                if ($cp != null) {                    
                     $dao = new Curso_professorDAO();
                     for($i = 0; $i < count($cp); $i++){
                         $cp[$i]->setId_curso($curso->getId_curso());

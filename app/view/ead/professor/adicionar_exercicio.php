@@ -15,11 +15,11 @@
             <legend>Dados do Exercicio</legend>
             <fieldset style="width:500px; padding:0 5px 5px 5px; margin: 0 2.5px; ">
                 <legend>Titulo do Exercicio</legend>
-                <input type="text" id="titulo" name="titulo" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                <input type="text" id="titulo" name="titulo" value="" class="validate[required] text-input" data-prompt-position="topLeft" style="width: 500px"/>
             </fieldset>
             <fieldset style="width:500px; padding:0 5px 5px 5px; margin: 0 2.5px; ">
                 <legend>Descricao (opcional)</legend>
-                <textarea placeholder="Descrição" id="descricao" style="width:500px;" name="descricao" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"></textarea>
+                <textarea placeholder="Descrição" id="descricao" style="width:500px;" name="descricao" rows="3" class="validate[required] text-input" data-prompt-position="topLeft" maxlength="100"></textarea>
             </fieldset>
             <input type="submit" id="button_add_exercicio" name="button_cadastrar" value="Adicionar" class="button"/>
             <div style="display:none;">

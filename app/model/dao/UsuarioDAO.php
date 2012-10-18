@@ -32,14 +32,13 @@ class UsuarioDAO extends PDOConnectionFactory {
             if(!$stmt->execute()){
                 trigger_error(FALHA_SISTEMA);
             }
-                            
-            //inserindo enderecos de usuario no banco                        
-            $buscaId = $this->select("login='". $user->getLogin() ."'");
+            $id = $this->conex->lastInsertId("Usuario");               
+            //inserindo enderecos de usuario no banco                                    
             $enderecoDAO = new EnderecoDAO();
-            $end->setId_usuario($buscaId[0]->getId_usuario());
+            $end->setId_usuario($id);
             $enderecoDAO->insert($end);
-
             $stmt->conex = null;
+            return $id;
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
         }

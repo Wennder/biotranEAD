@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br">
     <head>        
-        <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+        <meta http-equiv="Content-Type" content="NO-CACHE; text/html; charset=utf8" />
         <title>EAD Biotran</title>
         <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
         <script src="js/video.js"></script>                
@@ -65,11 +65,8 @@
                         if(data != 0 && data != false){                    
                             alert('Inserido com sucesso!');
                             var ant = (data.numeracao - 1); 
-                            if(document.getElementById('div_pergunta_'+ant)){
-                                alert('1');
-                                $('#div_pergunta_body_'+ant.toString()).after($(data.form));
-                                $('#div_pergunta_'+data.numeracao).removeAttr('class');
-                                $('#div_pergunta_'+data.numeracao).attr('class', 'accord_body');
+                            if(document.getElementById('div_pergunta_'+ant)){                                
+                                $('#div_pergunta_body_'+ant.toString()).after($(data.form));                                
                             }else{
                                 var controle = 1;
                                 var posicao = 0;
@@ -79,11 +76,9 @@
                                     }
                                     controle++;
                                 }
-                                if(posicao == 0){
-                                    alert('2');
+                                if(posicao == 0){                                    
                                     $('#div_cadastrar_pergunta_body').after($(data.form));
-                                }else{
-                                    alert('3');                            
+                                }else{                                                              
                                     $('#div_pergunta_body_'+posicao).after($(data.form));
                                 }
                             }                        
@@ -191,21 +186,21 @@
                             $("#error").html(msg + xhr.status + " " + xhr.statusText);
                         }else{
                             $('#ajax_loader').remove();
-                            var width = 0;var height = 0; var title;
+                            var width = 0;var height = 0; var title;                            
                             if(tipo == 'video'){
-                                width = 800; height = 350; title = 'Adicionar Video Aula';
+                                width = 650; height = 450; title = 'Adicionar Video Aula';
                             }else{
                                 if(tipo == 'texto_referencia'){
-                                    width = 500; height = 250; title = 'Adicionar Texto de Referencia';
+                                    width = 550; height = 340; title = 'Adicionar Texto de Referencia';
                                 }else{
                                     if(tipo == 'material_complementar'){
-                                        width = 500; height = 200; title = 'Adicionar Material Complementar';
+                                        width = 550; height = 340; title = 'Adicionar Material Complementar';
                                     }else{//novo exercício
                                         width = 700; height = 300; title = 'Adicionar Exercicio';
                                     }
                                 }
                             }                                            
-                            dialog = $('#dialog').dialog({width:width, height:height,dialogClass:'dialogstyle',modal: true,
+                            dialog = $('#dialog').dialog({width: width, height: height,dialogClass:'dialogstyle',modal: true,
                                 focus: function(event,ui){                                                
                                     $('#form_cadastrar').ajaxForm({                                                    
                                         uploadProgress: function(event, position, total, percentComplete) {

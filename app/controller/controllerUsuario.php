@@ -9,9 +9,9 @@ class controllerUsuario {
     public function validarLogin($login, $id_usuario = -1) {
         $user = $this->getUsuario("login='" . $login . "'");
         if ($user != null) {
-            if($id_usuario != -1){            
+            if ($id_usuario != -1) {
                 $user_id = $this->getUsuario("id_usuario=" . $id_usuario);
-                if($user_id->getLogin() == $login){
+                if ($user_id->getLogin() == $login) {
                     return true;
                 }
             }
@@ -23,9 +23,9 @@ class controllerUsuario {
     public function validarCpf($cpf_passaporte, $id_usuario) {
         $user = $this->getUsuario("cpf_passaporte='" . $cpf_passaporte . "'");
         if ($user != null) {
-            if($id_usuario != -1){            
+            if ($id_usuario != -1) {
                 $user_id = $this->getUsuario("id_usuario=" . $id_usuario);
-                if($user_id->getCpf_passaporte() == $cpf_passaporte){
+                if ($user_id->getCpf_passaporte() == $cpf_passaporte) {
                     return true;
                 }
             }
@@ -48,16 +48,14 @@ class controllerUsuario {
         //setando o objeto usuario e endereco via post
         $this->setUsuario_post();
         //inserindo os objetos         
-//        echo $this->usuario->getEmail();die();
-        $this->novoUsuario($this->usuario, $this->end);
+        //echo $this->usuario->getEmail();die();
+        $this->usuario->setId_usuario($this->novoUsuario($this->usuario, $this->end));
         //verifico se existe foto para ser inserida
         if (isset($_FILES["foto"])) {
-            //captura a id do usuario inserido
-            $this->usuario = $this->getUsuario("email='" . $this->usuario->getEmail() . "'");
             //insere foto do usuario
             $this->inserirFotoUsuario($this->usuario->getId_usuario());
         }
-        return $this->getUsuario("email='".$this->usuario->getEmail()."'")->getId_usuario();
+        return $this->usuario->getId_usuario();
     }
 
     /*
@@ -156,13 +154,21 @@ class controllerUsuario {
      */
 
     public function removerUsuario($id_usuario) {
-        $user = $this->getUsuario("id_usuario=".$id_usuario);
+        $user = $this->getUsuario("id_usuario=" . $id_usuario);
         $dao = new EnderecoDAO();
         $affectedrows = $dao->deleteEnderecoUsuario($user->getId_usuario());
         if ($affectedrows > 0) {
             $dao = new UsuarioDAO();
             $affectedrows = $dao->delete($user);
             if ($affectedrows >= 1) {
+                $caminho = ROOT_PATH . '/public/img/profile/' . $id_usuario . '.jpg';
+                $caminho1 = ROOT_PATH . '/public/img/profile/pic/' . $id_usuario . '.jpg';
+                if (is_file($caminho)) {
+                    unlink($caminho);
+                }
+                if (is_file($caminho1)) {
+                    unlink($caminho1);
+                }
                 return 1;
             }else
                 return 0;
@@ -177,7 +183,7 @@ class controllerUsuario {
             //verifica se realmente já não existe o registro
             //prevenir reenvio de formulário
             if ($dao->select("login='" . $user->getLogin() . "'") == null) {
-                $dao->insert($user, $end);
+                return $dao->insert($user, $end);
             } else {
                 trigger_error("1 Reenvio de formulario, usuario ja cadastrado");
             }
@@ -259,12 +265,12 @@ class controllerUsuario {
             if ($_FILES["foto"]["name"] != '') {
                 $foto = $_FILES["foto"];
                 $tipos = array("image/jpg");
-                $pasta_dir = "img/profile/";
+                $pasta_dir = "../img/profile/";
                 if (!in_array($foto['type'], $tipos)) {
                     $foto_nome = $pasta_dir . $id_usuario . ".jpg";
                     move_uploaded_file($foto["tmp_name"], $foto_nome);
-                    $foto_arquivo = "img/profile/" . $id_usuario . ".jpg";
-                    $foto_arquivo_pic = "img/profile/pic/" . $id_usuario . ".jpg";
+                    $foto_arquivo = "../img/profile/" . $id_usuario . ".jpg";
+                    $foto_arquivo_pic = "../img/profile/pic/" . $id_usuario . ".jpg";
                     list($altura, $largura) = getimagesize($foto_arquivo);
                     if ($altura > 120 && $largura > 100) {
                         $img = wiImage::load($foto_arquivo);
@@ -321,7 +327,7 @@ class controllerUsuario {
         $i = 0;
         for (; $i < $quant; $i++) {
             $papel = $papelDAO->select("id_papel=" . $this->usuarios[$i]->getId_papel());
-            if($papel[0]->getId_papel() != 1){                
+            if ($papel[0]->getId_papel() != 1) {
                 $tabela .= "<tr id=tabela_linha" . $this->usuarios[$i]->getId_usuario() . ">";
                 $tabela .= "<td width='55%' class='nome_usuario_datatable' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
                 $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";

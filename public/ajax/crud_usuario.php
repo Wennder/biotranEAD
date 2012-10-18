@@ -19,5 +19,5 @@ if (method_exists($controller, $acao)) {
     $resposta = false;
 }
 
-echo( json_encode($resposta));
+echo(json_encode($resposta));
 ?>

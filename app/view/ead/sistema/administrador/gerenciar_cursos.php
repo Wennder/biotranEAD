@@ -194,6 +194,14 @@ if (isset($this->curso)) {
                     //alterando ids e names                
                     _HTML = _HTML.replace('_id_cadastro', 'cadastro');
                     _HTML = _HTML.replace('_id_cadastro', 'cadastro');
+                    _HTML = _HTML.replace('_id_imagem', 'imagem');
+                    _HTML = _HTML.replace('_id_imagem', 'imagem');
+                    _HTML = _HTML.replace('_id_img_curso', 'img_curso');
+                    _HTML = _HTML.replace('_id_img_curso', 'img_curso');
+                    _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
+                    _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
+                    _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');
+                    _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');
                     for(i = 0; i < nomeColunas.length; i++){
                         //inputs
                         _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
@@ -220,7 +228,7 @@ if (isset($this->curso)) {
                         height:600, 
                         modal: true,
                         zIndex: 3999,
-                        dialogClass:'dialogstyle',
+                        //                        dialogClass:'dialogstyle',
                         close: function(event,ui){                
                             var form = $(this).find('#cadastro');
                             //des-preselecionando combos e radio inputs: 
@@ -236,6 +244,8 @@ if (isset($this->curso)) {
                         open: function(event, ui) { 
                             //Habilita a validação automática no formulário de cadastro
                             var form = $(this).find('#cadastro');
+                            $(this).find('#img_curso').src = "img/cursos/"+_data[10]+".jpg?" + new Date().getTime();
+                                                        
                             form.validationEngine('attach', {scroll: false});                                                
                             //JS DO PICKLIST DO JAN
                             $(this).find('#add').live('click',function(){
@@ -252,17 +262,20 @@ if (isset($this->curso)) {
                                 });
                             });                
                             //-----------fim js janquery picklist
-                            $(this).find('#button_atualizar').live('click',function(){//adicionar esse evento
+                            form.attr('action', 'ajax/crud_curso.php?acao=atualizar');
+                            form.live('submit',function(){//adicionar esse evento
                                 if(form.validationEngine('validate')){                                       
-                                    $.post('ajax/crud_curso.php?acao=atualizar', form.serialize(), function(json) {
-                                        // handle response
-                                        if(json != false){
-                                            updateDataTables(form, _data);
-                                            dialog.dialog('close');                                        
-                                        }                                                                        
-                                    }, "json");
-                                    //Chamada do AJAX            
+                                    form.ajaxSubmit({
+                                        dataType: 'json',
+                                        success:function (json){
+                                            if(json != false){
+                                                updateDataTables(form, _data);
+                                                dialog.dialog('close');                                        
+                                            }                                                                        
+                                        }
+                                    });                                              
                                 }
+                                return false;
                             });                        
                         }                    
                     });                
@@ -299,6 +312,14 @@ if (isset($this->curso)) {
                     _HTML = _HTML.replace('_id_remover', 'remover');
                     _HTML = _HTML.replace('_id_destino', 'destino');
                     _HTML = _HTML.replace('_id_destino', 'destino');                    
+                    _HTML = _HTML.replace('_id_imagem', 'imagem');
+                    _HTML = _HTML.replace('_id_imagem', 'imagem');
+                    _HTML = _HTML.replace('_id_img_curso', 'img_curso');
+                    _HTML = _HTML.replace('_id_img_curso', 'img_curso');
+                    _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
+                    _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
+                    _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');
+                    _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');
                     //--
                     //alterando valores
                     _HTML = _HTML.replace('#NOME#', '');
@@ -339,20 +360,31 @@ if (isset($this->curso)) {
                                 });
                             });                
                             //-----------fim js janquery picklist
-                            
-                            $(this).find('#button_cadastrar').live('click',function(){//adicionar esse evento
+                            form.attr('action', 'ajax/crud_curso.php?acao=inserir&getCurso=1')
+                            form.live('submit',function(){//adicionar esse evento
                                 if(form.validationEngine('validate')){                                
-                                    $.post('ajax/crud_curso.php?acao=inserir&getCurso=1', form.serialize(), function(json) {
-                                        // handle response
-                                        var data = new Array();
-                                        if(json != false){ 
-                                            //                                        form.find('#id').val(json.id);
-                                            insertDataTables(form, json);
-                                            dialog.dialog('close');                                        
-                                        }                                                                        
-                                    }, "json");
+                                    form.ajaxSubmit({
+                                        dataType: 'json',
+                                        success: function(json){
+                                            if(json != false){ 
+                                                //                                        form.find('#id').val(json.id);
+                                                insertDataTables(form, json);
+                                                dialog.dialog('close');                                        
+                                            }  
+                                        }
+                                    });
+//                                    $.post('ajax/crud_curso.php?acao=inserir&getCurso=1', form.serialize(), function(json) {
+//                                        // handle response
+//                                        var data = new Array();
+//                                        if(json != false){ 
+//                                            //                                        form.find('#id').val(json.id);
+//                                            insertDataTables(form, json);
+//                                            dialog.dialog('close');                                        
+//                                        }                                                                        
+//                                    }, "json");
                                     //Chamada do AJAX            
                                 }
+                                return false;
                             });                        
                         }                    
                     });                
@@ -374,6 +406,10 @@ if (isset($this->curso)) {
                         //usuario excluido         
                         if(j == 1){                            
                             oTable.fnDeleteRow(elem[0], null, true);                            
+                        }else{
+                            if(j == 0){
+                                alert('Existem dados no banco atrelados a este curso');
+                            }
                         }
                     });  
                 }
@@ -507,7 +543,7 @@ if (isset($this->curso)) {
                                 <tr>
                                     <td>
                                         <div id="imagem_curso">
-                                            <img src="img/cursos/#ID_FOTO#.jpg" alt="" height="180" width="240" />
+                                            <img id="_id_img_curso" src="img/cursos/#ID_FOTO#.jpg" alt="" height="180" width="240" />
                                         </div>
                                     </td>
                                 </tr>
@@ -522,8 +558,8 @@ if (isset($this->curso)) {
                 </table>
             </fieldset>
             <br>
-            <input type="button" id="button_cadastrar" name="button_cadastrar" value="Cadastrar" class="button"/>
-            <input type="button" id="button_atualizar"  name="button_atualizar" value="Atualizar" class="button" style="display: none;"/>
+            <input type="submit" id="_b_button_cadastrar" name="_b_button_cadastrar" value="Cadastrar" class="button"/>
+            <input type="submit" id="_b_button_atualizar"  name="_b_button_atualizar" value="Atualizar" class="button" style="display: none;"/>
             <div id="div_hidden" style="display: none;">
                 <input type="text" id="id" name="id" value="#ID_CURSO#"/>
             </div>
