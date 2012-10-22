@@ -19,6 +19,10 @@
         $(".nao_matriculado").show();
         $(".matriculado").hide();
     }
+    
+    function em_construcao(){
+        alert('Em construcao!');
+    }
 
 </script>
 
