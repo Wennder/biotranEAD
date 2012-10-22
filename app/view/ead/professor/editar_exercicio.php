@@ -3,67 +3,7 @@
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 
-<script>
-    //    function optionsFormCadastrarPergunta(){
-    //        var options = {
-    //            dataType: 'json',
-    //            clearForm:true,
-    //            success: function(data){
-    //                if(data != 0 && data != false){                    
-    //                    alert('Inserido com sucesso!');
-    //                    var ant = (data.numeracao - 1); 
-    //                    if(document.getElementById('div_pergunta_'+ant)){
-    //                        alert('1');
-    //                        $('#div_pergunta_body_'+ant.toString()).after($(data.form));
-    //                        $('#div_pergunta_'+data.numeracao).removeAttr('class');
-    //                        $('#div_pergunta_'+data.numeracao).attr('class', 'accord_body');
-    //                    }else{
-    //                        var controle = 1;
-    //                        var posicao = 0;
-    //                        while(controle < data.numeracao){
-    //                            if(document.getElementById('div_pergunta_'+controle)){
-    //                                posicao = controle;
-    //                            }
-    //                            controle++;
-    //                        }
-    //                        if(posicao == 0){
-    //                            alert('2');
-    //                            $('#div_cadastrar_pergunta_body').after($(data.form));
-    //                        }else{
-    //                            alert('3');                            
-    //                            $('#div_pergunta_body_'+posicao).after($(data.form));
-    //                        }
-    //                    }
-    //                    $('#a_cadastrar_pergunta').click();                    
-    //                }
-    //            }
-    //        }
-    //        return options;
-    //    }
-    //    function optionsFormAtualizarDescritivo(){
-    //        var options = {            
-    //            success: function(data){
-    //                if(data == 1){                    
-    //                    alert('Atualizado com sucesso!');
-    //                    $('#titulo_exercicio').attr('readonly', 'true');
-    //                    $('#descricao_exercicio').attr('readonly', 'true');
-    //                    $('#div_atualizar_exercicio').attr('style', 'display:none;');
-    //                    $('#btn_editar_exercicio').attr('value', 'Editar');
-    //                }
-    //            }
-    //        }
-    //        return options;
-    //    }
-    //    function optionsFormAtualizarPergunta(){
-    //        var options = {            
-    //            success: function(data){
-    //                if(data == 1){                    
-    //                    alert('Atualizado com sucesso!');
-    //                }
-    //            }
-    //        }
-    //        return options;
-    //    }
+<script>    
     $(document).ready(function(){                
         $('#btn_editar_exercicio').click(function(){
             if($(this).attr('value') == 'Editar'){
@@ -78,42 +18,7 @@
                 $(this).attr('value', 'Editar');
             }
             
-        });
-        
-        //        $('#dialog form').live('submit',function(e){                 
-        //            console.log($(this).parent());
-        //            var name = $(this).attr('id');
-        //            alert(name);
-        //            switch(name){
-        //                case 'form_descritivo_exercicio':
-        //                    $(this).ajaxSubmit(optionsFormAtualizarDescritivo());break;
-        //                case 'form_cadastrar':
-        //                    $(this).ajaxSubmit(optionsFormCadastrarPergunta());break;
-        //                case 'deletar':
-        //                    $(this).ajaxSubmit(optionsFormAtualizarPergunta()); break;
-        //                default://atualizar pergunta
-        //                    $(this).ajaxSubmit(optionsFormAtualizarPergunta()); break;
-        //            }                
-        //            return false;
-        //        });
-            
-        //        $('.btn_del_pergunta').live('click', function(e){
-        //            var r = confirm('Tem certeza de que deseja excluir este registro?');
-        //            if(r == true){
-        //                var id = $(this).attr('id');
-        //                $.getJSON('ajax/crud_exercicio.php?acao=deletar_pergunta',{
-        //                    id: id,
-        //                    ajax: 'true'
-        //                }, function(j){
-        //                    //j = numeracao
-        //                    //usuario excluido                      
-        //                    if(j != 0){
-        //                        $('#div_pergunta_'+j).remove();
-        //                        $('#div_pergunta_body_'+j).remove();
-        //                    }
-        //                }); 
-        //            }
-        //        });
+        });               
     });        
 </script>
 <div>
@@ -156,7 +61,7 @@
             <h4 id="a_cadastrar_pergunta">Cadastrar nova pergunta</h4>
         </div>
         <div id="div_cadastrar_pergunta_body" class="accord_content_body" style="display:none;">
-            <form class="form_submit" id="form_cadastrar" name="form_cadastrar_pergunta" method="post" action="ajax/crud_exercicio.php?acao=inserir_pergunta">
+            <form class="form_submit" id="form_cadastrar_pergunta" name="form_cadastrar_pergunta" method="post" action="ajax/crud_exercicio.php?acao=inserir_pergunta">
                 <fieldset style="width:640px; padding:0 5px 5px 5px; margin: 0 2.5px; ">
                     <legend>Nova Pergunta</legend>
                     <div>

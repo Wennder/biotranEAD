@@ -74,6 +74,12 @@ class controllerUsuario {
         $this->inserirFotoUsuario($this->usuario->getId_usuario());
         return true;
     }
+    
+    public function atualizarSenhaUsuario(Usuario $user){
+        //atualiza usuario
+        $this->updateUsuario($user);
+        return true;
+    }
 
     /*
      * Atualiza Usuario no banco. Faz acesso ao UsuarioDAO

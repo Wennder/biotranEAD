@@ -111,7 +111,16 @@ switch ($papel) {
         //        $('#tabela_usuarios').load(oTable.$('tr').click());
     }
     
+    function preview(){
+        alert($('#foto').value());
+        $('#_id_img_usuario').attr('src', $('#foto').value());
+        $('#_id_img_usuario').attr('width','100');
+        $('#_id_img_usuario').attr('height','120');
+    }
+    
     $(document).ready(function a(){        
+        
+        
         //capturando nome das colunas da tabela para lógica replace de ids
         i = 0;
         $('thead th').each(function(){            
@@ -669,11 +678,11 @@ switch ($papel) {
                                 <tr>
                                     <td>
                                         <div id="foto_usuario">
-                                            <img id="_id_img_usuario" src="img/profile/#ID_FOTO#.jpg" alt="" height="120" width="100" />
+                                            <img id="_id_img_usuario" onclick="preview()" src="img/profile/#ID_FOTO#.jpg" alt="" height="120" width="100" />
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="file" name="_id_foto" id="_id_foto" class="text-input" data-prompt-position="topLeft" style="margin: 100px 0 0 10px;"/>
+                                        <input  type="file" name="_id_foto" id="_id_foto" class="text-input" data-prompt-position="topLeft" style="margin: 100px 0 0 10px;"/>
                                     </td>
                                 </tr>
                             </table>

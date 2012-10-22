@@ -166,6 +166,7 @@
                             <li class="<?php echo $retorno = $_GET['a']=='fotos' ? 'selecionado':'n_selecionado' ?>"><div class="detalhe_left"></div><div class="menu_holder"><a href="index.php?c=index&a=contato">CONTATO</a></div><div class="detalhe_right"></div></li>
                             <li class="<?php echo $retorno = $_GET['a']=='index' ? 'selecionado':'n_selecionado' ?>"><div class="detalhe_left"></div><div class="menu_holder"><a href="index.php?c=index&a=fotos">FOTOS</a></div><div class="detalhe_right"></div></li>
                             <li class="<?php echo $retorno = $_GET['a']=='index' ? 'selecionado':'n_selecionado' ?>" ><div class="detalhe_left"></div><div class="menu_holder"><a href="http://www.biotran.com.br" target="_blank">BIOTRAN</a></div><div class="detalhe_right"></div></li>
+                            <li class="<?php echo $retorno = $_GET['a']=='index' ? 'selecionado':'n_selecionado' ?>" ><div class="detalhe_left"></div><div class="menu_holder"><a href="index.php?c=index&a=cadastro" target="_blank">CADASTRO</a></div><div class="detalhe_right"></div></li>
                         </ul>
                     </div>
                     

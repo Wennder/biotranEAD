@@ -72,9 +72,9 @@ class ControllerSeguranca {
 
     public function actionEnviarSenhaEmail($email, $cpf_passaporte) {
         $this->controller = new controllerUsuario();
-        $user = $this->controller->getUsuario("login ='" . $email . "'");
-        //se o usuario(email) existe no bd E cpf_passaporte for válido          
-        if ($user != null && $cpf_passaporte == $user->getCpf_passaporte()) {
+        $user = $this->controller->getUsuario("cpf_passaporte =" . $cpf_passaporte);
+        //se o usuario(email) existe no bd E cpf_passaporte for válido
+        if ($user != null && $email == $user->getLogin()) {
             //---enviar e-mail
             $mail = new PHPMailer(); //instancia o objeto PHPMailer
             $mail->IsSMTP(); //informa que foi trabalhar com SMTP
@@ -84,25 +84,25 @@ class ControllerSeguranca {
             $mail->Password = "teste2012"; //informo a senha do usuário para autenticação no SMTP
             $mail->From = "contato@biotraead.com.br"; //informo o e-mail Remetente
             $mail->FromName = "Biotran EAD"; //o nome do que irá aparecer para a pessoa que vai receber o e-mail
-//            $mail->AddAddress($email); //e-mail do destinatário
+            $mail->AddAddress($email); //e-mail do destinatário
             $mail->WordWrap = 50; //informo a quebra de linha no e-mail (isso é opcional)
             $mail->IsHTML(true); //informo que o e-mail é em HTML (opcional)
-            $mail->Subject = "Mudança de senha"; //informo o assunto do e-mail
+            $mail->Subject = "Nova senha"; //informo o assunto do e-mail
             //gerando nova senha de usuario:
             $senha = $this->gerarSenha();
             //criando o corpo do e-mail
             $mail->Body = "<html><body>
-                    Olá, ".$user->getNome_completo()." </br>
-                        Sua nova senha é: ".$senha."</br>
+                    Olá, " . $user->getNome_completo() . " </br>
+                        Conforme solicitado, sua nova senha é: " . $senha . "</br>
                         
                         Para a sua segurança altere sua sua senha ;).
                         
             </body></html>"; //aqui vai o corpo do e-mail em HTML
             //Enfim, envio o e-mail.
-            if($mail->Send()){         
+            if ($mail->Send()) {
                 //atualizando no banco
-                $user->setSenha($senha);
-                $this->controller->atualizarUsuario($user);
+                $user->setSenha(md5($senha));
+                $this->controller->atualizarSenhaUsuario($user);
                 return 1;
             }
         }

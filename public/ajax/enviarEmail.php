@@ -9,7 +9,6 @@ $controller = new ControllerSeguranca();
 
 $email = $_REQUEST["email"];
 $cpf_passaporte = $_REQUEST["cpf_passaporte"];
-
 $resposta = $controller->actionEnviarSenhaEmail($email, $cpf_passaporte);
 
 echo( json_encode($resposta) );

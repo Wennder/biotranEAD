@@ -96,20 +96,21 @@ class UsuarioDAO extends PDOConnectionFactory {
     //$condicao entra no formato, ex: 'nome_coluna = valor'
     public function select($condicao = null) {
         try {
-            $this->conex->exec("SET NAMES 'utf-8_unicode_ci'");
+//            $this->conex->exec("SET NAMES 'utf-8_unicode_ci'");
             $stmt = null;
             if ($condicao == null) {
                 $stmt = $this->conex->query("SELECT * FROM usuario");
             } else {
                 $stmt = $this->conex->query("SELECT * FROM usuario WHERE " . $condicao);
             }
-            $usuario = array();                                   
-            for ($i = 0; $i < $stmt->rowCount(); $i++){
+            $usuario = array(); 
+//            echo "SELECT * FROM usuario WHERE " . $condicao; die();
+            for ($i = 0; $i < $stmt->rowCount(); $i++){                
                 $usuario[$i] = $stmt->fetchObject('Usuario');
             }
-            if($i==0){
+            if($i==0){                
                 $usuario = null;
-            }            
+            }
             return $usuario;
         } catch (PDOException $ex) {
             return "erro: ".$ex;
