@@ -6,7 +6,7 @@ if (isset($_GET['id'])) {
     $id_curso = $_GET['id'];
 }
 $controllerModulo = new controllerModulo();
-$controllerCurso = new ControllerCurso();
+$controllerCurso = new controllerCurso();
 
 switch ($usuario) {
     case 1: require 'leftcolumn_admin.php';
