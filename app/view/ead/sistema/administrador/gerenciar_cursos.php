@@ -416,6 +416,10 @@ if (isset($this->curso)) {
             }
         
         });
+        
+        $('#btn_view').live('click', function(){
+            alert('Em construção!');
+        })
     });       
         
     

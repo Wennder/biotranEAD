@@ -20,10 +20,10 @@
     </h3>
     <div id="accordion_leftcolumn navbar_item">
         <div class="accord">
-            <h4 class="navbar_item" style="float:left">></h4>
+            <h4 class="navbar_item" style="float:left; color:white;font-weight: 600;line-height: 100%;font-size: 16px;">></h4>
             <!--<h3 class="navbar_item" style="color:white;font-weight: 600;line-height: 100%;font-size: 16px;">Gerenciar</h3>-->
-            <h3 id="index.php?c=ead"> Gerenciar</h3>
-            <!--<a style="font-size:16px;" href="index.php?c=ead"> Gerenciar </a>-->
+            <!--<h3 id="index.php?c=ead"> Gerenciar</h3>-->
+            <a style="font-size:16px;" href="index.php?c=ead"> Gerenciar </a>
         </div>
         <div class="accord_content" style="display: none;">
             <ul style="list-style-type: none;">

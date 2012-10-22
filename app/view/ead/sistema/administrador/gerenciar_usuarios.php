@@ -614,7 +614,7 @@ switch ($papel) {
                             <label class="label_cadastro">*CPF/Passaporte: </label>
                         </td>
                         <td>
-                            <input type="text" id="_id_cpf_passaporte" name="_id_cpf_passaporte" value="#CPF_PASSAPORTE#" class="validate[required, custom[onlyNumberSp], ajax[validarCpf_cadastro_ajax]] text-input" data-prompt-position="topLeft" style="width: 115px" maxlength="14"/>
+                            <input type="text" id="_id_cpf_passaporte" name="_id_cpf_passaporte" value="#CPF_PASSAPORTE#" class="validate[required, custom[onlyNumberSp], ajax[validarCpf_cadastro_ajax]] text-input" data-prompt-position="topLeft" style="width: 80px" maxlength="14"/>
                             <label class="label_cadastro_legend">XXX.XXX.XXX-XX </label>
                         </td>
                     </tr>
@@ -623,7 +623,7 @@ switch ($papel) {
                             <label class="label_cadastro">RG: </label>
                         </td>
                         <td>
-                            <input type="text" id="_id_rg" name="_id_rg" value="#RG#" class="text-input" data-prompt-position="topLeft" style="width: 115px" maxlength="15"/>
+                            <input type="text" id="_id_rg" name="_id_rg" value="#RG#" class="text-input" data-prompt-position="topLeft" style="width: 80px" maxlength="15"/>
                         </td>
                     </tr>
                     <tr>
@@ -631,7 +631,7 @@ switch ($papel) {
                             <label class="label_cadastro">Data de nascimento: </label>
                         </td>
                         <td>
-                            <input type="text" id="_id_data_nascimento" name="_id_data_nascimento" value="#DATA_NASCIMENTO#" class="text-input" data-prompt-position="topLeft" onKeyUp='mascara_data(this)' onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="10"/>
+                            <input type="text" id="_id_data_nascimento" name="_id_data_nascimento" value="#DATA_NASCIMENTO#" class="text-input" data-prompt-position="topLeft" onKeyUp='mascara_data(this)' onkeypress="return apenas_numero(event);" style="width: 80px" maxlength="10"/>
                             <label class="label_cadastro_legend">DD/MM/AAAA </label>
                         </td>
                     </tr>
@@ -640,7 +640,7 @@ switch ($papel) {
                             <label class="label_cadastro">Telefone Principal: </label>
                         </td>
                         <td>
-                            <input type="text" id="_id_tel_principal" name="_id_tel_principal" value="#TEL_PRINCIPAL#" class="text-input" data-prompt-position="topLeft" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="13"/>
+                            <input type="text" id="_id_tel_principal" name="_id_tel_principal" value="#TEL_PRINCIPAL#" class="text-input" data-prompt-position="topLeft" onkeypress="return apenas_numero(event);" style="width: 80px" maxlength="13"/>
                             <label class="label_cadastro_legend">(XX)XXXX-XXXX </label>
                         </td>
                     </tr>
@@ -649,7 +649,7 @@ switch ($papel) {
                             <label class="label_cadastro">Telefone Secundário: </label>
                         </td>
                         <td>
-                            <input type="text" id="_id_tel_secundario" name="_id_tel_secundario" value="#TEL_SECUNDARIO#" class="text-input" data-prompt-position="topLeft" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="13"/>
+                            <input type="text" id="_id_tel_secundario" name="_id_tel_secundario" value="#TEL_SECUNDARIO#" class="text-input" data-prompt-position="topLeft" onkeypress="return apenas_numero(event);" style="width: 80px" maxlength="13"/>
                         </td>
                     </tr>
                     <tr>                    
