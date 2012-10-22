@@ -32,8 +32,6 @@ if (isset($this->curso)) {
 
     }
 
-
-
     .botao_gerencia_data_table{
         padding: 7px 7px;
         color: #444444;
@@ -46,6 +44,12 @@ if (isset($this->curso)) {
     .botao_gerencia_data_table:hover{
         cursor:pointer;
         border:1px solid #111111;
+    }
+    
+    .ui-dialog-titlebar{
+        background-image: url('img/header_ead_background.png');
+        background-repeat: repeat;
+        height: 10px;
     }
 </style>
 
@@ -170,10 +174,7 @@ if (isset($this->curso)) {
             elem = $('tbody tr.row_selected');
             if (elem.length) {
                 var _data = oTable.fnGetData(elem[0]);
-                var _column = oTable.fnGetData(elem[0]);
-                $('#button_cadastrar').hide();
-                $('#button_atualizar').show();
-                
+                var _column = oTable.fnGetData(elem[0]);                                
                 //preselecionando combos e radio inputs: 
                 if(_data[2] == 'Sim'){
                     $('#_id_gratuitoSim').attr('checked', 'true');//sexo                    
@@ -245,7 +246,8 @@ if (isset($this->curso)) {
                             //Habilita a validação automática no formulário de cadastro
                             var form = $(this).find('#cadastro');
                             $(this).find('#img_curso').src = "img/cursos/"+_data[10]+".jpg?" + new Date().getTime();
-                                                        
+                            $('#button_cadastrar').hide();
+                            $('#button_atualizar').show();       
                             form.validationEngine('attach', {scroll: false});                                                
                             //JS DO PICKLIST DO JAN
                             $(this).find('#add').live('click',function(){
@@ -283,10 +285,7 @@ if (isset($this->curso)) {
             }
         });               
         
-        $('#btn_add').live('click',function(){                        
-            $('#button_cadastrar').show();
-            $('#button_atualizar').hide();                
-                
+        $('#btn_add').live('click',function(){                                                                   
             var _HTML = $('#dialog_form').html();                                
             //preparando picklist do curso:                
             $.getJSON('ajax/combosPickList_cadastroCurso.php?acao=semID',{                       
@@ -344,7 +343,8 @@ if (isset($this->curso)) {
                             //Habilita a validação automática no formulário de cadastro
                             var form = $(this).find('#cadastro');
                             form.validationEngine('attach', {scroll: false});
-                            
+                            $('#button_cadastrar').show();
+                            $('#button_atualizar').hide(); 
                             //JS DO PICKLIST DO JAN
                             $(this).find('#add').live('click',function(){
                                 $('#origem option:selected').each(function(){
@@ -373,15 +373,15 @@ if (isset($this->curso)) {
                                             }  
                                         }
                                     });
-//                                    $.post('ajax/crud_curso.php?acao=inserir&getCurso=1', form.serialize(), function(json) {
-//                                        // handle response
-//                                        var data = new Array();
-//                                        if(json != false){ 
-//                                            //                                        form.find('#id').val(json.id);
-//                                            insertDataTables(form, json);
-//                                            dialog.dialog('close');                                        
-//                                        }                                                                        
-//                                    }, "json");
+                                    //                                    $.post('ajax/crud_curso.php?acao=inserir&getCurso=1', form.serialize(), function(json) {
+                                    //                                        // handle response
+                                    //                                        var data = new Array();
+                                    //                                        if(json != false){ 
+                                    //                                            //                                        form.find('#id').val(json.id);
+                                    //                                            insertDataTables(form, json);
+                                    //                                            dialog.dialog('close');                                        
+                                    //                                        }                                                                        
+                                    //                                    }, "json");
                                     //Chamada do AJAX            
                                 }
                                 return false;

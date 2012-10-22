@@ -190,9 +190,7 @@ switch ($papel) {
             elem = $('tbody tr.row_selected');
             if (elem.length) {
                 var _data = oTable.fnGetData(elem[0]);
-                var _column = oTable.fnGetData(elem[0]);
-                $('#button_cadastrar').hide();
-                $('#button_atualizar').show();
+                var _column = oTable.fnGetData(elem[0]);                
                 
                 //preselecionando combos e radio inputs:                
                 _data[2] = _data[2].replace(/\ /g, '_');                
@@ -226,6 +224,8 @@ switch ($papel) {
                 _HTML = _HTML.replace('_id_img_usuario', 'img_usuario');                                
                 _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');
                 _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');                                
+                _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
+                _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');                                
                 for(i = 0; i < nomeColunas.length; i++){
                     _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
                     _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
@@ -277,7 +277,8 @@ switch ($papel) {
                         //Habilita a validação automática no formulário de cadastro
                         var form = $(this).find('#cadastro');
                         $(this).find('#img_usuario').src = "img/profile/"+_data[20]+".jpg?" + new Date().getTime();
-
+                        $('#button_cadastrar').hide();
+                        $('#button_atualizar').show();
                         form.validationEngine('attach', {scroll: true});
                         //console.log(form.html());
                         form.attr('action', 'ajax/crud_usuario.php?acao=atualizar');
@@ -307,9 +308,7 @@ switch ($papel) {
             $(dialog).dialog('destroy');
         });
         
-        $('#btn_add').click(function(){
-            $('#button_cadastrar').show();
-            $('#button_atualizar').hide();                                   
+        $('#btn_add').click(function(){                                              
             var _HTML2 = $('#dialog_form').html();
             //alterando ids e names                
             _HTML2 = _HTML2.replace('_ID_FORM_', 'cadastro2');                                
@@ -322,6 +321,8 @@ switch ($papel) {
             _HTML2 = _HTML2.replace('_id_foto', 'foto');                                
             _HTML2 = _HTML2.replace('_b_button_cadastrar', 'button_cadastrar');
             _HTML2 = _HTML2.replace('_b_button_cadastrar', 'button_cadastrar');                                
+            _HTML2 = _HTML2.replace('_b_button_atualizar', 'button_atualizar');
+            _HTML2 = _HTML2.replace('_b_button_atualizar', 'button_atualizar');                                
             for(i = 0; i < nomeColunas.length; i++){
                 _HTML2 = _HTML2.replace('_id_'+nomeColunas[i], nomeColunas[i]);
                 _HTML2 = _HTML2.replace('_id_'+nomeColunas[i], nomeColunas[i]);
@@ -359,7 +360,9 @@ switch ($papel) {
                 open: function(event, ui) { 
                     //Habilita a validação automática no formulário de cadastro
                     var form = $(this).find('#cadastro2');
-                    form.validationEngine();                                                
+                    form.validationEngine();   
+                    $('#button_cadastrar').show();
+                    $('#button_atualizar').hide(); 
                     //console.log(form.html());
                     form.live('submit',function(){//adicionar esse evento                                                        
                         if($(this).validationEngine('validate')){ 

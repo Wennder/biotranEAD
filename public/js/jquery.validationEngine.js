@@ -1356,7 +1356,7 @@
 				}
 			}
 			// Modify z-indexes  for jquery ui
-			if (field.closest('.ui-dialog').length || field.closest('.k-window').length)
+			if (field.closest('.dialogstyle').length || field.closest('.k-window').length)
 				prompt.addClass('formErrorInsideDialog');
 
 			prompt.css({
