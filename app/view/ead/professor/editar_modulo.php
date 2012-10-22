@@ -147,7 +147,7 @@
 </script>
 
 <div id="div_conteudo_professor_editar_modulo">
-    <div id="titulo_modulo"><h1>Modulo <?php echo $this->modulo->getNumero_modulo() ?></h1>
+    <div id="titulo_modulos"><h1>Modulo <?php echo $this->modulo->getNumero_modulo() ?></h1>
         <form id="form_descritivo">
             <div id="div_editar_modulo" align="right">
                 <input type="button" name="btn_editar_modulo" id="btn_editar_modulo" value="Editar"/>
@@ -163,10 +163,7 @@
             </div>
         </form>    
         <div id="disposicao_conteudo_professor_editar_modulo">
-            <h4>Descricao: </h4>
-            <div class="quadro_de_conteudo_especifico">
-                <?php echo $this->modulo->getDescricao() ?>
-            </div>
+            
 
             <div class="">            
                 <div class="accord_body">
