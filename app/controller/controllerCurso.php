@@ -455,7 +455,9 @@ class controllerCurso {
                             " AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
                 $tabela.="<li><a><div class='lista_cursos'><table style='width: 100%;' class='nao_matriculado'>
                     <tr ><td align='left'>" . $this->cursos[$i]->getNome() . "</td>";
-                $tabela.="<td align='right' ><a href='index.php?c=ead&a=matricula&id=" . $this->cursos[$i]->getId_curso() . "' class='button'>Matricular</a></td></tr>";
+//                $tabela.="<td align='right' ><a href='index.php?c=ead&a=matricula&id=" . $this->cursos[$i]->getId_curso() . "' class='button'>Matricular</a></td></tr>";
+                $aux = 'Em contrucao';
+                $tabela.="<td align='right'><input onclick='em_construcao()' type='button' value='Matricular' /></td></tr>";
                 $tabela.= "<tr><td style='font-size:12px;'>Duração do curso:" . $this->cursos[$i]->getTempo() . "</td></tr>";
                 $tabela.="</table></div></a></li>";
             }
