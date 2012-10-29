@@ -15,21 +15,7 @@
     }); 
 </script>
 
-<style>
-.accord *{
-    font-weight: 600;
-    line-height: 100%;
-}
 
-.accord{
-    cursor: pointer;
-}
-.acao_leftcolumn {
-    cursor: pointer;
-    font-weight: 500;
-    line-height: 100%;
-}
-</style>
 
 <div id="left_column_dialog"></div>
 
@@ -46,7 +32,7 @@ if (isset($_GET['id'])) {
         <h3 class="navbar_item gerenciarIcon">
             <a href="index.php?c=ead&a=listaCursos_professor">Cursos</a>
         </h3>
-        <div class="accordion_leftcolumn navbar_item">
+        <div class="navbar_item">
             <div class="accord">
                 <h4 style="float:left;">></h4>
                 <h3 name="editar_curso" id="index.php?c=ead&a=editar_curso&id=<?php echo $id_curso ?>"><?php echo $controllerCurso->getCurso("id_curso=" . $id_curso)->getNome() ?></h3>

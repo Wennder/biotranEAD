@@ -25,32 +25,7 @@ if (isset($this->curso)) {
 <style type="text/css" title="currentStyle">
     @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
 
-    #div_update label {display:block;width:100%;padding:10px 0;}
-    #form_gerenciar{
-        padding: 50px;
-        overflow: hidden;
-
-    }
-
-    .botao_gerencia_data_table{
-        padding: 7px 7px;
-        color: #444444;
-        background-color: #eeeeee;
-        border:1px solid #999999;
-        font-weight: 600;
-        border-radius: 5px;
-    }
-
-    .botao_gerencia_data_table:hover{
-        cursor:pointer;
-        border:1px solid #111111;
-    }
     
-    .ui-dialog-titlebar{
-        background-image: url('img/header_ead_background.png');
-        background-repeat: repeat;
-        height: 10px;
-    }
 </style>
 
 <script>
@@ -444,21 +419,7 @@ if (isset($this->curso)) {
     }        
 
 </script>
-<style>
-    .origem, .destino {
-        float:left;
-        display:inline; 
-    }
-    .botoes{
-        float:left;
-        display:inline;         
-    }
 
-    #destino {
-        display:block;
-        width:100px;
-    }
-</style>
 
 <!--<div id="opcoes_cadastro">
     <input type="button" value="Cadastro" class="button" onclick="mostrar('cadastro');"/>

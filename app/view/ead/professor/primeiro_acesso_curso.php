@@ -10,12 +10,7 @@
         $('#cadastro').validationEngine();
     });
 </script>
-<style>
-    #form_cadastro h2{
-        margin-bottom: 20px;
-        font-weight: 600;
-    }
-</style>
+
 <div id="form_cadastro" >
     <h2><?php echo $this->curso->getNome();?></h2>
     <!-- -->

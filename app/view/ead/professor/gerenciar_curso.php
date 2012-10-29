@@ -33,40 +33,7 @@
     
 </script>
 
-<style>
-    #div_conteudo_professor_editar_modulo{
-        position: relative;
 
-        padding-top:0px;
-    }
-
-    #div_conteudo_professor_editar_modulo h4{
-        margin:0;
-
-        padding:0;
-    }
-
-    #disposicao_conteudo_professor_editar_modulo{
-        position: relative;
-
-    }
-
-    #center_content{
-
-
-        padding-top:0px;
-    }
-
-    #center_content h4{
-        margin:0;
-
-        padding:0;
-    }
-
-
-
-
-</style>
 
 
 
