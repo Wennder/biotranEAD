@@ -141,7 +141,7 @@ if (isset($this->curso)) {
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 7 ], "sTitle":"rendering" },
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 8 ], "sTitle":"rendering" },
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 9 ], "sTitle":"rendering" },
-                { "bSearchable": false, "bVisible": false, "aTargets": [ 10 ], "sTitle":"rendering" },                
+                { "bSearchable": false, "bVisible": false, "aTargets": [ 10 ], "sTitle":"rendering" },                                
             ],
             "bJQueryUI":true,
             "bPaginate": true,
@@ -168,7 +168,15 @@ if (isset($this->curso)) {
                 oTable.$('tr.row_selected').removeClass('row_selected');
                 $(this).addClass('row_selected');
             }
-        });                
+        });  
+        
+        $('#btn_analisar').live('click', function(){
+            elem = $('tbody tr.row_selected');
+            if(elem.length){
+                var _data = oTable.fnGetData(elem[0]);
+                _HTML = $('#div_curso').html();
+            }
+        });
         
         $('#btn_edit').live('click',function(){
             elem = $('tbody tr.row_selected');
@@ -572,11 +580,85 @@ if (isset($this->curso)) {
     </div>
 </div>
 
+
+<div id="div_curso" style="display: none;">
+    
+    <div id="disposicao_conteudo_professor_editar_curso">
+    <form id="form_editar_curso">
+        <div class="quadro_de_conteudo_especifico" style="border-bottom:1px solid #eeeeee;">
+            <div id="nao_editavel" style="float:right; clear:right; margin-top:10px;margin-left:5px;">
+            <div id="div_editar" align="right">
+                <input type="button" id="btn_editar" value="Editar"/>
+            </div>
+            <div id="div_atualizar" style="display: none;">
+                <input id="btn_atualizar" type="button"  value="Atualizar"/>    
+            </div>
+                <h4 style="border-left:3px solid #7fd08b; line-height: 14px; clear:right;">Tempo: </h4>
+                <h5>#TEMPO# <h5/>
+
+                <h4 style="border-left:3px solid #7f98d0; line-height: 14px;">Status: </h4>
+                <h5>#STATUS#<h5/>
+
+                <h4 style="border-left:3px solid #d07f7f; line-height: 14px;">Gratuito: </h4>
+                <h5>#GRATUITO#</h5>
+
+                <h4 style="border-left:3px solid #cdd07f; line-height: 14px;margin-right:3px;">Valor: </h4>
+                <h5>#VALOR#</h5>
+            </div>
+            <div id="form_editaveis_holder">
+                <div id="img_titulo_descricao">
+                <div id="image_holder">
+                    <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
+                <div id="titulo_holder" style="">
+                    <h1 style="">#TEMPO#</h1>
+                </div>
+                <div style=" overflow:auto; ">
+                    <h4 style="border-left:3px solid #7f98d0; line-height: 14px;">Descricao: </h4>
+                    <div style="padding:5px;">
+                        <textarea id="descricao" name="descricao" rows="5" type="text" readonly="readonly">#DESCRICAO#</textarea>
+                    </div>
+                </div>
+                </div>
+            <div style="padding:10px;float:left;  ">
+                <div style="clear:left; position:relative; margin-left: 20px;">
+                    <div style="float:left; overflow:auto; clear: left; margin-right:10px;">
+                        <h4 style="border-left:3px solid #7fd08b; line-height: 14px;" >Objetivo: </h4>
+                        <div style="padding:5px;">
+                            <textarea id="objetivo" name="objetivo" rows="5" type="text" readonly="readonly">#OBJETIVO#</textarea>
+                        </div>
+                    </div>
+
+                    <div style="float:left; overflow:auto; margin-right:10px;"> 
+                        <h4 style="border-left:3px solid #cdd07f; line-height: 14px;">Justificativa: </h4>
+                        <div style="padding:5px;">
+                            <textarea id="justificativa" rows="5" name="justificativa" type="text" readonly="readonly">#JUSTIFICATIVA#</textarea>
+                        </div>
+                    </div>
+                    <div style="float:left;overflow:auto;">
+                        <h4 style="border-left:3px solid #d07f7f; line-height: 14px; ">Observacoes: </h4>
+                        <div style="padding:5px;">
+                            <textarea id="obs" rows="5" name="obs" type="text" readonly="readonly">#OBSERVACOES#</textarea>
+                        </div>
+                    </div>
+                </div>
+                </div>                    
+            </div>                      
+            <div id="div_atualizar" align="right" style="display: none; ">
+                <input id="id" name="id" type="text" value="<?php echo $this->curso->getId_curso() ?>"/>    
+            </div>
+        </div>
+    </form>
+    <div name="lista_modulos" id="lista_modulos">        
+    </div>
+</div>
+</div>
+
 <div id="form_gerenciar" style="">
     <input type="button" value="Adicionar curso" id="btn_add" class="botao_gerencia_data_table" />
     <input type="button" value="Editar" id="btn_edit"  class="botao_gerencia_data_table"/>
     <input type="button" value="Remover" id="btn_del" class="botao_gerencia_data_table"/>
     <input type="button" value="Ver" id="btn_view" class="botao_gerencia_data_table"/>
+    
     <?php
     if (!isset($this->tabela)) {
         $controllerCurso = new controllerCurso();

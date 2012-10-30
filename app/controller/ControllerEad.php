@@ -226,7 +226,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerCurso();
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
-        if ($this->visao->curso->getStatus(1) == 0) {
+        if ($this->visao->curso->getNumero_modulos() == 0) {
             Biotran_Mvc::pegarInstancia()->mudarAcao('primeiro_acesso_curso');
         }
         $this->renderizar();
@@ -235,17 +235,17 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerCurso();
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
-        if ($this->visao->curso->getStatus(1) == 0) {
+        if ($this->visao->curso->getNumero_modulos() == 0) {
             Biotran_Mvc::pegarInstancia()->mudarAcao('primeiro_acesso_curso');
         }
         $this->renderizar();
     }
     
-    public function actionGerenciar_curso() {
+    public function actionGerenciar_curso() {        
         $this->controller = new controllerCurso();
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");                
-        if ($this->visao->curso->getStatus(1) == 0) {
+        if ($this->visao->curso->getNumero_modulos() == 0) {
             Biotran_Mvc::pegarInstancia()->mudarAcao('primeiro_acesso_curso');
         }        
         $this->renderizar();

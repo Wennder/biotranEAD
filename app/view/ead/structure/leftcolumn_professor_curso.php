@@ -44,7 +44,7 @@ if (isset($_GET['id'])) {
             <a href="<?php echo "index.php?c=ead" ?>"> Home </a>
         </h3>
         <h3 class="navbar_item gerenciarIcon">
-            <a href="index.php?c=ead&a=listaCursos_professor">Cursos</a>
+            <a href="index.php?c=ead&a=cursos_professor">Cursos</a>
         </h3>
         <div class="accordion_leftcolumn navbar_item">
             <div class="accord">

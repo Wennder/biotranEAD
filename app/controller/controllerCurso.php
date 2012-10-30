@@ -300,7 +300,11 @@ class controllerCurso {
         for ($i = 0; $i < count($cursos); $i++) {
             $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());
             if ($this->curso->getStatus(1) == 0) {
-                $construcao .= "<li><a href=index.php?c=ead&a=primeiro_acesso_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
+                if ($this->curso->getNumero_modulos() == 0) {
+                    $construcao .= "<li><a href=index.php?c=ead&a=primeiro_acesso_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
+                } else {
+                    $construcao .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
+                }
                 $a++;
             } else if ($this->curso->getStatus(1) == 1) {
                 $nao_avaliado .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
@@ -395,7 +399,8 @@ class controllerCurso {
                     <th>objetivo</th>
                     <th>justificativa</th>
                     <th>obs</th>                   
-                    <th>id</th>                   
+                    <th>id</th>                    
+                    <th>Disponibilizar</th>                   
                 </tr> 
             </thead> 
             <tbody>";
@@ -406,6 +411,7 @@ class controllerCurso {
 
         $quant = count($this->cursos);
         $i = 0;
+        $controller = new controllerModulo();
         for (; $i < $quant; $i++) {
             $tabela .= "<tr id=tabela_linha" . $this->cursos[$i]->getId_curso() . ">";
             $tabela .= "<td width='45%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
@@ -414,11 +420,33 @@ class controllerCurso {
             $tabela .= "<td width='14%' id='valor' align='center'>" . $this->cursos[$i]->getValor() . "</td>";
             $tabela .= "<td width='14%' id='status' align='center'>" . $this->getNomeStatus($this->cursos[$i]->getStatus()) . "</td>";
             $tabela .= "<td width='14%' id='descricao' align='center'>" . $this->cursos[$i]->getDescricao() . "</td>";
+
+            //capturando id dos modulos            
+            $modulos = $controller->getListaModulo('id_curso=' . $this->cursos[$i]->getId_curso());
+            $id_modulos = '';
+            if (count($modulos) == $this->cursos[$i]->getNumero_modulos()) {
+                for ($j = 0; $j < count($modulos); $j++) {
+                    $id_modulos .= $modulos[$i]->getId_modulos() . ';';                    
+                }
+            } else {
+                echo 'numero de modulos!';
+                die();
+            }
+
             $tabela .= "<td width='14%' id='numero_modulos' align='center'>" . $this->cursos[$i]->getNumero_modulos() . "</td>";
             $tabela .= "<td width='14%' id='objetivo' align='center'>" . $this->cursos[$i]->getObjetivo() . "</td>";
             $tabela .= "<td width='14%' id='justificativa' align='center'>" . $this->cursos[$i]->getJustificativa() . "</td>";
             $tabela .= "<td width='14%' id='obs' align='center'>" . $this->cursos[$i]->getObs() . "</td>";
             $tabela .= "<td width='14%' id='id_curso' align='center'>" . $this->cursos[$i]->getId_curso() . "</td>";
+            if ($this->cursos[$i]->getStatus() == 3) {
+                $tabela .= "<td width='14%' id='input_liberar' align='center'> <input type='button' value='Habilitar' id='input_disponibilizar_" . $this->cursos[$i]->getId_curso() . "' /></td>";
+            } else {
+                if ($this->cursos[$i]->getStatus() == 4) {
+                    $tabela .= "<td width='14%' id='input_liberar' align='center'> <input type='button' value='Desabilitar' id='input_disponibilizar_" . $this->cursos[$i]->getId_curso() . "' /></td>";
+                } else {
+                    $tabela .= "<td width='14%' id='input_liberar' align='center'> <input type='button' value='Não avaliado' disabled='true' id='input_disponibilizar_" . $this->cursos[$i]->getId_curso() . "' /></td>";
+                }
+            }
         }
         $tabela .= "</tbody></table>";
         return $tabela;
@@ -615,7 +643,7 @@ class controllerCurso {
     public function primeiro_acesso(Curso $curso) {
         $this->curso = $curso;
         $this->setCurso_post();
-        $this->curso->setStatus(1);
+//        $this->curso->setStatus(1);
         $this->updateCurso($this->curso);
         $this->controller = new controllerModulo();
         for ($i = 0; $i < $this->curso->getNumero_modulos(); $i++) {
