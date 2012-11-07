@@ -21,7 +21,7 @@ switch ($usuario) {
         }
         break;
     case 4:
-        if (Biotran_Mvc::pegarInstancia()->pegarAcao() == "curso") {
+        if (isset($_GET['a']) && $_GET['a'] != 'todos_cursos') {
             require 'leftcolumn_aluno_curso.php';
         } else {
             require 'leftcolumn_aluno_home.php';

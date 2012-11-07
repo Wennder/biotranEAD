@@ -67,7 +67,7 @@ class UsuarioDAO extends PDOConnectionFactory {
                 $stmt->bindValue(15, $user->getId_usuario());
                 if(!$stmt->execute()){
                     trigger_error(FALHA_SISTEMA);
-                }                
+                }
                 if ($end != null) {
                     $dao = new EnderecoDAO();
                     $dao->update($end);

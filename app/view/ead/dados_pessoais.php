@@ -1,20 +1,21 @@
 <?php require 'structure/header.php'; ?>
+<?php require 'structure/leftcolumn.php'; ?>
 <?php
-$papel = $_SESSION["usuarioLogado"]->getId_papel();
-switch ($papel) {
-    case 1:
-        require 'structure/leftcolumn_admin.php';
-        break;
-    case 2:
-        require 'structure/leftcolumn_gestor.php';
-        break;
-    case 3:
-        require 'structure/leftcolumn_professor.php';
-        break;
-    case 4:
-        require 'structure/leftcolumn_aluno.php';
-        break;
-}
+//$papel = $_SESSION["usuarioLogado"]->getId_papel();
+//switch ($papel) {
+//    case 1:
+//        require 'structure/leftcolumn_admin.php';
+//        break;
+//    case 2:
+//        require 'structure/leftcolumn_gestor.php';
+//        break;
+//    case 3:
+//        require 'structure/leftcolumn_professor.php';
+//        break;
+//    case 4:
+//        require 'structure/leftcolumn_aluno.php';
+//        break;
+//}
 ?>
 <?php require 'structure/content.php'; ?>
 <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
@@ -58,7 +59,7 @@ switch ($papel) {
 
 <div id="form_editar">
     <h2>Alterar Dados Pessoais</h2>
-    <form id="editar" class="form_editar" method="post" action="index.php?c=ead&a=atualizar_cadastro_usuario" enctype="multipart/form-data">
+    <form id="editar_dados_pessoais" class="form_editar" method="post" action="index.php?c=ead&a=atualizar_cadastro_usuario&id=<?php echo ($this->usuario == null ? '' : $this->usuario->getId_usuario()); ?>" enctype="multipart/form-data">
         <fieldset style="width: 100%;">
             <legend>Dados Pessoais</legend>
             <table>

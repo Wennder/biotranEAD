@@ -106,7 +106,7 @@
         text-decoration: none;
     }
 
-    
+
 
     #image_holder{
         padding:3px;
@@ -123,16 +123,16 @@
     #titulo_holder{
         position: relative;
         z-index: 2; 
-        
+
     }
     #div_conteudo_professor_editar_curso *{
         position:relative;
     }
 
-   
+
     #descricao{
         position: relative;
-       
+
     }
 
     #nao_editavel{
@@ -140,10 +140,10 @@
     }
 
     #nao_editavel *{
-        
+
     }
 
-  
+
     #form_editaveis_holder{
         margin-right: 20px;
         overflow: auto;
@@ -162,11 +162,11 @@
 
     #img_titulo_descricao{
         overflow: auto;
-border-bottom: 1px solid #EEE;
-padding: 0px 0px 10px 0px;
-margin-right: 15px;
+        border-bottom: 1px solid #EEE;
+        padding: 0px 0px 10px 0px;
+        margin-right: 15px;
     }
-    
+
 </style>
 
 <script>
@@ -180,11 +180,11 @@ margin-right: 15px;
             $(this).attr('value', 'Cancelar');            
         }else{
             $('#descricao').attr('readonly', 'true');
-                $('#justificativa').attr('readonly', 'true');
-                $('#objetivo').attr('readonly', 'true');
-                $('#obs').attr('readonly', 'true');
-                $('#div_atualizar').attr('style', 'display:none;');
-                $('#btn_editar').attr('value', 'Editar');
+            $('#justificativa').attr('readonly', 'true');
+            $('#objetivo').attr('readonly', 'true');
+            $('#obs').attr('readonly', 'true');
+            $('#div_atualizar').attr('style', 'display:none;');
+            $('#btn_editar').attr('value', 'Editar');
         }
     });
     
@@ -202,6 +202,18 @@ margin-right: 15px;
             }                                                                
         }, "json");                
     });
+    
+    $('#btn_env_analise').live('click', function(){
+        var id_curso = $('#id').val();
+        $.getJSON('ajax/avaliar_curso.php', {id_curso: id_curso, acao:'submeter_analise'}, function(j){
+            if(j == 1){
+                alert('enviado com sucesso');
+                $('#div_env_analise').remove();
+            }else{
+                alert('erro ao enviar, tente novamente');
+            }
+        }); 
+    });
 </script>
 <?php
 if (isset($_GET['id'])) {
@@ -214,73 +226,78 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
     <form id="form_editar_curso">
         <div class="quadro_de_conteudo_especifico" style="border-bottom:1px solid #eeeeee;">
             <div id="nao_editavel" style="float:right; clear:right; margin-top:10px;margin-left:5px;">
-            <div id="div_editar" align="right">
-                <input type="button" id="btn_editar" value="Editar"/>
-            </div>
-            <div id="div_atualizar" style="display: none;">
-                <input id="btn_atualizar" type="button"  value="Atualizar"/>    
-            </div>
+                <div id="div_editar" align="right">
+                    <input type="button" id="btn_editar" value="Editar"/>
+                </div>
+                <div id="div_atualizar" style="display: none;">
+                    <input id="btn_atualizar" type="button"  value="Atualizar"/>    
+                </div>
                 <h4 style="border-left:3px solid #7fd08b; line-height: 14px; clear:right;">Tempo: </h4>
                 <h5><?php echo $this->curso->getTempo() ?> <h5/>
 
-                <h4 style="border-left:3px solid #7f98d0; line-height: 14px;">Status: </h4>
-                <h5><?php echo $this->curso->getStatus(0) ?><h5/>
+                    <h4 style="border-left:3px solid #7f98d0; line-height: 14px;">Status: </h4>
+                    <h5><?php echo $this->curso->getStatus(0) ?><h5/>
 
-                <h4 style="border-left:3px solid #d07f7f; line-height: 14px;">Gratuito: </h4>
-                <h5><?php echo $this->curso->getGratuito() ?></h5>
+                        <h4 style="border-left:3px solid #d07f7f; line-height: 14px;">Gratuito: </h4>
+                        <h5><?php echo $this->curso->getGratuito() ?></h5>
 
-                <h4 style="border-left:3px solid #cdd07f; line-height: 14px;margin-right:3px;">Valor: </h4>
-                <h5><?php echo $this->curso->getValor() ?></h5>
-            </div>
-            <div id="form_editaveis_holder">
-                <div id="img_titulo_descricao">
-                <div id="image_holder">
-                    <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
-                <div id="titulo_holder" style="">
-                    <h1 style=""><?php echo $this->curso->getNome(); ?></h1>
-                </div>
-                <div style=" overflow:auto; ">
-                    <h4 style="border-left:3px solid #7f98d0; line-height: 14px;">Descricao: </h4>
-                    <div style="padding:5px;">
-                        <textarea id="descricao" name="descricao" rows="5" type="text" readonly="readonly"><?php echo $this->curso->getDescricao() ?></textarea>
-                    </div>
-                </div>
-                </div>
-            <div style="padding:10px;float:left;  ">
-                <div style="clear:left; position:relative; margin-left: 20px;">
-                    <div style="float:left; overflow:auto; clear: left; margin-right:10px;">
-                        <h4 style="border-left:3px solid #7fd08b; line-height: 14px;" >Objetivo: </h4>
-                        <div style="padding:5px;">
-                            <textarea id="objetivo" name="objetivo" rows="5" type="text" readonly="readonly"> <?php echo $this->curso->getObjetivo() ?> </textarea>
+                        <h4 style="border-left:3px solid #cdd07f; line-height: 14px;margin-right:3px;">Valor: </h4>
+                        <h5><?php echo $this->curso->getValor() ?></h5>
                         </div>
-                    </div>
+                        <?php                        
+                        if ($this->curso->getStatus() == 0 || $this->curso->getStatus() == 2) {
+                            echo('<div id="div_env_analise"><input type="button" id="btn_env_analise" value="Enviar para análise"/></div>');
+                        }
+                        ?>            
+                        <div id="form_editaveis_holder">
+                            <div id="img_titulo_descricao">
+                                <div id="image_holder">
+                                    <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
+                                <div id="titulo_holder" style="">
+                                    <h1 style=""><?php echo $this->curso->getNome(); ?></h1>
+                                </div>
+                                <div style=" overflow:auto; ">
+                                    <h4 style="border-left:3px solid #7f98d0; line-height: 14px;">Descricao: </h4>
+                                    <div style="padding:5px;">
+                                        <textarea id="descricao" name="descricao" rows="5" type="text" readonly="readonly"><?php echo $this->curso->getDescricao() ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding:10px;float:left;  ">
+                                <div style="clear:left; position:relative; margin-left: 20px;">
+                                    <div style="float:left; overflow:auto; clear: left; margin-right:10px;">
+                                        <h4 style="border-left:3px solid #7fd08b; line-height: 14px;" >Objetivo: </h4>
+                                        <div style="padding:5px;">
+                                            <textarea id="objetivo" name="objetivo" rows="5" type="text" readonly="readonly"> <?php echo $this->curso->getObjetivo() ?> </textarea>
+                                        </div>
+                                    </div>
 
-                    <div style="float:left; overflow:auto; margin-right:10px;"> 
-                        <h4 style="border-left:3px solid #cdd07f; line-height: 14px;">Justificativa: </h4>
-                        <div style="padding:5px;">
-                            <textarea id="justificativa" rows="5" name="justificativa" type="text" readonly="readonly"> <?php echo $this->curso->getJustificativa() ?> </textarea>
+                                    <div style="float:left; overflow:auto; margin-right:10px;"> 
+                                        <h4 style="border-left:3px solid #cdd07f; line-height: 14px;">Justificativa: </h4>
+                                        <div style="padding:5px;">
+                                            <textarea id="justificativa" rows="5" name="justificativa" type="text" readonly="readonly"> <?php echo $this->curso->getJustificativa() ?> </textarea>
+                                        </div>
+                                    </div>
+                                    <div style="float:left;overflow:auto;">
+                                        <h4 style="border-left:3px solid #d07f7f; line-height: 14px; ">Observacoes: </h4>
+                                        <div style="padding:5px;">
+                                            <textarea id="obs" rows="5" name="obs" type="text" readonly="readonly"> <?php echo $this->curso->getObs() ?> </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                    
+                        </div>                      
+                        <div id="div_atualizar" align="right" style="display: none; ">
+                            <input id="id" name="id" type="text" value="<?php echo $this->curso->getId_curso() ?>"/>    
                         </div>
-                    </div>
-                    <div style="float:left;overflow:auto;">
-                        <h4 style="border-left:3px solid #d07f7f; line-height: 14px; ">Observacoes: </h4>
-                        <div style="padding:5px;">
-                            <textarea id="obs" rows="5" name="obs" type="text" readonly="readonly"> <?php echo $this->curso->getObs() ?> </textarea>
                         </div>
-                    </div>
-                </div>
-                </div>                    
-            </div>                      
-            <div id="div_atualizar" align="right" style="display: none; ">
-                <input id="id" name="id" type="text" value="<?php echo $this->curso->getId_curso() ?>"/>    
-            </div>
-        </div>
-    </form>
-    <div name="editar_curso" id="lista_de_modulos">
-        <ul style="list-style-type:none;">
-            <?php
-            $controllerModulo = new controllerModulo();
-            echo $controllerModulo->listaModulos($id_curso);
-            ?>
-        </ul>
-    </div>
-</div>
+                        </form>
+                        <div name="editar_curso" id="lista_de_modulos">
+                            <ul style="list-style-type:none;">
+                                <?php
+                                $controllerModulo = new controllerModulo();
+                                echo $controllerModulo->listaModulos($id_curso);
+                                ?>
+                            </ul>
+                        </div>
+                        </div>

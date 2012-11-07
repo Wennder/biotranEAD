@@ -93,6 +93,19 @@ class controllerModulo {
         
         return $listaModulos;
     }
+    
+    public function lista_visualizarModulos_lefcolumn($id_curso) {
+        $modulos = $this->getListaModulo('id_curso=' . $id_curso);
+        $quant = count($modulos);
+        $i = 0;
+        $listaModulos = "";        
+        for (; $i < $quant; $i++) {
+            $listaModulos .= "<div class='accordion_leftcolumn '><div name='editar_modulo' class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=conteudo_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";            
+            $listaModulos .= "</ul></div></div>";
+        }
+        
+        return $listaModulos;
+    }
 
     public function listaVideo_aulas_modulo($id_modulo) {
         $controllerVideo = new controllerVideo();
@@ -106,6 +119,22 @@ class controllerModulo {
         return $lista;
     }
     
+    public function visualizar_listaVideo_aulas_modulo($id_modulo) {
+        $controllerVideo = new controllerVideo();
+        $lista = "";
+        $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
+        $qnt = count($videos);
+        for ($i = 0; $i < count($videos); $i++) {
+            $lista .= "<li class='conteudo_row' id='li_video_" . $videos[$i]->getId_video() . "'><h3 name='video' class='item_conteudo titulo_video' id=index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . ">";
+            $lista .= $videos[$i]->getTitulo();
+            $lista .= "</h3></li>";
+        }
+        if($qnt < 1){
+            $lista = 'Não há registros de vídeo-aulas no sistema.';
+        }
+        return $lista;
+    }
+    
     public function listaExercicio($id_modulo) {
         $controller = new controllerExercicio();
         $lista = "";
@@ -114,6 +143,18 @@ class controllerModulo {
             $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><h3 name='exercicio' class='item_conteudo titulo_video' id='index.php?c=ead&a=editar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
             $lista .= $exercicio[$i]->getTitulo();
             $lista .= "</h3><input id='" . $exercicio[$i]->getId_exercicio() . "' type='button' name='exercicio' class='btn_del' value='Excluir'/><input type='button' id='index.php?c=ead&a=editar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' class='btn_edt' name='exercicio' value='Editar'/>";
+        }
+        return $lista;
+    }
+    
+    public function visualizar_listaExercicio($id_modulo) {
+        $controller = new controllerExercicio();
+        $lista = "";
+        $exercicio = $controller->getListaExercicio('id_modulo=' . $id_modulo);
+        for ($i = 0; $i < count($exercicio); $i++) {
+            $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><h3 name='exercicio' class='item_conteudo titulo_video' id='index.php?c=ead&a=editar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
+            $lista .= $exercicio[$i]->getTitulo();
+            $lista .= "</h3>";
         }
         return $lista;
     }
@@ -139,6 +180,33 @@ class controllerModulo {
                 $lista .= "<li class='conteudo_row' id='li_" . $tipo . "_" . $id[0] . "'><h3>";
                 $lista .= "<a style='float: left;' target='_blank' href='" . $link . basename($arquivo) . "'>" . $txt->getNome() . "</a>";
                 $lista .= "</h3><input type='button' name='" . $tipo . "' id='" . $id[0] . "' class='btn_del' value='Excluir'/></li>";
+            }
+        }
+        return $lista;
+    }
+    
+    public function visualizar_listaArquivos(Modulo $modulo, $tipo) {
+        $lista = 0;
+        $tipo = strtolower($tipo);
+        if ($tipo == 'texto_referencia' || $tipo == 'material_complementar') {
+            $link = "cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/" . $tipo . "/";
+            $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/" . $tipo . "/";
+            $arquivos = glob($diretorio . "*.pdf");
+            $lista = "";
+            $controller = 'controller' . ucfirst($tipo);
+            $controller = new $controller;
+            $aux = 1;
+            foreach ($arquivos as $arquivo) {
+                $aux = 0;
+                $id = explode('.', basename($arquivo));
+                $get = 'get'.ucfirst($tipo);
+                $txt = $controller->$get('id_'.$tipo.'=' . $id[0]);
+                $lista .= "<li class='conteudo_row' id='li_" . $tipo . "_" . $id[0] . "'><h3>";
+                $lista .= "<a style='float: left;' target='_blank' href='" . $link . basename($arquivo) . "'>" . $txt->getNome() . "</a>";
+                $lista .= "</h3></li>";
+            }
+            if($aux){
+               $lista = 'Não há registros no sistema.';
             }
         }
         return $lista;

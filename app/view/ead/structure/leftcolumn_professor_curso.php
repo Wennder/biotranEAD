@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
             <a href="<?php echo "index.php?c=ead" ?>"> Home </a>
         </h3>
         <h3 class="navbar_item gerenciarIcon">
-            <a href="index.php?c=ead&a=listaCursos_professor">Cursos</a>
+            <a href="index.php?c=ead&a=cursos_professor">Cursos</a>
         </h3>
         <div class="navbar_item">
             <div class="accord">
@@ -38,12 +38,16 @@ if (isset($_GET['id'])) {
                 <h3 name="editar_curso" id="index.php?c=ead&a=editar_curso&id=<?php echo $id_curso ?>"><?php echo $controllerCurso->getCurso("id_curso=" . $id_curso)->getNome() ?></h3>
             </div>
             <div class="accord_content">
-                <ul style="list-style-type:none;">
+                
                     <?php
                     echo $controllerModulo->listaAdicionar_conteudo_modulo($id_curso);
                 }
                 ?>
-            </ul>
+                
+                <?php // if($controllerCurso->getCurso("id_curso=" . $id_curso)->getStatus(1)==4){?>
+                    <a href="index.php?c=ead&a=forum&id=<?php echo $id_curso?>" style="padding-left:5px;">Forum</a>
+                    <?php // }?>
+                
         </div>
     </div>
 </div>

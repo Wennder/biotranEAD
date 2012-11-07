@@ -11,44 +11,42 @@
  * @author Torres
  */
 class Resposta {
-    
+
     private $id_resposta;
-    private $id_exercicio;
-    private $resposta;
-    private $eh_resposta;
-    
+    private $id_topico;
+    private $id_usuario;
+    private $mensagem;
+
     public function getId_resposta() {
         return $this->id_resposta;
     }
 
-    public function setId_resposta($id_resposta) {
+    public function getId_topico() {
+        return $this->id_topico;
+    }
+
+    public function getId_usuario() {
+        return $this->id_usuario;
+    }
+
+    public function getMensagem(){
+        return $this->mensagem;
+    }
+    
+    public function setId_resposta($id_resposta){
         $this->id_resposta = $id_resposta;
     }
-
-    public function getId_exercicio() {
-        return $this->id_exercicio;
+    public function setId_topico($id_topico){
+        $this->id_topico = $id_topico;
     }
-
-    public function setId_exercicio($id_exercicio) {
-        $this->id_exercicio = $id_exercicio;
+    public function setId_usuario($id_usuario){
+        $this->id_usuario = $id_usuario;
     }
-
-    public function getResposta() {
-        return $this->resposta;
+    
+    public function setMensagem($mensagem){
+        $this->mensagem = $mensagem;
     }
-
-    public function setResposta($resposta) {
-        $this->resposta = $resposta;
-    }
-
-    public function getEh_resposta() {
-        return $this->eh_resposta;
-    }
-
-    public function setEh_resposta($eh_resposta) {
-        $this->eh_resposta = $eh_resposta;
-    }
-
+    
 }
 
 ?>

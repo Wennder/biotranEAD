@@ -177,9 +177,9 @@ class controllerCurso {
         if ($curso != null) {
             $dao = new CursoDAO();
             if ($cp != null) {
-                $dao->update($curso, $cp);
+                return $dao->update($curso, $cp);
             } else {
-                $dao->update($curso);
+                return $dao->update($curso);
             }
         } else {
             return 'ERRO: parametros nullos - funcao novoUsuario - [controllerUsuario]';
@@ -233,10 +233,11 @@ class controllerCurso {
     }
 
     /* Retorna lista de cursos para situações diferentes situações
-     * @param status = 0 - Desabilitado 1ºacesso
+     * @param status = 0 - Desabilitado 1º acesso
      * @param status = 1 - Desabilitado 2º acesso
      * @param status = 2 - Em análise pelo administrador
-     * @param status = 3 - Habilitado
+     * @param status = 3 - Aprovado e desabilitado
+     * @param status = 4 - Aprovado e habilitado
      */
 
     public function getListaCursos_porStatus($status, $id) {
@@ -300,7 +301,11 @@ class controllerCurso {
         for ($i = 0; $i < count($cursos); $i++) {
             $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());
             if ($this->curso->getStatus(1) == 0) {
-                $construcao .= "<li><a href=index.php?c=ead&a=primeiro_acesso_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
+                if ($this->curso->getNumero_modulos() == 0) {
+                    $construcao .= "<li><a href=index.php?c=ead&a=primeiro_acesso_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
+                } else {
+                    $construcao .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
+                }
                 $a++;
             } else if ($this->curso->getStatus(1) == 1) {
                 $nao_avaliado .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
@@ -319,7 +324,7 @@ class controllerCurso {
             $listaCursos = "";
 
             // Lista os cursos em construcao
-            $listaCursos .= "<div class=' accord' style='margin-top:0px; border-left:2px solid #7f90d0'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos em Construcao ($a Curso(s))</div>";
+            $listaCursos .= "<div class=' accord' style='margin-top:0px; border-left:3px solid #7f90d0; padding-left:5px;'>Cursos em Construcao ($a Curso(s))</div>";
             $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul>";
 
             if ($construcao != "") {
@@ -330,7 +335,7 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos aprovados e disponiveis
-            $listaCursos .= "<div class=' accord' style='border-left:2px solid #7fd08b'><img class='seta_formatacao' src='img/seta_blue.png' />Cursos Aprovados e Disponíveis ($e Curso(s))</div>";
+            $listaCursos .= "<div class=' accord' style='border-left:3px solid #7fd08b; padding-left:5px;'>Cursos Aprovados e Disponíveis ($e Curso(s))</div>";
             $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul >";
             if ($aprovado_disponivel != "") {
                 $listaCursos .= $aprovado_disponivel;
@@ -340,7 +345,7 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos aprovados e indisponiveis
-            $listaCursos .= "<div class=' accord' style='border-left:2px solid #cdd07f'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos Aprovados e Indisponíveis ($d Curso(s))</div>";
+            $listaCursos .= "<div class=' accord' style='border-left:3px solid #cdd07f; padding-left:5px;'>Cursos Aprovados e Indisponíveis ($d Curso(s))</div>";
             $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul >";
 
             if ($aprovado_indisponivel != "") {
@@ -351,7 +356,7 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos nao avaliados
-            $listaCursos .= "<div class='accord' style='border-left:2px solid #d07f7f'><img class='seta_formatacao' src='img/seta_blue.png' />Cursos Não Avaliados ($b Curso(s))</a></div>";
+            $listaCursos .= "<div class='accord' style='border-left:3px solid #d07f7f; padding-left:5px;'>Cursos Não Avaliados ($b Curso(s))</a></div>";
             $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul style='list-style-type:none;'>";
 
             if ($nao_avaliado != "") {
@@ -362,7 +367,7 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos rejeitados
-            $listaCursos .= "<div class='accord' style='border-left:2px solid #af7fd0'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos Rejeitados ($c Curso(s))</div>";
+            $listaCursos .= "<div class='accord' style='border-left:3px solid #af7fd0; padding-left:5px;'>Cursos Rejeitados ($c Curso(s))</div>";
             $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul style='list-style-type:none;'>";
 
             if ($rejeitado != "") {
@@ -395,7 +400,8 @@ class controllerCurso {
                     <th>objetivo</th>
                     <th>justificativa</th>
                     <th>obs</th>                   
-                    <th>id</th>                   
+                    <th>id</th>                    
+                    <th>Disponibilizar</th>                   
                 </tr> 
             </thead> 
             <tbody>";
@@ -406,8 +412,9 @@ class controllerCurso {
 
         $quant = count($this->cursos);
         $i = 0;
+        $controller = new controllerModulo();
         for (; $i < $quant; $i++) {
-            $tabela .= "<tr id=tabela_linha" . $this->cursos[$i]->getId_curso() . ">";
+            $tabela .= "<tr id=" . $this->cursos[$i]->getId_curso() . ">";
             $tabela .= "<td width='45%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
             $tabela .= "<td width='10%' id='tempo' align='center'>" . $this->cursos[$i]->getTempo() . "</td>";
             $tabela .= "<td width='10%' id='gratuito' align='center'>" . $this->cursos[$i]->getGratuito(0) . "</td>";
@@ -419,21 +426,31 @@ class controllerCurso {
             $tabela .= "<td width='14%' id='justificativa' align='center'>" . $this->cursos[$i]->getJustificativa() . "</td>";
             $tabela .= "<td width='14%' id='obs' align='center'>" . $this->cursos[$i]->getObs() . "</td>";
             $tabela .= "<td width='14%' id='id_curso' align='center'>" . $this->cursos[$i]->getId_curso() . "</td>";
+            switch ($this->cursos[$i]->getStatus()) {
+                case 2: $tabela .= "<td width='14%' id='input_liberar' align='center'> <input type='checkbox' value='0' disabled='true' id='check_habilitar' /></td>";
+                    break;
+                case 3: $tabela .= "<td width='14%' id='input_liberar' align='center'> <input name='" . $this->cursos[$i]->getId_curso() . "' type='checkbox' value='1' id='check_habilitar' /></td>";
+                    break;
+                case 4: $tabela .= "<td width='14%' id='input_liberar' align='center'> <input name='" . $this->cursos[$i]->getId_curso() . "' type='checkbox' checked='checked' value='0' id='check_habilitar' /></td>";
+                    break;
+                default: $tabela .= "<td width='14%' id='input_liberar' align='center'> <input type='checkbox' value='0' disabled='true' id='check_habilitar' /></td>";
+                    break;
+            }
         }
+
         $tabela .= "</tbody></table>";
         return $tabela;
     }
 
     public function cursosAluno() {
         $tabela = null;
-        $cursoDAO = new CursoDAO();
-        $this->cursos = $cursoDAO->select(null, null);
+        $this->cursos = $this->getListaCursos("status = 4");
         $matricula_cursoDAO = new Matricula_cursoDAO();
         $matriculados = $matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario());
         $quant = count($matriculados);
         $i = 0;
 
-        $tabela .= "<div class='lista_cursos accord'><img  src='img/seta_blue.png' />Meus Cursos</div></a><div class='aluno_cursos accord_content'><ul >";
+        $tabela .= "<div class='lista_cursos accord' style='border-left:3px solid #7f90d0; padding-left:5px;'>Meus Cursos</div></a><div class='aluno_cursos accord_content'><ul >";
         if ($quant > 0) {
             for (; $i < $quant; $i++) {
                 $auxCurso = $cursoDAO->select("id_curso=" . $matriculados[$i]->getId_curso());
@@ -449,18 +466,22 @@ class controllerCurso {
         $tabela .= "</ul></div>";
         $quant = count($this->cursos);
         $i = 0;
-        $tabela .= "<div class='lista_cursos accord'><img  src='img/seta_gray.png' />Outros Cursos</div><div class='aluno_cursos accord_content'><ul>";
-        for (; $i < $quant; $i++) {
-            if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() .
-                            " AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
-                $tabela.="<li><a><div class='lista_cursos'><table style='width: 100%;' class='nao_matriculado'>
+        $tabela .= "<div class='lista_cursos accord' style='border-left:3px solid #7fd08b; padding-left:5px;'>Outros Cursos</div><div class='aluno_cursos accord_content'><ul>";
+        if ($quant > 0)
+            for (; $i < $quant; $i++) {
+                if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() .
+                                " AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
+                    $tabela.="<li><a><div class='lista_cursos'><table style='width: 100%;' class='nao_matriculado'>
                     <tr ><td align='left'>" . $this->cursos[$i]->getNome() . "</td>";
 //                $tabela.="<td align='right' ><a href='index.php?c=ead&a=matricula&id=" . $this->cursos[$i]->getId_curso() . "' class='button'>Matricular</a></td></tr>";
-                $aux = 'Em contrucao';
-                $tabela.="<td align='right'><input onclick='em_construcao()' type='button' value='Matricular' /></td></tr>";
-                $tabela.= "<tr><td style='font-size:12px;'>Duração do curso:" . $this->cursos[$i]->getTempo() . "</td></tr>";
-                $tabela.="</table></div></a></li>";
-            }
+                    $aux = 'Em contrucao';
+                    $tabela.="<td align='right'><input id='matricular' name='".$this->cursos[$i]->getId_curso()."' type='button' value='Matricular' /></td></tr>";
+                    $tabela.= "<tr><td style='font-size:12px;'>Duração do curso:" . $this->cursos[$i]->getTempo() . "</td></tr>";
+                    $tabela.="</table></div></a></li>";
+                }
+            } else {
+            $tabela.="<li><a><div class='lista_cursos'>
+               Nao ha outros cursos disponiveis no momento!</div></a></li>";
         }
         $tabela .='</ul></div>';
         return $tabela;
@@ -604,18 +625,15 @@ class controllerCurso {
         if ($status == 2) {
             return 'Rejeitado';
         }
-        if ($status == 3) {
-            return 'Aprovado e indisponível';
-        }
-        if ($status == 4) {
-            return 'Aprovado e disponível';
+        if ($status >= 3) {
+            return 'Aprovado';
         }
     }
 
     public function primeiro_acesso(Curso $curso) {
         $this->curso = $curso;
         $this->setCurso_post();
-        $this->curso->setStatus(1);
+//        $this->curso->setStatus(1);
         $this->updateCurso($this->curso);
         $this->controller = new controllerModulo();
         for ($i = 0; $i < $this->curso->getNumero_modulos(); $i++) {
@@ -628,6 +646,52 @@ class controllerCurso {
         for ($i = 0; $i < count($modulos); $i++) {
             $this->controller->criaDiretorioModulo($modulos[$i]);
         }
+    }
+
+    public function aprovarCurso($id_curso) {
+        $curso = $this->getCurso('id_curso=' . $id_curso);
+        if ($curso->getStatus() == 1) {
+            $curso->setStatus(3);
+            return $this->updateCurso($curso);
+        }
+        if ($curso->getStatus() == 0) {
+            return 2;
+        }
+        return 0;
+    }
+
+    public function reprovarCurso($id_curso) {
+        $curso = $this->getCurso('id_curso=' . $id_curso);
+        if ($curso->getStatus() == 1) {
+            $curso->setStatus(2);
+            return $this->updateCurso($curso);
+        }
+        if ($curso->getStatus() == 2) {
+            return 2;
+        }
+        return 0;
+    }
+
+    public function habilitarCurso($id_curso, $chave) {
+        $curso = $this->getCurso('id_curso=' . $id_curso);
+        if ($curso->getStatus() > 1) {
+            if ($chave) {
+                $curso->setStatus(4);
+            } else {
+                $curso->setStatus(3);
+            }
+            return $this->updateCurso($curso);
+        }
+        return 0;
+    }
+
+    public function submeter_analiseCurso($id_curso) {
+        $curso = $this->getCurso('id_curso=' . $id_curso);
+        if ($curso->getStatus() == 0 || $curso->getStatus() == 2) {
+            $curso->setStatus(1);
+            return $this->updateCurso($curso);
+        }
+        return 0;
     }
 
 }

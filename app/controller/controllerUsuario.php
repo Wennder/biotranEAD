@@ -69,10 +69,10 @@ class controllerUsuario {
         //captura as informações de usuario via post!
         $this->setUsuario_post();
         //atualiza usuario
-        $this->updateUsuario($this->usuario, $this->end);
+        $this->updateUsuario($this->usuario, $this->end);        
         //atualiza a foto
-        $this->inserirFotoUsuario($this->usuario->getId_usuario());
-        return true;
+        $this->inserirFotoUsuario($this->usuario->getId_usuario());        
+        return 1;
     }
     
     public function atualizarSenhaUsuario(Usuario $user){

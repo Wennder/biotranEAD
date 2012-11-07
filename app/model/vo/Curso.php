@@ -80,33 +80,27 @@ class Curso {
     }
     
     //Se $boolean == 1, retorna 0 ou 1, senao, retorna os status
-    public function getStatus($boolean) {
+    public function getStatus($boolean = 1) {
         if($boolean == 1){
             return $this->status;
         }
         else {
             if ($this->status == 0) {
-                $this->status = "Em construcao";
-                return $this->status;
+                return "Em construcao";
             }
             else if ($this->status == 1) {
-                $this->status = "Nao avaliado";
-                return $this->status;
+                return "Nao avaliado";
             }
             else if ($this->status == 2) {
-                $this->status = "Rejeitado";
-                return $this->status;
+                return "Rejeitado";                
             }
             else if ($this->status == 3) {
-                $this->status = "Aprovado e indisponivel";
-                return $this->status;
+                return "Aprovado e indisponivel";                
             }
             else if ($this->status == 4) {
-                $this->status = "Aprovado e disponivel";
-                return $this->status;
+                return "Aprovado e disponivel";                
             }
-        }
-        return $this->status;
+        }        
     }
 
     public function setStatus($status) {
