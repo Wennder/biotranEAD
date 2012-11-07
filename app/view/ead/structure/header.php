@@ -22,6 +22,21 @@
             var dialog;
             var id_exercicio;
             
+            $('#editar_dados_pessoais').live('submit', function(e){
+                e.preventDefault();
+                $(this).ajaxSubmit({
+                    dataType: 'json',
+                    success: function(data){
+                        if(data == 1){
+                            alert('Atualizado com sucesso');
+                        }else{
+                            alert('Erro ao atualizar');
+                        }
+                    }
+                });
+                return false;
+            });
+            
             function resize_content_fluid(){
                 var height = $('.content').height();
               
@@ -81,189 +96,189 @@
                                     $('#div_pergunta_body_'+posicao).after($(data.form));
                                 }
                             }                        
-                        $('#id_exercicio').val($('#id').val());                            
-                        $('#a_cadastrar_pergunta').click();                    
-                    }
-                }
-            }
-            return options;
-        }
-        function optionsFormAtualizarDescritivo(){
-            var options = {            
-                success: function(data){
-                    if(data == 1){                    
-                        alert('Atualizado com sucesso!');
-                        $('#titulo_exercicio').attr('readonly', 'true');
-                        $('#descricao_exercicio').attr('readonly', 'true');
-                        $('#div_atualizar_exercicio').attr('style', 'display:none;');
-                        $('#btn_editar_exercicio').attr('value', 'Editar');
-                    }
-                }
-            }
-            return options;
-        }
-        function optionsFormAtualizarPergunta(){
-            var options = {            
-                success: function(data){
-                    if(data == 1){                    
-                        alert('Operacao realizada com sucesso!');
-                    }
-                }
-            }
-            return options;
-        }
-        
-        $(document).ready(function(){                
-            document.onClick = comprimir();
-            $('.btn_del_pergunta').live('click', function(e){
-                var r = confirm('Tem certeza de que deseja excluir este registro?');
-                if(r == true){
-                    var id = $(this).attr('id');
-                    $.getJSON('ajax/crud_exercicio.php?acao=deletar_pergunta',{
-                        id: id,
-                        ajax: 'true'
-                    }, function(j){
-                        //j = numeracao
-                        //usuario excluido                      
-                        if(j != 0){
-                            alert('Removido com sucesso!');
-                            $('#div_pergunta_'+j).remove();
-                            $('#div_pergunta_body_'+j).remove();
+                            $('#id_exercicio').val($('#id').val());                            
+                            $('#a_cadastrar_pergunta').click();                    
                         }
-                    }); 
+                    }
                 }
-            });
-                
-            $('#dialog form').live('submit',function(e){                 
-                console.log($(this).parent());
-                var name = $(this).attr('id');
-                switch(name){
-                    case 'form_descritivo_exercicio':
-                        $(this).ajaxSubmit(optionsFormAtualizarDescritivo());break;
-                    case 'form_cadastrar_pergunta':
-                        $(this).ajaxSubmit(optionsFormCadastrarPergunta());break;
-                    case 'deletar':
-                        $(this).ajaxSubmit(optionsFormAtualizarPergunta()); break;
-                    case 'form_cadastrar': break;
-                    default://atualizar pergunta
-                        $(this).ajaxSubmit(optionsFormAtualizarPergunta()); break;
-                }                
-                return false;
-            });
-                
-            $(".btn_edt").live('click', function(){                        
-                var btn = $(this);
-                $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
-                    if (status == "error") {
-                        alert('erro');
-                        var msg = "Sorry but there was an error: ";
-                        $("#error").html(msg + xhr.status + " " + xhr.statusText);
-                    }else{                                                                                    
-                        dialog = $('#dialog').dialog({width:800, height:600,dialogClass:'dialogstyle', modal:true,                        
-                            close: function(event,ui){                     
-                                $(dialog).dialog('destroy');
-                                $(dialog).find('div').remove();
-                            }                                        
-                        });
+                return options;
+            }
+            function optionsFormAtualizarDescritivo(){
+                var options = {            
+                    success: function(data){
+                        if(data == 1){                    
+                            alert('Atualizado com sucesso!');
+                            $('#titulo_exercicio').attr('readonly', 'true');
+                            $('#descricao_exercicio').attr('readonly', 'true');
+                            $('#div_atualizar_exercicio').attr('style', 'display:none;');
+                            $('#btn_editar_exercicio').attr('value', 'Editar');
+                        }
+                    }
+                }
+                return options;
+            }
+            function optionsFormAtualizarPergunta(){
+                var options = {            
+                    success: function(data){
+                        if(data == 1){                    
+                            alert('Operacao realizada com sucesso!');
+                        }
+                    }
+                }
+                return options;
+            }
+        
+            $(document).ready(function(){                
+                document.onClick = comprimir();
+                $('.btn_del_pergunta').live('click', function(e){
+                    var r = confirm('Tem certeza de que deseja excluir este registro?');
+                    if(r == true){
+                        var id = $(this).attr('id');
+                        $.getJSON('ajax/crud_exercicio.php?acao=deletar_pergunta',{
+                            id: id,
+                            ajax: 'true'
+                        }, function(j){
+                            //j = numeracao
+                            //usuario excluido                      
+                            if(j != 0){
+                                alert('Removido com sucesso!');
+                                $('#div_pergunta_'+j).remove();
+                                $('#div_pergunta_body_'+j).remove();
+                            }
+                        }); 
                     }
                 });
-            });        
                 
-            $(".btn_add").live('click', function(){        
-                var btn = $(this);
-                var tipo = btn.attr('name').split('-');
-                if(tipo[0] != 'h3'){
-                    var div = '#div_conteudo_'+btn.attr('name');
-                    var gif = '<img id="ajax_loader" src="img/gif/ajax-loader.gif" />';
-                    $(div.toString()).append($(gif));
-                    tipo = tipo[0];                        
-                }else{
-                    tipo = tipo[1];                        
-                }                    
-                $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
-                    if (status == "error") {
-                        alert('erro');
-                        var msg = "Sorry but there was an error: ";
-                        $("#error").html(msg + xhr.status + " " + xhr.statusText);
-                    }else{
-                        $('#ajax_loader').remove();
-                        var width = 0;var height = 0; var title;                            
-                        if(tipo == 'video'){
-                            width = 650; height = 450; title = 'Adicionar Video Aula';
-                        }else{
-                            if(tipo == 'texto_referencia'){
-                                width = 550; height = 340; title = 'Adicionar Texto de Referencia';
-                            }else{
-                                if(tipo == 'material_complementar'){
-                                    width = 550; height = 340; title = 'Adicionar Material Complementar';
-                                }else{//novo exercício
-                                    width = 700; height = 300; title = 'Adicionar Exercicio';
-                                }
-                            }
-                        }                                            
-                        dialog = $('#dialog').dialog({width: width, height: height,dialogClass:'dialogstyle',modal: true,
-                            focus: function(event,ui){                                                
-                                $('#form_cadastrar').ajaxForm({                                                    
-                                    uploadProgress: function(event, position, total, percentComplete) {
-                                        $('progress').attr('value',percentComplete);
-                                        $('#porcentagem').html(percentComplete+'%');
-                                    },                            
-                                    success: function(data) {                             
-                                        $('progress').attr('value','100');
-                                        $('#porcentagem').html('100%');
-                                        $('pre').html(data);
-                                        if(data != 0){                                                                                                                    
-                                            insereLinha(data, tipo);
-                                            alert('Arquivo inserido!');
-                                            $(dialog).dialog('close');
-                                        }                       
-                                    }                    
-                                });                    
-                            },
-                            close: function(event,ui){                     
-                                $(dialog).dialog('destroy');
-                                $(dialog).find('div').remove();
-                            }                                        
-                        });
-                    }
+                $('#dialog form').live('submit',function(e){                 
+                    console.log($(this).parent());
+                    var name = $(this).attr('id');
+                    switch(name){
+                        case 'form_descritivo_exercicio':
+                            $(this).ajaxSubmit(optionsFormAtualizarDescritivo());break;
+                        case 'form_cadastrar_pergunta':
+                            $(this).ajaxSubmit(optionsFormCadastrarPergunta());break;
+                        case 'deletar':
+                            $(this).ajaxSubmit(optionsFormAtualizarPergunta()); break;
+                        case 'form_cadastrar': break;
+                        default://atualizar pergunta
+                            $(this).ajaxSubmit(optionsFormAtualizarPergunta()); break;
+                    }                
+                    return false;
+                });
+                
+                $(".btn_edt").live('click', function(){                        
+                    var btn = $(this);
+                    $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
+                        if (status == "error") {
+                            alert('erro');
+                            var msg = "Sorry but there was an error: ";
+                            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                        }else{                                                                                    
+                            dialog = $('#dialog').dialog({width:800, height:600,dialogClass:'dialogstyle', modal:true,                        
+                                close: function(event,ui){                     
+                                    $(dialog).dialog('destroy');
+                                    $(dialog).find('div').remove();
+                                }                                        
+                            });
+                        }
+                    });
                 });        
-            });
                 
-            $(".item_conteudo").live('click',function() {
-                var tag = $(this);
-                if(tag.attr('name') == 'video'){                                                    
-                    $('#dialog_video').load(tag.attr('id'), function (){                    
-                        var options = {width:700, height:400,dialogClass:'dialogstyle',
-                            open: function(event,ui){                                                                                
-                            },
-                            close: function(event,ui){                     
-                                dialog_video.dialog('destroy');
-                                dialog_video.find('div').remove();
-                            }                                     
+                $(".btn_add").live('click', function(){        
+                    var btn = $(this);
+                    var tipo = btn.attr('name').split('-');
+                    if(tipo[0] != 'h3'){
+                        var div = '#div_conteudo_'+btn.attr('name');
+                        var gif = '<img id="ajax_loader" src="img/gif/ajax-loader.gif" />';
+                        $(div.toString()).append($(gif));
+                        tipo = tipo[0];                        
+                    }else{
+                        tipo = tipo[1];                        
+                    }                    
+                    $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
+                        if (status == "error") {
+                            alert('erro');
+                            var msg = "Sorry but there was an error: ";
+                            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                        }else{
+                            $('#ajax_loader').remove();
+                            var width = 0;var height = 0; var title;                            
+                            if(tipo == 'video'){
+                                width = 650; height = 450; title = 'Adicionar Video Aula';
+                            }else{
+                                if(tipo == 'texto_referencia'){
+                                    width = 550; height = 340; title = 'Adicionar Texto de Referencia';
+                                }else{
+                                    if(tipo == 'material_complementar'){
+                                        width = 550; height = 340; title = 'Adicionar Material Complementar';
+                                    }else{//novo exercício
+                                        width = 700; height = 300; title = 'Adicionar Exercicio';
+                                    }
+                                }
+                            }                                            
+                            dialog = $('#dialog').dialog({width: width, height: height,dialogClass:'dialogstyle',modal: true,
+                                focus: function(event,ui){                                                
+                                    $('#form_cadastrar').ajaxForm({                                                    
+                                        uploadProgress: function(event, position, total, percentComplete) {
+                                            $('progress').attr('value',percentComplete);
+                                            $('#porcentagem').html(percentComplete+'%');
+                                        },                            
+                                        success: function(data) {                             
+                                            $('progress').attr('value','100');
+                                            $('#porcentagem').html('100%');
+                                            $('pre').html(data);
+                                            if(data != 0){                                                                                                                    
+                                                insereLinha(data, tipo);
+                                                alert('Arquivo inserido!');
+                                                $(dialog).dialog('close');
+                                            }                       
+                                        }                    
+                                    });                    
+                                },
+                                close: function(event,ui){                     
+                                    $(dialog).dialog('destroy');
+                                    $(dialog).find('div').remove();
+                                }                                        
+                            });
                         }
-                        var dialog_video = $('#dialog_video').dialog(options);
-                    }); 
-                }
-            }); 
+                    });        
+                });
                 
-            $(".btn_del").live('click', function(){            
-                var btn = $(this);
-                var r = confirm('Tem certeza de que deseja excluir este registro?');                    
-                if(r == true){                  
-                    var id = btn.attr('id');                
-                    $.getJSON('ajax/crud_conteudo_modulo.php?acao=remover_'+btn.attr('name'),{
-                        id: id,
-                        ajax: 'true'
-                    }, function(j){
-                        //usuario excluido  
-                        if(j > 0){
-                            id = '#li_'+btn.attr('name')+'_'+id;                        
-                            $(id.toString()).remove();
-                        }
-                    }); 
-                }
+                $(".item_conteudo").live('click',function() {
+                    var tag = $(this);
+                    if(tag.attr('name') == 'video'){                                                    
+                        $('#dialog_video').load(tag.attr('id'), function (){                    
+                            var options = {width:700, height:400,dialogClass:'dialogstyle',
+                                open: function(event,ui){                                                                                
+                                },
+                                close: function(event,ui){                     
+                                    dialog_video.dialog('destroy');
+                                    dialog_video.find('div').remove();
+                                }                                     
+                            }
+                            var dialog_video = $('#dialog_video').dialog(options);
+                        }); 
+                    }
+                }); 
+                
+                $(".btn_del").live('click', function(){            
+                    var btn = $(this);
+                    var r = confirm('Tem certeza de que deseja excluir este registro?');                    
+                    if(r == true){                  
+                        var id = btn.attr('id');                
+                        $.getJSON('ajax/crud_conteudo_modulo.php?acao=remover_'+btn.attr('name'),{
+                            id: id,
+                            ajax: 'true'
+                        }, function(j){
+                            //usuario excluido  
+                            if(j > 0){
+                                id = '#li_'+btn.attr('name')+'_'+id;                        
+                                $(id.toString()).remove();
+                            }
+                        }); 
+                    }
+                });
             });
-        });
         </script>
 
         <link rel='stylesheet' href='css/estilos.css' />
@@ -332,7 +347,7 @@ if ($this->usuario == null) {
                              onmouseout="iniciarCronometro()">
                             <ul >
                                 <li>
-                                    <a  href="index.php?c=ead&a=profile&id=<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>">Perfil</a>
+                                    <a  href="index.php?c=ead&a=dados_pessoais&id=<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>">Perfil</a>
 
                                 </li>
                                 <li>

@@ -91,13 +91,15 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionAtualizar_cadastro_usuario() {
         $this->controller = new controllerUsuario();
-        $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
-        if ($id_usuario != '') {
-            $this->controller->atualizarUsuario_post($id_usuario);
+        $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();                
+        if ($id_usuario != '') {            
+            echo json_encode($this->controller->atualizarUsuario($_SESSION['usuarioLogado']->getId_usuario()));
+        }else{
+            echo json_encode(0);            
         }
-        Biotran_Mvc::pegarInstancia()->mudarAcao('index');
-//        $this->visao->tabela = $this->controller->tabelaUsuarios();
-        $this->renderizar();
+//        Biotran_Mvc::pegarInstancia()->mudarAcao('index');
+////        $this->visao->tabela = $this->controller->tabelaUsuarios();
+//        $this->renderizar();
     }
 
     public function actionAtualizar_cadastro_admin() {
@@ -133,12 +135,10 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionCadastrar_curso() {
-
         $this->controller = new controllerCurso();
         //$_POST['destino'] - destino é o select dos professores responsaveis
         if ($this->controller->validarNome($_POST['nome']) && count($_POST["destino"]) > 0) {
             $this->controller->novoCurso_post();
-
             Biotran_Mvc::pegarInstancia()->mudarAcao('gerenciar_cursos');
             $this->actionGerenciar_cursos();
             // $this->renderizar();
@@ -151,9 +151,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerUsuario();
         //Pega a id passa na url e monta o objeto buscando os dados no banco
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->visao->usuario = $this->controller->getUsuario("id_usuario=" . $id_usuario . "");
+        $this->visao->usuario = $this->controller->getUsuario("id_usuario=" . $id_usuario . "");        
         $this->visao->endereco = $this->controller->getEndereco_usuario($id_usuario);
-
         $this->renderizar();
     }
 
