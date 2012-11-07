@@ -66,15 +66,18 @@ class CursoDAO extends PDOConnectionFactory {
                 $stmt->bindValue(9, $curso->getJustificativa());
                 $stmt->bindValue(10, $curso->getObs());                
                 $stmt->bindValue(11, $curso->getId_curso());
-                $stmt->execute();
 
-                if ($cp != null) {                    
-                    $dao = new Curso_professorDAO();
-                    for($i = 0; $i < count($cp); $i++){
-                        $cp[$i]->setId_curso($curso->getId_curso());
-                        $dao->insert($cp[$i]);
+                if($stmt->execute()){
+                    if ($cp != null) {
+                        $dao = new Curso_professorDAO();
+                        for ($i = 0; $i < count($cp); $i++) {
+                            $cp[$i]->setId_curso($curso->getId_curso());
+                            $dao->insert($cp[$i]);
+                        }
                     }
+                    return 1;
                 }
+                return 0;
             }
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();

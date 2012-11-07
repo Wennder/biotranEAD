@@ -90,8 +90,8 @@ class Biotran_Mvc {
     }
 
     public function validarAcessoUsuario() {
-        if($this->controlador != 'index'){            
-            $permissao = $this->controllerSeguranca->actionLiberarAcesso($this->acao);
+        if($this->controlador != 'index'){                        
+            $permissao = $this->controllerSeguranca->actionLiberarAcesso($this->acao);            
             if (!$permissao) {
                 $this->controlador = 'ead';
                 $this->acao = 'acesso_negado';
@@ -130,8 +130,8 @@ class Biotran_Mvc {
         //pega o modulo, controlador e acao        
         $this->controlador = isset($_GET['c']) ? $_GET['c'] : 'index';
         $this->acao = isset($_GET['a']) ? $_GET['a'] : 'index';
-        $this->id = isset($_GET['id']) ? $_GET['id'] : '';
-
+        $this->id = isset($_GET['id']) ? $_GET['id'] : '';        
+        
         session_start();
 
         if ($this->controlador == 'index') {

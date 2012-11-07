@@ -113,6 +113,7 @@
             }
             return options;
         }
+        
         $(document).ready(function(){                
             document.onClick = comprimir();
             $('.btn_del_pergunta').live('click', function(e){

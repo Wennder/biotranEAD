@@ -55,7 +55,7 @@ class Seguranca {
     
     public function isPapel_pagina($pagina) {        
         $dao = new Papel_paginaDAO();
-        $idPapel = $_SESSION['usuarioLogado']->getId_papel();           
+        $idPapel = $_SESSION['usuarioLogado']->getId_papel();                   
         return $dao->select($idPapel, $pagina);
     }
     
