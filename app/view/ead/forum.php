@@ -5,6 +5,7 @@
 
 <div>
     <h1>Forum</h1>
+    <h1>    <?php echo $this->curso->getNome(); ?></h1>
     <!-- topicos   -->
     <div style="padding:15px;">
         <a href="index.php?c=ead&a=adicionar_topico&id=<?php echo $_GET['id'] ?>">Novo Topico</a> 

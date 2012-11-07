@@ -13,12 +13,13 @@
             <ul style="list-style-type:none;">
                 <?php
                 $controllerCurso = new ControllerCurso();
-                echo $controllerCurso->modulosCurso();
+                
+//                echo $controllerCurso->modulosCurso();
                 ?>
             </ul>
         </div>
     </div>
     <h3 class="navbar_item ">
-        <a href="#"> Fórum </a>
+        <a href="index.php?a=forum&c=ead&id=<?php echo $_GET['id'] ?>"> Fórum </a>
     </h3>
 </div>

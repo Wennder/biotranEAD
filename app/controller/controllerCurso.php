@@ -444,7 +444,7 @@ class controllerCurso {
 
     public function cursosAluno() {
         $tabela = null;
-        $this->cursos = $this->getCurso("status = 4");
+        $this->cursos = $this->getListaCursos("status = 4");
         $matricula_cursoDAO = new Matricula_cursoDAO();
         $matriculados = $matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario());
         $quant = count($matriculados);
@@ -475,7 +475,7 @@ class controllerCurso {
                     <tr ><td align='left'>" . $this->cursos[$i]->getNome() . "</td>";
 //                $tabela.="<td align='right' ><a href='index.php?c=ead&a=matricula&id=" . $this->cursos[$i]->getId_curso() . "' class='button'>Matricular</a></td></tr>";
                     $aux = 'Em contrucao';
-                    $tabela.="<td align='right'><input onclick='em_construcao()' type='button' value='Matricular' /></td></tr>";
+                    $tabela.="<td align='right'><input id='matricular' name='".$this->cursos[$i]->getId_curso()."' type='button' value='Matricular' /></td></tr>";
                     $tabela.= "<tr><td style='font-size:12px;'>Duração do curso:" . $this->cursos[$i]->getTempo() . "</td></tr>";
                     $tabela.="</table></div></a></li>";
                 }

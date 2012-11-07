@@ -25,7 +25,7 @@ switch ($papel) {
             <tr>
                 <td style="width: 120px;">
                     <div id="foto_usuario">
-                        <img src="img/profile/#FOTO#.jpg
+                        <img src="img/profile/<?php echo $this->usuario->getId_usuario();?>.jpg
                         
                         " alt="" height="120" width="100" />
                     </div>
@@ -35,31 +35,31 @@ switch ($papel) {
                         <tr>
                             <td>
                                 <label class="label_profile">Nome: </label>
-                                <label class="label_profile">#NOME_COMPLETO#</label>
+                                <label class="label_profile"><?php echo $this->usuario->getNome_completo();?></label>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <label class="label_profile">Atuação: </label>
-                                <label class="label_profile">#ATUACAO#</label>
+                                <label class="label_profile"><?php echo $this->usuario->getAtuacao();?></label>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <label class="label_profile">E-mail: </label>
-                                <label class="label_profile">#EMAIL#</label>
+                                <label class="label_profile"><?php echo $this->usuario->getEmail();?></label>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <label class="label_profile">Sexo: </label>
-                                <label class="label_profile">#SEXO#</label>
+                                <label class="label_profile"><?php echo $this->usuario->getSexo();?></label>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <label class="label_profile">Data de Nascimento: </label>
-                                <label class="label_profile">#DATA_NASCIMENTO#</label>
+                                <label class="label_profile"><?php echo $this->usuario->getData_nascimento();?></label>
                             </td>
                         </tr>
                         <tr>

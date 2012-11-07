@@ -23,6 +23,21 @@
     function em_construcao(){
         alert('Em construcao!');
     }
+    
+    $('#matricular').live('click', function(){
+        var id = $(this).attr('name');
+        document.location = 'index.php?a=curso&c=ead&id='+id;
+//        var id_estudante = $('#id_usuario').val();
+//        var id_curso = $(this).attr('name');
+//        $.getJSON('ajax/avaliar_curso.php', {id_curso: id_curso, acao:'submeter_analise'}, function(j){
+//            if(j == 1){
+//                alert('enviado com sucesso');
+//                $('#div_env_analise').remove();
+//            }else{
+//                alert('erro ao enviar, tente novamente');
+//            }
+//        });
+    });
 
 </script>
 
@@ -83,5 +98,10 @@
         echo $controllerCurso->cursosAluno();
         ?>
     </div>
+    
+    <div id="div_inputhidden" style="display:none"> 
+        <input type="text" id="id_usuario" value="<?php echo $this->usuario->getId_usuario()?>"/>
+    </div>
+    
 </div>
 <?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

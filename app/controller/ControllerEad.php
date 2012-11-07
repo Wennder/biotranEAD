@@ -158,12 +158,10 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionProfile() {
-        //Pega a id passa na url e monta o objeto buscando os dados no banco
-        $usuarioDAO = new UsuarioDAO();
-        $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->visao->usuario = $usuarioDAO->select("id_usuario=" . $id_usuario . "");
-        $this->visao->usuario = $this->visao->usuario[0];
-        $this->visao->usuarioLogado = $_SESSION['usuarioLogado'];
+        //Pega a id passa na url e monta o objeto buscando os dados no banco                
+//        $this->visao->usuario = $usuarioDAO->select("id_usuario=" . $id_usuario . "");
+//        $this->visao->usuario = $this->visao->usuario[0];
+        $this->visao->usuario = $_SESSION['usuarioLogado'];
         $this->renderizar();
     }
 
@@ -189,6 +187,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionTodos_cursos() {
+        $this->visao->usuario = $_SESSION['usuarioLogado'];
         $this->renderizar();
     }
 
@@ -334,6 +333,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionForum(){
+        $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);        
         $this->renderizar();
     }
     
