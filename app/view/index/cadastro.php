@@ -62,7 +62,7 @@
 
 <div id="form_cadastro">
     <form id="cadastro" class="form_cadastro" method="post" action="index.php?c=index&a=cadastrar_usuario" enctype="multipart/form-data">
-        <fieldset style="width: 100%;">
+        <fieldset >
             <legend>Dados Pessoais</legend>
             <table>
                 <tr>
@@ -113,7 +113,7 @@
             </table>
         </fieldset>
         <br>
-        <fieldset style="width: 100%;">
+        <fieldset >
             <table id="endereço">
                 <legend>Endereço</legend>
                 <tr>
@@ -202,7 +202,7 @@
             </table>
         </fieldset>
         <br>
-        <fieldset style="width: 100%;">
+        <fieldset >
             <legend>Acesso</legend>
             <table>
                 <tr>

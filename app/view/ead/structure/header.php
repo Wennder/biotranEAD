@@ -6,7 +6,6 @@
         <script src="js/video.js"></script>                
         <link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>   
         <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-        <link href="css/jquery.dialog.css" rel="stylesheet" type="text/css"/>        
         <script src="js/jquery.js"></script> 
         <script type="text/javascript" src="js/jquery.form.js"></script>
         <script src="js/accordion_1.js" type="text/javascript"></script>
@@ -269,11 +268,6 @@
 
         <link rel='stylesheet' href='css/estilos.css' />
 
-        <style>
-            #page-content{
-                padding:20px;
-            }
-        </style>
     </head>
     <body>
         <div id="dialog" style="display:none">

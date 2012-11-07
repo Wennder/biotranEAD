@@ -324,7 +324,7 @@ class controllerCurso {
             $listaCursos = "";
 
             // Lista os cursos em construcao
-            $listaCursos .= "<div class=' accord' style='margin-top:0px; border-left:2px solid #7f90d0'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos em Construcao ($a Curso(s))</div>";
+            $listaCursos .= "<div class=' accord' style='margin-top:0px; border-left:3px solid #7f90d0; padding-left:5px;'>Cursos em Construcao ($a Curso(s))</div>";
             $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul>";
 
             if ($construcao != "") {
@@ -335,7 +335,7 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos aprovados e disponiveis
-            $listaCursos .= "<div class=' accord' style='border-left:2px solid #7fd08b'><img class='seta_formatacao' src='img/seta_blue.png' />Cursos Aprovados e Disponíveis ($e Curso(s))</div>";
+            $listaCursos .= "<div class=' accord' style='border-left:3px solid #7fd08b; padding-left:5px;'>Cursos Aprovados e Disponíveis ($e Curso(s))</div>";
             $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul >";
             if ($aprovado_disponivel != "") {
                 $listaCursos .= $aprovado_disponivel;
@@ -345,7 +345,7 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos aprovados e indisponiveis
-            $listaCursos .= "<div class=' accord' style='border-left:2px solid #cdd07f'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos Aprovados e Indisponíveis ($d Curso(s))</div>";
+            $listaCursos .= "<div class=' accord' style='border-left:3px solid #cdd07f; padding-left:5px;'>Cursos Aprovados e Indisponíveis ($d Curso(s))</div>";
             $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul >";
 
             if ($aprovado_indisponivel != "") {
@@ -356,7 +356,7 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos nao avaliados
-            $listaCursos .= "<div class='accord' style='border-left:2px solid #d07f7f'><img class='seta_formatacao' src='img/seta_blue.png' />Cursos Não Avaliados ($b Curso(s))</a></div>";
+            $listaCursos .= "<div class='accord' style='border-left:3px solid #d07f7f; padding-left:5px;'>Cursos Não Avaliados ($b Curso(s))</a></div>";
             $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul style='list-style-type:none;'>";
 
             if ($nao_avaliado != "") {
@@ -367,7 +367,7 @@ class controllerCurso {
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos rejeitados
-            $listaCursos .= "<div class='accord' style='border-left:2px solid #af7fd0'><img class='seta_formatacao' src='img/seta_gray.png' />Cursos Rejeitados ($c Curso(s))</div>";
+            $listaCursos .= "<div class='accord' style='border-left:3px solid #af7fd0; padding-left:5px;'>Cursos Rejeitados ($c Curso(s))</div>";
             $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul style='list-style-type:none;'>";
 
             if ($rejeitado != "") {
@@ -444,14 +444,13 @@ class controllerCurso {
 
     public function cursosAluno() {
         $tabela = null;
-        $cursoDAO = new CursoDAO();
-        $this->cursos = $cursoDAO->select(null, null);
+        $this->cursos = $this->getCurso("status = 4");
         $matricula_cursoDAO = new Matricula_cursoDAO();
         $matriculados = $matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario());
         $quant = count($matriculados);
         $i = 0;
 
-        $tabela .= "<div class='lista_cursos accord'><img  src='img/seta_blue.png' />Meus Cursos</div></a><div class='aluno_cursos accord_content'><ul >";
+        $tabela .= "<div class='lista_cursos accord' style='border-left:3px solid #7f90d0; padding-left:5px;'>Meus Cursos</div></a><div class='aluno_cursos accord_content'><ul >";
         if ($quant > 0) {
             for (; $i < $quant; $i++) {
                 $auxCurso = $cursoDAO->select("id_curso=" . $matriculados[$i]->getId_curso());
@@ -467,18 +466,22 @@ class controllerCurso {
         $tabela .= "</ul></div>";
         $quant = count($this->cursos);
         $i = 0;
-        $tabela .= "<div class='lista_cursos accord'><img  src='img/seta_gray.png' />Outros Cursos</div><div class='aluno_cursos accord_content'><ul>";
-        for (; $i < $quant; $i++) {
-            if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() .
-                            " AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
-                $tabela.="<li><a><div class='lista_cursos'><table style='width: 100%;' class='nao_matriculado'>
+        $tabela .= "<div class='lista_cursos accord' style='border-left:3px solid #7fd08b; padding-left:5px;'>Outros Cursos</div><div class='aluno_cursos accord_content'><ul>";
+        if ($quant > 0)
+            for (; $i < $quant; $i++) {
+                if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() .
+                                " AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
+                    $tabela.="<li><a><div class='lista_cursos'><table style='width: 100%;' class='nao_matriculado'>
                     <tr ><td align='left'>" . $this->cursos[$i]->getNome() . "</td>";
 //                $tabela.="<td align='right' ><a href='index.php?c=ead&a=matricula&id=" . $this->cursos[$i]->getId_curso() . "' class='button'>Matricular</a></td></tr>";
-                $aux = 'Em contrucao';
-                $tabela.="<td align='right'><input onclick='em_construcao()' type='button' value='Matricular' /></td></tr>";
-                $tabela.= "<tr><td style='font-size:12px;'>Duração do curso:" . $this->cursos[$i]->getTempo() . "</td></tr>";
-                $tabela.="</table></div></a></li>";
-            }
+                    $aux = 'Em contrucao';
+                    $tabela.="<td align='right'><input onclick='em_construcao()' type='button' value='Matricular' /></td></tr>";
+                    $tabela.= "<tr><td style='font-size:12px;'>Duração do curso:" . $this->cursos[$i]->getTempo() . "</td></tr>";
+                    $tabela.="</table></div></a></li>";
+                }
+            } else {
+            $tabela.="<li><a><div class='lista_cursos'>
+               Nao ha outros cursos disponiveis no momento!</div></a></li>";
         }
         $tabela .='</ul></div>';
         return $tabela;

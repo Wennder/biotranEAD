@@ -35,34 +35,7 @@ switch ($papel) {
 <style type="text/css" title="currentStyle">
 
     @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
-    #div_update label {display:block;width:100%;padding:10px 0;}
-
-    #tabela_usuarios td {
-        text-align: center;
-    }
-
-    #tabela_usuarios .nome_usuario_datatable{
-        text-align: left;
-    }
-
-    .botao_gerencia_data_table{
-        padding: 7px 7px;
-        color: #444444;
-        background-color: #eeeeee;
-        border:1px solid #999999;
-        font-weight: 600;
-        border-radius: 5px;
-    }
-
-    .botao_gerencia_data_table:hover{
-        cursor:pointer;
-        border:1px solid #111111;
-    }
-    .ui-dialog-titlebar{
-        background-image: url('img/header_ead_background.png');
-        background-repeat: repeat;
-        height: 10px;
-    }
+    
 </style>
 
 

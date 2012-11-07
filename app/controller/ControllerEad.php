@@ -333,6 +333,33 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
+    public function actionForum(){
+        $this->renderizar();
+    }
+    
+    public function actionAdicionar_topico(){
+        $this->renderizar();
+    }
+    
+    public function actionResponder_topico(){
+        $this->renderizar();
+    }
+    
+    public function actionTopico(){
+        if($_POST['r']== '1' ){
+            $this->controller = new ControllerForum();
+            $topico = $this->controller->inserir_resposta();
+            
+        }else{
+            if(!isset($_GET['id'])){
+                $this->controller = new ControllerForum();
+                $topico = $this->controller->inserir_topico(); 
+                $_GET['id'] = $topico->getId_topico();
+            }
+        }
+        $this->renderizar();
+    }
+    
 }
 
 ?>

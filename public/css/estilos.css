@@ -450,7 +450,7 @@ form.form_cadastro, form.form_editar{
         -moz-box-shadow: 2px 2px 2px #eeeeee ;
         -webkit-box-shadow: 2px 2px 2px #eeeeee ;
         background-color: white;
-       
+       cursor:pointer;
        color:#606060;
        font-weight: 600;
        margin:5px;
@@ -518,7 +518,134 @@ margin-left:8px;
 .accord_body *{
     z-index: 0;
 }
+.accord *{
+    font-weight: 600;
+    line-height: 100%;
+}
 
 .ul_lista li{
     overflow: auto;
 }
+
+
+
+
+#div_update label {display:block;width:100%;padding:10px 0;}
+    #form_gerenciar{
+        padding: 50px;
+        overflow: hidden;
+
+    }
+
+    .botao_gerencia_data_table{
+        padding: 7px 7px;
+        color: #444444;
+        background-color: #eeeeee;
+        border:1px solid #999999;
+        font-weight: 600;
+        border-radius: 5px;
+    }
+
+    .botao_gerencia_data_table:hover{
+        cursor:pointer;
+        border:1px solid #111111;
+    }
+    
+    .ui-dialog-titlebar{
+        background-image: url('img/header_ead_background.png');
+        background-repeat: repeat;
+        height: 10px;
+    }
+    
+    
+    #page-content{
+                padding:20px;
+            }
+            
+            .acao_leftcolumn {
+    cursor: pointer;
+    font-weight: 500;
+    line-height: 100%;
+}
+
+
+#div_update label {display:block;width:100%;padding:10px 0;}
+
+    #tabela_usuarios td {
+        text-align: center;
+    }
+
+    #tabela_usuarios .nome_usuario_datatable{
+        text-align: left;
+    }
+
+    .botao_gerencia_data_table{
+        padding: 7px 7px;
+        color: #444444;
+        background-color: #eeeeee;
+        border:1px solid #999999;
+        font-weight: 600;
+        border-radius: 5px;
+    }
+
+    .botao_gerencia_data_table:hover{
+        cursor:pointer;
+        border:1px solid #111111;
+    }
+    .ui-dialog-titlebar{
+        background-image: url('../img/header_ead_background.png');
+        background-repeat: repeat;
+        height: 20px;
+    }
+    
+    .origem, .destino {
+        float:left;
+        display:inline; 
+    }
+    .botoes{
+        float:left;
+        display:inline;         
+    }
+
+    #destino {
+        display:block;
+        width:100px;
+    }
+    
+    #tabela_cursos_first{
+        margin:0;
+    }
+    
+    #form_cadastro h2{
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+    
+     #div_conteudo_professor_editar_modulo{
+        position: relative;
+
+        padding-top:0px;
+    }
+
+    #div_conteudo_professor_editar_modulo h4{
+        margin:0;
+
+        padding:0;
+    }
+
+    #disposicao_conteudo_professor_editar_modulo{
+        position: relative;
+
+    }
+
+    #center_content{
+
+
+        padding-top:0px;
+    }
+
+    #center_content h4{
+        margin:0;
+
+        padding:0;
+    }
