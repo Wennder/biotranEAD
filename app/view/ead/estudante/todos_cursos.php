@@ -69,6 +69,10 @@
         -webkit-box-shadow: 0px 2px 2px #eeeeee inset;
     }
    
+    
+    #meus_cursos h3:first-letter{
+        font-weight: bolder;
+    }
 </style>
 
 <div id="meus_cursos"><div style="">

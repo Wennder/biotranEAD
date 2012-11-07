@@ -51,12 +51,7 @@ resizing();
     });
 </script>
 
-<style>
-    
-    
 
-
-</style>
 <!--<div style="float:left; width:5%; height:100%;"></div>-->
 <!--<div style="float:right; width:5%; height:100%;"></div>-->
 <div id="content_fit" style="  height: 100%; position:relative; left:50%;">
@@ -88,7 +83,7 @@ resizing();
                 echo('
                             <div id="div_logado">
                                 
-                                            Olá ' . $_SESSION["usuarioLogado"]->getNome_completo() . '!
+                                            <h3>Olá ' . $_SESSION["usuarioLogado"]->getNome_completo() . '!</h3>
                                         
                                     
                                             <a href="index.php?c=ead&a=index" class="button">Acessar Biotran EAD</a>

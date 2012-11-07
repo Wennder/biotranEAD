@@ -12,7 +12,8 @@ class Biotran_Mvc_View {
     public function renderizar($diretorio, $arquivo) {
 
         //se realmente existe alguém logado
-        if ($diretorio!='index' && $arquivo != 'profile.php' && $arquivo != 'index.php' && $arquivo!='acesso_negado.php') {
+        if ($diretorio!='index' && $arquivo != 'profile.php' && $arquivo != 'index.php' && $arquivo!='acesso_negado.php' && $arquivo != 'forum.php'
+                && $arquivo!='adicionar_topico.php' && $arquivo!='topico.php' && $arquivo!='responder_topico.php') {
            
             if (isset($_SESSION['usuarioLogado'])) {
                 $user = $_SESSION['usuarioLogado'];

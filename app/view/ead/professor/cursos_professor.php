@@ -4,21 +4,6 @@
 
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 
-
-<script> $(document).ready(function(){
-    
-        //On click any <h3> within the container
-//        $('.accord').click(function(e) {
-//
-//            //Close all <div> but the <div> right after the clicked <a>
-//            //$(e.target).next('div').siblings('div').slideUp('fast');
-//            
-//            //Toggle open/close on the <div> after the <h3>, opening it if not open.
-//            $(e.target).next('.accord_content').slideToggle('fast');
-//          
-//        });
-    });</script>
-
 <style>
     ul{
         list-style: none;
@@ -79,6 +64,7 @@ z-index: 90;
         font-weight: bolder;
     }
 </style>
+
 <div>
     <div id="meus_cursos"><div style="">
         <h3>Meus Cursos</h3></div>

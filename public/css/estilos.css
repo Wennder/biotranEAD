@@ -450,7 +450,7 @@ form.form_cadastro, form.form_editar{
         -moz-box-shadow: 2px 2px 2px #eeeeee ;
         -webkit-box-shadow: 2px 2px 2px #eeeeee ;
         background-color: white;
-       
+       cursor:pointer;
        color:#606060;
        font-weight: 600;
        margin:5px;
