@@ -2,21 +2,18 @@
     <head>        
         <meta http-equiv="Content-Type" content="NO-CACHE; text/html; charset=utf8" />
         <title>EAD Biotran</title>
-        <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
-        <script src="js/video.js"></script>                
-        <link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>   
-        <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-        <link href="css/jquery.dialog.css" rel="stylesheet" type="text/css"/>        
+        <script src="js/video.js"></script>
         <script src="js/jquery.js"></script> 
-        <script type="text/javascript" src="js/jquery.form.js"></script>
+        <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+        <script src="js/jquery.form.js" type="text/javascript"></script>
         <script src="js/accordion_1.js" type="text/javascript"></script>
-        <script src="js/jquery.js" type="text/javascript"></script>
         <script src="js/menuDropDown.js" type="text/javascript"></script>                        
-        <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
-<!--        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> -->
-        <style>
-            @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
-        </style>
+        <script src="http://malsup.github.com/jquery.form.js" type="text/javascript"></script>
+        <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
+        <link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>   
+        <link href="css/jquery.dialog.css" rel="stylesheet" type="text/css"/>
+        <link href='css/estilos.css' rel='stylesheet'/>
+        
         <script type="text/javascript">
             //            _V_.options.flash.swf = "video-js.swf";
             var centro = 1;
@@ -58,58 +55,54 @@
                         <li>
                             <div id="pic_holder">
                                 <img src="img/profile/pic/<?php
-$this->usuario = $_SESSION['usuarioLogado'];
-if ($this->usuario == null) {
-    echo '00.jpg';
-} else if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
-    echo $this->usuario->getId_usuario() . '.jpg';
-} else {
-    echo '00.jpg';
-}
-?>"  />
+                                $this->usuario = $_SESSION['usuarioLogado'];
+                                if ($this->usuario == null) {
+                                    echo '00.jpg';
+                                } else if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
+                                    echo $this->usuario->getId_usuario() . '.jpg';
+                                } else {
+                                    echo '00.jpg';
+                                }
+                                ?>"  />
                             </div>
                         </li>
-                        <li style="margin-top:15px;">
-                            <h2 >
-                                <?php echo $_SESSION["usuarioLogado"]->getNome_completo(); ?>
-                            </h2>
+                        <li>
+                            <h3>
+                                <?php echo $_SESSION["usuarioLogado"]->getNome_completo() . "  -  "; ?>
+                            </h3>
                         </li>
-                        <li style="margin: 0px 7px; margin-top:15px;">
-                            -
-                        </li>
-                        <li style="margin-top:15px;">
+                        <li>
                             <h3>
                                 <?php
                                 $papel = $_SESSION["usuarioLogado"]->getId_papel();
                                 if ($papel == 1) {
-                                    echo 'administrador';
+                                    echo 'Administrador';
                                 } else if ($papel == 2) {
-                                    echo 'gestor';
+                                    echo 'Gestor';
                                 } else if ($papel == 3) {
                                     if ($_SESSION["usuarioLogado"]->getSexo() == 'Masculino') {
-                                        echo 'professor';
+                                        echo 'Professor';
                                     } else {
-                                        echo 'professora';
+                                        echo 'Professora';
                                     }
                                 } else if ($papel == 4) {
-                                    echo 'aluno';
+                                    echo 'Estudante';
                                 }
                                 ?>
                             </h3>
                         </li>
-                        <li style="float:right;clear:right; margin:0px 15px; margin-top:15px;">
+                        <li style="float:right;clear:right; margin:15px 15px;">
                             <img src="img/settings.png" id="settings" onclick="expandir('#menuDrop')" />
-
                         </li>
-                        <li style="float:right; margin-top:15px;">
-                            <h2>EAD Biotran</h2>
+                        <li style="float:right;">
+                            <h3>EAD Biotran</h3>
                         </li>
                         <div id="menuDrop"
                              onmouseover="zerarCronometro()" 
                              onmouseout="iniciarCronometro()">
                             <ul >
                                 <li>
-                                    <a  href="index.php?c=ead&a=profile&id=<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>">Perfil</a>
+                                    <a  href="index.php?c=ead&a=dados_pessoais&id=<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>">Perfil</a>
 
                                 </li>
                                 <li>

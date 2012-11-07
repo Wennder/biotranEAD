@@ -1,4 +1,15 @@
-html, body, div, span, applet, object, iframe,  
+body {
+    background-color: #EFEFEF;
+    color: #404040;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+/*html, body, div, span, applet, object, iframe,  
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,  
 a, abbr, acronym, address, big, cite, code,  
 del, dfn, em, img, ins, kbd, q, s, samp,  
@@ -34,20 +45,21 @@ body{min-width: 1024px;}
 
 h1{
     font-size: 30px;
-}
+}*/
 
 #right_menu_holder{
     float:right;
     width:280px;
     padding:15px 0px 10px 0px;
 }
-h2{
+
+/*h2{
     font-size: 26px;
 }
 
 h3{
     font-size: 24px;
-}
+}*/
 
 .leftcolumn ul div h3{
     color:white;    
@@ -60,10 +72,9 @@ h3{
     padding-top:15px;
     padding-left:10px;
     padding-bottom:10px;
-    
     margin: 0;
-    height:100%;
-    background-color: #336666;
+    height:1300px;
+/*    background-color: #336666;*/
 }
 
 .leftcolumn a:link{
@@ -74,6 +85,7 @@ h3{
     font-weight: 600;
     line-height: 100%;
 }
+
 .leftcolumn a:visited{
     color:white;
     text-decoration: none;
@@ -82,6 +94,7 @@ h3{
     font-weight: 600;
     line-height: 100%;
 }
+
 .leftcolumn  a:hover{
     color:white;
     text-decoration: none;
@@ -90,6 +103,7 @@ h3{
     font-weight: 600;
     line-height: 100%;
 }
+
 .leftcolumn  a:active{
     color:white;
     text-decoration: none;
@@ -98,8 +112,6 @@ h3{
     font-weight: 600;
     line-height: 100%;
 }
-
-
 
 .navbar_item *{
     font-size: 16px;
@@ -216,8 +228,6 @@ form.form_cadastro, form.form_editar{
     padding:3px;
 }
 
-
-
 .content{
     margin-left:165px;
     margin-right: 280px;
@@ -234,7 +244,8 @@ form.form_cadastro, form.form_editar{
 }
 
 #page-leftcolumn{
-    background-image: url('../img/header_ead_background.png');
+/*    background-image: url('../img/header_ead_background.png');*/
+    background-color: #016292;
 }
 
 .accord_content li{
@@ -242,13 +253,15 @@ form.form_cadastro, form.form_editar{
 
 }
 
-#div_update label {display:block;width:100%;padding:10px 0;}
+#div_update label {
+    display:block;width:100%;padding:10px 0;
+}
+
 #form_gerenciar{
     padding: 50px;
     overflow: hidden;
 
 }
-
 
 #form_gerenciar{
     padding: 50px;
@@ -276,9 +289,14 @@ form.form_cadastro, form.form_editar{
     border:1px solid #111111;
 }
 
+#topbar{
+    height:75px;
+    background-image: url('../img/header_ead_background.png');
+}
+
 .eadbiotran_topbar{
-    position:relative;
-    margin:0;
+/*    position:relative;
+    margin:0;*/
     height:75px;
     background-image: url('../img/header_ead_background.png');
 }
@@ -319,7 +337,7 @@ form.form_cadastro, form.form_editar{
 }
 
 .eadbiotran_navbar_container ul{
-    margin: 10px 0px;
+    margin: 8px 0px;
 }
 
 #menuDrop{
@@ -345,25 +363,27 @@ form.form_cadastro, form.form_editar{
     line-height: 100%;
     text-decoration: none;
 }
+
 #menuDrop a:visited{
     font-size:18px;
     font-weight: 500;
     line-height: 100%;
     text-decoration: none;
 }
+
 #menuDrop  a:active{
     font-size:18px;
     font-weight: 500;
     line-height: 100%;
     text-decoration: none;
 }
+
 #menuDrop a:link{
     font-size:18px;
     font-weight: 500;
     line-height: 100%;
     text-decoration: none;
 }
-
 
 #menuDrop li{
     display:block;
@@ -379,12 +399,10 @@ form.form_cadastro, form.form_editar{
     padding:30px 50px;;
 }
 
-
-
 #index_admin h4{
     font-weight: 300;
     font-size: 20px;
-    
+
 }
 
 .detalhe{
@@ -402,9 +420,8 @@ form.form_cadastro, form.form_editar{
     background-image: url('../img/list_blue_background.png');
     border:1px solid #cbdcea;
     margin: 10px;
-    
-}
 
+}
 
 .list_index_admin_gray{
     height:37px;
@@ -439,64 +456,65 @@ form.form_cadastro, form.form_editar{
     margin-right: 15px;
 }
 
- [type=button]{
-        box-shadow: 2px 2px 2px #eeeeee ;
-        padding:5px 10px;
-        border-bottom: 1px solid #eeeeee;
-        border-right: 1px solid #eeeeee;
-        border-top:1px solid white;
-        border-left:1px solid white;
-        border-radius: 5px;
-        -moz-box-shadow: 2px 2px 2px #eeeeee ;
-        -webkit-box-shadow: 2px 2px 2px #eeeeee ;
-        background-color: white;
-       cursor:pointer;
-       color:#606060;
-       font-weight: 600;
-       margin:5px;
-    }
-    
-    [type = text]{
-        border-radius: 5px;
-        border:none;
-        border-right:1px solid #eeeeee;
-        border-bottom:1px solid #eeeeee;
-        box-shadow: 2px 3px 3px #eeeeee inset;
-        -moz-box-shadow: 2px 3px 3px #eeeeee inset ;
-        -webkit-box-shadow: 2px 3px 3px #eeeeee  inset;
-    }
-    
-    [readonly = readonly] {
-        
-        border:1px none;
-        
-    }
-    
-     .adicionar{
-        
+[type=button]{
+    box-shadow: 2px 2px 2px #eeeeee ;
+    padding:5px 10px;
+    border-bottom: 1px solid #eeeeee;
+    border-right: 1px solid #eeeeee;
+    border-top:1px solid white;
+    border-left:1px solid white;
+    border-radius: 5px;
+    -moz-box-shadow: 2px 2px 2px #eeeeee ;
+    -webkit-box-shadow: 2px 2px 2px #eeeeee ;
+    background-color: white;
+    cursor:pointer;
+    color:#606060;
+    font-weight: 600;
+    margin:5px;
+}
+
+[type = text]{
+    border-radius: 5px;
+    border:none;
+    border-right:1px solid #eeeeee;
+    border-bottom:1px solid #eeeeee;
+    box-shadow: 2px 3px 3px #eeeeee inset;
+    -moz-box-shadow: 2px 3px 3px #eeeeee inset ;
+    -webkit-box-shadow: 2px 3px 3px #eeeeee  inset;
+}
+
+[readonly = readonly] {
+
+    border:1px none;
+
+}
+
+.adicionar{
+
     background-image: url('../img/list_add.png');
-background-repeat: no-repeat;
-background-position: left;
-padding-left: 24px;
-margin-left:8px;
-    }
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 24px;
+    margin-left:8px;
+}
 
 
 .btn_del{
     float:right;
     background-image: url('../img/delete.png');
-background-repeat: no-repeat;
-background-position: left;
-padding-left: 24px;
-margin-left:8px;
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 24px;
+    margin-left:8px;
 }
+
 .btn_edt{
     float:right;
-     background-image: url('../img/document_edit.png');
-background-repeat: no-repeat;
-background-position: left;
-padding-left: 24px;
-margin-left:8px;
+    background-image: url('../img/document_edit.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 24px;
+    margin-left:8px;
 }
 
 .accord{
@@ -506,18 +524,20 @@ margin-left:8px;
 .accord_body{
     cursor: pointer;
     z-index: 9999;
-   overflow: auto;
-   
+    overflow: auto;
+
 }
 
 .accord_content_body{
     box-shadow: 0px 2px 3px #eeeeee inset;
-        -moz-box-shadow: 0px 2px 3px #eeeeee inset;
-        -webkit-box-shadow: 0px 2px 3px #eeeeee inset;
+    -moz-box-shadow: 0px 2px 3px #eeeeee inset;
+    -webkit-box-shadow: 0px 2px 3px #eeeeee inset;
 }
+
 .accord_body *{
     z-index: 0;
 }
+
 .accord *{
     font-weight: 600;
     line-height: 100%;
@@ -527,42 +547,42 @@ margin-left:8px;
     overflow: auto;
 }
 
+#div_update label {
+    display:block;width:100%;padding:10px 0;
+}
+
+#form_gerenciar{
+    padding: 50px;
+    overflow: hidden;
+
+}
+
+.botao_gerencia_data_table{
+    padding: 7px 7px;
+    color: #444444;
+    background-color: #eeeeee;
+    border:1px solid #999999;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+.botao_gerencia_data_table:hover{
+    cursor:pointer;
+    border:1px solid #111111;
+}
+
+.ui-dialog-titlebar{
+    background-image: url('img/header_ead_background.png');
+    background-repeat: repeat;
+    height: 10px;
+}
 
 
+#page-content{
+    padding:20px;
+}
 
-#div_update label {display:block;width:100%;padding:10px 0;}
-    #form_gerenciar{
-        padding: 50px;
-        overflow: hidden;
-
-    }
-
-    .botao_gerencia_data_table{
-        padding: 7px 7px;
-        color: #444444;
-        background-color: #eeeeee;
-        border:1px solid #999999;
-        font-weight: 600;
-        border-radius: 5px;
-    }
-
-    .botao_gerencia_data_table:hover{
-        cursor:pointer;
-        border:1px solid #111111;
-    }
-    
-    .ui-dialog-titlebar{
-        background-image: url('img/header_ead_background.png');
-        background-repeat: repeat;
-        height: 10px;
-    }
-    
-    
-    #page-content{
-                padding:20px;
-            }
-            
-            .acao_leftcolumn {
+.acao_leftcolumn {
     cursor: pointer;
     font-weight: 500;
     line-height: 100%;
@@ -571,81 +591,81 @@ margin-left:8px;
 
 #div_update label {display:block;width:100%;padding:10px 0;}
 
-    #tabela_usuarios td {
-        text-align: center;
-    }
+#tabela_usuarios td {
+    text-align: center;
+}
 
-    #tabela_usuarios .nome_usuario_datatable{
-        text-align: left;
-    }
+#tabela_usuarios .nome_usuario_datatable{
+    text-align: left;
+}
 
-    .botao_gerencia_data_table{
-        padding: 7px 7px;
-        color: #444444;
-        background-color: #eeeeee;
-        border:1px solid #999999;
-        font-weight: 600;
-        border-radius: 5px;
-    }
+.botao_gerencia_data_table{
+    padding: 7px 7px;
+    color: #444444;
+    background-color: #eeeeee;
+    border:1px solid #999999;
+    font-weight: 600;
+    border-radius: 5px;
+}
 
-    .botao_gerencia_data_table:hover{
-        cursor:pointer;
-        border:1px solid #111111;
-    }
-    .ui-dialog-titlebar{
-        background-image: url('../img/header_ead_background.png');
-        background-repeat: repeat;
-        height: 20px;
-    }
-    
-    .origem, .destino {
-        float:left;
-        display:inline; 
-    }
-    .botoes{
-        float:left;
-        display:inline;         
-    }
+.botao_gerencia_data_table:hover{
+    cursor:pointer;
+    border:1px solid #111111;
+}
+.ui-dialog-titlebar{
+    background-image: url('../img/header_ead_background.png');
+    background-repeat: repeat;
+    height: 20px;
+}
 
-    #destino {
-        display:block;
-        width:100px;
-    }
-    
-    #tabela_cursos_first{
-        margin:0;
-    }
-    
-    #form_cadastro h2{
-        margin-bottom: 20px;
-        font-weight: 600;
-    }
-    
-     #div_conteudo_professor_editar_modulo{
-        position: relative;
+.origem, .destino {
+    float:left;
+    display:inline; 
+}
+.botoes{
+    float:left;
+    display:inline;         
+}
 
-        padding-top:0px;
-    }
+#destino {
+    display:block;
+    width:100px;
+}
 
-    #div_conteudo_professor_editar_modulo h4{
-        margin:0;
+#tabela_cursos_first{
+    margin:0;
+}
 
-        padding:0;
-    }
+#form_cadastro h2{
+    margin-bottom: 20px;
+    font-weight: 600;
+}
 
-    #disposicao_conteudo_professor_editar_modulo{
-        position: relative;
+#div_conteudo_professor_editar_modulo{
+    position: relative;
 
-    }
+    padding-top:0px;
+}
 
-    #center_content{
+#div_conteudo_professor_editar_modulo h4{
+    margin:0;
+
+    padding:0;
+}
+
+#disposicao_conteudo_professor_editar_modulo{
+    position: relative;
+
+}
+
+#center_content{
 
 
-        padding-top:0px;
-    }
+    padding-top:0px;
+}
 
-    #center_content h4{
-        margin:0;
+#center_content h4{
+    margin:0;
 
-        padding:0;
-    }
+    padding:0;
+}

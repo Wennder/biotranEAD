@@ -22,7 +22,7 @@ body {
 .accordion_body p{
     border: 1px dashed black;
     border-radius:5px;
-    font-size: 20;
+    font-size: 20px;
     color:blue;
     padding:0;
 }

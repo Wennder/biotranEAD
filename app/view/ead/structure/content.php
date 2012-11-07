@@ -1,16 +1,16 @@
 <div id="right_menu_holder" style="" >
         <div style="border-left: 1px solid #cccccc; height: 100%; padding-left: 10px;">
-            <h4>infos</h3>
+            <h3></h3>
             <ul style="list-style: none; padding: 10px;">
                 
                 <li>
-                    Cursos
+                    
                     <ul style="list-style: none; padding:10px;">
                         <li>
-                          20 completos  
+                           
                         </li>
                         <li>
-                            5 a serem analisados
+                            
                         </li>
                     </ul>
                 </li>
