@@ -33,7 +33,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="index.php?c=ead&a=index" class="button">Acessar Biotran EAD</a>
+                                        <a href="index.php?c=ead&a=index" class="button2">Acessar Biotran EAD</a>
                                     </td>
                                 </tr>
                             </table>

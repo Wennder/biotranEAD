@@ -1,5 +1,5 @@
 body {
-    background-color: #EFEFEF;
+    background-color: #FFF;
     color: #404040;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 13px;
@@ -7,6 +7,58 @@ body {
     line-height: 18px;
     margin: 0;
     padding: 0;
+}
+
+.topico_fundo{
+    background-color: #cbdcea;
+}
+/*.topico_header{
+    background-color: lightblue;
+}
+.topico_mensagens{
+    background-color: #DCDCDC;
+}*/
+th {
+    background-color: midnightblue;
+    font: bold;
+    color:#FFFFFF;
+}
+h4{
+    font-weight: bold;
+}
+#fundo1{
+    background-color: #eeeeee;
+}
+#fundo2{
+    background-color: #edf7ff;
+}
+#forum_novo_topico, #forum_responder{
+    font:bold 14px Tahoma, Geneva, sans-serif;
+    font-style:normal;
+    color:#ffffff;
+    background:midnightblue;
+    border:0px solid #7d7ca1;
+    text-shadow:1px 1px 1px #222222;
+    text-decoration: none;
+    border-radius:3px 3px 3px 3px;
+    -moz-border-radius:3px 3px 3px 3px;
+    -webkit-border-radius:3px 3px 3px 3px;
+    width:90px;
+    padding:12px 40px;
+    cursor:pointer;
+
+}
+
+#forum_novo_topico:active, #forum_responder:active{
+    cursor:pointer;
+    position:relative;
+    width:88px;
+    font:bold 13px Tahoma, Geneva, sans-serif;
+}
+#forum_novo_topico:hover, #forum_responder:hover{
+    box-shadow:0px 0px 2px 1px grey;
+    -moz-box-shadow:0px 0px 2px 1px grey;
+    -webkit-box-shadow:0px 0px 2px 1px grey;
 }
 
 /*html, body, div, span, applet, object, iframe,  

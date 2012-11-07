@@ -8,18 +8,20 @@ $this->controller->getTopico("id_topico=".$_GET['id']);
 
 ?>
 
-<div>
+<div class="topico_fundo">
     <div class="topico_header">
         <h3><?php echo $this->controller->getTitulo(); ?></h3>
-        <h4>Por <?php echo $this->controller->getUsuarioNome();?></h4>
+        <b>Autor: </b><?php echo $this->controller->getUsuarioNome();?>
     </div>
-    <div>
+    <div class="topico_mensagens">
         <p>
            <?php echo $this->controller->getMensagem(); ?> 
         </p>
     </div>
-    <div><a href="index.php?c=ead&a=responder_topico&id=<?php echo $_GET['id'];?>">responder</a></div>
+    <br>
+    <div><a href="index.php?c=ead&a=responder_topico&id=<?php echo $_GET['id'];?>" id="forum_responder">Responder</a></div>
 </div>
+<br>
 <?php 
     echo $this->controller->listaRespostas($_GET['id']);
 ?>
