@@ -10,7 +10,7 @@ class PDOConnectionFactory {
     // quando não for necessário deixe em branco apenas com as aspas duplas ""
     public $host = "localhost";
     public $user = "root";
-    public $senha = "unifal";
+    public $senha = "";
     public $db = "db_eadbiotran";
     // seta a persistência da conexão
     public $persistent = false;

@@ -332,9 +332,14 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionForum(){
-        $this->controller = new controllerCurso();
-        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);        
+        if(isset($_GET['d'])){
+            $this->controller = new ControllerForum();
+                $this->controller->removerTopico($_GET['d']); 
+        }
+            $this->controller = new controllerCurso();
+            $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+            $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);        
+        
         $this->renderizar();
     }
     
@@ -356,6 +361,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
                 $this->controller = new ControllerForum();
                 $topico = $this->controller->inserir_topico(); 
                 $_GET['id'] = $topico->getId_topico();
+            }else if(isset($_GET['d'])){
+                $this->controller = new ControllerForum();
+                $this->controller->removerResposta($_GET['d']); 
             }
         }
         $this->renderizar();

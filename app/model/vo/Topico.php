@@ -19,6 +19,7 @@ class Topico {
     private $id_usuario;
     private $titulo;
     private $mensagem;
+    private $data_hora;
 
     public function __construct() {
         
@@ -48,6 +49,10 @@ class Topico {
         return $this->mensagem;
     }
 
+    public function getData_hora(){
+        return $this->data_hora;
+    }
+    
     public function setId_topico($id_topico) {
         $this->id_topico = $id_topico;
     }
@@ -67,7 +72,11 @@ class Topico {
     public function setMensagem($mensagem) {
         $this->mensagem = $mensagem;
     }
-
+    
+    public function setData_hora($data_hora){
+        $this->data_hora = $data_hora;
+    }
+    
 }
 
 ?>
