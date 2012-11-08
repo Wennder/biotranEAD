@@ -165,9 +165,9 @@ class controllerModulo {
         $lista = "";
         $exercicio = $controller->getListaExercicio('id_modulo=' . $id_modulo);
         for ($i = 0; $i < count($exercicio); $i++) {
-            $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><h3 name='exercicio' class='item_conteudo titulo_video' id='index.php?c=ead&a=editar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
+            $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><h3 name='exercicio' class='item_conteudo titulo_video' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
             $lista .= $exercicio[$i]->getTitulo();
-            $lista .= "</h3>";
+            $lista .= "</h3><input type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' class='btn_resolver_exe' name='exercicio' value='Resolver'/>";
         }
         return $lista;
     }

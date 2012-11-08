@@ -184,6 +184,42 @@
                     });
                 });        
                 
+                $(".btn_edt").live('click', function(){                        
+                    var btn = $(this);
+                    $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
+                        if (status == "error") {
+                            alert('erro');
+                            var msg = "Sorry but there was an error: ";
+                            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                        }else{                                                                                    
+                            dialog = $('#dialog').dialog({width:800, height:600,dialogClass:'dialogstyle', modal:true,                        
+                                close: function(event,ui){                     
+                                    $(dialog).dialog('destroy');
+                                    $(dialog).find('div').remove();
+                                }                                        
+                            });
+                        }
+                    });
+                });        
+                
+                $(".btn_resolver_exe").live('click', function(){                        
+                    var btn = $(this);
+                    $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
+                        if (status == "error") {
+                            alert('erro');
+                            var msg = "Sorry but there was an error: ";
+                            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                        }else{                                                                                    
+                            dialog = $('#dialog').dialog({width:800, height:600,dialogClass:'dialogstyle', modal:true,                        
+                                close: function(event,ui){                     
+                                    $(dialog).dialog('destroy');
+                                    $(dialog).find('div').remove();
+                                }                                        
+                            });
+                        }
+                    });
+                });        
+                
                 $(".btn_add").live('click', function(){        
                     var btn = $(this);
                     var tipo = btn.attr('name').split('-');
