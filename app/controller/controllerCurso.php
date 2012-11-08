@@ -442,7 +442,7 @@ class controllerCurso {
         return $tabela;
     }
 
-    public function cursosAluno() {
+    public function lista_cursosAluno() {
         $tabela = null;
         $this->cursos = $this->getListaCursos("status = 4");
         $matricula_cursoDAO = new Matricula_cursoDAO();
@@ -452,11 +452,11 @@ class controllerCurso {
 
         $tabela .= "<div class='lista_cursos accord' style='border-left:3px solid #7f90d0; padding-left:5px;'>Meus Cursos</div></a><div class='aluno_cursos accord_content'><ul >";
         if ($quant > 0) {
-            for (; $i < $quant; $i++) {
-                $auxCurso = $cursoDAO->select("id_curso=" . $matriculados[$i]->getId_curso());
+            for (; $i < $quant; $i++) {                
+                $auxCurso = $this->getListaCursos("id_curso=" . $matriculados[$i]->getId_curso());
                 $tabela.="<li><a><div class='lista_cursos'>
                 " . $auxCurso[0]->getNome();
-                $tabela.="<div align='right'><a href='index.php?c=ead&a=curso&id=" . $auxCurso[0]->getId_curso() . "' class='button'>Acessar</a></div>";
+                $tabela.="<div align='right'><a href='index.php?c=ead&a=curso_aluno&id=" . $auxCurso[0]->getId_curso() . "' class='button'>Acessar</a></div>";
                 $tabela.= "<div><a style='font-size: 12px'>Duração do curso:" . $auxCurso[0]->getTempo() . "</a></div></div></a></li>";
             }
         } else {
@@ -475,7 +475,7 @@ class controllerCurso {
                     <tr ><td align='left'>" . $this->cursos[$i]->getNome() . "</td>";
 //                $tabela.="<td align='right' ><a href='index.php?c=ead&a=matricula&id=" . $this->cursos[$i]->getId_curso() . "' class='button'>Matricular</a></td></tr>";
                     $aux = 'Em contrucao';
-                    $tabela.="<td align='right'><input id='matricular' name='".$this->cursos[$i]->getId_curso()."' type='button' value='Matricular' /></td></tr>";
+                    $tabela.="<td align='right'><input id='btn_visualizarCurso' name='".$this->cursos[$i]->getId_curso()."' type='button' value='Visualizar' /></td></tr>";
                     $tabela.= "<tr><td style='font-size:12px;'>Duração do curso:" . $this->cursos[$i]->getTempo() . "</td></tr>";
                     $tabela.="</table></div></a></li>";
                 }
@@ -693,7 +693,8 @@ class controllerCurso {
         }
         return 0;
     }
-
+    
+    
 }
 
 ?>

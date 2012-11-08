@@ -107,6 +107,19 @@ class controllerModulo {
         return $listaModulos;
     }
 
+    public function lista_visualizarModulos_lefcolumn_aluno($id_curso) {
+        $modulos = $this->getListaModulo('id_curso=' . $id_curso);
+        $quant = count($modulos);
+        $i = 0;
+        $listaModulos = "";        
+        for (; $i < $quant; $i++) {
+            $listaModulos .= "<div class='accordion_leftcolumn '><div name='editar_modulo' class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=pag_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";            
+            $listaModulos .= "</ul></div></div>";
+        }
+        
+        return $listaModulos;
+    }
+
     public function listaVideo_aulas_modulo($id_modulo) {
         $controllerVideo = new controllerVideo();
         $lista = "";

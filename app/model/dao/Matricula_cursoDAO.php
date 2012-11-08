@@ -10,10 +10,10 @@
  *
  * @author cead-p057007
  */
-class Matricula_cursoDAO  extends PDOConnectionFactory{
-    
-    private $conex=null;
-    
+class Matricula_cursoDAO extends PDOConnectionFactory {
+
+    private $conex = null;
+
     public function Matricula_cursoDAO() {
         $this->conex = $this->getConnection();
     }
@@ -23,21 +23,24 @@ class Matricula_cursoDAO  extends PDOConnectionFactory{
         try {
             $stmt = $this->conex->prepare("INSERT INTO matricula_curso (id_curso, id_usuario, data_inicio, data_fim, status_acesso, modulo_atual) VALUES (?,?,?,?,?,?)");
             $stmt->bindValue(1, $matricula_curso->getId_curso());
-            $stmt->bindValue(2, $matricula_curso->getId_usuario());     
+            $stmt->bindValue(2, $matricula_curso->getId_usuario());
             $stmt->bindValue(3, $matricula_curso->getData_inicio());
             $stmt->bindValue(4, $matricula_curso->getData_fim());
             $stmt->bindValue(5, $matricula_curso->getStatus_acesso());
-            $stmt->bindValue(6, $matricula_curso->getModulo_atual());
-
-
-            $stmt->execute();
-            $stmt->conex = null;
+            $stmt->bindValue(6, $matricula_curso->getModulo_atual());            
+            
+            if ($stmt->execute()) {
+                $stmt->conex = null;
+                return 1;
+            } else {
+                return 0;
+            }
         } catch (PDOException $ex) {
             echo "ERRO:" . trigger_error('Impossivel inserir matrícula');
         }
     }
 
-   public function update(Matricula_curso $mc = null) {
+    public function update(Matricula_curso $mc = null) {
         try {
             if ($cp != null) {
                 $this->conex->exec("SET NAMES 'utf8'");
@@ -48,7 +51,7 @@ class Matricula_cursoDAO  extends PDOConnectionFactory{
                 $stmt->bindValue(4, $mc->getData_fim());
                 $stmt->bindValue(5, $mc->getStatus_acesso());
                 $stmt->bindValue(6, $mc->getModulo_acesso());
-                
+
                 $stmt->execute();
                 if ($mc != null) {
                     $dao = new Matricula_curso();
@@ -59,11 +62,10 @@ class Matricula_cursoDAO  extends PDOConnectionFactory{
             echo "Erro: " . trigger_error('Impossivel atualizar matrícula');
         }
     }
-        
-        
-        public function deleteMatriculaCurso($id_curso, $id_usuario) {
+
+    public function deleteMatriculaCurso($id_curso, $id_usuario) {
         try {
-            $num = $this->conex->exec("DELETE FROM matricula_curso WHERE id_curso=".$id_curso." AND id_usuario=" . $id_usuario);
+            $num = $this->conex->exec("DELETE FROM matricula_curso WHERE id_curso=" . $id_curso . " AND id_usuario=" . $id_usuario);
             // caso seja executado ele retorna o número de rows que foram afetadas.
             if ($num >= 1) {
                 return $num;
@@ -76,7 +78,7 @@ class Matricula_cursoDAO  extends PDOConnectionFactory{
         }
     }
 
-        public function select($condicao) {
+    public function select($condicao) {
         try {
             $stmt = null;
             if ($condicao == null) {
@@ -93,7 +95,7 @@ class Matricula_cursoDAO  extends PDOConnectionFactory{
             return "erro: " . trigger_error('Impossivel selecinar matricula');
         }
     }
-    
+
     public function selectMatriculaCurso($id_curso) {
         try {
             $stmt = $this->conex->query("SELECT * FROM matricula_curso NATURAL JOIN usuario WHERE id_curso = " . $id_curso);
@@ -106,7 +108,8 @@ class Matricula_cursoDAO  extends PDOConnectionFactory{
             return "erro: " . trigger_error('Impossivel selecionar matricula do curso');
         }
     }
- public function selectMatricula_curso_usuario($id_usuario) {
+
+    public function selectMatricula_curso_usuario($id_usuario) {
         try {
             $stmt = $this->conex->query("SELECT * FROM matricula_curso NATURAL JOIN usuario WHERE id_usuario = " . $id_usuario);
             $mc = array();
@@ -119,16 +122,6 @@ class Matricula_cursoDAO  extends PDOConnectionFactory{
         }
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 ?>

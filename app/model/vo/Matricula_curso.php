@@ -72,7 +72,7 @@ class Matricula_curso {
     }
 
     public function setModulo_atual($modulo_atual) {
-        $this->numero_modulo = $modulo_atual;
+        $this->modulo_atual = $modulo_atual;
     }
     
 }

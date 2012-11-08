@@ -31,7 +31,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->listaTexto = $this->controller->listaArquivos($this->visao->modulo, 'texto_referencia');
         $this->visao->listaMaterial = $this->controller->listaArquivos($this->visao->modulo, 'material_complementar');
         $this->visao->listaExercicio = $this->controller->listaExercicio($this->visao->modulo->getId_modulo());
-        
+
         $this->renderizar();
     }
 
@@ -91,11 +91,11 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionAtualizar_cadastro_usuario() {
         $this->controller = new controllerUsuario();
-        $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();                
-        if ($id_usuario != '') {            
+        $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
+        if ($id_usuario != '') {
             echo json_encode($this->controller->atualizarUsuario($_SESSION['usuarioLogado']->getId_usuario()));
-        }else{
-            echo json_encode(0);            
+        } else {
+            echo json_encode(0);
         }
 //        Biotran_Mvc::pegarInstancia()->mudarAcao('index');
 ////        $this->visao->tabela = $this->controller->tabelaUsuarios();
@@ -151,7 +151,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerUsuario();
         //Pega a id passa na url e monta o objeto buscando os dados no banco
         $id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->visao->usuario = $this->controller->getUsuario("id_usuario=" . $id_usuario . "");        
+        $this->visao->usuario = $this->controller->getUsuario("id_usuario=" . $id_usuario . "");
         $this->visao->endereco = $this->controller->getEndereco_usuario($id_usuario);
         $this->renderizar();
     }
@@ -186,14 +186,38 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionTodos_cursos() {
+        $this->controller = new controllerCurso();
+        $this->visao->listaCursos = $this->controller->lista_cursosAluno();
         $this->visao->usuario = $_SESSION['usuarioLogado'];
         $this->renderizar();
     }
 
-    public function actionCurso() {
+    public function actionCurso_aluno() {
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->controller = new controllerCurso();
+        $this->controller = new controllerMatricula_curso();
+        $this->controller->novaMatricula($id_curso);
+        $this->controller = new controllerCurso();                
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
+        $this->renderizar();
+    }
+
+    public function actionPag_curso() {
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->controller = new controllerCurso();                
+        $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
+        $this->controller = new controllerModulo();
+        $this->visao->listaModulos = $this->controller->listaModulos($id_curso);
+        $this->renderizar();
+    }
+    
+    public function actionPag_modulo() {
+        $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->controller = new controllerModulo();
+        $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
+        $this->visao->listaVideo = $this->controller->visualizar_listaVideo_aulas_modulo($id_modulo);
+        $this->visao->listaTexto = $this->controller->visualizar_listaArquivos($this->visao->modulo, 'texto_referencia');
+        $this->visao->listaMaterial = $this->controller->visualizar_listaArquivos($this->visao->modulo, 'material_complementar');
+        $this->visao->listaExercicio = $this->controller->visualizar_listaExercicio($id_modulo);
         $this->renderizar();
     }
 
@@ -331,36 +355,42 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
-    public function actionForum(){
+    public function actionForum() {
         $this->controller = new controllerCurso();
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);        
+        $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);
         $this->renderizar();
     }
-    
-    public function actionAdicionar_topico(){
+
+    public function actionAdicionar_topico() {
         $this->renderizar();
     }
-    
-    public function actionResponder_topico(){
+
+    public function actionResponder_topico() {
         $this->renderizar();
     }
-    
-    public function actionTopico(){
-        if($_POST['r']== '1' ){
+
+    public function actionTopico() {
+        if ($_POST['r'] == '1') {
             $this->controller = new ControllerForum();
             $topico = $this->controller->inserir_resposta();
-            
-        }else{
-            if(!isset($_GET['id'])){
+        } else {
+            if (!isset($_GET['id'])) {
                 $this->controller = new ControllerForum();
-                $topico = $this->controller->inserir_topico(); 
+                $topico = $this->controller->inserir_topico();
                 $_GET['id'] = $topico->getId_topico();
             }
         }
         $this->renderizar();
     }
-    
+
+    public function actionVisualizar_curso() {
+        $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);
+        $this->renderizar();
+    }
+
 }
 
 ?>

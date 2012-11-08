@@ -39,6 +39,7 @@ include ROOT_PATH . '/app/model/dao/PerguntaDAO.php';
 include ROOT_PATH . '/app/model/dao/AlternativaDAO.php';
 include ROOT_PATH . '/app/model/dao/TopicoDAO.php';
 include ROOT_PATH . '/app/model/dao/RespostaDAO.php';
+include ROOT_PATH . '/app/controller/controllerMatricula_curso.php';
 include ROOT_PATH . '/app/controller/ControllerSeguranca.php';
 include ROOT_PATH . '/app/controller/ControllerErros.php';
 include ROOT_PATH . '/app/controller/controllerCurso_professor.php';
