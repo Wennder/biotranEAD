@@ -243,7 +243,7 @@ if (isset($this->curso)) {
                             $(dialog).find('div').remove();
                         },
                         open: function(event, ui){
-                            alert(_data[10])
+                            alert(_data[10]);
                             $(this).find('#img_curso').src = "img/cursos/"+_data[10]+".jpg?" + new Date().getTime();
                         }
                     });
