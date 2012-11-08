@@ -370,7 +370,12 @@ switch ($papel) {
             if (elem.length) {
                 var _data = oTable.fnGetData(elem[0]);
                 var _HTML = $('#dialog_profile').html();
-                
+                var id_imagem = "00";
+                $.getJSON('ajax/verificaImagem.php',{id: _data[10], tipo: "curso", ajax: 'true'}, function(j){       
+                    if(j == '1'){
+                        id_imagem = _data[20];
+                    }
+                });
                 _HTML = _HTML.replace('#ATUACAO#', _data[2]);
                 _HTML = _HTML.replace('#SEXO#', _data[9]);
                 _HTML = _HTML.replace('#PAPEL#', _data[1]);
@@ -379,6 +384,7 @@ switch ($papel) {
                 _HTML = _HTML.replace('#DESCRICAO#', _data[8]);              
                 _HTML = _HTML.replace('#CIDADE#', _data[17]);               
                 _HTML = _HTML.replace('#EMAIL#', _data[12]);
+                _HTML = _HTML.replace('#FOTO#', id_imagem);
                 
                 $(_HTML).dialog({width:800,height:600, modal:true});
             }
