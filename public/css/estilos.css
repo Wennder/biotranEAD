@@ -9,6 +9,48 @@ body {
     padding: 0;
 }
 
+.patrocinador_holder{
+    float:left;
+    margin:5px;
+}
+
+#patrocinadores_gerencia{
+    padding: 0px 20px;
+}
+
+#gerenciar_sistema{
+    list-style: none;
+}
+
+#gerenciar_sistema a{
+    text-decoration: none;
+    color: #404040;
+}
+#gerenciar_sistema a:hover{
+    text-decoration: none;
+    color: #404040;
+}
+#gerenciar_sistema a:visited{
+    text-decoration: none;
+    color: #404040;
+}
+#gerenciar_sistema a:active{
+    text-decoration: none;
+    color: #404040;
+}
+
+
+#gerenciar_sistema li{
+    float:left;
+    position: relative;
+    padding: 10px 40px;
+    border-radius: 5px;
+    margin-left:  20px;
+    box-shadow:  1px 1px 3px #cccccc ;
+}
+
+
+
 #voltar_forum{
     padding-bottom: 10px;
     text-decoration: none;

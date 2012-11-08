@@ -18,7 +18,7 @@ class Biotran_Mvc_View {
             if (isset($_SESSION['usuarioLogado'])) {
                 $user = $_SESSION['usuarioLogado'];
                 $controller = new controllerPapel();
-                if ($user->getId_papel() == 1) {
+                if ($user->getId_papel() == 1 || $user->getId_papel() == 2) {
                     $diretorio .= '/sistema';
                 }
                 $local = '../app/view/' . $diretorio;
