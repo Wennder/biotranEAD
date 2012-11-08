@@ -9,8 +9,89 @@ body {
     padding: 0;
 }
 
+#voltar_forum{
+    padding-bottom: 10px;
+    text-decoration: none;
+}
+
 .topico_fundo{
+    margin-top: 10px;
     background-color: #cbdcea;
+    border:2px solid #81b3fe;
+}
+
+.topico_header{
+    background-color: #81b3fe;
+    color:white;
+    padding:5px;
+    box-shadow: 0px 3px 2px #aaaaaa;
+}
+
+.topico_header span{
+    margin-left:10px;
+}
+
+.topico_header h2{
+    margin-bottom: 5px;
+}
+
+.topico_header b{
+    margin-left:5px;
+}
+
+.topico_mensagem{
+    margin: 0px 20px;
+}
+
+.topico_header *{
+    margin:0;
+    color:white;
+}
+
+#respostas{
+    padding-left:30px;
+}
+
+#fundo1{
+    border:2px solid #cdcfb1;
+}
+
+.fundo1_header{
+    background-color: #cdcfb1;
+    box-shadow: 0px 3px 2px #aaaaaa;
+    padding:5px;
+    
+}
+.fundo1_header span{
+    margin-left: 10px;
+}
+/*.fundo1_header b{
+    margin-left: 5px;
+}*/
+
+.fundo1_mensagem{
+    margin:0px 20px;
+}
+
+#fundo2{
+    border:2px solid #b7e7d4;
+}
+
+.fundo2_header{
+    background-color: #b7e7d4;
+    box-shadow: 0px 3px 2px #aaaaaa;
+    padding:5px;
+}
+
+.fundo2_header span{
+    margin-left: 10px;
+}
+/*.fundo1_header b{
+    margin-left: 5px;
+}*/
+
+.fundo2_mensagem{
+    margin:0px 20px;
 }
 /*.topico_header{
     background-color: lightblue;
@@ -46,7 +127,7 @@ h4{
     width:90px;
     padding:12px 40px;
     cursor:pointer;
-
+    margin-left: 20px;
 }
 
 #forum_novo_topico:active, #forum_responder:active{

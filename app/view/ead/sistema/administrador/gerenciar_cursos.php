@@ -223,6 +223,7 @@ if (isset($this->curso)) {
                 }
             });
         
+        
             $('#btn_analisar').live('click', function(){            
                 elem = $('tbody tr.row_selected');
                 if(elem.length){
@@ -234,13 +235,18 @@ if (isset($this->curso)) {
                     _HTML = _HTML.replace('#OBSERVACOES#', _data[9]);
                     _HTML = _HTML.replace('#OBJETIVO#', _data[7]);
                     _HTML = _HTML.replace('#IDCURSO#', _data[10]);
-                    _HTML = _HTML.replace('#IDCURSO#', _data[10]);
+                    _HTML = _HTML.replace('#IDCURSO#', _data[10]);                    
+                    _HTML = _HTML.replace('_id_img_curso', 'img_curso');
                     _HTML = _HTML.replace('id_aprovar_curso', 'aprovar_curso');
                     _HTML = _HTML.replace('id_reprovar_curso', 'reprovar_curso');
                     dialog = $(_HTML).dialog({width:800, height:600,dialogClass:'dialogstyle', modal:true,                                            
                         close: function(event,ui){                     
                             $(dialog).dialog('destroy');
                             $(dialog).find('div').remove();
+                        },
+                        open: function(event, ui){
+                            alert(_data[10]);
+                            $(this).find('#img_curso').src = "img/cursos/"+_data[10]+".jpg?" + new Date().getTime();
                         }
                     });
                 }
@@ -644,8 +650,8 @@ if (isset($this->curso)) {
                     <div id="titulo_holder" style="">
                         <h1 style="">Dados inseridos pelo professor, curso: #NOME#</h1>
                     </div>
-                    <div id="imagem_curso">
-                        <img id="_id_img_curso" src="img/cursos/#ID_FOTO#.jpg" alt="" height="180" width="240" />
+                    <div id="image_holder">
+                        <img id="_id_img_curso" src="img/cursos/#IMAGEM#" alt="Imagem do Curso" />
                     </div>
                 </div>
                 <div style="padding:10px;float:left;  ">

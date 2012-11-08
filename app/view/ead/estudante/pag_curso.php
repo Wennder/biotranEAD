@@ -1,7 +1,3 @@
-<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
-
 <img id="imagem_curso_matricula" src=<?php echo "img/cursos/" . $this->curso->getId_curso() . ".jpg"; ?> style="float:left; margin:10px;"/>
      <div style="padding:15px;">
         <h1  style=""><?php echo $this->curso->getNome(); ?></h1> 
@@ -14,11 +10,11 @@
     </div>
 <fieldset style="100%">
     <legend>Modulos e Conteudo</legend>
-    <div class="accordion_body">
-        
-        <!--        Funcao php para listar modulos e conteudo-->
-        
+    <div name="editar_curso" id="lista_de_modulos">
+        <ul style="list-style-type:none;">
+            <?php            
+            echo $this->listaModulos;
+            ?>
+        </ul>
     </div>
 </fieldset>
-
-<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

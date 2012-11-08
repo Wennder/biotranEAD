@@ -16,6 +16,7 @@ class Resposta {
     private $id_topico;
     private $id_usuario;
     private $mensagem;
+    private $data_hora;
 
     public function getId_resposta() {
         return $this->id_resposta;
@@ -33,6 +34,10 @@ class Resposta {
         return $this->mensagem;
     }
     
+    public function getData_hora(){
+        return $this->data_hora;
+    }
+    
     public function setId_resposta($id_resposta){
         $this->id_resposta = $id_resposta;
     }
@@ -45,6 +50,10 @@ class Resposta {
     
     public function setMensagem($mensagem){
         $this->mensagem = $mensagem;
+    }
+    
+    public function setData_hora($data_hora){
+        $this->data_hora = $data_hora;
     }
     
 }

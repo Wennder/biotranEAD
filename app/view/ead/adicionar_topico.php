@@ -9,6 +9,7 @@
         <table>
             <input id="id_curso_topico" name="id_curso" type="text" hidden="true" value="<?php echo $_GET['id'];?>" />
             <input id="id_usuario_topico" name="id_usuario" type="text" hidden="true" value="<?php echo $_SESSION["usuarioLogado"]->getId_usuario();?>" />
+            <input name="data_hora" type="text" hidden="true" value="<?php  date_default_timezone_set("Brazil/East"); echo $today = date("F j, Y, g:i a"); ?>"/>
             <tr>
                 <td><label>titulo: </label></td>
                 <td><input type="text" id="titulo" name="titulo" style="width:500px;" maxlength="255"/></td>

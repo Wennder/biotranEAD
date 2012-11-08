@@ -21,11 +21,12 @@ class TopicoDAO extends PDOConnectionFactory{
     public function insert(Topico $topico) {
         try {
             $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("INSERT INTO topico(id_curso, id_usuario, titulo, mensagem) VALUES (?,?,?,?)");
+            $stmt = $this->conex->prepare("INSERT INTO topico(id_curso, id_usuario, titulo, mensagem,data_hora) VALUES (?,?,?,?,?)");
             $stmt->bindValue(1, $topico->getId_curso());
             $stmt->bindValue(2, $topico->getId_usuario());
             $stmt->bindValue(3, $topico->getTitulo());               
             $stmt->bindValue(4, $topico->getMensagem()); 
+            $stmt->bindValue(5, $topico->getData_hora()); 
             $stmt->execute();
             $id = $this->conex->lastInsertId("Topico");
             $this->conex = null;
@@ -38,12 +39,13 @@ class TopicoDAO extends PDOConnectionFactory{
     public function update(Topico $topico) {
         try {
             $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("UPDATE pergunta SET id_curso=?, id_usuario=?, mensagem=?, titulo=? WHERE id_topico=?");
+            $stmt = $this->conex->prepare("UPDATE pergunta SET id_curso=?, id_usuario=?, mensagem=?, titulo=?,data_hora=? WHERE id_topico=?");
             $stmt->bindValue(1, $topico->getId_curso());
             $stmt->bindValue(2, $topico->getId_usuario());
             $stmt->bindValue(3, $topico->getMensagem());          
             $stmt->bindValue(4, $topico->getTitulo());          
-            $stmt->bindValue(5, $topico->getId_topico());          
+            $stmt->bindValue(5, $topico->getData_hora());          
+            $stmt->bindValue(6, $topico->getId_topico());          
             $stmt->execute();
            
         } catch (PDOException $ex) {
@@ -54,6 +56,20 @@ class TopicoDAO extends PDOConnectionFactory{
     public function delete(Topico $pergunta) {
         try {
             $num = $this->conex->exec("DELETE FROM topico WHERE id_topico=" . $pergunta->getId_topico());
+            // caso seja execuado ele retorna o número de rows que foram afetadas.
+            if ($num >= 1) {
+                return $num;
+            } else {
+                return 0;
+            }
+            // caso ocorra um erro, retorna o erro;
+        } catch (PDOException $ex) {
+            echo "Erro: " . $ex->getMessage();
+        }
+    }
+    public function deletePor_id($id_topico) {
+        try {
+            $num = $this->conex->exec("DELETE FROM topico WHERE id_topico=" . $id_topico);
             // caso seja execuado ele retorna o número de rows que foram afetadas.
             if ($num >= 1) {
                 return $num;

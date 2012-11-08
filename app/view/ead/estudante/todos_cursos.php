@@ -24,19 +24,19 @@
         alert('Em construcao!');
     }
     
-    $('#matricular').live('click', function(){
+    $('#btn_visualizarCurso').live('click', function(){
         var id = $(this).attr('name');
-        document.location = 'index.php?a=curso&c=ead&id='+id;
-//        var id_estudante = $('#id_usuario').val();
-//        var id_curso = $(this).attr('name');
-//        $.getJSON('ajax/avaliar_curso.php', {id_curso: id_curso, acao:'submeter_analise'}, function(j){
-//            if(j == 1){
-//                alert('enviado com sucesso');
-//                $('#div_env_analise').remove();
-//            }else{
-//                alert('erro ao enviar, tente novamente');
-//            }
-//        });
+        document.location = 'index.php?a=visualizar_curso&c=ead&id='+id;
+        //        var id_estudante = $('#id_usuario').val();
+        //        var id_curso = $(this).attr('name');
+        //        $.getJSON('ajax/avaliar_curso.php', {id_curso: id_curso, acao:'submeter_analise'}, function(j){
+        //            if(j == 1){
+        //                alert('enviado com sucesso');
+        //                $('#div_env_analise').remove();
+        //            }else{
+        //                alert('erro ao enviar, tente novamente');
+        //            }
+        //        });
     });
 
 </script>
@@ -64,7 +64,7 @@
         -moz-box-shadow: 0px 3px 3px #eeeeee ;
         -webkit-box-shadow: 0px 3px 3px #eeeeee ;
     }
-    
+
     .detalhe{
         position: relative;
         height:1px;
@@ -83,8 +83,8 @@
         -moz-box-shadow: 0px 2px 2px #eeeeee inset;
         -webkit-box-shadow: 0px 2px 2px #eeeeee inset;
     }
-   
-    
+
+
     #meus_cursos h3:first-letter{
         font-weight: bolder;
     }
@@ -94,14 +94,14 @@
         <h3>Cursos</h3></div>
 
     <div class="">
-        <?php $controllerCurso = new controllerCurso();
-        echo $controllerCurso->cursosAluno();
+        <?php
+        echo $this->listaCursos;
         ?>
     </div>
-    
+
     <div id="div_inputhidden" style="display:none"> 
-        <input type="text" id="id_usuario" value="<?php echo $this->usuario->getId_usuario()?>"/>
+        <input type="text" id="id_usuario" value="<?php echo $this->usuario->getId_usuario() ?>"/>
     </div>
-    
+
 </div>
 <?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

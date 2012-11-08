@@ -28,6 +28,12 @@ class ControllerForum {
         }
     }
 
+    public function getData_hora(){
+        if($this->topico!=null){
+            return $this->topico[0]->getData_hora();
+        }
+    }
+    
     //buscas no banco
     //altera a variavel global diferente da ListaTopicos
     public function getTopico($condicao) {
@@ -80,9 +86,13 @@ class ControllerForum {
             $lista_topicos.="<td><a href='index.php?c=ead&a=topico&id=" . $topicos[$i]->getId_topico() . "'>";
             $lista_topicos.="<img src='../public/img/botao_visualizar.png' title='Visualizar' />";
             $lista_topicos.="</td></a>";
-            $lista_topicos.="<td><a href=''>";
-            $lista_topicos.="<img src='../public/img/botao_excluir.png' title='Visualizar' />";
-            $lista_topicos.="</td></a>";
+            if($topicos[$i]->getId_usuario() == $_SESSION['usuarioLogado']->getId_usuario()){
+            $lista_topicos.="<td><a href='index.php?c=ead&a=forum&id=".$_GET['id']."&d=".$topicos[$i]->getId_topico()."'>";
+            $lista_topicos.="<img src='../public/img/botao_excluir.png' title='Excluir' />";
+            $lista_topicos.="</a></td>";
+            }else{
+                $lista_topicos.="<td ><img src='../public/img/botao_excluir_desativado.png' title='' /></td>";
+            }
         }
         $lista_topicos.="</tr>";
         return $lista_topicos;
@@ -98,11 +108,15 @@ class ControllerForum {
         $return = "";
         for (; $i < $quant; $i++) {
             ($i % 2 == 0) ? $id_fundo='fundo1' : $id_fundo='fundo2';
-            $return.="<div id='$id_fundo'><div>";
+            $return.="<div id='$id_fundo'><div class='$id_fundo"."_header'>";
+            if($respostas[$i]->getId_usuario() == $_SESSION['usuarioLogado']->getId_usuario()){
+                $return.="<a style='float:right;' href='index.php?c=ead&a=topico&id=".$this->topico[0]->getId_topico()."&d=".$respostas[$i]->getId_resposta()."'><img src='img/excluir_forum.png' /></a>";
+            }
             $return.="<b>Re: </b>" . $this->topico[0]->getTitulo()."<br>";
             $usuario = $this->getUsuario("id_usuario=" . $respostas[$i]->getId_usuario());
             $return.="<b>Autor: </b>" . $usuario[0]->getNome_completo();
-            $return.="</div><div><p>" . $respostas[$i]->getMensagem() . "</p></div><br><a href='index.php?c=ead&a=responder_topico&id=" . $this->topico[0]->getId_topico() . "' id='forum_responder'>Responder</a></div><br>";
+            $return.="<span>  ".$this->topico[0]->getData_hora()."</span>";
+            $return.="</div><div class='$id_fundo"."_mensagem'><p>" . $respostas[$i]->getMensagem() . "</p></div><br><a href='index.php?c=ead&a=responder_topico&id=" . $this->topico[0]->getId_topico() . "' id='forum_responder'>Responder</a></div><br>";
         }
 
         return $return;
@@ -185,7 +199,17 @@ class ControllerForum {
             return 'ERRO: funcao novoTopico - [controllerUsuario]';
         }
     }
-
+    
+    public function removerResposta($id_resposta){
+        $dao = new RespostaDAO();
+        $dao->deletePor_id($id_resposta);
+    }
+    
+    public function removerTopico($id_topico){
+        $dao = new TopicoDAO();
+        $dao->deletePor_id($id_topico);
+    }
+    
 }
 ?>
 <script type="text/javascript">
