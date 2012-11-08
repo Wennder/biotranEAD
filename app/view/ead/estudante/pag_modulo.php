@@ -43,7 +43,7 @@
         padding:20px;
     }
 
-    #btn_editar_modulo{
+    .btn_resolver_exe{
         float:right;
         background-image: url('img/document_edit.png');
         background-repeat: no-repeat;

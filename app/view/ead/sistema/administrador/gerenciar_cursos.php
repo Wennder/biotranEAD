@@ -3,6 +3,7 @@ $editar = "false";
 if (isset($this->curso)) {
     $this->curso == null ? $editar = "false" : $editar = $this->curso->getId_curso();
     echo $this->curso->getId_curso();
+    
 }
 ?>
 
@@ -116,6 +117,7 @@ if (isset($this->curso)) {
             fields_value.push(json.justificativa);        
             fields_value.push(json.obs);        
             fields_value.push(json.id);        
+            fields_value.push("<input type='checkbox' value='0' disabled='true' id='check_habilitar' />");
         
             oTable.fnAddData(fields_value, true);
         }
@@ -222,6 +224,7 @@ if (isset($this->curso)) {
                 }
             });
         
+        
             $('#btn_analisar').live('click', function(){            
                 elem = $('tbody tr.row_selected');
                 if(elem.length){
@@ -243,7 +246,6 @@ if (isset($this->curso)) {
                             $(dialog).find('div').remove();
                         },
                         open: function(event, ui){
-                            alert(_data[10]);
                             $(this).find('#img_curso').src = "img/cursos/"+_data[10]+".jpg?" + new Date().getTime();
                         }
                     });
@@ -261,6 +263,15 @@ if (isset($this->curso)) {
                     }else{
                         $('#_id_gratuitoNao').attr('checked', 'true');//sexo                    
                     }
+                    
+                    var id_imagem;
+                    $.getJSON('ajax/verificaImagem.php',{id: _data[10], tipo: "curso", ajax: 'true'}, function(j){       
+                        if(j == '1'){
+                            id_imagem = _data[10];
+                        }else{
+                            id_imagem = "00";
+                        }
+                    });
                 
                     var _HTML = $('#dialog_form').html();                                
                     //preparando picklist do curso:                
@@ -302,7 +313,7 @@ if (isset($this->curso)) {
                         _HTML = _HTML.replace('#VALOR#', _data[3]);
                         _HTML = _HTML.replace('#DESCRICAO#', _data[5]);
                         _HTML = _HTML.replace('#ID_CURSO#', _data[10]);
-                        _HTML = _HTML.replace('#ID_FOTO#', _data[10]);
+                        _HTML = _HTML.replace('#ID_FOTO#', id_imagem);
                         //--gerando dialog
                         dialog = $(_HTML).dialog({
                             width:800, 

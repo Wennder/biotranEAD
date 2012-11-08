@@ -28,9 +28,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
             $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo);
         }
         $this->visao->listaVideo = $this->controller->visualizar_listaVideo_aulas_modulo($this->visao->modulo->getId_modulo());
-        $this->visao->listaTexto = $this->controller->listaArquivos($this->visao->modulo, 'texto_referencia');
-        $this->visao->listaMaterial = $this->controller->listaArquivos($this->visao->modulo, 'material_complementar');
-        $this->visao->listaExercicio = $this->controller->listaExercicio($this->visao->modulo->getId_modulo());
+        $this->visao->listaTexto = $this->controller->visualizar_listaArquivos($this->visao->modulo, 'texto_referencia');
+        $this->visao->listaMaterial = $this->controller->visualizar_listaArquivos($this->visao->modulo, 'material_complementar');
+        $this->visao->listaExercicio = $this->controller->visualizar_listaExercicio($this->visao->modulo->getId_modulo());
 
         $this->renderizar();
     }
@@ -352,6 +352,14 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_exercicio = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->exercicio = $this->controller->getExercicio("id_exercicio=" . $id_exercicio . "");
         $this->visao->listaPerguntas = $this->controller->listaPerguntas($id_exercicio);
+        $this->renderizar();
+    }
+    
+    public function actionResolver_exercicio() {
+        $this->controller = new controllerExercicio();
+        $id_exercicio = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->exercicio = $this->controller->getExercicio("id_exercicio=" . $id_exercicio . "");
+        $this->visao->listaPerguntas = $this->controller->listaPerguntas_aluno($id_exercicio);
         $this->renderizar();
     }
 

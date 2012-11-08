@@ -184,6 +184,75 @@
                     });
                 });        
                 
+                $(".btn_edt").live('click', function(){                        
+                    var btn = $(this);
+                    $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
+                        if (status == "error") {
+                            alert('erro');
+                            var msg = "Sorry but there was an error: ";
+                            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                        }else{                                                                                    
+                            dialog = $('#dialog').dialog({width:800, height:600,dialogClass:'dialogstyle', modal:true,                        
+                                close: function(event,ui){                     
+                                    $(dialog).dialog('destroy');
+                                    $(dialog).find('div').remove();
+                                }                                        
+                            });
+                        }
+                    });
+                });        
+                
+                $(".btn_resolver_exe").live('click', function(){                        
+                    var btn = $(this);
+                    $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
+                        if (status == "error") {
+                            alert('erro');
+                            var msg = "Sorry but there was an error: ";
+                            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                        }else{                                                                                    
+                            dialog = $('#dialog').dialog({width:800, height:600,dialogClass:'dialogstyle', modal:true,                        
+                                close: function(event,ui){                     
+                                    $(dialog).dialog('destroy');
+                                    $(dialog).find('div').remove();
+                                }                                        
+                            });
+                        }
+                    });
+                });
+                
+                $("#cancelar_questionario").live('click', function(){                        
+                    dialog.dialog('close');
+                });
+                
+                $("#submeter_questionario").live('click', function(){
+                    var r = confirm('Tem certeza? Uma vez submetido não podera mais voltar atrás');
+                    if(r){
+                        var qnt = $('#total_perguntas').val();
+                        var i;
+                        var respostas = '';
+                        var id_questoes = '';
+                        var j;
+                        var id_exercicio = $('#id_exercicio').val();
+                        for(i = 0; i < qnt; i++){
+                            j = i+1;
+                            respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
+                            id_questoes += $('#id_pergunta_'+i).val()+';';
+                        }
+                        $.getJSON('ajax/submeterQuestionario.php', {respostas: respostas, id_perguntas:id_questoes}, 
+                        function(j){
+                            if(j == 1){
+                                alert('Questionário submetido com sucesso!');
+                                $('input[name="exercicio_'+id_exercicio+'"]').attr('disabled', 'true');
+                                $('input[name="exercicio_'+id_exercicio+'"]').removeAttr('id');
+                                $('input[name="exercicio_'+id_exercicio+'"]').attr('value', 'Exercicio já submetido');
+                                dialog.dialog('close');
+                            }else{
+                                alert('Erro ao submeter questionário, tente novamente!');
+                            }
+                        });                        
+                    }
+                });
+                
                 $(".btn_add").live('click', function(){        
                     var btn = $(this);
                     var tipo = btn.attr('name').split('-');
@@ -297,24 +366,22 @@
                         <li>
                             <div id="pic_holder">
                                 <img src="img/profile/pic/<?php
-                                $this->usuario = $_SESSION['usuarioLogado'];
-                                if ($this->usuario == null) {
-                                    echo '00.jpg';
-                                } else if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
-                                    echo $this->usuario->getId_usuario() . '.jpg';
-                                } else {
-                                    echo '00.jpg';
-                                }
-                                ?>"  />
+$this->usuario = $_SESSION['usuarioLogado'];
+if ($this->usuario == null) {
+    echo '00.jpg';
+} else if (file_exists('img/profile/' . $this->usuario->getId_usuario() . '.jpg')) {
+    echo $this->usuario->getId_usuario() . '.jpg';
+} else {
+    echo '00.jpg';
+}
+?>"  />
                             </div>
                         </li>
-                        <li>
+                        <li style="margin-top: 10px;">
                             <h3>
-                                <?php echo $_SESSION["usuarioLogado"]->getNome_completo() . "  -  "; ?>
+                                <?php echo $_SESSION["usuarioLogado"]->getNome_completo(); ?>
                             </h3>
-                        </li>
-                        <li>
-                            <h3>
+                            <h3 style="font-size: 13px;">
                                 <?php
                                 $papel = $_SESSION["usuarioLogado"]->getId_papel();
                                 if ($papel == 1) {
@@ -336,8 +403,8 @@
                         <li style="float:right;clear:right; margin:15px 15px;">
                             <img src="img/settings.png" id="settings" onclick="expandir('#menuDrop')" />
                         </li>
-                        <li style="float:right;">
-                            <h3>EAD Biotran</h3>
+                        <li style="float:right; margin-top: 20px;">
+                            <a href="index.php" style="text-decoration: none;"><h3>EAD Biotran</h3></a>
                         </li>
                         <div id="menuDrop"
                              onmouseover="zerarCronometro()" 

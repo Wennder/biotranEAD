@@ -90,20 +90,20 @@ class controllerModulo {
             $listaModulos .= "<li><p><h3 class='btn_add acao_leftcolumn' name='h3-exercicio' id='index.php?c=ead&a=adicionar_exercicio&id=" . $modulos[$i]->getId_modulo() . "'>Adicionar Exercicio</h3><hr></p></li>";
             $listaModulos .= "</ul></div></div>";
         }
-        
+
         return $listaModulos;
     }
-    
+
     public function lista_visualizarModulos_lefcolumn($id_curso) {
         $modulos = $this->getListaModulo('id_curso=' . $id_curso);
         $quant = count($modulos);
         $i = 0;
-        $listaModulos = "";        
+        $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<div class='accordion_leftcolumn '><div name='editar_modulo' class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=conteudo_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";            
+            $listaModulos .= "<div class='accordion_leftcolumn '><div name='editar_modulo' class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=conteudo_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";
             $listaModulos .= "</ul></div></div>";
         }
-        
+
         return $listaModulos;
     }
 
@@ -111,12 +111,12 @@ class controllerModulo {
         $modulos = $this->getListaModulo('id_curso=' . $id_curso);
         $quant = count($modulos);
         $i = 0;
-        $listaModulos = "";        
+        $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<div class='accordion_leftcolumn '><div name='editar_modulo' class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=pag_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";            
+            $listaModulos .= "<div class='accordion_leftcolumn '><div name='editar_modulo' class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=pag_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";
             $listaModulos .= "</ul></div></div>";
         }
-        
+
         return $listaModulos;
     }
 
@@ -131,7 +131,7 @@ class controllerModulo {
         }
         return $lista;
     }
-    
+
     public function visualizar_listaVideo_aulas_modulo($id_modulo) {
         $controllerVideo = new controllerVideo();
         $lista = "";
@@ -142,12 +142,12 @@ class controllerModulo {
             $lista .= $videos[$i]->getTitulo();
             $lista .= "</h3></li>";
         }
-        if($qnt < 1){
+        if ($qnt < 1) {
             $lista = 'Não há registros de vídeo-aulas no sistema.';
         }
         return $lista;
     }
-    
+
     public function listaExercicio($id_modulo) {
         $controller = new controllerExercicio();
         $lista = "";
@@ -159,15 +159,28 @@ class controllerModulo {
         }
         return $lista;
     }
-    
+
     public function visualizar_listaExercicio($id_modulo) {
         $controller = new controllerExercicio();
+        $controller2 = new controllerPergunta();
         $lista = "";
         $exercicio = $controller->getListaExercicio('id_modulo=' . $id_modulo);
         for ($i = 0; $i < count($exercicio); $i++) {
-            $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><h3 name='exercicio' class='item_conteudo titulo_video' id='index.php?c=ead&a=editar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
+            $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><h3 name='exercicio' class='item_conteudo titulo_video' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
             $lista .= $exercicio[$i]->getTitulo();
-            $lista .= "</h3>";
+            $id_pergunta = $controller2->getListaPerguntas('id_exercicio = '. $exercicio[$i]->getId_exercicio());                        
+            if($_SESSION['usuarioLogado']->getId_papel() == 4){
+                if (count($controller->getResposta($id_pergunta[0]->getId_pergunta())) == 0) {
+                    $lista .= "</h3><input align='right' type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' class='btn_resolver_exe' class='btn_resolver' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Resolver'/>";
+                } else {
+                    $lista .= "</h3><input align='right' type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' class='btn_resolver_exe' class='btn_resolver' disabled='true' name='exercicio' value='Exercicio já submetido'/>";
+                }                
+            }else{
+                $lista .= "</h3>";
+            }
+        }
+        if($i == 0){
+            $lista = 'Não há registros no sistema.';
         }
         return $lista;
     }
@@ -188,8 +201,8 @@ class controllerModulo {
             $controller = new $controller;
             foreach ($arquivos as $arquivo) {
                 $id = explode('.', basename($arquivo));
-                $get = 'get'.ucfirst($tipo);
-                $txt = $controller->$get('id_'.$tipo.'=' . $id[0]);
+                $get = 'get' . ucfirst($tipo);
+                $txt = $controller->$get('id_' . $tipo . '=' . $id[0]);
                 $lista .= "<li class='conteudo_row' id='li_" . $tipo . "_" . $id[0] . "'><h3>";
                 $lista .= "<a style='float: left;' target='_blank' href='" . $link . basename($arquivo) . "'>" . $txt->getNome() . "</a>";
                 $lista .= "</h3><input type='button' name='" . $tipo . "' id='" . $id[0] . "' class='btn_del' value='Excluir'/></li>";
@@ -197,7 +210,7 @@ class controllerModulo {
         }
         return $lista;
     }
-    
+
     public function visualizar_listaArquivos(Modulo $modulo, $tipo) {
         $lista = 0;
         $tipo = strtolower($tipo);
@@ -212,14 +225,14 @@ class controllerModulo {
             foreach ($arquivos as $arquivo) {
                 $aux = 0;
                 $id = explode('.', basename($arquivo));
-                $get = 'get'.ucfirst($tipo);
-                $txt = $controller->$get('id_'.$tipo.'=' . $id[0]);
+                $get = 'get' . ucfirst($tipo);
+                $txt = $controller->$get('id_' . $tipo . '=' . $id[0]);
                 $lista .= "<li class='conteudo_row' id='li_" . $tipo . "_" . $id[0] . "'><h3>";
                 $lista .= "<a style='float: left;' target='_blank' href='" . $link . basename($arquivo) . "'>" . $txt->getNome() . "</a>";
                 $lista .= "</h3></li>";
             }
-            if($aux){
-               $lista = 'Não há registros no sistema.';
+            if ($aux) {
+                $lista = 'Não há registros no sistema.';
             }
         }
         return $lista;
@@ -288,17 +301,17 @@ class controllerModulo {
 
     public function setModulo() {
         if (!empty($_POST)) {
-            
+
             if ($this->modulo == null) {
                 $this->modulo = new Modulo();
-            }            
-            foreach ($_POST as $k => $v) {                
+            }
+            foreach ($_POST as $k => $v) {
                 $setAtributo = 'set' . ucfirst($k);
                 if (method_exists($this->modulo, $setAtributo)) {
                     $this->modulo->$setAtributo($v);
                 }
             }
-        }        
+        }
     }
 
     public function setArquivoVideo(Video $v) {
@@ -395,7 +408,7 @@ class controllerModulo {
             return $retorno;
         }
         return 0;
-    }   
+    }
 
     public function remover_exercicio($id_exercicio) {
         $controller = new controllerExercicio();
@@ -450,14 +463,14 @@ class controllerModulo {
      */
 
     public function atualizar_descritivo($id_modulo) {
-        $this->modulo = $this->getModulo("id_modulo=".$id_modulo);
-        $this->setModulo(); 
-        $dao = new ModuloDAO();        
-        if($dao->update($this->modulo)){
+        $this->modulo = $this->getModulo("id_modulo=" . $id_modulo);
+        $this->setModulo();
+        $dao = new ModuloDAO();
+        if ($dao->update($this->modulo)) {
             return 1;
         }
         return 0;
-    }               
+    }
 
 }
 

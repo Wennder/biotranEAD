@@ -184,8 +184,8 @@ h4{
     -webkit-box-shadow:0px 0px 2px 1px grey;
 }
 
-/*html, body, div, span, applet, object, iframe,  
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,  
+h1, h2, h3, h4, h5, h6, applet, object, iframe,  
+p, blockquote, pre,  
 a, abbr, acronym, address, big, cite, code,  
 del, dfn, em, img, ins, kbd, q, s, samp,  
 small, strike, strong, sub, sup, tt, var,  
@@ -200,25 +200,17 @@ time, mark, audio, video  {
     margin: 0px;  
     padding: 0px;  
     border: 0px;          
-    font-size:100%;
-    color:#565656;
-    font:normal 16px/30px "eras ITC","eras medium ITC";
     vertical-align: baseline;
-}
+}/*
 
 
-html, body {
-    height: 100%;
-    
-}
+*/
 
 ul{
     list-style: none;
 }
 
-body{min-width: 1024px;}
-
-h1{
+/*h1{
     font-size: 30px;
 }*/
 
@@ -325,7 +317,13 @@ fieldset legend{
 }
 
 #form_gerenciar{
-    padding: 20px 30px 0;
+    padding: 0;
+    overflow: hidden;
+    font-size: 10px;
+}
+
+#form_gerenciar th{
+    font-size: 14px;
 }
 
 #form_cadastro tr, #form_editar tr{
@@ -430,18 +428,6 @@ form.form_cadastro, form.form_editar{
 
 #div_update label {
     display:block;width:100%;padding:10px 0;
-}
-
-#form_gerenciar{
-    padding: 50px;
-    overflow: hidden;
-
-}
-
-#form_gerenciar{
-    padding: 50px;
-    overflow: hidden;
-
 }
 
 .ui-dialog-titlebar{
@@ -571,7 +557,7 @@ form.form_cadastro, form.form_editar{
 }
 
 #index_admin{
-    padding:30px 50px;;
+    padding:0;
 }
 
 #index_admin h4{
@@ -724,12 +710,6 @@ form.form_cadastro, form.form_editar{
 
 #div_update label {
     display:block;width:100%;padding:10px 0;
-}
-
-#form_gerenciar{
-    padding: 50px;
-    overflow: hidden;
-
 }
 
 .botao_gerencia_data_table{
