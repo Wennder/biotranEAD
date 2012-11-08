@@ -117,6 +117,7 @@ if (isset($this->curso)) {
             fields_value.push(json.justificativa);        
             fields_value.push(json.obs);        
             fields_value.push(json.id);        
+            fields_value.push("<input type='checkbox' value='0' disabled='true' id='check_habilitar' />");
         
             oTable.fnAddData(fields_value, true);
         }
@@ -245,7 +246,6 @@ if (isset($this->curso)) {
                             $(dialog).find('div').remove();
                         },
                         open: function(event, ui){
-                            alert(_data[10]);
                             $(this).find('#img_curso').src = "img/cursos/"+_data[10]+".jpg?" + new Date().getTime();
                         }
                     });

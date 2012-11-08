@@ -205,17 +205,14 @@ switch ($papel) {
                     }
                 }
                 
-                var id_imagem;
+                var id_imagem = "00";
                 $.getJSON('ajax/verificaImagem.php',{id: _data[20], tipo: "usuario", ajax: 'true'}, function(j){       
                     if(j == '1'){
                         id_imagem = _data[20];
-                    }else{
-                        id_imagem = "00";
                     }
                 });
                 //--
                 //alterando valores
-                alert(id_imagem);
                 _HTML = _HTML.replace('#NOME_COMPLETO#', _data[0]);
                 _HTML = _HTML.replace('#CPF_PASSAPORTE#', _data[4]);
                 _HTML = _HTML.replace('#RG#', _data[5]);

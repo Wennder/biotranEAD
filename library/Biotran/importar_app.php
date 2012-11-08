@@ -23,6 +23,7 @@ include ROOT_PATH . '/app/model/vo/Pergunta.php';
 include ROOT_PATH . '/app/model/vo/Alternativa.php';
 include ROOT_PATH . '/app/model/vo/Topico.php';
 include ROOT_PATH . '/app/model/vo/Resposta.php';
+include ROOT_PATH . '/app/model/vo/Resposta_exercicio.php';
 include ROOT_PATH . '/app/model/dao/Material_complementarDAO.php';
 include ROOT_PATH . '/app/model/dao/Texto_referenciaDAO.php';
 include ROOT_PATH . '/app/model/dao/UsuarioDAO.php';
