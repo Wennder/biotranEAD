@@ -337,7 +337,7 @@
                             <img src="img/settings.png" id="settings" onclick="expandir('#menuDrop')" />
                         </li>
                         <li style="float:right;">
-                            <h3>EAD Biotran</h3>
+                            <a href="index.php" style="text-decoration: none;"><h3>EAD Biotran</h3></a>
                         </li>
                         <div id="menuDrop"
                              onmouseover="zerarCronometro()" 
