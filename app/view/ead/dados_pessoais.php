@@ -119,7 +119,7 @@
                     </td>
                     <td>
                         <input type="text" id="cpf_passaporte" name="cpf_passaporte" value="<?php echo ($this->usuario == null ? '' : $this->usuario->getCpf_passaporte()); ?>" class="validate[required, custom[onlyNumberSp]] text-input" data-prompt-position="centerRight" style="width: 115px" maxlength="14"/>
-                        <label class="label_editar_legend">XXX.XXX.XXX-XX </label>
+                        <label class="label_editar_legend"></label>
                     </td>
                 </tr>
                 <tr>

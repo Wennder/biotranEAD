@@ -219,6 +219,7 @@
 if (isset($_GET['id'])) {
     $id_curso = $_GET['id'];
 }
+$caminho = file_exists("img/cursos/". $this->curso->getId_curso() .".jpg") ? "img/cursos/". $this->curso->getId_curso() .".jpg" : "img/cursos/00.jpg";
 $controller = new controllerCurso();
 $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
 ?>
@@ -252,7 +253,7 @@ $this->cursos = $controller->getCurso("id_curso=" . $id_curso);
                         <div id="form_editaveis_holder">
                             <div id="img_titulo_descricao">
                                 <div id="image_holder">
-                                    <img src="<?php echo "img/cursos/" . $id_curso . ".jpg" ?>" alt="Imagem do Curso" />    </div>
+                                    <img src="<?php echo $caminho ?>" alt="Imagem do Curso" />    </div>
                                 <div id="titulo_holder" style="">
                                     <h1 style=""><?php echo $this->curso->getNome(); ?></h1>
                                 </div>

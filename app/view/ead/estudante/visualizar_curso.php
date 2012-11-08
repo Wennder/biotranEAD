@@ -1,6 +1,7 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
+<?php $caminho = file_exists("img/cursos/". $this->curso->getId_curso() .".jpg") ? "img/cursos/". $this->curso->getId_curso() .".jpg" : "img/cursos/00.jpg"; ?>
 <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <script src="js/accordion_1.js" type="text/javascript"></script>
 
@@ -199,7 +200,7 @@
         <div id="form_editaveis_holder">
             <div id="img_titulo_descricao">                
                 <div id="image_holder">
-                    <img src="<?php echo "img/cursos/" . $this->curso->getId_curso() . ".jpg" ?>" alt="Imagem do Curso" />    </div>
+                    <img src="<?php echo $caminho ?>" alt="Imagem do Curso" />    </div>
                 <div id="titulo_holder" style="">
                     <h1 style=""><?php echo $this->curso->getNome(); ?></h1>
                 </div>

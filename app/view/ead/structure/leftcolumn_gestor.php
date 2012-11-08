@@ -3,10 +3,10 @@
         <a href="<?php echo "index.php?c=ead" ?>"> Home </a>
     </p>
     <div class="accordion_leftcolumn">
-        <p class="navbar_item gerenciarIcon">
+        <p class="accord navbar_item gerenciarIcon">
             <a href="#">Gerenciar</a>
         </p>
-        <div class="accordion_leftcolumn_content">
+        <div class="accord_content">
             <ul style="list-style-type:none;">
                 <li>
                     <p class="navbar_item usuariosIcon">
@@ -15,7 +15,7 @@
                 </li>
                 <li>
                     <p class="navbar_item gerenciarIcon">
-                        <a href="index.php?c=ead&a=index"> Sistema</a>
+                        <a href="index.php?c=ead&a=gerenciar_sistema"> Sistema</a>
                     </p>
                 </li>
             </ul>

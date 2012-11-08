@@ -407,6 +407,22 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
+    public function actionGerenciar_sistema(){
+        $this->renderizar();
+    }
+    
+    public function actionPatrocinadores(){
+        if(isset($_GET['i'])){
+            $controllerG = new ControllerSistema();
+            $controllerG -> inserir_patrocinador();
+        }
+        $this->renderizar();
+    }
+    
+    public function actionAdicionar_patrocinador(){
+        $this->renderizar();
+    }
+    
 }
 
 ?>

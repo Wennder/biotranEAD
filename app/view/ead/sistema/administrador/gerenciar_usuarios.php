@@ -601,7 +601,7 @@ switch ($papel) {
                         </td>
                         <td>
                             <input type="text" id="_id_cpf_passaporte" name="_id_cpf_passaporte" value="#CPF_PASSAPORTE#" class="validate[required, custom[onlyNumberSp], ajax[validarCpf_cadastro_ajax]] text-input" data-prompt-position="topLeft" style="width: 80px" maxlength="14"/>
-                            <label class="label_cadastro_legend">XXX.XXX.XXX-XX </label>
+                            <label class="label_cadastro_legend"> </label>
                         </td>
                     </tr>
                     <tr>
