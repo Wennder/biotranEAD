@@ -35,7 +35,7 @@ switch ($papel) {
 <style type="text/css" title="currentStyle">
 
     @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
-    
+
 </style>
 
 
@@ -156,9 +156,6 @@ switch ($papel) {
             }
         });
         
-        
- 
-        
         $('#btn_edit').live('click',function(){
             elem = $('tbody tr.row_selected');
             if (elem.length) {
@@ -181,9 +178,9 @@ switch ($papel) {
                 }else{
                     $("#endereco_estado").hide();
                     $("#label_estado").hide();
-                }                                
-                var _HTML = $('#dialog_form').html();
+                }
                 
+                var _HTML = $('#dialog_form').html();
                 //alterando ids e names                
                 _HTML = _HTML.replace('_ID_FORM_', 'cadastro');                                
                 _HTML = _HTML.replace('_ID_FORM_', 'cadastro');
@@ -207,8 +204,18 @@ switch ($papel) {
                         _HTML = _HTML.replace('_id_Feminino', 'Feminino');    
                     }
                 }
+                
+                var id_imagem;
+                $.getJSON('ajax/verificaImagem.php',{id: _data[20], tipo: "usuario", ajax: 'true'}, function(j){       
+                    if(j == '1'){
+                        id_imagem = _data[20];
+                    }else{
+                        id_imagem = "00";
+                    }
+                });
                 //--
                 //alterando valores
+                alert(id_imagem);
                 _HTML = _HTML.replace('#NOME_COMPLETO#', _data[0]);
                 _HTML = _HTML.replace('#CPF_PASSAPORTE#', _data[4]);
                 _HTML = _HTML.replace('#RG#', _data[5]);
@@ -225,7 +232,7 @@ switch ($papel) {
                 _HTML = _HTML.replace('#PAIS#', _data[18]);                
                 _HTML = _HTML.replace('#EMAIL#', _data[12]);                
                 _HTML = _HTML.replace('#ID_USUARIO#', _data[20]);
-                _HTML = _HTML.replace('#ID_FOTO#', _data[20]);
+                _HTML = _HTML.replace('#ID_FOTO#', id_imagem);
                 //--gerando dialog
                 dialog = $(_HTML).dialog({
                     width:800, 

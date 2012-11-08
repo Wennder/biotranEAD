@@ -14,17 +14,6 @@
                         <div class="detalhe1"></div><h3 class="h3_blue">Gerenciar Usuarios</h3><img src="img/seta_blue.png" />
                 </div></a>
             </li>
-            <li>
-                <a href=""><div class="list_index_admin_gray">
-                    <div class="detalhe"></div><h3 class="h3_gray">Alterar Noticias</h3><img src="img/seta_gray.png" />
-                </div></a>
-            </li>
-            <li>
-                <a href=""><div class="list_index_admin_blue">
-                    <div class="detalhe1"></div><h3 class="h3_blue">Visualizar Forum</h3><img src="img/seta_blue.png" />
-                </div></a>
-            </li>
-
         </ul>
     </div>
 </div>
