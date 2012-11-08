@@ -66,13 +66,11 @@
                                 ?>"  />
                             </div>
                         </li>
-                        <li>
+                        <li style="margin-top: 10px;">
                             <h3>
-                                <?php echo $_SESSION["usuarioLogado"]->getNome_completo() . "  -  "; ?>
+                                <?php echo $_SESSION["usuarioLogado"]->getNome_completo(); ?>
                             </h3>
-                        </li>
-                        <li>
-                            <h3>
+                            <h3 style="font-size: 13px;">
                                 <?php
                                 $papel = $_SESSION["usuarioLogado"]->getId_papel();
                                 if ($papel == 1) {
@@ -94,8 +92,8 @@
                         <li style="float:right;clear:right; margin:15px 15px;">
                             <img src="img/settings.png" id="settings" onclick="expandir('#menuDrop')" />
                         </li>
-                        <li style="float:right;">
-                            <h3>EAD Biotran</h3>
+                        <li style="float:right; margin-top: 20px;">
+                            <a href="index.php" style="text-decoration: none;"><h3>EAD Biotran</h3></a>
                         </li>
                         <div id="menuDrop"
                              onmouseover="zerarCronometro()" 
