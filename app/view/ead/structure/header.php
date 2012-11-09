@@ -316,8 +316,7 @@
                 $(".item_conteudo").live('click',function() {
                     var tag = $(this);
                     if(tag.attr('name') == 'video'){                                                    
-                        $('#dialog_video').load(tag.attr('id'), function (){
-                            alert('passou');
+                        $('#dialog_video').load(tag.attr('id'), function (){                            
                             var options = {width:700, height:400,dialogClass:'dialogstyle',
                                 open: function(event,ui){                                                                                
                                 },
