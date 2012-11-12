@@ -323,7 +323,7 @@ class controllerModulo {
                 $video = $_FILES["video"];
                 $tipos = array("mp4");
                 $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
-                if (!in_array($video['type'], $tipos)) {
+                if (in_array($video['type'], $tipos)) {
                     $video_nome = $pasta_dir . $id_video . ".mp4";
                     move_uploaded_file($_FILES['video']['tmp_name'], $video_nome);
                     return 1;
