@@ -27,8 +27,8 @@ class Matricula_cursoDAO extends PDOConnectionFactory {
             $stmt->bindValue(3, $matricula_curso->getData_inicio());
             $stmt->bindValue(4, $matricula_curso->getData_fim());
             $stmt->bindValue(5, $matricula_curso->getStatus_acesso());
-            $stmt->bindValue(6, $matricula_curso->getModulo_atual());            
-            
+            $stmt->bindValue(6, $matricula_curso->getModulo_atual());
+
             if ($stmt->execute()) {
                 $stmt->conex = null;
                 return 1;
@@ -86,7 +86,10 @@ class Matricula_cursoDAO extends PDOConnectionFactory {
             } else {
                 $stmt = $this->conex->query("SELECT * FROM matricula_curso WHERE " . $condicao);
             }
-            $mc = array();
+            $mc = null;
+            if ($stmt->rowCount() > 0) {
+                $mc = array();
+            }
             for ($i = 0; $i < $stmt->rowCount(); $i++) {
                 $mc[$i] = $stmt->fetchObject('Matricula_curso');
             }

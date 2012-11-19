@@ -334,7 +334,7 @@ class controllerUsuario {
         for (; $i < $quant; $i++) {
             $papel = $papelDAO->select("id_papel=" . $this->usuarios[$i]->getId_papel());
             if ($papel[0]->getId_papel() != 1) {
-                $tabela .= "<tr id=tabela_linha" . $this->usuarios[$i]->getId_usuario() . ">";
+                $tabela .= "<tr id=" . $this->usuarios[$i]->getId_usuario() . ">";
                 $tabela .= "<td width='55%' class='nome_usuario_datatable' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
                 $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";
                 $tabela .= "<td width='15%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";

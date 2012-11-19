@@ -196,20 +196,20 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->controller = new controllerMatricula_curso();
         $this->controller->novaMatricula($id_curso);
-        $this->controller = new controllerCurso();                
+        $this->controller = new controllerCurso();
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
         $this->renderizar();
     }
 
     public function actionPag_curso() {
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->controller = new controllerCurso();                
+        $this->controller = new controllerCurso();
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
         $this->controller = new controllerModulo();
         $this->visao->listaModulos = $this->controller->listaModulos($id_curso);
         $this->renderizar();
     }
-    
+
     public function actionPag_modulo() {
         $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->controller = new controllerModulo();
@@ -354,7 +354,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->listaPerguntas = $this->controller->listaPerguntas($id_exercicio);
         $this->renderizar();
     }
-    
+
     public function actionResolver_exercicio() {
         $this->controller = new controllerExercicio();
         $id_exercicio = Biotran_Mvc::pegarInstancia()->pegarId();
@@ -363,15 +363,15 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
-    public function actionForum(){
-        if(isset($_GET['d'])){
+    public function actionForum() {
+        if (isset($_GET['d'])) {
             $this->controller = new ControllerForum();
-                $this->controller->removerTopico($_GET['d']); 
+            $this->controller->removerTopico($_GET['d']);
         }
-            $this->controller = new controllerCurso();
-            $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-            $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);        
-        
+        $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);
+
         $this->renderizar();
     }
 
@@ -392,9 +392,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
                 $this->controller = new ControllerForum();
                 $topico = $this->controller->inserir_topico();
                 $_GET['id'] = $topico->getId_topico();
-            }else if(isset($_GET['d'])){
+            } else if (isset($_GET['d'])) {
                 $this->controller = new ControllerForum();
-                $this->controller->removerResposta($_GET['d']); 
+                $this->controller->removerResposta($_GET['d']);
             }
         }
         $this->renderizar();
@@ -407,22 +407,29 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
-    public function actionGerenciar_sistema(){
+    public function actionGerenciar_sistema() {
         $this->renderizar();
     }
-    
-    public function actionPatrocinadores(){
-        if(isset($_GET['i'])){
+
+    public function actionPatrocinadores() {
+        if (isset($_GET['i'])) {
             $controllerG = new ControllerSistema();
-            $controllerG -> inserir_patrocinador();
+            $controllerG->inserir_patrocinador();
         }
         $this->renderizar();
     }
-    
-    public function actionAdicionar_patrocinador(){
+
+    public function actionAdicionar_patrocinador() {
         $this->renderizar();
     }
-    
+
+    public function actionGerenciar_matricula() {
+        $controllerCurso = new controllerCurso();
+        $this->visao->id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->tabela = $controllerCurso->tabelaGerenciar_matricula($this->visao->id_usuario);        
+        $this->renderizar();
+    }
+
 }
 
 ?>
