@@ -69,7 +69,7 @@ class controllerCurso {
                 $pasta_dir = "../img/cursos/";
                 if (!in_array($imagem['type'], $tipos)) {
                     $imagem_nome = $pasta_dir . $id_curso . ".jpg";
-                    move_uploaded_file($imagem["tmp_name"], $imagem_nome);
+                    move_uploaded_file($_FILES['imagem']["tmp_name"], $imagem_nome);
                     $imagem_arquivo = "../img/cursos/" . $id_curso . ".jpg";
                     list($altura, $largura) = getimagesize($imagem_arquivo);
                     if ($altura > 180 && $largura > 240) {

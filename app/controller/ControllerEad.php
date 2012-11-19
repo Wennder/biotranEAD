@@ -387,11 +387,13 @@ class ControllerEad extends Biotran_Mvc_Controller {
         if ($_POST['r'] == '1') {
             $this->controller = new ControllerForum();
             $topico = $this->controller->inserir_resposta();
+            header("Location: index.php?c=ead&a=topico&id=" . $_GET['id']);
         } else {
             if (!isset($_GET['id'])) {
                 $this->controller = new ControllerForum();
                 $topico = $this->controller->inserir_topico();
                 $_GET['id'] = $topico->getId_topico();
+                header("Location: index.php?c=ead&a=topico&id=" . $_GET['id']);
             } else if (isset($_GET['d'])) {
                 $this->controller = new ControllerForum();
                 $this->controller->removerResposta($_GET['d']);
@@ -412,14 +414,89 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionPatrocinadores() {
-        if (isset($_GET['i'])) {
+        if ($_GET['i'] == 1) {
             $controllerG = new ControllerSistema();
             $controllerG->inserir_patrocinador();
+            header("Location: index.php?c=ead&a=patrocinadores");
+        } else if (isset($_GET['id'])) {
+            $controllerG = new ControllerSistema();
+            $controllerG->removerPatrocinador($_GET['id']);
+            header("Location: index.php?c=ead&a=patrocinadores");
         }
         $this->renderizar();
     }
 
     public function actionAdicionar_patrocinador() {
+        $this->renderizar();
+    }
+
+    public function actionNoticias() {
+        if ($_GET['i'] == '1') {
+            $this->controller = new ControllerSistema();
+            $this->controller->inserir_noticia();
+            header("Location: index.php?c=ead&a=noticias");
+        } else if(isset($_GET['u'])){
+            $this->controller = new ControllerSistema();
+            $this->controller->atualizar_noticia();
+            header("Location: index.php?c=ead&a=noticias");
+        }else if (isset($_GET['id'])) {
+                $this->controller = new ControllerSistema();
+                $this->controller->removerNoticia($_GET['id']);
+                header("Location: index.php?c=ead&a=noticias");
+            
+        }
+        $this->renderizar();
+    }
+
+    public function actionComentarios(){
+         if ($_GET['i'] == '1') {
+            $this->controller = new ControllerSistema();
+            $this->controller->inserir_comentario();
+            header("Location: index.php?c=ead&a=comentarios");
+        } else if(isset($_GET['u'])){
+            $this->controller = new ControllerSistema();
+            $this->controller->atualizar_comentario();
+            header("Location: index.php?c=ead&a=comentarios");
+        }    else if (isset($_GET['id'])) {
+        
+                $this->controller = new ControllerSistema();
+                $this->controller->removerComentario($_GET['id']);
+                header("Location: index.php?c=ead&a=comentarios");
+            
+        }
+        $this->renderizar();
+    }
+    
+    public function actionDestaques(){
+        if ($_GET['i'] == 1) {
+            $controllerG = new ControllerSistema();
+            $controllerG->inserir_destaque();
+            header("Location: index.php?c=ead&a=destaques");
+        } else if (isset($_GET['id'])) {
+            $controllerG = new ControllerSistema();
+            $controllerG->removerDestaque($_GET['id']);
+            header("Location: index.php?c=ead&a=destaques");
+        }
+        $this->renderizar();
+    }
+    
+    public function actionAdicionar_noticia() {
+        $this->renderizar();
+    }
+
+    public function actionEditar_noticia(){
+        $this->renderizar();
+    }
+    
+    public function actionEditar_comentario(){
+        $this->renderizar();
+    }
+    
+    public function actionAdicionar_comentario() {
+        $this->renderizar();
+    }
+
+    public function actionAdicionar_destaque() {
         $this->renderizar();
     }
 
