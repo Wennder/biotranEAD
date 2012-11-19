@@ -309,7 +309,7 @@ switch ($papel) {
             </fieldset>
             <br>
             <input type="submit" id="_b_button_cadastrar" name="_b_button_cadastrar" value="Cadastrar" class="button"/>
-            <input type="button" id="_b_button_atualizar" name="_b_button_atualizar" value="Atualizar" class="button" style="display: none;"/>
+            <input type="submit" id="_b_button_atualizar" name="_b_button_atualizar" value="Atualizar" class="button" style="display: none;"/>
             <div id="div_hidden" style="display: none;">
                 <input type="text" id="id" name="id" value="#ID_USUARIO#"/>
             </div>
