@@ -58,9 +58,8 @@
 </div>
 
 <div id='sliderShow'>
-    <img src='img/biotran.jpg' />
-    <img src='img/curso.jpg' />
-    <img src='img/fazenda.jpg'/>
+   
+    <?php $controller = new ControllerSistema(); echo $controller->listaDestaques_index(); ?>
 </div>
 
 <?php require 'structure/content_down.php'; ?>

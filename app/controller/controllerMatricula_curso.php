@@ -23,7 +23,7 @@ class controllerMatricula_curso{
      */
     
     public function getMatricula_curso($condicao){
-        $dao=new Matricula_cursoDAO;
+        $dao=new Matricula_cursoDAO();
         $mc=$dao->select($condicao);
         if ($mc==null){
             return $mc[0];

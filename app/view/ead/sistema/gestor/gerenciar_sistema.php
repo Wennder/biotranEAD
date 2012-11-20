@@ -5,18 +5,24 @@
 <h2 style="margin-bottom: 50px; margin-left: 30px;">Gerenciar Sistema</h2>
 
 <ul id="gerenciar_sistema">
+    <a href="index.php?c=ead&a=destaques">
+        <li>
+            <img src="img/destaque.png" />
+            <h3 style="text-align: center;">Destaques</h3>
+        </li>
+    </a>
     <a href="index.php?c=ead&a=patrocinadores">
         <li>
             
             <img src="img/patrocinio_gestor.png" />
             <h3 style="text-align: center;">Patrocinio</h3>
         </li></a>
-    <a href="#">
+    <a href="index.php?c=ead&a=noticias">
         <li>
             <img src="img/news.png" />
             <h3 style="text-align: center;">Noticias</h3>
         </li></a>
-    <a href="#">   
+    <a href="index.php?c=ead&a=comentarios">   
     <li>
             <img src="img/chat_3.png" />
             <h3 style="text-align: center;">Comentarios</h3>

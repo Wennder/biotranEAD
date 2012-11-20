@@ -196,20 +196,20 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->controller = new controllerMatricula_curso();
         $this->controller->novaMatricula($id_curso);
-        $this->controller = new controllerCurso();                
+        $this->controller = new controllerCurso();
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
         $this->renderizar();
     }
 
     public function actionPag_curso() {
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->controller = new controllerCurso();                
+        $this->controller = new controllerCurso();
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
         $this->controller = new controllerModulo();
         $this->visao->listaModulos = $this->controller->listaModulos($id_curso);
         $this->renderizar();
     }
-    
+
     public function actionPag_modulo() {
         $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->controller = new controllerModulo();
@@ -354,7 +354,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->listaPerguntas = $this->controller->listaPerguntas($id_exercicio);
         $this->renderizar();
     }
-    
+
     public function actionResolver_exercicio() {
         $this->controller = new controllerExercicio();
         $id_exercicio = Biotran_Mvc::pegarInstancia()->pegarId();
@@ -363,15 +363,15 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
-    public function actionForum(){
-        if(isset($_GET['d'])){
+    public function actionForum() {
+        if (isset($_GET['d'])) {
             $this->controller = new ControllerForum();
-                $this->controller->removerTopico($_GET['d']); 
+            $this->controller->removerTopico($_GET['d']);
         }
-            $this->controller = new controllerCurso();
-            $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-            $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);        
-        
+        $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);
+
         $this->renderizar();
     }
 
@@ -387,14 +387,16 @@ class ControllerEad extends Biotran_Mvc_Controller {
         if ($_POST['r'] == '1') {
             $this->controller = new ControllerForum();
             $topico = $this->controller->inserir_resposta();
+            header("Location: index.php?c=ead&a=topico&id=" . $_GET['id']);
         } else {
             if (!isset($_GET['id'])) {
                 $this->controller = new ControllerForum();
                 $topico = $this->controller->inserir_topico();
                 $_GET['id'] = $topico->getId_topico();
-            }else if(isset($_GET['d'])){
+                header("Location: index.php?c=ead&a=topico&id=" . $_GET['id']);
+            } else if (isset($_GET['d'])) {
                 $this->controller = new ControllerForum();
-                $this->controller->removerResposta($_GET['d']); 
+                $this->controller->removerResposta($_GET['d']);
             }
         }
         $this->renderizar();
@@ -407,22 +409,104 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
-    public function actionGerenciar_sistema(){
+    public function actionGerenciar_sistema() {
         $this->renderizar();
     }
-    
-    public function actionPatrocinadores(){
-        if(isset($_GET['i'])){
+
+    public function actionPatrocinadores() {
+        if ($_GET['i'] == 1) {
             $controllerG = new ControllerSistema();
-            $controllerG -> inserir_patrocinador();
+            $controllerG->inserir_patrocinador();
+            header("Location: index.php?c=ead&a=patrocinadores");
+        } else if (isset($_GET['id'])) {
+            $controllerG = new ControllerSistema();
+            $controllerG->removerPatrocinador($_GET['id']);
+            header("Location: index.php?c=ead&a=patrocinadores");
+        }
+        $this->renderizar();
+    }
+
+    public function actionAdicionar_patrocinador() {
+        $this->renderizar();
+    }
+
+    public function actionNoticias() {
+        if ($_GET['i'] == '1') {
+            $this->controller = new ControllerSistema();
+            $this->controller->inserir_noticia();
+            header("Location: index.php?c=ead&a=noticias");
+        } else if(isset($_GET['u'])){
+            $this->controller = new ControllerSistema();
+            $this->controller->atualizar_noticia();
+            header("Location: index.php?c=ead&a=noticias");
+        }else if (isset($_GET['id'])) {
+                $this->controller = new ControllerSistema();
+                $this->controller->removerNoticia($_GET['id']);
+                header("Location: index.php?c=ead&a=noticias");
+            
+        }
+        $this->renderizar();
+    }
+
+    public function actionComentarios(){
+         if ($_GET['i'] == '1') {
+            $this->controller = new ControllerSistema();
+            $this->controller->inserir_comentario();
+            header("Location: index.php?c=ead&a=comentarios");
+        } else if(isset($_GET['u'])){
+            $this->controller = new ControllerSistema();
+            $this->controller->atualizar_comentario();
+            header("Location: index.php?c=ead&a=comentarios");
+        }    else if (isset($_GET['id'])) {
+        
+                $this->controller = new ControllerSistema();
+                $this->controller->removerComentario($_GET['id']);
+                header("Location: index.php?c=ead&a=comentarios");
+            
         }
         $this->renderizar();
     }
     
-    public function actionAdicionar_patrocinador(){
+    public function actionDestaques(){
+        if ($_GET['i'] == 1) {
+            $controllerG = new ControllerSistema();
+            $controllerG->inserir_destaque();
+            header("Location: index.php?c=ead&a=destaques");
+        } else if (isset($_GET['id'])) {
+            $controllerG = new ControllerSistema();
+            $controllerG->removerDestaque($_GET['id']);
+            header("Location: index.php?c=ead&a=destaques");
+        }
         $this->renderizar();
     }
     
+    public function actionAdicionar_noticia() {
+        $this->renderizar();
+    }
+
+    public function actionEditar_noticia(){
+        $this->renderizar();
+    }
+    
+    public function actionEditar_comentario(){
+        $this->renderizar();
+    }
+    
+    public function actionAdicionar_comentario() {
+        $this->renderizar();
+    }
+
+    public function actionAdicionar_destaque() {
+        $this->renderizar();
+    }
+
+    public function actionGerenciar_matricula() {
+        $controllerCurso = new controllerCurso();
+        $this->visao->id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->tabela = $controllerCurso->tabelaGerenciar_matricula($this->visao->id_usuario);        
+        $this->renderizar();
+    }
+
 }
 
 ?>
