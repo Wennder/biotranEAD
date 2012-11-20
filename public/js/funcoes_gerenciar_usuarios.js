@@ -4,7 +4,7 @@
  */
 
 
-var dialog, oTable, oTable_matricula, elem, flag_tb_matricula = 0, nomeColunas = new Array();
+var dialog, oTable, elem, nomeColunas = new Array();
     
     
     
@@ -22,15 +22,7 @@ function updateDataTables(_form){
         }
     }
     oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));        
-}
-    
-function updateDataTables(){
-        
-    oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));
-        
-}
-    
-    
+}     
     
 function insertDataTables(_form){//Adicionar essa função  
     var fields_value = new Array();
@@ -58,9 +50,7 @@ function preview(){
     $('#_id_img_usuario').attr('height','120');
 }
     
-$(document).ready(function a(){        
-        
-        
+$(document).ready(function a(){                        
     //capturando nome das colunas da tabela para lógica replace de ids
     i = 0;
     $('thead th').each(function(){            
@@ -81,109 +71,109 @@ $(document).ready(function a(){
             "aTargets": [ 3 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 4 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 5 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 6 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 7 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 8 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 9 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 10 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 11 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 12 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 13 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 14 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 15 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 16 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 17 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 18 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 19 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 20 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "sClass": "nome_usuario_datatable",
             "aTargets":[0]            
         },                
@@ -204,20 +194,7 @@ $(document).ready(function a(){
             $(this).addClass('row_selected');
         }
     });
-        
-    $('#tabela_matricula_cursos tr').live('click',function(e){
-        if ( $(this).hasClass('row_selected') ) {
-            $(this).removeClass('row_selected');
-        } else {
-            oTable.$('tr.row_selected').removeClass('row_selected');
-            $(this).addClass('row_selected');
-            if(flag_tb_matricula == 1){
-                flag_tb_matricula = 0;
-                matricular_usuario($(this).attr('id'));
-            }
-        }
-    });
-        
+                   
     $('#btn_edit').live('click',function(){
         elem = $('tbody tr.row_selected');
         if (elem.length) {
@@ -480,37 +457,37 @@ $(document).ready(function a(){
         
     $('#btn_ger_matricula').live('click',function(){
         elem = $('tbody tr.row_selected');
-        if (elem.length == 1) {                
-            $('#dialog').load('index.php?a=gerenciar_matricula&c=ead&id='+elem.attr('id'), function(response, status, xhr) {
-                if (status == "error") {
-                    alert('erro');
-                    var msg = "Sorry but there was an error: ";
-                    $("#error").html(msg + xhr.status + " " + xhr.statusText);
-                }else{                                                                                    
-                    dialog = $('#dialog').dialog({
-                        width:800, 
-                        height:600,
-                        dialogClass:'dialogstyle', 
-                        modal:true,                        
-                        close: function(event,ui){                     
-                            $(dialog).dialog('destroy');
-                            $(dialog).find('div').remove();
-                        }                                        
-                    });
-                }
-            });
+        var _data = oTable.fnGetData(elem[0]);
+        if(_data[1] == 'Estudante'){
+            if (elem.length == 1) {
+                $('#dialog').load('index.php?a=gerenciar_matricula&c=ead&id='+elem.attr('id'), function(response, status, xhr) {
+                    if (status == "error") {
+                        alert('erro');
+                        var msg = "Sorry but there was an error: ";
+                        $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                    }else{                                                                                    
+                        dialog = $('#dialog').dialog({
+                            width:800, 
+                            height:600,
+                            dialogClass:'dialogstyle', 
+                            modal:true,                        
+                            close: function(event,ui){                     
+                                $(dialog).dialog('destroy');
+                                $(dialog).find('div').remove();
+                            }                                        
+                        });
+                    }
+                });
+            }
+        }else{
+            alert('Usuario não é estudante');
         }
-        
-    });
-        
-    $('#btn_matricular_curso').live('click', function(){
-        flag_tb_matricula = 1;            
-    });
+    });            
         
     function matricular_usuario(){
         $.getJSON('ajax/ajax-gerenciar_matricula.php', {
             id_usuario:elem.attr('id')
-            }, function(j){
+        }, function(j){
             if(j == 1){
                 alert('Matriculado com sucesso!');
             }
@@ -589,7 +566,7 @@ function getNomePapel(id){
 function atualizarCadastro(idusuario){
     $('#cadastro').attr({
         action: 'index.php?c=ead&a=atualizar_cadastro_admin&id='+idusuario
-        });
+    });
     $('#cadastro').submit();
 }
     

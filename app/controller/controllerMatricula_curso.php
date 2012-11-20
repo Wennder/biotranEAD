@@ -25,12 +25,12 @@ class controllerMatricula_curso{
     public function getMatricula_curso($condicao){
         $dao=new Matricula_cursoDAO();
         $mc=$dao->select($condicao);
-        if ($mc==null){
+        if ($mc!=null){
             return $mc[0];
         }
         return $mc;//null
    }
-       /*
+     /*
      * Retorna uma lista de cperecos de acordo com a condicao da query.
      * condicao de busca do tipo String no formato ex.: 'id_curso_professor=1'     
      * 
@@ -80,13 +80,12 @@ class controllerMatricula_curso{
         return $mc;
     }
     
-    public function novaMatricula($id_curso){
-        $usuario = $_SESSION['usuarioLogado'];
+    public function novaMatricula($id_curso, Usuario $usuario){
         if($this->getMatricula_curso('id_curso='.$id_curso.' AND id_usuario='.$usuario->getId_usuario()) == null){
             if ($usuario->getId_papel() == 4) {
                 $mc = new Matricula_curso();
-                $mc->setData_inicio('12/12/1212');
-                $mc->setData_fim('12/12/1212');
+                $mc->setData_inicio('--');
+                $mc->setData_fim('--');
                 $mc->setId_curso($id_curso);
                 $mc->setId_usuario($usuario->getId_usuario());
                 $mc->setModulo_atual(1);
