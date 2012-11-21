@@ -42,7 +42,7 @@ class Matricula_cursoDAO extends PDOConnectionFactory {
 
     public function update(Matricula_curso $mc = null) {
         try {
-            if ($cp != null) {
+            if ($mc != null) {
                 $this->conex->exec("SET NAMES 'utf8'");
                 $stmt = $this->conex->prepare("UPDATE matricula_curso SET id_curso=?, id_usuario=?,data_inicio=?, data_fim =?, status_acesso=?, modulo_atual=?  WHERE id_matricula_curso=?");
                 $stmt->bindValue(1, $mc->getId_curso());
@@ -50,13 +50,15 @@ class Matricula_cursoDAO extends PDOConnectionFactory {
                 $stmt->bindValue(3, $mc->getData_inicio());
                 $stmt->bindValue(4, $mc->getData_fim());
                 $stmt->bindValue(5, $mc->getStatus_acesso());
-                $stmt->bindValue(6, $mc->getModulo_acesso());
+                $stmt->bindValue(6, $mc->getModulo_atual());
+                $stmt->bindValue(7, $mc->getId_matricula_curso());
 
                 $stmt->execute();
-                if ($mc != null) {
-                    $dao = new Matricula_curso();
-                    $dao->update($mc);
+                if ($stmt->execute()) {
+                    $this->conex = null;
+                    return 1;
                 }
+                return 0;
             }
         } catch (PDOException $ex) {
             echo "Erro: " . trigger_error('Impossivel atualizar matrícula');

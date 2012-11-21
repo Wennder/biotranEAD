@@ -15,4 +15,24 @@ if($acao == 'matricular'){
     echo json_encode($retorno);
 }
 
+if($acao == 'liberar_acesso'){
+    $id_matricula_curso = $_REQUEST['id_matricula_curso'];
+    $chave = $_REQUEST['chave_disponibilizar'];
+    //--
+    $controller = new controllerMatricula_curso();      
+    $retorno = $controller->liberarAcesso($id_matricula_curso, $chave);
+    echo json_encode($retorno);
+}
+
+if($acao == 'atualizar_data'){
+    $id_matricula_curso = $_REQUEST['id_matricula_curso'];
+    $data = $_REQUEST['data'];
+    //--
+    $controller = new controllerMatricula_curso();
+    $mc = $controller->getMatricula_curso('id_matricula_curso = '.$id_matricula_curso);
+    $mc->setData_fim($data);
+    $retorno = $controller->updateMatricula_curso($mc);
+    echo json_encode($retorno);
+}
+
 ?>

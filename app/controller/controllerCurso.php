@@ -173,7 +173,7 @@ class controllerCurso {
      */
 
     public function updateCurso(Curso $curso = null, array $cp = null) {
-        //atualiza usuario
+        //atualiza curso
         if ($curso != null) {
             $dao = new CursoDAO();
             if ($cp != null) {
@@ -702,6 +702,7 @@ class controllerCurso {
                     <th>Curso</th> 
                     <th>Status acesso</th> 
                     <th>Progresso</th>
+                    <th>Data início</th>
                     <th>Data término</th>
                 </tr> 
             </thead> 
@@ -720,18 +721,19 @@ class controllerCurso {
                 $tabela .= "<tr id=" . $m->getId_matricula_curso() . ">";
                 $tabela .= "<td width='45%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
                 if ($m->getStatus_acesso() == 1) {
-                    $tabela .= "<td width='15%' id='status' align='center'><input type='checkbox' value='0' checked='checked' id='check_liberar_matricula' /></td>";
+                    $tabela .= "<td width='15%' id='status' align='center'><input type='checkbox' value='0' checked='checked' name='".$m->getId_matricula_curso()."' id='check_liberar_matricula' /></td>";
                 } else {
-                    $tabela .= "<td width='15%' id='status' align='center'><input type='checkbox' value='1' id='check_liberar_matricula' /></td>";
+                    $tabela .= "<td width='15%' id='status' align='center'><input type='checkbox' value='1' id='check_liberar_matricula' name='".$m->getId_matricula_curso()."' /></td>";
                 }
                 $tabela .= "<td width='40%' id='progresso' align='center'> -- </td>";
-                $tabela .= "<td width='40%' id='data_termino' align='center'>" . $m->getData_fim() . "</td>";
+                $tabela .= "<td width='40%' id='data_inicio' align='center'>" . $m->getData_inicio() . "</td>";
+                $tabela .= "<td width='40%' id='data_termino' align='center'><input type='text' value='" . $m->getData_fim() . "' id='data-".$m->getId_matricula_curso()."' name='".$m->getId_matricula_curso()."' class='i_data_termino' /></td>";
             } else {
                 $tabela .= "<tr id='matricular'>";
                 $tabela .= "<td width='45%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
                 $tabela .= "<td width='15%' id='status' align='center'><input type='button' value='Matricular' id='".$this->cursos[$i]->getId_curso()."' class='btn_matricular' /></td>";
                 $tabela .= "<td width='15%' id='progresso' align='center'> -- </td>";
-                $tabela .= "<td width='25%' id='data_termino' align='center'> -- </td>";
+                $tabela .= "<td width='25%' id='data' align='center'> -- </td>";
             }
             $tabela .= "</tr>";
         }
