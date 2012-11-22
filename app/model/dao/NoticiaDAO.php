@@ -21,14 +21,13 @@ class NoticiaDAO extends PDOConnectionFactory {
     public function insert(Noticia $noticia) {
         try {
             $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("INSERT INTO noticia(id_noticia, titulo, noticia, data, manchete,imagem,autor) VALUES (?,?,?,?,?,?,?)");
+            $stmt = $this->conex->prepare("INSERT INTO noticia(id_noticia, titulo, noticia, data, manchete,autor) VALUES (?,?,?,?,?,?)");
             $stmt->bindValue(1, $noticia->getId_noticia());
             $stmt->bindValue(2, $noticia->getTitulo());
             $stmt->bindValue(3, $noticia->getNoticia());
             $stmt->bindValue(4, $noticia->getData());
             $stmt->bindValue(5, $noticia->getManchete());
-            $stmt->bindValue(6, $noticia->getImagem());
-            $stmt->bindValue(7, $noticia->getAutor());
+            $stmt->bindValue(6, $noticia->getAutor());
             if(!$stmt->execute()){
                 echo($noticia->getId_noticia()); echo $noticia->getImagem(); die();
             }            
@@ -41,14 +40,13 @@ class NoticiaDAO extends PDOConnectionFactory {
     public function update(Noticia $noticia) {
         try {
             $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("UPDATE noticia SET titulo=?,noticia=?,data=?,manchete=?, imagem=?,autor=? WHERE id_noticia=?");
+            $stmt = $this->conex->prepare("UPDATE noticia SET titulo=?,noticia=?,data=?,manchete=?, autor=? WHERE id_noticia=?");
             $stmt->bindValue(1, $noticia->getTitulo());
             $stmt->bindValue(2, $noticia->getNoticia());
             $stmt->bindValue(3, $noticia->getData());
             $stmt->bindValue(4, $noticia->getManchete());
-            $stmt->bindValue(5, $noticia->getImagem());          
-            $stmt->bindValue(6, $noticia->getAutor());          
-            $stmt->bindValue(7, $noticia->getId_noticia());          
+            $stmt->bindValue(5, $noticia->getAutor());          
+            $stmt->bindValue(6, $noticia->getId_noticia());          
             $stmt->execute();
             return 1;
         } catch (PDOException $ex) {

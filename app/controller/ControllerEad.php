@@ -485,6 +485,13 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionEditar_noticia(){
+        if(isset($_GET['f'])){
+            $caminho = ROOT_PATH . '/public/img/noticias/' . $_GET['id'] . '.jpg';
+            if(is_file($caminho)){
+             unlink($caminho);
+            }
+            header("Location: index.php?c=ead&a=editar_noticia&id=".$_GET['id']);
+        }
         $this->renderizar();
     }
     

@@ -25,7 +25,6 @@ class controllerSistema {
         $quant = count($patrocinador);
         $i=0;
         $lista='';
-//        echo $quant;die();
         for(;$i<$quant;$i++){
            
             $lista.="<div class='patrocinador_holder'><div style='overflow:auto;'><a href='index.php?c=ead&a=patrocinadores&id=".$patrocinador[$i]->getId_patrocinador()."' style='position:relative;float:right;'>x</a></div><img src='".$patrocinador[$i]->getImagem()."' /></div>";
@@ -39,7 +38,6 @@ class controllerSistema {
         $quant = count($patrocinador);
         $i=0;
         $lista='';
-//        echo $quant;die();
         for(;$i<$quant;$i++){
            
             $lista.="<img src='".$patrocinador[$i]->getImagem()."' width='200' height='200'/>";
@@ -156,7 +154,6 @@ class controllerSistema {
                 $pasta_dir = "img/destaques/";
                 if (!in_array($imagem["type"], $tipos)) {
                     $imagem_nome = $pasta_dir . $id_destaque . ".jpg";
-//                    print_r($_FILES); echo $imagem_nome; die();
                     
                     move_uploaded_file($imagem["tmp_name"], $imagem_nome);
                     $imagem_arquivo = "img/destaques/" . $id_destaque . ".jpg";
@@ -215,7 +212,6 @@ class controllerSistema {
         $quant = count($destaque);
         $i=0;
         $lista='';
-//        echo $quant;die();
         for(;$i<$quant;$i++){
            
             $lista.="<div class='destaque_holder'><div style='overflow:auto;'><a href='index.php?c=ead&a=destaques&id=".$destaque[$i]->getId_destaque()."' style='position:relative;'>x</a></div><img src='".$destaque[$i]->getDestaque()."' /></div>";
@@ -229,7 +225,6 @@ class controllerSistema {
         $quant = count($destaque);
         $i=0;
         $lista='';
-//        echo $quant;die();
         for(;$i<$quant;$i++){
            
             $lista.="<img src='".$destaque[$i]->getDestaque()."'/>";
@@ -291,18 +286,11 @@ class controllerSistema {
                 $pasta_dir = "img/noticias/";
                 if (!in_array($imagem["type"], $tipos)) {
                     $imagem_nome = $pasta_dir . $id_noticia . ".jpg";
-//                    print_r($_FILES); echo $imagem_nome; die();
+//                    echo $imagem_nome; die();
                     
                     move_uploaded_file($imagem["tmp_name"], $imagem_nome);
-                    $imagem_arquivo = "img/noticias/" . $id_noticia . ".jpg";
-                    $this->destaque->setDestaque($imagem_arquivo);
-                    list($altura, $largura) = getimagesize($imagem_nome);
-                    if ($altura > 300 && $largura > 650) {
-                        $img = wiImage::load($imagem_arquivo);
-                        $img = $img->resize(700, 350, 'outside');
-                        $img = $img->crop('50% - 50', '50% - 40', 300, 650);
-                        $img->saveToFile($imagem_arquivo);
-                    }
+                    //$this->destaque->setDestaque($imagem_arquivo);
+                   
                     
                 }
             }
@@ -320,6 +308,7 @@ class controllerSistema {
     public function atualizar_noticia(){
         $this->noticia = new Noticia();
         $this->setNoticia_Post();
+        $this->inserirFotoNoticia($this->noticia->getId_noticia());
         $dao = new NoticiaDAO();
         $dao->update($this->noticia);
     }
@@ -330,12 +319,29 @@ class controllerSistema {
         $quant = count($noticia);
         $i=0;
         $lista='';
-//        echo $quant;die();
         for(;$i<$quant;$i++){
            
             $lista.="<div><p><b>::</b>".$noticia[$i]->getData()." -<b> ".$noticia[$i]->getTitulo()."</b></p>
                 <span>".$noticia[$i]->getManchete()."</span><ul style='list-style:none;'><li style='display:inline;float:left;margin-right:10px;'>
                     <a href='index.php?c=ead&a=editar_noticia&id=".$noticia[$i]->getId_noticia()."'>editar</a></li><li><a href='index.php?c=ead&a=noticias&id=".$noticia[$i]->getId_noticia()."'>remover</a></li></ul></div>";
+        }
+        return $lista;
+    }
+    /**/
+    public function listaNoticia_index(){
+        $dao = new NoticiaDAO();
+        $noticia = $dao->select();
+        $quant = count($noticia);
+        $i=0;
+        $lista='';
+        $c =0;
+        for(;$i<$quant;$i++){
+           if($c>4){
+               $c=0;
+           }
+            $lista.="<div class='noticia b_$c'><a href='index.php?c=index&a=noticia&id=".$noticia[$i]->getId_noticia()."'><div><p><b>:: </b>".$noticia[$i]->getData()." -<b> ".$noticia[$i]->getTitulo()."</b></p>
+                <span>".$noticia[$i]->getManchete()."</span></div></a></div>";
+            $c++;
         }
         return $lista;
     }
@@ -412,6 +418,26 @@ class controllerSistema {
         }
         return $lista;
     }
+    /**/
+     public function listaComentarios_index(){
+        $dao = new ComentarioDAO();
+        $comentario = $dao->select();
+        $quant = count($comentario);
+        $i=0;
+        $lista='';
+//        echo $quant;die();
+        $c=0;
+        for(;$i<$quant;$i++){
+           if($c>4){
+               $c=0;
+           }
+            $lista.="<div class='comentario b_$c'><p> ".$comentario[$i]->getComentario()."</p>
+                <span>".$comentario[$i]->getAutor()." - </span>".$comentario[$i]->getData()."</div>";
+            $c++;
+        }
+        return $lista;
+    }
+    /**/
     //------------------------------------------------------------------------//
 }
 

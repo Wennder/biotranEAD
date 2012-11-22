@@ -1,12 +1,12 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
-<form id="form_noticia" method="post" action="index.php?c=ead&a=noticias&i=1" >
+<form id="form_noticia" method="post" action="index.php?c=ead&a=noticias&i=1" enctype="multipart/form-data" >
     <fieldset>
         <legend>Nova Noticia</legend>
         
         <table>
-            <input name="data" type="text" hidden="true" value="<?php  date_default_timezone_set("Brazil/East"); echo $today = date("F j, Y, g:i a"); ?>"/>
+            <input name="data" type="text" hidden="true" value="<?php  date_default_timezone_set("Brazil/East"); echo $today = date("d/m/y - h:i"); ?>"/>
             <tr>
                 <td><label>titulo: </label></td>
                 <td><input type="text" id="titulo" name="titulo" style="width:500px;" maxlength="255"/></td>

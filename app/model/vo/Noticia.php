@@ -17,7 +17,6 @@ class Noticia {
     private $noticia;
     private $data;
     private $manchete;
-    private $imagem;
     private $autor;
     
     public function getId_noticia(){
@@ -36,9 +35,6 @@ class Noticia {
         return $this->manchete ;
     }
     
-    public function getImagem(){
-        return $this->imagem;
-    }
     public function getAutor(){
         return $this->autor;
     }
@@ -59,9 +55,6 @@ class Noticia {
         $this->manchete = $manchete ;
     }
     
-    public function setImagem($imagem){
-        $this->imagem = $imagem;
-    }
     public function setAutor($autor){
         $this->autor = $autor;
     }

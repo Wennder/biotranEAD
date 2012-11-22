@@ -10,10 +10,10 @@
         </div>
         <div id="topo_noticias"><label>NOTÍCIAS</label></div>
         <div id="div_noticias">
-            
+            <?php echo $controller->listaNoticia_index(); ?>
         </div>
         <div id="topo_comentarios"><label>COMENTÁRIOS</label></div>
         <div id="div_comentarios">
-            
+            <?php echo $controller->listaComentarios_index() ?>
         </div>
     </div>
