@@ -30,8 +30,9 @@ class Matricula_cursoDAO extends PDOConnectionFactory {
             $stmt->bindValue(6, $matricula_curso->getModulo_atual());
 
             if ($stmt->execute()) {
-                $stmt->conex = null;
-                return 1;
+                $id = $this->conex->lastInsertId("Matricula_curso");
+                $this->conex = null;
+                return $id;
             } else {
                 return 0;
             }
