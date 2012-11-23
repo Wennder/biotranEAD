@@ -5,8 +5,7 @@ function updateDataTables_matricula(){
     if(elem_matricula.length > 0){
         var fields_value = new Array();
         var _data = oTable_matricula.fnGetData(elem_matricula[0])   
-        var id_matricula = elem_matricula.attr('id');
-        alert(id_matricula);
+        var id_matricula = elem_matricula.attr('id');        
         fields_value.push(_data[0]);
         fields_value.push("<input type='checkbox' value='1' id='check_liberar_matricula'/>");
         fields_value.push(_data[2]);

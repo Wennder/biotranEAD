@@ -90,7 +90,7 @@ class Biotran_Mvc {
     }
 
     public function validarAcessoUsuario() {
-        if($this->controlador != 'index'){                        
+        if($this->controlador != 'index'){                
             $permissao = $this->controllerSeguranca->actionLiberarAcesso($this->acao);            
             if (!$permissao) {
                 $this->controlador = 'ead';

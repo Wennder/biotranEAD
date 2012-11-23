@@ -1,7 +1,8 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
-<form id="form_topico" method="post" action="index.php?c=ead&a=comentarios&i=1" >
+
+<form id="form_topico" method="post" action="index.php?c=ead&a=pini_comentarios&i=1" >
     <fieldset>
         <legend>Novo Comentario</legend>
         

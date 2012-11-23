@@ -10,8 +10,7 @@ class Papel_paginaDAO extends PDOConnectionFactory {
 
     public function select($idPapel, $pagina) {
         try {                        
-            $stmt = null;
-//            echo $idPapel . '-'. $pagina; die();
+            $stmt = null;            
             $stmt = $this->conex->query("SELECT * FROM papel_pagina WHERE id_papel=" . $idPapel . " AND pagina='".$pagina."'");            
             if($stmt->rowCount() == 1) {
                 return 1;

@@ -5,7 +5,7 @@
 <h2 style="margin-bottom: 50px; margin-left: 30px;">Patrocinadores</h2>
 
 <div id="patrocinadores_gerencia">
-    <a href="index.php?c=ead&a=adicionar_patrocinador">adicionar patrocinador</a>
+    <a href="index.php?c=ead&a=pini_adicionar_patrocinador">adicionar patrocinador</a>
     <div>
         <?php $controller = new ControllerSistema(); echo $controller->listaPatrocinadores(); ?>
     </div>

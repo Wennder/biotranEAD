@@ -5,7 +5,7 @@
 <h2 style="margin-bottom: 50px; margin-left: 30px;">Comentarios</h2>
 
 <div id="comentarios_gerencia">
-    <a href="index.php?c=ead&a=adicionar_comentario">adicionar comentario</a>
+    <a href="index.php?c=ead&a=pini_adicionar_comentario">adicionar comentario</a>
     <div>
         <?php $controller = new ControllerSistema(); echo $controller->listaComentarios(); ?>
     </div>

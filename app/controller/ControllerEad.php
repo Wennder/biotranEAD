@@ -413,97 +413,95 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->renderizar();
     }
 
-    public function actionPatrocinadores() {
+    public function actionPini_patrocinadores() {
         if ($_GET['i'] == 1) {
             $controllerG = new ControllerSistema();
             $controllerG->inserir_patrocinador();
-            header("Location: index.php?c=ead&a=patrocinadores");
+            header("Location: index.php?c=ead&a=pini_patrocinadores");
         } else if (isset($_GET['id'])) {
             $controllerG = new ControllerSistema();
             $controllerG->removerPatrocinador($_GET['id']);
-            header("Location: index.php?c=ead&a=patrocinadores");
+            header("Location: index.php?c=ead&a=pini_patrocinadores");
         }
         $this->renderizar();
     }
 
-    public function actionAdicionar_patrocinador() {
+    public function actionPini_adicionar_patrocinador() {
         $this->renderizar();
     }
 
-    public function actionNoticias() {
+    public function actionPini_noticias() {
         if ($_GET['i'] == '1') {
             $this->controller = new ControllerSistema();
             $this->controller->inserir_noticia();
-            header("Location: index.php?c=ead&a=noticias");
+            header("Location: index.php?c=ead&a=pini_noticias");
         } else if(isset($_GET['u'])){
             $this->controller = new ControllerSistema();
             $this->controller->atualizar_noticia();
-            header("Location: index.php?c=ead&a=noticias");
+            header("Location: index.php?c=ead&a=pini_noticias");
         }else if (isset($_GET['id'])) {
                 $this->controller = new ControllerSistema();
                 $this->controller->removerNoticia($_GET['id']);
-                header("Location: index.php?c=ead&a=noticias");
+                header("Location: index.php?c=ead&a=pini_noticias");
             
         }
         $this->renderizar();
     }
 
-    public function actionComentarios(){
+    public function actionPini_comentarios(){
          if ($_GET['i'] == '1') {
             $this->controller = new ControllerSistema();
             $this->controller->inserir_comentario();
-            header("Location: index.php?c=ead&a=comentarios");
+            header("Location: index.php?c=ead&a=pini_comentarios");
         } else if(isset($_GET['u'])){
             $this->controller = new ControllerSistema();
             $this->controller->atualizar_comentario();
-            header("Location: index.php?c=ead&a=comentarios");
+            header("Location: index.php?c=ead&a=pini_comentarios");
         }    else if (isset($_GET['id'])) {
-        
                 $this->controller = new ControllerSistema();
                 $this->controller->removerComentario($_GET['id']);
-                header("Location: index.php?c=ead&a=comentarios");
-            
+                header("Location: index.php?c=ead&a=pini_comentarios");
         }
         $this->renderizar();
     }
     
-    public function actionDestaques(){
+    public function actionPini_destaques(){
         if ($_GET['i'] == 1) {
             $controllerG = new ControllerSistema();
             $controllerG->inserir_destaque();
-            header("Location: index.php?c=ead&a=destaques");
+            header("Location: index.php?c=ead&a=pini_destaques");
         } else if (isset($_GET['id'])) {
             $controllerG = new ControllerSistema();
             $controllerG->removerDestaque($_GET['id']);
-            header("Location: index.php?c=ead&a=destaques");
+            header("Location: index.php?c=ead&a=pini_destaques");
         }
         $this->renderizar();
     }
     
-    public function actionAdicionar_noticia() {
+    public function actionPini_adicionar_noticia() {
         $this->renderizar();
     }
 
-    public function actionEditar_noticia(){
+    public function actionPini_editar_noticia(){
         if(isset($_GET['f'])){
             $caminho = ROOT_PATH . '/public/img/noticias/' . $_GET['id'] . '.jpg';
             if(is_file($caminho)){
              unlink($caminho);
             }
-            header("Location: index.php?c=ead&a=editar_noticia&id=".$_GET['id']);
+            header("Location: index.php?c=ead&a=pini_editar_noticia&id=".$_GET['id']);
         }
         $this->renderizar();
     }
     
-    public function actionEditar_comentario(){
+    public function actionPini_editar_comentario(){
         $this->renderizar();
     }
     
-    public function actionAdicionar_comentario() {
+    public function actionPini_adicionar_comentario() {
         $this->renderizar();
     }
 
-    public function actionAdicionar_destaque() {
+    public function actionPini_adicionar_destaque() {
         $this->renderizar();
     }
 
