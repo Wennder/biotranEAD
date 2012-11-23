@@ -21,7 +21,7 @@ switch ($usuario) {
         }
         break;
     case 4:
-        if (isset($_GET['a']) && $_GET['a'] == 'curso') {
+        if (isset($_GET['a']) && $_GET['a'] == 'curso_aluno') {
             require 'leftcolumn_aluno_curso.php';
         } else {
             require 'leftcolumn_aluno_home.php';
