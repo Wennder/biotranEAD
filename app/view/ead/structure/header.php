@@ -4,6 +4,7 @@
         <title>EAD Biotran</title>
         <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
         <script src="js/video.js"></script>                
+        <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
         <link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>   
         <script src="js/jquery.js"></script> 
         <script type="text/javascript" src="js/jquery.form.js"></script>
@@ -15,9 +16,7 @@
         <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
         <!--        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> -->
-        <style>
-            @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
-        </style>
+        
         <script type="text/javascript">
             //            _V_.options.flash.swf = "video-js.swf";
             var centro = 1;

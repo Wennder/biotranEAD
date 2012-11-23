@@ -733,7 +733,8 @@ class controllerCurso {
                 $tabela .= "<td width='45%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
                 $tabela .= "<td width='15%' id='status' align='center'><input type='button' value='Matricular' id='".$this->cursos[$i]->getId_curso()."' class='btn_matricular' /></td>";
                 $tabela .= "<td width='15%' id='progresso' align='center'> -- </td>";
-                $tabela .= "<td width='25%' id='data' align='center'> -- </td>";
+                $tabela .= "<td width='25%' id='data_inicio' align='center'> -- </td>";
+                $tabela .= "<td width='25%' id='data_termino' align='center'> -- </td>";
             }
             $tabela .= "</tr>";
         }

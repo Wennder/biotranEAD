@@ -1,6 +1,4 @@
-<style type="text/css" title="currentStyle">
-    @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
-</style>
+<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
 <script>
     $(document).ready(function e(){
         oTable_matricula = $('#tabela_matricula_cursos').dataTable({
