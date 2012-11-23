@@ -101,7 +101,7 @@ class controllerSistema {
         return $this->patrocinador;
     }
     /**/
-    public function novoPatrocinador(Destaque $patrocinador = null) {
+    public function novoPatrocinador(Patrocinador $patrocinador = null) {
         if ($patrocinador != null) {
             $dao = new PatrocinadorDAO();
             //verifica se realmente já não existe o registro
@@ -158,11 +158,11 @@ class controllerSistema {
                     move_uploaded_file($imagem["tmp_name"], $imagem_nome);
                     $imagem_arquivo = "img/destaques/" . $id_destaque . ".jpg";
                     $this->destaque->setDestaque($imagem_arquivo);
+                    
                     list($altura, $largura) = getimagesize($imagem_nome);
                     if ($altura > 300 && $largura > 650) {
                         $img = wiImage::load($imagem_arquivo);
-                        $img = $img->resize(700, 350, 'outside');
-                        $img = $img->crop('50% - 50', '50% - 40', 300, 650);
+                        $img = $img->resize(650, 300, 'outside');                        
                         $img->saveToFile($imagem_arquivo);
                     }
                     
