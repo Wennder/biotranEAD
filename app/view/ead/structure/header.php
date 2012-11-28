@@ -2,10 +2,8 @@
     <head>        
         <meta http-equiv="Content-Type" content="NO-CACHE; text/html; charset=utf8" />
         <title>EAD Biotran</title>
-        <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
         <script src="js/video.js"></script>                
         <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
-        <link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>   
         <script src="js/jquery.js"></script> 
         <script type="text/javascript" src="js/jquery.form.js"></script>
         <script src="js/accordion_1.js" type="text/javascript"></script>
@@ -14,17 +12,18 @@
         <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
         <script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
         <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
+        <script src="js/resolver_exercicio.js" type="text/javascript"></script>
+
+        <link href="css/video-js.css" rel="stylesheet" type="text/css"/>        
+        <link href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css"/>   
         <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
-        <!--        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> -->
         <style type="text/css" title="currentStyle">
-    @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
-</style>
+            @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
+        </style>
         <script type="text/javascript">
             //            _V_.options.flash.swf = "video-js.swf";
             var centro = 1;
-            var dialog;
-            var id_exercicio;
-            
+            var dialog;                        
             $('#editar_dados_pessoais').live('submit', function(e){
                 e.preventDefault();
                 $(this).ajaxSubmit({
@@ -205,60 +204,7 @@
                     });
                 });        
                 
-                $(".btn_resolver_exe").live('click', function(){                        
-                    var btn = $(this);
-                    $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
-                        if (status == "error") {
-                            alert('erro');
-                            var msg = "Sorry but there was an error: ";
-                            $("#error").html(msg + xhr.status + " " + xhr.statusText);
-                        }else{                                                                                    
-                            dialog = $('#dialog').dialog({width:800, height:600,dialogClass:'dialogstyle', modal:true,                        
-                                close: function(event,ui){                     
-                                    $(dialog).dialog('destroy');
-                                    $(dialog).find('div').remove();
-                                }                                        
-                            });
-                        }
-                    });
-                });
                 
-                $("#cancelar_questionario").live('click', function(){                        
-                    dialog.dialog('close');
-                });
-                
-                $("#corrigir_questionario").live('click', function(){
-                    
-                });
-                
-                $("#submeter_questionario").live('click', function(){
-                    var r = confirm('Tem certeza? Uma vez submetido não podera mais voltar atrás');
-                    if(r){
-                        var qnt = $('#total_perguntas').val();
-                        var i;
-                        var respostas = '';
-                        var id_questoes = '';
-                        var j;
-                        var id_exercicio = $('#id_exercicio').val();
-                        for(i = 0; i < qnt; i++){
-                            j = i+1;
-                            respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
-                            id_questoes += $('#id_pergunta_'+i).val()+';';
-                        }
-                        $.getJSON('ajax/submeterQuestionario.php', {respostas: respostas, id_perguntas:id_questoes}, 
-                        function(j){
-                            if(j == 1){
-                                alert('Questionário submetido com sucesso!');
-                                $('input[name="exercicio_'+id_exercicio+'"]').attr('disabled', 'true');
-                                $('input[name="exercicio_'+id_exercicio+'"]').removeAttr('id');
-                                $('input[name="exercicio_'+id_exercicio+'"]').attr('value', 'Exercicio já submetido');
-                                dialog.dialog('close');
-                            }else{
-                                alert('Erro ao submeter questionário, tente novamente!');
-                            }
-                        });                        
-                    }
-                });
                 
                 $(".btn_add").live('click', function(){        
                     var btn = $(this);

@@ -3,10 +3,7 @@
 <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
 <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 
-<script>    
-    
-</script>
-<div>
+<div id="cad_exercicios">
     <div style="display:none;">                
         <input type="text" name="id" id="id" value="<?php echo $this->exercicio->getId_exercicio(); ?>"/>            
     </div>
@@ -36,9 +33,7 @@
         <?php echo ($this->listaPerguntas); ?>        
     </div>
     <div>
-        <input type="button" value="Corrigir questionario" id="submeter_questionario"/>
-    </div>
-    <div>
-        <input type="button" value="Cancelar" id="cancelar_questionario"/>
+        <input type="button" value="Corrigir exercicio" id="corrigir_exercicio"/>        
+        <input type="button" value="Cancelar" id="cancelar_exercicio"/>
     </div>
 </div>

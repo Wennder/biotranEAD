@@ -1,4 +1,4 @@
-<?php require ROOT_PATH . '/app/view/ead/structure/header_admin.php'; ?>
+<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn_admin_modulo.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
