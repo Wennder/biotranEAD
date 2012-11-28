@@ -27,7 +27,7 @@ class controllerSistema {
         $lista='';
         for(;$i<$quant;$i++){
            
-            $lista.="<div class='patrocinador_holder'><div style='overflow:auto;'><a href='index.php?c=ead&a=patrocinadores&id=".$patrocinador[$i]->getId_patrocinador()."' style='position:relative;float:right;'>x</a></div><img src='".$patrocinador[$i]->getImagem()."' /></div>";
+            $lista.="<div class='patrocinador_holder'><div style='overflow:auto;'><a href='index.php?c=ead&a=pini_patrocinadores&id=".$patrocinador[$i]->getId_patrocinador()."' style='position:relative;float:right;'>x</a></div><img src='".$patrocinador[$i]->getImagem()."' /></div>";
         }
         return $lista;
     }
@@ -214,7 +214,7 @@ class controllerSistema {
         $lista='';
         for(;$i<$quant;$i++){
            
-            $lista.="<div class='destaque_holder'><div style='overflow:auto;'><a href='index.php?c=ead&a=destaques&id=".$destaque[$i]->getId_destaque()."' style='position:relative;'>x</a></div><img src='".$destaque[$i]->getDestaque()."' /></div>";
+            $lista.="<div class='destaque_holder'><div style='overflow:auto;'><a href='index.php?c=ead&a=pini_destaques&id=".$destaque[$i]->getId_destaque()."' style='position:relative;'>x</a></div><img src='".$destaque[$i]->getDestaque()."' /></div>";
         }
         return $lista;
     }
@@ -323,7 +323,7 @@ class controllerSistema {
            
             $lista.="<div><p><b>::</b>".$noticia[$i]->getData()." -<b> ".$noticia[$i]->getTitulo()."</b></p>
                 <span>".$noticia[$i]->getManchete()."</span><ul style='list-style:none;'><li style='display:inline;float:left;margin-right:10px;'>
-                    <a href='index.php?c=ead&a=editar_noticia&id=".$noticia[$i]->getId_noticia()."'>editar</a></li><li><a href='index.php?c=ead&a=noticias&id=".$noticia[$i]->getId_noticia()."'>remover</a></li></ul></div>";
+                    <a href='index.php?c=ead&a=pini_editar_noticia&id=".$noticia[$i]->getId_noticia()."'>editar</a></li><li><a href='index.php?c=ead&a=pini_noticias&id=".$noticia[$i]->getId_noticia()."'>remover</a></li></ul></div>";
         }
         return $lista;
     }
@@ -409,12 +409,11 @@ class controllerSistema {
         $quant = count($comentario);
         $i=0;
         $lista='';
-//        echo $quant;die();
         for(;$i<$quant;$i++){
            
             $lista.="<div><p> ".$comentario[$i]->getComentario()."</p>
                 <span>".$comentario[$i]->getAutor()." - </span>".$comentario[$i]->getData()." <ul style='list-style:none;'><li style='display:inline;float:left;margin-right:10px;'>
-                    <a href='index.php?c=ead&a=editar_comentario&id=".$comentario[$i]->getId_comentario()."'>editar</a></li><li><a href='index.php?c=ead&a=comentarios&id=".$comentario[$i]->getId_comentario()."'>remover</a></li></ul></div>";
+                    <a href='index.php?c=ead&a=pini_editar_comentario&id=".$comentario[$i]->getId_comentario()."'>editar</a></li><li><a href='index.php?c=ead&a=pini_comentarios&id=".$comentario[$i]->getId_comentario()."'>remover</a></li></ul></div>";
         }
         return $lista;
     }

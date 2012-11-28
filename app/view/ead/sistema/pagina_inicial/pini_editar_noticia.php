@@ -4,7 +4,7 @@
 
 <?php $noticiaDAO = new NoticiaDAO(); $noticia = $noticiaDAO->select("id_noticia=".$_GET['id']); ?>
 
-<form id="form_noticia" method="post" enctype="multipart/form-data" action="index.php?c=ead&a=noticias&u=1&id="<?php echo $_GET['id']?> >
+<form id="form_noticia" method="post" enctype="multipart/form-data" action="index.php?c=ead&a=pini_noticias&u=1&id="<?php echo $_GET['id']?> >
     <fieldset>
         <legend>Editar Noticia</legend>
         

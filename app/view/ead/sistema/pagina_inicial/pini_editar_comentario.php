@@ -4,7 +4,7 @@
 
 <?php $dao = new ComentarioDAO(); $comentario = $dao->select("id_comentario=".$_GET['id']); ?>
 
-<form id="form_topico" method="post" action="index.php?c=ead&a=comentarios&u=1&id=<?php echo $_GET['id'];?>" >
+<form id="form_topico" method="post" action="index.php?c=ead&a=pini_comentarios&u=1&id=<?php echo $_GET['id'];?>" >
     <fieldset>
         <legend>Novo Comentario</legend>
         

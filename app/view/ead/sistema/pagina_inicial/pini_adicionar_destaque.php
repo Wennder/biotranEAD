@@ -1,7 +1,8 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
-<form method="post" action="index.php?c=ead&a=destaques&i=1" enctype="multipart/form-data">
+
+<form method="post" action="index.php?c=ead&a=pini_destaques&i=1" enctype="multipart/form-data">
     <fieldset>
         <legend>Adicionar destaque</legend>
         <table>

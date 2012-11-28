@@ -29,6 +29,7 @@
             <ul style="list-style-type: none;">
                 <li><p><a style="font-size:16px;" href="index.php?c=ead&a=gerenciar_usuarios"> Usuarios </a></p></li>
                 <li><p><a style="font-size:16px;" href="index.php?c=ead&a=gerenciar_cursos"> Cursos </a></p></li>
+                <li><p><a style="font-size:16px;" href="index.php?c=ead&a=gerenciar_sistema"> Sistema </a></p></li>
             </ul>
         </div>
     </div>
