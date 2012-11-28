@@ -16,7 +16,9 @@
         <script src="js/jquery.validationEngine.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
         <!--        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> -->
-        
+        <style type="text/css" title="currentStyle">
+    @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";
+</style>
         <script type="text/javascript">
             //            _V_.options.flash.swf = "video-js.swf";
             var centro = 1;
@@ -223,6 +225,10 @@
                 
                 $("#cancelar_questionario").live('click', function(){                        
                     dialog.dialog('close');
+                });
+                
+                $("#corrigir_questionario").live('click', function(){
+                    
                 });
                 
                 $("#submeter_questionario").live('click', function(){

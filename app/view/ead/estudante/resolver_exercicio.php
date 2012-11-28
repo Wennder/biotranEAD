@@ -36,7 +36,7 @@
         <?php echo ($this->listaPerguntas); ?>        
     </div>
     <div>
-        <input type="button" value="Submeter questionario" id="submeter_questionario"/>
+        <input type="button" value="Corrigir questionario" id="submeter_questionario"/>
     </div>
     <div>
         <input type="button" value="Cancelar" id="cancelar_questionario"/>

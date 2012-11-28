@@ -19,9 +19,9 @@ if (isset($this->curso)) {
 <script src="js/validarNomeCurso.js" type="text/javascript"></script>
 <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
-<link rel="stylesheet" href="css/jquery.dataTables.css" type="text/css"/>
 <link rel="stylesheet" href="css/jquery-ui-1.8.24.custom.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery.dataTables.css" type="text/css"/>
+<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
 
 <style type="text/css" title="currentStyle">
     @import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";

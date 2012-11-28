@@ -254,16 +254,13 @@ class controllerExercicio {
                             <textarea readonly="true" placeholder="Alternativa ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px">' . $a[$j]->getResposta() . '</textarea>
                         </div>';
             }
-            $lista .= '</fieldset >  
-                    <fieldset style="width:300px; float: left; padding:0 5px 5px 5px; margin:0 2.5px">
-                        <legend>Justificativas</legend>';
+            $lista .= '</fieldset >';
 //            for ($j = 0; $j < count($a); $j++) {
 //                $lista .= '<div>
 //                            <textarea readonly="true" placeholder="Justificativa" id="justificativa-' . $j . '" name="justificativa-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px; ">' . $a[$j]->getJustificativa() . '</textarea>
 //                        </div>';
 //            }
-            $lista .='</fieldset>                    
-                </div>
+            $lista .='</div>
             </fieldset>
             <div style="display:none;">                
                 <input type="text" name="id_pergunta_' . $i . '" id="id_pergunta_' . $i . '" value="' . $p[$i]->getId_pergunta() . '"/>                
