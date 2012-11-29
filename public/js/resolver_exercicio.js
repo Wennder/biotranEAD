@@ -37,6 +37,8 @@ $(document).ready(function(){
             var i;
             var j;                                                
             id_exercicio = $('#id_exercicio').val();
+            respostas = '';
+            id_questoes = '';
             for(i = 0; i < qnt; i++){
                 j = i+1;
                 respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
@@ -47,7 +49,7 @@ $(document).ready(function(){
                 id_exercicio: id_exercicio, 
                 id_perguntas: id_questoes
             }, 
-            function(j){
+            function(j){                
                 if(j != 1){                    
                     dialog.dialog('close');
                     dialog = $(j).dialog({
@@ -71,15 +73,15 @@ $(document).ready(function(){
         var r = confirm('Tem certeza? Uma vez submetido não podera mais voltar atrás');
         if(r){
             porc_acertos = $('#porc_acertos').val();
-//            var j;
-//            var i;
-//            var qnt = $('#total_perguntas').val();
-//            for(i = 0; i < qnt; i++){
-//                j = i+1;
-//                respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
-//                id_questoes += $('#id_pergunta_'+i).val()+';';
-//            } 
-            alert(id_exercicio);
+            //            var j;
+            //            var i;
+            //            var qnt = $('#total_perguntas').val();
+            //            for(i = 0; i < qnt; i++){
+            //                j = i+1;
+            //                respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
+            //                id_questoes += $('#id_pergunta_'+i).val()+';';
+            //            } 
+            alert(porc_acertos);
             $.getJSON('ajax/submeterQuestionario.php?acao=submeter', {
                 respostas: respostas, 
                 id_exercicio: id_exercicio, 
@@ -88,10 +90,7 @@ $(document).ready(function(){
             }, 
             function(j){
                 if(j == 1){                    
-                    $('input[name="exercicio_'+id_exercicio+'"]').attr('disabled', 'true');
-                    $('input[name="exercicio_'+id_exercicio+'"]').removeAttr('id');
-                    $('input[name="exercicio_'+id_exercicio+'"]').attr('value', 'Exercicio já submetido');
-                    dialog.dialog('close');
+                    alert('Exercício submetido');
                 }else{
                     if(j == 2){
                         alert('Módulo terminado! Próximo módulo liberado');
@@ -100,8 +99,11 @@ $(document).ready(function(){
                             alert('Curso finalizado!');
                         }
                     }
-                    alert('Erro ao submeter questionário, tente novamente!');
                 }
+                $('input[name="exercicio_'+id_exercicio+'"]').attr('disabled', 'true');
+                $('input[name="exercicio_'+id_exercicio+'"]').removeAttr('id');
+                $('input[name="exercicio_'+id_exercicio+'"]').attr('value', 'Exercicio já submetido');
+                dialog.dialog('close');                    
             });                        
         }
     });

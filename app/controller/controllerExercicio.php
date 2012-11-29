@@ -342,33 +342,41 @@ class controllerExercicio {
             }
         }
         //inserindo usuario exercicio
+        $c = new controllerExercicio();
+        $e = $c->getExercicio('id_exercicio=' . $id_exercicio);
         $c = new controllerUsuario_exercicio();
         $ue = new Usuario_exercicio();
         $ue->setId_exercicio($id_exercicio);
         $ue->setId_usuario($id_usuario);
         $ue->setPorc_acertos($porc_acertos);
+        $ue->setId_modulo($e->getId_modulo());
+        //inserindo
         $c->novoUsuario_exercicio($ue);
         //--verificando se resolveu ultimo exercicio
         $c = new controllerExercicio();
-        $e = $c->getExercicio('id_exercicio=' . $id_exercicio);
         $qnt_exer = count($c->getListaExercicio('id_modulo=' . $e->getId_modulo()));
         $c = new controllerUsuario_exercicio();
         $qnt_exer_resolvidos = count($c->getListaUsuario_exercicios('id_usuario=' . $id_usuario . ' AND id_modulo=' . $e->getId_modulo()));
         //--
-        //verificando
+        //verificando se terminou módulo
         if ($qnt_exer == $qnt_exer_resolvidos) {
-            //passou para o próximo módulo            
             $c = new controllerModulo();
             $m = $c->getModulo('id_modulo=' . $e->getId_modulo());
+            $c = new controllerCurso();
+            $curso = $c->getCurso('id_curso=' . $m->getId_curso());
+
+            //se esta no ultimo módulo
+            if ($m->getNumero_modulo() == $curso->getNumero_modulos()) {
+                return 3; //ULTIMO MÓDULO TERMINADO - CURSO FINALIZADO                
+            }
+            //passou para o próximo módulo
             $c = new controllerMatricula_curso();
             $mc = $c->getMatricula_curso("id_usuario=" . $id_usuario . ' AND id_curso=' . $m->getId_curso());
-            $mc->setModulo_atual(((int)$mc->getModulo_atual()) + 1);
+            $mc->setModulo_atual(((int) $mc->getModulo_atual()) + 1);
             $c->updateMatricula_curso($mc);
-            //verificar se terminou o curso - concluiu ultimo exercicio do ultimo modulo
-            //se sim retorna 3, se não retorna 2;
             return 2;
         }
-
+        //terminou exercicio mas não passou de módulo
         return 1;
     }
 
@@ -379,7 +387,8 @@ class controllerExercicio {
         $erros = 0;
         $acertos = 0;
         $estatistica = '';
-        $lista = '';
+        $lista = '';        
+        print_r($respostas);
         for ($i = 0; $i < count($p); $i++) {
             if ($id_perguntas[$i] == $p[$i]->getId_pergunta()) {
                 $a = $ca->getAlternativa("id_pergunta=" . $id_perguntas[$i] . " AND eh_correta=1");
@@ -424,18 +433,19 @@ class controllerExercicio {
             }
         }
         if ($acertos == 0) {
-            $porc = 0;            
+            $porc = 0;
         } else {
             $porc = (100 * $acertos) / ($acertos + $erros);
         }
+//        echo $porc;die();
         $botao = '<div>
             <input type="button" value="Submeter exercicio" id="submeter_exercicio"/>        
             <input type="button" value="Refazer" id="refazer_exercicio"/>
             </div>
             <div style="display:none;" >
-            <input type="text" value="'.$porc.'" id="por_acerto"/>        
+            <input type="text" value="' . $porc . '" id="porc_acertos"/>        
             </div>';
-        $estatistica .='<div><div>Acertos ' . $porc . '%</div>' . $lista . $botao . '</div>';
+        $estatistica .='<div><div>Acertos ' . $porc . '%</div>' . $lista . $botao . '</div>';       
         return $estatistica;
     }
 

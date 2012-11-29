@@ -68,6 +68,7 @@ class AlternativaDAO extends PDOConnectionFactory {
     public function select($condicao = null) {
         try {
             $stmt = null;
+            $this->conex->query('SET CHARACTER SET utf8');
             if ($condicao == null) {
                 $stmt = $this->conex->query("SELECT * FROM alternativa");
             } else {

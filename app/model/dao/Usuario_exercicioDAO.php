@@ -11,7 +11,7 @@ class Usuario_exercicioDAO extends PDOConnectionFactory {
     public function insert(Usuario_exercicio $usuario_exercicio) {
         try {
             $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("INSERT INTO usuario_exercicio(id_usuario, id_exercicio, id_modulo, por_acertos) VALUES (?,?,?)");
+            $stmt = $this->conex->prepare("INSERT INTO usuario_exercicio(id_usuario, id_exercicio, id_modulo, porc_acertos) VALUES (?,?,?,?)");
             $stmt->bindValue(1, $usuario_exercicio->getId_usuario());
             $stmt->bindValue(2, $usuario_exercicio->getId_exercicio());
             $stmt->bindValue(3, $usuario_exercicio->getId_modulo());

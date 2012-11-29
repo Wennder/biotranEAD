@@ -165,12 +165,14 @@ class controllerModulo {
         $controller2 = new controllerPergunta();
         $lista = "";
         $exercicio = $controller->getListaExercicio('id_modulo=' . $id_modulo);
+        $controller = new controllerUsuario_exercicio();
         for ($i = 0; $i < count($exercicio); $i++) {
             $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><h3 name='exercicio' class='item_conteudo titulo_video' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
             $lista .= $exercicio[$i]->getTitulo();
             $id_pergunta = $controller2->getListaPerguntas('id_exercicio = '. $exercicio[$i]->getId_exercicio());                        
+//            print_r($controller->getUsuario_exercicio('id_exercicio='.$exercicio[$i]->getId_exercicio().' AND id_usuario=' . $_SESSION['usuarioLogado']->getId_usuario())); die();
             if($_SESSION['usuarioLogado']->getId_papel() == 4){
-                if (count($controller->getResposta($id_pergunta[0]->getId_pergunta())) == 0) {
+                if ($controller->getUsuario_exercicio('id_exercicio='.$exercicio[$i]->getId_exercicio().' AND id_usuario=' . $_SESSION['usuarioLogado']->getId_usuario()) == null) {
                     $lista .= "</h3><input align='right' type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' class='btn_resolver_exe' class='btn_resolver' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Resolver'/>";
                 } else {
                     $lista .= "</h3><input align='right' type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' class='btn_resolver_exe' class='btn_resolver' disabled='true' name='exercicio' value='Exercicio já submetido'/>";

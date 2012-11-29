@@ -28,7 +28,8 @@ class PDOConnectionFactory {
         try {
             // realiza a conexão
             $this->con = new PDO($this->dbType . ":host=" . $this->host . ";dbname=" . $this->db, $this->user, $this->senha,
-                            array(PDO::ATTR_PERSISTENT => $this->persistent));
+                            array(PDO::ATTR_PERSISTENT => $this->persistent, 
+                                  PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
             // realizado com sucesso, retorna conectado
             return $this->con;
             // caso ocorra um erro, retorna o erro;

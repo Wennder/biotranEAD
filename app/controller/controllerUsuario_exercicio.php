@@ -15,8 +15,9 @@ class controllerUsuario_exercicio {
     public function novoUsuario_exercicio(Usuario_exercicio $p) {
         if ($p != null) {            
             $dao = new Usuario_exercicioDAO();
-            if($this->getUsuario_exercicio("id_pergunta=". $p->getId_pergunta()) != null){                
-                return $p->getId_pergunta();
+            $aux = $this->getUsuario_exercicio("id_usuario=".$p->getId_usuario()." AND id_exercicio=". $p->getId_exercicio());
+            if($aux != null){                
+                return $aux->getId_usuario_exercicio();
             }
             return $dao->insert($p);
         } else {

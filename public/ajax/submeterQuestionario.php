@@ -2,6 +2,7 @@
 
 include '../../library/Biotran/importar_app.php';
 include ROOT_PATH . '/app/controller/controllerExercicio.php';
+include ROOT_PATH . '/app/controller/controllerModulo.php';
 session_start();
 
 $controller = new controllerExercicio();
@@ -18,6 +19,6 @@ if (isset($_GET['acao'])) {
         $resposta = $controller->submeterQuestionario(explode(';', $id_perguntas), explode(';', $respostas), $id_exercicio, $porc_acertos);
     }
 }
-
-echo( json_encode($resposta));
+$r = json_encode(utf8_encode($resposta));
+echo($r);
 ?>
