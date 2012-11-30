@@ -1,13 +1,13 @@
-
 <div id="dialog_profile">
-    <div id="profile" class="profile" style="display:none;">
-        <fieldset style="width: 650px; padding-left:  40px;">
+    <div id="profile" style="display:none;">
+        <center><b>Dados do Usuário</b></center>
+        <fieldset>
             <legend>Profile</legend>
-            <table style="width: 650px;">
+            <table style="width: 100%;">
                 <tr>
-                    <td style="width: 120px;">
-                        <div id="foto_usuario">
-                            <img src="img/profile/#FOTO#.jpg" height="120" width="100" />
+                    <td style="width: 150px;">
+                        <div id="foto_usuario" style="margin-left: 25px;">
+                            <img src="img/profile/#FOTO#.jpg" height="120" width="100"/>
                         </div>
                     </td>
                     <td>
@@ -65,10 +65,8 @@
                     </td>
                 </tr>
                 <tr><td colspan="2"</td></tr>
-
             </table>
         </fieldset>
-        </br></br>
     </div>
 </div>
 

@@ -1,37 +1,44 @@
-<style>    
-    .accord {
-        cursor: pointer;
-        font-weight: 600;
-        line-height: 100%;
-    }
-</style>
-
-<script>     
-    $(document).ready(function() {        
-        //Se clicar no link, redireciona
-        $(".accord h3").click(function() {
-            location = ($(this).attr('id'));
-        });                    
-    }); 
+<script>
+    $(document).ready(function(){
+        $('dd').hide();
+        $('dt a:not(#link_home)').click(function(){
+            if($(this).parent().hasClass("fechado")) {
+                $("dd:visible").slideUp("fast");
+                $('dt').each(function(){
+                    $(this).removeClass("aberto");
+                    $(this).addClass("fechado");
+                });
+                $(this).parent().next().slideDown("fast");
+                $(this).parent().removeClass("fechado");
+                $(this).parent().addClass("aberto");
+            }
+            else if($(this).parent().hasClass("aberto")) {
+                $(this).parent().next().slideUp("fast");
+                $(this).parent().removeClass("aberto");
+                $(this).parent().addClass("fechado");
+            }
+        });
+    });
 </script>
-<div id="page-leftcolumn" class="leftcolumn page-leftcolumn">
-    <h3 class="navbar_item homeIcon">
-        <a style="font-size:16px;" href="index.php?c=ead"> Home </a>
-    </h3>
-    <div id="accordion_leftcolumn navbar_item">
-        <div class="accord">
-            <h4 class="navbar_item" style="float:left; color:white;font-weight: 600;line-height: 100%;font-size: 16px;">></h4>
-            <!--<h3 class="navbar_item" style="color:white;font-weight: 600;line-height: 100%;font-size: 16px;">Gerenciar</h3>-->
-            <!--<h3 id="index.php?c=ead"> Gerenciar</h3>-->
-            <a style="font-size:16px;" href="index.php?c=ead"> Gerenciar </a>
-        </div>
-        <div class="accord_content" style="display: none;">
-            <ul style="list-style-type: none;">
-                <li><p><a style="font-size:16px;" href="index.php?c=ead&a=gerenciar_usuarios"> Usuarios </a></p></li>
-                <li><p><a style="font-size:16px;" href="index.php?c=ead&a=gerenciar_cursos"> Cursos </a></p></li>
+
+<div id="page-leftcolumn" class="leftcolumn">
+    <dl>
+        <dt>
+        <a id="link_home" class="navbar_item homeIcon" href="<?php echo "index.php?c=ead" ?>"> Home </a>
+        </dt>
+        <dt class="fechado">
+        <a class="navbar_item gerenciarIcon" href="#">Gerenciar</a>
+        </dt>
+        <dd>
+            <ul>
+                <li><a class="navbar_item usuariosIcon" href="index.php?c=ead&a=gerenciar_usuarios"> Usuários</a></li>
+                <li><a class="navbar_item cursosIcon" href="index.php?c=ead&a=gerenciar_cursos"> Cursos</a></li>
+                <li><a class="navbar_item noticiasIcon" href="#"> Notícias</a></li>
+                <li><a class="navbar_item comentariosIcon" href="#"> Comentários</a></li>
+                <li><a class="navbar_item destaquesIcon" href="#"> Destaques</a></li>
+                <li><a class="navbar_item parceirosIcon" href="#"> Parceiros</a></li>
+                <li><a class="navbar_item fotosIcon" href="#"> Fotos</a></li>
             </ul>
-        </div>
-    </div>
-
-
+        </dd>
+    </dl>
 </div>

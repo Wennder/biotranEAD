@@ -202,7 +202,7 @@ switch ($papel) {
                         width:900,
                         show: { effect: 'drop', direction: "up"},
                         height: ($(window).height() - 40),
-                        modal:true,
+                        modal:true,                       
                         close: function(event,ui){                
                             var form = $(this).find('#cadastro');
                             //deselecionando combos
@@ -590,9 +590,9 @@ switch ($papel) {
     }
     
     //Se gestor estiver logado, seta o combo papel como estudante
-    //    function setarCombo(){
-    //        $("#id_papel").val(4);
-    //    }
+    function setarCombo(){
+        $("#id_papel").val(4);
+    }
     
     //Verifica se o país informado é Brasil e libera o combo de estados
     function paisBrasil(){
@@ -609,11 +609,11 @@ switch ($papel) {
         }
     }
 
-//    $(document).ready(function (){
-//        $(".td_permissao").each(function(){
-//            $(this).attr({align:'center'});
-//        });
-//    })
+    //    $(document).ready(function (){
+    //        $(".td_permissao").each(function(){
+    //            $(this).attr({align:'center'});
+    //        });
+    //    })
     
     
 </script>
@@ -631,22 +631,36 @@ switch ($papel) {
                             <input type="text" id="_id_nome_completo" name="_id_nome_completo" value="#NOME_COMPLETO#" style="width: 400px" class="text-input"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td style="width: 150px;">
+                            <label class="label_cadastro">*Permissão: </label>
+                        </td>
+                        <td style="width: 500px;">
+                            <select id="_id_id_papel" name="_id_id_papel" style="width: auto;" <?php echo ($_SESSION["usuarioLogado"]->getId_papel() != '1' ? 'disabled="true"' : ''); ?> class="text-input">
+                                <option value></option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Gestor</option>
+                                <option value="3">Professor</option>
+                                <option value="4">Estudante</option>
+                            </select>
+                        </td>
+                    </tr>
                     <?php
-                    if ($_SESSION["usuarioLogado"]->getId_papel() == '1') {
-                        echo ('<tr>
-                            <td style="width: 150px;">
-                                <label class="label_cadastro">*Permissão: </label>
-                            </td>
-                            <td style="width: 500px;">
-                                <select id="_id_id_papel" name="_id_id_papel" class="text-input" style="width: auto;">
-                                    <option></option>                                    
-                                    <option id="perm_Gestor" value="2">Gestor</option>
-                                    <option id="perm_Professor" value="3">Professor</option>
-                                    <option id="perm_Estudante" value="4">Estudante</option>
-                                </select>
-                            </td>
-                        </tr>');
-                    }
+//                    if ($_SESSION["usuarioLogado"]->getId_papel() == '1') {
+//                        echo ('<tr>
+//                            <td style="width: 150px;">
+//                                <label class="label_cadastro">*Permissão: </label>
+//                            </td>
+//                            <td style="width: 500px;">
+//                                <select id="_id_id_papel" name="_id_id_papel" class="text-input" style="width: auto;">
+//                                    <option></option>                                    
+//                                    <option id="perm_Gestor" value="2">Gestor</option>
+//                                    <option id="perm_Professor" value="3">Professor</option>
+//                                    <option id="perm_Estudante" value="4">Estudante</option>
+//                                </select>
+//                            </td>
+//                        </tr>');
+//                    }
                     ?>
                     <tr>
                         <td>

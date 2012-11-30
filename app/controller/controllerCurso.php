@@ -16,7 +16,7 @@ class controllerCurso {
                     return true;
                 }
             }
-            return false;
+            return 0;
         }else
             return true;
     }
@@ -302,92 +302,88 @@ class controllerCurso {
             $this->curso = $this->getCurso("id_curso=" . $cursos[$i]->getId_curso());
             if ($this->curso->getStatus(1) == 0) {
                 if ($this->curso->getNumero_modulos() == 0) {
-                    $construcao .= "<li><a href=index.php?c=ead&a=primeiro_acesso_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
+                    $construcao .= "<li class='conteudo_row'><label><a href=index.php?c=ead&a=primeiro_acesso_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></label></li>";
                 } else {
-                    $construcao .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
+                    $construcao .= "<li class='conteudo_row'><label><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></label></li>";
                 }
                 $a++;
             } else if ($this->curso->getStatus(1) == 1) {
-                $nao_avaliado .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
+                $nao_avaliado .= "<li class='conteudo_row'><label><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></label></li>";
                 $b++;
             } else if ($this->curso->getStatus(1) == 2) {
-                $rejeitado .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
+                $rejeitado .= "<li class='conteudo_row'><label><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></label></li>";
                 $c++;
             } else if ($this->curso->getStatus(1) == 3) {
-                $aprovado_indisponivel .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
+                $aprovado_indisponivel .= "<li class='conteudo_row'><label><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></label></li>";
                 $d++;
             } else if ($this->curso->getStatus(1) == 4) {
-                $aprovado_disponivel .= "<li><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></li>";
+                $aprovado_disponivel .= "<li class='conteudo_row'><label><a href=index.php?c=ead&a=gerenciar_curso&id=" . $this->curso->getId_curso() . ">" . $this->curso->getNome() . "</a></label></li>";
                 $e++;
             }
 
             $listaCursos = "";
 
             // Lista os cursos em construcao
-            $listaCursos .= "<div class=' accord' style='margin-top:0px; border-left:3px solid #7f90d0; padding-left:5px;'>Cursos em Construcao ($a Curso(s))</div>";
-            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul>";
+            $listaCursos .= "<div class='accord_body accord_list' style='border-left:3px solid #7f90d0; padding-left:5px;'><label class='accord_label'>Cursos em Construção</label><label class='accord_label_2'>$a Curso(s)</label></div>";
+            $listaCursos .= "<div class='accord_content_body' style='display:none;'><ul class='accord_ul'>";
 
             if ($construcao != "") {
                 $listaCursos .= $construcao;
             } else {
-                $listaCursos .= "<li><p>Não existem cursos com esse status no momento!</p></li>";
+                $listaCursos .= "<li class='conteudo_row'><label>Não existem cursos com esse status no momento.</label></li>";
             }
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos aprovados e disponiveis
-            $listaCursos .= "<div class=' accord' style='border-left:3px solid #7fd08b; padding-left:5px;'>Cursos Aprovados e Disponíveis ($e Curso(s))</div>";
-            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul >";
+            $listaCursos .= "<div class='accord_body accord_list' style='border-left:3px solid #7fd08b; padding-left:5px;'><label class='accord_label'>Cursos Aprovados e Disponíveis</label><label class='accord_label_2'>$e Curso(s)</label></div>";
+            $listaCursos .= "<div class='accord_content_body' style='display:none;'><ul class='accord_ul'>";
+            
             if ($aprovado_disponivel != "") {
                 $listaCursos .= $aprovado_disponivel;
             } else {
-                $listaCursos .= "<li><p>Não existem cursos com esse status no momento!</p></li>";
+                $listaCursos .= "<li class='conteudo_row'><label>Não existem cursos com esse status no momento.</label></li>";
             }
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos aprovados e indisponiveis
-            $listaCursos .= "<div class=' accord' style='border-left:3px solid #cdd07f; padding-left:5px;'>Cursos Aprovados e Indisponíveis ($d Curso(s))</div>";
-            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul >";
+            $listaCursos .= "<div class='accord_body accord_list' style='border-left:3px solid #cdd07f; padding-left:5px;'><label class='accord_label'>Cursos Aprovados e Indisponíveis</label><label class='accord_label_2'>$d Curso(s)</label></div>";
+            $listaCursos .= "<div class='accord_content_body' style='display:none;'><ul class='accord_ul'>";
 
             if ($aprovado_indisponivel != "") {
                 $listaCursos .= $aprovado_indisponivel;
             } else {
-                $listaCursos .= "<li><p>Não existem cursos com esse status no momento!</p></li>";
+                $listaCursos .= "<li class='conteudo_row'><label>Não existem cursos com esse status no momento.</label></li>";
             }
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos nao avaliados
-            $listaCursos .= "<div class='accord' style='border-left:3px solid #d07f7f; padding-left:5px;'>Cursos Não Avaliados ($b Curso(s))</a></div>";
-            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul style='list-style-type:none;'>";
+            $listaCursos .= "<div class='accord_body accord_list' style='border-left:3px solid #d07f7f; padding-left:5px;'><label class='accord_label'>Cursos Não Avaliados</label><label class='accord_label_2'>$b Curso(s)</label></div>";
+            $listaCursos .= "<div class='accord_content_body' style='display:none;'><ul class='accord_ul'>";
 
             if ($nao_avaliado != "") {
                 $listaCursos .= $nao_avaliado;
             } else {
-                $listaCursos .= "<li><p>Não existem cursos com esse status no momento!</p></li>";
+                $listaCursos .= "<li class='conteudo_row'><label>Não existem cursos com esse status no momento.</label></li>";
             }
             $listaCursos .= "</ul></div>";
 
             // Lista os cursos rejeitados
-            $listaCursos .= "<div class='accord' style='border-left:3px solid #af7fd0; padding-left:5px;'>Cursos Rejeitados ($c Curso(s))</div>";
-            $listaCursos .= "<div class='lista_cursos_professor accord_content'><ul style='list-style-type:none;'>";
+            $listaCursos .= "<div class='accord_body accord_list' style='border-left:3px solid #af7fd0; padding-left:5px;'><label class='accord_label'>Cursos Rejeitados</label><label class='accord_label_2'>$c Curso(s)</label></div>";
+            $listaCursos .= "<div class='accord_content_body' style='display:none;'><ul class='accord_ul'>";
 
             if ($rejeitado != "") {
                 $listaCursos .= $rejeitado;
             } else {
-                $listaCursos .= "<li><p>Não existem cursos com esse status no momento!</p></li>";
+                $listaCursos .= "<li class='conteudo_row'><label>Não existem cursos com esse status no momento.</label></li>";
             }
             $listaCursos .= "</ul></div>";
         }
-
         return $listaCursos;
-    }
-
-    public function listaConteudo_curso($id_curso) {
-        //Lista todo o conteúdo do curso
     }
 
     public function tabelaCursos() {
 
-        $tabela = "<table id='tabela_cursos' width='100%' align='center'>
+        $tabela = "<table id='tabela_cursos' width='100%' align='center' class='display'>
          <thead> 
                 <tr> 
                     <th>Nome</th> 
@@ -415,25 +411,25 @@ class controllerCurso {
         $controller = new controllerModulo();
         for (; $i < $quant; $i++) {
             $tabela .= "<tr id=" . $this->cursos[$i]->getId_curso() . ">";
-            $tabela .= "<td width='45%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
-            $tabela .= "<td width='10%' id='tempo' align='center'>" . $this->cursos[$i]->getTempo() . "</td>";
-            $tabela .= "<td width='10%' id='gratuito' align='center'>" . $this->cursos[$i]->getGratuito(0) . "</td>";
-            $tabela .= "<td width='14%' id='valor' align='center'>" . $this->cursos[$i]->getValor() . "</td>";
-            $tabela .= "<td width='14%' id='status' align='center'>" . $this->getNomeStatus($this->cursos[$i]->getStatus()) . "</td>";
-            $tabela .= "<td width='14%' id='descricao' align='center'>" . $this->cursos[$i]->getDescricao() . "</td>";
-            $tabela .= "<td width='14%' id='numero_modulos' align='center'>" . $this->cursos[$i]->getNumero_modulos() . "</td>";
-            $tabela .= "<td width='14%' id='objetivo' align='center'>" . $this->cursos[$i]->getObjetivo() . "</td>";
-            $tabela .= "<td width='14%' id='justificativa' align='center'>" . $this->cursos[$i]->getJustificativa() . "</td>";
-            $tabela .= "<td width='14%' id='obs' align='center'>" . $this->cursos[$i]->getObs() . "</td>";
-            $tabela .= "<td width='14%' id='id_curso' align='center'>" . $this->cursos[$i]->getId_curso() . "</td>";
+            $tabela .= "<td width='50%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
+            $tabela .= "<td width='12%' id='tempo' align='center'>" . $this->cursos[$i]->getTempo() . "</td>";
+            $tabela .= "<td width='8%' id='gratuito' align='center'>" . $this->cursos[$i]->getGratuito(0) . "</td>";
+            $tabela .= "<td width='8%' id='valor' align='center'>" . $this->cursos[$i]->getValor() . "</td>";
+            $tabela .= "<td width='10%' id='status' align='center'>" . $this->getNomeStatus($this->cursos[$i]->getStatus()) . "</td>";
+            $tabela .= "<td width='0%' id='descricao' align='center'>" . $this->cursos[$i]->getDescricao() . "</td>";
+            $tabela .= "<td width='0%' id='numero_modulos' align='center'>" . $this->cursos[$i]->getNumero_modulos() . "</td>";
+            $tabela .= "<td width='0%' id='objetivo' align='center'>" . $this->cursos[$i]->getObjetivo() . "</td>";
+            $tabela .= "<td width='0%' id='justificativa' align='center'>" . $this->cursos[$i]->getJustificativa() . "</td>";
+            $tabela .= "<td width='0%' id='obs' align='center'>" . $this->cursos[$i]->getObs() . "</td>";
+            $tabela .= "<td width='0%' id='id_curso' align='center'>" . $this->cursos[$i]->getId_curso() . "</td>";
             switch ($this->cursos[$i]->getStatus()) {
-                case 2: $tabela .= "<td width='14%' id='input_liberar' align='center'> <input type='checkbox' value='0' disabled='true' id='check_habilitar' /></td>";
+                case 2: $tabela .= "<td width='12%' id='input_liberar' align='center'> <input type='checkbox' value='0' disabled='true' id='check_habilitar' /></td>";
                     break;
-                case 3: $tabela .= "<td width='14%' id='input_liberar' align='center'> <input name='" . $this->cursos[$i]->getId_curso() . "' type='checkbox' value='1' id='check_habilitar' /></td>";
+                case 3: $tabela .= "<td width='12%' id='input_liberar' align='center'> <input name='" . $this->cursos[$i]->getId_curso() . "' type='checkbox' value='1' id='check_habilitar' /></td>";
                     break;
-                case 4: $tabela .= "<td width='14%' id='input_liberar' align='center'> <input name='" . $this->cursos[$i]->getId_curso() . "' type='checkbox' checked='checked' value='0' id='check_habilitar' /></td>";
+                case 4: $tabela .= "<td width='12%' id='input_liberar' align='center'> <input name='" . $this->cursos[$i]->getId_curso() . "' type='checkbox' checked='checked' value='0' id='check_habilitar' /></td>";
                     break;
-                default: $tabela .= "<td width='14%' id='input_liberar' align='center'> <input type='checkbox' value='0' disabled='true' id='check_habilitar' /></td>";
+                default: $tabela .= "<td width='12%' id='input_liberar' align='center'> <input type='checkbox' value='0' disabled='true' id='check_habilitar' /></td>";
                     break;
             }
         }

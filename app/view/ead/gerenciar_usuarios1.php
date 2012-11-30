@@ -86,21 +86,7 @@ switch ($papel) {
                 { "bSearchable": false, "bVisible": false, "aTargets": [ 20 ], "sTitle":"rendering" },
                                 
             ],
-            "bJQueryUI":true,
-            "bPaginate": true,
-            "bFilter": true,
-            "bSort": true,
-            "bInfo": true,
-            "bLengthMenu": true,
-            "sPaginationType": "full_numbers",
-            "oLanguage": {
-                "sLengthMenu": "Mostrar _MENU_ usuário(s)",
-                "sZeroRecords": "Nada encontrado",
-                "sInfo": "Showing _START_ to _END_ of _TOTAL_ records",
-                "sInfoEmpty": "Mostrando 0 até 0 de 0 usuário(s)",
-                "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ usuário(s)",
-                "sSearch": "Pesquisar"
-            }
+            "bJQueryUI":true
         });                
         
         oTable.$('tr').click(function(e){

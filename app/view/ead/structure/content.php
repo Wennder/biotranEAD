@@ -1,27 +1,7 @@
-<div id="right_menu_holder" style="" >
-        <div style="border-left: 1px solid #cccccc; height: 100%; padding-left: 10px;">
-            <h3></h3>
-            <ul style="list-style: none; padding: 10px;">
-                
-                <li>
-                    
-                    <ul style="list-style: none; padding:10px;">
-                        <li>
-                           
-                        </li>
-                        <li>
-                            
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-<div id="page-content" class="content page-content">
-    
-<!--    <div style="width:240px;float:right;background-color:#f8f8f8;padding:20px;border:1px solid #d0d0d0;">-->
-<!--         MENU DA DIREITA -->
-<!--        <ul>
+<div id="page-content" class="content">
+<!--    <div style="width:240px;float:right;background-color:#f8f8f8;padding:20px;border:1px solid #d0d0d0;">
+        MENU DA DIREITA 
+        <ul>
             <li>Item 1</li>
             <li>Item 2</li>
             <li>Item 3</li>

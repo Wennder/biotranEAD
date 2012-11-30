@@ -1,25 +1,36 @@
-<script> 
-    var left_column_dialog;
-    $(document).ready(function() {        
-        //Se clicar no link, redireciona
-        $(".accord h3").click(function() {
-            if(centro!=1){            
+<script>
+    $(document).ready(function(){
+        $('dt a').click(function(){
+            if($(this).parent().hasClass("fechado")) {
+                $("dd:visible").slideUp("fast");
+                $(this).parent().next().slideDown("fast");
+                $(this).parent().removeClass("fechado");
+                $(this).parent().addClass("aberto");
+            }
+            else if($(this).parent().hasClass("aberto")) {
+                $(this).parent().next().slideUp("fast");
+                $(this).parent().removeClass("aberto");
+                $(this).parent().addClass("fechado");
+            }
+        });
+        
+        $("dd a").click(function() {
+            if(centro!=1){
                 centro.find('div').remove();
             } 
-            var id = $(this).attr('id');
-            centro = $('#center_content').load($(this).attr('id'), 'oi', function (){                                    
+            centro = $('#center_content').load($(this).attr('id'), function (){
             });               
-        });                    
-    }); 
+        });
+    });
 </script>
 
-<div id="page-leftcolumn" class="leftcolumn page-leftcolumn">    
-    <div class="accord navbar_item">
-        <h3>
-            <a>Conteúdo</a>
-        </h3>
-        <div class="accord_content">
-            <ul style="list-style-type:none;">
+<div id="page-leftcolumn" class="leftcolumn">
+    <dl>
+        <dt class="aberto">
+        <a class="navbar_item gerenciarIcon" href="#">Conteúdo</a>
+        </dt>
+        <dd>
+            <ul>
                 <?php
                 if (isset($_GET['id'])) {
                     $id_curso = $_GET['id'];
@@ -28,6 +39,6 @@
                 }
                 ?>
             </ul>
-        </div>
-    </div>
+        </dd>
+    </dl>
 </div>

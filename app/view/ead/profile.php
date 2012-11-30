@@ -19,15 +19,14 @@ switch ($papel) {
 <?php require 'structure/content.php'; ?>
 <div id="dialog_profile">
 <div id="profile" class="profile" style="margin: 0;">
-    <fieldset style="width: 650px; padding-left:  40px;">
+    <center><b>Dados do Usuário</b></center>
+    <fieldset style="width: 650px; padding-left: 40px;">
         <legend>Profile</legend>
         <table style="width: 650px;">
             <tr>
                 <td style="width: 120px;">
                     <div id="foto_usuario">
-                        <img src="img/profile/<?php echo $this->usuario->getId_usuario();?>.jpg
-                        
-                        " alt="" height="120" width="100" />
+                        <img src="img/profile/<?php echo $this->usuario->getId_usuario();?>.jpg" alt="" height="120" width="100" />
                     </div>
                 </td>
                 <td>

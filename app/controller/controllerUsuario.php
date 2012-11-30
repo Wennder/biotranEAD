@@ -6,7 +6,7 @@ class controllerUsuario {
     private $end;
     private $controller;
 
-    public function validarLogin($login, $id_usuario = -1) {
+    public function validarEmail($login, $id_usuario = -1) {
         $user = $this->getUsuario("login='" . $login . "'");
         if ($user != null) {
             if ($id_usuario != -1) {
@@ -15,12 +15,12 @@ class controllerUsuario {
                     return true;
                 }
             }
-            return false;
+            return 0;
         }else
             return true;
     }
 
-    public function validarCpf($cpf_passaporte, $id_usuario) {
+    public function validarCpf_passaporte($cpf_passaporte, $id_usuario) {
         $user = $this->getUsuario("cpf_passaporte='" . $cpf_passaporte . "'");
         if ($user != null) {
             if ($id_usuario != -1) {
@@ -29,7 +29,7 @@ class controllerUsuario {
                     return true;
                 }
             }
-            return false;
+            return 0;
         }else
             return true;
     }
@@ -69,13 +69,13 @@ class controllerUsuario {
         //captura as informações de usuario via post!
         $this->setUsuario_post();
         //atualiza usuario
-        $this->updateUsuario($this->usuario, $this->end);        
+        $this->updateUsuario($this->usuario, $this->end);
         //atualiza a foto
-        $this->inserirFotoUsuario($this->usuario->getId_usuario());        
+        $this->inserirFotoUsuario($this->usuario->getId_usuario());
         return 1;
     }
-    
-    public function atualizarSenhaUsuario(Usuario $user){
+
+    public function atualizarSenhaUsuario(Usuario $user) {
         //atualiza usuario
         $this->updateUsuario($user);
         return true;
@@ -270,19 +270,22 @@ class controllerUsuario {
         if (isset($_FILES["foto"])) {
             if ($_FILES["foto"]["name"] != '') {
                 $foto = $_FILES["foto"];
-                $tipos = array("image/jpg");
+                $tipos = array("image/jpg", "image/jpeg");
                 $pasta_dir = "../img/profile/";
-                if (!in_array($foto['type'], $tipos)) {
+                if (in_array($foto['type'], $tipos)) {
                     $foto_nome = $pasta_dir . $id_usuario . ".jpg";
                     move_uploaded_file($foto["tmp_name"], $foto_nome);
+
                     $foto_arquivo = "../img/profile/" . $id_usuario . ".jpg";
                     $foto_arquivo_pic = "../img/profile/pic/" . $id_usuario . ".jpg";
                     list($altura, $largura) = getimagesize($foto_arquivo);
                     if ($altura > 120 && $largura > 100) {
-                        $img = wiImage::load($foto_arquivo);
-                        $img = $img->resize(150, 170, 'outside');
-                        $img = $img->crop('50% - 50', '50% - 40', 100, 120);
-                        $img->saveToFile($foto_arquivo);
+                        if (file_exists($foto_arquivo)) {
+                            $img = wiImage::load($foto_arquivo);
+                            $img = $img->resize(150, 170, 'outside');
+                            $img = $img->crop('50% - 50', '50% - 40', 100, 120);
+                            $img->saveToFile($foto_arquivo);
+                        }
                     }
                     copy($foto_arquivo, $foto_arquivo_pic);
                     $img = wiImage::load($foto_arquivo_pic);
@@ -298,21 +301,21 @@ class controllerUsuario {
      */
 
     public function tabelaUsuarios() {
-        $tabela = "<table id='tabela_usuarios' width='100%' align='center'>
+        $tabela = "<table id='tabela_usuarios' width='100%' align='center' class='display'>
          <thead> 
                 <tr> 
-                    <th>Nome</th> 
-                    <th>Permissão</th> 
-                    <th>Atuação</th>            
-                    <th>data_nascimento</th> 
-                    <th>cpf_passaporte</th> 
-                    <th>rg</th> 
-                    <th>id_profissional</th> 
-                    <th>atuacao</th> 
-                    <th>descricao_pessoal</th> 
-                    <th>sexo</th> 
-                    <th>tel_principal</th> 
-                    <th>tel_secundario</th> 
+                    <th>Nome</th>
+                    <th>Permissão</th>
+                    <th>Atuação</th>
+                    <th>data_nascimento</th>
+                    <th>cpf_passaporte</th>
+                    <th>rg</th>
+                    <th>id_profissional</th>
+                    <th>atuacao</th>
+                    <th>descricao_pessoal</th>
+                    <th>sexo</th>
+                    <th>tel_principal</th>
+                    <th>tel_secundario</th>
                     <th>email</th>
                     <th>endereco_rua</th>
                     <th>endereco_numero</th>
@@ -335,31 +338,31 @@ class controllerUsuario {
             $papel = $papelDAO->select("id_papel=" . $this->usuarios[$i]->getId_papel());
             if ($papel[0]->getId_papel() != 1) {
                 $tabela .= "<tr id=tabela_linha" . $this->usuarios[$i]->getId_usuario() . ">";
-                $tabela .= "<td width='55%' class='nome_usuario_datatable' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
-                $tabela .= "<td width='15%' id='permissao' align='center'>" . $papel[0]->getPapel() . "</td>";
-                $tabela .= "<td width='15%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
+                $tabela .= "<td width='60%' class='nome_usuario_datatable' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
+                $tabela .= "<td width='15%' align='center' id='permissao'>" . $papel[0]->getPapel() . "</td>";
+                $tabela .= "<td width='25%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
 
                 $tabela .= "<td width='55%' id='data_nascimento'>" . $this->usuarios[$i]->getData_nascimento() . "</td>";
                 $tabela .= "<td width='55%' id='cpf_passaporte'>" . $this->usuarios[$i]->getCpf_passaporte() . "</td>";
-                $tabela .= "<td width='55%' id='rg'>" . $this->usuarios[$i]->getRg() . "</td>";
-                $tabela .= "<td width='55%' id='id_profissional'>" . $this->usuarios[$i]->getId_profissional() . "</td>";
-                $tabela .= "<td width='55%' id='atuacao'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
-                $tabela .= "<td width='55%' id='descricao_pessoal'>" . $this->usuarios[$i]->getDescricao_pessoal() . "</td>";
-                $tabela .= "<td width='55%' id='sexo'>" . $this->usuarios[$i]->getSexo() . "</td>";
-                $tabela .= "<td width='55%' id='tel_principal'>" . $this->usuarios[$i]->getTel_principal() . "</td>";
-                $tabela .= "<td width='55%' id='tel_secundario'>" . $this->usuarios[$i]->getTel_secundario() . "</td>";
-                $tabela .= "<td width='55%' id='email'>" . $this->usuarios[$i]->getEmail() . "</td>";
+                $tabela .= "<td width='0%' id='rg'>" . $this->usuarios[$i]->getRg() . "</td>";
+                $tabela .= "<td width='0%' id='id_profissional'>" . $this->usuarios[$i]->getId_profissional() . "</td>";
+                $tabela .= "<td width='0%' id='atuacao'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
+                $tabela .= "<td width='0%' id='descricao_pessoal'>" . $this->usuarios[$i]->getDescricao_pessoal() . "</td>";
+                $tabela .= "<td width='0%' id='sexo'>" . $this->usuarios[$i]->getSexo() . "</td>";
+                $tabela .= "<td width='0%' id='tel_principal'>" . $this->usuarios[$i]->getTel_principal() . "</td>";
+                $tabela .= "<td width='0%' id='tel_secundario'>" . $this->usuarios[$i]->getTel_secundario() . "</td>";
+                $tabela .= "<td width='0%' id='email'>" . $this->usuarios[$i]->getEmail() . "</td>";
 
                 $endereco = $this->controller->getEndereco("id_usuario=" . $this->usuarios[$i]->getId_usuario());
 
-                $tabela .= "<td width='55%' id='rua'>" . $endereco->getRua() . "</td>";
-                $tabela .= "<td width='55%' id='numero'>" . $endereco->getNumero() . "</td>";
-                $tabela .= "<td width='55%' id='complemento'>" . $endereco->getComplemento() . "</td>";
-                $tabela .= "<td width='55%' id='bairro'>" . $endereco->getBairro() . "</td>";
-                $tabela .= "<td width='55%' id='cidade'>" . $endereco->getCidade() . "</td>";
-                $tabela .= "<td width='55%' id='pais'>" . $endereco->getPais() . "</td>";
-                $tabela .= "<td width='55%' id='estado'>" . $endereco->getEstado() . "</td>";
-                $tabela .= "<td width='55%' id='id_usuario'>" . $this->usuarios[$i]->getId_usuario() . "</td>";
+                $tabela .= "<td width='0%' id='rua'>" . $endereco->getRua() . "</td>";
+                $tabela .= "<td width='0%' id='numero'>" . $endereco->getNumero() . "</td>";
+                $tabela .= "<td width='0%' id='complemento'>" . $endereco->getComplemento() . "</td>";
+                $tabela .= "<td width='0%' id='bairro'>" . $endereco->getBairro() . "</td>";
+                $tabela .= "<td width='0%' id='cidade'>" . $endereco->getCidade() . "</td>";
+                $tabela .= "<td width='0%' id='pais'>" . $endereco->getPais() . "</td>";
+                $tabela .= "<td width='0%' id='estado'>" . $endereco->getEstado() . "</td>";
+                $tabela .= "<td width='0%' id='id_usuario'>" . $this->usuarios[$i]->getId_usuario() . "</td>";
 
                 $tabela .= "</tr>";
             }
