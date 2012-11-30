@@ -5,7 +5,7 @@
         <title>EAD Biotran</title>
         <script src="js/jquery-1.8.2.min.js" type="text/javascript"></script>
         <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
-<!--        <script src="js/video.js"></script>-->
+        <script src="js/video.js"></script>
         <script src="js/jquery.form.js" type="text/javascript"></script>
         <script src="js/biotran.js" type="text/javascript"></script>
         <script src="js/accordion.js" type="text/javascript"></script>

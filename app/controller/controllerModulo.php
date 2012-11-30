@@ -84,10 +84,6 @@ class controllerModulo {
         $listaModulos = "";
         for (; $i < $quant; $i++) {
             $listaModulos .= "<li><a class='navbar_item moduloIcon link desc' href='#' id='index.php?c=ead&a=editar_modulo&id=" . $modulos[$i]->getId_modulo() . "'> Módulo " . $modulos[$i]->getNumero_modulo() . "</a></li>";
-//            $listaModulos .= "<li><a class='navbar_item cursosIcon' href='#' id='index.php?c=ead&a=adicionar_videoaula&id=" . $modulos[$i]->getId_modulo() . "'>Vídeo Aula</a></li>";
-//            $listaModulos .= "<li><a class='navbar_item cursosIcon' href='#' id='index.php?c=ead&a=adicionar_texto_referencia&id=" . $modulos[$i]->getId_modulo() . "'>Texto de Referência</a></li>";
-//            $listaModulos .= "<li><a class='navbar_item cursosIcon' href='#' id='index.php?c=ead&a=adicionar_material_complementar&id=" . $modulos[$i]->getId_modulo() . "'>Material Complementar</a></li>";
-//            $listaModulos .= "<li><a class='navbar_item cursosIcon' href='#' id='index.php?c=ead&a=adicionar_exercicio&id=" . $modulos[$i]->getId_modulo() . "'>Exercício</a></li>";
         }
 
         return $listaModulos;
@@ -99,7 +95,7 @@ class controllerModulo {
         $i = 0;
         $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<li><a class='navbar_item cursosIcon' href='#' id='index.php?c=ead&a=conteudo_modulo&id=" . $modulos[$i]->getId_modulo() . "'> Módulo " . $modulos[$i]->getNumero_modulo() . "</a></li>";
+            $listaModulos .= "<li><a class='navbar_item moduloIcon' href='#' id='index.php?c=ead&a=conteudo_modulo&id=" . $modulos[$i]->getId_modulo() . "'> Módulo " . $modulos[$i]->getNumero_modulo() . "</a></li>";
         }
 
         return $listaModulos;
@@ -111,8 +107,9 @@ class controllerModulo {
         $i = 0;
         $listaModulos = "";
         for (; $i < $quant; $i++) {
-            $listaModulos .= "<div class='accordion_leftcolumn '><div name='editar_modulo' class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=pag_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";
-            $listaModulos .= "</ul></div></div>";
+//            $listaModulos .= "<div class='accordion_leftcolumn '><div name='editar_modulo' class='accord'><h4 style='float:left;'>></h4><h3 id='index.php?c=ead&a=pag_modulo&id=" . $modulos[$i]->getId_modulo() . "'>Modulo " . $modulos[$i]->getNumero_modulo() . "</h3></div><div class='accord_content' style='display:none;'><ul style='list-style-type:none;'>";
+            $listaModulos .= "<li><a class='navbar_item moduloIcon link desc' href='#' id='index.php?c=ead&a=pag_modulo&id=" . $modulos[$i]->getId_modulo() . "'> Módulo " . $modulos[$i]->getNumero_modulo() . "</a></li>";
+//            $listaModulos .= "</ul></div></div>";
         }
 
         return $listaModulos;
@@ -170,8 +167,8 @@ class controllerModulo {
             $lista .= $exercicio[$i]->getTitulo();
             $id_pergunta = $controller2->getListaPerguntas('id_exercicio = ' . $exercicio[$i]->getId_exercicio());
             if ($_SESSION['usuarioLogado']->getId_papel() == 4) {
-                if (count($controller->getResposta($id_pergunta[0]->getId_pergunta())) == 0) {
-                    $lista .= "</label><input align='right' type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Resolver'/>";
+                if ($controller->getUsuario_exercicio('id_usuario='.$_SESSION['usuarioLogado']->getId_usuario() .' AND id_exercicio='.$exercicio[$i]->getId_exercicio()) == null) {
+                    $lista .= "</label><input align='right' type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Resolver' class='btn_resolver_exe'/>";
                 } else {
                     $lista .= "</label><input align='right' type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' disabled='true' name='exercicio' value='Exercício já submetido'/>";
                 }

@@ -31,12 +31,11 @@
         </dt>
         <dd>
             <ul>
-                <li><a class="navbar_item usuariosIcon" href="index.php?c=ead&a=gerenciar_usuarios"> Usuários</a></li>
-                <li><a class="navbar_item cursosIcon" href="index.php?c=ead&a=gerenciar_cursos"> Cursos</a></li>
-                <li><a class="navbar_item noticiasIcon" href="#"> Notícias</a></li>
-                <li><a class="navbar_item comentariosIcon" href="#"> Comentários</a></li>
-                <li><a class="navbar_item destaquesIcon" href="#"> Destaques</a></li>
-                <li><a class="navbar_item parceirosIcon" href="#"> Parceiros</a></li>
+                <li><a class="navbar_item usuariosIcon" href="index.php?c=ead&a=gerenciar_usuarios"> Usuários</a></li>                
+                <li><a class="navbar_item noticiasIcon" href="index.php?c=ead&a=pini_noticias"> Notícias</a></li>
+                <li><a class="navbar_item comentariosIcon" href="index.php?c=ead&a=pini_comentarios"> Comentários</a></li>
+                <li><a class="navbar_item destaquesIcon" href="index.php?c=ead&a=pini_destaques"> Destaques</a></li>
+                <li><a class="navbar_item parceirosIcon" href="index.php?c=ead&a=pini_patrocinadores"> Parceiros</a></li>
                 <li><a class="navbar_item fotosIcon" href="#"> Fotos</a></li>
             </ul>
         </dd>

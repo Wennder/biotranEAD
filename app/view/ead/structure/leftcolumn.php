@@ -14,14 +14,14 @@ switch ($usuario) {
     case 2: require 'leftcolumn_gestor.php';
         break;
     case 3:
-        if ($_GET['a'] == "gerenciar_curso" || $_GET['a'] == "cadastrar_primeiro_acesso_curso") {
+        if ($_GET['a'] == "gerenciar_curso" || $_GET['a'] == "cadastrar_primeiro_acesso_curso" || $_GET['a'] == 'forum') {
             require 'leftcolumn_professor_curso.php';
         } else {
             require 'leftcolumn_professor_home.php';
         }
         break;
     case 4:
-        if (isset($_GET['a']) && $_GET['a'] == 'curso_aluno') {
+        if (isset($_GET['a']) && ($_GET['a'] == 'curso_aluno') || ($_GET['a'] == 'forum')) {
             require 'leftcolumn_aluno_curso.php';
         } else {
             require 'leftcolumn_aluno_home.php';

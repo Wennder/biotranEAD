@@ -47,7 +47,7 @@ $controllerCurso = new controllerCurso();
     <span style="border: 1px solid #00689B; width: 208px; margin: 8px 0 0 0; position: absolute;"></span><br>
     <dl>
         <dt>
-        <a class="navbar_item descricaoIcon link desc" href="#" id="index.php?c=ead&a=editar_curso&id=<?php echo $id_curso ?>">Descrição</a>
+        <a class="navbar_item descricaoIcon link desc" href="#" id="index.php?c=ead&a=editar_curso&id=<?php echo $id_curso ?>">Página do Curso</a>
         </dt>
         <dt class="fechado">
         <a class="navbar_item modulosIcon" href="#">Módulos</a>

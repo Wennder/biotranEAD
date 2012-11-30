@@ -10,17 +10,9 @@
                             <label class="index_admin_label_gray" >Gerenciar Usuários</label><img src="img/seta_gray.png" />
                         </div>
                     </a>
-                </li>
+                </li>                
                 <li>
-                    <a href="index.php?c=ead&a=gerenciar_cursos">
-                        <div class="list_index_admin_blue">
-                            <div class="index_admin_detalhe_blue"></div>
-                            <label class="index_admin_label_blue">Gerenciar Cursos</label><img src="img/seta_blue.png" />
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
+                    <a href="index.php?c=ead&a=pini_noticias">
                         <div class="list_index_admin_gray">
                             <div class="index_admin_detalhe_gray"></div>
                             <label class="index_admin_label_gray" >Gerenciar Notícias</label><img src="img/seta_gray.png" />
@@ -28,7 +20,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="index.php?c=ead&a=pini_comentarios">
                         <div class="list_index_admin_blue">
                             <div class="index_admin_detalhe_blue"></div>
                             <label class="index_admin_label_blue">Gerenciar Comentários</label><img src="img/seta_blue.png" />
@@ -36,7 +28,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="index.php?c=ead&a=pini_destaques">
                         <div class="list_index_admin_gray">
                             <div class="index_admin_detalhe_gray"></div>
                             <label class="index_admin_label_gray" >Gerenciar Destaques</label><img src="img/seta_gray.png" />
@@ -44,7 +36,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="index.php?c=ead&a=pini_patrocinadores">
                         <div class="list_index_admin_blue">
                             <div class="index_admin_detalhe_blue"></div>
                             <label class="index_admin_label_blue">Gerenciar Parceiros</label><img src="img/seta_blue.png" />
