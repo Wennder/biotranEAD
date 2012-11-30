@@ -336,7 +336,7 @@ class controllerExercicio {
         $id_usuario = $_SESSION['usuarioLogado']->getId_usuario();
         for ($i = 0; $i < count($id_perguntas) - 1; $i++) {
             if ($id_perguntas[$i] != '') {
-                if (!$dao->insertResposta($id_usuario, $id_perguntas[$i], $respostas[$i])) {
+                if (!$dao->insertResposta($id_usuario, $id_exercicio, $id_perguntas[$i], $respostas[$i])) {
                     return 0;
                 }
             }
@@ -387,13 +387,12 @@ class controllerExercicio {
         $erros = 0;
         $acertos = 0;
         $estatistica = '';
-        $lista = '';        
-        print_r($respostas);
+        $lista = '';                
         for ($i = 0; $i < count($p); $i++) {
             if ($id_perguntas[$i] == $p[$i]->getId_pergunta()) {
-                $a = $ca->getAlternativa("id_pergunta=" . $id_perguntas[$i] . " AND eh_correta=1");
+                $a = $ca->getAlternativa("id_alternativa=" . $respostas[$i]);
                 //pintar de verde
-                if ($respostas[$i] == $a->getId_alternativa()) {
+                if ($a->getEh_correta() == 1) {
                     $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body list_conteudo'><h4>Pergunta " . $p[$i]->getNumeracao() . "</h4></div>";
                     $acertos++;
                 } else {

@@ -1,6 +1,7 @@
 <?php
 
 include '../../library/Biotran/importar_app.php';
+include ROOT_PATH . '/app/controller/controllerCurso.php';
 include ROOT_PATH . '/app/controller/controllerExercicio.php';
 include ROOT_PATH . '/app/controller/controllerModulo.php';
 session_start();

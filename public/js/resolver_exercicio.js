@@ -25,6 +25,10 @@ $(document).ready(function(){
             }
         });
     });
+    
+    $("#refazer_exercicio").live('click',function(){
+       dialog.dialog('close'); 
+    });
                 
     $("#cancelar_exercicio").live('click', function(){                        
         dialog.dialog('close');
@@ -35,7 +39,8 @@ $(document).ready(function(){
         if(r){
             var qnt = $('#total_perguntas').val();
             var i;
-            var j;                                                
+            var j; 
+            var bool = true, check;
             id_exercicio = $('#id_exercicio').val();
             respostas = '';
             id_questoes = '';
@@ -43,7 +48,7 @@ $(document).ready(function(){
                 j = i+1;
                 respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
                 id_questoes += $('#id_pergunta_'+i).val()+';';
-            }
+            }            
             $.getJSON('ajax/submeterQuestionario.php?acao=corrigir', {
                 respostas: respostas, 
                 id_exercicio: id_exercicio, 
@@ -65,23 +70,14 @@ $(document).ready(function(){
                 }else{
                     alert('Erro ao corrigir questionário, tente novamente!');
                 }
-            });                        
+            });                                                 
         }
     });
                 
     $("#submeter_exercicio").live('click', function(){
         var r = confirm('Tem certeza? Uma vez submetido não podera mais voltar atrás');
         if(r){
-            porc_acertos = $('#porc_acertos').val();
-            //            var j;
-            //            var i;
-            //            var qnt = $('#total_perguntas').val();
-            //            for(i = 0; i < qnt; i++){
-            //                j = i+1;
-            //                respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
-            //                id_questoes += $('#id_pergunta_'+i).val()+';';
-            //            } 
-            alert(porc_acertos);
+            porc_acertos = $('#porc_acertos').val();                        
             $.getJSON('ajax/submeterQuestionario.php?acao=submeter', {
                 respostas: respostas, 
                 id_exercicio: id_exercicio, 

@@ -14,10 +14,19 @@ class Resposta_exercicio {
     
     private $id_resposta_exercicio;
     private $id_pergunta;
+    private $id_exercicio;
     private $id_usuario;    
     private $resposta;
     
-    public function getId_resposta_exercicio() {
+    public function getId_exercicio() {
+        return $this->id_exercicio;
+    }
+
+    public function setId_exercicio($id_exercicio) {
+        $this->id_exercicio = $id_exercicio;
+    }
+
+        public function getId_resposta_exercicio() {
         return $this->id_resposta_exercicio;
     }
 
