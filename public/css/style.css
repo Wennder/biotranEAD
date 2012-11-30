@@ -109,6 +109,47 @@ body {
     box-shadow:0px 4px 5px #DDD;
     -moz-box-shadow:0px 4px 5px #DDD;
     -webkit-box-shadow:0px 4px 5px #DDD;
+    overflow:auto;
+}
+
+.b_0{
+    border-left: 3px solid rgb(127, 144, 208) !important;
+}
+
+.b_1{
+    border-left: 3px solid rgb(127, 208, 139) !important;
+}
+
+.b_2{
+    border-left: 3px solid rgb(205, 208, 127) !important;
+}
+
+.b_3{
+    border-left: 3px solid rgb(175, 127, 208) !important;
+}
+
+.b_4{
+    border-left: 3px solid rgb(208, 127, 127) !important;
+}
+
+.noticia{
+    border-bottom: 1px solid #ddd;
+    padding:4px 15px;
+}
+
+.noticia *{
+    margin: 0;
+}
+
+.noticia a{
+    text-decoration: none;
+    color: #404040;
+}
+
+.noticia:hover{
+     box-shadow:0px 2px 4px #DDD inset;
+    -moz-box-shadow:0px 2px 4px #DDD inset;
+    -webkit-box-shadow:0px 2px 4px #DDD inset;
 }
 
 #topo_comentarios{
@@ -139,6 +180,26 @@ body {
     box-shadow:0px 4px 5px #DDD;
     -moz-box-shadow:0px 4px 5px #DDD;
     -webkit-box-shadow:0px 4px 5px #DDD;
+    overflow:auto;
+}
+
+.comentario{
+    padding: 2px 15px;
+    font-size: 11px;
+    margin: 5px 3px ;
+    background: #f7f7f7;
+    border: 1px solid #eeeeee;
+    color: #707070;
+}
+
+.comentario *{
+    margin: 0;
+}
+
+.comentario p{
+    color:#404040;
+    padding:4px;
+    font-size: 14px;
 }
 
 #footer{

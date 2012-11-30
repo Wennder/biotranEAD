@@ -164,6 +164,7 @@ class controllerModulo {
         $controller2 = new controllerPergunta();
         $lista = "";
         $exercicio = $controller->getListaExercicio('id_modulo=' . $id_modulo);
+        $controller = new controllerUsuario_exercicio();
         for ($i = 0; $i < count($exercicio); $i++) {
             $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='exercicio' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
             $lista .= $exercicio[$i]->getTitulo();

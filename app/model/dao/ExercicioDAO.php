@@ -33,13 +33,14 @@ class ExercicioDAO extends PDOConnectionFactory {
         }
     }
 
-    public function insertResposta($id_usuario, $id_pergunta, $resposta) {
+    public function insertResposta($id_usuario, $id_exercicio, $id_pergunta, $resposta) {
         try {           
             $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("INSERT INTO resposta_exercicio(id_pergunta, id_usuario, resposta) VALUES (?,?,?)");
+            $stmt = $this->conex->prepare("INSERT INTO resposta_exercicio(id_pergunta, id_exercicio, id_usuario, resposta) VALUES (?,?,?,?)");
             $stmt->bindValue(1, $id_pergunta);
-            $stmt->bindValue(2, $id_usuario);
-            $stmt->bindValue(3, $resposta);
+            $stmt->bindValue(2, $id_exercicio);
+            $stmt->bindValue(3, $id_usuario);
+            $stmt->bindValue(4, $resposta);
             if ($stmt->execute()) {            
                 return 1;
             }

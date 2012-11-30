@@ -1,7 +1,7 @@
-<!--<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>-->
+<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
 <!-- Chang URLs to wherever Video.js files will be hosted -->
-<script src="js/video.js"></script>
-<link href="css/video-js.css" rel="stylesheet" type="text/css">
+<link href="css/video-js.css" rel="stylesheet" type="text/css"> 
+<!--<script src="js/video.js"></script>-->
 
 <script>
     _V_.options.flash.swf = "video-js.swf";        

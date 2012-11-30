@@ -1,10 +1,6 @@
-<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
-<script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
-<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
-<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
-
 <script>    
-    $(document).ready(function(){                
+    $(document).ready(function(){   
+        $('#form_descritivo_exercicio').validationEngine();
         $('#btn_editar_exercicio').click(function(){
             if($(this).attr('value') == 'Editar'){
                 $('#titulo_exercicio').removeAttr('readonly');

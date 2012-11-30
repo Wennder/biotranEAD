@@ -1,3 +1,8 @@
+<?php 
+if(!$this->boolAcesso_modulo){
+    echo "Você ainda não terminou o(s) módulo(s) anterior(es) para acessar este!!";die();
+}
+?>
 <style>
     /*@import "http://code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css";*/
     .quadro_de_conteudo_especifico{

@@ -242,7 +242,7 @@ class controllerExercicio {
 
             for ($j = 0; $j < count($a); $j++) {
                 $lista.='<div style="font-size:12px; border: 0">
-                            <input type="radio" name="resposta_' . $i . '" value="' . $j . '" style="border:0"/> Alternativa ' . ($j + 1) . '
+                            <input type="radio" name="resposta_' . $i . '" value="' . $a[$j]->getId_alternativa() . '" style="border:0"/> Alternativa ' . ($j + 1) . '
                         </div>';
             }
             $lista .='</fieldset>
@@ -254,16 +254,13 @@ class controllerExercicio {
                             <textarea readonly="true" placeholder="Alternativa ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px">' . $a[$j]->getResposta() . '</textarea>
                         </div>';
             }
-            $lista .= '</fieldset >  
-                    <fieldset style="width:300px; float: left; padding:0 5px 5px 5px; margin:0 2.5px">
-                        <legend>Justificativas</legend>';
-            for ($j = 0; $j < count($a); $j++) {
-                $lista .= '<div>
-                            <textarea readonly="true" placeholder="Justificativa" id="justificativa-' . $j . '" name="justificativa-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px; ">' . $a[$j]->getJustificativa() . '</textarea>
-                        </div>';
-            }
-            $lista .='</fieldset>                    
-                </div>
+            $lista .= '</fieldset >';
+//            for ($j = 0; $j < count($a); $j++) {
+//                $lista .= '<div>
+//                            <textarea readonly="true" placeholder="Justificativa" id="justificativa-' . $j . '" name="justificativa-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px; ">' . $a[$j]->getJustificativa() . '</textarea>
+//                        </div>';
+//            }
+            $lista .='</div>
             </fieldset>
             <div style="display:none;">                
                 <input type="text" name="id_pergunta_' . $i . '" id="id_pergunta_' . $i . '" value="' . $p[$i]->getId_pergunta() . '"/>                
@@ -334,17 +331,121 @@ class controllerExercicio {
         return $lista;
     }
 
-    public function submeterQuestionario($id_perguntas, $respostas) {
+    public function submeterQuestionario($id_perguntas, $respostas, $id_exercicio, $porc_acertos) {
         $dao = new ExercicioDAO();
-        $id_usuario = $_SESSION['usuarioLogado']->getId_usuario();          
+        $id_usuario = $_SESSION['usuarioLogado']->getId_usuario();
         for ($i = 0; $i < count($id_perguntas) - 1; $i++) {
             if ($id_perguntas[$i] != '') {
-                if (!$dao->insertResposta($id_usuario, $id_perguntas[$i], $respostas[$i])) {
+                if (!$dao->insertResposta($id_usuario, $id_exercicio, $id_perguntas[$i], $respostas[$i])) {
                     return 0;
                 }
             }
         }
+        //inserindo usuario exercicio
+        $c = new controllerExercicio();
+        $e = $c->getExercicio('id_exercicio=' . $id_exercicio);
+        $c = new controllerUsuario_exercicio();
+        $ue = new Usuario_exercicio();
+        $ue->setId_exercicio($id_exercicio);
+        $ue->setId_usuario($id_usuario);
+        $ue->setPorc_acertos($porc_acertos);
+        $ue->setId_modulo($e->getId_modulo());
+        //inserindo
+        $c->novoUsuario_exercicio($ue);
+        //--verificando se resolveu ultimo exercicio
+        $c = new controllerExercicio();
+        $qnt_exer = count($c->getListaExercicio('id_modulo=' . $e->getId_modulo()));
+        $c = new controllerUsuario_exercicio();
+        $qnt_exer_resolvidos = count($c->getListaUsuario_exercicios('id_usuario=' . $id_usuario . ' AND id_modulo=' . $e->getId_modulo()));
+        //--
+        //verificando se terminou módulo
+        if ($qnt_exer == $qnt_exer_resolvidos) {
+            $c = new controllerModulo();
+            $m = $c->getModulo('id_modulo=' . $e->getId_modulo());
+            $c = new controllerCurso();
+            $curso = $c->getCurso('id_curso=' . $m->getId_curso());
+
+            //se esta no ultimo módulo
+            if ($m->getNumero_modulo() == $curso->getNumero_modulos()) {
+                return 3; //ULTIMO MÓDULO TERMINADO - CURSO FINALIZADO                
+            }
+            //passou para o próximo módulo
+            $c = new controllerMatricula_curso();
+            $mc = $c->getMatricula_curso("id_usuario=" . $id_usuario . ' AND id_curso=' . $m->getId_curso());
+            $mc->setModulo_atual(((int) $mc->getModulo_atual()) + 1);
+            $c->updateMatricula_curso($mc);
+            return 2;
+        }
+        //terminou exercicio mas não passou de módulo
         return 1;
+    }
+
+    public function corrigirQuestionario($id_perguntas, $respostas, $id_exercicio) {
+        $cp = new controllerPergunta();
+        $ca = new controllerAlternativa();
+        $p = $cp->getListaPerguntas('id_exercicio="' . $id_exercicio . '" ORDER BY numeracao');
+        $erros = 0;
+        $acertos = 0;
+        $estatistica = '';
+        $lista = '';                
+        for ($i = 0; $i < count($p); $i++) {
+            if ($id_perguntas[$i] == $p[$i]->getId_pergunta()) {
+                $a = $ca->getAlternativa("id_alternativa=" . $respostas[$i]);
+                //pintar de verde
+                if ($a->getEh_correta() == 1) {
+                    $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body list_conteudo'><h4>Pergunta " . $p[$i]->getNumeracao() . "</h4></div>";
+                    $acertos++;
+                } else {
+                    //pintar de vermelho
+                    $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body list_conteudo'><h4>Pergunta " . $p[$i]->getNumeracao() . "</h4></div>";
+                    $erros++;
+                }
+                $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body' style='display:none;'>";
+                $lista .='<fieldset style="width:640px; padding:0 5px 5px 5px; margin: 0 2.5px; ">                
+                    <div>
+                        <fieldset style="width:30px; float:left; padding:0 5px 5px 5px; margin: 0 2.5px">
+                            <legend>Nº:</legend>
+                            <input type="text" readonly="true" id="numeracao" name="numeracao" value="' . $p[$i]->getNumeracao() . '" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 30px"/>
+                        </fieldset>
+                        <fieldset style="width:410px; float:left; padding:0 5px 5px 5px; margin: 0 2.5px;">
+                            <legend>Enunciado:</legend>
+                            <textarea readonly="true" placeholder="Enunciado da Pergunta" id="enunciado" name="enunciado" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width:410px;">' . $p[$i]->getEnunciado() . '</textarea>
+                        </fieldset>
+                    </div>
+                    <div>                    
+                    <fieldset style="width:300px; float:left; padding:0 5px 5px 5px; margin:0 2.5px; clear:left;">
+                        <legend>Respostas</legend>';
+
+                $lista .='<div style="padding:0; margin:0">
+                            <textarea readonly="true" id="resposta" name="resposta" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px">' . $a->getResposta() . '</textarea>
+                        </div>';
+                $lista .= '</fieldset>';
+                $lista .= '<fieldset style="width:300px; float: left; padding:0 5px 5px 5px; margin:0 2.5px">
+                        <legend>Justificativas</legend>';
+                $lista .= '<div>
+                            <textarea placeholder="Justificativa" id="justificativa" name="justificativa" rows="2" maxlength="100" style="width: 300px;">' . $a->getJustificativa() . '</textarea>
+                        </div>';
+                $lista .='</fieldset>';
+                $lista .='</div>
+                        </fieldset>
+                    </div>';
+            }
+        }
+        if ($acertos == 0) {
+            $porc = 0;
+        } else {
+            $porc = (100 * $acertos) / ($acertos + $erros);
+        }
+//        echo $porc;die();
+        $botao = '<div>
+            <input type="button" value="Submeter exercicio" id="submeter_exercicio"/>        
+            <input type="button" value="Refazer" id="refazer_exercicio"/>
+            </div>
+            <div style="display:none;" >
+            <input type="text" value="' . $porc . '" id="porc_acertos"/>        
+            </div>';
+        $estatistica .='<div><div>Acertos ' . $porc . '%</div>' . $lista . $botao . '</div>';       
+        return $estatistica;
     }
 
     public function getResposta($id_pergunta) {

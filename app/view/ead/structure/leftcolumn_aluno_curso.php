@@ -30,15 +30,15 @@ if (isset($_GET['id'])) {
     <div class="navbar_item">
         <div class="accord">
             <h4 style="float:left;">></h4>
-            <h3 name="editar_curso" id="index.php?c=ead&a=editar_curso&id=<?php echo $id_curso ?>"><?php echo $controllerCurso->getCurso("id_curso=" . $id_curso)->getNome() ?></h3>
+            <h3 name="pag_cursos" id="index.php?c=ead&a=pag_curso&id=<?php echo $id_curso ?>"><?php echo $controllerCurso->getCurso("id_curso=" . $id_curso)->getNome() ?></h3>
         </div>
         <div class="accord_content">
             <?php
             echo $controllerModulo->lista_visualizarModulos_lefcolumn_aluno($id_curso);
-            ?>
-            <div>
-            </div>
+            ?>            
             <h3 class="navbar_item ">
                 <a href="index.php?a=forum&c=ead&id=<?php echo $_GET['id'] ?>"> Fórum </a>
             </h3>
         </div>
+    </div>
+</div>
