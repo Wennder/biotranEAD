@@ -1,6 +1,6 @@
 <?php require 'structure/header.php'; ?>
 <?php require 'structure/content_up.php'; ?>
- 
+
 <script>
     $(document).ready( function(){
         $('#sliderShow').jqFancyTransitions({
@@ -18,21 +18,20 @@
             links: false
         });
     });
-    
     $(document).ready(function() {
-    $("#slider_parceiros").carouFredSel({
-        circular            : true,
-        items               : 4,
-        direction           : "left",
-        scroll : {
-            items           : 1,
-            easing          : "linear",
-            fx              : "crossfade",
-            duration        : 700,
-            pauseOnHover    : true
-        }
+        $("#slider_parceiros").carouFredSel({
+            circular            : true,
+            items               : 4,
+            direction           : "left",
+            scroll : {
+                items           : 1,
+                easing          : "linear",
+                fx              : "crossfade",
+                duration        : 700,
+                pauseOnHover    : true
+            }
+        });
     });
-});
 </script>
 
 <div id="menu_destaque">
@@ -58,8 +57,10 @@
 </div>
 
 <div id='sliderShow'>
-   
-    <?php $controller = new ControllerSistema(); echo $controller->listaDestaques_index(); ?>
+
+    <?php $controller = new controllerSistema();
+    echo $controller->listaDestaques_index();
+    ?>
 </div>
 
 <?php require 'structure/content_down.php'; ?>

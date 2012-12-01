@@ -7,7 +7,7 @@
 <div id="patrocinadores_gerencia">
     <a href="index.php?c=ead&a=pini_adicionar_patrocinador">adicionar patrocinador</a>
     <div>
-        <?php $controller = new ControllerSistema(); echo $controller->listaPatrocinadores(); ?>
+        <?php $controller = new controllerSistema(); echo $controller->listaPatrocinadores(); ?>
     </div>
 </div>
 <?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

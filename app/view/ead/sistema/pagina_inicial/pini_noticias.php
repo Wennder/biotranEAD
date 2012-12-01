@@ -7,7 +7,7 @@
 <div id="noticias_gerencia">
     <a href="index.php?c=ead&a=pini_adicionar_noticia">adicionar noticia</a>
     <div>
-        <?php $controller = new ControllerSistema(); echo $controller->listaNoticia(); ?>
+        <?php $controller = new controllerSistema(); echo $controller->listaNoticia(); ?>
     </div>
 </div>
 

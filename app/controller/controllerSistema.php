@@ -39,7 +39,6 @@ class controllerSistema {
         $i=0;
         $lista='';
         for(;$i<$quant;$i++){
-           
             $lista.="<img src='".$patrocinador[$i]->getImagem()."' width='200' height='200'/>";
         }
         return $lista;
@@ -67,12 +66,10 @@ class controllerSistema {
         if (isset($_FILES["imagem"])) {
             if ($_FILES["imagem"]["name"] != '') {
                 $imagem = $_FILES["imagem"];
-                $tipos = array("image/jpg");
+                $tipos = array("image/jpg", "image/jpeg");
                 $pasta_dir = "img/patrocinadores/";
-                if (!in_array($imagem["type"], $tipos)) {
+                if (in_array($imagem["type"], $tipos)) {
                     $imagem_nome = $pasta_dir . $id_patrocinador . ".jpg";
-//                    print_r($_FILES); echo $imagem_nome; die();
-                    
                     move_uploaded_file($imagem["tmp_name"], $imagem_nome);
                     $imagem_arquivo = "img/patrocinadores/" . $id_patrocinador . ".jpg";
                     $this->patrocinador->setImagem($imagem_arquivo);
@@ -150,9 +147,9 @@ class controllerSistema {
         if (isset($_FILES["imagem"])) {
             if ($_FILES["imagem"]["name"] != '') {
                 $imagem = $_FILES["imagem"];
-                $tipos = array("image/jpg");
+                $tipos = array("image/jpg", "image/jpeg");
                 $pasta_dir = "img/destaques/";
-                if (!in_array($imagem["type"], $tipos)) {
+                if (in_array($imagem["type"], $tipos)) {
                     $imagem_nome = $pasta_dir . $id_destaque . ".jpg";
                     
                     move_uploaded_file($imagem["tmp_name"], $imagem_nome);
@@ -282,9 +279,9 @@ class controllerSistema {
         if (isset($_FILES["imagem"])) {
             if ($_FILES["imagem"]["name"] != '') {
                 $imagem = $_FILES["imagem"];
-                $tipos = array("image/jpg");
+                $tipos = array("image/jpg","image/jpeg");
                 $pasta_dir = "img/noticias/";
-                if (!in_array($imagem["type"], $tipos)) {
+                if (in_array($imagem["type"], $tipos)) {
                     $imagem_nome = $pasta_dir . $id_noticia . ".jpg";
 //                    echo $imagem_nome; die();
                     

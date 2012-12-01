@@ -275,7 +275,6 @@ class controllerUsuario {
                 if (in_array($foto['type'], $tipos)) {
                     $foto_nome = $pasta_dir . $id_usuario . ".jpg";
                     move_uploaded_file($foto["tmp_name"], $foto_nome);
-
                     $foto_arquivo = "../img/profile/" . $id_usuario . ".jpg";
                     $foto_arquivo_pic = "../img/profile/pic/" . $id_usuario . ".jpg";
                     list($altura, $largura) = getimagesize($foto_arquivo);

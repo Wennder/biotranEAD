@@ -7,7 +7,7 @@
 <div id="comentarios_gerencia">
     <a href="index.php?c=ead&a=pini_adicionar_comentario">adicionar comentario</a>
     <div>
-        <?php $controller = new ControllerSistema(); echo $controller->listaComentarios(); ?>
+        <?php $controller = new controllerSistema(); echo $controller->listaComentarios(); ?>
     </div>
 </div>
 

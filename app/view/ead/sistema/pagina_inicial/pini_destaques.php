@@ -7,7 +7,7 @@
 <div id="destaques_gerencia">
     <a href="index.php?c=ead&a=pini_adicionar_destaque">adicionar destaque</a>
     <div>
-        <?php $controller = new ControllerSistema(); echo $controller->listaDestaques();?>
+        <?php $controller = new controllerSistema(); echo $controller->listaDestaques();?>
     </div>
 </div>
 
