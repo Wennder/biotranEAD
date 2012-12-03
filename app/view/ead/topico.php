@@ -1,6 +1,6 @@
-<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
 <?php $this->controller = new ControllerForum();
 if(isset($_GET['id']))
@@ -32,4 +32,4 @@ $topico = $this->controller->getTopico("id_topico=".$_GET['id']);
 ?>
 </div>
 
-<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

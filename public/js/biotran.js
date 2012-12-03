@@ -314,11 +314,11 @@ function insereLinha(data, tipo){
         var id_curso = $('#id_curso').val();        
         data = data.split('-');
         data[0] = data[0].replace('"', '');
-        data[1] = data[1].replace('"', '');        
+        data[1] = data[1].replace('"', '');            
         var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir" style="float: right;"/>';
         if(tipo == 'video'){
             var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar" style="float: right;"/>';
-            var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1]+'</label>' + excluir + editar + '</li>';
+            var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label class="link_video" name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1].toString()+'</label>' + excluir + editar + '</li>';
         }else{            
             if(tipo == 'exercicio'){
                 var editar = '<input id="index.php?c=ead&a=editar_exercicio&id='+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar" style="float: right;">';

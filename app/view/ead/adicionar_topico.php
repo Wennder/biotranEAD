@@ -1,6 +1,6 @@
-<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
 <form id="form_topico" method="post" action="index.php?c=ead&a=topico" >
     <fieldset>
@@ -23,4 +23,4 @@
     <input type="submit" value="Enviar mensagem" />
 </form>
 
-<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

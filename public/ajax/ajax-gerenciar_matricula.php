@@ -11,7 +11,7 @@ if($acao == 'matricular'){
     $id_curso = $_REQUEST['id_curso'];
     //--
     $controller = new controllerMatricula_curso();      
-    $retorno = $controller->novaMatricula($id_curso, $usuario);
+    $retorno = $controller->novaMatricula($id_curso, $usuario, 0);
     echo json_encode($retorno);
 }
 

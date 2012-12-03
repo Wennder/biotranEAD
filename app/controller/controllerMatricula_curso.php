@@ -76,7 +76,7 @@ class controllerMatricula_curso {
         return $mc;
     }
 
-    public function novaMatricula($id_curso, Usuario $usuario) {
+    public function novaMatricula($id_curso, Usuario $usuario, $bool = 1) {
         if ($this->getMatricula_curso('id_curso=' . $id_curso . ' AND id_usuario=' . $usuario->getId_usuario()) == null) {
             if ($usuario->getId_papel() == 4) {
                 $mc = new Matricula_curso();
@@ -85,7 +85,7 @@ class controllerMatricula_curso {
                 $mc->setId_curso($id_curso);
                 $mc->setId_usuario($usuario->getId_usuario());
                 $mc->setModulo_atual(1);
-                $mc->setStatus_acesso('1');
+                $mc->setStatus_acesso($bool);
                 //--
                 $dao = new Matricula_cursoDAO();
                 return $dao->insert($mc);

@@ -702,7 +702,7 @@ class controllerCurso {
                     <th>Data término</th>
                 </tr> 
             </thead> 
-            <tbody>";
+            <tbody id='tbody_tb_ger_matricula'>";
 
         $cursoDAO = new CursoDAO();
 
@@ -714,7 +714,7 @@ class controllerCurso {
         for (; $i < $quant; $i++) {
             $m = $controller->getMatricula_curso('id_curso=' . $this->cursos[$i]->getId_curso() . ' AND id_usuario=' . $id_usuario);
             if ($m != null) {
-                $tabela .= "<tr id=" . $m->getId_matricula_curso() . ">";
+                $tabela .= "<tr name='matricula' id=" . $m->getId_matricula_curso() . ">";
                 $tabela .= "<td width='45%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
                 if ($m->getStatus_acesso() == 1) {
                     $tabela .= "<td width='15%' id='status' align='center'><input type='checkbox' value='0' checked='checked' name='".$m->getId_matricula_curso()."' id='check_liberar_matricula' /></td>";
@@ -725,9 +725,9 @@ class controllerCurso {
                 $tabela .= "<td width='40%' id='data_inicio' align='center'>" . $m->getData_inicio() . "</td>";
                 $tabela .= "<td width='40%' id='data_termino' align='center'><input type='text' value='" . $m->getData_fim() . "' id='data-".$m->getId_matricula_curso()."' name='".$m->getId_matricula_curso()."' class='i_data_termino' /></td>";
             } else {
-                $tabela .= "<tr id='matricular'>";
+                $tabela .= "<tr name='nova_matricula' id='".$this->cursos[$i]->getId_curso()."'>";
                 $tabela .= "<td width='45%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
-                $tabela .= "<td width='15%' id='status' align='center'><input type='button' value='Matricular' id='".$this->cursos[$i]->getId_curso()."' class='btn_matricular' /></td>";
+                $tabela .= "<td width='15%' id='status' align='center'>Não matriculado</td>";
                 $tabela .= "<td width='15%' id='progresso' align='center'> -- </td>";
                 $tabela .= "<td width='25%' id='data_inicio' align='center'> -- </td>";
                 $tabela .= "<td width='25%' id='data_termino' align='center'> -- </td>";

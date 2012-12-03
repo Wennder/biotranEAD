@@ -297,15 +297,14 @@ class controllerModulo {
         return $objeto;
     }
 
-    public function setModulo() {
+    public function setModulo() {            
         if (!empty($_POST)) {
-
             if ($this->modulo == null) {
                 $this->modulo = new Modulo();
             }
             foreach ($_POST as $k => $v) {
                 $setAtributo = 'set' . ucfirst($k);
-                if (method_exists($this->modulo, $setAtributo)) {
+                if (method_exists($this->modulo, $setAtributo)) {                    
                     $this->modulo->$setAtributo($v);
                 }
             }
@@ -461,9 +460,9 @@ class controllerModulo {
      */
 
     public function atualizar_descritivo($id_modulo) {
-        $this->modulo = $this->getModulo("id_modulo=" . $id_modulo);
+        $this->modulo = $this->getModulo("id_modulo=" . $id_modulo);        
         $this->setModulo();
-        $dao = new ModuloDAO();
+        $dao = new ModuloDAO();        
         if ($dao->update($this->modulo)) {
             return 1;
         }

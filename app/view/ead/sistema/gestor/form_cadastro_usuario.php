@@ -14,13 +14,14 @@
                     </tr>
                     <?php
                     if ($_SESSION["usuarioLogado"]->getId_papel() == '1') {
-                        echo ('<tr>
+                        echo ('<tr id="_id_tr_id_papel">
                             <td style="width: 150px;">
                                 <label class="label_cadastro">*Permissão: </label>
                             </td>
                             <td style="width: 500px;">
                                 <select id="_id_id_papel" name="_id_id_papel" class="text-input" style="width: auto;">
                                     <option></option>                                    
+                                    <option id="perm_Gestor" value="1">Administrador</option>
                                     <option id="perm_Gestor" value="2">Gestor</option>
                                     <option id="perm_Professor" value="3">Professor</option>
                                     <option id="perm_Estudante" value="4">Estudante</option>

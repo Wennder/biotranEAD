@@ -335,7 +335,7 @@ class controllerUsuario {
         $i = 0;
         for (; $i < $quant; $i++) {
             $papel = $papelDAO->select("id_papel=" . $this->usuarios[$i]->getId_papel());
-            if ($papel[0]->getId_papel() != 1) {
+//            if ($papel[0]->getId_papel() != 1) { filtro de administrador
                 $tabela .= "<tr id=" . $this->usuarios[$i]->getId_usuario() . ">";
                 $tabela .= "<td width='60%' class='nome_usuario_datatable' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
                 $tabela .= "<td width='15%' align='center' id='permissao'>" . $papel[0]->getPapel() . "</td>";
@@ -364,7 +364,7 @@ class controllerUsuario {
                 $tabela .= "<td width='0%' id='id_usuario'>" . $this->usuarios[$i]->getId_usuario() . "</td>";
 
                 $tabela .= "</tr>";
-            }
+            
         }
         $tabela .= "</tbody></table>";
         return $tabela;

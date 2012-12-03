@@ -26,7 +26,10 @@
     });
 </script>
 
-<div id="tab_matricula_curso" style="">    
+<div id="tab_matricula_curso" style=""> 
+    <input type="button" value="" id="btn_matricular" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Matricular
+    <input type="button" value="" id="btn_cancelar_matricula" class="classeBotaoExcluir" style="margin: 0 0 5px 10px;"/> Cancelar Matricula
+    <br>
     <?php
     echo $this->tabela;
     ?>
