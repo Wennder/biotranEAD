@@ -448,27 +448,26 @@ class controllerCurso {
 //        $i = 0;
 //
 //        $tabela .= "<div class='accord_body accord_list' style='border-left:3px solid #7f90d0; padding-left:5px;'><label class='accord_label'>Meus Cursos</label></div>";
-//        $tabela .= "<div class='accord_body accord_list' style='border-left:3px solid #7f90d0; padding-left:5px;'><label class='accord_label'>Meus Cursos</label></div>";
+//        $tabela .= "<div class='accord_content_body' style='display: none;'><ul class='accord_ul'>";
 //        if ($quant > 0) {
 //            for (; $i < $quant; $i++) {
 //                $auxCurso = $this->getListaCursos("id_curso=" . $matriculados[$i]->getId_curso());
-//                $tabela.="<li><a><div class='lista_cursos'>
-//                " . $auxCurso[0]->getNome();
-//                $tabela.="<div align='right'><a href='index.php?c=ead&a=curso_aluno&id=" . $auxCurso[0]->getId_curso() . "' class='button'>Acessar</a></div>";
-//                $tabela.= "<div><a style='font-size: 12px'>Duração do curso:" . $auxCurso[0]->getTempo() . "</a></div></div></a></li>";
+//                $tabela.="<li class='conteudo_row'><label>" . $auxCurso[0]->getNome() . '</label>';
+//                $tabela.="<div align='right'><a href='index.php?c=ead&a=curso_aluno&id=" . $auxCurso[0]->getId_curso() . "' class='button3'>Acessar</a></div></li>";
+////                $tabela.= "<div><a style='font-size: 12px'>Duração do curso:" . $auxCurso[0]->getTempo() . "</a></div></div></a></li>";
 //            }
 //        } else {
-//            $tabela.="<li><a><div class='lista_cursos'>
-//               Voce nao possui nenhum curso no momento</div></a></li>";
+//            $tabela.="<li class='conteudo_row'><label>Você não possui nenhum curso no momento.</label></li>";
 //        }
 //        $tabela .= "</ul></div>";
 //        $quant = count($this->cursos);
 //        $i = 0;
-//        $tabela .= "<div class='lista_cursos accord' style='border-left:3px solid #7fd08b; padding-left:5px;'>Outros Cursos</div><div class='aluno_cursos accord_content'><ul>";
+//        $tabela .= "<div class='accord_body accord_list' style='border-left:3px solid #7f90d0; padding-left:5px;'><label class='accord_label'>Outros Cursos</label></div>";
+//        $tabela .= "<div class='accord_content_body' style='display: none;'><ul class='accord_ul'>";
+////        $tabela .= "<div class='lista_cursos accord' style='border-left:3px solid #7fd08b; padding-left:5px;'>Outros Cursos</div><div class='aluno_cursos accord_content'><ul>";
 //        if ($quant > 0)
 //            for (; $i < $quant; $i++) {
-//                if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() .
-//                                " AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
+//                if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() ." AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
 //                    $tabela.="<li><a><div class='lista_cursos'><table style='width: 100%;' class='nao_matriculado'>
 //                    <tr ><td align='left'>" . $this->cursos[$i]->getNome() . "</td>";
 ////                $tabela.="<td align='right' ><a href='index.php?c=ead&a=matricula&id=" . $this->cursos[$i]->getId_curso() . "' class='button'>Matricular</a></td></tr>";

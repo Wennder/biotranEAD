@@ -85,7 +85,7 @@
                                 if(centro!=1){            
                                     centro.find('div').remove();
                                 } 
-                                centro = $('#center_content').load('index.php?c=ead&a=forum&id='+$('#id_curso_1'), function (){                    
+                                centro = $('#center_content').load('index.php?c=ead&a=forum&id='+$('#id_curso_1').val(), function (){                    
                                     $('#div_conteudo').append(centro);                    
                                 }); 
                             }
