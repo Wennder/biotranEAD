@@ -33,7 +33,7 @@ switch ($papel) {
                 <input type="button" value="" id="btn_edit"  class="classeBotaoEditar" style="margin: 0 0 5px 10px;"/> Editar
                 <input type="button" value="" id="btn_del" class="classeBotaoExcluir" style="margin: 0 0 5px 10px;"/> Remover
                 <input type="button" value="" id="btn_view" class="classeBotaoVisualizar" style="margin: 0 0 5px 10px;"/> Visualizar
-                <input type="button" value="" id="btn_ger_matricula" class="classeBotaoVisualizar" style="margin: 0 0 5px 10px;"/> Gerenciar Matrícula
+                <input type="button" value="" id="btn_ger_matricula" class="classeBotaoGerenciar" style="margin: 0 0 5px 10px;"/> Gerenciar Matrícula
                 <br>
                 <?php echo $this->tabela; ?>
             </div>

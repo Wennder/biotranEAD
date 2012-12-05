@@ -511,8 +511,10 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionGerenciar_matricula() {
         $controllerCurso = new controllerCurso();
+        $controllerUsuario = new controllerUsuario();
         $this->visao->id_usuario = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->tabela = $controllerCurso->tabelaGerenciar_matricula($this->visao->id_usuario);
+        $this->visao->usuario = $controllerUsuario->getUsuario("id_usuario=" . $this->visao->id_usuario . "");
         $this->renderizar();
     }
 

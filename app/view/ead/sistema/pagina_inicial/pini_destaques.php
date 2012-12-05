@@ -2,13 +2,15 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
-<h2 style="margin-bottom: 50px; margin-left: 30px;">Destaques</h2>
-
-<div id="destaques_gerencia">
-    <a href="index.php?c=ead&a=pini_adicionar_destaque">adicionar destaque</a>
-    <div>
-        <?php $controller = new controllerSistema(); echo $controller->listaDestaques();?>
+<div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
+    <h3 style="margin: 0;">Destaques</h3><br>
+    <div id="destaques_gerencia">
+        <a href="index.php?c=ead&a=pini_adicionar_destaque" style="text-decoration: none;" class="button2"> Adicionar Destaque</a><br><br>
+        <div>
+            <?php $controller = new controllerSistema(); echo $controller->listaDestaques();?>
+        </div>
     </div>
+    <br><br>
 </div>
 
 <?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

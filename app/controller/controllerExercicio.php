@@ -157,60 +157,54 @@ class controllerExercicio {
         $controller = new controllerAlternativa();
         for ($i = 0; $i < count($p); $i++) {
             $a = $controller->getListaAlternativas("id_pergunta=" . $p[$i]->getId_pergunta());
-            $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body list_conteudo'><h4>Pergunta " . $p[$i]->getNumeracao() . "</h4></div>";
+            $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body'><div class='accord_list'><label class='accord_label'>Questão " . $p[$i]->getNumeracao() . "</label></div></div>";
             $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body' style='display:none;'>";
-            $lista .='<form class="form_submit" id="form_atualizar_pergunta_' . $p[$i]->getId_pergunta() . '" name="form_atualizar_pergunta" method="post" action="ajax/crud_exercicio.php?acao=atualizar_pergunta">
-            <fieldset style="width:640px; padding:0 5px 5px 5px; margin: 0 2.5px; ">
-                <legend>Editar Pergunta</legend>
-                <div>
-                    <fieldset style="width:30px; float:left; padding:0 5px 5px 5px; margin: 0 2.5px">
-                        <legend>Nº:</legend>
-                        <input type="text" id="numeracao" name="numeracao" value="' . $p[$i]->getNumeracao() . '" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 30px"/>
-                    </fieldset>
-                    <fieldset style="width:410px; float:left; padding:0 5px 5px 5px; margin: 0 2.5px;">
-                        <legend>Enunciado:</legend>
-                        <textarea placeholder="Enunciado da Pergunta" id="enunciado" name="enunciado" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width:410px;">' . $p[$i]->getEnunciado() . '</textarea>
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset style="width:145px; float: left; padding:0 5px 5px 5px; margin: 0 2.5px; ">
-                        <legend>Opção Correta</legend>';
-
-            for ($j = 0; $j < count($a); $j++) {
-                $c = '';
-                if ($a[$j]->getEh_correta()) {
-                    $c = 'checked';
-                }
-                $lista.='<div style="font-size:12px; border: 0">
-                            <input type="radio" ' . $c . ' name="eh_correta" value="' . $j . '" style="border:0"/> Alternativa ' . ($j + 1) . '
-                        </div>';
-            }
-            $lista .='</fieldset>
-                    <fieldset style="width:300px; float:left; padding:0 5px 5px 5px; margin:0 2.5px; clear:left;">
-                        <legend>Respostas</legend>';
-
-            for ($j = 0; $j < count($a); $j++) {
-                $lista .='<div style="padding:0; margin:0">
-                            <textarea placeholder="Alternativa ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px">' . $a[$j]->getResposta() . '</textarea>
-                        </div>';
-            }
-            $lista .= '</fieldset >  
-                    <fieldset style="width:300px; float: left; padding:0 5px 5px 5px; margin:0 2.5px">
-                        <legend>Justificativas</legend>';
-            for ($j = 0; $j < count($a); $j++) {
-                $lista .= '<div>
-                            <textarea placeholder="Justificativa" id="justificativa-' . $j . '" name="justificativa-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px; ">' . $a[$j]->getJustificativa() . '</textarea>
-                        </div>';
-            }
-            $lista .='</fieldset>
-                    <input type="submit" id="btn_upd_pergunta" class="btn_submit" name="form_atualizar_pergunta_' . $p[$i]->getId_pergunta() . '" value="Atualizar" class="button"/>
-                    <input type="button" id="' . $p[$i]->getId_pergunta() . '" class="btn_del_pergunta" value="Excluir"/>
-                </div>
-            </fieldset>
-            <div style="display:none;">                
-                <input type="text" name="id_pergunta" id="id_pergunta" value="' . $p[$i]->getId_pergunta() . '"/>                
-            </div>
-        </form></div>';
+            $lista .='<div style="margin: 0 0 0 5px;"><form class="formulario" id="form_atualizar_pergunta_' . $p[$i]->getId_pergunta() . '" name="form_atualizar_pergunta" method="post" action="ajax/crud_exercicio.php?acao=atualizar_pergunta" enctype="multipart/form-data"><br>
+            <fieldset style="width:893px;">
+                <legend>Editar Questão</legend>
+                <table>
+                    <tr>
+                        <td><label>Nº </label><input id="numeracao" name="numeracao" value="' . $p[$i]->getNumeracao() . '" class="text-input" style="width: 30px"/></td>
+                        <td><textarea placeholder="Enunciado da Questão" id="enunciado" name="enunciado" class="text-area" style="height: 34px; width:650px;">' . $p[$i]->getEnunciado() . '</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><label>Imagem: </label></td>
+                        <td><div>CARREGAR IMAGEM AQUI</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div style="margin-top: 30px;">
+                                <label>Respostas:</label>
+                                <table style="width: 100%;">';
+                                for ($j = 0; $j < count($a); $j++) {
+                                    $c = '';
+                                    if ($a[$j]->getEh_correta()) {
+                                        $c = 'checked';
+                                    }
+                                    $lista.='
+                                    <tr>
+                                        <td>
+                                            <input type="radio" ' . $c . ' name="eh_correta" value="' . $j . '" style="margin: 5px 0 0 15px;"/>
+                                        </td>
+                                        <td>
+                                            <textarea placeholder="Alternativa ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" class="text-area" style="height: 34px; width: 650px;">' . $a[$j]->getResposta() . '</textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <textarea placeholder="Justificativa" id="justificativa-' . $j . '" name="justificativa-' . $j . '" class="text-area" style="height:34px; width: 650px; ">' . $a[$j]->getJustificativa() . '</textarea>
+                                        </td>
+                                    </tr>';
+                                }
+                                $lista .='</table>
+                            </div>
+                        </td>
+                    </tr>
+                </table><br>';
+            $lista .='<input type="submit" id="btn_upd_pergunta" class="button2" name="form_atualizar_pergunta_' . $p[$i]->getId_pergunta() . '" value="Atualizar"/>
+                    <input type="button" id="' . $p[$i]->getId_pergunta() . '" class="button2" value="Excluir"/><br>';
+            $lista .='</fieldset><div style="display:none;"><input type="text" name="id_pergunta" id="id_pergunta" value="' . $p[$i]->getId_pergunta() . '"/></div></form></div></div>';
         }
         return $lista;
     }

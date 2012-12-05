@@ -4,11 +4,14 @@
 
 <script>
     function defineAction(){
-        if($("#usuario_logado").val() == 0){
-            $(window.document.location).attr('href','index.php?c=index&a=cadastro');
+        if($("#usuario_logado").val() == 1 && $("#papel_usuario_logado").val() == 4){
+            $(window.document.location).attr('href','index.php?c=ead&a=visualizar_curso&id='+$("#id_curso").val());
+        }
+        else if($("#usuario_logado").val() == 1 && $("#papel_usuario_logado").val() != 4){
+            alert("Matrícula somente para estudantes.");
         }
         else{
-            $(window.document.location).attr('href','index.php?c=ead&a=todos_cursos');
+            $(window.document.location).attr('href','index.php?c=index&a=cadastro');
         }
     }
 </script>
@@ -31,7 +34,7 @@
             </tr>
             <tr>
                 <td style="padding-left: 20px;">
-                    <b>Preço:</b> <?php echo ($this->curso->getGratuito(1) == 0 ? "Gratuito" : "R$" . $this->curso->getValor()); ?>
+                    <b>Preço:</b> <?php echo ($this->curso->getGratuito(1) == 1 ? "Gratuito" : "R$" . $this->curso->getValor()); ?>
                 </td>
             </tr>
             <tr>
@@ -46,7 +49,7 @@
             </tr>
             <tr>
                 <td style="padding-top: 20px;">
-                    <b>Justificativa:</b> <?php echo $this->curso->getJustificativa(); ?>
+                    <b>Objetivo:</b> <?php echo $this->curso->getObjetivo(); ?>
                 </td>
             </tr>
             <tr>
@@ -57,7 +60,9 @@
         </table>
     </form>
     <span style="display: none;">
+        <input type="text" id="id_curso" value="<?php echo $this->curso->getId_curso() ?>"/>
         <input type="text" id="usuario_logado" value="<?php echo (isset($_SESSION['usuarioLogado']) ? "1" : "0") ?>"/>
+        <input type="text" id="papel_usuario_logado" value="<?php echo (isset($_SESSION['usuarioLogado']) ? $_SESSION['usuarioLogado']->getId_papel() : "") ?>"/>
     </span>
 </div>
 

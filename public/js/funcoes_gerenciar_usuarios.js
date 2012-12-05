@@ -594,10 +594,16 @@ $(document).ready(function a(){
                         $("#error").html(msg + xhr.status + " " + xhr.statusText);
                     }else{                                                                                    
                         dialog = $('#dialog').dialog({
-                            width:800, 
-                            height:600,
-                            dialogClass:'dialogstyle', 
-                            modal:true,                        
+                            draggable: false,
+                            resizable: false,
+                            position: [(($(window).width()-900)/2), 15],
+                            width:970,
+                            show: {
+                                effect: 'drop', 
+                                direction: "up"
+                            },
+                            height: 600,
+                            modal:true,                   
                             close: function(event,ui){                     
                                 $(dialog).dialog('destroy');
                                 $(dialog).find('div').remove();
@@ -607,7 +613,7 @@ $(document).ready(function a(){
                 });
             }
         }else{
-            alert('Usuário não é estudante.');
+            alert('Usuário selecionado não é estudante.');
         }
     });            
         
@@ -627,7 +633,7 @@ $(document).ready(function a(){
     //Captura a atuação do usuário a ser editado e seta o combobox
     var atuacao = $("#i_atuacao");
     $("#atuacao").val(atuacao.val());
-    //Verifica se o país é Brasil, captura o estado do usuário a ser editado e seta o combobox
+//Verifica se o país é Brasil, captura o estado do usuário a ser editado e seta o combobox
 //    var estado = $("#i_estado");
 //    if(paisBrasil()){
 //        $("#endereco_estado").val(estado.val());

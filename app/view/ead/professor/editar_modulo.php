@@ -30,6 +30,9 @@
 
 <div id="div_conteudo_professor_editar_modulo">
     <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
+        <div style="border-bottom:1px solid #eeeeee;">
+            <center><label><b>Módulo <?php echo $this->modulo->getId_modulo(); ?></b></label></center>
+        </div>
         <div id="info_modulo">
             <div style="float: right; margin: 15px 30px 0 0;">
                 <input id="btn_editar_modulo" type="button" class="button2" value="Editar"/>
@@ -61,10 +64,10 @@
                         <img src="img/movie.png"/><label class="accord_label">Vídeo Aulas</label>
                     </div>
                 </div>
-                <div class="accord_content_body" style="display:none;">                                                                
+                <div class="accord_content_body" style="display:none;">
                     <ul id="lista_video" class="accord_ul">
                         <li>
-                            <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo();   ?>" value="Adicionar"/>
+                            <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="Adicionar"/>
                         </li>
                         <?php echo $this->listaVideo; ?>                                    
                     </ul>
@@ -77,7 +80,7 @@
                 <div class="accord_content_body" style="display:none;">
                     <ul id="lista_texto_referencia" class="accord_ul">
                         <li>
-                            <input type="button" class="btn_add" name="texto_referencia" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo();   ?>" value="Adicionar"/>
+                            <input type="button" class="btn_add" name="texto_referencia" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php echo $this->modulo->getId_modulo(); ?>" value="Adicionar"/>
                         </li>
                         <?php echo $this->listaTexto; ?>
                     </ul>
@@ -90,7 +93,7 @@
                 <div class="accord_content_body" style="display:none;">
                     <ul id="lista_material_complementar" class="accord_ul">
                         <li>
-                            <input type="button" class="btn_add" name="material_complementar" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo();   ?>" value="Adicionar"/>
+                            <input type="button" class="btn_add" name="material_complementar" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php echo $this->modulo->getId_modulo(); ?>" value="Adicionar"/>
                         </li>
                         <?php echo $this->listaMaterial; ?>
                     </ul>
@@ -103,7 +106,7 @@
                 <div class="accord_content_body" style="display:none;">
                     <ul id="lista_exercicio" class="accord_ul">
                         <li>
-                            <input type="button" class="btn_add" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo();   ?>" value="Adicionar"/>
+                            <input type="button" class="btn_add" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php echo $this->modulo->getId_modulo(); ?>" value="Adicionar"/>
                         </li>
                         <?php echo $this->listaExercicio; ?>
                     </ul>
@@ -132,16 +135,16 @@
 
 
 <!--<div id="div_conteudo_professor_editar_modulo">
-    <div id="titulo_modulos"><h1>Modulo <?php // echo $this->modulo->getNumero_modulo()   ?></h1>
+    <div id="titulo_modulos"><h1>Modulo <?php // echo $this->modulo->getNumero_modulo()    ?></h1>
         <form id="form_descritivo">
             <div id="div_editar_modulo" align="right">
                 <input type="button" name="btn_editar_modulo" id="btn_editar_modulo" value="Editar"/>
             </div>
 
             <h4>Titulo: </h4>        
-            <input readonly="true" id="titulo_modulo" type="text" name="titulo_modulo" value="<?php // echo $this->modulo->getTitulo_modulo();   ?>" />
+            <input readonly="true" id="titulo_modulo" type="text" name="titulo_modulo" value="<?php // echo $this->modulo->getTitulo_modulo();    ?>" />
             <h4>Descricao: </h4>        
-            <textarea readonly="true" type="text" id="descricao" name="descricao"><?php // echo $this->modulo->getDescricao()   ?></textarea>                           
+            <textarea readonly="true" type="text" id="descricao" name="descricao"><?php // echo $this->modulo->getDescricao()    ?></textarea>                           
 
             <div id="div_atualizar_modulo" style="display: none">
                 <input id="btn_atualizar_modulo" type="button" value="Atualizar"/>    
@@ -159,7 +162,7 @@
                 <div class="accord_content_body" style="display:none;">                                                                
                     <ul id="lista_video" class="ul_lista">                                    
                         <li>
-                            <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php // echo $this->modulo->getId_modulo();   ?>" value="novo"/>
+                            <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php // echo $this->modulo->getId_modulo();    ?>" value="novo"/>
                         </li>
 <?php // echo $this->listaVideo; ?>                                    
                     </ul>
@@ -172,7 +175,7 @@
                 <div class="add accord_content_body" style="display:none;">
                     <ul id="lista_texto_referencia" class="ul_lista">
                         <li>
-                            <input type="button" class="btn_add" name="texto_referencia" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php // echo $this->modulo->getId_modulo();   ?>" value="novo"/>
+                            <input type="button" class="btn_add" name="texto_referencia" id="index.php?c=ead&a=adicionar_texto_referencia&id=<?php // echo $this->modulo->getId_modulo();    ?>" value="novo"/>
                         </li>
 <?php // echo $this->listaTexto; ?>
                     </ul>
@@ -185,7 +188,7 @@
                 <div class="add accord_content_body" style="display:none;">
                     <ul id="lista_material_complementar" class="ul_lista">
                         <li>
-                            <input type="button" class="btn_add" name="material_complementar" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php // echo $this->modulo->getId_modulo();   ?>" value="novo"/>
+                            <input type="button" class="btn_add" name="material_complementar" id="index.php?c=ead&a=adicionar_material_complementar&id=<?php // echo $this->modulo->getId_modulo();    ?>" value="novo"/>
                         </li>
 <?php // echo $this->listaMaterial; ?>
                     </ul>
@@ -199,7 +202,7 @@
                 <div class="add accord_content_body" style="display:none;">
                     <ul id="lista_exercicio" class="ul_lista">
                         <li>
-                            <input type="button" class="btn_add" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php // echo $this->modulo->getId_modulo();   ?>" value="novo"/>
+                            <input type="button" class="btn_add" name="exercicio" id="index.php?c=ead&a=adicionar_exercicio&id=<?php // echo $this->modulo->getId_modulo();    ?>" value="novo"/>
                         </li>
 <?php // echo $this->listaExercicio; ?>
                     </ul>
@@ -210,6 +213,6 @@
 </div>
 
 <div style="display:none;">
-    <input type="text" name="id_modulo" id="id_modulo" value="<?php // echo $this->modulo->getId_modulo();   ?>"/>
-    <input type="text" name="id_curso" id="id_curso" value="<?php // echo $this->modulo->getId_curso();   ?>"/>
+    <input type="text" name="id_modulo" id="id_modulo" value="<?php // echo $this->modulo->getId_modulo();    ?>"/>
+    <input type="text" name="id_curso" id="id_curso" value="<?php // echo $this->modulo->getId_curso();    ?>"/>
 </div>-->

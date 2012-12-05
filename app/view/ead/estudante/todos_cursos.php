@@ -1,8 +1,6 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
-<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-<script src="js/accordion_1.js" type="text/javascript"></script>
 
 <script>
     function todos(){
@@ -43,20 +41,20 @@
 
 
 <style>
-    #cursos_aluno *{
+/*    #cursos_aluno *{
         background-color: #eeeeee;
         color: #333333;
     }
 
     #meus_cursos{
         background: #ffffff;
-        /*       
+               
             background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#f0f0f0));
             background: -webkit-linear-gradient(top, #fafafa, #f0f0f0);
             background: -moz-linear-gradient(top, #fafafa, #f0f0f0);
             background: -ms-linear-gradient(top, #fafafa, #f0f0f0);
             background: -o-linear-gradient(top, #fafafa, #f0f0f0);
-            background: linear-gradient(top, #fafafa, #f0f0f0);*/
+            background: linear-gradient(top, #fafafa, #f0f0f0);
         border: 1px solid #e7e7e7;
         border-top:1px solid #f6f6f6;
         padding: 5px 12px;
@@ -87,15 +85,34 @@
 
     #meus_cursos h3:first-letter{
         font-weight: bolder;
-    }
+    }*/
 </style>
 
-<div id="meus_cursos"><div style="">
+
+<script>
+    $('.accord_body').live('click', function(e) {
+        $(this).next('.accord_content_body').slideToggle('fast');                  
+    }); 
+</script>
+
+<div>
+    <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
+        <label style="font-size: 18px;"><b>Cursos</b></label><br><br>
+        <div id="menu_accordion">
+            <?php echo $this->listaCursos; ?>
+        </div>
+        <div id="div_inputhidden" style="display:none"> 
+        <input type="text" id="id_usuario" value="<?php echo $this->usuario->getId_usuario() ?>"/>
+    </div>
+    </div>
+</div>
+
+<!--<div id="meus_cursos"><div style="">
         <h3>Cursos</h3></div>
 
     <div class="">
         <?php
-        echo $this->listaCursos;
+//        echo $this->listaCursos;
         ?>
     </div>
 
@@ -103,5 +120,5 @@
         <input type="text" id="id_usuario" value="<?php echo $this->usuario->getId_usuario() ?>"/>
     </div>
 
-</div>
+</div>-->
 <?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

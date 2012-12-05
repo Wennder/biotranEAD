@@ -7,7 +7,7 @@
         <legend>Novo Comentario</legend>
         
         <table>
-            <input name="data" type="text" hidden="true" value="<?php  date_default_timezone_set("Brazil/East"); echo $today = date("F j, Y, g:i a"); ?>"/>
+            <input name="data" type="text" hidden="true" value="<?php date_default_timezone_set("Brazil/East"); echo $today = date("d/m/y - h:i"); ?>"/>
             <tr>
                 <td><label>autor: </label></td>
                 <td><input type="text" name="autor" style="width: 500px;" /></td>

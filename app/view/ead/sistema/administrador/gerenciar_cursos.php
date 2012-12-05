@@ -3,10 +3,7 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
 <script src="js/crudTabelaCurso.js" type="text/javascript"></script>
-<script src="js/jquery.validate.js" type="text/javascript"></script>
-<script src="js/messages_pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.dataTables.js" type="text/javascript"></script>
-<script src="js/validarNomeCurso.js" type="text/javascript"></script>
 <script src="js/funcoes_gerenciar_cursos.js" type="text/javascript"></script>
 <link href='css/demo_table_jui.css' rel='stylesheet' type="text/css"/>
 
@@ -48,7 +45,7 @@
                         </td>
                         <td>
                             <label class="label_cadastro_legend">R$</label>
-                            <input type="text" id="_id_valor" name="_id_valor" value="#VALOR#" class="text-input" style="width: 80px" maxlength="7"/>
+                            <input type="text" id="_id_valor" name="_id_valor" value="#VALOR#" class="text-input" style="width: 80px" onkeypress="return apenas_numero(event);" onKeyUp='mascara_moeda(this)'/>
                         </td>
                     </tr>
                     <tr>

@@ -84,35 +84,35 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
                     </td>
                     <td style="height: 15px;"></td>
                 </tr>
-                <tr>
+                <tr style="height: 35px;">
                     <td>
                         <label>
                             <b>Nome: </b><?php echo $this->curso->getNome(); ?>
                         </label>
                     </td>
                 </tr>
-                <tr>
+                <tr style="height: 35px;">
                     <td>
                         <label>
                             <b>Duração: </b><?php echo $this->curso->getTempo(); ?> dias
                         </label>
                     </td>
                 </tr>
-                <tr>
+                <tr style="height: 35px;">
                     <td>
                         <label>
                             <b>Status: </b><?php echo $this->curso->getStatus(0); ?>
                         </label>
                     </td>
                 </tr>
-                <tr>
+                <tr style="height: 35px;">
                     <td>
                         <label>
                             <b>Gratuito: </b><?php echo $this->curso->getGratuito(); ?>
                         </label>
                     </td>
                 </tr>
-                <tr>
+                <tr style="height: 35px;">
                     <td>
                         <label>
                             <b>Valor: </b>R$<?php echo $this->curso->getValor(); ?>
@@ -123,7 +123,7 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
             </table>
             <?php
                 if ($this->curso->getStatus() == 0 || $this->curso->getStatus() == 2) {
-                    echo('<div id="div_env_analise" style="position: absolute; margin: -120px 0 0 415px;"><input type="button" id="btn_env_analise" class="button1" value="Enviar para análise"/></div>');
+                    echo('<div id="div_env_analise" style="position: absolute; margin: -125px 0 0 415px;"><input type="button" id="btn_env_analise" class="button1" value="Enviar para análise"/></div>');
                 }
                 ?>
         </div>

@@ -86,19 +86,19 @@ class Curso {
         }
         else {
             if ($this->status == 0) {
-                return "Em construcao";
+                return "Em construção";
             }
             else if ($this->status == 1) {
-                return "Nao avaliado";
+                return "Não avaliado";
             }
             else if ($this->status == 2) {
                 return "Rejeitado";                
             }
             else if ($this->status == 3) {
-                return "Aprovado e indisponivel";                
+                return "Aprovado e indisponível";                
             }
             else if ($this->status == 4) {
-                return "Aprovado e disponivel";                
+                return "Aprovado e disponível";                
             }
         }        
     }
