@@ -29,7 +29,9 @@ $controllerCurso = new controllerCurso();
             if(centro!=1){
                 centro.find('div').remove();
             } 
+            $(centro).append('<div style="aling:right;" id="div_loading"><img src="img/gif/ajax-loader-f.gif" /></div>');            
             centro = $('#center_content').load($(this).attr('id'), function (){
+//                centro.find("#div_loading").remove();
             });               
         });
     }); 

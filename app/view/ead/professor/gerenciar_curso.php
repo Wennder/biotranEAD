@@ -108,12 +108,16 @@
                     async: false,
                     success: function(data, textStatus, jqXHR){                            
                         if(data){
+                            var ac = document.getElementsByName(id_resposta);
+                            $(ac).remove();
 //                            if(centro!=1){            
 //                                centro.find('div').remove();
 //                            }
-                            centro = $('#center_content').load('index.php?c=ead&a=topico&id='+id_topico, function (){                    
-                                $('#div_conteudo').append(centro);                    
-                            })
+//                            centro = $('#center_content').load('index.php?c=ead&a=topico&id='+id_topico, function (){                    
+//                                $('#div_conteudo').append(centro);                    
+//                            })
+                        }else{
+                            alert('Operação não realizada, tente novamente mais tarde!');
                         }
                     }
                 });

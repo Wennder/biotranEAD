@@ -110,7 +110,7 @@ class ControllerForum {
         $return = "";
         for (; $i < $quant; $i++) {
             ($i % 2 == 0) ? $id_fundo = 'fundo1' : $id_fundo = 'fundo2';
-            $return.="<div id='$id_fundo'><div class='$id_fundo" . "_header'>";
+            $return.="<div id='".$id_fundo."' name='".$respostas[$i]->getId_resposta()."'><div class='$id_fundo" . "_header'>";
             if ($respostas[$i]->getId_usuario() == $_SESSION['usuarioLogado']->getId_usuario()) {
                 $return.="<input style='float:right;' class='classeBotaoExcluir btn_excluir_resposta' id='" . $respostas[$i]->getId_resposta() . "' name='".$this->topico[0]->getId_topico()."'/>";
             }
