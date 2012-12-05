@@ -1,7 +1,3 @@
-
-<script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
-<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
-
 <div id="form_cadastro" style="">
     <form id="form_cadastrar" class="form_cadastro" method="post" action="index.php?c=ead&a=cadastrar_bibliografia<?php echo (isset($_GET['id'])?"&id=".$_GET['id'] : '') ?>" enctype="multipart/form-data">
         <fieldset style="width: 100%;">

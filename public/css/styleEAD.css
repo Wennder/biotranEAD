@@ -407,6 +407,25 @@ textarea{
     height: 20px;
     width: 20px;
 }
+
+.classeBotaoGerenciar{
+    background: url('../img/botao_gerenciar.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
+.classeBotaoGerenciar:hover{
+    cursor: pointer;
+}
+
+.classeBotaoGerenciar:active{
+    background: url('../img/botao_gerenciar_active.png') no-repeat;
+    border-style: none;
+    height: 20px;
+    width: 20px;
+}
+
 /*-----------------------------------------*/
 
 /*-- FORMULÁRIO DE CADASTRO, EDITAR E PROFILE --*/
@@ -428,10 +447,6 @@ form.form_cadastro, form.form_editar{
     width: 98%;
 }
 
-.label_cadastro, .label_profile, .label_editar{
-    font-size: 13px;
-}
-
 #form_cadastro .label_cadastro_legend, #form_editar .label_editar_legend{
     font-size: 11px;
     color: #555555;
@@ -443,6 +458,34 @@ form.form_cadastro, form.form_editar{
 }
 
 #form_cadastro fieldset, #profile fieldset, #form_editar fieldset{
+    border:1px solid #DCDCDC;
+}
+
+#form_cadastro label.error, #form_editar label.error{
+    float: none;
+    color: red;
+    margin: 8px 0 0 5px;
+    vertical-align:top;
+    font-size: 12px;
+    position: absolute;
+}
+
+.label_cadastro, .label_profile, .label_editar, .label_pergunta{
+    font-size: 13px;
+}
+
+/*.formulario{
+    font-family: tahoma,verdana,"sans-serif";
+    font-size: 12px;
+    width: 98%;
+}*/
+
+.formulario legend{
+    font-size: 11px;
+    color: #555555;
+}
+
+.formulario fieldset{
     border:1px solid #DCDCDC;
 }
 
@@ -458,22 +501,13 @@ form.form_cadastro, form.form_editar{
 }
 
 .text-area{
-   background: none repeat-x scroll 0 0 #FFFFFF;
+    background: none repeat-x scroll 0 0 #FFFFFF;
     border: 1px solid #B5B8C8;
     border-radius: 8px 8px 8px 8px;
     color: #555555;
     font-size: 14px;
     margin-top: 4px;
     padding: 4px; 
-}
-
-#form_cadastro label.error, #form_editar label.error{
-    float: none;
-    color: red;
-    margin: 8px 0 0 5px;
-    vertical-align:top;
-    font-size: 12px;
-    position: absolute;
 }
 
 #foto_usuario{
@@ -547,7 +581,7 @@ form.form_cadastro, form.form_editar{
     font-style:normal;
     color:#3074c7;
     width:140px;
-    padding:2px 20px;
+    padding:2px;
     cursor:pointer;
     margin:0 auto;
     background:#f2f2f2;
@@ -576,8 +610,6 @@ form.form_cadastro, form.form_editar{
     padding: 3px 15px;
     cursor:pointer;
     margin:0 auto;
-    /*    text-align: center;*/
-    /*    z-index:5;*/
     background-color: #0180B1;
     border: 1px solid #1b3952;    
     border-bottom: 1px solid #23496a;
@@ -600,9 +632,35 @@ form.form_cadastro, form.form_editar{
 }
 /*-----------------------------------------*/
 
+/*------------- BOTÃO TIPO 3 --------------*/
+.button3 {
+    background: #fff;
+    background-position: left center;
+    border: #ddd 1px solid;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    box-shadow: 2px 2px 2px #EEEEEE;
+    -webkit-box-shadow:2px 2px 2px #EEEEEE;
+    -moz-box-shadow:2px 2px 2px #EEEEEE;
+    -ms-box-shadow:2px 2px 2px #EEEEEE;
+    -o-box-shadow: 2px 2px 2px #EEEEEE;
+    color: #606060;
+    cursor: pointer;
+    padding: 1px 10px;
+}
+
+.button3:active{
+    cursor:pointer;
+    position:relative;
+    top:2px;
+}
+/*-----------------------------------------*/
+
 /*------------ BOTÃO ADICIONAR ------------*/
 .btn_add {
-/*    background: url("../img/document_edit.add") #fff no-repeat;*/
     background: #fff;
     background-position: left center;
     margin: 5px;
@@ -624,12 +682,10 @@ form.form_cadastro, form.form_editar{
 
 /*------------- BOTÃO EDITAR --------------*/
 .btn_edt {
-/*    background: url("../img/document_edit.png") #fff no-repeat;*/
     background: #fff;
     background-position: left center;
     float: right;
     margin: -3px 5px 0 0;
-/*    padding-left: 24px;*/
     border: #ddd 1px solid;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 1px 1px 1px #EEE;
@@ -646,16 +702,12 @@ form.form_cadastro, form.form_editar{
 }
 /*-----------------------------------------*/
 
-/*-----------------------------------------*/
-
 /*------------- BOTÃO EXCLUIR -------------*/
 .btn_del {
-/*    background: url("../img/delete.png") #fff no-repeat;*/
     background: #fff;
     background-position: left center;
     float: right;
     margin: -3px 5px 0 0;
-/*    padding-left: 24px;*/
     border: #ddd 1px solid;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 1px 1px 1px #EEE;
@@ -733,6 +785,49 @@ form.form_cadastro, form.form_editar{
 #menu_accordion ul{
     padding: 0;
     margin: 0;
+}
+/*-----------------------------------------*/
+
+/*---------- GERENCIAR NOTÍCIAS -----------*/
+.b_0{
+    border-left: 3px solid rgb(127, 144, 208) !important;
+}
+
+.b_1{
+    border-left: 3px solid rgb(127, 208, 139) !important;
+}
+
+.b_2{
+    border-left: 3px solid rgb(205, 208, 127) !important;
+}
+
+.b_3{
+    border-left: 3px solid rgb(175, 127, 208) !important;
+}
+
+.b_4{
+    border-left: 3px solid rgb(208, 127, 127) !important;
+}
+
+.noticia, .comentario{
+    border-bottom: 1px solid #ddd;
+/*    border-top: 1px solid #ddd;*/
+    padding:4px 15px;
+}
+
+.noticia *, .comentario *{
+    margin: 0;
+}
+
+.noticia a, .comentario a{
+    text-decoration: none;
+    color: #404040;
+}
+
+.noticia:hover, .comentario:hover{
+     box-shadow:0px 2px 4px #DDD inset;
+    -moz-box-shadow:0px 2px 4px #DDD inset;
+    -webkit-box-shadow:0px 2px 4px #DDD inset;
 }
 /*-----------------------------------------*/
 
@@ -899,7 +994,7 @@ ul{
 /*-----------------------------------------*/
 
 
-#cursos_aluno{
+/*#cursos_aluno{
     margin: 50px 30px 0 30px;
 }
 
@@ -907,9 +1002,9 @@ ul{
     margin: 0 0 30px 0;
     padding: 5px;
     border: 1px solid #555555;
-}
+}*/
 
-#imagem_curso{
+/*#imagem_curso{
     height: 180px;
     width: 240px;
     background-color: #DCDCDC;
@@ -919,13 +1014,19 @@ ul{
 .patrocinador_holder{
     float:left;
     margin:5px;
-}
+}*/
 
+/*.img_parceiro{
+    height: 225px;
+    width: 200px;
+    margin:5px;
+}*/
+/*
 #patrocinadores_gerencia{
     padding: 0px 20px;
-}
+}*/
 
-#gerenciar_sistema{
+/*#gerenciar_sistema{
     list-style: none;
 }
 
@@ -953,7 +1054,7 @@ ul{
     border-radius: 5px;
     margin-left:  20px;
     box-shadow:  1px 1px 3px #cccccc ;
-}
+}*/
 
 
 

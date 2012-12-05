@@ -439,6 +439,51 @@ class controllerCurso {
         return $tabela;
     }
 
+// public function lista_cursosAluno() {
+//        $tabela = null;
+//        $this->cursos = $this->getListaCursos("status = 4");
+//        $matricula_cursoDAO = new Matricula_cursoDAO();
+//        $matriculados = $matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario());
+//        $quant = count($matriculados);
+//        $i = 0;
+//
+//        $tabela .= "<div class='accord_body accord_list' style='border-left:3px solid #7f90d0; padding-left:5px;'><label class='accord_label'>Meus Cursos</label></div>";
+//        $tabela .= "<div class='accord_content_body' style='display: none;'><ul class='accord_ul'>";
+//        if ($quant > 0) {
+//            for (; $i < $quant; $i++) {
+//                $auxCurso = $this->getListaCursos("id_curso=" . $matriculados[$i]->getId_curso());
+//                $tabela.="<li class='conteudo_row'><label>" . $auxCurso[0]->getNome() . '</label>';
+//                $tabela.="<div align='right'><a href='index.php?c=ead&a=curso_aluno&id=" . $auxCurso[0]->getId_curso() . "' class='button3'>Acessar</a></div></li>";
+////                $tabela.= "<div><a style='font-size: 12px'>Duração do curso:" . $auxCurso[0]->getTempo() . "</a></div></div></a></li>";
+//            }
+//        } else {
+//            $tabela.="<li class='conteudo_row'><label>Você não possui nenhum curso no momento.</label></li>";
+//        }
+//        $tabela .= "</ul></div>";
+//        $quant = count($this->cursos);
+//        $i = 0;
+//        $tabela .= "<div class='accord_body accord_list' style='border-left:3px solid #7f90d0; padding-left:5px;'><label class='accord_label'>Outros Cursos</label></div>";
+//        $tabela .= "<div class='accord_content_body' style='display: none;'><ul class='accord_ul'>";
+////        $tabela .= "<div class='lista_cursos accord' style='border-left:3px solid #7fd08b; padding-left:5px;'>Outros Cursos</div><div class='aluno_cursos accord_content'><ul>";
+//        if ($quant > 0)
+//            for (; $i < $quant; $i++) {
+//                if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() ." AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
+//                    $tabela.="<li><a><div class='lista_cursos'><table style='width: 100%;' class='nao_matriculado'>
+//                    <tr ><td align='left'>" . $this->cursos[$i]->getNome() . "</td>";
+////                $tabela.="<td align='right' ><a href='index.php?c=ead&a=matricula&id=" . $this->cursos[$i]->getId_curso() . "' class='button'>Matricular</a></td></tr>";
+//                    $aux = 'Em contrucao';
+//                    $tabela.="<td align='right'><input id='btn_visualizarCurso' name='" . $this->cursos[$i]->getId_curso() . "' type='button' value='Visualizar' /></td></tr>";
+//                    $tabela.= "<tr><td style='font-size:12px;'>Duração do curso:" . $this->cursos[$i]->getTempo() . "</td></tr>";
+//                    $tabela.="</table></div></a></li>";
+//                }
+//            } else {
+//            $tabela.="<li><a><div class='lista_cursos'>
+//               Nao ha outros cursos disponiveis no momento!</div></a></li>";
+//        }
+//        $tabela .='</ul></div>';
+//        return $tabela;
+//    }
+    
     public function lista_cursosAluno() {
         $tabela = null;
         $this->cursos = $this->getListaCursos("status = 4");
@@ -482,7 +527,7 @@ class controllerCurso {
         }
         $tabela .='</ul></div>';
         return $tabela;
-    }
+    }    
 
     public function modulosCurso($id_curso) {
         $lista = null;
@@ -692,7 +737,7 @@ class controllerCurso {
     }
 
     public function tabelaGerenciar_matricula($id_usuario) {
-        $tabela = "<table id='tabela_matricula_cursos' width='100%' align='center'>
+        $tabela = "<table id='tabela_matricula_cursos' width='100%' align='center' class='display'>
          <thead> 
                 <tr> 
                     <th>Curso</th> 
@@ -714,23 +759,23 @@ class controllerCurso {
         for (; $i < $quant; $i++) {
             $m = $controller->getMatricula_curso('id_curso=' . $this->cursos[$i]->getId_curso() . ' AND id_usuario=' . $id_usuario);
             if ($m != null) {
-                $tabela .= "<tr name='matricula' id=" . $m->getId_matricula_curso() . ">";
-                $tabela .= "<td width='45%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
+                $tabela .= "<tr id=" . $m->getId_matricula_curso() . ">";
+                $tabela .= "<td width='49%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
                 if ($m->getStatus_acesso() == 1) {
-                    $tabela .= "<td width='15%' id='status' align='center'><input type='checkbox' value='0' checked='checked' name='".$m->getId_matricula_curso()."' id='check_liberar_matricula' /></td>";
+                    $tabela .= "<td width='14%' id='status' align='center'><input type='checkbox' value='0' checked='checked' name='".$m->getId_matricula_curso()."' id='check_liberar_matricula' /></td>";
                 } else {
-                    $tabela .= "<td width='15%' id='status' align='center'><input type='checkbox' value='1' id='check_liberar_matricula' name='".$m->getId_matricula_curso()."' /></td>";
+                    $tabela .= "<td width='14%' id='status' align='center'><input type='checkbox' value='1' id='check_liberar_matricula' name='".$m->getId_matricula_curso()."' /></td>";
                 }
-                $tabela .= "<td width='40%' id='progresso' align='center'> -- </td>";
-                $tabela .= "<td width='40%' id='data_inicio' align='center'>" . $m->getData_inicio() . "</td>";
-                $tabela .= "<td width='40%' id='data_termino' align='center'><input type='text' value='" . $m->getData_fim() . "' id='data-".$m->getId_matricula_curso()."' name='".$m->getId_matricula_curso()."' class='i_data_termino' /></td>";
+                $tabela .= "<td width='11%' id='progresso' align='center'> -- </td>";
+                $tabela .= "<td width='13%' id='data_inicio' align='center'>" . $m->getData_inicio() . "</td>";
+                $tabela .= "<td width='13%' id='data_termino' align='center'><input type='text' value='" . $m->getData_fim() . "' id='data-".$m->getId_matricula_curso()."' name='".$m->getId_matricula_curso()."' class='i_data_termino' /></td>";
             } else {
-                $tabela .= "<tr name='nova_matricula' id='".$this->cursos[$i]->getId_curso()."'>";
-                $tabela .= "<td width='45%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
-                $tabela .= "<td width='15%' id='status' align='center'>Não matriculado</td>";
-                $tabela .= "<td width='15%' id='progresso' align='center'> -- </td>";
-                $tabela .= "<td width='25%' id='data_inicio' align='center'> -- </td>";
-                $tabela .= "<td width='25%' id='data_termino' align='center'> -- </td>";
+                $tabela .= "<tr id='matricular'>";
+                $tabela .= "<td width='49%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
+                $tabela .= "<td width='14%' id='status' align='center'><input type='button' value='Matricular' id='".$this->cursos[$i]->getId_curso()."' class='button3' /></td>";
+                $tabela .= "<td width='11%' id='progresso' align='center'> -- </td>";
+                $tabela .= "<td width='13%' id='data_inicio' align='center'> -- </td>";
+                $tabela .= "<td width='13%' id='data_termino' align='center'> -- </td>";
             }
             $tabela .= "</tr>";
         }

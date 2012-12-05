@@ -601,14 +601,13 @@ $(document).ready(function a(){
                             draggable: false,
                             resizable: false,
                             position: [(($(window).width()-900)/2), 15],
-                            width:900,
+                            width:970,
                             show: {
                                 effect: 'drop', 
                                 direction: "up"
                             },
-                            height: ($(window).height() - 40),
-                            modal:true,
-                            dialogClass:'dialogstyle', 
+                            height: 600,
+                            modal:true,                   
                             close: function(event,ui){                     
                                 $(dialog).dialog('destroy');
                                 $(dialog).find('div').remove();
@@ -618,7 +617,7 @@ $(document).ready(function a(){
                 });
             }
         }else{
-            alert('Usuário não é estudante.');
+            alert('Usuário selecionado não é estudante.');
         }
     });            
         

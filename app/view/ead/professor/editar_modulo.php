@@ -30,6 +30,9 @@
 
 <div id="div_conteudo_professor_editar_modulo">
     <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
+        <div style="border-bottom:1px solid #eeeeee;">
+            <center><label><b>Módulo <?php echo $this->modulo->getId_modulo(); ?></b></label></center>
+        </div>
         <div id="info_modulo">
             <div style="float: right; margin: 15px 30px 0 0;">
                 <input id="btn_editar_modulo" type="button" class="button2" value="Editar"/>
@@ -63,7 +66,7 @@
                         <img src="img/movie.png"/><label class="accord_label">Vídeo Aulas</label>
                     </div>
                 </div>
-                <div class="accord_content_body" style="display:none;">                                                                
+                <div class="accord_content_body" style="display:none;">
                     <ul id="lista_video" class="accord_ul">
                         <li>
                             <input type="button" class="btn_add" name="video" id="index.php?c=ead&a=adicionar_videoaula&id=<?php echo $this->modulo->getId_modulo(); ?>" value="Adicionar"/>

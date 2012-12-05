@@ -1,4 +1,3 @@
-<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
 <script>
     $(document).ready(function e(){
         oTable_matricula = $('#tabela_matricula_cursos').dataTable({
@@ -16,7 +15,7 @@
                         acao:'atualizar_data'
                     }, function(j){
                         if(j != 1){                            
-                            alert('erro ao alterar data, tente novamente');
+                            alert('Erro ao alterar data, tente novamente.');
                         }
                     });
                 }
@@ -26,10 +25,11 @@
     });
 </script>
 
-<div id="tab_matricula_curso" style=""> 
-    <input type="button" value="" id="btn_matricular" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Matricular
-    <input type="button" value="" id="btn_cancelar_matricula" class="classeBotaoExcluir" style="margin: 0 0 5px 10px;"/> Cancelar Matricula
-    <br>
+<div id="tab_matricula_curso" style="">
+    <div style="border-bottom:1px solid #eeeeee; width: 940px;">
+        <center><label style="font-weight: bold; font-size: 14px;">Gerenciar Matrícula</label></center>
+    </div><br>
+    <center><label style="font-size: 13px;"><?php echo $this->usuario->getNome_completo(); ?></label></center><br>
     <?php
     echo $this->tabela;
     ?>

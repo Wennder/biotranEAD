@@ -9,7 +9,6 @@
         <script src="js/jquery.form.js" type="text/javascript"></script>
         <script src="js/jquery-te-1.0.5.min.js" type="text/javascript"></script>
         <script src="js/biotran.js" type="text/javascript"></script>
-        <script src="js/accordion.js" type="text/javascript"></script>
         <script src="js/jquery.validate.js" type="text/javascript"></script>
         <script src="js/messages_pt_BR.js" type="text/javascript"></script>
         

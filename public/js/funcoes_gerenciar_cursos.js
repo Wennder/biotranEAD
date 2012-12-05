@@ -93,7 +93,7 @@ function insertDataTables(_form, json){//Adicionar essa função
     oTable.fnAddData(fields_value, true);
 }
     
-$(document).ready(function(){               
+$(document).ready(function(){ 
     //capturando nome das colunas da tabela para lógica replace de ids        
     $('thead th').each(function(){
         var texto = $(this).text().split(' ');
@@ -109,31 +109,31 @@ $(document).ready(function(){
             "aTargets": [ 5 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 6 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 7 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 8 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 9 ], 
             "sTitle":"rendering"
         },
-{
+        {
             "bSearchable": false, 
             "bVisible": false, 
             "aTargets": [ 10 ], 
@@ -432,7 +432,7 @@ $(document).ready(function(){
     });               
         
     $('#btn_add').live('click',function(){                                                                   
-        var _HTML = $('#dialog_form').html();                                
+        var _HTML = $('#dialog_form').html();      
         //preparando picklist do curso:                
         $.getJSON('ajax/combosPickList_cadastroCurso.php?acao=semID',{                       
             ajax: 'true'
@@ -556,8 +556,8 @@ $(document).ready(function(){
                                 });
                             }));
                             return false;
-                        });
-                    }                    
+                        });                   
+                    }
                 });                
             }else{
                 alert('Não existe usuário professor para ser vinculado!');
@@ -588,3 +588,21 @@ $(document).ready(function(){
         
     });
 });
+
+function mascara_moeda(src){
+    var tmp = src.value.replace(/[\D]+/g,'')+'';
+    tmp = tmp.replace(/([0-9]{2})$/g, ",$1");  
+    if( tmp.length > 6 )  
+        tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");  
+    src.value = tmp;
+}
+
+//Faz o input aceitar apenas números
+function apenas_numero(e){
+    var tecla=(window.event)?event.keyCode:e.which;   
+    if((tecla>47 && tecla<58)) return true;
+    else{
+        if (tecla==8 || tecla==0) return true;
+        else  return false;
+    }
+}
