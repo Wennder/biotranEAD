@@ -10,13 +10,15 @@ var dialog, oTable, elem, nomeColunas = new Array();
     
 function updateDataTables(_form){
     var fields_value = new Array();
+    var _data = oTable.fnGetData(elem[0]);
     for (var i=0; i<nomeColunas.length; i++) {
         if(nomeColunas[i] == 'sexo'){                
             fields_value.push($(_form).find('input[name="'+nomeColunas[i]+'"]:checked').val());
         }else{    
             valorCampo = $(_form).find('#'+nomeColunas[i]).val();
             if(nomeColunas[i] == 'id_papel'){
-                valorCampo = getNomePapel(valorCampo);
+                valorCampo = _data[1];
+            //                valorCampo = getNomePapel(valorCampo);
             }
             fields_value.push(valorCampo);                
         }
@@ -241,6 +243,7 @@ $(document).ready(function a(){
             _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
             _HTML = _HTML.replace('_id_id', 'id');
             _HTML = _HTML.replace('_id_id', 'id');
+            _HTML = _HTML.replace('_id_tr_id_papel', 'tr_id_papel');            
             for(i = 0; i < nomeColunas.length; i++){
                 _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
                 _HTML = _HTML.replace('_id_'+nomeColunas[i], nomeColunas[i]);
@@ -282,7 +285,7 @@ $(document).ready(function a(){
                 modal:true,
                 close: function(event,ui){                
                     var form = $(this).find('#cadastro');
-                    //deselecionando combos
+                    //deselecionando combos                    
                     $('#perm_'+_data[1]).removeAttr('selected');//permissao
                     $('#'+_data[2]).removeAttr('selected');//atuacao
                     $('#'+_data[19]).removeAttr('selected');//estado                        
@@ -353,6 +356,7 @@ $(document).ready(function a(){
                             }
                         }
                     }); //chamar a nova validação com as regras
+                    $('#tr_id_papel').remove();//permissao
                     form.attr('action', 'ajax/crud_usuario.php?acao=atualizar');
                     form.live('submit',function(){
                         form.ajaxSubmit({

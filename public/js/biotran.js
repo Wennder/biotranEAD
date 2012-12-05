@@ -38,7 +38,8 @@ function zerarCronometro(){
 //---------------------------------------------------
 
 $(document).ready(function(){                
-    document.onClick = comprimir();
+    document.onClick = comprimir();        
+    
     $('.btn_del_pergunta').live('click', function(e){
         var r = confirm('Tem certeza de que deseja excluir este registro?');
         if(r == true){
@@ -106,63 +107,63 @@ $(document).ready(function(){
         });
     });               
                 
-//    $(".btn_resolver_exe").live('click', function(){                        
-//        var btn = $(this);
-//        $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
-//            if (status == "error") {
-//                alert('erro');
-//                var msg = "Sorry but there was an error: ";
-//                $("#error").html(msg + xhr.status + " " + xhr.statusText);
-//            }else{                                                                                    
-//                dialog = $('#dialog').dialog({
-//                    width:800, 
-//                    height:600,
-//                    dialogClass:'dialogstyle', 
-//                    modal:true,                        
-//                    close: function(event,ui){                     
-//                        $(dialog).dialog('destroy');
-//                        $(dialog).find('div').remove();
-//                    }                                        
-//                });
-//            }
-//        });
-//    });
+    //    $(".btn_resolver_exe").live('click', function(){                        
+    //        var btn = $(this);
+    //        $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
+    //            if (status == "error") {
+    //                alert('erro');
+    //                var msg = "Sorry but there was an error: ";
+    //                $("#error").html(msg + xhr.status + " " + xhr.statusText);
+    //            }else{                                                                                    
+    //                dialog = $('#dialog').dialog({
+    //                    width:800, 
+    //                    height:600,
+    //                    dialogClass:'dialogstyle', 
+    //                    modal:true,                        
+    //                    close: function(event,ui){                     
+    //                        $(dialog).dialog('destroy');
+    //                        $(dialog).find('div').remove();
+    //                    }                                        
+    //                });
+    //            }
+    //        });
+    //    });
                 
-//    $("#cancelar_questionario").live('click', function(){                        
-//        dialog.dialog('close');
-//    });
-//                
-//    $("#submeter_questionario").live('click', function(){
-//        var r = confirm('Tem certeza? Uma vez submetido não podera mais voltar atrás');
-//        if(r){
-//            var qnt = $('#total_perguntas').val();
-//            var i;
-//            var respostas = '';
-//            var id_questoes = '';
-//            var j;
-//            var id_exercicio = $('#id_exercicio').val();
-//            for(i = 0; i < qnt; i++){
-//                j = i+1;
-//                respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
-//                id_questoes += $('#id_pergunta_'+i).val()+';';
-//            }
-//            $.getJSON('ajax/submeterQuestionario.php', {
-//                respostas: respostas, 
-//                id_perguntas:id_questoes
-//            }, 
-//            function(j){
-//                if(j == 1){
-//                    alert('Questionário submetido com sucesso!');
-//                    $('input[name="exercicio_'+id_exercicio+'"]').attr('disabled', 'true');
-//                    $('input[name="exercicio_'+id_exercicio+'"]').removeAttr('id');
-//                    $('input[name="exercicio_'+id_exercicio+'"]').attr('value', 'Exercicio já submetido');
-//                    dialog.dialog('close');
-//                }else{
-//                    alert('Erro ao submeter questionário, tente novamente!');
-//                }
-//            });                        
-//        }
-//    });
+    //    $("#cancelar_questionario").live('click', function(){                        
+    //        dialog.dialog('close');
+    //    });
+    //                
+    //    $("#submeter_questionario").live('click', function(){
+    //        var r = confirm('Tem certeza? Uma vez submetido não podera mais voltar atrás');
+    //        if(r){
+    //            var qnt = $('#total_perguntas').val();
+    //            var i;
+    //            var respostas = '';
+    //            var id_questoes = '';
+    //            var j;
+    //            var id_exercicio = $('#id_exercicio').val();
+    //            for(i = 0; i < qnt; i++){
+    //                j = i+1;
+    //                respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
+    //                id_questoes += $('#id_pergunta_'+i).val()+';';
+    //            }
+    //            $.getJSON('ajax/submeterQuestionario.php', {
+    //                respostas: respostas, 
+    //                id_perguntas:id_questoes
+    //            }, 
+    //            function(j){
+    //                if(j == 1){
+    //                    alert('Questionário submetido com sucesso!');
+    //                    $('input[name="exercicio_'+id_exercicio+'"]').attr('disabled', 'true');
+    //                    $('input[name="exercicio_'+id_exercicio+'"]').removeAttr('id');
+    //                    $('input[name="exercicio_'+id_exercicio+'"]').attr('value', 'Exercicio já submetido');
+    //                    dialog.dialog('close');
+    //                }else{
+    //                    alert('Erro ao submeter questionário, tente novamente!');
+    //                }
+    //            });                        
+    //        }
+    //    });
                 
     $(".btn_add").live('click', function(){        
         var btn = $(this);
@@ -205,7 +206,10 @@ $(document).ready(function(){
                     draggable: false,
                     resizable: false,
                     position: [(($(window).width()-width)/2), 15],
-                    show: { effect: 'drop', direction: "up"},
+                    show: {
+                        effect: 'drop', 
+                        direction: "up"
+                    },
                     width: width, 
                     height: height,
                     dialogClass:'dialogstyle',
@@ -291,10 +295,10 @@ $(document).ready(function(){
         return false;
     });
          
-    //Se clicar no link, redireciona
-    //    $(".accord h3").click(function() {
-    //        location = ($(this).attr('id'));
-    //    });
+//Se clicar no link, redireciona
+//    $(".accord h3").click(function() {
+//        location = ($(this).attr('id'));
+//    });
 });
 
             
@@ -314,11 +318,11 @@ function insereLinha(data, tipo){
         var id_curso = $('#id_curso').val();        
         data = data.split('-');
         data[0] = data[0].replace('"', '');
-        data[1] = data[1].replace('"', '');        
+        data[1] = data[1].replace('"', '');            
         var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir" style="float: right;"/>';
         if(tipo == 'video'){
             var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar" style="float: right;"/>';
-            var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1]+'</label>' + excluir + editar + '</li>';
+            var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label class="link_video" name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1].toString()+'</label>' + excluir + editar + '</li>';
         }else{            
             if(tipo == 'exercicio'){
                 var editar = '<input id="index.php?c=ead&a=editar_exercicio&id='+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar" style="float: right;">';

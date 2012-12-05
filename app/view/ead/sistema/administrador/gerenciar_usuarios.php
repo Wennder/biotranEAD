@@ -15,6 +15,7 @@ switch ($papel) {
 <script src="js/crudTabelaUsuario.js" type="text/javascript"></script>
 <script src="js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="js/funcoes_gerenciar_usuarios.js" type="text/javascript"></script>
+<script src="js/tb_gerenciar_matricula.js" type="text/javascript"></script>
 <link href='css/demo_table_jui.css' rel='stylesheet' type="text/css"/>
 
 <!-- formulario de cadastro do usuario -->

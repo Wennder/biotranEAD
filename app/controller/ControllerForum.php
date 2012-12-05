@@ -1,6 +1,8 @@
 <?php
+
 class ControllerForum {
     //put your code here
+
     const COR_LINHA_PAR = '#CCCCCC';
     const COR_LINHA_IMPAR = '#DDDDDD';
 
@@ -28,12 +30,12 @@ class ControllerForum {
         }
     }
 
-    public function getData_hora(){
-        if($this->topico!=null){
+    public function getData_hora() {
+        if ($this->topico != null) {
             return $this->topico[0]->getData_hora();
         }
     }
-    
+
     //buscas no banco
     //altera a variavel global diferente da ListaTopicos
     public function getTopico($condicao) {
@@ -71,7 +73,7 @@ class ControllerForum {
             $corlinha = ($i % 2 == 0) ? self::COR_LINHA_PAR : self::COR_LINHA_IMPAR;
             $respostas = $this->getListaRespostas("id_topico=" . $topicos[$i]->getId_topico());
             $quant_respostas = count($respostas);
-            $lista_topicos.="<tr bgcolor='$corlinha' onmouseover=\"mouseover(this);\" onmouseout=\"mouseout(this, '$corlinha');\" onclick=\"mouseclick(this, '$corlinha')\" >";
+            $lista_topicos.="<tr id='lista_topicos-".$topicos[$i]->getId_topico()."' bgcolor='$corlinha' onmouseover=\"mouseover(this);\" onmouseout=\"mouseout(this, '$corlinha');\" onclick=\"mouseclick(this, '$corlinha')\" >";
             $lista_topicos.="<td>";
             $lista_topicos.=$topicos[$i]->getTitulo();
             $lista_topicos.="</td>";
@@ -80,17 +82,17 @@ class ControllerForum {
             $lista_topicos.=$user[0]->getNome_completo();
             $lista_topicos.="</td>";
             $lista_topicos.="<td align='center'>";
-            $lista_topicos.=$quant_respostas;
+            $lista_topicos.= $quant_respostas;
             $lista_topicos.="</td>";
             //Adicionar links a cada linha da tabela
-            $lista_topicos.="<td><a href='index.php?c=ead&a=topico&id=" . $topicos[$i]->getId_topico() . "'>";
+            $lista_topicos.="<td><fr><a name='topico' href='#' id='index.php?c=ead&a=topico&id=" . $topicos[$i]->getId_topico() . "'>";
             $lista_topicos.="<img src='../public/img/botao_visualizar.png' title='Visualizar' />";
-            $lista_topicos.="</td></a>";
-            if($topicos[$i]->getId_usuario() == $_SESSION['usuarioLogado']->getId_usuario()){
-            $lista_topicos.="<td><a href='index.php?c=ead&a=forum&id=".$_GET['id']."&d=".$topicos[$i]->getId_topico()."'>";
-            $lista_topicos.="<img src='../public/img/botao_excluir.png' title='Excluir' />";
-            $lista_topicos.="</a></td>";
-            }else{
+            $lista_topicos.="</td></a></fr>";
+            if ($topicos[$i]->getId_usuario() == $_SESSION['usuarioLogado']->getId_usuario()) {
+                $lista_topicos.="<td><input type='button' title='Excluir' class='classeBotaoExcluir btn_excluir_topico' name='lista_topico' id='" . $topicos[$i]->getId_topico() . "'/>";
+//                $lista_topicos.="<img src='../public/img/botao_excluir.png' title='Excluir' />";
+//                $lista_topicos.="</input></td>";
+            } else {
                 $lista_topicos.="<td ><img src='../public/img/botao_excluir_desativado.png' title='' /></td>";
             }
         }
@@ -107,16 +109,16 @@ class ControllerForum {
         $i = 0;
         $return = "";
         for (; $i < $quant; $i++) {
-            ($i % 2 == 0) ? $id_fundo='fundo1' : $id_fundo='fundo2';
-            $return.="<div id='$id_fundo'><div class='$id_fundo"."_header'>";
-            if($respostas[$i]->getId_usuario() == $_SESSION['usuarioLogado']->getId_usuario()){
-                $return.="<a style='float:right;' href='index.php?c=ead&a=topico&id=".$this->topico[0]->getId_topico()."&d=".$respostas[$i]->getId_resposta()."'><img src='img/excluir_forum.png' /></a>";
+            ($i % 2 == 0) ? $id_fundo = 'fundo1' : $id_fundo = 'fundo2';
+            $return.="<div id='$id_fundo'><div class='$id_fundo" . "_header'>";
+            if ($respostas[$i]->getId_usuario() == $_SESSION['usuarioLogado']->getId_usuario()) {
+                $return.="<input style='float:right;' class='classeBotaoExcluir btn_excluir_resposta' id='" . $respostas[$i]->getId_resposta() . "' name='".$this->topico[0]->getId_topico()."'/>";
             }
-            $return.="<b>Re: </b>" . $this->topico[0]->getTitulo()."<br>";
+            $return.="<b>Re: </b>" . $this->topico[0]->getTitulo() . "<br>";
             $usuario = $this->getUsuario("id_usuario=" . $respostas[$i]->getId_usuario());
             $return.="<b>Autor: </b>" . $usuario[0]->getNome_completo();
-            $return.="<span>  ".$this->topico[0]->getData_hora()."</span>";
-            $return.="</div><div class='$id_fundo"."_mensagem'><p>" . $respostas[$i]->getMensagem() . "</p></div><br><a href='index.php?c=ead&a=responder_topico&id=" . $this->topico[0]->getId_topico() . "' id='forum_responder'>Responder</a></div><br>";
+            $return.="<span>  " . $this->topico[0]->getData_hora() . "</span>";
+            $return.="</div><div class='$id_fundo" . "_mensagem'><p>" . $respostas[$i]->getMensagem() . "</p></div><br><a href='index.php?c=ead&a=responder_topico&id=" . $this->topico[0]->getId_topico() . "' id='forum_responder'>Responder</a></div><br>";
         }
 
         return $return;
@@ -128,11 +130,9 @@ class ControllerForum {
             if ($this->topico == null) {
                 $this->topico = new Topico();
             }
-
             foreach ($_POST as $k => $v) {
                 $setAtributo = 'set' . ucfirst($k);
                 if (method_exists($this->topico, $setAtributo)) {
-
                     $this->topico->$setAtributo($v);
                 }
             }
@@ -142,9 +142,12 @@ class ControllerForum {
 
     public function inserir_topico() {
         $resposta = $this->setTopico_Post();
-        $resposta->setId_topico($this->novoTopico($this->topico));
-
-        return $resposta;
+        $id = $this->novoTopico($this->topico);
+        if ($id != 0) {
+            $resposta->setId_topico($id);
+            return $resposta;
+        }
+        return 0;
     }
 
     public function novoTopico(Topico $topico = null) {
@@ -152,10 +155,7 @@ class ControllerForum {
             $dao = new TopicoDAO();
             //verifica se realmente já não existe o registro
             //prevenir reenvio de formulário
-
             return $dao->insert($topico);
-
-            trigger_error("1 Reenvio de formulario, usuario ja cadastrado");
         } else {
             return 'ERRO: funcao novoTopico - [controllerUsuario]';
         }
@@ -181,9 +181,12 @@ class ControllerForum {
 
     public function inserir_resposta() {
         $resposta = $this->setResposta_Post();
-        $resposta->setId_resposta($this->novaResposta($this->resposta));
-
-        return $resposta;
+        $id = $this->novaResposta($this->resposta);
+        if ($id != 0) {
+            $resposta->setId_resposta();
+            return $resposta;
+        }
+        return 0;
     }
 
     public function novaResposta(Resposta $resposta = null) {
@@ -191,50 +194,21 @@ class ControllerForum {
             $dao = new RespostaDAO();
             //verifica se realmente já não existe o registro
             //prevenir reenvio de formulário
-
-            return $dao->insert($resposta);
-
-            trigger_error("1 Reenvio de formulario, usuario ja cadastrado");
+            return $dao->insert($resposta);           
         } else {
             return 'ERRO: funcao novoTopico - [controllerUsuario]';
         }
     }
-    
-    public function removerResposta($id_resposta){
+
+    public function removerResposta($id_resposta) {
         $dao = new RespostaDAO();
-        $dao->deletePor_id($id_resposta);
+        return $dao->deletePor_id($id_resposta);
     }
-    
-    public function removerTopico($id_topico){
+
+    public function removerTopico($id_topico) {
         $dao = new TopicoDAO();
-        $dao->deletePor_id($id_topico);
+        return $dao->deletePor_id($id_topico);
     }
-    
+
 }
 ?>
-<script type="text/javascript">
-
-    var corDestaque = "rgb(144, 177, 214)";//"#90B1D6";
-    var corClick = "rgb(180, 209, 241)";//"#B4D1F1";
-
-    function mouseover(elemento){
-        if(elemento.style.backgroundColor != corClick){
-            elemento.style.backgroundColor = corDestaque;
-        }
-    }
-
-    function mouseout(elemento, corAntiga){
-        if(elemento.style.backgroundColor != corClick){
-            elemento.style.backgroundColor = corAntiga;
-        }
-    }
-
-    function mouseclick(elemento, corOriginal){
-        if(elemento.style.backgroundColor != corClick){
-            elemento.style.backgroundColor = corClick;
-        }else{
-            elemento.style.backgroundColor = corOriginal;
-        }
-        mouseover(elemento);
-    }
-</script>

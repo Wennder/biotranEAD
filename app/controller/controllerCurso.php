@@ -748,7 +748,7 @@ class controllerCurso {
                     <th>Data término</th>
                 </tr> 
             </thead> 
-            <tbody>";
+            <tbody id='tbody_tb_ger_matricula'>";
 
         $cursoDAO = new CursoDAO();
 

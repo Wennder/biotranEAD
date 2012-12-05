@@ -40,24 +40,26 @@
             <div id="div_atualizar_modulo" style="display: none; float: right; margin: 15px 10px 0 0;">
                 <input id="btn_atualizar_modulo" type="button" class="button2" value="Atualizar"/>    
             </div>
-            <table>
-                <tr>
-                    <td>
-                        <label><b>Título: </b></label>
-                    </td>
-                    <td>
-                        <input readonly="true" id="titulo_modulo" type="text" name="titulo_modulo" class="text-input" value="<?php echo $this->modulo->getTitulo_modulo(); ?>" /><br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label style="margin: -10px 0 0 0;"><b>Descrição: </b></label>
-                    </td>
-                    <td>
-                        <textarea readonly="true" type="text" id="descricao" name="descricao" class="text-area" rows="2" cols="29"><?php echo $this->modulo->getDescricao() ?></textarea>                        
-                    </td>
-                </tr>
-            </table><br>
+            <form id="form_descritivo" enctype="multipart/form-data" method="post">
+                <table>
+                    <tr>
+                        <td>
+                            <label><b>Título: </b></label>
+                        </td>
+                        <td>
+                            <input readonly="true" id="titulo_modulo" type="text" name="titulo_modulo" class="text-input" value="<?php echo $this->modulo->getTitulo_modulo(); ?>" /><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label style="margin: -10px 0 0 0;"><b>Descrição: </b></label>
+                        </td>
+                        <td>
+                            <textarea readonly="true" type="text" id="descricao" name="descricao" class="text-area" rows="2" cols="29"><?php echo $this->modulo->getDescricao() ?></textarea>                        
+                        </td>
+                    </tr>
+                </table>
+            </form><br>
             <div id="menu_accordion">
                 <div class="accord_body">
                     <div class='accord_list'>

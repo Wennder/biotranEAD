@@ -7,12 +7,14 @@
         <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
         <script src="js/video.js"></script>
         <script src="js/jquery.form.js" type="text/javascript"></script>
+        <script src="js/jquery-te-1.0.5.min.js" type="text/javascript"></script>
         <script src="js/biotran.js" type="text/javascript"></script>
         <script src="js/jquery.validate.js" type="text/javascript"></script>
         <script src="js/messages_pt_BR.js" type="text/javascript"></script>
         
         <link href='css/styleEAD.css' rel='stylesheet' type="text/css"/>
         <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link href='css/jquery-te-Style.css' rel='stylesheet' type="text/css"/>
     </head>
 
     <body>
