@@ -214,7 +214,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->controller = new controllerModulo();
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
-        $c = new controllerMatricula_curso();        
+        $c = new controllerMatricula_curso();
         $mc = $c->getMatricula_curso('id_curso=' . $this->visao->modulo->getId_curso() . ' AND id_usuario=' . $_SESSION['usuarioLogado']->getId_usuario());
         $this->visao->boolAcesso_modulo = $mc->getModulo_atual() >= $this->visao->modulo->getNumero_modulo();
         if ($this->visao->boolAcesso_modulo) {
@@ -369,9 +369,10 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionForum() {
-        if (isset($_GET['d'])) {
+        if (isset($_GET['d'])) {            
             $this->controller = new ControllerForum();
-            $this->controller->removerTopico($_GET['d']);
+            $resposta = $this->controller->removerTopico($_GET['d']);
+            echo json_encode($resposta);die();
         }
         $this->controller = new controllerCurso();
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
@@ -389,19 +390,29 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionTopico() {
-        if ($_POST['r'] == '1') {
+        if ($_GET['r'] == '1') {
             $this->controller = new ControllerForum();
             $topico = $this->controller->inserir_resposta();
-            header("Location: index.php?c=ead&a=topico&id=" . $_GET['id']);
+            if ($topico != 0) {
+                echo $topico->getId_topico();
+                die();
+            }else{
+                echo 0; die();
+            }            
         } else {
-            if (!isset($_GET['id'])) {
+            if (isset($_GET['i'])) {
                 $this->controller = new ControllerForum();
                 $topico = $this->controller->inserir_topico();
-                $_GET['id'] = $topico->getId_topico();
-                header("Location: index.php?c=ead&a=topico&id=" . $_GET['id']);
-            } else if (isset($_GET['d'])) {
+                if ($topico != 0) {
+                    echo $topico->getId_topico();
+                    die();
+                } else {
+                    echo 0;
+                    die();
+                }
+            } else if (isset($_GET['d'])) {                                
                 $this->controller = new ControllerForum();
-                $this->controller->removerResposta($_GET['d']);
+                echo json_encode($this->controller->removerResposta($_GET['d']));die();
             }
         }
         $this->renderizar();

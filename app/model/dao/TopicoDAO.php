@@ -24,10 +24,12 @@ class TopicoDAO extends PDOConnectionFactory{
             $stmt = $this->conex->prepare("INSERT INTO topico(id_curso, id_usuario, titulo, mensagem,data_hora) VALUES (?,?,?,?,?)");
             $stmt->bindValue(1, $topico->getId_curso());
             $stmt->bindValue(2, $topico->getId_usuario());
-            $stmt->bindValue(3, $topico->getTitulo());               
-            $stmt->bindValue(4, $topico->getMensagem()); 
-            $stmt->bindValue(5, $topico->getData_hora()); 
-            $stmt->execute();
+            $stmt->bindValue(3, $topico->getTitulo());             
+            $stmt->bindValue(4, $topico->getMensagem());
+            $stmt->bindValue(5, $topico->getData_hora());
+            if(!$stmt->execute()){
+                return 0;
+            }
             $id = $this->conex->lastInsertId("Topico");
             $this->conex = null;
             return $id;      

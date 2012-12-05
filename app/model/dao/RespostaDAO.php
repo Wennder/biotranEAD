@@ -26,8 +26,11 @@ class RespostaDAO extends PDOConnectionFactory{
             $stmt->bindValue(2, $resposta->getId_usuario());
             $stmt->bindValue(3, $resposta->getMensagem());               
             $stmt->bindValue(4, $resposta->getData_hora());               
-            $stmt->execute();
-                    
+            
+            if(!$stmt->execute()){
+                return 0;
+            }
+            
             $id = $this->conex->lastInsertId("Resposta");
             $this->conex = null;
             return $id;  

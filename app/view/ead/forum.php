@@ -4,7 +4,9 @@
     <!-- topicos   -->
     <div style="padding:15px;">
         <br>
-        <a href="#" id="index.php?c=ead&a=adicionar_topico&id=<?php echo $_GET['id'] ?>" id="forum_novo_topico">Novo Tópico</a> 
+        <fr>
+            <a href="#" id="index.php?c=ead&a=adicionar_topico&id=<?php echo $_GET['id'] ?>" id="forum_novo_topico">Novo Tópico</a> 
+        </fr>        
         <br>
         <br>
         <table>
