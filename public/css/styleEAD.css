@@ -593,6 +593,7 @@ form.form_cadastro, form.form_editar{
     border-radius:3px 3px 3px 3px;
     -moz-border-radius:3px 3px 3px 3px;
     -webkit-border-radius:3px 3px 3px 3px;
+    text-decoration: none;
 }
 
 .button1:active{
@@ -623,6 +624,7 @@ form.form_cadastro, form.form_editar{
     -moz-box-shadow:2px 2px 2px #888888, 0 1px 0 0 #3871a1 inset;
     -ms-box-shadow:2px 2px 2px #888888, 0 1px 0 0 #3871a1 inset;
     -o-box-shadow: 0 1px 0 0 #3871a1 inset;
+    text-decoration: none;
 }
 
 .button2:active{
@@ -650,6 +652,7 @@ form.form_cadastro, form.form_editar{
     color: #606060;
     cursor: pointer;
     padding: 1px 10px;
+    text-decoration: none;
 }
 
 .button3:active{
@@ -718,6 +721,28 @@ form.form_cadastro, form.form_editar{
 }
 
 .btn_del:active{
+    cursor:pointer;
+    position:relative;
+    top:2px;
+}
+/*-----------------------------------------*/
+
+/*------------- BOTÃO RESOLVER ------------*/
+.btn_resolver {
+    background: #fff;
+    background-position: left center;
+    float: right;
+    margin: -3px 5px 0 0;
+    border: #ddd 1px solid;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 1px 1px 1px #EEE;
+    color: #606060;
+    cursor: pointer;
+    font-weight: 600;
+    height: 22px;
+}
+
+.btn_resolver:active{
     cursor:pointer;
     position:relative;
     top:2px;
@@ -811,7 +836,7 @@ form.form_cadastro, form.form_editar{
 
 .noticia, .comentario{
     border-bottom: 1px solid #ddd;
-/*    border-top: 1px solid #ddd;*/
+    /*    border-top: 1px solid #ddd;*/
     padding:4px 15px;
 }
 
@@ -825,15 +850,41 @@ form.form_cadastro, form.form_editar{
 }
 
 .noticia:hover, .comentario:hover{
-     box-shadow:0px 2px 4px #DDD inset;
+    box-shadow:0px 2px 4px #DDD inset;
     -moz-box-shadow:0px 2px 4px #DDD inset;
     -webkit-box-shadow:0px 2px 4px #DDD inset;
 }
 /*-----------------------------------------*/
 
+/*----------------- FÓRUM -----------------*/
+.cabecalho_tabela{
+    height: 40px;
+    color: #fff;
+    font-weight: bold;
+    background-color: #016292;
+}
 
+.tabela_forum{
+    background-color: #F9F9F9;
+}
 
+.tabela_forum td{
+    border: solid 1px #eeeeee;
+    padding: 3px 0 1px 5px;
+}
 
+.topicos_tabela{
+    height: 30px;
+}
+
+.topicos_tabela:hover{
+    cursor: pointer;
+    background-color: #4997BD;
+    color: #fff;
+    font-weight: bold;
+}
+
+/*-----------------------------------------*/
 
 /* CSS - página visualizar módulo */
 /*.quadro_de_conteudo_especifico{
@@ -1110,7 +1161,7 @@ ul{
     margin:0;
 }*/
 
-#div_conteudo_professor_editar_modulo{
+/*#div_conteudo_professor_editar_modulo{
     position: relative;
     padding-top:0px;
 }
@@ -1122,7 +1173,7 @@ ul{
 
 #disposicao_conteudo_professor_editar_modulo{
     position: relative;
-}
+}*/
 
 /*#center_content{
     padding-top:0px;

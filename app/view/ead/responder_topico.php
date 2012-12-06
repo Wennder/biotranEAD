@@ -16,9 +16,9 @@ $this->controller->getTopico("id_topico=" . $_GET['id']);
         });
 
     </script>
-    <fr>
-        <a href="#" id="index.php?c=ead&a=topico&id=<?php echo $_GET['id']; ?>"><img src="img/dynamic_blue_left.png"/>Tópico</a>
-    </fr>
+    <div>
+        <a href="#" class="ref_ajax" name="index.php?c=ead&a=topico&id=<?php echo $_GET['id']; ?>"><img src="img/dynamic_blue_left.png"/>Tópico</a>
+    </div>
     <form id="form_responder_topico" method="post" action="index.php?c=ead&a=topico&r=1&id=<?php echo $_GET['id']; ?>">
         <input id="id_curso_topico" name="id_topico" type="text" hidden="true" value="<?php echo $_GET['id']; ?>" />
         <input id="id_usuario_topico" name="id_usuario" type="text" hidden="true" value="<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>" />

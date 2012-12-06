@@ -3,24 +3,24 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
 <script>
-    function todos(){
-        $(".matriculado").show();
-        $(".nao_matriculado").show();
-    }
-    
-    function matriculados(){
-        $(".matriculado").show();
-        $(".nao_matriculado").hide();
-    }
-
-    function nao_matriculados(){
-        $(".nao_matriculado").show();
-        $(".matriculado").hide();
-    }
-    
-    function em_construcao(){
-        alert('Em construcao!');
-    }
+//    function todos(){
+//        $(".matriculado").show();
+//        $(".nao_matriculado").show();
+//    }
+//    
+//    function matriculados(){
+//        $(".matriculado").show();
+//        $(".nao_matriculado").hide();
+//    }
+//
+//    function nao_matriculados(){
+//        $(".nao_matriculado").show();
+//        $(".matriculado").hide();
+//    }
+//    
+//    function em_construcao(){
+//        alert('Em construcao!');
+//    }
     
     $('#btn_visualizarCurso').live('click', function(){
         var id = $(this).attr('name');
