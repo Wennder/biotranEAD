@@ -23,15 +23,15 @@
             });
             
         }
-        $('fr a:not(.link)').live('click',function(e){        
+        $('.ref_ajax').live('click',function(e){                
             if(centro!=1){            
                 centro.find('div').remove();
             } 
-            var id = $(this).attr('id');
+            var id = $(this).attr('name');
             centro = $('#center_content').load(id, function (){                    
                 $('#div_conteudo').append(centro);
             });
-            pag_content = 'editar_modulo';
+            pag_content = 'forum';
         });
         
         $('.accord_body').live('click', function(e) {
@@ -119,12 +119,12 @@
                         if(data){
                             var ac = document.getElementsByName(id_resposta);
                             $(ac).remove();
-//                            if(centro!=1){            
-//                                centro.find('div').remove();
-//                            }
-//                            centro = $('#center_content').load('index.php?c=ead&a=topico&id='+id_topico, function (){                    
-//                                $('#div_conteudo').append(centro);                    
-//                            })
+                            //                            if(centro!=1){            
+                            //                                centro.find('div').remove();
+                            //                            }
+                            //                            centro = $('#center_content').load('index.php?c=ead&a=topico&id='+id_topico, function (){                    
+                            //                                $('#div_conteudo').append(centro);                    
+                            //                            })
                         }else{
                             alert('Operação não realizada, tente novamente mais tarde!');
                         }
