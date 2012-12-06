@@ -5,27 +5,27 @@
     //mudança de cor na lista de fórum
     var corDestaque = "rgb(144, 177, 214)";//"#90B1D6";
     var corClick = "rgb(180, 209, 241)";//"#B4D1F1";
+//
+//    function mouseover(elemento){
+//        if(elemento.style.backgroundColor != corClick){
+//            elemento.style.backgroundColor = corDestaque;
+//        }
+//    }
+//
+//    function mouseout(elemento, corAntiga){
+//        if(elemento.style.backgroundColor != corClick){
+//            elemento.style.backgroundColor = corAntiga;
+//        }
+//    }
 
-    function mouseover(elemento){
-        if(elemento.style.backgroundColor != corClick){
-            elemento.style.backgroundColor = corDestaque;
-        }
-    }
-
-    function mouseout(elemento, corAntiga){
-        if(elemento.style.backgroundColor != corClick){
-            elemento.style.backgroundColor = corAntiga;
-        }
-    }
-
-    function mouseclick(elemento, corOriginal){
-        if(elemento.style.backgroundColor != corClick){
-            elemento.style.backgroundColor = corClick;
-        }else{
-            elemento.style.backgroundColor = corOriginal;
-        }
-        mouseover(elemento);
-    }
+//    function mouseclick(elemento, corOriginal){
+//        if(elemento.style.backgroundColor != corClick){
+//            elemento.style.backgroundColor = corClick;
+//        }else{
+//            elemento.style.backgroundColor = corOriginal;
+//        }
+//        mouseover(elemento);
+//    }
 </script>
 <script>    
     $(document).ready(function(){        
@@ -139,15 +139,15 @@
                 pag_content = 'editar_modulo';
             });
             
-            $('fr a:not(.link)').live('click',function(e){                
+            $('.ref_ajax').live('click',function(e){                
                 if(centro!=1){            
                     centro.find('div').remove();
                 } 
-                var id = $(this).attr('id');
+                var id = $(this).attr('name');
                 centro = $('#center_content').load(id, function (){                    
                     $('#div_conteudo').append(centro);
                 });
-                pag_content = 'editar_modulo';
+                pag_content = 'forum';
             });
         }
     });
@@ -156,7 +156,7 @@
         if(centro!=1){            
             centro.find('div').remove();
         }  
-        var _aux = $('#center_content').load(s, 'oi', function (){                    
+        var _aux = $('#center_content').load(s, function (){                    
         });                                   
         centro = _aux;
         $('#div_conteudo_professor_editar_modulo').append(centro);                

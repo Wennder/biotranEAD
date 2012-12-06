@@ -3,11 +3,10 @@
 class ControllerForum {
     //put your code here
 
-    const COR_LINHA_PAR = '#CCCCCC';
-    const COR_LINHA_IMPAR = '#DDDDDD';
+    const COR_LINHA_PAR = '#fff';
+    const COR_LINHA_IMPAR = '#fff';
 
     private $topico = null;
-    private $usuario = null;
     private $resposta = null;
 
     public function getTitulo() {
@@ -63,6 +62,43 @@ class ControllerForum {
     }
 
     //mostra os topicos
+//    public function listTopicos($id_curso) {
+//        $topicos = $this->getListaTopicos('id_curso=' . $id_curso);
+//
+//        $quant = count($topicos);
+//        $i = 0;
+//        $lista_topicos = "";
+//        for (; $i < $quant; $i++) {
+//            $corlinha = ($i % 2 == 0) ? self::COR_LINHA_PAR : self::COR_LINHA_IMPAR;
+//            $respostas = $this->getListaRespostas("id_topico=" . $topicos[$i]->getId_topico());
+//            $quant_respostas = count($respostas);
+//            $lista_topicos.="<tr id='lista_topicos-".$topicos[$i]->getId_topico()."' bgcolor='$corlinha' onmouseover=\"mouseover(this);\" onmouseout=\"mouseout(this, '$corlinha');\" onclick=\"mouseclick(this, '$corlinha')\" >";
+//            $lista_topicos.="<td>";
+//            $lista_topicos.=$topicos[$i]->getTitulo();
+//            $lista_topicos.="</td>";
+//            $lista_topicos.="<td>";
+//            $user = $this->getUsuario("id_usuario=" . $topicos[$i]->getId_usuario());
+//            $lista_topicos.=$user[0]->getNome_completo();
+//            $lista_topicos.="</td>";
+//            $lista_topicos.="<td align='center'>";
+//            $lista_topicos.= $quant_respostas;
+//            $lista_topicos.="</td>";
+//            //Adicionar links a cada linha da tabela
+//            $lista_topicos.="<td><fr><a name='topico' href='#' id='index.php?c=ead&a=topico&id=" . $topicos[$i]->getId_topico() . "'>";
+//            $lista_topicos.="<img src='../public/img/botao_visualizar.png' title='Visualizar' />";
+//            $lista_topicos.="</td></a></fr>";
+//            if ($topicos[$i]->getId_usuario() == $_SESSION['usuarioLogado']->getId_usuario()) {
+//                $lista_topicos.="<td><input type='button' title='Excluir' class='classeBotaoExcluir btn_excluir_topico' name='lista_topico' id='" . $topicos[$i]->getId_topico() . "'/>";
+////                $lista_topicos.="<img src='../public/img/botao_excluir.png' title='Excluir' />";
+////                $lista_topicos.="</input></td>";
+//            } else {
+//                $lista_topicos.="<td ><img src='../public/img/botao_excluir_desativado.png' title='' /></td>";
+//            }
+//        }
+//        $lista_topicos.="</tr>";
+//        return $lista_topicos;
+//    }
+
     public function listTopicos($id_curso) {
         $topicos = $this->getListaTopicos('id_curso=' . $id_curso);
 
@@ -70,33 +106,33 @@ class ControllerForum {
         $i = 0;
         $lista_topicos = "";
         for (; $i < $quant; $i++) {
-            $corlinha = ($i % 2 == 0) ? self::COR_LINHA_PAR : self::COR_LINHA_IMPAR;
+//            $corlinha = ($i % 2 == 0) ? self::COR_LINHA_PAR : self::COR_LINHA_IMPAR;
             $respostas = $this->getListaRespostas("id_topico=" . $topicos[$i]->getId_topico());
             $quant_respostas = count($respostas);
-            $lista_topicos.="<tr id='lista_topicos-".$topicos[$i]->getId_topico()."' bgcolor='$corlinha' onmouseover=\"mouseover(this);\" onmouseout=\"mouseout(this, '$corlinha');\" onclick=\"mouseclick(this, '$corlinha')\" >";
-            $lista_topicos.="<td>";
+            $lista_topicos.="<tr id='lista_topicos-" . $topicos[$i]->getId_topico() . "' class='topicos_tabela'>";
+            $lista_topicos.="<td class='ref_ajax' name='index.php?c=ead&a=topico&id=" . $topicos[$i]->getId_topico() . "'>";
             $lista_topicos.=$topicos[$i]->getTitulo();
             $lista_topicos.="</td>";
-            $lista_topicos.="<td>";
+            $lista_topicos.="<td class='ref_ajax' name='index.php?c=ead&a=topico&id=" . $topicos[$i]->getId_topico() . "'>";
             $user = $this->getUsuario("id_usuario=" . $topicos[$i]->getId_usuario());
             $lista_topicos.=$user[0]->getNome_completo();
             $lista_topicos.="</td>";
-            $lista_topicos.="<td align='center'>";
+            $lista_topicos.="<td class='ref_ajax' align='center' name='index.php?c=ead&a=topico&id=" . $topicos[$i]->getId_topico() . "'>";
             $lista_topicos.= $quant_respostas;
             $lista_topicos.="</td>";
             //Adicionar links a cada linha da tabela
-            $lista_topicos.="<td><fr><a name='topico' href='#' id='index.php?c=ead&a=topico&id=" . $topicos[$i]->getId_topico() . "'>";
-            $lista_topicos.="<img src='../public/img/botao_visualizar.png' title='Visualizar' />";
-            $lista_topicos.="</td></a></fr>";
+//            $lista_topicos.="<td><fr><a name='topico' href='#' id='index.php?c=ead&a=topico&id=" . $topicos[$i]->getId_topico() . "'>";
+//            $lista_topicos.="<img src='../public/img/botao_visualizar.png' title='Visualizar' />";
+//            $lista_topicos.="</td></a></fr>";
             if ($topicos[$i]->getId_usuario() == $_SESSION['usuarioLogado']->getId_usuario()) {
-                $lista_topicos.="<td><input type='button' title='Excluir' class='classeBotaoExcluir btn_excluir_topico' name='lista_topico' id='" . $topicos[$i]->getId_topico() . "'/>";
-//                $lista_topicos.="<img src='../public/img/botao_excluir.png' title='Excluir' />";
-//                $lista_topicos.="</input></td>";
-            } else {
-                $lista_topicos.="<td ><img src='../public/img/botao_excluir_desativado.png' title='' /></td>";
+                $lista_topicos.="<td id='td_botao_excluir' style='padding: 1px 3px 0 3px !important;'><input type='button' title='Excluir' class='classeBotaoExcluir btn_excluir_topico' name='lista_topico' id='" . $topicos[$i]->getId_topico() . "'/></td>";
             }
+//            else {
+//                $lista_topicos.="<td><img src='../public/img/botao_excluir_desativado.png' title='' /></td>";
+//            }
+            $lista_topicos.="</tr>";
         }
-        $lista_topicos.="</tr>";
+//        $lista_topicos.="</tr>";
         return $lista_topicos;
     }
 
@@ -112,7 +148,7 @@ class ControllerForum {
             ($i % 2 == 0) ? $id_fundo = 'fundo1' : $id_fundo = 'fundo2';
             $return.="<div id='".$id_fundo."' name='".$respostas[$i]->getId_resposta()."'><div class='$id_fundo" . "_header'>";
             if ($respostas[$i]->getId_usuario() == $_SESSION['usuarioLogado']->getId_usuario()) {
-                $return.="<input style='float:right;' class='classeBotaoExcluir btn_excluir_resposta' id='" . $respostas[$i]->getId_resposta() . "' name='".$this->topico[0]->getId_topico()."'/>";
+                $return.="<input style='float:right;' class='classeBotaoExcluir btn_excluir_resposta' id='" . $respostas[$i]->getId_resposta() . "' name='" . $this->topico[0]->getId_topico() . "'/>";
             }
             $return.="<b>Re: </b>" . $this->topico[0]->getTitulo() . "<br>";
             $usuario = $this->getUsuario("id_usuario=" . $respostas[$i]->getId_usuario());
@@ -194,7 +230,7 @@ class ControllerForum {
             $dao = new RespostaDAO();
             //verifica se realmente já não existe o registro
             //prevenir reenvio de formulário
-            return $dao->insert($resposta);           
+            return $dao->insert($resposta);
         } else {
             return 'ERRO: funcao novoTopico - [controllerUsuario]';
         }
@@ -211,4 +247,5 @@ class ControllerForum {
     }
 
 }
+
 ?>

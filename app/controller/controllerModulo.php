@@ -158,19 +158,19 @@ class controllerModulo {
 
     public function visualizar_listaExercicio($id_modulo) {
         $controller = new controllerExercicio();
-        $controller2 = new controllerPergunta();
+//        $controller2 = new controllerPergunta();
         $lista = "";
         $exercicio = $controller->getListaExercicio('id_modulo=' . $id_modulo);
         $controller = new controllerUsuario_exercicio();
         for ($i = 0; $i < count($exercicio); $i++) {
             $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='exercicio' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
             $lista .= $exercicio[$i]->getTitulo();
-            $id_pergunta = $controller2->getListaPerguntas('id_exercicio = ' . $exercicio[$i]->getId_exercicio());
+//            $id_pergunta = $controller2->getListaPerguntas('id_exercicio = ' . $exercicio[$i]->getId_exercicio());
             if ($_SESSION['usuarioLogado']->getId_papel() == 4) {
                 if ($controller->getUsuario_exercicio('id_usuario='.$_SESSION['usuarioLogado']->getId_usuario() .' AND id_exercicio='.$exercicio[$i]->getId_exercicio()) == null) {
-                    $lista .= "</label><input align='right' type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Resolver' class='btn_resolver_exe'/>";
+                    $lista .= "</label><input type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Resolver' class='btn_resolver btn_resolver_exe'/>";
                 } else {
-                    $lista .= "</label><input align='right' type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' disabled='true' name='exercicio' value='Exercício já submetido'/>";
+                    $lista .= "</label><input type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' disabled='true' name='exercicio' value='Exercício já submetido' class='btn_resolver btn_resolver_exe'/>";
                 }
             } else {
                 $lista .= "</label>";

@@ -1,16 +1,12 @@
-<?php // require ROOT_PATH . '/app/view/ead/structure/header.php';  ?>
-<?php // require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'  ?>
-<?php // require ROOT_PATH . '/app/view/ead/structure/content.php';  ?>
-
 <?php
 $this->controller = new ControllerForum();
 if (isset($_GET['id']))
     $topico = $this->controller->getTopico("id_topico=" . $_GET['id']);
 ?>
 <div>
-<fr>
-    <a href="#" id="index.php?c=ead&a=forum&id=<?php echo $topico[0]->getId_curso(); ?>"><img src="img/dynamic_blue_left.png"/>Forum</a>
-</fr>
+<div>
+    <a href="#" class="ref_ajax" name="index.php?c=ead&a=forum&id=<?php echo $topico[0]->getId_curso(); ?>"><img src="img/dynamic_blue_left.png"/>Forum</a>
+</div>
 
 <div class="topico_fundo">
     <div class="topico_header">
@@ -36,5 +32,3 @@ if (isset($_GET['id']))
     ?>
 </div>
 </div>
-<?php
-// require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

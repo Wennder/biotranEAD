@@ -1,18 +1,11 @@
-<?php // require ROOT_PATH . '/app/view/ead/structure/header.php';  ?>
-<?php // require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'  ?>
-<?php // require ROOT_PATH . '/app/view/ead/structure/content.php';  ?>
-
-
 <div>
     <script>
-    
         $(document).ready(function(){
             $('#mensagem').jqte();
         });
-    
     </script>
     <fr>
-        <a href="#" id="index.php?c=ead&a=forum&id=<?php echo $_GET['id']; ?>"><img src="img/dynamic_blue_left.png"/>Forum</a>
+        <a href="#" class="ref_ajax" name="index.php?c=ead&a=forum&id=<?php echo $_GET['id']; ?>"><img src="img/dynamic_blue_left.png"/>Forum</a>
     </fr>
     <form id="form_adicionar_topico" method="post" action="index.php?c=ead&a=topico&i=inserir" >
         <fieldset>
@@ -36,4 +29,3 @@ echo $today = date("F j, Y, g:i a"); ?>"/>
         <input type="submit" value="Enviar mensagem" />
     </form>
 </div>
-<?php // require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>
