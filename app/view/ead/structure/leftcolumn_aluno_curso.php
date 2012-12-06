@@ -62,7 +62,7 @@ if (isset($_GET['id'])) {
         <dt>
         <?php
         if ($controllerCurso->getCurso("id_curso=" . $id_curso)->getStatus(1) == 4) {
-            echo "<a class='navbar_item forumIcon link desc' href='index.php?c=ead&a=forum&id=" . $id_curso . "'>Fórum</a>";
+            echo "<a class='navbar_item forumIcon link desc' href='#' id='index.php?c=ead&a=forum&id=" . $id_curso . "'>Fórum</a>";
         }
         ?>
         </dt>

@@ -2,13 +2,77 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
+<script>
+    
+    $('#form_adicionar_comentario').live('submit', function(){
+        $(this).ajaxSubmit({                        
+            success: function(data){                            
+                alert(data);
+                if(!data){
+                    alert('Operação não realizada, tente novamente mais tarde!');
+                }else{                    
+                    insereLinhaComentario($('#form_adicionar_comentario'), data);                    
+                }
+                dialog.dialog('close');
+            }
+        });
+        return false;
+    });
+    
+    $('addpini a:not(.link)').live('click', function(){
+        var name = $(this).attr('name');
+        var id = $(this).attr('id');
+        var _HTML = $('#div_'+name).html();
+        _HTML = _HTML.replace('_ID_FORM_', 'form_'+name);
+        _HTML = _HTML.replace('_ID_SUBMIT_', 'submit');
+        dialog = $(_HTML).dialog({
+            draggable: false,
+            resizable: false,
+            position: [(($(window).width()-900)/2), 15],
+            width:900,
+            show: {
+                effect: 'drop', 
+                direction: "up"
+            },
+            height: (300),
+            modal:true,                                          
+            close: function(event,ui){                     
+                $(dialog).dialog('destroy');
+                $(dialog).find('div').remove();
+            },
+            open: function(event, ui){                                
+            }
+        });
+    });
+    
+    function insereLinhaComentario(form, dados){        
+        var autor = $(form).find('#autor').val();
+        var comentario = $(form).find('#comentario').val();
+        var data = dados.split('--');
+        var id = data[0];
+        data = data[1];
+        var linha = "<div class='comentario b_2'><div><p><b>:: </b>" + data + " -<b> " + comentario + "</b></p>";
+        linha += "<span>" + comentario + "</span></div>";
+        linha += "<div style='margin: 5px 0;'><a class='button3' style='margin-right: 5px;' href='index.php?c=ead&a=pini_editar_comentario&id=" + id + "'>Editar</a><a class='button3' href='index.php?c=ead&a=pini_comentarios&id=" + id + "'>Remover</a></div>";        
+        linha += "</div>";
+        $('#lista_comentario').append($(linha));
+    }    
+</script>
+
+<?php require ROOT_PATH . '/app/view/ead/sistema/pagina_inicial/pini_adicionar_comentario.php'; ?>
+
 <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
     <h3 style="margin: 0;">Comentários</h3><br>
     <div id="comentarios_gerencia">
-        <a href="index.php?c=ead&a=pini_adicionar_comentario" style="text-decoration: none;" class="button2"> Adicionar Comentário</a><br><br>
-        <div style="border-top: 1px solid #ddd; border-right: 1px solid #ddd;">
-            <?php $controller = new controllerSistema(); echo $controller->listaComentarios(); ?>
-        </div>
+        <addpini>
+            <a name="adicionar_comentario" href="#" id="index.php?c=ead&a=pini_adicionar_comentario" style="text-decoration: none;" class="button2"> Adicionar Comentário</a><br><br>
+        </addpini>
+        <div id="lista_comentario" style="border-top: 1px solid #ddd; border-right: 1px solid #ddd;">
+            <?php
+            $controller = new controllerSistema();
+            echo $controller->listaComentarios();
+            ?>
+        </div>        
     </div>
     <br><br>
 </div>

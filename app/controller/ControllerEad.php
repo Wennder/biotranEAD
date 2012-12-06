@@ -466,8 +466,11 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionPini_comentarios() {
         if ($_GET['i'] == '1') {
             $this->controller = new controllerSistema();
-            $this->controller->inserir_comentario();
-            header("Location: index.php?c=ead&a=pini_comentarios");
+            $c = $this->controller->inserir_comentario(); 
+            if(!$c){
+                echo 0; die();
+            }
+            echo $c->getId_comentario() . '--'.$c->getData();die();            
         } else if (isset($_GET['u'])) {
             $this->controller = new controllerSistema();
             $this->controller->atualizar_comentario();
@@ -483,8 +486,13 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionPini_destaques() {
         if ($_GET['i'] == 1) {
             $controllerG = new controllerSistema();
-            $controllerG->inserir_destaque();
-            header("Location: index.php?c=ead&a=pini_destaques");
+            $d = $controllerG->inserir_destaque();
+            if(!$d){
+                echo 0;
+            }else{
+                echo $d->getDestaque() . '--'. $d->getId_destaque(); 
+            }
+            die();
         } else if (isset($_GET['id'])) {
             $controllerG = new controllerSistema();
             $controllerG->removerDestaque($_GET['id']);

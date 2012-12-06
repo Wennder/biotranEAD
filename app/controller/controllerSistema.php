@@ -27,7 +27,7 @@ class controllerSistema {
         $aux = 1;
         for ($i = 0; $i < $quant; $i++) {
             $lista.="<td><div style='margin: 5px;'><div><a class='button3' href='index.php?c=ead&a=pini_patrocinadores&id=" . $patrocinador[$i]->getId_patrocinador() . "' style='position:relative; float:right; text-decoration:none; margin-bottom: 5px;'>Remover</a></div><img src='" . $patrocinador[$i]->getImagem() . "' /></div></td>";
-            if($aux%4 == 0 && $aux != $quant){
+            if ($aux % 4 == 0 && $aux != $quant) {
                 $lista.="</tr><tr>";
             }
             $aux++;
@@ -190,11 +190,15 @@ class controllerSistema {
         $this->destaque = new Destaque();
         $this->destaque->setDestaque("img/destaques/");
         //echo $this->patrocinador->getImagem();die();
-
-        $this->destaque->setId_destaque($this->novoDestaque($this->destaque));
-        $this->inserirFotoDestaque($this->destaque->getId_destaque());
-        $dao = new DestaqueDAO();
-        $dao->update($this->destaque);
+        $id = $this->novoDestaque($this->destaque);
+        if (!$id) {
+            return $id;
+        } else {
+            $this->destaque->setId_destaque($id);
+            $this->inserirFotoDestaque($this->destaque->getId_destaque());
+            $dao = new DestaqueDAO();
+            $dao->update($this->destaque);
+        }
         return $this->destaque;
     }
 
@@ -414,8 +418,12 @@ class controllerSistema {
         $this->comentario = new Comentario();
         //echo $this->patrocinador->getImagem();die();
         $this->setComentario_Post();
-        $this->comentario->setId_comentario($this->novoComentario($this->comentario));
-        return $this->comentario;
+        $id = $this->novoComentario($this->comentario);
+        if ($id) {
+            $this->comentario->setId_comentario($id);
+            return $this->comentario;
+        }
+        return $id;
     }
 
     /**/

@@ -26,8 +26,8 @@ class ComentarioDAO extends PDOConnectionFactory {
             $stmt->bindValue(2, $comentario->getAutor());
             $stmt->bindValue(3, $comentario->getComentario());
             $stmt->bindValue(4, $comentario->getData());
-            if(!$stmt->execute()){
-                echo($comentario->getId_comentario());  die();
+            if(!$stmt->execute()){               
+                return false;
             }            
             return $this->conex->lastInsertId("Comentario");            
         } catch (PDOException $ex) {

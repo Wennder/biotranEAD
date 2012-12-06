@@ -25,7 +25,7 @@ class DestaqueDAO extends PDOConnectionFactory {
             $stmt->bindValue(1, $destaque->getId_destaque());
             $stmt->bindValue(2, $destaque->getDestaque());
             if(!$stmt->execute()){
-                echo($destaque->getId_destaque()); die();
+                return 0;
             }            
             return $this->conex->lastInsertId("Destaque");            
         } catch (PDOException $ex) {
