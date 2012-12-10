@@ -29,6 +29,8 @@ include ROOT_PATH . '/app/model/vo/Destaque.php';
 include ROOT_PATH . '/app/model/vo/Noticia.php';
 include ROOT_PATH . '/app/model/vo/Comentario.php';
 include ROOT_PATH . '/app/model/vo/Usuario_exercicio.php';
+include ROOT_PATH . '/app/model/vo/Foto.php';
+include ROOT_PATH . '/app/model/dao/FotoDAO.php';
 include ROOT_PATH . '/app/model/dao/Material_complementarDAO.php';
 include ROOT_PATH . '/app/model/dao/Texto_referenciaDAO.php';
 include ROOT_PATH . '/app/model/dao/UsuarioDAO.php';

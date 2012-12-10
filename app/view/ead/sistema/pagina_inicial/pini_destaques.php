@@ -4,8 +4,7 @@
 <script>
     $('#form_adicionar_destaque').live('submit', function(){
         $(this).ajaxSubmit({                        
-            success: function(data){                            
-                alert(data);
+            success: function(data){                                            
                 if(!data){
                     alert('Operação não realizada, tente novamente mais tarde!');
                 }else{                    

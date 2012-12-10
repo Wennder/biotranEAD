@@ -472,7 +472,7 @@ class controllerSistema {
             }
             $lista.="<div class='comentario b_$c'><div><p><b>:: </b>" . $comentario[$i]->getData() . " -<b> " . $comentario[$i]->getAutor() . "</b></p>
                 <span>" . $comentario[$i]->getComentario() . "</span></div>
-                <div style='margin: 5px 0;'><a class='button3' style='margin-right: 5px;' href='index.php?c=ead&a=pini_editar_comentario&id=" . $comentario[$i]->getId_comentario() . "'>Editar</a><a class='button3' href='index.php?c=ead&a=pini_comentarios&id=" . $comentario[$i]->getId_comentario() . "'>Remover</a></div>
+                <div style='margin: 5px 0;'><a class='button3' href='index.php?c=ead&a=pini_comentarios&id=" . $comentario[$i]->getId_comentario() . "'>Remover</a></div>
                 </div>";
             $c++;
         }
@@ -500,6 +500,109 @@ class controllerSistema {
         return $lista;
     }
 
+    /**/
+    
+          //funcoes referentes a FOTOS
+    public function listaFotos(){
+        $dao = new FotoDAO();
+        $foto = $dao->select();
+        $quant = count($foto);
+        $i=0;
+        $lista='';
+        for(;$i<$quant;$i++){
+           
+            $lista.="<div class='foto_holder'><div style='overflow:auto;'><a href='index.php?c=ead&a=pini_fotos&id=".$foto[$i]->getId_foto()."' style='position:relative;float:right;'>x</a></div><img src='".$foto[$i]->getImagem()."' /></div>";
+        }
+        return $lista;
+    }
+    /**/
+    public function listaFotos_index(){
+        $dao = new PatrocinadorDAO();
+        $patrocinador = $dao->select();
+        $quant = count($patrocinador);
+        $i=0;
+        $lista='';
+        for(;$i<$quant;$i++){
+            $lista.="<img src='".$patrocinador[$i]->getImagem()."' width='200' height='200'/>";
+        }
+        return $lista;
+    }
+    /**/
+    public function setFoto_Post() {
+        if (!empty($_POST)) {
+            if ($this->foto == null) {
+                $this->foto= new Patrocinador();
+            }
+
+            foreach ($_POST as $k => $v) {
+                $setAtributo = 'set' . ucfirst($k);
+                if (method_exists($this->foto, $setAtributo)) {
+
+                    $this->foto->$setAtributo($v);
+                }
+            }
+            return $this->foto;
+        }
+    }
+    /**/
+    public function inserirFoto($id_foto) {
+        //Inserção da foto
+        if (isset($_FILES["imagem"])) {
+            if ($_FILES["imagem"]["name"] != '') {
+                $imagem = $_FILES["imagem"];
+                $tipos = array("image/jpg", "image/jpeg");
+                $pasta_dir = "img/fotos/";
+                if (in_array($imagem["type"], $tipos)) {
+                    $imagem_nome = $pasta_dir . $id_foto . ".jpg";
+                    move_uploaded_file($imagem["tmp_name"], $imagem_nome);
+                    $imagem_arquivo = "img/fotos/" . $id_foto . ".jpg";
+                    $this->foto->setImagem($imagem_arquivo);
+                    list($altura, $largura) = getimagesize($imagem_nome);
+                    if ($altura > 200 && $largura > 200) {
+                        $img = wiImage::load($imagem_arquivo);
+                        $img = $img->resize(250, 250, 'outside');
+                        $img = $img->crop('50% - 50', '50% - 40', 200, 200);
+                        $img->saveToFile($imagem_arquivo);
+                    }
+                    
+                }
+            }
+        }
+    }
+    /**/
+    public function inserir_foto() {
+        $this->foto = new Foto();
+        $this->foto->setImagem("img/fotos/");
+        //echo $this->patrocinador->getImagem();die();        
+        $this->foto->setId_foto($this->novaFoto($this->foto));
+        $this->inserirFoto($this->foto->getId_foto());
+        $dao = new FotoDAO();
+        $dao->update($this->foto);
+        return $this->foto;
+    }
+    /**/
+    public function novaFoto(Foto $foto = null) {
+        if ($foto != null) {
+            $dao = new FotoDAO();
+            //verifica se realmente já não existe o registro
+            //prevenir reenvio de formulário
+
+            return $dao->insert($foto);
+
+           // trigger_error("1 Reenvio de formulario, usuario ja cadastrado");
+        } else {
+            return 'ERRO: funcao novaFoto - [ControllerGerencia_sistema]';
+        }
+    }
+    /**/
+    public function removerFoto($id_foto){
+        $dao = new PatrocinadorDAO();
+        $dao->deletePorId($id_foto);
+         $caminho = ROOT_PATH . '/public/img/fotos/' . $id_foto . '.jpg';
+         if(is_file($caminho)){
+             unlink($caminho);
+         }
+    }
     /**/
     //------------------------------------------------------------------------//
 }

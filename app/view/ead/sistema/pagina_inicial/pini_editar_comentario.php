@@ -4,15 +4,13 @@
 
 <?php $dao = new ComentarioDAO();
 $comentario = $dao->select("id_comentario=" . $_GET['id']); ?>
-<div>
-    <form id="form_topico" method="post" action="index.php?c=ead&a=pini_comentarios&u=1&id=<?php echo $_GET['id']; ?>" >
+<div style="display:none" id="div_editar_comentario">
+    <form id="_ID_FORM_" method="post" action="index.php?c=ead&a=pini_comentarios&u=1&id=#ID_COMENTARIO#" >
         <fieldset>
-            <legend>Novo Comentario</legend>
-
+            <legend>Editar Comentario</legend>
             <table>
-
-                <input name="id_comentario" type="text" hidden="true" value="<?php echo $comentario[0]->getId_comentario(); ?>"/>
-                <input name="data" type="text" hidden="true" value="<?php echo $comentario[0]->getData(); ?>"/>
+                <input name="id_comentario" type="text" hidden="true" value=""/>
+                <input name="data" type="text" hidden="true" value=""/>
                 <tr>
                     <td><label>autor: </label></td>
                     <td><input type="text" name="autor" style="width: 500px;" value="<?php echo $comentario[0]->getAutor(); ?>" /></td>

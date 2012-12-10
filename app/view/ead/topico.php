@@ -36,4 +36,18 @@ if (isset($_GET['id']))
             ?>
         </div>
     </div>
+    <div class="topico_mensagem">
+        <p>
+            <?php echo $this->controller->getMensagem();?> 
+        </p>
+    </div>
+    <br>
+    <div><a href="#" class="responder_topico ref_ajax" name="index.php?c=ead&a=responder_topico&id=<?php echo $_GET['id']; ?>">Responder</a></div>
+</div>
+<br>
+<div id="respostas">
+    <?php
+    echo $this->controller->listaRespostas($_GET['id']);
+    ?>
+</div>
 </div>

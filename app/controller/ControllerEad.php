@@ -369,10 +369,11 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionForum() {
-        if (isset($_GET['d'])) {            
+        if (isset($_GET['d'])) {
             $this->controller = new ControllerForum();
             $resposta = $this->controller->removerTopico($_GET['d']);
-            echo json_encode($resposta);die();
+            echo json_encode($resposta);
+            die();
         }
         $this->controller = new controllerCurso();
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
@@ -403,28 +404,124 @@ class ControllerEad extends Biotran_Mvc_Controller {
             $this->controller = new ControllerForum();
             $topico = $this->controller->inserir_resposta();
             if ($topico != 0) {
+                if ($_SESSION['usuarioLogado']->getId_usuario() != $topico->getId_usuario()) {
+                    $dao = new UsuarioDAO();
+                    $usuario = $dao->select("id_usuario=" . $topico->getId_usuario());
+
+                    //---enviar e-mail
+                    $mail = new PHPMailer(); //instancia o objeto PHPMailer
+                    $mail->IsSMTP(); //informa que foi trabalhar com SMTP
+                    $mail->Host = "mail.dietsmart.com.br"; //o endereço do meu servidor smtp
+                    $mail->SMTPAuth = true; //informo que o servidor SMTP requer autenticação
+                    $mail->Username = "contato@dietsmart.com.br"; //informo o usuário para autenticação no SMTP
+                    $mail->Password = "teste2012"; //informo a senha do usuário para autenticação no SMTP
+                    $mail->From = "contato@biotraead.com.br"; //informo o e-mail Remetente
+                    $mail->FromName = "Biotran EAD"; //o nome do que irá aparecer para a pessoa que vai receber o e-mail
+                    $mail->AddAddress($usuario[0]->getEmail()); //e-mail do destinatário
+                    $mail->WordWrap = 50; //informo a quebra de linha no e-mail (isso é opcional)
+                    $mail->IsHTML(true); //informo que o e-mail é em HTML (opcional)
+                    $mail->Subject = "Teste"; //informo o assunto do e-mail
+                    //gerando nova senha de usuario:
+                    //criando o corpo do e-mail
+                    $mail->Body = "<html><body>
+                    Olá, " . $usuario[0]->getNome_completo() . " </br>
+                        o " . $_SESSION['usuarioLogado']->getNome_completo() . " respondeu seu topico </br>
+                         ;).
+                        
+            </body></html>"; //aqui vai o corpo do e-mail em HTML
+                    //Enfim, envio o e-mail.
+                    $mail->Send();
+                }
                 echo $topico->getId_topico();
                 die();
-            }else{
-                echo 0; die();
-            }            
+            } else {
+                echo 0;
+                die();
+            }
         } else {
             if (isset($_GET['i'])) {
                 $this->controller = new ControllerForum();
                 $topico = $this->controller->inserir_topico();
+                /*
+                 * se o usuario for professor do curso
+                 * envia email para alunos e outros professores envolvidos no curso
+                 * 
+                 * se o usuario for um aluno envia email apenas para os professores
+                 */
                 if ($topico != 0) {
+                    $usuarioLogado = $_SESSION['usuarioLogado'];
+                    if ($usuarioLogado->getId_papel() == 3) {
+                        $matricula_cursoDAO = new Matricula_cursoDAO();
+                        $matriculados = $matricula_cursoDAO->select("id_curso=" . $_POST['id_curso']);
+                        $quant = count($matriculados);
+                        $i = 0;
+                        for (; $i < $quant; $i++) {
+                            $dao = new UsuarioDAO();
+                            $usuario = $dao->select("id_usuario=" . $matriculados[$i]->getId_usuario());
+                            //---enviar e-mail
+                            $this->enviarEmail($usuario[0], $usuarioLogado);
+                            //atualizando no banco
+                        }
+                        $curso_professorDAO = new Curso_professorDAO();
+                        $professores = $curso_professorDAO->select("id_curso=" . $_POST['id_curso']);
+                        $quant = count($professores);
+                        $i = 0;
+                        for (; $i < $quant; $i++) {
+                            $dao = new UsuarioDAO();
+                            $usuario = $dao->select("id_usuario=" . $matriculados[$i]->getId_usuario());
+                            $this->enviarEmail($usuario[0], $usuarioLogado);
+                        }
+                    } else if ($usuarioLogado->getId_papel() == 4) {
+                        $curso_professorDAO = new Curso_professorDAO();
+                        $professores = $curso_professorDAO->select("id_curso=" . $_POST['id_curso']);
+                        $quant = count($professores);
+                        $i = 0;
+                        for (; $i < $quant; $i++) {
+                            $dao = new UsuarioDAO();
+                            $usuario = $dao->select("id_usuario=" . $professores[$i]->getId_usuario());
+                            $this->enviarEmail($usuario[0], $usuarioLogado);
+                        }
+                    }
                     echo $topico->getId_topico();
                     die();
                 } else {
                     echo 0;
                     die();
                 }
-            } else if (isset($_GET['d'])) {                                
+            } else if (isset($_GET['d'])) {
                 $this->controller = new ControllerForum();
-                echo json_encode($this->controller->removerResposta($_GET['d']));die();
+                echo json_encode($this->controller->removerResposta($_GET['d']));
+                die();
             }
         }
         $this->renderizar();
+    }
+    
+    public function enviarEmail($user, $user_logado) {
+        //---enviar e-mail
+        $mail = new PHPMailer(); //instancia o objeto PHPMailer
+        $mail->IsSMTP(); //informa que foi trabalhar com SMTP
+        $mail->Host = "mail.dietsmart.com.br"; //o endereço do meu servidor smtp
+        $mail->SMTPAuth = true; //informo que o servidor SMTP requer autenticação
+        $mail->Username = "contato@dietsmart.com.br"; //informo o usuário para autenticação no SMTP
+        $mail->Password = "teste2012"; //informo a senha do usuário para autenticação no SMTP
+        $mail->From = "contato@biotraead.com.br"; //informo o e-mail Remetente
+        $mail->FromName = "Biotran EAD"; //o nome do que irá aparecer para a pessoa que vai receber o e-mail
+        $mail->AddAddress($user->getEmail()); //e-mail do destinatário
+        $mail->WordWrap = 50; //informo a quebra de linha no e-mail (isso é opcional)
+        $mail->IsHTML(true); //informo que o e-mail é em HTML (opcional)
+        $mail->Subject = "Teste"; //informo o assunto do e-mail
+        //gerando nova senha de usuario:
+        //criando o corpo do e-mail
+        $mail->Body = "<html><body>
+                    Olá, " . $user->getNome_completo() . " </br>
+                        o " . $user_logado->getNome_completo() . " adicionou um novo topico </br>
+                         ;).
+                        
+            </body></html>"; //aqui vai o corpo do e-mail em HTML
+        //Enfim, envio o e-mail.
+        $mail->Send();
+        //atualizando no banco
     }
 
     public function actionVisualizar_curso() {
@@ -475,11 +572,13 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionPini_comentarios() {
         if ($_GET['i'] == '1') {
             $this->controller = new controllerSistema();
-            $c = $this->controller->inserir_comentario(); 
-            if(!$c){
-                echo 0; die();
+            $c = $this->controller->inserir_comentario();
+            if (!$c) {
+                echo 0;
+                die();
             }
-            echo $c->getId_comentario() . '--'.$c->getData();die();            
+            echo $c->getId_comentario() . '--' . $c->getData();
+            die();
         } else if (isset($_GET['u'])) {
             $this->controller = new controllerSistema();
             $this->controller->atualizar_comentario();
@@ -496,10 +595,10 @@ class ControllerEad extends Biotran_Mvc_Controller {
         if ($_GET['i'] == 1) {
             $controllerG = new controllerSistema();
             $d = $controllerG->inserir_destaque();
-            if(!$d){
+            if (!$d) {
                 echo 0;
-            }else{
-                echo $d->getDestaque() . '--'. $d->getId_destaque(); 
+            } else {
+                echo $d->getDestaque() . '--' . $d->getId_destaque();
             }
             die();
         } else if (isset($_GET['id'])) {
@@ -534,6 +633,23 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionPini_adicionar_destaque() {
+        $this->renderizar();
+    }
+
+    public function actionPini_fotos() {
+        if ($_GET['i'] == 1) {
+            $controllerG = new controllerSistema();
+            $controllerG->inserir_foto();
+            header("Location: index.php?c=ead&a=pini_fotos");
+        } else if (isset($_GET['id'])) {
+            $controllerG = new controllerSistema();
+            $controllerG->removerFoto($_GET['id']);
+            header("Location: index.php?c=ead&a=pini_fotos");
+        }
+        $this->renderizar();
+    }
+
+    public function actionPini_adicionar_foto() {
         $this->renderizar();
     }
 

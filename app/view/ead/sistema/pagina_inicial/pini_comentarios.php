@@ -5,13 +5,13 @@
 <script>
     
     $('#form_adicionar_comentario').live('submit', function(){
+        var form = $(this);
         $(this).ajaxSubmit({                        
-            success: function(data){                            
-                alert(data);
+            success: function(data){                                            
                 if(!data){
                     alert('Operação não realizada, tente novamente mais tarde!');
                 }else{                    
-                    insereLinhaComentario($('#form_adicionar_comentario'), data);                    
+                    insereLinhaComentario(form, data);
                 }
                 dialog.dialog('close');
             }
@@ -51,9 +51,9 @@
         var data = dados.split('--');
         var id = data[0];
         data = data[1];
-        var linha = "<div class='comentario b_2'><div><p><b>:: </b>" + data + " -<b> " + comentario + "</b></p>";
+        var linha = "<div class='comentario b_2'><div><p><b>:: </b>" + data + " -<b> " + autor + "</b></p>";
         linha += "<span>" + comentario + "</span></div>";
-        linha += "<div style='margin: 5px 0;'><a class='button3' style='margin-right: 5px;' href='index.php?c=ead&a=pini_editar_comentario&id=" + id + "'>Editar</a><a class='button3' href='index.php?c=ead&a=pini_comentarios&id=" + id + "'>Remover</a></div>";        
+        linha += "<div style='margin: 5px 0;'><a class='button3' href='index.php?c=ead&a=pini_comentarios&id=" + id + "'>Remover</a></div>";        
         linha += "</div>";
         $('#lista_comentario').append($(linha));
     }    

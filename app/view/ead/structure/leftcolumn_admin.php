@@ -37,7 +37,7 @@
                 <li><a class="navbar_item comentariosIcon" href="index.php?c=ead&a=pini_comentarios"> Comentários</a></li>
                 <li><a class="navbar_item destaquesIcon" href="index.php?c=ead&a=pini_destaques"> Destaques</a></li>
                 <li><a class="navbar_item parceirosIcon" href="index.php?c=ead&a=pini_patrocinadores"> Parceiros</a></li>
-                <li><a class="navbar_item fotosIcon" href="#"> Fotos</a></li>
+                <li><a class="navbar_item fotosIcon" href="index.php?c=ead&a=pini_fotos"> Fotos</a></li>
             </ul>
         </dd>
     </dl>
