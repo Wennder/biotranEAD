@@ -65,6 +65,7 @@ require ROOT_PATH . '/library/Biotran/AutoLoad.php';
 require ROOT_PATH . '/library/Biotran/mvc/view.php';
 require ROOT_PATH . '/library/Biotran/mvc/controller.php'; 
 include ROOT_PATH . '/library/wideimage/lib/WideImage.inc.php';
+include ROOT_PATH . '/library/phpmailer/class.phpmailer.php';
 
 
 ?>

@@ -8,9 +8,9 @@ if (isset($_GET['id']))
     <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
         <div style="border-bottom:1px solid #eeeeee;">
             <div style="float: left; position: absolute;">
-                <a style="text-decoration: none;" href="#" class="ref_ajax" name="index.php?c=ead&a=forum&id=<?php echo $_GET['id']; ?>"><img src="img/dynamic_blue_left.png"/>Voltar</a>
+                <a style="text-decoration: none;" href="#" class="ref_ajax" name="index.php?c=ead&a=forum&id=<?php echo $topico[0]->getId_curso(); ?>"><img src="img/dynamic_blue_left.png"/>Voltar</a>
             </div>
-            <center><label style="font-size: 15px; font-weight: bold;">Fórum - <?php echo $this->curso->getNome(); ?></label></center>
+            <center><label style="font-size: 15px; font-weight: bold;">Fórum<?php // echo $this->curso->getNome(); ?></label></center>
         </div><br>
         <div class="topico_fundo">
             <div class="topico_header">
@@ -27,7 +27,7 @@ if (isset($_GET['id']))
                 </p>
             </div>
             <br>
-            <div><fr><a href="#" class="responder_topico" id="index.php?c=ead&a=responder_topico&id=<?php echo $_GET['id']; ?>">Responder</a></fr></div>
+            <div><a href="#" class="responder_topico ref_ajax" name="index.php?c=ead&a=responder_topico&id=<?php echo $_GET['id']; ?>">Responder</a></div>
         </div>
         <br>
         <div id="respostas">
@@ -36,18 +36,4 @@ if (isset($_GET['id']))
             ?>
         </div>
     </div>
-    <div class="topico_mensagem">
-        <p>
-            <?php echo $this->controller->getMensagem();?> 
-        </p>
-    </div>
-    <br>
-    <div><a href="#" class="responder_topico ref_ajax" name="index.php?c=ead&a=responder_topico&id=<?php echo $_GET['id']; ?>">Responder</a></div>
-</div>
-<br>
-<div id="respostas">
-    <?php
-    echo $this->controller->listaRespostas($_GET['id']);
-    ?>
-</div>
 </div>

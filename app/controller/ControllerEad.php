@@ -390,16 +390,10 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionResponder_topico() {
-        $this->controller = new controllerCurso();
-        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);
         $this->renderizar();
     }
 
     public function actionTopico() {
-        $this->controller = new controllerCurso();
-        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
-        $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);
         if ($_GET['r'] == '1') {
             $this->controller = new ControllerForum();
             $topico = $this->controller->inserir_resposta();
@@ -520,7 +514,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
                         
             </body></html>"; //aqui vai o corpo do e-mail em HTML
         //Enfim, envio o e-mail.
-        $mail->Send();
+//        $mail->Send();
         //atualizando no banco
     }
 

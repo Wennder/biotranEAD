@@ -30,10 +30,7 @@
             <div style="display: none;">
                 <input id="id_curso_topico" name="id_curso" type="text" value="<?php echo $_GET['id']; ?>" />
                 <input id="id_usuario_topico" name="id_usuario" type="text" value="<?php echo $_SESSION["usuarioLogado"]->getId_usuario(); ?>" />
-                <input name="data_hora" type="text" value="<?php
-date_default_timezone_set("Brazil/East");
-echo $today = date("F j, Y, g:i a");
-?>"/>
+                <input name="data_hora" type="text" value="<?php date_default_timezone_set("Brazil/East");echo $today = date("d/m/y - h:i"); ?>"/>
             </div>
         </form>
     </div>
