@@ -4,6 +4,12 @@
 
 <?php $noticiaDAO = new NoticiaDAO(); $noticia = $noticiaDAO->select("id_noticia=".$_GET['id']); ?>
 
+<script>
+    $(document).ready(function(){
+       $('#noticia').jqte();
+    });
+</script>
+
 <form id="form_noticia" method="post" enctype="multipart/form-data" action="index.php?c=ead&a=pini_noticias&u=1&id="<?php echo $_GET['id']?> >
     <fieldset>
         <legend>Editar Noticia</legend>

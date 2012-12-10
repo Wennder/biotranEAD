@@ -1,6 +1,6 @@
-<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
 <form method="post" action="index.php?c=ead&a=pini_patrocinadores&i=1" enctype="multipart/form-data">
     <fieldset>
@@ -16,4 +16,4 @@
     <input type="submit" value="adicionar" />
 </form>
 
-<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

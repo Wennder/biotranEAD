@@ -153,8 +153,12 @@ class ControllerForum {
             $return.="<b>Re: </b>" . $this->topico[0]->getTitulo() . "<br>";
             $usuario = $this->getUsuario("id_usuario=" . $respostas[$i]->getId_usuario());
             $return.="<b>Autor: </b>" . $usuario[0]->getNome_completo();
-            $return.="<span>  " . $this->topico[0]->getData_hora() . "</span>";
-            $return.="</div><div class='$id_fundo" . "_mensagem'><p>" . $respostas[$i]->getMensagem() . "</p></div><br><a href='index.php?c=ead&a=responder_topico&id=" . $this->topico[0]->getId_topico() . "' id='forum_responder'>Responder</a></div><br>";
+            $return.="<span>  " . $this->topico[0]->getData_hora() . "</span>";            
+            $return.="</div><div class='$id_fundo" . "_mensagem'><p>" . $respostas[$i]->getMensagem() . "</p></div><br>";            
+            if($i == ($quant - 1)){
+                $return .= "<a class='ref_ajax' href='#' name='index.php?c=ead&a=responder_topico&id=" . $this->topico[0]->getId_topico() . "' id='forum_responder'>Responder</a>";
+            }
+            $return .= "</div><br>";
         }
 
         return $return;

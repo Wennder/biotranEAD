@@ -23,7 +23,7 @@ if (isset($_GET['id']))
         </p>
     </div>
     <br>
-    <div><fr><a href="#" class="responder_topico" id="index.php?c=ead&a=responder_topico&id=<?php echo $_GET['id']; ?>">Responder</a></fr></div>
+    <div><a href="#" class="responder_topico ref_ajax" name="index.php?c=ead&a=responder_topico&id=<?php echo $_GET['id']; ?>">Responder</a></div>
 </div>
 <br>
 <div id="respostas">

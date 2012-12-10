@@ -5,27 +5,27 @@
     //mudança de cor na lista de fórum
     var corDestaque = "rgb(144, 177, 214)";//"#90B1D6";
     var corClick = "rgb(180, 209, 241)";//"#B4D1F1";
-//
-//    function mouseover(elemento){
-//        if(elemento.style.backgroundColor != corClick){
-//            elemento.style.backgroundColor = corDestaque;
-//        }
-//    }
-//
-//    function mouseout(elemento, corAntiga){
-//        if(elemento.style.backgroundColor != corClick){
-//            elemento.style.backgroundColor = corAntiga;
-//        }
-//    }
+    //
+    //    function mouseover(elemento){
+    //        if(elemento.style.backgroundColor != corClick){
+    //            elemento.style.backgroundColor = corDestaque;
+    //        }
+    //    }
+    //
+    //    function mouseout(elemento, corAntiga){
+    //        if(elemento.style.backgroundColor != corClick){
+    //            elemento.style.backgroundColor = corAntiga;
+    //        }
+    //    }
 
-//    function mouseclick(elemento, corOriginal){
-//        if(elemento.style.backgroundColor != corClick){
-//            elemento.style.backgroundColor = corClick;
-//        }else{
-//            elemento.style.backgroundColor = corOriginal;
-//        }
-//        mouseover(elemento);
-//    }
+    //    function mouseclick(elemento, corOriginal){
+    //        if(elemento.style.backgroundColor != corClick){
+    //            elemento.style.backgroundColor = corClick;
+    //        }else{
+    //            elemento.style.backgroundColor = corOriginal;
+    //        }
+    //        mouseover(elemento);
+    //    }
 </script>
 <script>    
     $(document).ready(function(){        
@@ -110,12 +110,12 @@
                         if(data){
                             var ac = document.getElementsByName(id_resposta);
                             $(ac).remove();
-//                            if(centro!=1){            
-//                                centro.find('div').remove();
-//                            }
-//                            centro = $('#center_content').load('index.php?c=ead&a=topico&id='+id_topico, function (){                    
-//                                $('#div_conteudo').append(centro);                    
-//                            })
+                            //                            if(centro!=1){            
+                            //                                centro.find('div').remove();
+                            //                            }
+                            //                            centro = $('#center_content').load('index.php?c=ead&a=topico&id='+id_topico, function (){                    
+                            //                                $('#div_conteudo').append(centro);                    
+                            //                            })
                         }else{
                             alert('Operação não realizada, tente novamente mais tarde!');
                         }
@@ -139,17 +139,17 @@
                 pag_content = 'editar_modulo';
             });
             
-            $('.ref_ajax').live('click',function(e){                
-                if(centro!=1){            
-                    centro.find('div').remove();
-                } 
-                var id = $(this).attr('name');
-                centro = $('#center_content').load(id, function (){                    
-                    $('#div_conteudo').append(centro);
-                });
-                pag_content = 'forum';
-            });
         }
+        $('.ref_ajax').live('click',function(e){                
+            if(centro!=1){            
+                centro.find('div').remove();
+            } 
+            var id = $(this).attr('name');
+            centro = $('#center_content').load(id, function (){                    
+                $('#div_conteudo').append(centro);
+            });
+            pag_content = 'forum';
+        });
     });
 
     function openCenter(s){       

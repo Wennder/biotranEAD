@@ -2,6 +2,12 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
+<script>
+    $(document).ready(function(){
+       $('#noticia').jqte();
+    });
+</script>
+
 <form id="form_noticia" method="post" action="index.php?c=ead&a=pini_noticias&i=1" enctype="multipart/form-data" >
     <fieldset>
         <legend>Nova Noticia</legend>
