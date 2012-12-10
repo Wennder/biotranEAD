@@ -8,7 +8,7 @@ You should have received a copy of the GNU General Public License along with thi
  *
 */
 
-.jqte { width:700px; border:#000 3px solid; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; overflow:hidden; box-shadow:0 0 10px #EEE; -moz-box-shadow:0 0 10px #EEE; webkit-box-shadow:0 0 10px #EEE; margin:10px 0; }
+.jqte { border:#CCC 1px solid; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; overflow:hidden;}
 .jqte * { font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#333 }
 .jqte_Panel { height:25px; padding:5px 8px; background:#F5F5F5; border-bottom:#CCC 1px solid }
 .jqte_Panel a { display:block; float:left; width:22px; height:22px; border:#F5F5F5 1px solid; text-align:center; background:url(images/jquery-te.png) no-repeat; font-weight:bold; cursor:pointer; -webkit-border-radius:2px; -moz-border-radius:2px; border-radius:2px; }

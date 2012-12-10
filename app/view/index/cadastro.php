@@ -1,39 +1,62 @@
 <?php require 'structure/header.php'; ?>
-<?php require 'structure/content_up.php';?>
-<script src="js/validarCpf_passaporteCadastro.js" type="text/javascript"></script>
-<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
-<script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
-<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
+<?php require 'structure/content_up.php'; ?>
+
+<script src="js/jquery.validate.js" type="text/javascript"></script>
+<script src="js/messages_pt_BR.js" type="text/javascript"></script>
 
 <script>
-    $(document).ready(function(){
-        //Habilita a validação automática no formulário de cadastro
-        $("#cadastro").validationEngine();
-    });
-    
-    function validaLogin_ajax(){        
-        $.getJSON('ajax/validarLoginCadastro.php?search=',{
-            login: $('#email').val(),                         
-            ajax: 'true'
-        }, function(j){
-            //usuario validado         
-            if(j == 0){
-                alert('Esse login não pode ser utilizado');                                
-                $('#email').val('');
+    $(document).ready(function(){ 
+        $("#cadastro").validate({
+            rules:{
+                nome_completo: {
+                    required: true
+                },
+                atuacao: {
+                    required: true
+                },
+                sexo: {
+                    required: true
+                },
+                cpf_passaporte: {
+                    required: true,
+                    number: true,
+                    remote: 'ajax/validarCamposUnicos.php?acao=cpf_passaporte&controller=usuario&id='+$("#id").val()
+                },
+                endereco_rua: {
+                    required: true
+                },
+                endereco_numero: {
+                    required: true,
+                    number: true
+                },
+                endereco_bairro: {
+                    required: true
+                },
+                endereco_cidade: {
+                    required: true
+                },
+                endereco_pais: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true,
+                    remote: "ajax/validarCamposUnicos.php?acao=email&controller=usuario&id="+$("#id").val()
+                },
+                senha2: {
+                    equalTo: "#senha"
+                }
+            },
+            messages:{
+                cpf_passaporte: {
+                    remote: "Este CPF/Passaporte já está sendo utilizado"
+                },
+                email: {
+                    remote: "Este login já está sendo utilizado."
+                }
             }
-        });                    
-    }
-    
-    function mascara_data(src){
-        var mask = '##/##/####';
-        var i = src.value.length;
-        var saida = mask.substring(0,1);
-        var texto = mask.substring(i);              
-        if (texto.substring(0,1) != saida)
-        {
-            src.value += texto.substring(0,1);
-        }             
-    }
+        });
+    });
     
     //Faz o input aceitar apenas números
     function apenas_numero(e){
@@ -70,7 +93,7 @@
                         <label class="label_cadastro">*Nome completo: </label>
                     </td>
                     <td style="width: 500px;">
-                        <input type="text" id="nome_completo" name="nome_completo" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                        <input type="text" id="nome_completo" name="nome_completo" class="text-input" style="width: 500px"/>
                     </td>
                 </tr>
                 <tr>
@@ -78,7 +101,7 @@
                         <label class="label_cadastro">*Atuação: </label>
                     </td>
                     <td>
-                        <select id="atuacao" name="atuacao" class="validate[required]" data-prompt-position="centerRight">
+                        <select id="atuacao" name="atuacao" class="text-input" style="width: auto;">
                             <option value></option>
                             <option value="Agrônomo">Agrônomo</option>
                             <option value="Estudante">Estudante</option>
@@ -95,9 +118,9 @@
                         <label class="label_cadastro">*Sexo: </label>
                     </td>
                     <td>
-                        <input type="radio" name="sexo" id="sexoM" value="Masculino" class="validate[required] radio" data-prompt-position="centerRight">
+                        <input type="radio" name="sexo" id="sexoM" value="Masculino" checked>
                         <label class="label_cadastro">Masculino </label>
-                        <input type="radio" name="sexo" id="sexoF" value="Feminino" class="validate[required] radio" data-prompt-position="centerRight">
+                        <input type="radio" name="sexo" id="sexoF" value="Feminino">
                         <label class="label_cadastro">Feminino </label>
                     </td>
                 </tr>
@@ -106,8 +129,7 @@
                         <label class="label_cadastro">*CPF/Passaporte: </label>
                     </td>
                     <td>
-                        <input type="text" id="cpf_passaporte" name="cpf_passaporte" class="validate[required, custom[onlyNumberSp], ajax[validarCpf_cadastro_ajax]] text-input" data-prompt-position="centerRight" onkeypress="return apenas_numero(event);" style="width: 115px" maxlength="14"/>
-                        <label class="label_cadastro_legend">Somente números </label>
+                        <input type="text" id="cpf_passaporte" name="cpf_passaporte" class="text-input" style="width: 115px" maxlength="14"/>
                     </td>
                 </tr>
             </table>
@@ -121,53 +143,55 @@
                         <label class="label_cadastro">*Rua: </label>
                     </td>
                     <td style="width: 390px;">
-                        <input type="text" id="endereco_rua" name="endereco_rua" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 390px"/>
+                        <input type="text" id="endereco_rua" name="endereco_rua" class="text-input" style="width: 390px"/>
                     </td>
+                </tr>
+                <tr>
                     <td style="width: 50px;">
                         <label class="label_cadastro">*Número: </label>
                     </td>
                     <td style="width: 60px;">
-                        <input type="text" id="endereco_numero" name="endereco_numero" class="validate[required] text-input" data-prompt-position="centerRight" onkeypress="return apenas_numero(event);" style="width: 60px"/>
+                        <input type="text" id="endereco_numero" name="endereco_numero" class="text-input" onkeypress="return apenas_numero(event);" style="width: 60px"/>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="1" style="width: 150px;">
+                    <td style="width: 150px;">
                         <label class="label_cadastro">Complemento: </label>
                     </td>
-                    <td colspan="3" style="width: 500px;">
-                        <input type="text" id="endereco_complemento" name="endereco_complemento" class="text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                    <td style="width: 500px;">
+                        <input type="text" id="endereco_complemento" name="endereco_complemento" class="text-input" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="1" style="width: 150px;">
+                    <td style="width: 150px;">
                         <label class="label_cadastro">*Bairro: </label>
                     </td>
-                    <td colspan="3" style="width: 500px;">
-                        <input type="text" id="endereco_bairro" name="endereco_bairro" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                    <td style="width: 500px;">
+                        <input type="text" id="endereco_bairro" name="endereco_bairro" class="text-input" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="1" style="width: 150px;">
+                    <td style="width: 150px;">
                         <label class="label_cadastro">*Cidade: </label>
                     </td>
-                    <td colspan="3" style="width: 500px;">
-                        <input type="text" id="endereco_cidade" name="endereco_cidade" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px"/>
+                    <td style="width: 500px;">
+                        <input type="text" id="endereco_cidade" name="endereco_cidade" class="text-input" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="1" style="width: 150px;">
+                    <td style="width: 150px;">
                         <label class="label_cadastro">*País: </label>
                     </td>
-                    <td colspan="3" style="width: 500px;">
-                        <input type="text" id="endereco_pais" name="endereco_pais" value="Brasil" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 200px" onkeyup="paisBrasil()"/>
+                    <td style="width: 500px;">
+                        <input type="text" id="endereco_pais" name="endereco_pais" value="Brasil" class="text-input" style="width: 200px" onkeyup="paisBrasil()"/>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="1" style="width: 150px;">
+                    <td style="width: 150px;">
                         <label id="label_estado" class="label_cadastro">*Estado: </label>
                     </td>
-                    <td colspan="3" style="width: 500px;">
-                        <select id="endereco_estado" name="endereco_estado" class="validate[required]" data-prompt-position="centerRight">
+                    <td style="width: 500px;">
+                        <select id="endereco_estado" name="endereco_estado" class="text-input" style="width: auto;">
                             <option></option >
                             <option  value="Acre">Acre</option >
                             <option  value="Alagoas">Alagoas</option >
@@ -210,7 +234,7 @@
                         <label class="label_cadastro">*E-mail (login): </label>
                     </td>
                     <td style="width: 500px;">
-                        <input type="text" id="email" name="email"  class="validate[required, custom[email], ajax[validarLogin_ajax]] text-input" data-prompt-position="centerRight"/>
+                        <input type="text" id="email" name="email"  class="text-input"/>
                     </td>
                 </tr>
                 <tr>
@@ -218,7 +242,7 @@
                         <label class="label_cadastro">*Senha: </label>
                     </td>
                     <td>
-                        <input type="password" id="senha" name="senha" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 150px"/>
+                        <input type="password" id="senha" name="senha" class="text-input" style="width: 150px"/>
                     </td>
                 </tr>
                 <tr>
@@ -226,7 +250,7 @@
                         <label class="label_cadastro">*Confirmar Senha: </label>
                     </td>
                     <td>
-                        <input type="password" id="senha2" name="senha2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 150px"/>
+                        <input type="password" id="senha2" name="senha2" class="text-input" style="width: 150px"/>
                     </td>
                 </tr>
             </table>
@@ -240,5 +264,4 @@
     </br></br>
 </div>
 
-<?php // require 'structure/content_down.php'; ?>
 <?php require 'structure/footer.php'; ?>

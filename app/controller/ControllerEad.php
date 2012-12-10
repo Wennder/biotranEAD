@@ -382,14 +382,23 @@ class ControllerEad extends Biotran_Mvc_Controller {
     }
 
     public function actionAdicionar_topico() {
+        $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);
         $this->renderizar();
     }
 
     public function actionResponder_topico() {
+        $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);
         $this->renderizar();
     }
 
     public function actionTopico() {
+        $this->controller = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->visao->curso = $this->controller->getCurso('id_curso = ' . $id_curso);
         if ($_GET['r'] == '1') {
             $this->controller = new ControllerForum();
             $topico = $this->controller->inserir_resposta();

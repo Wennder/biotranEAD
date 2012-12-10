@@ -1,33 +1,7 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php' ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
-<script type="text/javascript">
-    //mudança de cor na lista de fórum
-    var corDestaque = "rgb(144, 177, 214)";//"#90B1D6";
-    var corClick = "rgb(180, 209, 241)";//"#B4D1F1";
-//
-//    function mouseover(elemento){
-//        if(elemento.style.backgroundColor != corClick){
-//            elemento.style.backgroundColor = corDestaque;
-//        }
-//    }
-//
-//    function mouseout(elemento, corAntiga){
-//        if(elemento.style.backgroundColor != corClick){
-//            elemento.style.backgroundColor = corAntiga;
-//        }
-//    }
-
-//    function mouseclick(elemento, corOriginal){
-//        if(elemento.style.backgroundColor != corClick){
-//            elemento.style.backgroundColor = corClick;
-//        }else{
-//            elemento.style.backgroundColor = corOriginal;
-//        }
-//        mouseover(elemento);
-//    }
-</script>
-<script>    
+<script>
     $(document).ready(function(){        
         //forms forum
         $('#form_adicionar_topico').live('submit',function(){

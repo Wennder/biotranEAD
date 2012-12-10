@@ -532,6 +532,15 @@ form.form_cadastro{
     background-color: #DCDCDC;
     border: solid 1px #B5B8C8;
 }
+
+#form_cadastro label.error{
+    float: none;
+    color: red;
+    margin: 8px 0 0 5px;
+    vertical-align:top;
+    font-size: 12px;
+    position: absolute;
+}
 /*-----------------------------------------*/
 
 /*------------- BOTÃO TIPO 1 --------------*/
