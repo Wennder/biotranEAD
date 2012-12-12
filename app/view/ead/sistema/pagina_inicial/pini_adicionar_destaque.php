@@ -8,7 +8,7 @@
                     <td><input type="file" name="imagem" id="imagem" class="text-input"/></td>
                 </tr>
             </table>
-        </fieldset><br>
-        <input type="_ID_SUBMIT_" value="adicionar" class="button2"/>
+        </fieldset>
+        <input type="_ID_SUBMIT_" value="adicionar" />
     </form>
 </div>
