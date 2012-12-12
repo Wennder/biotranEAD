@@ -22,6 +22,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
             $this->controller = new controllerModulo();
             $modulos_curso = $this->controller->getListaModulo("id_curso=" . $id_curso . " ORDER BY numero_modulo");
             $this->visao->modulo = $modulos_curso[0];
+            $this->controllerCurso = new controllerCurso();
+            $this->visao->curso = $this->controllerCurso->getCurso("id_curso=" . $id_curso . "");
         } else {
             $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
             $this->controller = new controllerModulo();
@@ -216,6 +218,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
         $c = new controllerMatricula_curso();
         $mc = $c->getMatricula_curso('id_curso=' . $this->visao->modulo->getId_curso() . ' AND id_usuario=' . $_SESSION['usuarioLogado']->getId_usuario());
+        $this->controllerCurso = new controllerCurso();
+        $this->visao->curso = $this->controllerCurso->getCurso("id_curso=" . $this->visao->modulo->getId_curso() . "");
         $this->visao->boolAcesso_modulo = $mc->getModulo_atual() >= $this->visao->modulo->getNumero_modulo();
         if ($this->visao->boolAcesso_modulo) {
             $this->visao->listaVideo = $this->controller->visualizar_listaVideo_aulas_modulo($id_modulo);
@@ -230,15 +234,6 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->controller = new controllerCurso();
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
-        $this->renderizar();
-    }
-
-    public function actionEditar_modulo_talvez_nao_faca_nada() {
-        $this->controller = new controllerCurso();
-        $this->visao->options = $this->controller->comboCursos();
-//        if ($this->visao->options != null) {
-//            $this->renderizar();
-//        }//possivel parada de erro
         $this->renderizar();
     }
 
@@ -314,6 +309,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $id_modulo = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->controller = new controllerModulo();
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $id_modulo . "");
+        $this->controllerCurso = new controllerCurso();
+        $this->visao->curso = $this->controllerCurso->getCurso("id_curso=" . $this->visao->modulo->getId_curso() . "");
         $this->visao->listaVideo = $this->controller->listaVideo_aulas_modulo($id_modulo);
         $this->visao->listaTexto = $this->controller->listaArquivos($this->visao->modulo, 'texto_referencia');
         $this->visao->listaMaterial = $this->controller->listaArquivos($this->visao->modulo, 'material_complementar');

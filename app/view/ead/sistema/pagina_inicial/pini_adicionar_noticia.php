@@ -17,7 +17,7 @@
                 </tr>
                 <tr>
                     <td style="vertical-align: top;"><label>Notícia:</label></td>
-                    <td><textarea class="editor" id="_ID_NOTICIA_" name="noticia" rows="10" style="width:500px;" maxlenght="1000"></textarea></td>
+                    <td><textarea id="_ID_NOTICIA_" name="noticia" rows="10" style="width:500px;" maxlenght="1000"></textarea></td>
                 </tr>
                 <tr>
                     <td style="vertical-align:top;"><label>Imagem: </label></td>
