@@ -105,7 +105,7 @@ class controllerExercicio {
         $pergunta->setId_exercicio($id_exercicio);
         $pergunta->setId_pergunta($controller->novoPergunta($pergunta));
         if (!empty($_FILES)) {            
-            imagem_pergunta($pergunta->getId_pergunta());
+            $this->imagem_pergunta($pergunta->getId_pergunta());
         }
         $controller = new controllerAlternativa();
         $alternativa = $controller->setTodasAlternativa();
@@ -126,7 +126,7 @@ class controllerExercicio {
             if ($_FILES["imagem"]["name"] != '') {
                 $imagem = $_FILES["imagem"];
                 $tipos = array("image/jpg", "image/jpeg");
-                $pasta_dir = "img/perguntas/";
+                $pasta_dir = ROOT_PATH . "/public/img/perguntas/";
                 if (in_array($imagem["type"], $tipos)) {
                     $aux = explode('/', $imagem["type"]);
                     $caminho = ROOT_PATH . '/public/img/respostas/' . $id . '.' . $aux[1];
@@ -134,8 +134,9 @@ class controllerExercicio {
                         unlink($caminho);
                     }
                     $imagem_nome = $pasta_dir . $id . ".jpg";
+//                    echo $imagem["tmp_name"] . '--' . $imagem_nome; die();
                     move_uploaded_file($imagem["tmp_name"], $imagem_nome);
-                    $imagem_arquivo = "img/perguntas/" . $id . ".jpg";
+                    $imagem_arquivo = ROOT_PATH . "/public/img/perguntas/" . $id . ".jpg";
                     list($altura, $largura) = getimagesize($imagem_nome);
                     if ($altura > 200 && $largura > 200) {
                         $img = wiImage::load($imagem_arquivo);
