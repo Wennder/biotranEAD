@@ -95,8 +95,7 @@
     
     $('.edtpini').live('click', function(){       
         var name = $(this).attr('name');
-        var id = $(this).attr('id');    
-        alert('teste');
+        var id = $(this).attr('id');            
         var _HTML = $('#div_edt').load(id, function(){            
             dialogEditar(_HTML);
         });        
