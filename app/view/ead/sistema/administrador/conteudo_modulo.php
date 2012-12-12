@@ -1,7 +1,7 @@
 <div>
     <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
         <div id="info_modulo">
-            <label style="font-size: 18px;"><b>Módulo <?php echo $this->modulo->getNumero_modulo() ?></b></label><br><br>
+            <label style="font-size: 18px;"><b>Módulo <?php echo $this->modulo->getNumero_modulo() . ' - ' . $this->curso->getNome(); ?></b></label><br><br>
             <label><b>Título: </b><?php echo $this->modulo->getTitulo_modulo(); ?></label><br>
             <label><b>Descrição:</b> <?php echo $this->modulo->getDescricao() ?></label><br><br>
             <div id="menu_accordion">

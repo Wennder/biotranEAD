@@ -1,39 +1,32 @@
-<script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
-<script src="js/jquery.validationEngine-pt_BR.js" type="text/javascript"></script>
-<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
-<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
-
 <div id="cad_exercicios">
     <div style="display:none;">                
-        <input type="text" name="id" id="id" value="<?php echo $this->exercicio->getId_exercicio(); ?>"/>            
-    </div>
-    <div id="form_cadastro" style="">
-        <fieldset style="width:640px; padding:0 5px 5px 5px; margin: 0 2.5px; ">            
-            <legend>Dados do Exercicio</legend>
-            <fieldset style="width:615px; float:left; padding:0 5px 5px 5px; margin: 0 2.5px;">
-                <legend>Nome do Exercicio</legend>
-                <input type="text" readonly="true" id="titulo_exercicio" name="titulo_exercicio" value="<?php echo $this->exercicio->getTitulo(); ?>" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 600px"/>
-            </fieldset >
-            <fieldset style="width:615px; float:left; padding:0 5px 5px 5px; margin: 0 2.5px;">
-                <legend>Descricao (opcional)</legend>
-                <textarea id="descricao_exercicio" readonly="true" style="width:600px;" name="descricao_exercicio" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100"><?php echo $this->exercicio->getDescricao(); ?></textarea>
-            </fieldset>            
-            <div id="div_id_exercicio" style="display:none;" >
-                <input name="id_exercicio" id="id_exercicio" type="text" value="<?php echo $this->exercicio->getId_exercicio(); ?>"/>    
-            </div>
-            <div id="div_id_modulo" style="display:none;" >
-                <input name="id_modulo" id="id_modulo" type="text" value="<?php echo $this->exercicio->getId_modulo(); ?>"/>
-            </div>
-        </fieldset>
-        <div style="display:none;">                
-            <input type="text" name="id_exercicio" id="id_exercicio" value="<?php echo $this->exercicio->getId_exercicio(); ?>"/>            
-        </div>
-    </div>
-    <div style="padding: 2px 30px;" id="lista_perguntas">        
-        <?php echo ($this->listaPerguntas); ?>        
+
     </div>
     <div>
-        <input type="button" value="Corrigir exercicio" id="corrigir_exercicio"/>        
-        <input type="button" value="Cancelar" id="cancelar_exercicio"/>
+        <div style="border-bottom:1px solid #eeeeee; width: 923px;">
+            <center><label style="font-weight: bold; font-size: 14px;"><?php echo $this->exercicio->getTitulo(); ?></label></center>
+        </div><br>
+        <table style="width: 100%;">
+            <tr>
+                <td valign="top">
+                    <label><b>Descrição:</b> </label>
+                </td>
+                <td>
+                    <label><?php echo $this->exercicio->getDescricao(); ?></label>
+                </td>
+            </tr>
+        </table><br>
+        <div style="border-top:1px solid #eeeeee; width: 923px;"></div>
+    </div><br>
+    <div id="lista_perguntas" style="width: 925px;">
+        <?php echo ($this->listaPerguntas); ?>        
+    </div><br>
+    <div>
+        <input type="button" value="Corrigir exercicio" id="corrigir_exercicio" class="button2"/>        
+        <input type="button" value="Cancelar" id="cancelar_exercicio" class="button2"/>
+    </div><br>
+    <div style="display:none;">
+        <input type="text" name="id" id="id" value="<?php echo $this->exercicio->getId_exercicio(); ?>"/>            
+        <input name="id_modulo" id="id_modulo" type="text" value="<?php echo $this->exercicio->getId_modulo(); ?>"/>
     </div>
 </div>

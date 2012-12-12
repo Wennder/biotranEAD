@@ -31,7 +31,7 @@
 <div id="div_conteudo_professor_editar_modulo">
     <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
         <div style="border-bottom:1px solid #eeeeee;">
-            <center><label><b>Módulo <?php echo $this->modulo->getId_modulo(); ?></b></label></center>
+            <center><label><b>Módulo <?php echo $this->modulo->getId_modulo() . ' - ' . $this->curso->getNome(); ?></b></label></center>
         </div>
         <div id="info_modulo">
             <form id="form_descritivo" enctype="multipart/form-data" method="post">
