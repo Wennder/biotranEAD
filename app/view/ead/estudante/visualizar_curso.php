@@ -25,9 +25,6 @@
     <div style="border-bottom:1px solid #eeeeee;">
         <center><label><b>Informações do curso</b></label></center>
     </div>
-    <div id="div_editar" style="float: right; margin: 15px 30px 0 0;">
-        <input type="button" id="btn_matricular" name="<?php echo $this->curso->getId_curso(); ?>" value="Matricular-se" class="button2"/>
-    </div>
     <div>
         <table style="width: 100%;">
             <tr>
@@ -61,6 +58,9 @@
             </tr>
             <tr><td style="height: 15px;"></td></tr>
         </table>
+        <div style="position: absolute; margin: -70px 0 0 590px;">
+            <input type="button" id="btn_matricular" name="<?php echo $this->curso->getId_curso(); ?>" value="Matricular-se" class="button2"/>
+        </div>
     </div>
     <div>
         <table>
@@ -90,7 +90,8 @@
     <div id="lista_modulos">
         <label style="margin: 5px 0 0 9px; position: absolute;"><b>Módulos:</b></label><br>
         <ul style="list-style-type:none; width: 725px; padding: 10px 0 0 10px; margin-bottom: 20px;">
-            <?php $controllerModulo = new controllerModulo(); echo $controllerModulo->listaModulos($this->curso->getId_curso()); ?>
+            <?php $controllerModulo = new controllerModulo();
+            echo $controllerModulo->listaModulos($this->curso->getId_curso()); ?>
         </ul>
     </div>
 </div>

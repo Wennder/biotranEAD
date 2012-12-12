@@ -68,12 +68,6 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
         <div style="border-bottom:1px solid #eeeeee;">
             <center><label><b>Informações do curso</b></label></center>
         </div>
-        <div style="float: right; margin: 15px 30px 0 0;">
-            <input id="btn_editar" type="button" class="button2" value="Editar"/>
-        </div>
-        <div id="div_atualizar" style="display: none; float: right; margin: 15px 10px 0 0;">
-            <input id="btn_atualizar" type="button" class="button2" value="Atualizar"/>    
-        </div>
         <div>
             <table style="width: 100%;">
                 <tr>
@@ -121,11 +115,17 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
                 </tr>
                 <tr><td style="height: 15px;"></td></tr>
             </table>
+            <div style="position: absolute; margin: -15px 0 0 520px;">
+                <div id="div_atualizar" style="display: none;">
+                    <input id="btn_atualizar" type="button" class="button2" value="Atualizar"/>    
+                </div>
+                <input id="btn_editar" type="button" class="button2" value="Editar"/>
+            </div>
             <?php
-                if ($this->curso->getStatus() == 0 || $this->curso->getStatus() == 2) {
-                    echo('<div id="div_env_analise" style="position: absolute; margin: -125px 0 0 415px;"><input type="button" id="btn_env_analise" class="button1" value="Enviar para análise"/></div>');
-                }
-                ?>
+            if ($this->curso->getStatus() == 0 || $this->curso->getStatus() == 2) {
+                echo('<div id="div_env_analise" style="position: absolute; margin: -125px 0 0 415px;"><input type="button" id="btn_env_analise" class="button1" value="Enviar para análise"/></div>');
+            }
+            ?>
         </div>
         <div>
             <table>

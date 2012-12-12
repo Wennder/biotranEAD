@@ -11,16 +11,16 @@
             }
         });
         
-//        $('#form_cadastrar_pergunta').validate({
-//            rules:{
-//                numeracao: {
-//                    required: true
-//                },
-//                enunciado: {
-//                    required: true
-//                }
-//            }
-//        });
+        //        $('#form_cadastrar_pergunta').validate({
+        //            rules:{
+        //                numeracao: {
+        //                    required: true
+        //                },
+        //                enunciado: {
+        //                    required: true
+        //                }
+        //            }
+        //        });
         
         $('#btn_editar_exercicio').click(function(){
             if($(this).attr('value') == 'Editar'){
@@ -35,6 +35,11 @@
                 $(this).attr('value', 'Editar');
             }
             
+        });
+        
+        $("#btn_finalizar").click(function(){
+            $(dialog).dialog('destroy');
+            $(dialog).find('div').remove();
         });
     });
 </script>
@@ -112,7 +117,7 @@
                                         <div style="margin-top: 30px;">
                                             <label>Respostas:</label>
                                             <table style="width: 100%;">
-<!--                                            Alternativa 1 -->
+                                                <!--                                            Alternativa 1 -->
                                                 <tr>
                                                     <td>
                                                         <input type="radio" name="eh_correta" value="0" style="margin: 5px 0 0 15px;"/>
@@ -127,7 +132,7 @@
                                                         <textarea placeholder="Justificativa da alternativa 1" id="justificativa-0" name="justificativa-0" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
-<!--                                            Alternativa 2 -->
+                                                <!--                                            Alternativa 2 -->
                                                 <tr>
                                                     <td>
                                                         <input type="radio" name="eh_correta" value="1" style="margin: 5px 0 0 15px;"/>
@@ -142,7 +147,7 @@
                                                         <textarea placeholder="Justificativa da alternativa 2" id="justificativa-1" name="justificativa-1" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
-<!--                                            Alternativa 3 -->
+                                                <!--                                            Alternativa 3 -->
                                                 <tr>
                                                     <td>
                                                         <input type="radio" name="eh_correta" value="2" style="margin: 5px 0 0 15px;"/>
@@ -157,7 +162,7 @@
                                                         <textarea placeholder="Justificativa da alternativa 3" id="justificativa-2" name="justificativa-2" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
-<!--                                            Alternativa 4 -->
+                                                <!--                                            Alternativa 4 -->
                                                 <tr>
                                                     <td>
                                                         <input type="radio" name="eh_correta" value="3" style="margin: 5px 0 0 15px;"/>
@@ -180,12 +185,13 @@
                             <input type="submit" id="btn_add_pergunta" name="form_cadastrar" value="Adicionar Questão" class="button2"/><br>
                         </fieldset>
                         <div style="display:none;">                
-                            <input type="text" name="id_exercicio" id="id_exercicio" value="<?php echo $this->exercicio->getId_exercicio();  ?>"/>                
+                            <input type="text" name="id_exercicio" id="id_exercicio" value="<?php echo $this->exercicio->getId_exercicio(); ?>"/>                
                         </div>
                     </form>
                 </div>
             </div>
             <?php echo ($this->listaPerguntas); ?>
         </div>
-    </div>
+    </div><br><br>
+    <input type="button" id="btn_finalizar" name="btn_finalizar" value="Finalizar" class="button2"/><br>
 </div>

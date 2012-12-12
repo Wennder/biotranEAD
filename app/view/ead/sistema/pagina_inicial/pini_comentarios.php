@@ -3,6 +3,18 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
 <script>
+    $(document).ready(function(){
+        $('#form_adicionar_comentario').validate({
+            rules:{
+                autor: {
+                    required: true
+                },
+                comentario: {
+                    required: true
+                }
+            }
+        });
+    });
     
     $('#form_adicionar_comentario').live('submit', function(){
         var form = $(this);
@@ -19,22 +31,21 @@
         return false;
     });
     
-    $('addpini a:not(.link)').live('click', function(){
+    $('.ref_ajax a:not(.link)').live('click', function(){
         var name = $(this).attr('name');
-        var id = $(this).attr('id');
         var _HTML = $('#div_'+name).html();
         _HTML = _HTML.replace('_ID_FORM_', 'form_'+name);
         _HTML = _HTML.replace('_ID_SUBMIT_', 'submit');
         dialog = $(_HTML).dialog({
             draggable: false,
             resizable: false,
-            position: [(($(window).width()-900)/2), 15],
-            width:900,
+            position: [(($(window).width()-700)/2), 15],
+            width:700,
             show: {
                 effect: 'drop', 
                 direction: "up"
             },
-            height: (300),
+            height: 290,
             modal:true,                                          
             close: function(event,ui){                     
                 $(dialog).dialog('destroy');
@@ -82,9 +93,9 @@
 <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
     <h3 style="margin: 0;">Comentários</h3><br>
     <div id="comentarios_gerencia">
-        <addpini>
+        <div class="ref_ajax">
             <a name="adicionar_comentario" href="#" id="index.php?c=ead&a=pini_adicionar_comentario" style="text-decoration: none;" class="button2"> Adicionar Comentário</a><br><br>
-        </addpini>
+        </div>
         <div id="lista_comentario" style="border-top: 1px solid #ddd; border-right: 1px solid #ddd;">
             <?php
             $controller = new controllerSistema();

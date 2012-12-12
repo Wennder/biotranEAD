@@ -5,9 +5,9 @@
             <ul style="list-style: none;">
                 <li>
                     <a href="index.php?c=ead&a=gerenciar_usuarios">
-                        <div class="list_index_admin_gray">
-                            <div class="index_admin_detalhe_gray"></div>
-                            <label class="index_admin_label_gray" >Gerenciar Usuários</label><img src="img/seta_gray.png" />
+                        <div class="list_index_admin_blue">
+                            <div class="index_admin_detalhe_blue"></div>
+                            <label class="index_admin_label_blue" >Gerenciar Usuários</label><img src="img/seta_blue.png" />
                         </div>
                     </a>
                 </li>                

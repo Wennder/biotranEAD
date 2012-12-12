@@ -1,25 +1,26 @@
-<?php // require ROOT_PATH . '/app/view/ead/structure/header.php';   ?>
-<?php // require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php';   ?>
-<?php // require ROOT_PATH . '/app/view/ead/structure/content.php';   ?>
-<div style="display:none" id="div_adicionar_noticia">
-    <form id="_ID_FORM_" method="post" action="index.php?c=ead&a=pini_noticias&i=1" enctype="multipart/form-data" >
+<div id="div_adicionar_noticia" style="border-bottom:1px solid #f0f0f0; margin-left:20px; display: none;">
+    <form id="_ID_FORM_" method="post" action="index.php?c=ead&a=pini_noticias&i=1" enctype="multipart/form-data" class="formulario">
         <fieldset>
-            <legend>Nova Noticia</legend>
-
+            <legend>Nova Notícia</legend>
             <table>
-                <input name="data" type="text" hidden="true" value="<?php date_default_timezone_set("Brazil/East");
-echo $today = date("d/m/y - h:i");
-?>"/>
                 <tr>
-                    <td><label>titulo: </label></td>
-                    <td><input type="text" id="titulo" name="titulo" style="width:500px;" maxlength="255"/></td>
+                    <td><label>Título: </label></td>
+                    <td><input type="text" id="titulo" name="titulo" style="width:500px;" maxlength="255" class="text-input"/></td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: top;"><label>manchete: </label></td>
-                    <td><textarea id="manchete" name="manchete" rows="3" style="width:500px;" maxlenght="255"></textarea></td>
+                    <td><label>Autor:</label></td>
+                    <td><input type="text" name="autor" style="width:500px;" class="text-input"/></td>
                 </tr>
                 <tr>
-                    <td style="vertical-align:top;"><label>imagem: </label></td>
+                    <td style="vertical-align: top;"><label>Manchete: </label></td>
+                    <td><textarea id="manchete" name="manchete" rows="3" style="width:500px;" maxlenght="255" class="text-area"></textarea></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;"><label>Notícia:</label></td>
+                    <td><textarea id="_ID_NOTICIA" name="noticia" rows="10" style="width:500px;" maxlenght="1000"></textarea></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top;"><label>Imagem: </label></td>
                     <td><input type="file" name="imagem" id="imagem" style="width:500px;" class="text-input" data-prompt-position="centerRight"/></td>
                 </tr>
                 <tr>
@@ -37,9 +38,11 @@ echo $today = date("d/m/y - h:i");
                     <td><input type="text" name="autor" style="width:500px;"/></td>
                 </tr>
             </table>
-        </fieldset>
-        <input type="submit" id="_ID_SUBMIT_" value="Enviar mensagem" />
+        </fieldset><br>
+        <input type="submit" id="_ID_SUBMIT" value="Postar" class="button2"/><br><br>
+        <div style="display: none;">
+            <input name="data" type="text" value="<?php date_default_timezone_set("Brazil/East");
+echo $today = date("d/m/y - h:i"); ?>"/>
+        </div>
     </form>
 </div>
-<?php
-// require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>

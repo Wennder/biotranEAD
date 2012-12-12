@@ -157,7 +157,7 @@ class controllerExercicio {
         $controller = new controllerAlternativa();
         for ($i = 0; $i < count($p); $i++) {
             $a = $controller->getListaAlternativas("id_pergunta=" . $p[$i]->getId_pergunta());
-            $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body'><div class='accord_list'><label class='accord_label'>Questão " . $p[$i]->getNumeracao() . "</label></div></div>";
+            $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body'><div class='accord_list'><label class='accord_label'><b>Questão " . $p[$i]->getNumeracao() . ":</b> ". substr($p[$i]->getEnunciado(), 0, 139) ."...</label></div></div>";
             $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body' style='display:none;'>";
             $lista .='<div style="margin: 0 0 0 5px;"><form class="formulario" id="form_atualizar_pergunta_' . $p[$i]->getId_pergunta() . '" name="form_atualizar_pergunta" method="post" action="ajax/crud_exercicio.php?acao=atualizar_pergunta" enctype="multipart/form-data"><br>
             <fieldset style="width:893px;">

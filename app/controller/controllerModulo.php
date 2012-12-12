@@ -151,7 +151,7 @@ class controllerModulo {
         for ($i = 0; $i < count($exercicio); $i++) {
             $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='exercicio' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
             $lista .= $exercicio[$i]->getTitulo();
-            $lista .= "</label><input id='" . $exercicio[$i]->getId_exercicio() . "' type='button' name='exercicio' class='btn_del' value='Excluir'/><input type='button' id='index.php?c=ead&a=editar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' class='btn_edt' name='exercicio' value='Editar'/></li>";
+            $lista .= "</label><input id='" . $exercicio[$i]->getId_exercicio() . "' type='button' name='exercicio' class='btn_del' value='Excluir'/><input type='button' id='index.php?c=ead&a=editar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' class='btn_edt edt" . $exercicio[$i]->getId_exercicio() . "' name='exercicio' value='Editar'/></li>";
         }
         return $lista;
     }
