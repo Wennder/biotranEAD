@@ -11,6 +11,13 @@
                     <td><label>imagem(650x300)</label></td>
                     <td><input type="file" name="imagem" id="imagem"  class="text-input" data-prompt-position="centerRight"/></td>
                 </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <progress value="0" max="100"></progress><span id="_ID_PORCENTAGEM_">0%</span>
+                        <label class="error" for="video" generated="true" style="display: none; position: relative;">Os formatos de vídeo aceitos são somente .mp4.</label>
+                    </td>
+                </tr>
             </table>
         </fieldset>
         <input type="_ID_SUBMIT_" value="adicionar" />

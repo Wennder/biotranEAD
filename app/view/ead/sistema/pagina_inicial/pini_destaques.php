@@ -4,6 +4,10 @@
 <script>
     $('#form_adicionar_destaque').live('submit', function(){
         $(this).ajaxSubmit({                        
+            uploadProgress: function(event, position, total, percentComplete) {
+                $('progress').attr('value',percentComplete);
+                $('#porcentagem').html(percentComplete+'%');
+            },
             success: function(data){                                            
                 if(!data){
                     alert('Operação não realizada, tente novamente mais tarde!');
@@ -22,6 +26,7 @@
         var _HTML = $('#div_'+name).html();
         _HTML = _HTML.replace('_ID_FORM_', 'form_'+name);
         _HTML = _HTML.replace('_ID_SUBMIT_', 'submit');
+        _HTML = _HTML.replace('_ID_PORCENTAGEM_', 'porcentagem');
         dialog = $(_HTML).dialog({
             draggable: false,
             resizable: false,
@@ -60,7 +65,8 @@
             <a name="adicionar_destaque" href="#" id="index.php?c=ead&a=pini_adicionar_destaque" style="text-decoration: none;" class="button2"> Adicionar Destaque</a><br><br>
         </addpini>
         <div id="lista_destaque">
-            <?php $controller = new controllerSistema();
+            <?php
+            $controller = new controllerSistema();
             echo $controller->listaDestaques();
             ?>
         </div>

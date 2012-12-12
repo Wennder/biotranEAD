@@ -20,7 +20,8 @@ $noticia = $noticiaDAO->select("id_noticia=" . $_GET['id']);
             <table>
                 <input name="id_noticia" type="text" hidden="true" value="<?php echo $noticia[0]->getId_noticia(); ?>"/>
                 <div style="display:none">
-                    <input name="data" id="data" type="text" value="<?php echo $noticia[0]->getData(); ?>"/>                    
+                    <input name="data" id="data" type="text" value="<?php date_default_timezone_set("Brazil/East");
+echo $today = date("d/m/y - h:i"); ?>"/>                    
                 </div>                
                 <tr>
                     <td><label>titulo: </label></td>
@@ -36,6 +37,13 @@ $noticia = $noticiaDAO->select("id_noticia=" . $_GET['id']);
                 <tr>
                     <td style="vertical-align:top;"><label>imagem: </label></td>
                     <td><input type="file" name="imagem"  id="imagem" style="width:500px;" class="text-input" data-prompt-position="centerRight"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <progress value="0" max="100"></progress><span id="porcentagem">0%</span>
+                        <label class="error" for="video" generated="true" style="display: none; position: relative;">Os formatos de vídeo aceitos são somente .mp4.</label>
+                    </td>
                 </tr>
                 <tr>
                     <td style="vertical-align: top;"><label>noticia:</label></td>

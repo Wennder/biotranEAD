@@ -4,7 +4,11 @@
 
 <script>
     $('#form_adicionar_patrocinador').live('submit', function(){
-        $(this).ajaxSubmit({                        
+        $(this).ajaxSubmit({    
+            uploadProgress: function(event, position, total, percentComplete) {
+                $('progress').attr('value',percentComplete);
+                $('#porcentagem').html(percentComplete+'%');
+            },
             success: function(data){                                            
                 if(!data){
                     alert('Operação não realizada, tente novamente mais tarde!');
@@ -23,6 +27,7 @@
         var _HTML = $('#div_'+name).html();
         _HTML = _HTML.replace('_ID_FORM_', 'form_'+name);
         _HTML = _HTML.replace('_ID_SUBMIT_', 'submit');
+        _HTML = _HTML.replace('_ID_PORCENTAGEM_', 'porcentagem');
         dialog = $(_HTML).dialog({
             draggable: false,
             resizable: false,

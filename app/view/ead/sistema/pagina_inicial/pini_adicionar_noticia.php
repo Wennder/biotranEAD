@@ -23,6 +23,12 @@ echo $today = date("d/m/y - h:i");
                     <td><input type="file" name="imagem" id="imagem" style="width:500px;" class="text-input" data-prompt-position="centerRight"/></td>
                 </tr>
                 <tr>
+                    <td></td>
+                    <td>
+                        <progress id="_ID_PROGRESS_" value="0" max="100"></progress><span id="_ID_PORCENTAGEM_">0%</span>                        
+                    </td>
+                </tr>
+                <tr>
                     <td style="vertical-align: top;"><label>noticia:</label></td>
                     <td><textarea id="_ID_NOTICIA_" name="noticia" rows="10" style="width:500px;" maxlenght="1000"></textarea></td>
                 </tr>
