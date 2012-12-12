@@ -2,7 +2,7 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
-<script>                
+<script>
     $('#form_adicionar_noticia').live('submit', function(){
         var form = $(this);
         $(this).ajaxSubmit({                        
@@ -33,7 +33,7 @@
         return false;
     });
     
-    $('addpini a:not(.link)').live('click', function(){    
+    $('.ref_ajax a:not(.link)').live('click', function(){    
         var name = $(this).attr('name');
         var id = $(this).attr('id');
         var _HTML = $('#div_'+name).html();
@@ -51,7 +51,7 @@
                 effect: 'drop', 
                 direction: "up"
             },
-            height: (300),
+            height: 530,
             modal:true,                                          
             close: function(event,ui){                     
                 $(dialog).dialog('destroy');
@@ -60,6 +60,22 @@
             open: function(event, ui){
                 if(name == 'adicionar_noticia'){
                     $('#noticia').jqte();
+                    $('#form_adicionar_noticia').validate({
+                        rules:{
+                            titulo: {
+                                required: true
+                            },
+                            autor: {
+                                required: true
+                            },
+                            manchete: {
+                                required: true
+                            },
+                            noticia: {
+                                required: true
+                            }
+                        }
+                    });
                 }
             }
         });                
@@ -113,7 +129,7 @@
         data = data[1];         
         alert(data);
         $('#div_noticia_'+id).html("<div><p><b>:: </b>" + data + " -<b> " + titulo + "</b></p><span>" + manchete + "</span></div><div style='margin: 5px 0;'><a class='button3 edtpini' style='margin-right: 5px;' href='#' name='editar_noticia' id='index.php?c=ead&a=pini_editar_noticia&id=" + id + "'>Editar</a><a name='div_comentario_"+id+"' class='button3 remove_pini' href='#' id='index.php?c=ead&a=pini_noticias&id=" + id + "'>Remover</a></div>");
-//        document.getElementById('div_comentario_'+id).innerHTML = "<div><p><b>:: </b>" + data + " -<b> " + titulo + "</b></p><span>" + manchete + "</span></div><div style='margin: 5px 0;'><a class='button3 edtpini' style='margin-right: 5px;' href='#' name='editar_noticia' id='index.php?c=ead&a=pini_editar_noticia&id=" + id + "'>Editar</a><a name='div_comentario_"+id+"' class='button3 remove_pini' href='#' id='index.php?c=ead&a=pini_noticias&id=" + id + "'>Remover</a></div>";        
+        //        document.getElementById('div_comentario_'+id).innerHTML = "<div><p><b>:: </b>" + data + " -<b> " + titulo + "</b></p><span>" + manchete + "</span></div><div style='margin: 5px 0;'><a class='button3 edtpini' style='margin-right: 5px;' href='#' name='editar_noticia' id='index.php?c=ead&a=pini_editar_noticia&id=" + id + "'>Editar</a><a name='div_comentario_"+id+"' class='button3 remove_pini' href='#' id='index.php?c=ead&a=pini_noticias&id=" + id + "'>Remover</a></div>";        
     }
     
     function dialogEditar(_HTML){        
@@ -126,13 +142,29 @@
                 effect: 'drop', 
                 direction: "up"
             },
-            height: (300),
+            height: 500,
             modal:true,
             close: function(event,ui){                     
                 $(dialog).dialog('destroy');
                 $(dialog).find('div_editar_noticia').remove();
             },
             open: function(event, ui){                
+                $('#form_noticia').validate({
+                    rules:{
+                        titulo: {
+                            required: true
+                        },
+                        autor: {
+                            required: true
+                        },
+                        manchete: {
+                            required: true
+                        },
+                        noticia: {
+                            required: true
+                        }
+                    }
+                });    
             }
         });         
     }
@@ -144,9 +176,9 @@
 <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
     <h3 style="margin: 0;">Notícias</h3><br>
     <div id="noticias_gerencia">
-        <addpini>        
+        <div class="ref_ajax">        
             <a href="#" name="adicionar_noticia" id="index.php?c=ead&a=pini_adicionar_noticia" style="text-decoration: none;" class="button2"> Adicionar Notícia</a><br><br>
-        </addpini>
+        </div>
         <div id="lista_noticia" style="border-top: 1px solid #ddd; border-right: 1px solid #ddd;">
             <?php
             $controller = new controllerSistema();

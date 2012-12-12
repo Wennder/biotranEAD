@@ -6,30 +6,10 @@ $noticia = $noticiaDAO->select("id_noticia=" . $_GET['id']);
 <script>
     $(document).ready(function(){
         $('#noticia').jqte();
-        $('#form_noticia').validate({
-            rules:{
-                titulo: {
-                    required: true
-                },
-                autor: {
-                    required: true
-                },
-                manchete: {
-                    required: true
-                },
-                noticia: {
-                    required: true
-                }
-            }
-        });
     });
 </script>
-<div id="div_editar_noticia">
-    <form id="form_editar_noticia" method="post" enctype="multipart/form-data" action="index.php?c=ead&a=pini_noticias&u=1&id="<?php echo $_GET['id'] ?> >
-        <fieldset>
-            <legend>Editar Noticia</legend>
 
-<div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
+<div style="border-bottom:1px solid #f0f0f0;">
     <form id="form_noticia" method="post" enctype="multipart/form-data" action="index.php?c=ead&a=pini_noticias&u=1&id="<?php echo $_GET['id'] ?> class="formulario">
         <fieldset>
             <legend>Editar Notícia</legend>

@@ -1,32 +1,5 @@
-<div style="display:none" id="div_adicionar_noticia">
-    <form id="_ID_FORM_" method="post" action="index.php?c=ead&a=pini_noticias&i=1" enctype="multipart/form-data" >
-        <fieldset>
-            <legend>Nova Noticia</legend>
-
-<script>
-    $(document).ready(function(){
-        $('#noticia').jqte();
-        $('#form_noticia').validate({
-            rules:{
-                titulo: {
-                    required: true
-                },
-                autor: {
-                    required: true
-                },
-                manchete: {
-                    required: true
-                },
-                noticia: {
-                    required: true
-                }
-            }
-        });
-    });
-</script>
-
-<div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
-    <form id="form_noticia" method="post" action="index.php?c=ead&a=pini_noticias&i=1" enctype="multipart/form-data" class="formulario">
+<div id="div_adicionar_noticia" style="border-bottom:1px solid #f0f0f0; margin-left:20px; display: none;">
+    <form id="_ID_FORM_" method="post" action="index.php?c=ead&a=pini_noticias&i=1" enctype="multipart/form-data" class="formulario">
         <fieldset>
             <legend>Nova Notícia</legend>
             <table>
