@@ -532,8 +532,11 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionPini_patrocinadores() {
         if ($_GET['i'] == 1) {
             $controllerG = new controllerSistema();
-            $controllerG->inserir_patrocinador();
-            header("Location: index.php?c=ead&a=pini_patrocinadores");
+            $p = $controllerG->inserir_patrocinador();
+            if($p != 0){
+                echo $p->getImagem() . '--' . $p->getId_patrocinador();die();
+            }
+            echo 0; die();
         } else if (isset($_GET['id'])) {
             $controllerG = new controllerSistema();
             $controllerG->removerPatrocinador($_GET['id']);
@@ -549,16 +552,26 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionPini_noticias() {
         if ($_GET['i'] == '1') {
             $this->controller = new controllerSistema();
-            $this->controller->inserir_noticia();
-            header("Location: index.php?c=ead&a=pini_noticias");
+            $n = $this->controller->inserir_noticia();
+            if(!$n){
+                echo 0;
+                die();
+            }
+            echo $n->getId_noticia() . '--' . $n->getData() . '--' . $n->getTitulo() . '--' . $n->getManchete();
+            die();
         } else if (isset($_GET['u'])) {
             $this->controller = new controllerSistema();
-            $this->controller->atualizar_noticia();
-            header("Location: index.php?c=ead&a=pini_noticias");
+            $n = $this->controller->atualizar_noticia();
+            if(!$n){
+                echo 0;
+                die();
+            }
+            echo $n->getId_noticia() . '--' . $n->getData() . '--' . $n->getTitulo() . '--' . $n->getManchete();
+            die();
         } else if (isset($_GET['id'])) {
             $this->controller = new controllerSistema();
-            $this->controller->removerNoticia($_GET['id']);
-            header("Location: index.php?c=ead&a=pini_noticias");
+            $resposta = $this->controller->removerNoticia($_GET['id']);
+            echo json_encode($resposta);die();
         }
         $this->renderizar();
     }
@@ -579,8 +592,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
             header("Location: index.php?c=ead&a=pini_comentarios");
         } else if (isset($_GET['id'])) {
             $this->controller = new controllerSistema();
-            $this->controller->removerComentario($_GET['id']);
-            header("Location: index.php?c=ead&a=pini_comentarios");
+            $resposta = $this->controller->removerComentario($_GET['id']);
+            echo json_encode($resposta);die();
         }
         $this->renderizar();
     }

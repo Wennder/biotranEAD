@@ -13,7 +13,7 @@
                 </tr>
             </table>
         </fieldset>
-        <input type="submit" value="adicionar" />
+        <input type="_ID_SUBMIT_" value="adicionar" />
     </form>
 </div>
 <?php

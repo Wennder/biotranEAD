@@ -42,8 +42,25 @@
             },
             open: function(event, ui){                                
             }
-        });
+        });                
     });
+    
+    $('.remove_pini').live('click', function(){
+            var id = $(this).attr('id');
+            var name = $(this).attr('name');
+            $.ajax({
+                url: id,
+                dataType: 'json',
+                async: false,
+                success: function(data){
+                    if(data){
+                        $('#'+name).remove();
+                    }else{
+                        alert('Operação não realizada, tente novamente mais tarde!');
+                    }
+                }
+            });
+        });
     
     function insereLinhaComentario(form, dados){        
         var autor = $(form).find('#autor').val();
@@ -51,12 +68,13 @@
         var data = dados.split('--');
         var id = data[0];
         data = data[1];
-        var linha = "<div class='comentario b_2'><div><p><b>:: </b>" + data + " -<b> " + autor + "</b></p>";
+        var linha = "<div id='div_comentario_"+id+"' class='comentario b_2'><div><p><b>:: </b>" + data + " -<b> " + autor + "</b></p>";
         linha += "<span>" + comentario + "</span></div>";
-        linha += "<div style='margin: 5px 0;'><a class='button3' href='index.php?c=ead&a=pini_comentarios&id=" + id + "'>Remover</a></div>";        
+        linha += "<div style='margin: 5px 0;'><a name='div_comentario_"+id+"' class='button3 remove_pini' href='#' id='index.php?c=ead&a=pini_comentarios&id=" + id + "'>Remover</a></div>";        
         linha += "</div>";
         $('#lista_comentario').append($(linha));
-    }    
+    }
+   
 </script>
 
 <?php require ROOT_PATH . '/app/view/ead/sistema/pagina_inicial/pini_adicionar_comentario.php'; ?>
