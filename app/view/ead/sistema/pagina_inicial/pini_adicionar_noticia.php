@@ -17,7 +17,7 @@
                 </tr>
                 <tr>
                     <td style="vertical-align: top;"><label>Notícia:</label></td>
-                    <td><textarea id="_ID_NOTICIA" name="noticia" rows="10" style="width:500px;" maxlenght="1000"></textarea></td>
+                    <td><textarea class="editor" id="_ID_NOTICIA_" name="noticia" rows="10" style="width:500px;" maxlenght="1000"></textarea></td>
                 </tr>
                 <tr>
                     <td style="vertical-align:top;"><label>Imagem: </label></td>
@@ -28,18 +28,14 @@
                     <td>
                         <progress id="_ID_PROGRESS_" value="0" max="100"></progress><span id="_ID_PORCENTAGEM_">0%</span>                        
                     </td>
-                </tr>
-                <tr>
-                    <td style="vertical-align: top;"><label>noticia:</label></td>
-                    <td><textarea id="_ID_NOTICIA_" name="noticia" rows="10" style="width:500px;" maxlenght="1000"></textarea></td>
-                </tr>
+                </tr>                
                 <tr>
                     <td><label>autor:</label></td>
                     <td><input type="text" name="autor" style="width:500px;"/></td>
                 </tr>
             </table>
         </fieldset><br>
-        <input type="submit" id="_ID_SUBMIT" value="Postar" class="button2"/><br><br>
+        <input type="submit" id="_ID_SUBMIT_" value="Postar" class="button2"/><br><br>
         <div style="display: none;">
             <input name="data" type="text" value="<?php date_default_timezone_set("Brazil/East");
 echo $today = date("d/m/y - h:i"); ?>"/>

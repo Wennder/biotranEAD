@@ -5,12 +5,28 @@ $noticia = $noticiaDAO->select("id_noticia=" . $_GET['id']);
 
 <script>
     $(document).ready(function(){
-        $('#noticia').jqte();
+        $('#noticia_edt').jqte();
+        $('#form_editar_noticia').validate({
+                    rules:{
+                        titulo: {
+                            required: true
+                        },
+                        autor: {
+                            required: true
+                        },
+                        manchete: {
+                            required: true
+                        },
+                        noticia: {
+                            required: true
+                        }
+                    }
+                });   
     });
 </script>
 
-<div style="border-bottom:1px solid #f0f0f0;">
-    <form id="form_noticia" method="post" enctype="multipart/form-data" action="index.php?c=ead&a=pini_noticias&u=1&id="<?php echo $_GET['id'] ?> class="formulario">
+<div id="div_editar_noticia" style="border-bottom:1px solid #f0f0f0;">
+    <form id="form_editar_noticia" method="post" enctype="multipart/form-data" action="index.php?c=ead&a=pini_noticias&u=1&id="<?php echo $_GET['id'] ?> class="formulario">
         <fieldset>
             <legend>Editar Notícia</legend>
             <table>
@@ -36,7 +52,7 @@ echo $today = date("d/m/y - h:i"); ?>"/>
 <?php } ?>
                 <tr>
                     <td style="vertical-align: top;"><label>Notícia:</label></td>
-                    <td><textarea id="noticia" name="noticia" rows="10" style="width:500px;" maxlenght="1000" class="text-area"><?php echo $noticia[0]->getNoticia(); ?></textarea></td>
+                    <td><textarea class="editar_notic" id="noticia_edt" name="noticia" rows="10" style="width:500px;" maxlenght="1000" class="text-area"><?php echo $noticia[0]->getNoticia(); ?></textarea></td>
                 </tr>
                 <tr>
                     <td style="vertical-align:top;"><label>Imagem: </label></td>
@@ -48,11 +64,7 @@ echo $today = date("d/m/y - h:i"); ?>"/>
                         <progress value="0" max="100"></progress><span id="porcentagem">0%</span>
                         <label class="error" for="video" generated="true" style="display: none; position: relative;">Os formatos de vídeo aceitos são somente .mp4.</label>
                     </td>
-                </tr>
-                <tr>
-                    <td style="vertical-align: top;"><label>noticia:</label></td>
-                    <td><textarea id="noticia" name="noticia" rows="10" style="width:500px;" maxlenght="1000"><?php echo $noticia[0]->getNoticia(); ?></textarea></td>
-                </tr>
+                </tr>                
                 <tr>
                     <td><label>autor:</label></td>
                     <td><input type="text" value="<?php echo $noticia[0]->getAutor(); ?>" name="autor" style="width:500px;"/></td>

@@ -20,12 +20,10 @@ class FotoDAO extends PDOConnectionFactory {
 
     public function insert(Foto $foto) {
         try {
-            $this->conex->exec("SET NAMES 'utf8'");
-            $stmt = $this->conex->prepare("INSERT INTO foto(id_foto, imagem) VALUES (?,?)");
-            $stmt->bindValue(1, $foto->getId_foto());
-            $stmt->bindValue(2, $foto->getImagem());
-            if(!$stmt->execute()){
-                echo($foto->getId_foto()); die();
+            $stmt = $this->conex->prepare("INSERT INTO foto(imagem) VALUES (?)");            
+            $stmt->bindValue(1, $foto->getImagem());
+            if(!$stmt->execute()){                
+                return 0;
             }            
             return $this->conex->lastInsertId("Foto");            
         } catch (PDOException $ex) {
@@ -35,7 +33,6 @@ class FotoDAO extends PDOConnectionFactory {
 
     public function update(Foto $foto) {
         try {
-            $this->conex->exec("SET NAMES 'utf8'");
             $stmt = $this->conex->prepare("UPDATE foto SET imagem=? WHERE id_foto=?");
             $stmt->bindValue(1, $foto->getImagem());
             $stmt->bindValue(2, $foto->getId_foto());          

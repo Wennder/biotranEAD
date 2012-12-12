@@ -10,8 +10,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <progress value="0" max="100"></progress><span id="_ID_PORCENTAGEM_">0%</span>
-                        <label class="error" for="video" generated="true" style="display: none; position: relative;">Os formatos de vídeo aceitos são somente .mp4.</label>
+                        <progress id="_ID_PROGRESS_" value="0" max="100"></progress><span id="_ID_PORCENTAGEM_">0%</span>                        
                     </td>
                 </tr>
             </table>

@@ -539,8 +539,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
             echo 0; die();
         } else if (isset($_GET['id'])) {
             $controllerG = new controllerSistema();
-            $controllerG->removerPatrocinador($_GET['id']);
-            header("Location: index.php?c=ead&a=pini_patrocinadores");
+            $retorno = $controllerG->removerPatrocinador($_GET['id']);
+            echo json_encode($retorno);die();
         }
         $this->renderizar();
     }
@@ -610,8 +610,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
             die();
         } else if (isset($_GET['id'])) {
             $controllerG = new controllerSistema();
-            $controllerG->removerDestaque($_GET['id']);
-            header("Location: index.php?c=ead&a=pini_destaques");
+            $retorno = $controllerG->removerDestaque($_GET['id']);
+            echo json_encode($retorno);die();
         }
         $this->renderizar();
     }
@@ -646,12 +646,17 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionPini_fotos() {
         if ($_GET['i'] == 1) {
             $controllerG = new controllerSistema();
-            $controllerG->inserir_foto();
-            header("Location: index.php?c=ead&a=pini_fotos");
+            $f = $controllerG->inserir_foto();
+            if(!$f){
+                echo 0;
+            }else{
+                echo $f->getImagem() . '--' . $f->getId_foto();
+            }
+            die();
         } else if (isset($_GET['id'])) {
             $controllerG = new controllerSistema();
-            $controllerG->removerFoto($_GET['id']);
-            header("Location: index.php?c=ead&a=pini_fotos");
+            $retorno = $controllerG->removerFoto($_GET['id']);
+            echo json_encode($retorno);die();
         }
         $this->renderizar();
     }

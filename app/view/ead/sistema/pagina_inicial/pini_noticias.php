@@ -2,7 +2,7 @@
 <?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
-<script>
+<script>        
     $('#form_adicionar_noticia').live('submit', function(){
         var form = $(this);
         $(this).ajaxSubmit({
@@ -51,7 +51,7 @@
         _HTML = _HTML.replace('_ID_SUBMIT_', 'submit');
         _HTML = _HTML.replace('_ID_PORCENTAGEM_', 'porcentagem');
         _HTML = _HTML.replace('_ID_PROGRESS_', 'progress');
-        if(name == 'adicionar_noticia'){
+        if(name == 'adicionar_noticia'){            
             _HTML = _HTML.replace('_ID_NOTICIA_', 'noticia');            
         }
         dialog = $(_HTML).dialog({
@@ -70,7 +70,7 @@
                 $(dialog).remove();
             },
             open: function(event, ui){
-                if(name == 'adicionar_noticia'){
+                if(name == 'adicionar_noticia'){           
                     $('#noticia').jqte();
                     $('#form_adicionar_noticia').validate({
                         rules:{
@@ -96,6 +96,7 @@
     $('.edtpini').live('click', function(){       
         var name = $(this).attr('name');
         var id = $(this).attr('id');    
+        alert('teste');
         var _HTML = $('#div_edt').load(id, function(){            
             dialogEditar(_HTML);
         });        
@@ -157,25 +158,10 @@
             modal:true,
             close: function(event,ui){                     
                 $(dialog).dialog('destroy');
-                $(dialog).find('div_editar_noticia').remove();
+                $(dialog).find('#div_editar_noticia');
             },
             open: function(event, ui){                
-                $('#form_noticia').validate({
-                    rules:{
-                        titulo: {
-                            required: true
-                        },
-                        autor: {
-                            required: true
-                        },
-                        manchete: {
-                            required: true
-                        },
-                        noticia: {
-                            required: true
-                        }
-                    }
-                });    
+                 
             }
         });         
     }
