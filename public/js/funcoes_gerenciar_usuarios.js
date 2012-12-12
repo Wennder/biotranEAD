@@ -46,7 +46,16 @@ function insertDataTables(_form){//Adicionar essa função
 }
 
     
-$(document).ready(function a(){                        
+$(document).ready(function a(){
+    $('#foto').live('change',function(){
+        $('#foto_usuario').html('<img src="img/gif/ajax-loader-f.gif" alt="Enviando..."/> Enviando...');
+        /* Efetua o Upload sem dar refresh na pagina */
+        $('#form_imagem').ajaxForm({
+            target:'#foto_usuario' // o callback será no elemento com o id #visualizar
+        }).submit();
+        alert("c");
+    });
+    
     //capturando nome das colunas da tabela para lógica replace de ids
     i = 0;
     $('thead th').each(function(){            

@@ -34,12 +34,6 @@
             <center><label><b>Módulo <?php echo $this->modulo->getId_modulo(); ?></b></label></center>
         </div>
         <div id="info_modulo">
-            <div style="float: right; margin: 15px 30px 0 0;">
-                <input id="btn_editar_modulo" type="button" class="button2" value="Editar"/>
-            </div>
-            <div id="div_atualizar_modulo" style="display: none; float: right; margin: 15px 10px 0 0;">
-                <input id="btn_atualizar_modulo" type="button" class="button2" value="Atualizar"/>    
-            </div>
             <form id="form_descritivo" enctype="multipart/form-data" method="post">
                 <table>
                     <tr>
@@ -59,6 +53,12 @@
                         </td>
                     </tr>
                 </table>
+                <div style="position: absolute; margin: -35px 0 0 370px;">
+                    <div id="div_atualizar_modulo" style="display: none;">
+                        <input id="btn_atualizar_modulo" type="button" class="button2" value="Atualizar"/>
+                    </div>
+                    <input id="btn_editar_modulo" type="button" class="button2" value="Editar"/>
+                </div>
             </form><br>
             <div id="menu_accordion">
                 <div class="accord_body">

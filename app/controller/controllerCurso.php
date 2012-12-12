@@ -452,8 +452,7 @@ class controllerCurso {
         if ($quant > 0) {
             for (; $i < $quant; $i++) {
                 $auxCurso = $this->getListaCursos("id_curso=" . $matriculados[$i]->getId_curso());
-                $tabela.="<li class='conteudo_row' style='height: 26px;'><label>" . $auxCurso[0]->getNome() . '</label>';
-                $tabela.="<div style='float: right;'><a href='index.php?c=ead&a=curso_aluno&id=" . $auxCurso[0]->getId_curso() . "' class='button3'>Acessar</a></div></li>";
+                $tabela.="<li class='conteudo_row' style='height: 26px;'><label><a href='index.php?c=ead&a=curso_aluno&id=" . $auxCurso[0]->getId_curso() . "'>" . $auxCurso[0]->getNome() . '</a></label></li>';
             }
         } else {
             $tabela.="<li class='conteudo_row' style='height: 26px;'><label>Você não possui nenhum curso no momento.</label></li>";

@@ -85,14 +85,17 @@ $(document).ready(function(){
         var btn = $(this);
         $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
             if (status == "error") {
-                alert('erro');
+                alert('Em construção');
                 var msg = "Sorry but there was an error: ";
                 $("#error").html(msg + xhr.status + " " + xhr.statusText);
             }else{                                                                                    
                 dialog = $('#dialog').dialog({
                     draggable: false,
                     resizable: false,
-                    show: { effect: 'drop', direction: "up"},
+                    show: {
+                        effect: 'drop', 
+                        direction: "up"
+                    },
                     width:970, 
                     height:($(window).height() - 40),
                     position: [(($(window).width()-970)/2), 15],
@@ -105,67 +108,10 @@ $(document).ready(function(){
                 });
             }
         });
-    });               
+    });
                 
-    //    $(".btn_resolver_exe").live('click', function(){                        
-    //        var btn = $(this);
-    //        $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
-    //            if (status == "error") {
-    //                alert('erro');
-    //                var msg = "Sorry but there was an error: ";
-    //                $("#error").html(msg + xhr.status + " " + xhr.statusText);
-    //            }else{                                                                                    
-    //                dialog = $('#dialog').dialog({
-    //                    width:800, 
-    //                    height:600,
-    //                    dialogClass:'dialogstyle', 
-    //                    modal:true,                        
-    //                    close: function(event,ui){                     
-    //                        $(dialog).dialog('destroy');
-    //                        $(dialog).find('div').remove();
-    //                    }                                        
-    //                });
-    //            }
-    //        });
-    //    });
-                
-    //    $("#cancelar_questionario").live('click', function(){                        
-    //        dialog.dialog('close');
-    //    });
-    //                
-    //    $("#submeter_questionario").live('click', function(){
-    //        var r = confirm('Tem certeza? Uma vez submetido não podera mais voltar atrás');
-    //        if(r){
-    //            var qnt = $('#total_perguntas').val();
-    //            var i;
-    //            var respostas = '';
-    //            var id_questoes = '';
-    //            var j;
-    //            var id_exercicio = $('#id_exercicio').val();
-    //            for(i = 0; i < qnt; i++){
-    //                j = i+1;
-    //                respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
-    //                id_questoes += $('#id_pergunta_'+i).val()+';';
-    //            }
-    //            $.getJSON('ajax/submeterQuestionario.php', {
-    //                respostas: respostas, 
-    //                id_perguntas:id_questoes
-    //            }, 
-    //            function(j){
-    //                if(j == 1){
-    //                    alert('Questionário submetido com sucesso!');
-    //                    $('input[name="exercicio_'+id_exercicio+'"]').attr('disabled', 'true');
-    //                    $('input[name="exercicio_'+id_exercicio+'"]').removeAttr('id');
-    //                    $('input[name="exercicio_'+id_exercicio+'"]').attr('value', 'Exercicio já submetido');
-    //                    dialog.dialog('close');
-    //                }else{
-    //                    alert('Erro ao submeter questionário, tente novamente!');
-    //                }
-    //            });                        
-    //        }
-    //    });
-                
-    $(".btn_add").live('click', function(){        
+    $(".btn_add").live('click', function(){
+        var aux;
         var btn = $(this);
         var tipo = btn.attr('name').split('-');
         if(tipo[0] != 'h3'){
@@ -220,21 +166,27 @@ $(document).ready(function(){
                                 $('progress').attr('value',percentComplete);
                                 $('#porcentagem').html(percentComplete+'%');
                             },                            
-                            success: function(data) {                             
+                            success: function(data) {
+                                aux = data;
                                 $('progress').attr('value','100');
                                 $('#porcentagem').html('100%');
                                 $('pre').html(data);
-                                if(data != 0){           
+                                if(data != 0){
                                     insereLinha(data, tipo);
                                     alert('Arquivo inserido!');
                                     $(dialog).dialog('close');
-                                }                       
-                            }                    
-                        });                    
+                                }
+                            }
+                        });
                     },
                     close: function(event,ui){                     
                         $(dialog).dialog('destroy');
                         $(dialog).find('div').remove();
+                        if(aux != 0){
+                            aux = aux.split('-');
+                            aux[0] = aux[0].replace('"', '');
+                            $(".edt"+aux[0]).trigger('click');
+                        }
                     }                                        
                 });
             }
@@ -294,23 +246,7 @@ $(document).ready(function(){
         });
         return false;
     });
-         
-//Se clicar no link, redireciona
-//    $(".accord h3").click(function() {
-//        location = ($(this).attr('id'));
-//    });
 });
-
-            
-//function resize_content_fluid(){
-//    var height = $('.content').height();
-//              
-//    if(height < $(window).height()){
-//        height+=75;
-//        height +='px';
-//        $(".content_fluid").css('height',height);
-//    }              
-//}
 
 function insereLinha(data, tipo){ 
     if($('#center_content').find('div').attr('id') == 'div_conteudo_professor_editar_modulo'){                                        
@@ -325,14 +261,14 @@ function insereLinha(data, tipo){
             var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label class="link_video" name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1].toString()+'</label>' + excluir + editar + '</li>';
         }else{            
             if(tipo == 'exercicio'){
-                var editar = '<input id="index.php?c=ead&a=editar_exercicio&id='+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar" style="float: right;">';
+                var editar = '<input id="index.php?c=ead&a=editar_exercicio&id='+data[0]+'" name="'+tipo+'" type="button" class="btn_edt edt'+data[0]+'" value="Editar" style="float: right;">';
                 var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label name="'+tipo+'" id="'+data[1]+'">'+data[1]+'</label>' + excluir + editar + '</li>';
             }else{
                 var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label><a target="_blank" name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a></label>' + excluir + '</li>';
             }
         }
         tipo = '#lista_'+tipo;
-        $(tipo.toString()).append($(_HTML));                                
+        $(tipo.toString()).append($(_HTML));
     }
 }              
 function optionsFormCadastrarPergunta(){                

@@ -93,7 +93,7 @@ function insertDataTables(_form, json){//Adicionar essa função
     oTable.fnAddData(fields_value, true);
 }
     
-$(document).ready(function(){ 
+$(document).ready(function(){
     //capturando nome das colunas da tabela para lógica replace de ids        
     $('thead th').each(function(){
         var texto = $(this).text().split(' ');

@@ -13,7 +13,7 @@
             <a class="navbar_item homeIcon" href="index.php?c=ead"> Home </a>
         </dt>
         <dt>
-            <a class="navbar_item cursosIcon" href="index.php?c=ead&a=todos_cursos"> Cursos </a>
+            <a class="navbar_item cursosIcon" href="index.php?c=ead&a=todos_cursos"> Todos os Cursos </a>
         </dt>
     </dl>
 </div>

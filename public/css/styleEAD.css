@@ -461,7 +461,7 @@ form.form_cadastro, form.form_editar{
     border:1px solid #DCDCDC;
 }
 
-#form_cadastro label.error, #form_editar label.error{
+label.error{
     float: none;
     color: red;
     margin: 8px 0 0 5px;
