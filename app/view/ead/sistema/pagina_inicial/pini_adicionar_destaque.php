@@ -9,6 +9,6 @@
                 </tr>
             </table>
         </fieldset>
-        <input type="_ID_SUBMIT_" value="adicionar" />
+        <input type="_ID_SUBMIT_" value="adicionar" class="button2"/>
     </form>
 </div>
