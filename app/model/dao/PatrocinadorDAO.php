@@ -25,7 +25,7 @@ class PatrocinadorDAO extends PDOConnectionFactory {
             $stmt->bindValue(1, $patrocinador->getId_patrocinador());
             $stmt->bindValue(2, $patrocinador->getImagem());
             if(!$stmt->execute()){
-                echo($patrocinador->getId_patrocinador()); die();
+                return 0;
             }            
             return $this->conex->lastInsertId("Patrocinador");            
         } catch (PDOException $ex) {

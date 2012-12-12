@@ -1,6 +1,6 @@
-<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/header.php';    ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php';    ?>
+<?php // require ROOT_PATH . '/app/view/ead/structure/content.php';    ?>
 
 <?php
 $noticiaDAO = new NoticiaDAO();
@@ -28,6 +28,10 @@ $noticia = $noticiaDAO->select("id_noticia=" . $_GET['id']);
         });
     });
 </script>
+<div id="div_editar_noticia">
+    <form id="form_editar_noticia" method="post" enctype="multipart/form-data" action="index.php?c=ead&a=pini_noticias&u=1&id="<?php echo $_GET['id'] ?> >
+        <fieldset>
+            <legend>Editar Noticia</legend>
 
 <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
     <form id="form_noticia" method="post" enctype="multipart/form-data" action="index.php?c=ead&a=pini_noticias&u=1&id="<?php echo $_GET['id'] ?> class="formulario">

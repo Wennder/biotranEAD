@@ -29,7 +29,7 @@ class NoticiaDAO extends PDOConnectionFactory {
             $stmt->bindValue(5, $noticia->getManchete());
             $stmt->bindValue(6, $noticia->getAutor());
             if(!$stmt->execute()){
-                echo($noticia->getId_noticia()); echo $noticia->getImagem(); die();
+                return 0;
             }            
             return $this->conex->lastInsertId("Noticia");            
         } catch (PDOException $ex) {
@@ -47,7 +47,9 @@ class NoticiaDAO extends PDOConnectionFactory {
             $stmt->bindValue(4, $noticia->getManchete());
             $stmt->bindValue(5, $noticia->getAutor());          
             $stmt->bindValue(6, $noticia->getId_noticia());          
-            $stmt->execute();
+            if(!$stmt->execute()){
+                return 0 ;
+            }            
             return 1;
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();

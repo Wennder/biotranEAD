@@ -23,7 +23,7 @@ class controllerSistema {
         $dao = new PatrocinadorDAO();
         $patrocinador = $dao->select();
         $quant = count($patrocinador);
-        $lista = '<table><tr>';
+        $lista = '<table id="table_lista"><tr>';
         $aux = 1;
         for ($i = 0; $i < $quant; $i++) {
             $lista.="<td><div style='margin: 5px;'><div><a class='button3' href='index.php?c=ead&a=pini_patrocinadores&id=" . $patrocinador[$i]->getId_patrocinador() . "' style='position:relative; float:right; text-decoration:none; margin-bottom: 5px;'>Remover</a></div><img src='" . $patrocinador[$i]->getImagem() . "' /></div></td>";
@@ -101,12 +101,15 @@ class controllerSistema {
         $this->patrocinador = new Patrocinador();
         $this->patrocinador->setImagem("img/patrocinadores/");
         //echo $this->patrocinador->getImagem();die();
-
-        $this->patrocinador->setId_patrocinador($this->novoPatrocinador($this->patrocinador));
-        $this->inserirFotoPatrocinador($this->patrocinador->getId_patrocinador());
-        $dao = new PatrocinadorDAO();
-        $dao->update($this->patrocinador);
-        return $this->patrocinador;
+        $id = $this->novoPatrocinador($this->patrocinador);
+        if ($id != 0) {
+            $this->patrocinador->setId_patrocinador($id);
+            $this->inserirFotoPatrocinador($this->patrocinador->getId_patrocinador());
+            $dao = new PatrocinadorDAO();
+            $dao->update($this->patrocinador);
+            return $this->patrocinador;
+        }
+        return 0;
     }
 
     /**/
@@ -285,12 +288,15 @@ class controllerSistema {
     public function inserir_noticia() {
         $this->noticia = new Noticia();
         //echo $this->patrocinador->getImagem();die();
-
         $this->setNoticia_Post();
         //$this->noticia->setImagem(null);
-        $this->noticia->setId_noticia($this->novaNoticia($this->noticia));
-        $this->inserirFotoNoticia($this->noticia->getId_noticia());
-        return $this->noticia;
+        $id = $this->novaNoticia($this->noticia);
+        if ($id != 0) {
+            $this->noticia->setId_noticia($id);
+            $this->inserirFotoNoticia($this->noticia->getId_noticia());
+            return $this->noticia;
+        }
+        return $id;
     }
 
     /**/
@@ -331,11 +337,14 @@ class controllerSistema {
 
     public function removerNoticia($id_noticia) {
         $dao = new NoticiaDAO();
-        $dao->deletePorId($id_noticia);
-        $caminho = ROOT_PATH . '/public/img/noticias/' . $id_noticia . '.jpg';
-        if (is_file($caminho)) {
-            unlink($caminho);
+        $resp = $dao->deletePorId($id_noticia);
+        if ($resp != 0) {
+            $caminho = ROOT_PATH . '/public/img/noticias/' . $id_noticia . '.jpg';
+            if (is_file($caminho)) {
+                unlink($caminho);
+            }            
         }
+        return $resp;
     }
 
     /**/
@@ -345,7 +354,11 @@ class controllerSistema {
         $this->setNoticia_Post();
         $this->inserirFotoNoticia($this->noticia->getId_noticia());
         $dao = new NoticiaDAO();
-        $dao->update($this->noticia);
+        $resp = $dao->update($this->noticia);
+        if($resp != 0){
+            return $this->noticia;
+        }
+        return $resp;
     }
 
     /**/
@@ -361,9 +374,9 @@ class controllerSistema {
             if ($c > 4) {
                 $c = 0;
             }
-            $lista.="<div class='noticia b_$c'><div><p><b>:: </b>" . $noticia[$i]->getData() . " -<b> " . $noticia[$i]->getTitulo() . "</b></p>
+            $lista.="<div id='div_noticia_" . $noticia[$i]->getId_noticia() . "' class='noticia b_$c'><div><p><b>:: </b>" . $noticia[$i]->getData() . " -<b> " . $noticia[$i]->getTitulo() . "</b></p>
                 <span>" . $noticia[$i]->getManchete() . "</span></div>
-                <div style='margin: 5px 0;'><a class='button3' style='margin-right: 5px;' href='index.php?c=ead&a=pini_editar_noticia&id=" . $noticia[$i]->getId_noticia() . "'>Editar</a><a class='button3' href='index.php?c=ead&a=pini_noticias&id=" . $noticia[$i]->getId_noticia() . "'>Remover</a></div>
+                <div style='margin: 5px 0;'><a class='button3 edtpini' style='margin-right: 5px;' href='#' name='editar_noticia' id='index.php?c=ead&a=pini_editar_noticia&id=" . $noticia[$i]->getId_noticia() . "'>Editar</a><a class='button3 remove_pini' href='#' name='div_noticia_" . $noticia[$i]->getId_noticia() . "' id='index.php?c=ead&a=pini_noticias&id=" . $noticia[$i]->getId_noticia() . "'>Remover</a></div>
                 </div>";
             $c++;
         }
@@ -455,7 +468,7 @@ class controllerSistema {
 
     public function removerComentario($id_comentairo) {
         $dao = new ComentarioDAO();
-        $dao->deletePorId($id_comentairo);
+        return $dao->deletePorId($id_comentairo);
     }
 
     /**/
@@ -470,9 +483,9 @@ class controllerSistema {
             if ($c > 4) {
                 $c = 0;
             }
-            $lista.="<div class='comentario b_$c'><div><p><b>:: </b>" . $comentario[$i]->getData() . " -<b> " . $comentario[$i]->getAutor() . "</b></p>
+            $lista.="<div id='div_comentario_" . $comentario[$i]->getId_comentario() . "' class='comentario b_$c'><div><p><b>:: </b>" . $comentario[$i]->getData() . " -<b> " . $comentario[$i]->getAutor() . "</b></p>
                 <span>" . $comentario[$i]->getComentario() . "</span></div>
-                <div style='margin: 5px 0;'><a class='button3' href='index.php?c=ead&a=pini_comentarios&id=" . $comentario[$i]->getId_comentario() . "'>Remover</a></div>
+                <div style='margin: 5px 0;'><a class='button3 remove_pini' href='#' name='div_comentario_" . $comentario[$i]->getId_comentario() . "' id='index.php?c=ead&a=pini_comentarios&id=" . $comentario[$i]->getId_comentario() . "'>Remover</a></div>
                 </div>";
             $c++;
         }
@@ -501,37 +514,41 @@ class controllerSistema {
     }
 
     /**/
-    
-          //funcoes referentes a FOTOS
-    public function listaFotos(){
+
+    //funcoes referentes a FOTOS
+    public function listaFotos() {
         $dao = new FotoDAO();
         $foto = $dao->select();
         $quant = count($foto);
-        $i=0;
-        $lista='';
-        for(;$i<$quant;$i++){
-           
-            $lista.="<div class='foto_holder'><div style='overflow:auto;'><a href='index.php?c=ead&a=pini_fotos&id=".$foto[$i]->getId_foto()."' style='position:relative;float:right;'>x</a></div><img src='".$foto[$i]->getImagem()."' /></div>";
+        $i = 0;
+        $lista = '';
+        for (; $i < $quant; $i++) {
+
+            $lista.="<div class='foto_holder'><div style='overflow:auto;'><a href='index.php?c=ead&a=pini_fotos&id=" . $foto[$i]->getId_foto() . "' style='position:relative;float:right;'>x</a></div><img src='" . $foto[$i]->getImagem() . "' /></div>";
         }
         return $lista;
     }
+
     /**/
-    public function listaFotos_index(){
+
+    public function listaFotos_index() {
         $dao = new PatrocinadorDAO();
         $patrocinador = $dao->select();
         $quant = count($patrocinador);
-        $i=0;
-        $lista='';
-        for(;$i<$quant;$i++){
-            $lista.="<img src='".$patrocinador[$i]->getImagem()."' width='200' height='200'/>";
+        $i = 0;
+        $lista = '';
+        for (; $i < $quant; $i++) {
+            $lista.="<img src='" . $patrocinador[$i]->getImagem() . "' width='200' height='200'/>";
         }
         return $lista;
     }
+
     /**/
+
     public function setFoto_Post() {
         if (!empty($_POST)) {
             if ($this->foto == null) {
-                $this->foto= new Patrocinador();
+                $this->foto = new Patrocinador();
             }
 
             foreach ($_POST as $k => $v) {
@@ -544,7 +561,9 @@ class controllerSistema {
             return $this->foto;
         }
     }
+
     /**/
+
     public function inserirFoto($id_foto) {
         //Inserção da foto
         if (isset($_FILES["imagem"])) {
@@ -564,12 +583,13 @@ class controllerSistema {
                         $img = $img->crop('50% - 50', '50% - 40', 200, 200);
                         $img->saveToFile($imagem_arquivo);
                     }
-                    
                 }
             }
         }
     }
+
     /**/
+
     public function inserir_foto() {
         $this->foto = new Foto();
         $this->foto->setImagem("img/fotos/");
@@ -580,7 +600,9 @@ class controllerSistema {
         $dao->update($this->foto);
         return $this->foto;
     }
+
     /**/
+
     public function novaFoto(Foto $foto = null) {
         if ($foto != null) {
             $dao = new FotoDAO();
@@ -589,20 +611,23 @@ class controllerSistema {
 
             return $dao->insert($foto);
 
-           // trigger_error("1 Reenvio de formulario, usuario ja cadastrado");
+            // trigger_error("1 Reenvio de formulario, usuario ja cadastrado");
         } else {
             return 'ERRO: funcao novaFoto - [ControllerGerencia_sistema]';
         }
     }
+
     /**/
-    public function removerFoto($id_foto){
+
+    public function removerFoto($id_foto) {
         $dao = new PatrocinadorDAO();
         $dao->deletePorId($id_foto);
-         $caminho = ROOT_PATH . '/public/img/fotos/' . $id_foto . '.jpg';
-         if(is_file($caminho)){
-             unlink($caminho);
-         }
+        $caminho = ROOT_PATH . '/public/img/fotos/' . $id_foto . '.jpg';
+        if (is_file($caminho)) {
+            unlink($caminho);
+        }
     }
+
     /**/
     //------------------------------------------------------------------------//
 }
