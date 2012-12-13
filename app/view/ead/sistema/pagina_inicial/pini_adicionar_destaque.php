@@ -1,5 +1,5 @@
 <div style="display:none" id="div_adicionar_destaque">
-    <form id="_ID_FORM_" method="post" action="index.php?c=ead&a=pini_destaques&i=1" enctype="multipart/form-data"class="formulario" >
+    <form id="_ID_FORM_" method="post" action="index.php?c=ead&a=pini_destaques&i=1" enctype="multipart/form-data" class="formulario">
         <fieldset>
             <legend>Adicionar destaque</legend>
             <table>
@@ -14,7 +14,7 @@
                     </td>
                 </tr>
             </table>
-        </fieldset>
-        <input type="_ID_SUBMIT_" value="adicionar" class="button2"/>
+        </fieldset><br>
+        <input type="_ID_SUBMIT_" value="Adicionar" class="button2"/><br>
     </form>
 </div>
