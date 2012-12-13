@@ -140,6 +140,35 @@ class controllerUsuario {
         $user = $dao->select($condicao);
         return $user;
     }
+    
+    public function listaAlunos($id_curso) {
+        $usuarioDAO = new UsuarioDAO();
+        $usuarios = $usuarioDAO->selectAlunosCurso($id_curso);
+        $quant = count($usuarios);
+        $i = 0;
+        $id_foto = "00";
+        $listaUsuarios = "";
+        for (; $i < $quant; $i++) {
+            if(file_exists(ROOT_PATH. '/public/img/profile/pic/'.$usuarios[$i]->getId_usuario().'.jpg')){
+                $id_foto = $usuarios[$i]->getId_usuario(); 
+            }
+            $listaUsuarios .= '<div class="estudante">
+                    <a class="profile_aluno" id="'.$usuarios[$i]->getId_usuario().'" href="#">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div style="height: 42px; width: 35px; padding: 4px; background-color: #eee;"><img src="img/profile/pic/'.$id_foto.'.jpg "></div>
+                                </td>
+                                <td>
+                                    <label>'.$usuarios[$i]->getNome_completo().'</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </a>
+                </div>';
+        }
+        return $listaUsuarios;
+    }
 
     /*
      * Retorna uma lista de todos os usuarios

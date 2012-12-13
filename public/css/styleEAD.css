@@ -883,8 +883,41 @@ label.error{
     color: #fff;
     font-weight: bold;
 }
-
 /*-----------------------------------------*/
+
+#div_lista{
+    margin: 15px 0 0 0;
+    position: relative;
+    float: right;
+    background-color: #FFF;
+    box-shadow:0px 4px 5px #DDD;
+    -moz-box-shadow:0px 4px 5px #DDD;
+    -webkit-box-shadow:0px 4px 5px #DDD;
+}
+
+#div_lista_estudantes{
+    width: 240px;
+    height: 430px;
+    overflow:auto;
+}
+
+#div_lista_estudantes a, #div_lista_estudantes a:visited, #div_lista_estudantes a:active{
+    text-decoration: none;
+    color: #707070;
+}
+
+#div_lista_estudantes a:hover{
+    color: #707070;
+    text-decoration: underline;
+}
+
+.estudante{
+    padding: 1px;
+    font-size: 11px;
+    margin: 3px ;
+    background: #f7f7f7;
+    border: 1px solid #eeeeee;
+}
 
 /* CSS - página visualizar módulo */
 /*.quadro_de_conteudo_especifico{

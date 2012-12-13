@@ -15,10 +15,62 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
     }
 </style>
 
+<script>
+    $(document).ready(function(){        
+        $('.profile_aluno').click(function(){
+            var id_usuario = $(this).attr('id');                
+            var _HTML = $('#dialog_profile').html();                            
+            $.ajax({
+                url: 'ajax/profile_aluno.php',
+                data:{id_usuario: id_usuario},
+                dataType: 'json',
+                async: false,
+                success: function(data, textStatus, jqXHR){
+                    if(data != 0){
+                        _HTML = _HTML.replace('#ATUACAO#', data.atuacao);
+                        _HTML = _HTML.replace('#SEXO#', data.sexo);
+                        _HTML = _HTML.replace('#PAPEL#', data.papel);
+                        _HTML = _HTML.replace('#NOME_COMPLETO#', data.nome_completo);               
+                        _HTML = _HTML.replace('#DATA_NASCIMENTO#', data.data_nascimento);                                
+                        _HTML = _HTML.replace('#DESCRICAO#', data.descricao);              
+                        _HTML = _HTML.replace('#CIDADE#', data.cidade);
+                        _HTML = _HTML.replace('#EMAIL#', data.email);
+                        _HTML = _HTML.replace('#FOTO#', data.foto);
+                    }
+                }
+            });        
+            dialog = $(_HTML).dialog({
+                draggable: false,
+                resizable: false,
+                position: [(($(window).width()-900)/2), 15],
+                show: {
+                    effect: 'drop', 
+                    direction: "up"
+                },
+                width:900,
+                height: 350,
+                modal:true,
+                close: function(){
+                    dialog.dialog("destroy");
+                    dialog.remove();
+                }
+            });
+        });
+    });
+</script>
+
 <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
     <form id="form_editar_curso">
         <div style="border-bottom:1px solid #eeeeee;">
             <center><label><b>Informações do curso</b></label></center>
+        </div>
+        <div id="div_lista">
+            <div style="width: 241px; height: 30px; background-color: #016292;">
+                <label style="color: #FFFFFF;font-size: 15px; font-weight: bold; margin: 6px 46px; position: absolute;">Estudantes do Curso</label>
+            </div>
+            <div id="div_lista_estudantes">
+                <?php echo $this->listaAlunos; ?>
+            </div>
         </div>
         <div>
             <table style="width: 100%;">
@@ -91,3 +143,4 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
         </div>
     </form>
 </div>
+<?php require ROOT_PATH . '/app/view/ead/profile_dialog.php'; ?>

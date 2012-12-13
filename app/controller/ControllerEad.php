@@ -209,6 +209,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
         $this->controller = new controllerModulo();
         $this->visao->listaModulos = $this->controller->listaModulos($id_curso);
+        $this->controller = new controllerUsuario();
+        $this->visao->listaAlunos = $this->controller->listaAlunos($id_curso);
         $this->renderizar();
     }
 
