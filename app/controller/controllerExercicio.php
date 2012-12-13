@@ -99,7 +99,7 @@ class controllerExercicio {
         return 0;
     }
 
-    public function inserir_pergunta($id_exercicio) {        
+    public function inserir_pergunta($id_exercicio) {
         $controller = new controllerPergunta();
         $pergunta = $controller->setPergunta();
         $pergunta->setId_exercicio($id_exercicio);
@@ -165,7 +165,7 @@ class controllerExercicio {
         $pergunta = $controller->setPergunta($pergunta);
 //        $pergunta->setId_exercicio($id_exercicio);
         $controller->atualizarPergunta($pergunta);
-        if (!empty($_FILES)) {            
+        if (!empty($_FILES)) {
             $this->imagem_pergunta($pergunta->getId_pergunta());
             $retorno = 2;
         }
@@ -209,13 +209,19 @@ class controllerExercicio {
                         <td><label>Nº </label><input id="numeracao" name="numeracao" value="' . $p[$i]->getNumeracao() . '" class="text-input" style="width: 30px"/></td>
                         <td><textarea placeholder="Enunciado da Questão" id="enunciado" name="enunciado" class="text-area" style="height: 34px; width:650px;">' . $p[$i]->getEnunciado() . '</textarea></td>
                     </tr>';
+            $lista .= '<tr>
+                        <td><label>Imagem: </label></td>';
             if (file_exists(ROOT_PATH . "/public/img/perguntas/" . $p[$i]->getId_pergunta() . ".jpg")) {
-                $lista .= '<tr>
-                        <td><label>Imagem: </label></td>
-                        <td><div id="div_imagem"><img src="img/perguntas/' . $p[$i]->getId_pergunta() . '.jpg" /></td>
-                    </tr>';
+                $lista .= '<td><div id="div_imagem"><img src="img/perguntas/' . $p[$i]->getId_pergunta() . '.jpg" /></td></tr>';
+            }else{
+                $lista .= '<td><div id="div_imagem"><img src="img/perguntas/00.jpg" /></td></tr>';
             }
-            $lista .= '<tr><td><input type="file" id="imagem" name="imagem" class="text-input"/></td></tr>';
+            $lista .= '<tr><td><input type="file" id="imagem" name="imagem" class="text-input"/></td></tr>
+                <tr>
+                    <td>
+                        <progress id="progress" value="0" max="100"></progress><span id="porcentagem">0%</span>                        
+                    </td>
+                </tr>  ';
             $lista .= '<tr>
                         <td colspan="2">
                             <div style="margin-top: 30px;">
@@ -270,7 +276,7 @@ class controllerExercicio {
                         <td><label>' . $p[$i]->getEnunciado() . '</label></td>
                     </tr>
                     <tr>
-                        <td><br><br></td>';
+                        <td><br></td>';
             if (file_exists(ROOT_PATH . "/public/img/perguntas/" . $p[$i]->getId_pergunta() . ".jpg")) {
                 $lista .= '<td><div><img src="img/perguntas/' . $p[$i]->getId_pergunta() . '.jpg" /></td>';
             }
@@ -373,10 +379,17 @@ class controllerExercicio {
                     <tr>
                         <td><label>Imagem: </label></td>';
         if (file_exists(ROOT_PATH . "/public/img/perguntas/" . $p->getId_pergunta() . ".jpg")) {
-            $lista .='<td><div id="div_imagem"><img src="img/perguntas/' . $p->getId_pergunta() . '.jpg" /></td>';
-        }
-        $lista .= '</tr><tr><td><input type="file" id="imagem" name="imagem" class="text-input"/></td>';
-        $lista .= '</tr><tr>
+            $lista .='<td><div id="div_imagem"><img src="img/perguntas/' . $p->getId_pergunta() . '.jpg" /></td></tr>';
+        }else{
+            $lista .='<td><div id="div_imagem"><img src="img/perguntas/00.jpg" /></td></tr>';
+        }        
+        $lista .= '<tr><td><input type="file" id="imagem" name="imagem" class="text-input"/></td></tr>
+                <tr>
+                    <td>
+                        <progress id="progress" value="0" max="100"></progress><span id="porcentagem">0%</span>
+                    </td>
+                </tr>  ';
+        $lista .= '<tr>
                         <td colspan="2">
                             <div style="margin-top: 30px;">
                                 <label>Respostas:</label>

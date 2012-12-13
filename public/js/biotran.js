@@ -69,7 +69,7 @@ $(document).ready(function(){
                 break;
             case 'form_cadastrar_pergunta':
                 $('#btn_add_pergunta').attr('disabled', 'true');
-                $(this).ajaxSubmit(optionsFormCadastrarPergunta());
+                $(this).ajaxSubmit(optionsFormCadastrarPergunta($(this)));
                 break;
             case 'deletar':
                 $(this).ajaxSubmit(optionsFormAtualizarPergunta());
@@ -273,16 +273,22 @@ function insereLinha(data, tipo){
         $(tipo.toString()).append($(_HTML));
     }
 }              
-function optionsFormCadastrarPergunta(){                
+function optionsFormCadastrarPergunta(form){                
     var options = {
         dataType: 'json',
         clearForm:true,
         data: {
             id_exercicio: $('#id').val()
         },
+        uploadProgress: function(event, position, total, percentComplete) {
+            form.find('#progress').attr('value',percentComplete);
+            form.find('#porcentagem').html(percentComplete+'%');
+        },
         success: function(data){
             if(data != 0 && data != false){                    
                 alert('Inserido com sucesso!');
+                form.find('#progress').attr('value',0);
+                form.find('#porcentagem').html(0+'%');
                 $('#btn_add_pergunta').removeAttr('disabled');
                 var ant = (data.numeracao - 1); 
                 if(document.getElementById('div_pergunta_'+ant)){                                
@@ -325,7 +331,11 @@ function optionsFormAtualizarDescritivo(){
     return options;
 }
 function optionsFormAtualizarPergunta(form){
-    var options = {            
+    var options = {
+        uploadProgress: function(event, position, total, percentComplete) {
+            form.find('#progress').attr('value',percentComplete);
+            form.find('#porcentagem').html(percentComplete+'%');
+        },
         success: function(data){
             if(data > 0){
                 if(data == 2){
@@ -333,6 +343,8 @@ function optionsFormAtualizarPergunta(form){
                     var id = form.find('#id_pergunta').val();
                     var tag = '<img src="img/perguntas/'+id+'.jpg" />';
                     form.find('#div_imagem').append(tag);
+                    form.find('#progress').attr('value',0);
+                    form.find('#porcentagem').html(0+'%');
                 }
                 alert('Atualizado com sucesso!');
             }

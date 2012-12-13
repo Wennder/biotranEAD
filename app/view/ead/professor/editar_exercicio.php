@@ -113,6 +113,12 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td></td>
+                                    <td>
+                                        <progress id="progress" value="0" max="100"></progress><span id="porcentagem">0%</span>                        
+                                    </td>
+                                </tr>  
+                                <tr>
                                     <td colspan="2">
                                         <div style="margin-top: 30px;">
                                             <label>Respostas:</label>

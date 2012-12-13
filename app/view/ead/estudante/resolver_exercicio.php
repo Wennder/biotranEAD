@@ -26,7 +26,7 @@
         <input type="button" value="Cancelar" id="cancelar_exercicio" class="button2"/>
     </div><br>
     <div style="display:none;">
-        <input type="text" name="id" id="id" value="<?php echo $this->exercicio->getId_exercicio(); ?>"/>            
+        <input type="text" name="id_exercicio" id="id_exercicio" value="<?php echo $this->exercicio->getId_exercicio(); ?>"/>            
         <input name="id_modulo" id="id_modulo" type="text" value="<?php echo $this->exercicio->getId_modulo(); ?>"/>
     </div>
 </div>
