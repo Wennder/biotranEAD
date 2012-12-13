@@ -7,35 +7,34 @@
 
 <script>    
     $(document).ready(function(){
-        if(centro == 1){            
-            centro = $('#center_content').load('index.php?c=ead&a=pag_curso&id='+$('#id_curso_1').val(), $('#id_curso_1').val(), function (){                    
+        if(centro == 1){
+            centro = $('#center_content').load('index.php?c=ead&a=pag_curso&id='+$('#id_curso_1').val(), $('#id_curso_1').val(), function (){
                 pag_content = 'pag_curso';
-            });            
+            });
             $('#lista_modulos li').live('click',function(e){
-                if(centro!=1){            
+                if(centro!=1){
                     centro.find('div').remove();
-                } 
+                }
                 var id = $(this).attr('id');
-                centro = $('#center_content').load('index.php?c=ead&a=pag_modulo&id='+id, function (){                    
-                    $('#div_conteudo').append(centro);                    
-                }); 
+                centro = $('#center_content').load('index.php?c=ead&a=pag_modulo&id='+id, function (){
+                    $('#div_conteudo').append(centro);
+                });
                 pag_content = 'pag_modulo';
             });
-            
         }
-        $('.ref_ajax').live('click',function(e){                
-            if(centro!=1){            
+        $('.ref_ajax').live('click',function(e){
+            if(centro!=1){
                 centro.find('div').remove();
-            } 
+            }
             var id = $(this).attr('name');
-            centro = $('#center_content').load(id, function (){                    
+            centro = $('#center_content').load(id, function (){
                 $('#div_conteudo').append(centro);
             });
             pag_content = 'forum';
         });
         
         $('.accord_body').live('click', function(e) {
-            $(this).next('.accord_content_body').slideToggle('fast');                  
+            $(this).next('.accord_content_body').slideToggle('fast');
         });
         
         //forms forum
