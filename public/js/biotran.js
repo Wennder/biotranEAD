@@ -50,16 +50,17 @@ $(document).ready(function(){
             }, function(j){
                 //j = numeracao
                 //usuario excluido                      
-                if(j != 0){
-                    alert('Removido com sucesso!');
+                if(j != 0){                    
                     $('#div_pergunta_'+j).remove();
                     $('#div_pergunta_body_'+j).remove();
+                }else{
+                    alert('Operação não realizada, tente novamente mais tarde!');
                 }
             }); 
         }
     });
                 
-    $('#dialog form').live('submit',function(e){
+    $('#dialog form').live('submit',function(e){        
         console.log($(this).parent());
         var name = $(this).attr('id');
         switch(name){
@@ -67,6 +68,7 @@ $(document).ready(function(){
                 $(this).ajaxSubmit(optionsFormAtualizarDescritivo());
                 break;
             case 'form_cadastrar_pergunta':
+                $('#btn_add_pergunta').attr('disabled', 'true');
                 $(this).ajaxSubmit(optionsFormCadastrarPergunta());
                 break;
             case 'deletar':
@@ -75,7 +77,7 @@ $(document).ready(function(){
             case 'form_cadastrar':
                 break;
             default://atualizar pergunta
-                $(this).ajaxSubmit(optionsFormAtualizarPergunta());
+                $(this).ajaxSubmit(optionsFormAtualizarPergunta($(this)));
                 break;
         }                
         return false;
@@ -281,6 +283,7 @@ function optionsFormCadastrarPergunta(){
         success: function(data){
             if(data != 0 && data != false){                    
                 alert('Inserido com sucesso!');
+                $('#btn_add_pergunta').removeAttr('disabled');
                 var ant = (data.numeracao - 1); 
                 if(document.getElementById('div_pergunta_'+ant)){                                
                     $('#div_pergunta_body_'+ant.toString()).after($(data.form));                                
@@ -298,7 +301,8 @@ function optionsFormCadastrarPergunta(){
                     }else{                                                              
                         $('#div_pergunta_body_'+posicao).after($(data.form));
                     }
-                }                        
+                }
+                $('#form_cadastrar_pergunta #imagem').attr('value', '');
                 $('#id_exercicio').val($('#id').val());                            
                 $('#a_cadastrar_pergunta').click();                    
             }
@@ -320,11 +324,17 @@ function optionsFormAtualizarDescritivo(){
     }
     return options;
 }
-function optionsFormAtualizarPergunta(){
+function optionsFormAtualizarPergunta(form){
     var options = {            
         success: function(data){
-            if(data == 1){                    
-                alert('Operacao realizada com sucesso!');
+            if(data > 0){
+                if(data == 2){
+                    form.find('#div_imagem img').remove();
+                    var id = form.find('#id_pergunta').val();
+                    var tag = '<img src="img/perguntas/'+id+'.jpg" />';
+                    form.find('#div_imagem').append(tag);
+                }
+                alert('Atualizado com sucesso!');
             }
         }
     }

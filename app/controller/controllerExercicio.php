@@ -97,14 +97,14 @@ class controllerExercicio {
             return $retorno;
         }
         return 0;
-    }   
+    }
 
-    public function inserir_pergunta($id_exercicio) {
+    public function inserir_pergunta($id_exercicio) {        
         $controller = new controllerPergunta();
         $pergunta = $controller->setPergunta();
         $pergunta->setId_exercicio($id_exercicio);
         $pergunta->setId_pergunta($controller->novoPergunta($pergunta));
-        if (!empty($_FILES)) {            
+        if (!empty($_FILES)) {
             $this->imagem_pergunta($pergunta->getId_pergunta());
         }
         $controller = new controllerAlternativa();
@@ -120,7 +120,7 @@ class controllerExercicio {
             'numPerguntas' => $controller->getMaxNumeracao($id_exercicio));
         return $retorno;
     }
-    
+
     public function imagem_pergunta($id) {
         if (isset($_FILES["imagem"])) {
             if ($_FILES["imagem"]["name"] != '') {
@@ -159,13 +159,15 @@ class controllerExercicio {
     }
 
     public function atualizar_pergunta($id_pergunta) {
+        $retorno = 1;
         $controller = new controllerPergunta();
         $pergunta = $controller->getPergunta('id_pergunta=' . $id_pergunta);
         $pergunta = $controller->setPergunta($pergunta);
 //        $pergunta->setId_exercicio($id_exercicio);
         $controller->atualizarPergunta($pergunta);
-        if (!empty($_FILES)) {
-            imagem_pergunta($pergunta->getId_pergunta());
+        if (!empty($_FILES)) {            
+            $this->imagem_pergunta($pergunta->getId_pergunta());
+            $retorno = 2;
         }
         $controller = new controllerAlternativa();
         $alternativa = $controller->getListaAlternativas('id_pergunta=' . $id_pergunta);
@@ -174,7 +176,7 @@ class controllerExercicio {
             $alternativa[$i]->setId_pergunta($pergunta->getId_pergunta());
             $controller->atualizarAlternativa($alternativa[$i]);
         }
-        return 1;
+        return $retorno;
     }
 
     public function deletar_pergunta($id_pergunta) {
@@ -182,14 +184,9 @@ class controllerExercicio {
         $p = $controller->getPergunta('id_pergunta=' . $id_pergunta);
         $resp = $controller->deletePergunta($p);
         if ($resp != 0) {
-            $caminho = ROOT_PATH . '/public/img/respostas/' . $id . '.jpg';
-            if (is_file($caminho)) {
+            $caminho = ROOT_PATH . "/public/img/perguntas/" . $id_pergunta . ".jpg";
+            if (file_exists($caminho)) {
                 unlink($caminho);
-            } else {
-                $caminho = ROOT_PATH . '/public/img/respostas/' . $id . '.jpeg';
-                if (is_file($caminho)) {
-                    unlink($caminho);
-                }
             }
         }
         return $p->getNumeracao();
@@ -211,12 +208,15 @@ class controllerExercicio {
                     <tr>
                         <td><label>Nº </label><input id="numeracao" name="numeracao" value="' . $p[$i]->getNumeracao() . '" class="text-input" style="width: 30px"/></td>
                         <td><textarea placeholder="Enunciado da Questão" id="enunciado" name="enunciado" class="text-area" style="height: 34px; width:650px;">' . $p[$i]->getEnunciado() . '</textarea></td>
-                    </tr>
-                    <tr>
+                    </tr>';
+            if (file_exists(ROOT_PATH . "/public/img/perguntas/" . $p[$i]->getId_pergunta() . ".jpg")) {
+                $lista .= '<tr>
                         <td><label>Imagem: </label></td>
-                        <td><div><img src="img/perguntas/' . $p[$i]->getId_pergunta() . '.jpg" /></td>
-                    </tr>
-                    <tr>
+                        <td><div id="div_imagem"><img src="img/perguntas/' . $p[$i]->getId_pergunta() . '.jpg" /></td>
+                    </tr>';
+            }
+            $lista .= '<tr><td><input type="file" id="imagem" name="imagem" class="text-input"/></td></tr>';
+            $lista .= '<tr>
                         <td colspan="2">
                             <div style="margin-top: 30px;">
                                 <label>Respostas:</label>
@@ -248,7 +248,7 @@ class controllerExercicio {
                     </tr>
                 </table><br>';
             $lista .='<input type="submit" id="btn_upd_pergunta" class="button2" name="form_atualizar_pergunta_' . $p[$i]->getId_pergunta() . '" value="Atualizar"/>
-                    <input type="button" id="' . $p[$i]->getId_pergunta() . '" class="button2" value="Excluir"/><br>';
+                    <input type="button" id="' . $p[$i]->getId_pergunta() . '" class="button2 btn_del_pergunta" value="Excluir"/><br>';
             $lista .='</fieldset><div style="display:none;"><input type="text" name="id_pergunta" id="id_pergunta" value="' . $p[$i]->getId_pergunta() . '"/></div></form></div></div>';
         }
         return $lista;
@@ -270,9 +270,11 @@ class controllerExercicio {
                         <td><label>' . $p[$i]->getEnunciado() . '</label></td>
                     </tr>
                     <tr>
-                        <td><br><br></td>
-                        <td><div><img src="img/perguntas/' . $p->getId_pergunta() . '.jpg" /></td>
-                    </tr>
+                        <td><br><br></td>';
+            if (file_exists(ROOT_PATH . "/public/img/perguntas/" . $p[$i]->getId_pergunta() . ".jpg")) {
+                $lista .= '<td><div><img src="img/perguntas/' . $p[$i]->getId_pergunta() . '.jpg" /></td>';
+            }
+            $lista .='</tr>
                     <tr>
                         <td colspan="2">
                             <div style="margin-top: 30px;">
@@ -369,10 +371,12 @@ class controllerExercicio {
                         <td><textarea placeholder="Enunciado da Questão" id="enunciado" name="enunciado" class="text-area" style="height: 34px; width:650px;">' . $p->getEnunciado() . '</textarea></td>
                     </tr>
                     <tr>
-                        <td><label>Imagem: </label></td>
-                        <td><div><img src="img/perguntas/' . $p->getId_pergunta() . '.jpg" /></td>
-                    </tr>
-                    <tr>
+                        <td><label>Imagem: </label></td>';
+        if (file_exists(ROOT_PATH . "/public/img/perguntas/" . $p->getId_pergunta() . ".jpg")) {
+            $lista .='<td><div id="div_imagem"><img src="img/perguntas/' . $p->getId_pergunta() . '.jpg" /></td>';
+        }
+        $lista .= '</tr><tr><td><input type="file" id="imagem" name="imagem" class="text-input"/></td>';
+        $lista .= '</tr><tr>
                         <td colspan="2">
                             <div style="margin-top: 30px;">
                                 <label>Respostas:</label>
@@ -404,7 +408,7 @@ class controllerExercicio {
                     </tr>
                 </table><br>';
         $lista .='<input type="submit" id="btn_upd_pergunta" class="button2" name="form_atualizar_pergunta_' . $p->getId_pergunta() . '" value="Atualizar"/>
-                    <input type="button" id="' . $p->getId_pergunta() . '" class="button2" value="Excluir"/><br>';
+                    <input type="button" id="' . $p->getId_pergunta() . '" class="button2 btn_del_pergunta" value="Excluir"/><br>';
         $lista .='</fieldset><div style="display:none;"><input type="text" name="id_pergunta" id="id_pergunta" value="' . $p->getId_pergunta() . '"/></div></form></div></div>';
         return $lista;
     }
