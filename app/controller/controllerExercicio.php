@@ -214,7 +214,7 @@ class controllerExercicio {
                     </tr>
                     <tr>
                         <td><label>Imagem: </label></td>
-                        <td><div>CARREGAR IMAGEM AQUI</td>
+                        <td><div><img src="img/perguntas/' . $p[$i]->getId_pergunta() . '.jpg" /></td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -271,7 +271,7 @@ class controllerExercicio {
                     </tr>
                     <tr>
                         <td><br><br></td>
-                        <td><div>CARREGAR IMAGEM AQUI</div></td>
+                        <td><div><img src="img/perguntas/' . $p->getId_pergunta() . '.jpg" /></td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -370,7 +370,7 @@ class controllerExercicio {
                     </tr>
                     <tr>
                         <td><label>Imagem: </label></td>
-                        <td><div>CARREGAR IMAGEM AQUI</td>
+                        <td><div><img src="img/perguntas/' . $p->getId_pergunta() . '.jpg" /></td>
                     </tr>
                     <tr>
                         <td colspan="2">

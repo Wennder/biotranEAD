@@ -527,8 +527,7 @@ class controllerSistema {
         $quant = count($foto);
         $i = 0;
         $lista = '';
-        for (; $i < $quant; $i++) {
-
+        for (; $i < $quant; $i++) {            
             $lista.="<div id='div_foto_".$foto[$i]->getId_foto()."' class='foto_holder'><div style='overflow:auto;'><a class='remove_pini button3' name='div_foto_".$foto[$i]->getId_foto()."' id='index.php?c=ead&a=pini_fotos&id=" . $foto[$i]->getId_foto() . "' style='position:relative;text-decoration:none;'>remover</a></div><img src='" . $foto[$i]->getImagem() . "' /></div>";
         }
         return $lista;
