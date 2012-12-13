@@ -97,13 +97,16 @@ class controllerExercicio {
             return $retorno;
         }
         return 0;
-    }
+    }   
 
     public function inserir_pergunta($id_exercicio) {
         $controller = new controllerPergunta();
         $pergunta = $controller->setPergunta();
         $pergunta->setId_exercicio($id_exercicio);
         $pergunta->setId_pergunta($controller->novoPergunta($pergunta));
+        if (!empty($_FILES)) {            
+            $this->imagem_pergunta($pergunta->getId_pergunta());
+        }
         $controller = new controllerAlternativa();
         $alternativa = $controller->setTodasAlternativa();
         for ($i = 0; $i < count($alternativa); $i++) {
@@ -116,6 +119,34 @@ class controllerExercicio {
             'numeracao' => $pergunta->getNumeracao(),
             'numPerguntas' => $controller->getMaxNumeracao($id_exercicio));
         return $retorno;
+    }
+    
+    public function imagem_pergunta($id) {
+        if (isset($_FILES["imagem"])) {
+            if ($_FILES["imagem"]["name"] != '') {
+                $imagem = $_FILES["imagem"];
+                $tipos = array("image/jpg", "image/jpeg");
+                $pasta_dir = ROOT_PATH . "/public/img/perguntas/";
+                if (in_array($imagem["type"], $tipos)) {
+                    $aux = explode('/', $imagem["type"]);
+                    $caminho = ROOT_PATH . '/public/img/respostas/' . $id . '.' . $aux[1];
+                    if (is_file($caminho)) {
+                        unlink($caminho);
+                    }
+                    $imagem_nome = $pasta_dir . $id . ".jpg";
+//                    echo $imagem["tmp_name"] . '--' . $imagem_nome; die();
+                    move_uploaded_file($imagem["tmp_name"], $imagem_nome);
+                    $imagem_arquivo = ROOT_PATH . "/public/img/perguntas/" . $id . ".jpg";
+                    list($altura, $largura) = getimagesize($imagem_nome);
+                    if ($altura > 200 && $largura > 200) {
+                        $img = wiImage::load($imagem_arquivo);
+                        $img = $img->resize(250, 250, 'outside');
+                        $img = $img->crop('50% - 50', '50% - 40', 200, 200);
+                        $img->saveToFile($imagem_arquivo);
+                    }
+                }
+            }
+        }
     }
 
     public function atualizar_descritivo() {
@@ -133,6 +164,9 @@ class controllerExercicio {
         $pergunta = $controller->setPergunta($pergunta);
 //        $pergunta->setId_exercicio($id_exercicio);
         $controller->atualizarPergunta($pergunta);
+        if (!empty($_FILES)) {
+            imagem_pergunta($pergunta->getId_pergunta());
+        }
         $controller = new controllerAlternativa();
         $alternativa = $controller->getListaAlternativas('id_pergunta=' . $id_pergunta);
         $alternativa = $controller->setTodasAlternativa($alternativa);
@@ -146,7 +180,18 @@ class controllerExercicio {
     public function deletar_pergunta($id_pergunta) {
         $controller = new controllerPergunta();
         $p = $controller->getPergunta('id_pergunta=' . $id_pergunta);
-        $controller->deletePergunta($p);
+        $resp = $controller->deletePergunta($p);
+        if ($resp != 0) {
+            $caminho = ROOT_PATH . '/public/img/respostas/' . $id . '.jpg';
+            if (is_file($caminho)) {
+                unlink($caminho);
+            } else {
+                $caminho = ROOT_PATH . '/public/img/respostas/' . $id . '.jpeg';
+                if (is_file($caminho)) {
+                    unlink($caminho);
+                }
+            }
+        }
         return $p->getNumeracao();
     }
 
@@ -169,7 +214,7 @@ class controllerExercicio {
                     </tr>
                     <tr>
                         <td><label>Imagem: </label></td>
-                        <td><div>CARREGAR IMAGEM AQUI</td>
+                        <td><div><img src="img/perguntas/' . $p[$i]->getId_pergunta() . '.jpg" /></td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -226,7 +271,7 @@ class controllerExercicio {
                     </tr>
                     <tr>
                         <td><br><br></td>
-                        <td><div>CARREGAR IMAGEM AQUI</div></td>
+                        <td><div><img src="img/perguntas/' . $p->getId_pergunta() . '.jpg" /></td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -325,7 +370,7 @@ class controllerExercicio {
                     </tr>
                     <tr>
                         <td><label>Imagem: </label></td>
-                        <td><div>CARREGAR IMAGEM AQUI</td>
+                        <td><div><img src="img/perguntas/' . $p->getId_pergunta() . '.jpg" /></td>
                     </tr>
                     <tr>
                         <td colspan="2">

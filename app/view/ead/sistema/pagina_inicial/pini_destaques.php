@@ -4,6 +4,10 @@
 <script>
     $('#form_adicionar_destaque').live('submit', function(){
         $(this).ajaxSubmit({                        
+            uploadProgress: function(event, position, total, percentComplete) {
+                $('#progress').attr('value',percentComplete);
+                $('#porcentagem').html(percentComplete+'%');
+            },
             success: function(data){                                            
                 if(!data){
                     alert('Operação não realizada, tente novamente mais tarde!');
@@ -16,12 +20,31 @@
         return false;
     });
     
+    $('.remove_pini').live('click', function(){     
+        var id = $(this).attr('id');
+        var name = $(this).attr('name');
+        $.ajax({
+            url: id,
+            dataType: 'json',
+            async: false,
+            success: function(data){
+                if(data){
+                    $('#'+name).remove();
+                }else{
+                    alert('Operação não realizada, tente novamente mais tarde!');
+                }
+            }
+        });
+    });
+    
     $('.ref_ajax a:not(.link)').live('click', function(){
         var name = $(this).attr('name');
         var id = $(this).attr('id');
         var _HTML = $('#div_'+name).html();
         _HTML = _HTML.replace('_ID_FORM_', 'form_'+name);
         _HTML = _HTML.replace('_ID_SUBMIT_', 'submit');
+        _HTML = _HTML.replace('_ID_PORCENTAGEM_', 'porcentagem');
+        _HTML = _HTML.replace('_ID_PROGRESS_', 'progress');
         dialog = $(_HTML).dialog({
             draggable: false,
             resizable: false,
@@ -35,7 +58,7 @@
             modal:true,                                          
             close: function(event,ui){                     
                 $(dialog).dialog('destroy');
-                $(dialog).find('div').remove();
+                $(dialog).remove();
             },
             open: function(event, ui){                                
             }
@@ -46,7 +69,7 @@
         var id = dados.split('--');
         var src = id[0];
         id = id[1];
-        var linha = "<div><div style='margin-bottom: 5px;'><a class='button3' href='index.php?c=ead&a=pini_destaques&id=" + id + "' style='position:relative; text-decoration:none;'>Remover</a></div><img src='" + src + "' /></div>"
+        var linha = "<div id='div_destaque_"+id+"'><div style='margin-bottom: 5px;'><a class='button3 remove_pini' name='div_destaque_"+id+"' href='#' id='index.php?c=ead&a=pini_destaques&id=" + id + "' style='position:relative; text-decoration:none;'>Remover</a></div><img src='" + src + "' /></div>"
         $('#lista_destaque').append($(linha));
     }   
 </script>
@@ -58,9 +81,10 @@
     <div id="destaques_gerencia">
         <div class="ref_ajax">
             <a name="adicionar_destaque" href="#" id="index.php?c=ead&a=pini_adicionar_destaque" style="text-decoration: none;" class="button2"> Adicionar Destaque</a><br><br>
-        </addpini>
+        </div>
         <div id="lista_destaque">
-            <?php $controller = new controllerSistema();
+            <?php
+            $controller = new controllerSistema();
             echo $controller->listaDestaques();
             ?>
         </div>

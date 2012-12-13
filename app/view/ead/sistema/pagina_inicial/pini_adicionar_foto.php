@@ -1,19 +1,21 @@
-<?php require ROOT_PATH . '/app/view/ead/structure/header.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/leftcolumn.php'; ?>
-<?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
-
-<form method="post" action="index.php?c=ead&a=pini_fotos&i=1" enctype="multipart/form-data">
-    <fieldset>
-        <legend>Adicionar Foto</legend>
-        <input type="text" hidden="true" value="a" />
-        <table>
-            <tr>
-                <td><label>imagem:</label></td>
-                <td><input type="file" name="imagem" id="imagem"  class="text-input" data-prompt-position="centerRight"/></td>
-            </tr>
-        </table>
-    </fieldset>
-    <input type="submit" value="adicionar" />
-</form>
-
-<?php require ROOT_PATH . '/app/view/ead/structure/footer.php'; ?>
+<div id="div_adicionar_foto" style="display:none;">
+    <form id="_ID_FORM_" method="post" action="index.php?c=ead&a=pini_fotos&i=1" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Adicionar Foto</legend>
+            <input type="text" hidden="true" value="a" />
+            <table>
+                <tr>
+                    <td><label>imagem:</label></td>
+                    <td><input type="file" name="imagem" id="imagem"  class="text-input" data-prompt-position="centerRight"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <progress id="_ID_PROGRESS_" value="0" max="100"></progress><span id="_ID_PORCENTAGEM_">0%</span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <input type="submit" id="_ID_SUBMIT_" value="adicionar" />
+    </form>
+</div>

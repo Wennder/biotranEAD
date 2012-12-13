@@ -7,6 +7,12 @@
                     <td><label>Imagem(650x300)</label></td>
                     <td><input type="file" name="imagem" id="imagem" class="text-input"/></td>
                 </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <progress id="_ID_PROGRESS_" value="0" max="100"></progress><span id="_ID_PORCENTAGEM_">0%</span>                        
+                    </td>
+                </tr>
             </table>
         </fieldset>
         <input type="_ID_SUBMIT_" value="adicionar" class="button2"/>

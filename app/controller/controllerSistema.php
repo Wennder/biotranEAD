@@ -26,7 +26,7 @@ class controllerSistema {
         $lista = '<table id="table_lista"><tr>';
         $aux = 1;
         for ($i = 0; $i < $quant; $i++) {
-            $lista.="<td><div style='margin: 5px;'><div><a class='button3' href='index.php?c=ead&a=pini_patrocinadores&id=" . $patrocinador[$i]->getId_patrocinador() . "' style='position:relative; float:right; text-decoration:none; margin-bottom: 5px;'>Remover</a></div><img src='" . $patrocinador[$i]->getImagem() . "' /></div></td>";
+            $lista.="<td id='td_patrocinador_" . $patrocinador[$i]->getId_patrocinador() . "' ><div style='margin: 5px;'><div><a class='button3 remove_pini' name='td_patrocinador_" . $patrocinador[$i]->getId_patrocinador() . "' href='#' id='index.php?c=ead&a=pini_patrocinadores&id=" . $patrocinador[$i]->getId_patrocinador() . "' style='position:relative; float:right; text-decoration:none; margin-bottom: 5px;'>Remover</a></div><img src='" . $patrocinador[$i]->getImagem() . "' /></div></td>";
             if ($aux % 4 == 0 && $aux != $quant) {
                 $lista.="</tr><tr>";
             }
@@ -132,11 +132,14 @@ class controllerSistema {
 
     public function removerPatrocinador($id_patrocinador) {
         $dao = new PatrocinadorDAO();
-        $dao->deletePorId($id_patrocinador);
-        $caminho = ROOT_PATH . '/public/img/patrocinadores/' . $id_patrocinador . '.jpg';
-        if (is_file($caminho)) {
-            unlink($caminho);
+        $resp = $dao->deletePorId($id_patrocinador);
+        if ($resp != 0) {
+            $caminho = ROOT_PATH . '/public/img/patrocinadores/' . $id_patrocinador . '.jpg';
+            if (is_file($caminho)) {
+                unlink($caminho);
+            }
         }
+        return $resp;
     }
 
     /**/
@@ -225,11 +228,14 @@ class controllerSistema {
 
     public function removerDestaque($id_destaque) {
         $dao = new DestaqueDAO();
-        $dao->deletePorId($id_destaque);
-        $caminho = ROOT_PATH . '/public/img/destaques/' . $id_destaque . '.jpg';
-        if (is_file($caminho)) {
-            unlink($caminho);
+        $resp = $dao->deletePorId($id_destaque);
+        if ($resp != 0) {
+            $caminho = ROOT_PATH . '/public/img/destaques/' . $id_destaque . '.jpg';
+            if (is_file($caminho)) {
+                unlink($caminho);
+            }
         }
+        return $resp;
     }
 
     /**/
@@ -241,8 +247,7 @@ class controllerSistema {
         $i = 0;
         $lista = '';
         for (; $i < $quant; $i++) {
-
-            $lista.="<div><div style='margin-bottom: 5px;'><a class='button3' href='index.php?c=ead&a=pini_destaques&id=" . $destaque[$i]->getId_destaque() . "' style='position:relative; text-decoration:none;'>Remover</a></div><img src='" . $destaque[$i]->getDestaque() . "' /></div>";
+            $lista.="<div id='div_destaque_" . $destaque[$i]->getId_destaque() . "'><div style='margin-bottom: 5px;'><a class='remove_pini button3' href='#' name='div_destaque_" . $destaque[$i]->getId_destaque() . "'id='index.php?c=ead&a=pini_destaques&id=" . $destaque[$i]->getId_destaque() . "' style='position:relative; text-decoration:none;'>Remover</a></div><img src='" . $destaque[$i]->getDestaque() . "' /></div>";
         }
         return $lista;
     }
@@ -342,7 +347,7 @@ class controllerSistema {
             $caminho = ROOT_PATH . '/public/img/noticias/' . $id_noticia . '.jpg';
             if (is_file($caminho)) {
                 unlink($caminho);
-            }            
+            }
         }
         return $resp;
     }
@@ -355,7 +360,7 @@ class controllerSistema {
         $this->inserirFotoNoticia($this->noticia->getId_noticia());
         $dao = new NoticiaDAO();
         $resp = $dao->update($this->noticia);
-        if($resp != 0){
+        if ($resp != 0) {
             return $this->noticia;
         }
         return $resp;
@@ -522,9 +527,8 @@ class controllerSistema {
         $quant = count($foto);
         $i = 0;
         $lista = '';
-        for (; $i < $quant; $i++) {
-
-            $lista.="<div class='foto_holder'><div style='overflow:auto;'><a href='index.php?c=ead&a=pini_fotos&id=" . $foto[$i]->getId_foto() . "' style='position:relative;float:right;'>x</a></div><img src='" . $foto[$i]->getImagem() . "' /></div>";
+        for (; $i < $quant; $i++) {            
+            $lista.="<div id='div_foto_".$foto[$i]->getId_foto()."' class='foto_holder'><div style='overflow:auto;'><a class='remove_pini button3' name='div_foto_".$foto[$i]->getId_foto()."' id='index.php?c=ead&a=pini_fotos&id=" . $foto[$i]->getId_foto() . "' style='position:relative;text-decoration:none;'>remover</a></div><img src='" . $foto[$i]->getImagem() . "' /></div>";
         }
         return $lista;
     }
@@ -593,12 +597,16 @@ class controllerSistema {
     public function inserir_foto() {
         $this->foto = new Foto();
         $this->foto->setImagem("img/fotos/");
-        //echo $this->patrocinador->getImagem();die();        
-        $this->foto->setId_foto($this->novaFoto($this->foto));
-        $this->inserirFoto($this->foto->getId_foto());
-        $dao = new FotoDAO();
-        $dao->update($this->foto);
-        return $this->foto;
+        //echo $this->patrocinador->getImagem();die();   
+        $id = $this->novaFoto($this->foto);        
+        if ($id != 0) {
+            $this->foto->setId_foto($id);
+            $this->inserirFoto($this->foto->getId_foto());
+            $dao = new FotoDAO();
+            $dao->update($this->foto);
+            return $this->foto;
+        }
+        return 0;
     }
 
     /**/
@@ -620,12 +628,15 @@ class controllerSistema {
     /**/
 
     public function removerFoto($id_foto) {
-        $dao = new PatrocinadorDAO();
-        $dao->deletePorId($id_foto);
-        $caminho = ROOT_PATH . '/public/img/fotos/' . $id_foto . '.jpg';
-        if (is_file($caminho)) {
-            unlink($caminho);
+        $dao = new FotoDAO();
+        $resp = $dao->deletePorId($id_foto);
+        if ($resp != 0) {
+            $caminho = ROOT_PATH . '/public/img/fotos/' . $id_foto . '.jpg';
+            if (is_file($caminho)) {
+                unlink($caminho);
+            }
         }
+        return $resp;
     }
 
     /**/
