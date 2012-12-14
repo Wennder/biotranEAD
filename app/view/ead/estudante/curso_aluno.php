@@ -142,11 +142,6 @@
         centro = _aux;
         $('#div_conteudo_estudante_modulo').append(centro);                
     }
-    
-    function setarQuestao(numQuestao){
-        $(".questaoBody_"+numQuestao).css("color", "green");
-    }
-    
 </script>
 
 <div id="center_content"></div>

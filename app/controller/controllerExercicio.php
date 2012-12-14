@@ -283,14 +283,14 @@ class controllerExercicio {
             $lista .='</tr>
                     <tr>
                         <td colspan="2">
-                            <div style="margin-top: 30px;" class="radio">
+                            <div style="margin-top: 30px;" class="radio" id="'.$p[$i]->getNumeracao().'">
                                 <label style="margin-left: 20px;"><b>Alternativas:</b></label>
                                 <table style="width: 100%;">';
             for ($j = 0; $j < count($a); $j++) {
                 $lista.='
                                     <tr>
                                         <td style="width: 40px;">
-                                            <input name="resposta_'.$i.'" type="radio" ' . $c . ' value="' . $a[$j]->getId_alternativa() . '" style="margin: 5px 0 0 15px;" onclick="setarQuestao('.$p[$i]->getNumeracao().')"/>
+                                            <input name="resposta_'.$i.'" type="radio" ' . $c . ' value="' . $a[$j]->getId_alternativa() . '" style="margin: 5px 0 0 15px;" onclick="setarQuestao('.$p[$i]->getNumeracao().')" class="radioQuestao_'.$p[$i]->getNumeracao().'"/>
                                         </td>
                                         <td>
                                             <label>' . $a[$j]->getResposta() . '</label>

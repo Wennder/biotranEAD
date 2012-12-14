@@ -48,48 +48,52 @@ $(document).ready(function(){
     });
                 
     $("#corrigir_exercicio").live('click', function(){
-        var r = confirm('Tem certeza?');
-        if(r){
-            var qnt = $('#total_perguntas').val();
-            var i;
-            var j; 
-            var bool = true, check;
-            id_exercicio = $('#id_exercicio').val();
-            respostas = '';
-            id_questoes = '';
-            for(i = 0; i < qnt; i++){
-                j = i+1;
-                respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
-                id_questoes += $('#id_pergunta_'+i).val()+';';
-            }            
-            $.ajax({
-                url:'ajax/submeterQuestionario.php?acao=corrigir', 
-                data: {
-                    respostas: respostas, 
-                    id_exercicio: id_exercicio, 
-                    id_perguntas: id_questoes
-                },
-                dataType: 'json',
-                async: false,
-                success:function(j){                
-                    if(j != 1){                    
-                        dialog.dialog('close');
-                        aux = j.lista;
-                        dialog = $(j.estatistica).dialog({
-                            width:800, 
-                            height:600,
-                            dialogClass:'dialogstyle', 
-                            modal:true,                        
-                            close: function(event,ui){                     
-                                $(dialog).dialog('destroy');
-                                $(dialog).find('div').remove();
-                            }                                        
-                        });
-                    }else{
-                        alert('Erro ao corrigir questionário, tente novamente!');
+        if(verificaExercicios()){
+            var r = confirm('Tem certeza?');
+            if(r){
+                var qnt = $('#total_perguntas').val();
+                var i;
+                var j; 
+                id_exercicio = $('#id_exercicio').val();
+                respostas = '';
+                id_questoes = '';
+                for(i = 0; i < qnt; i++){
+                    j = i+1;
+                    respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
+                    id_questoes += $('#id_pergunta_'+i).val()+';';
+                }            
+                $.ajax({
+                    url:'ajax/submeterQuestionario.php?acao=corrigir', 
+                    data: {
+                        respostas: respostas, 
+                        id_exercicio: id_exercicio, 
+                        id_perguntas: id_questoes
+                    },
+                    dataType: 'json',
+                    async: false,
+                    success:function(j){                
+                        if(j != 1){                    
+                            dialog.dialog('close');
+                            aux = j.lista;
+                            dialog = $(j.estatistica).dialog({
+                                width:800, 
+                                height:600,
+                                dialogClass:'dialogstyle', 
+                                modal:true,                        
+                                close: function(event,ui){                     
+                                    $(dialog).dialog('destroy');
+                                    $(dialog).find('div').remove();
+                                }                                        
+                            });
+                        }else{
+                            alert('Erro ao corrigir questionário, tente novamente!');
+                        }
                     }
-                }
-            });                                                           
+                });
+            }
+        }
+        else{
+            alert("Há questões não respondidas.");
         }
     });
                 
@@ -122,8 +126,24 @@ $(document).ready(function(){
                 $('#refazer_exercicio').attr('value', 'Finalizar');                
                 $('#refazer_exercicio').attr('id', 'finalizar_exercicio');                
                 dialog.find('#div_acertos').after($(aux));
-//                dialog.dialog('close');                    
+            //                dialog.dialog('close');                    
             });                        
         }
     });
 });
+
+function setarQuestao(numQuestao){
+    $(".questaoBody_"+numQuestao).css("color", "green");
+}
+
+function verificaExercicios(){
+    var aux = true;
+    $(".radio").each(function(){
+        var numQuestao = $(this).attr("id");
+        if(!$(".radioQuestao_"+numQuestao).is(":checked")){
+            $(".questaoBody_"+numQuestao).css("color", "red");
+            aux = false;
+        }
+    });
+    return aux;
+}
