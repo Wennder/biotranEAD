@@ -290,7 +290,7 @@ class controllerExercicio {
                 $lista.='
                                     <tr>
                                         <td style="width: 40px;">
-                                            <input name="resposta_'.$i.'" type="radio" ' . $c . ' name="eh_correta" value="' . $a[$j]->getId_alternativa() . '" style="margin: 5px 0 0 15px;"/>
+                                            <input name="resposta_'.$i.'" type="radio" ' . $c . ' value="' . $a[$j]->getId_alternativa() . '" style="margin: 5px 0 0 15px;" onclick="setarQuestao('.$p[$i]->getNumeracao().')"/>
                                         </td>
                                         <td>
                                             <label>' . $a[$j]->getResposta() . '</label>
