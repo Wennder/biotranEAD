@@ -1,14 +1,11 @@
 <div id="cad_exercicios">
-    <div style="display:none;">                
-
-    </div>
     <div>
         <div style="border-bottom:1px solid #eeeeee; width: 923px;">
             <center><label style="font-weight: bold; font-size: 14px;"><?php echo $this->exercicio->getTitulo(); ?></label></center>
         </div><br>
         <table style="width: 100%;">
             <tr>
-                <td valign="top">
+                <td valign="top" style="width: 70px;">
                     <label><b>Descrição:</b> </label>
                 </td>
                 <td>
