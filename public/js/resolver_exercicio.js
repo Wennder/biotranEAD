@@ -2,6 +2,7 @@ var id_exercicio;
 var respostas = '';
 var id_questoes = '';
 var porc_acertos = '';
+var aux = '';
 
 $(document).ready(function(){    
     $(".btn_resolver_exe").live('click', function(){                        
@@ -13,7 +14,7 @@ $(document).ready(function(){
                 $("#error").html(msg + xhr.status + " " + xhr.statusText);
             }else{                                                                                    
                 dialog = $('#dialog').dialog({
-                   draggable: false,
+                    draggable: false,
                     resizable: false,
                     show: {
                         effect: 'drop', 
@@ -34,7 +35,12 @@ $(document).ready(function(){
     });
     
     $("#refazer_exercicio").live('click',function(){
-       dialog.dialog('close'); 
+        dialog.dialog('close');
+        $('input[name="exercicio_'+id_exercicio+'"]').click();
+    });
+    
+    $("#finalizar_exercicio").live('click',function(){
+        dialog.dialog('close'); 
     });
                 
     $("#cancelar_exercicio").live('click', function(){                        
@@ -56,28 +62,34 @@ $(document).ready(function(){
                 respostas += $('input[name= "resposta_'+i+'"]:checked').val()+';';
                 id_questoes += $('#id_pergunta_'+i).val()+';';
             }            
-            $.getJSON('ajax/submeterQuestionario.php?acao=corrigir', {
-                respostas: respostas, 
-                id_exercicio: id_exercicio, 
-                id_perguntas: id_questoes
-            }, 
-            function(j){                
-                if(j != 1){                    
-                    dialog.dialog('close');
-                    dialog = $(j).dialog({
-                        width:800, 
-                        height:600,
-                        dialogClass:'dialogstyle', 
-                        modal:true,                        
-                        close: function(event,ui){                     
-                            $(dialog).dialog('destroy');
-                            $(dialog).find('div').remove();
-                        }                                        
-                    });
-                }else{
-                    alert('Erro ao corrigir questionário, tente novamente!');
+            $.ajax({
+                url:'ajax/submeterQuestionario.php?acao=corrigir', 
+                data: {
+                    respostas: respostas, 
+                    id_exercicio: id_exercicio, 
+                    id_perguntas: id_questoes
+                },
+                dataType: 'json',
+                async: false,
+                success:function(j){                
+                    if(j != 1){                    
+                        dialog.dialog('close');
+                        aux = j.lista;
+                        dialog = $(j.estatistica).dialog({
+                            width:800, 
+                            height:600,
+                            dialogClass:'dialogstyle', 
+                            modal:true,                        
+                            close: function(event,ui){                     
+                                $(dialog).dialog('destroy');
+                                $(dialog).find('div').remove();
+                            }                                        
+                        });
+                    }else{
+                        alert('Erro ao corrigir questionário, tente novamente!');
+                    }
                 }
-            });                                                 
+            });                                                           
         }
     });
                 
@@ -106,7 +118,11 @@ $(document).ready(function(){
                 $('input[name="exercicio_'+id_exercicio+'"]').attr('disabled', 'true');
                 $('input[name="exercicio_'+id_exercicio+'"]').removeAttr('id');
                 $('input[name="exercicio_'+id_exercicio+'"]').attr('value', 'Exercicio já submetido');
-                dialog.dialog('close');                    
+                $('#submeter_exercicio').remove();
+                $('#refazer_exercicio').attr('value', 'Finalizar');                
+                $('#refazer_exercicio').attr('id', 'finalizar_exercicio');                
+                dialog.find('#div_acertos').after($(aux));
+//                dialog.dialog('close');                    
             });                        
         }
     });
