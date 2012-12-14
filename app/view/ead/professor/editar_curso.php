@@ -125,7 +125,7 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
         }
         ?>
         <div>
-            <table style="width: 100%;">
+            <table>
                 <tr>
                     <td rowspan="7" style="width: 262px;">
                         <div id="imagem_curso" style="margin: 15px 15px 15px 5px; width: 240px; height: 180px;">

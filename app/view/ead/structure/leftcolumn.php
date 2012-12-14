@@ -1,4 +1,3 @@
-<script src="js/accordion.js" type="text/javascript"></script>
 <?php
 
 $usuario = $_SESSION["usuarioLogado"]->getId_papel();
