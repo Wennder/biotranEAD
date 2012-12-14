@@ -77,7 +77,8 @@ class controllerMatricula_curso {
     }
 
     public function novaMatricula($id_curso, Usuario $usuario, $bool = 1) {
-        if ($this->getMatricula_curso('id_curso=' . $id_curso . ' AND id_usuario=' . $usuario->getId_usuario()) == null) {
+        $mc = $this->getMatricula_curso('id_curso=' . $id_curso . ' AND id_usuario=' . $usuario->getId_usuario());
+        if ($mc == null) {
             if ($usuario->getId_papel() == 4) {
                 $mc = new Matricula_curso();
                 $mc->setData_inicio('--');
@@ -89,6 +90,13 @@ class controllerMatricula_curso {
                 //--
                 $dao = new Matricula_cursoDAO();
                 return $dao->insert($mc);
+            }
+        } else {
+            if ($mc->getData_inicio() == '--') {
+                //curso iniciado - primeiro acesso ao curso..
+                date_default_timezone_set("Brazil/East");
+                $mc->setData_inicio(date("d/m/y"));
+                $this->updateMatricula_curso($mc);
             }
         }
     }
