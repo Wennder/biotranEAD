@@ -11,6 +11,8 @@ $id_perguntas = $_REQUEST['id_perguntas'];
 $respostas = $_REQUEST['respostas'];
 $id_exercicio = $_REQUEST['id_exercicio'];
 
+//echo $id_perguntas . '-' . $respostas . '-' . $id_exercicio;die();
+
 if (isset($_GET['acao'])) {
     if ($_GET['acao'] == 'corrigir') {
         $resposta = $controller->corrigirQuestionario(explode(';', $id_perguntas), explode(';', $respostas), $id_exercicio);
@@ -20,6 +22,6 @@ if (isset($_GET['acao'])) {
         $resposta = $controller->submeterQuestionario(explode(';', $id_perguntas), explode(';', $respostas), $id_exercicio, $porc_acertos);
     }
 }
-$r = json_encode(utf8_encode($resposta));
+$r = json_encode($resposta);
 echo($r);
 ?>

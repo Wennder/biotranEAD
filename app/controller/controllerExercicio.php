@@ -290,7 +290,7 @@ class controllerExercicio {
                 $lista.='
                                     <tr>
                                         <td style="width: 40px;">
-                                            <input type="radio" ' . $c . ' name="eh_correta" value="' . $j . '" style="margin: 5px 0 0 15px;" class="radioQuestao" onclick="setarQuestao('.$p[$i]->getNumeracao().')"/>
+                                            <input name="resposta_'.$i.'" type="radio" ' . $c . ' name="eh_correta" value="' . $a[$j]->getId_alternativa() . '" style="margin: 5px 0 0 15px;"/>
                                         </td>
                                         <td>
                                             <label>' . $a[$j]->getResposta() . '</label>
@@ -302,7 +302,7 @@ class controllerExercicio {
                         </td>
                     </tr>
                 </table><br>';
-            $lista .='</fieldset><div style="display:none;"><input type="text" name="id_pergunta" id="id_pergunta" value="' . $p[$i]->getId_pergunta() . '"/></div></div></div>';
+            $lista .='</fieldset><div style="display:none;"><input type="text" name="id_pergunta" id="id_pergunta_'.$i.'" value="' . $p[$i]->getId_pergunta() . '"/></div></div></div>';
         }
         $lista .= '<div style="display: none;"><input type="text" id="total_perguntas" value="' . count($p) . '"/></div>';
         return $lista;
@@ -429,6 +429,7 @@ class controllerExercicio {
     public function submeterQuestionario($id_perguntas, $respostas, $id_exercicio, $porc_acertos) {
         $dao = new ExercicioDAO();
         $id_usuario = $_SESSION['usuarioLogado']->getId_usuario();
+        //inserindo respostas
         for ($i = 0; $i < count($id_perguntas) - 1; $i++) {
             if ($id_perguntas[$i] != '') {
                 if (!$dao->insertResposta($id_usuario, $id_exercicio, $id_perguntas[$i], $respostas[$i])) {
@@ -533,14 +534,18 @@ class controllerExercicio {
         }
 //        echo $porc;die();
         $botao = '<div>
-            <input type="button" value="Submeter exercicio" id="submeter_exercicio"/>        
-            <input type="button" value="Refazer" id="refazer_exercicio"/>
+            <input type="button" value="Submeter exercicio" id="submeter_exercicio" class="button2"/>        
+            <input type="button" value="Refazer" id="refazer_exercicio" class="button2"/>
             </div>
             <div style="display:none;" >
             <input type="text" value="' . $porc . '" id="porc_acertos"/>        
             </div>';
-        $estatistica .='<div><div>Acertos ' . $porc . '%</div>' . $lista . $botao . '</div>';
-        return $estatistica;
+        $estatistica .='<div><div id="div_acertos">Acertos ' . $porc . '%</div>' . $botao . '</div>';
+        $retorno = array(
+            'estatistica' => $estatistica,
+            'lista' => $lista,
+        );
+        return $retorno;
     }
 
     public function getResposta($id_pergunta) {
