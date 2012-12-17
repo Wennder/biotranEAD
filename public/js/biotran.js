@@ -163,7 +163,8 @@ $(document).ready(function(){
                     dialogClass:'dialogstyle',
                     modal: true,
                     focus: function(event,ui){                                                
-                        $('#form_cadastrar').ajaxForm({                                                    
+                        $('#form_cadastrar').ajaxForm({
+                            dataType:"json",
                             uploadProgress: function(event, position, total, percentComplete) {
                                 $('progress').attr('value',percentComplete);
                                 $('#porcentagem').html(percentComplete+'%');
@@ -255,8 +256,6 @@ function insereLinha(data, tipo){
         var id_modulo = $('#id_modulo').val();
         var id_curso = $('#id_curso').val();        
         data = data.split('-');
-        data[0] = data[0].replace('"', '');
-        data[1] = data[1].replace('"', '');            
         var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir" style="float: right;"/>';
         if(tipo == 'video'){
             var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar" style="float: right;"/>';
