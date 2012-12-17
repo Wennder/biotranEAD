@@ -216,8 +216,9 @@ class controllerExercicio {
             } else {
                 $lista .= '<td><div id="div_imagem"><img src="img/perguntas/00.jpg" /></td></tr>';
             }
-            $lista .= '<tr><td><input type="file" id="imagem" name="imagem" class="text-input"/></td></tr>
+            $lista .= '<tr><td></td><td><input type="file" id="imagem" name="imagem" class="text-input"/></td></tr>
                 <tr>
+                    <td></td>
                     <td>
                         <progress id="progress" value="0" max="100"></progress><span id="porcentagem">0%</span>                        
                     </td>
@@ -283,14 +284,14 @@ class controllerExercicio {
             $lista .='</tr>
                     <tr>
                         <td colspan="2">
-                            <div style="margin-top: 30px;" class="radio" id="'.$p[$i]->getNumeracao().'">
+                            <div style="margin-top: 30px;" class="radio" id="' . $p[$i]->getNumeracao() . '">
                                 <label style="margin-left: 20px;"><b>Alternativas:</b></label>
                                 <table style="width: 100%;">';
             for ($j = 0; $j < count($a); $j++) {
                 $lista.='
                                     <tr>
                                         <td style="width: 40px;">
-                                            <input name="resposta_'.$i.'" type="radio" ' . $c . ' value="' . $a[$j]->getId_alternativa() . '" style="margin: 5px 0 0 15px;" onclick="setarQuestao('.$p[$i]->getNumeracao().')" class="radioQuestao_'.$p[$i]->getNumeracao().'"/>
+                                            <input name="resposta_' . $i . '" type="radio" ' . $c . ' value="' . $a[$j]->getId_alternativa() . '" style="margin: 5px 0 0 15px;" onclick="setarQuestao(' . $p[$i]->getNumeracao() . ')" class="radioQuestao_' . $p[$i]->getNumeracao() . '"/>
                                         </td>
                                         <td>
                                             <label>' . $a[$j]->getResposta() . '</label>
@@ -489,56 +490,77 @@ class controllerExercicio {
             if ($id_perguntas[$i] == $p[$i]->getId_pergunta()) {
                 $aux = '';
                 $a = $ca->getListaAlternativas("id_pergunta=" . $id_perguntas[$i]);
+                $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body'><div class='accord_list questaoBody_" . $p[$i]->getNumeracao() . "'><label class='accord_label'><b>Questão " . $p[$i]->getNumeracao() . "</b></label></div></div>";
+                $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body questao_body' style='display:none;'>";
+                $lista .='<div style="margin: 0 0 0 5px;" class="formulario"><br><fieldset style="width:893px;">
+                            <table>
+                                <tr>
+                                    <td valign="top"><label><b>' . $p[$i]->getNumeracao() . 'º)</b> </label></td>
+                                    <td><label>' . $p[$i]->getEnunciado() . '</label></td>
+                                </tr>
+                                <tr>
+                                    <td><br></td>';
+                if (file_exists(ROOT_PATH . "/public/img/perguntas/" . $p[$i]->getId_pergunta() . ".jpg")) {
+                    $lista .= '<td><div><img src="img/perguntas/' . $p[$i]->getId_pergunta() . '.jpg" /></td>';
+                }
                 for ($j = 0; $j < count($a); $j++) {
                     if ($a[$j]->getId_alternativa() == $respostas[$i]) {
-                        //alternativa q ele marcou: dar um destaque pra ela
-                        $aux.='
+                        if ($a[$j]->getEh_correta()) {
+                            //se for a alternativa correta pinta o corpo da pergunta de verde
+                            $acertos++;
+                            //alternativa q ele marcou: dar um destaque pra ela
+                            $aux.='
                                     <tr>
                                         <td style="width: 40px;">
                                             <input type="radio" value="' . $a[$j]->getId_alternativa() . '" style="margin: 5px 0 0 15px;" checked disabled="true"/>
                                         </td>
                                         <td>
-                                            <label>' . $a[$j]->getResposta() . '</label>
+                                            <label style="color: green;">' . $a[$j]->getResposta() . '</label>
                                         </td>
                                     </tr>
-                                    <tr>                                        
+                                    <tr>
+                                        <td></td>
                                         <td>
                                             <label>' . $a[$j]->getJustificativa() . '</label>
                                         </td>
-                                    </tr>';
-                        if ($a[$j]->getEh_correta()) {                            
-                            //se for a alternativa correta pinta o corpo da pergunta de verde
-                            $acertos++;
-                            $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body'><div class='accord_list questaoBody_" . $p[$i]->getNumeracao() . "'><label class='accord_label'><b>Questão " . $p[$i]->getNumeracao() . "</b></label></div></div>";
-                            $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body questao_body' style='display:none;'>";
-                            $lista .='<div style="margin: 0 0 0 5px;" class="formulario"><br><fieldset style="width:893px;">
-                            <table>
-                                <tr>
-                                    <td valign="top"><label><b>' . $p[$i]->getNumeracao() . 'º)</b> </label></td>
-                                    <td><label>' . $p[$i]->getEnunciado() . '</label></td>
-                                </tr>
-                                <tr>
-                                    <td><br></td>';
-                            if (file_exists(ROOT_PATH . "/public/img/perguntas/" . $p[$i]->getId_pergunta() . ".jpg")) {
-                                $lista .= '<td><div><img src="img/perguntas/' . $p[$i]->getId_pergunta() . '.jpg" /></td>';
-                            }
+                                    </tr>
+                                    <tr style="height: 15px;"><td colspan="2"></td></tr>';
                         } else {
-                            //senão de vermelhor
-                            $erros++;
-                            $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body'><div class='accord_list questaoBody_" . $p[$i]->getNumeracao() . "'><label class='accord_label'><b>Questão " . $p[$i]->getNumeracao() . "</b></label></div></div>";
-                            $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body questao_body' style='display:none;'>";
-                            $lista .='<div style="margin: 0 0 0 5px;" class="formulario"><br><fieldset style="width:893px;">
-                            <table>
-                                <tr>
-                                    <td valign="top"><label><b>' . $p[$i]->getNumeracao() . 'º)</b> </label></td>
-                                    <td><label>' . $p[$i]->getEnunciado() . '</label></td>
-                                </tr>
-                                <tr>
-                                    <td><br></td>';
-                            if (file_exists(ROOT_PATH . "/public/img/perguntas/" . $p[$i]->getId_pergunta() . ".jpg")) {
-                                $lista .= '<td><div><img src="img/perguntas/' . $p[$i]->getId_pergunta() . '.jpg" /></td>';
-                            }
+                            $aux.='
+                                    <tr>
+                                        <td style="width: 40px;">
+                                            <input type="radio" value="' . $a[$j]->getId_alternativa() . '" style="margin: 5px 0 0 15px;" checked disabled="true"/>
+                                        </td>
+                                        <td>
+                                            <label style="color: red;">' . $a[$j]->getResposta() . '</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <label>' . $a[$j]->getJustificativa() . '</label>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 15px;"><td colspan="2"></td></tr>';
                         }
+                    } else if ($a[$j]->getEh_correta()) {
+                        //Mazotas alternativas
+                        $aux.='
+                                    <tr>
+                                        <td style="width: 40px;">
+                                            <input type="radio" value="' . $a[$j]->getId_alternativa() . '" style="margin: 5px 0 0 15px;" disabled="true"/>
+                                        </td>
+                                        <td>
+                                            <label style="color: green;">' . $a[$j]->getResposta() . '</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <label>' . $a[$j]->getJustificativa() . '<br></label>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 15px;"><td colspan="2"></td></tr>';
                     } else {
                         //Mazotas alternativas
                         $aux.='
@@ -547,14 +569,16 @@ class controllerExercicio {
                                             <input type="radio" value="' . $a[$j]->getId_alternativa() . '" style="margin: 5px 0 0 15px;" disabled="true"/>
                                         </td>
                                         <td>
-                                            <label>' . $a[$j]->getResposta() . '</label>
+                                            <label style="color: red;">' . $a[$j]->getResposta() . '</label>
                                         </td>
                                     </tr>
-                                    <tr>                                        
+                                    <tr>
+                                        <td></td>
                                         <td>
-                                            <label>' . $a[$j]->getJustificativa() . '</label>
+                                            <label>' . $a[$j]->getJustificativa() . '<br></label>
                                         </td>
-                                    </tr>';
+                                    </tr>
+                                    <tr style="height: 15px;"><td colspan="2"></td></tr>';
                     }
                 }
                 $lista .='</tr>
@@ -568,7 +592,7 @@ class controllerExercicio {
                             </div>
                         </td>
                     </tr>
-                </table><br></fieldset></div></div>';
+                </table><br></fieldset></div></div><br>';
             }
         }
 
@@ -577,9 +601,8 @@ class controllerExercicio {
         } else {
             $porc = (100 * $acertos) / ($acertos + $erros);
         }
-//        echo $porc;die();
         $botao = '<div>
-            <input type="button" value="Submeter exercicio" id="submeter_exercicio" class="button2"/>        
+            <input type="button" value="Submeter exercício" id="submeter_exercicio" class="button2"/>        
             <input type="button" value="Refazer" id="refazer_exercicio" class="button2"/>
             </div>
             <div style="display:none;" >
@@ -592,78 +615,6 @@ class controllerExercicio {
         );
         return $retorno;
     }
-
-//    public function corrigirQuestionario($id_perguntas, $respostas, $id_exercicio) {
-//        $cp = new controllerPergunta();
-//        $ca = new controllerAlternativa();
-//        $p = $cp->getListaPerguntas('id_exercicio="' . $id_exercicio . '" ORDER BY numeracao');
-//        $erros = 0;
-//        $acertos = 0;
-//        $estatistica = '';
-//        $lista = '';
-//        for ($i = 0; $i < count($p); $i++) {
-//            if ($id_perguntas[$i] == $p[$i]->getId_pergunta()) {
-//                $a = $ca->getAlternativa("id_alternativa=" . $respostas[$i]);
-//                //pintar de verde
-//                if ($a->getEh_correta() == 1) {
-//                    $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body list_conteudo'><h4>Pergunta " . $p[$i]->getNumeracao() . "</h4></div>";
-//                    $acertos++;
-//                } else {
-//                    //pintar de vermelho
-//                    $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body list_conteudo'><h4>Pergunta " . $p[$i]->getNumeracao() . "</h4></div>";
-//                    $erros++;
-//                }
-//                $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body' style='display:none;'>";
-//                $lista .='<fieldset style="width:640px; padding:0 5px 5px 5px; margin: 0 2.5px; ">                
-//                    <div>
-//                        <fieldset style="width:30px; float:left; padding:0 5px 5px 5px; margin: 0 2.5px">
-//                            <legend>Nº:</legend>
-//                            <input type="text" readonly="true" id="numeracao" name="numeracao" value="' . $p[$i]->getNumeracao() . '" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 30px"/>
-//                        </fieldset>
-//                        <fieldset style="width:410px; float:left; padding:0 5px 5px 5px; margin: 0 2.5px;">
-//                            <legend>Enunciado:</legend>
-//                            <textarea readonly="true" placeholder="Enunciado da Pergunta" id="enunciado" name="enunciado" rows="3" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width:410px;">' . $p[$i]->getEnunciado() . '</textarea>
-//                        </fieldset>
-//                    </div>
-//                    <div>                    
-//                    <fieldset style="width:300px; float:left; padding:0 5px 5px 5px; margin:0 2.5px; clear:left;">
-//                        <legend>Respostas</legend>';
-//
-//                $lista .='<div style="padding:0; margin:0">
-//                            <textarea readonly="true" id="resposta" name="resposta" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px">' . $a->getResposta() . '</textarea>
-//                        </div>';
-//                $lista .= '</fieldset>';
-//                $lista .= '<fieldset style="width:300px; float: left; padding:0 5px 5px 5px; margin:0 2.5px">
-//                        <legend>Justificativas</legend>';
-//                $lista .= '<div>
-//                            <textarea placeholder="Justificativa" id="justificativa" name="justificativa" rows="2" maxlength="100" style="width: 300px;">' . $a->getJustificativa() . '</textarea>
-//                        </div>';
-//                $lista .='</fieldset>';
-//                $lista .='</div>
-//                        </fieldset>
-//                    </div>';
-//            }
-//        }
-//        if ($acertos == 0) {
-//            $porc = 0;
-//        } else {
-//            $porc = (100 * $acertos) / ($acertos + $erros);
-//        }
-////        echo $porc;die();
-//        $botao = '<div>
-//            <input type="button" value="Submeter exercicio" id="submeter_exercicio" class="button2"/>        
-//            <input type="button" value="Refazer" id="refazer_exercicio" class="button2"/>
-//            </div>
-//            <div style="display:none;" >
-//            <input type="text" value="' . $porc . '" id="porc_acertos"/>        
-//            </div>';
-//        $estatistica .='<div><div id="div_acertos">Acertos ' . $porc . '%</div>' . $botao . '</div>';
-//        $retorno = array(
-//            'estatistica' => $estatistica,
-//            'lista' => $lista,
-//        );
-//        return $retorno;
-//    }
 
     public function getResposta($id_pergunta) {
         $dao = new ExercicioDAO();

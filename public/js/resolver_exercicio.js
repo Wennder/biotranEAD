@@ -76,10 +76,17 @@ $(document).ready(function(){
                             dialog.dialog('close');
                             aux = j.lista;
                             dialog = $(j.estatistica).dialog({
-                                width:800, 
-                                height:600,
+                                draggable: false,
+                                resizable: false,
+                                show: {
+                                    effect: 'drop', 
+                                    direction: "up"
+                                },
+                                width:970, 
+                                height:($(window).height() - 40),
+                                position: [(($(window).width()-970)/2), 15],
                                 dialogClass:'dialogstyle', 
-                                modal:true,                        
+                                modal:true,                      
                                 close: function(event,ui){                     
                                     $(dialog).dialog('destroy');
                                     $(dialog).find('div').remove();

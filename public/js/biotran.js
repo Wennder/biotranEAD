@@ -174,9 +174,9 @@ $(document).ready(function(){
                                 $('#porcentagem').html('100%');
                                 $('pre').html(data);
                                 if(data != 0){
-                                    insereLinha(data, tipo);
                                     alert('Arquivo inserido!');
                                     $(dialog).dialog('close');
+                                    insereLinha(data, tipo);
                                 }
                             }
                         });
@@ -264,7 +264,7 @@ function insereLinha(data, tipo){
         }else{            
             if(tipo == 'exercicio'){
                 var editar = '<input id="index.php?c=ead&a=editar_exercicio&id='+data[0]+'" name="'+tipo+'" type="button" class="btn_edt edt'+data[0]+'" value="Editar" style="float: right;">';
-                var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label name="'+tipo+'" id="'+data[1]+'">'+data[1]+'</label>' + excluir + editar + '</li>';
+                var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label name="'+tipo+'" id="'+data[1]+'">'+data[1].toString()+'</label>' + excluir + editar + '</li>';
             }else{
                 var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label><a target="_blank" name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a></label>' + excluir + '</li>';
             }
