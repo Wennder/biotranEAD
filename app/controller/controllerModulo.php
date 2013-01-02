@@ -163,22 +163,26 @@ class controllerModulo {
         $exercicio = $controller->getListaExercicio('id_modulo=' . $id_modulo);
         $controller = new controllerUsuario_exercicio();
         for ($i = 0; $i < count($exercicio); $i++) {
-            $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='exercicio' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
-            $lista .= $exercicio[$i]->getTitulo();
 //            $id_pergunta = $controller2->getListaPerguntas('id_exercicio = ' . $exercicio[$i]->getId_exercicio());
             if ($_SESSION['usuarioLogado']->getId_papel() == 4) {
-                if ($controller->getUsuario_exercicio('id_usuario='.$_SESSION['usuarioLogado']->getId_usuario() .' AND id_exercicio='.$exercicio[$i]->getId_exercicio()) == null) {
+                $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='exercicio' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
+                $lista .= $exercicio[$i]->getTitulo();
+                if ($controller->getUsuario_exercicio('id_usuario=' . $_SESSION['usuarioLogado']->getId_usuario() . ' AND id_exercicio=' . $exercicio[$i]->getId_exercicio()) == null) {
                     $lista .= "</label><input type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Resolver' class='btn_resolver btn_resolver_exe'/>";
                 } else {
                     $lista .= "</label><input type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' disabled='true' name='exercicio' value='Exercício já submetido' class='btn_resolver btn_resolver_exe'/>";
-                }
+                }                
             } else {
+                $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='video' class='link_exercicio' id='index.php?c=ead&a=visualizar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
+                $lista .= $exercicio[$i]->getTitulo();
+                $lista .= "</label>";
                 $lista .= "</label>";
             }
         }
         if ($i == 0) {
             $lista = 'Não há registros no sistema.';
         }
+        $lista .= "</li>";
         return $lista;
     }
 
@@ -297,14 +301,14 @@ class controllerModulo {
         return $objeto;
     }
 
-    public function setModulo() {            
+    public function setModulo() {
         if (!empty($_POST)) {
             if ($this->modulo == null) {
                 $this->modulo = new Modulo();
             }
             foreach ($_POST as $k => $v) {
                 $setAtributo = 'set' . ucfirst($k);
-                if (method_exists($this->modulo, $setAtributo)) {                    
+                if (method_exists($this->modulo, $setAtributo)) {
                     $this->modulo->$setAtributo($v);
                 }
             }
@@ -460,9 +464,9 @@ class controllerModulo {
      */
 
     public function atualizar_descritivo($id_modulo) {
-        $this->modulo = $this->getModulo("id_modulo=" . $id_modulo);        
+        $this->modulo = $this->getModulo("id_modulo=" . $id_modulo);
         $this->setModulo();
-        $dao = new ModuloDAO();        
+        $dao = new ModuloDAO();
         if ($dao->update($this->modulo)) {
             return 1;
         }

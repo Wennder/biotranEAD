@@ -37,7 +37,7 @@ class Seguranca {
         //se usuario existe então ele vai ser setado no objeto $this->user;
         if($this->setUsuario($login)){
             //verifica a validade da senha            
-            if ($this->user->getSenha() == md5($senha)) {
+            if ($this->user->getSenha() == md5($senha) && $this->user->getStatus_acesso()) {
                 $this->iniciarSessao();          
                 return 'validado';
             } else {                

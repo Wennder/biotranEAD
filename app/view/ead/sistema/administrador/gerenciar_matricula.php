@@ -20,8 +20,7 @@
                     });
                 }
             }
-        });
-        
+        });                       
     });
 </script>
 
@@ -30,6 +29,7 @@
         <center><label style="font-weight: bold; font-size: 14px;">Gerenciar Matrícula</label></center>
     </div><br>
     <center><label style="font-size: 13px;"><?php echo $this->usuario->getNome_completo(); ?></label></center><br>
+    <input type="button" value="" id="btn_matricular" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Matricular
     <?php
     echo $this->tabela;
     ?>

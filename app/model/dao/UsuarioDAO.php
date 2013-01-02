@@ -13,7 +13,7 @@ class UsuarioDAO extends PDOConnectionFactory {
             $this->conex->exec("SET NAMES 'utf-8_unicode_ci'");
             $stmt = $this->conex->prepare("INSERT INTO usuario(login, senha, id_papel, nome_completo, 
                 data_nascimento, cpf_passaporte, rg, id_profissional, atuacao, descricao_pessoal, sexo, tel_principal, 
-                tel_secundario, email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                tel_secundario, email, status_acesso) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $stmt->bindValue(1, $user->getEmail());
             $stmt->bindValue(2, $user->getSenha());
             $stmt->bindValue(3, $user->getId_papel());
@@ -28,6 +28,7 @@ class UsuarioDAO extends PDOConnectionFactory {
             $stmt->bindValue(12, $user->getTel_principal());
             $stmt->bindValue(13, $user->getTel_secundario());
             $stmt->bindValue(14, $user->getEmail());
+            $stmt->bindValue(15, $user->getStatus_acesso());
             //inserindo usuario no banco
             if(!$stmt->execute()){
                 trigger_error(FALHA_SISTEMA);

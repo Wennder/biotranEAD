@@ -45,22 +45,25 @@ $('#tabela_matricula_cursos tr').live('click',function(e){
 $('#btn_matricular').live('click', function(){    
     elem_matricula = $('#tbody_tb_ger_matricula tr.row_selected');    
     if (elem_matricula.length && (elem_matricula.attr('name') == 'nova_matricula')) {
-        id_curso = elem_matricula.attr('id');        
-        var id_usuario = elem.attr('id');        
-        $.getJSON("ajax/ajax-gerenciar_matricula.php", {
-            acao: 'matricular',
-            id_usuario: id_usuario, 
-            id_curso: id_curso
-        }, function(j){
-            if(j != 0){
-                //deu certo
-                oTable_matricula.$('tr.row_selected').attr('id',j);
-                elem_matricula = oTable_matricula.$('tr.row_selected');
-                updateDataTables_matricula();
-            }else{
-            //deu errado
-            }
-        });            
+        var r = confirm("Tem certeza? Uma vez matriculado não será possível remover a matrícula, apenas bloquear.");
+        if(r){
+            id_curso = elem_matricula.attr('id');        
+            var id_usuario = elem.attr('id');        
+            $.getJSON("ajax/ajax-gerenciar_matricula.php", {
+                acao: 'matricular',
+                id_usuario: id_usuario, 
+                id_curso: id_curso
+            }, function(j){
+                if(j != 0){
+                    //deu certo
+                    oTable_matricula.$('tr.row_selected').attr('id',j);
+                    elem_matricula = oTable_matricula.$('tr.row_selected');
+                    updateDataTables_matricula();
+                }else{
+                //deu errado
+                }
+            });                        
+        }
     }else{
         if(elem_matricula.attr('name') == 'matricula'){
             alert('Já matriculado!');

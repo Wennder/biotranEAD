@@ -4,35 +4,6 @@ if(!$this->boolAcesso_modulo){
 }
 ?>
 
-<script>   
-    $('#btn_editar_modulo').click(function(){
-        if($(this).attr('value') == 'Editar'){
-            $('#titulo_modulo').removeAttr('readonly');
-            $('#descricao').removeAttr('readonly');
-            $('#div_atualizar_modulo').removeAttr('style');
-            $(this).attr('value', 'Cancelar');            
-        }else{
-            $('#titulo_modulo').attr('readonly', 'true');
-            $('#descricao').attr('readonly', 'true');
-            $('#div_atualizar_modulo').attr('style', 'display:none;');
-            $(this).attr('value', 'Editar');
-        }
-    });
-    
-    $('#btn_atualizar_modulo').click(function(){
-        $.post('ajax/crud_conteudo_modulo.php?acao=atualizar_descritivo&id='+$('#id_modulo').val(), $('#form_descritivo').serialize(), function(json) {
-            // handle response
-            if(json != false){
-                $('#titulo_modulo').attr('readonly', 'true');
-                $('#descricao').attr('readonly', 'true');
-                $('#div_atualizar_modulo').attr('style', 'display:none;');
-                $('#btn_editar_modulo').attr('value', 'Editar');
-                alert('Dados atualizados');
-            }                                                                
-        }, "json");                
-    });          
-</script>
-
 <div>
     <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
         <div id="info_modulo">

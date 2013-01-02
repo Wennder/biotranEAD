@@ -188,7 +188,7 @@ class controllerUsuario {
             $dao = new UsuarioDAO();
             //verifica se realmente já não existe o registro
             //prevenir reenvio de formulário
-            if ($dao->select("login='" . $user->getLogin() . "'") == null) {
+            if ($dao->select("login='" . $user->getLogin() . "'") == null) {                
                 return $dao->insert($user, $end);
             } else {
                 trigger_error("1 Reenvio de formulario, usuario ja cadastrado");
@@ -324,6 +324,7 @@ class controllerUsuario {
                     <th>endereco_pais</th>
                     <th>endereco_estado</th>
                     <th>id</th>
+                    <th>status_acesso</th>
                 </tr> 
             </thead> 
             <tbody>";
@@ -362,6 +363,11 @@ class controllerUsuario {
                 $tabela .= "<td width='0%' id='pais'>" . $endereco->getPais() . "</td>";
                 $tabela .= "<td width='0%' id='estado'>" . $endereco->getEstado() . "</td>";
                 $tabela .= "<td width='0%' id='id_usuario'>" . $this->usuarios[$i]->getId_usuario() . "</td>";
+                $acesso = 'Liberado';
+                if(!$this->usuarios[$i]->getStatus_acesso()){
+                    $acesso = 'Bloqueado';
+                }
+                $tabela .= "<td width='15%' id='status_acesso'>" . $acesso . "</td>";
 
                 $tabela .= "</tr>";
             
