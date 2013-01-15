@@ -461,6 +461,7 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('_id_imagem', 'imagem');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
+                _HTML = _HTML.replace('_id_ass_curso', 'ass_curso');
                 _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
                 _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
                 _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');
@@ -475,6 +476,7 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('#DESCRICAO#', '');
                 _HTML = _HTML.replace('#ID_CURSO#', -1);
                 _HTML = _HTML.replace('#ID_FOTO#', '00');
+                _HTML = _HTML.replace('#ID_ASSINATURA#', '00');
                 //--gerando dialog
                 dialog = $(_HTML).dialog({
                     draggable: false,

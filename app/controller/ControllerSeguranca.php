@@ -57,6 +57,13 @@ class ControllerSeguranca {
                         'validacao' => 'cadastrar'
                     );
                     return $valores;
+                } else {
+                    if ($validacao == 'bloqueado') {
+                        $valores = array(
+                            'validacao' => 'bloqueado'
+                        );
+                        return $valores;
+                    }
                 }
             }
         }

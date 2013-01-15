@@ -28,7 +28,8 @@ switch ($papel) {
             <div id="form_gerenciar">   
                 <input type="button" value="" id="btn_add" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Adicionar
                 <input type="button" value="" id="btn_edit"  class="classeBotaoEditar" style="margin: 0 0 5px 10px;"/> Editar
-                <input type="button" value="" id="btn_del" class="classeBotaoExcluir" style="margin: 0 0 5px 10px;"/> Remover
+                <!--<input type="button" value="" id="btn_del" class="classeBotaoExcluir" style="margin: 0 0 5px 10px;"/> Remover-->
+                <input type="button" value="" id="btn_bloq" class="classeBotaoExcluir" style="margin: 0 0 5px 10px;"/> Bloquear/Desbloquear
                 <input type="button" value="" id="btn_view" class="classeBotaoVisualizar" style="margin: 0 0 5px 10px;"/> Visualizar
                 <input type="button" value="" id="btn_ger_matricula" class="classeBotaoGerenciar" style="margin: 0 0 5px 10px;"/> Gerenciar Matrícula
                 <br>

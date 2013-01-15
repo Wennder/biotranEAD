@@ -21,7 +21,7 @@ function validarLogin(login, senha){
             $('#form_login').submit();
         }else{
             //senha invalida
-            if(j.validacao == 'invalido' || j.validacao == 'cadastrar'){
+            if(j.validacao == 'invalido' || j.validacao == 'cadastrar' || j.validacao == 'bloqueado'){
                 $('#senha').val('');
                 $("#errorlogin").show();
 //                alert('Senha inválida!');

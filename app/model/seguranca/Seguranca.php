@@ -41,6 +41,9 @@ class Seguranca {
                 $this->iniciarSessao();          
                 return 'validado';
             } else {                
+                if(!$this->user->getStatus_acesso()){
+                    return 'bloqueado';
+                }
                 return'invalidado';
             }
         }

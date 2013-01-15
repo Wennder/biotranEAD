@@ -102,6 +102,28 @@
                             </table>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <label class="label_cadastro">Assinatura digital (240x180): </label>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div id="assinatura">
+                                            <img id="_id_ass_curso" src="img/cursos/#ID_ASSINATURA#.jpg" alt="" height="180" width="240" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <table style="margin: 112px 0 0 0;">
+                                            <tr><td><label class="error" for="assinatura" generated="true" style="display: none; position: relative;">Os formatos de imagem aceitos são somente .jpg e .jpeg.</label></td></tr>
+                                            <tr><td><input type="file" name="_id_assinatura" id="_id_assinatura" style="margin: 0 0 0 5px;"/></td></tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
                 </table>
             </fieldset>
             <br>
