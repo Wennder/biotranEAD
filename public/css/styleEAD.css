@@ -474,12 +474,6 @@ label.error{
     font-size: 13px;
 }
 
-/*.formulario{
-    font-family: tahoma,verdana,"sans-serif";
-    font-size: 12px;
-    width: 98%;
-}*/
-
 .formulario legend{
     font-size: 11px;
     color: #555555;
@@ -860,7 +854,43 @@ label.error{
 }
 /*-----------------------------------------*/
 
-/*----------------- FÓRUM -----------------*/
+/*---------- ESTUDANTES DO CURSO ----------*/
+#div_lista{
+    margin: 15px 0 0 0;
+    position: relative;
+    float: right;
+    background-color: #FFF;
+    box-shadow:0px 4px 5px #DDD;
+    -moz-box-shadow:0px 4px 5px #DDD;
+    -webkit-box-shadow:0px 4px 5px #DDD;
+}
+
+#div_lista_estudantes{
+    width: 240px;
+    height: 430px;
+    overflow:auto;
+}
+
+#div_lista_estudantes a, #div_lista_estudantes a:visited, #div_lista_estudantes a:active{
+    text-decoration: none;
+    color: #707070;
+}
+
+#div_lista_estudantes a:hover{
+    color: #707070;
+    text-decoration: underline;
+}
+
+.estudante{
+    padding: 1px;
+    font-size: 11px;
+    margin: 3px ;
+    background: #f7f7f7;
+    border: 1px solid #eeeeee;
+}
+/*-----------------------------------------*/
+
+/* ---------------- FÓRUM -----------------*/
 .cabecalho_tabela{
     height: 40px;
     color: #fff;
@@ -870,6 +900,7 @@ label.error{
 
 .tabela_forum{
     background-color: #F9F9F9;
+    width: 100%;
 }
 
 .tabela_forum td{
@@ -888,302 +919,6 @@ label.error{
     font-weight: bold;
 }
 
-/*-----------------------------------------*/
-
-/* CSS - página visualizar módulo */
-/*.quadro_de_conteudo_especifico{
-    margin:0px;
-    margin-bottom:20px;
-    border:0px solid #eeeeee;
-    padding: 10px;
-    color: #888888;
-    box-shadow: 0px 2px 3px #eeeeee inset;
-    -moz-box-shadow: 0px 2px 3px #eeeeee inset;
-    -webkit-box-shadow: 0px 2px 3px #eeeeee inset;
-}
-
-ul{
-    list-style: none;
-}
-
-
-
-#disposicao_conteudo_professor_editar_modulo{
-    padding:20px;
-}
-
-#btn_editar_modulo{
-    float:right;
-    background-image: url('img/document_edit.png');
-    background-repeat: no-repeat;
-    background-position: left;
-    padding-left: 24px;
-    margin-left:8px;
-}
-
-
-
-
-
-
-#titulo_modulo{
-    background: #ffffff;        
-    border: 1px solid #e7e7e7;
-    border-top:1px solid #f6f6f6;
-    padding: 5px 12px;
-    box-shadow: 0px 3px 3px #eeeeee ;
-    -moz-box-shadow: 0px 3px 3px #eeeeee ;
-    -webkit-box-shadow: 0px 3px 3px #eeeeee ;
-}
-
-.conteudo_row{
-    overflow: auto;
-    padding:1px 10px;
-    border-bottom:1px solid #f2f2f2;
-    border-top:1px solid #f2f2f2;
-    cursor:pointer;
-}
-
-.conteudo_row h3{
-    float:left;
-    font-size:18px;
-    font-weight: 600;
-    line-height: 38px;
-}*/
-
-/*-----------------------------------------*/
-
-
-/* CSS - página conteúdo módulo */
-/*.quadro_de_conteudo_especifico{
-    margin:0px;
-    margin-bottom:20px;
-    border:0px solid #eeeeee;
-    padding: 10px;
-    color: #888888;
-    box-shadow: 0px 2px 3px #eeeeee inset;
-    -moz-box-shadow: 0px 2px 3px #eeeeee inset;
-    -webkit-box-shadow: 0px 2px 3px #eeeeee inset;
-}
-
-ul{
-    list-style: none;
-}
-
-.quadro_de_conteudo_especifico ul{
-    margin:0;
-    padding: 0;
-    list-style: none;
-}
-
-.quadro_de_conteudo_especifico ul li{
-    color: #888888;
-    background-color: #eeeeee;
-    border:1px solid #e0e0e0;
-    padding:4px;
-}
-
-.quadro_de_conteudo_especifico ul li:hover{
-    border:1px solid black;
-
-}
-
-.quadro_de_conteudo_especifico ul a:hover,a:active,a:visited{
-    text-decoration: none;
-    outline: none;
-
-}
-
-#disposicao_conteudo_professor_editar_modulo{
-    padding:20px;
-}
-
-#btn_editar_modulo{
-    float:right;
-    background-image: url('img/document_edit.png');
-    background-repeat: no-repeat;
-    background-position: left;
-    padding-left: 24px;
-    margin-left:8px;
-}
-
-.list_conteudo{
-    border-bottom:1px solid #eeeeee;
-    border-top:1px solid #fefefe;
-    background-color: #fafafa;
-}
-
-
-.list_conteudo:first-letter{
-    font-weight: 600;
-}
-
-.list_conteudo img{
-    float:left; margin-right: 5px;
-}
-
-#titulo_modulo{
-    background: #ffffff;
-    border: 1px solid #e7e7e7;
-    border-top:1px solid #f6f6f6;
-    padding: 5px 12px;
-    box-shadow: 0px 3px 3px #eeeeee ;
-    -moz-box-shadow: 0px 3px 3px #eeeeee ;
-    -webkit-box-shadow: 0px 3px 3px #eeeeee ;
-}
-
-.conteudo_row{
-    overflow: auto;
-    padding:1px 10px;
-    border-bottom:1px solid #f2f2f2;
-    border-top:1px solid #f2f2f2;
-    cursor:pointer;
-}
-
-.conteudo_row h3{
-    float:left;
-    font-size:18px;
-    font-weight: 600;
-    line-height: 38px;
-}*/
-/*-----------------------------------------*/
-
-
-/*#cursos_aluno{
-    margin: 50px 30px 0 30px;
-}
-
-#cursos_aluno table{
-    margin: 0 0 30px 0;
-    padding: 5px;
-    border: 1px solid #555555;
-}*/
-
-/*#imagem_curso{
-    height: 180px;
-    width: 240px;
-    background-color: #DCDCDC;
-    border: solid 1px #B5B8C8;
-}
-
-.patrocinador_holder{
-    float:left;
-    margin:5px;
-}*/
-
-/*.img_parceiro{
-    height: 225px;
-    width: 200px;
-    margin:5px;
-}*/
-/*
-#patrocinadores_gerencia{
-    padding: 0px 20px;
-}*/
-
-/*#gerenciar_sistema{
-    list-style: none;
-}
-
-#gerenciar_sistema a{
-    text-decoration: none;
-    color: #404040;
-}
-#gerenciar_sistema a:hover{
-    text-decoration: none;
-    color: #404040;
-}
-#gerenciar_sistema a:visited{
-    text-decoration: none;
-    color: #404040;
-}
-#gerenciar_sistema a:active{
-    text-decoration: none;
-    color: #404040;
-}
-
-#gerenciar_sistema li{
-    float:left;
-    position: relative;
-    padding: 10px 40px;
-    border-radius: 5px;
-    margin-left:  20px;
-    box-shadow:  1px 1px 3px #cccccc ;
-}*/
-
-
-
-/*#div_update label {
-    display:block;width:100%;padding:10px 0;
-}*/
-
-/*.ui-dialog-titlebar{
-    background-image: url('img/header_ead_background.png');
-    background-repeat: repeat;
-    height: 10px;
-}*/
-
-
-/*.accord{
-    cursor: pointer;
-    font-weight: 600;
-    line-height: 100%;
-}*/
-
-
-
-/*.list_conteudo:first-letter{
-    font-weight: 600;
-}*/
-
-
-
-/*.accord_body *{
-    z-index: 0;
-}*/
-
-/*.accord *{
-    font-weight: 600;
-    line-height: 100%;
-}*/
-
-
-
-/*.ui-dialog-titlebar{
-    background-image: url('img/header_ead_background.png');
-    background-repeat: repeat;
-    height: 10px;
-}*/
-
-/*.ui-dialog-titlebar{
-    background-image: url('../img/header_ead_background.png');
-    background-repeat: repeat;
-    height: 20px;
-}*/
-
-/*#tabela_cursos_first{
-    margin:0;
-}*/
-
-/*#div_conteudo_professor_editar_modulo{
-    position: relative;
-    padding-top:0px;
-}
-
-#div_conteudo_professor_editar_modulo h4{
-    margin:0;
-    padding:0;
-}
-
-#disposicao_conteudo_professor_editar_modulo{
-    position: relative;
-}*/
-
-/*#center_content{
-    padding-top:0px;
-}*/
-
-/* ----------------------- FÓRUM ------------------------*/
 #voltar_forum{
     padding-bottom: 10px;
     text-decoration: none;

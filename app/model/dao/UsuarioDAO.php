@@ -118,6 +118,25 @@ class UsuarioDAO extends PDOConnectionFactory {
         }
     }
     
+        public function selectAlunosCurso($idCurso) {
+        try {
+//            $this->conex->exec("SET NAMES 'utf-8_unicode_ci'");
+            $stmt = null;
+            $stmt = $this->conex->query("SELECT * FROM usuario NATURAL JOIN matricula_curso WHERE id_curso = ". $idCurso . " ORDER BY nome_completo");
+            $usuario = array(); 
+//            echo "SELECT * FROM usuario WHERE " . $condicao; die();
+            for ($i = 0; $i < $stmt->rowCount(); $i++){                
+                $usuario[$i] = $stmt->fetchObject('Usuario');
+            }
+            if($i==0){                
+                $usuario = null;
+            }
+            return $usuario;
+        } catch (PDOException $ex) {
+            return "erro: ".$ex;
+        }
+    }
+    
 //    public function selectProfessores() {
 //        try {
 //            $stmt = null;

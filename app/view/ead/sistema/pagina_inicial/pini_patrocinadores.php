@@ -38,7 +38,7 @@
         });
     });
     
-    $('addpini a:not(.link)').live('click', function(){
+    $('.ref_ajax a:not(.link)').live('click', function(){
         var name = $(this).attr('name');
         var id = $(this).attr('id');        
         var _HTML = $('#div_'+name).html();
@@ -49,13 +49,13 @@
         dialog = $(_HTML).dialog({
             draggable: false,
             resizable: false,
-            position: [(($(window).width()-900)/2), 15],
-            width:900,
+            position: [(($(window).width()-600)/2), 15],
+            width:600,
             show: {
                 effect: 'drop', 
                 direction: "up"
             },
-            height: (300),
+            height: 180,
             modal:true,                                          
             close: function(event,ui){                     
                 $(dialog).dialog('destroy');
@@ -80,9 +80,9 @@
 <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
     <h3 style="margin: 0;">Parceiros</h3><br>
     <div id="patrocinadores_gerencia">
-        <addpini>
+        <div class="ref_ajax">
             <a name="adicionar_patrocinador" href="#" id="index.php?c=ead&a=pini_adicionar_patrocinador" style="text-decoration: none;" class="button2"> Adicionar Parceiro</a><br><br>
-        </addpini>
+        </div>
         <div id="lista_destaque">
             <?php $controller = new controllerSistema();
             echo $controller->listaPatrocinadores(); ?>

@@ -1,4 +1,4 @@
-<script>       
+<script>
     $('#btn_editar_modulo').click(function(){
         if($(this).attr('value') == 'Editar'){
             $('#titulo_modulo').removeAttr('readonly');

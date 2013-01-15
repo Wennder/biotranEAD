@@ -211,6 +211,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
         $this->controller = new controllerModulo();
         $this->visao->listaModulos = $this->controller->listaModulos($id_curso);
+        $this->controller = new controllerUsuario();
+        $this->visao->listaAlunos = $this->controller->listaAlunos($id_curso);
         $this->renderizar();
     }
 
@@ -274,6 +276,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerCurso();
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
+        $this->controller = new controllerUsuario();
+        $this->visao->listaAlunos = $this->controller->listaAlunos($id_curso);
         if ($this->visao->curso->getNumero_modulos() == 0) {
             Biotran_Mvc::pegarInstancia()->mudarAcao('primeiro_acesso_curso');
         }

@@ -54,7 +54,7 @@
                 effect: 'drop', 
                 direction: "up"
             },
-            height: 160,
+            height: 180,
             modal:true,                                          
             close: function(event,ui){                     
                 $(dialog).dialog('destroy');

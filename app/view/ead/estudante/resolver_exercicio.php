@@ -1,14 +1,11 @@
 <div id="cad_exercicios">
-    <div style="display:none;">                
-
-    </div>
     <div>
         <div style="border-bottom:1px solid #eeeeee; width: 923px;">
             <center><label style="font-weight: bold; font-size: 14px;"><?php echo $this->exercicio->getTitulo(); ?></label></center>
         </div><br>
         <table style="width: 100%;">
             <tr>
-                <td valign="top">
+                <td valign="top" style="width: 70px;">
                     <label><b>Descrição:</b> </label>
                 </td>
                 <td>
@@ -26,7 +23,7 @@
         <input type="button" value="Cancelar" id="cancelar_exercicio" class="button2"/>
     </div><br>
     <div style="display:none;">
-        <input type="text" name="id" id="id" value="<?php echo $this->exercicio->getId_exercicio(); ?>"/>            
+        <input type="text" name="id_exercicio" id="id_exercicio" value="<?php echo $this->exercicio->getId_exercicio(); ?>"/>            
         <input name="id_modulo" id="id_modulo" type="text" value="<?php echo $this->exercicio->getId_modulo(); ?>"/>
     </div>
 </div>

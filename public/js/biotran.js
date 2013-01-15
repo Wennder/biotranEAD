@@ -69,7 +69,7 @@ $(document).ready(function(){
                 break;
             case 'form_cadastrar_pergunta':
                 $('#btn_add_pergunta').attr('disabled', 'true');
-                $(this).ajaxSubmit(optionsFormCadastrarPergunta());
+                $(this).ajaxSubmit(optionsFormCadastrarPergunta($(this)));
                 break;
             case 'deletar':
                 $(this).ajaxSubmit(optionsFormAtualizarPergunta());
@@ -163,7 +163,8 @@ $(document).ready(function(){
                     dialogClass:'dialogstyle',
                     modal: true,
                     focus: function(event,ui){                                                
-                        $('#form_cadastrar').ajaxForm({                                                    
+                        $('#form_cadastrar').ajaxForm({
+                            dataType:"json",
                             uploadProgress: function(event, position, total, percentComplete) {
                                 $('progress').attr('value',percentComplete);
                                 $('#porcentagem').html(percentComplete+'%');
@@ -174,9 +175,9 @@ $(document).ready(function(){
                                 $('#porcentagem').html('100%');
                                 $('pre').html(data);
                                 if(data != 0){
-                                    insereLinha(data, tipo);
                                     alert('Arquivo inserido!');
                                     $(dialog).dialog('close');
+                                    insereLinha(data, tipo);
                                 }
                             }
                         });
@@ -255,8 +256,6 @@ function insereLinha(data, tipo){
         var id_modulo = $('#id_modulo').val();
         var id_curso = $('#id_curso').val();        
         data = data.split('-');
-        data[0] = data[0].replace('"', '');
-        data[1] = data[1].replace('"', '');            
         var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir" style="float: right;"/>';
         if(tipo == 'video'){
             var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar" style="float: right;"/>';
@@ -264,7 +263,7 @@ function insereLinha(data, tipo){
         }else{            
             if(tipo == 'exercicio'){
                 var editar = '<input id="index.php?c=ead&a=editar_exercicio&id='+data[0]+'" name="'+tipo+'" type="button" class="btn_edt edt'+data[0]+'" value="Editar" style="float: right;">';
-                var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label name="'+tipo+'" id="'+data[1]+'">'+data[1]+'</label>' + excluir + editar + '</li>';
+                var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label name="'+tipo+'" id="'+data[1]+'">'+data[1].toString()+'</label>' + excluir + editar + '</li>';
             }else{
                 var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label><a target="_blank" name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a></label>' + excluir + '</li>';
             }
@@ -273,16 +272,22 @@ function insereLinha(data, tipo){
         $(tipo.toString()).append($(_HTML));
     }
 }              
-function optionsFormCadastrarPergunta(){                
+function optionsFormCadastrarPergunta(form){                
     var options = {
         dataType: 'json',
         clearForm:true,
         data: {
             id_exercicio: $('#id').val()
         },
+        uploadProgress: function(event, position, total, percentComplete) {
+            form.find('#progress').attr('value',percentComplete);
+            form.find('#porcentagem').html(percentComplete+'%');
+        },
         success: function(data){
             if(data != 0 && data != false){                    
                 alert('Inserido com sucesso!');
+                form.find('#progress').attr('value',0);
+                form.find('#porcentagem').html(0+'%');
                 $('#btn_add_pergunta').removeAttr('disabled');
                 var ant = (data.numeracao - 1); 
                 if(document.getElementById('div_pergunta_'+ant)){                                
@@ -325,7 +330,11 @@ function optionsFormAtualizarDescritivo(){
     return options;
 }
 function optionsFormAtualizarPergunta(form){
-    var options = {            
+    var options = {
+        uploadProgress: function(event, position, total, percentComplete) {
+            form.find('#progress').attr('value',percentComplete);
+            form.find('#porcentagem').html(percentComplete+'%');
+        },
         success: function(data){
             if(data > 0){
                 if(data == 2){
@@ -333,6 +342,8 @@ function optionsFormAtualizarPergunta(form){
                     var id = form.find('#id_pergunta').val();
                     var tag = '<img src="img/perguntas/'+id+'.jpg" />';
                     form.find('#div_imagem').append(tag);
+                    form.find('#progress').attr('value',0);
+                    form.find('#porcentagem').html(0+'%');
                 }
                 alert('Atualizado com sucesso!');
             }
