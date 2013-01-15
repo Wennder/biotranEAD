@@ -278,6 +278,7 @@ $(document).ready(function(){
             $('#_id_gratuito'+_data[2]).attr('checked', 'true');
             var _HTML = $('#dialog_form').html();                                
             var id_imagem = "00";
+            var id_ass = "00";
                     
             $.ajax({
                 url: 'ajax/verificaImagem.php',
@@ -291,9 +292,11 @@ $(document).ready(function(){
                 success: function(data, textStatus, jqXHR){
                     if(data == '1'){
                         id_imagem = _data[10];
+                        id_ass = "ass-" + _data[10];
                     }
                 }
             });
+                        
             $.getJSON('ajax/combosPickList_cadastroCurso.php?acao=comID',{
                 id_curso: _data[10],       
                 ajax: 'true'
@@ -309,6 +312,8 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('_id_imagem', 'imagem');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
+                _HTML = _HTML.replace('_id_ass_curso', 'ass_curso');
+                _HTML = _HTML.replace('_id_ass_curso', 'ass_curso');
                 _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
                 _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
                 _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');
@@ -335,6 +340,7 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('#DESCRICAO#', _data[5]);
                 _HTML = _HTML.replace('#ID_CURSO#', _data[10]);
                 _HTML = _HTML.replace('#ID_FOTO#', id_imagem);
+                _HTML = _HTML.replace('#ID_ASSINATURA#', id_imagem);
                 //--gerando dialog
                 dialog = $(_HTML).dialog({
                     draggable: false,
@@ -462,6 +468,8 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
                 _HTML = _HTML.replace('_id_ass_curso', 'ass_curso');
+                _HTML = _HTML.replace('_id_assinatura', 'assinatura');
+                _HTML = _HTML.replace('_id_assinatura', 'assinatura');
                 _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
                 _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
                 _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');

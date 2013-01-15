@@ -82,6 +82,21 @@ class controllerCurso {
             }
         }
     }
+    
+    public function inserirAssinaturaCurso($id_curso) {
+        //Inserção da foto
+        if (isset($_FILES["assinatura"])) {
+            if ($_FILES["assinatura"]["name"] != '') {
+                $imagem = $_FILES["assinatura"];
+                $tipos = array("image/jpg", "image/jpeg");
+                $pasta_dir = "../img/cursos/";
+                if (in_array($imagem['type'], $tipos)) {
+                    $imagem_nome = $pasta_dir . "ass-" . $id_curso . ".jpg";
+                    move_uploaded_file($_FILES['assinatura']["tmp_name"], $imagem_nome);                                        
+                }
+            }
+        }
+    }
 
     /*
      * Insere um novo Curso no BD.     
@@ -133,6 +148,8 @@ class controllerCurso {
         if (isset($_FILES["imagem"])) {
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/
             $this->inserirFotoCurso($this->curso->getId_curso());
+            // inserindo assinatura digital;
+            $this->inserirAssinaturaCurso($this->curso->getId_curso());
         }
 
         //cria o diretório do curso na pasta pdf
