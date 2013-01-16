@@ -43,7 +43,7 @@ function updateDataTables(_form, _data){//Adicionar essa função
                 }
             }                
         }
-    }
+    }    
     oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));        
 }
     
@@ -292,8 +292,17 @@ $(document).ready(function(){
                 success: function(data, textStatus, jqXHR){
                     if(data == '1'){
                         id_imagem = _data[10];
-                        id_ass = "ass-" + _data[10];
+                    }else{
+                        if(data == '2'){
+                            id_imagem = _data[10];
+                            id_ass = "ass-" + _data[10];
+                        }else{
+                            if(data == '3'){
+                                id_ass = "ass-" + _data[10];
+                            }
+                        }
                     }
+
                 }
             });
                         
@@ -314,6 +323,8 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
                 _HTML = _HTML.replace('_id_ass_curso', 'ass_curso');
                 _HTML = _HTML.replace('_id_ass_curso', 'ass_curso');
+                _HTML = _HTML.replace('_id_assinatura', 'assinatura');
+                _HTML = _HTML.replace('_id_assinatura', 'assinatura');
                 _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
                 _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
                 _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');
@@ -340,7 +351,7 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('#DESCRICAO#', _data[5]);
                 _HTML = _HTML.replace('#ID_CURSO#', _data[10]);
                 _HTML = _HTML.replace('#ID_FOTO#', id_imagem);
-                _HTML = _HTML.replace('#ID_ASSINATURA#', id_imagem);
+                _HTML = _HTML.replace('#ID_ASSINATURA#', id_ass);
                 //--gerando dialog
                 dialog = $(_HTML).dialog({
                     draggable: false,

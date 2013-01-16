@@ -149,6 +149,8 @@ class controllerCurso {
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/
             $this->inserirFotoCurso($this->curso->getId_curso());
             // inserindo assinatura digital;
+        }
+        if(isset($_FILES["assinatura"])){           
             $this->inserirAssinaturaCurso($this->curso->getId_curso());
         }
 
@@ -217,7 +219,10 @@ class controllerCurso {
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
         if (isset($_FILES["imagem"])) {
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/            
-            $this->inserirFotoCurso($this->curso->getId_curso());
+            $this->inserirFotoCurso($this->curso->getId_curso());            
+        }            
+        if (isset($_FILES["assinatura"])) {
+            $this->inserirAssinaturaCurso($this->curso->getId_curso());           
         }
     }
 
