@@ -750,7 +750,7 @@ class controllerCurso {
 
         $tabela .= "</tbody></table>";
         return $tabela;
-    }
+    }        
 
 }
 

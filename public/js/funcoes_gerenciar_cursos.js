@@ -43,7 +43,7 @@ function updateDataTables(_form, _data){//Adicionar essa função
                 }
             }                
         }
-    }    
+    }        
     oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));        
 }
     
@@ -352,6 +352,8 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('#ID_CURSO#', _data[10]);
                 _HTML = _HTML.replace('#ID_FOTO#', id_imagem);
                 _HTML = _HTML.replace('#ID_ASSINATURA#', id_ass);
+                _HTML = _HTML.replace('#ALEATORIO#', new Date().getTime());
+                _HTML = _HTML.replace('#ALEATORIO#', new Date().getTime());
                 //--gerando dialog
                 dialog = $(_HTML).dialog({
                     draggable: false,
@@ -380,7 +382,8 @@ $(document).ready(function(){
                     open: function(event, ui) { 
                         //Habilita a validação automática no formulário de cadastro
                         var form = $(this).find('#cadastro');
-                        $(this).find('#img_curso').src = "img/cursos/"+_data[10]+".jpg?" + new Date().getTime();
+//                        $(this).find('#img_curso').src = "img/cursos/"+id_imagem+".jpg?x=" + new Date().getTime();
+//                        $(this).find('#ass_curso').src = "img/cursos/ass-"+id_ass+".jpg?x=" + new Date().getTime();
                         $('#button_cadastrar').hide();
                         $('#button_atualizar').show();       
                         form.validate({

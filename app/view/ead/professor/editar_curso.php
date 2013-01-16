@@ -15,7 +15,7 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
     }
 </style>
 
-<script>
+<script>        
     $(document).ready(function(){        
         $('.profile_aluno').click(function(){
             var id_usuario = $(this).attr('id');
@@ -55,6 +55,40 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
                     dialog.remove();
                 }
             });
+        });               
+    });
+    
+    $('#btn_add_modulo').live('click', function(){                    
+        var _HTML = $('#div_'+name).html();        
+        dialog = $(_HTML).dialog({
+            draggable: false,
+            resizable: false,
+            position: [(($(window).width()-900)/2), 15],
+            width:900,
+            show: {
+                effect: 'drop', 
+                direction: "up"
+            },
+            height: (300),
+            modal:true,                                          
+            close: function(event,ui){                     
+                $(dialog).dialog('destroy');
+                $(dialog).remove();
+            },
+            open: function(event, ui){
+                $('#form_adicionar_foto').live('submit', function(){
+                    var form = $(this);
+                    $(this).ajaxSubmit({                        
+                        success: function(data){                                            
+                            if(data){
+                                alert('Módulo adicionado, recarregando página!');
+                            }
+                            dialog.dialog('close');
+                        }
+                    });
+                    return false;
+                });
+            }
         });
     });
     
@@ -111,7 +145,7 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
             <center><label><b>Informações do curso</b></label></center>
         </div>
         <?php
-        if($this->curso->getStatus() == 4){
+        if ($this->curso->getStatus() == 4) {
             echo('
                     <div id="div_lista">
                         <div style="width: 241px; height: 30px; background-color: #016292;">
@@ -229,6 +263,9 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
         <div id="lista_modulos">
             <label style="margin: 5px 0 0 9px; position: absolute;"><b>Módulos:</b></label><br>
             <ul style="list-style-type:none; width: 725px; padding: 10px 0 0 10px; margin-bottom: 20px;">
+                <div id="div_add_modulo">
+                    <input type="button" value="" id="btn_add_modulo" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Adicionar Módulo
+                </div>
                 <?php
                 $controllerModulo = new controllerModulo();
                 echo $controllerModulo->listaModulos($id_curso);

@@ -89,7 +89,7 @@
                                 <tr>
                                     <td>
                                         <div id="imagem_curso">
-                                            <img id="_id_img_curso" src="img/cursos/#ID_FOTO#.jpg" alt="" height="180" width="240" />
+                                            <img id="_id_img_curso" src="img/cursos/#ID_FOTO#.jpg?#ALEATORIO#" alt="" height="180" width="240" />
                                         </div>
                                     </td>
                                     <td>
@@ -111,7 +111,7 @@
                                 <tr>
                                     <td>
                                         <div id="assinatura">
-                                            <img id="_id_ass_curso" src="img/cursos/#ID_ASSINATURA#.jpg" alt="" height="180" width="240" />
+                                            <img id="_id_ass_curso" src="img/cursos/#ID_ASSINATURA#.jpg?x=#ALEATORIO#" alt="" height="180" width="240" />
                                         </div>
                                     </td>
                                     <td>

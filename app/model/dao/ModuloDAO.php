@@ -10,16 +10,17 @@
  *
  * @author Rodolfo
  */
-class ModuloDAO extends PDOConnectionFactory{
+class ModuloDAO extends PDOConnectionFactory {
+
     //put your code here
-    
+
     private $conex = null;
-    
-    public function ModuloDAO(){
+
+    public function ModuloDAO() {
         $this->conex = $this->getConnection();
     }
-    
-     public function insert(Modulo $modulo) {
+
+    public function insert(Modulo $modulo) {
         try {
             $this->conex->exec("SET NAMES 'utf8'");
             $stmt = $this->conex->prepare("INSERT INTO modulo(id_curso, numero_modulo, titulo_modulo, descricao) VALUES (?,?,?,?)");
@@ -27,20 +28,21 @@ class ModuloDAO extends PDOConnectionFactory{
             $stmt->bindValue(2, $modulo->getNumero_modulo());
             $stmt->bindValue(3, $modulo->getTitulo_modulo());
             $stmt->bindValue(4, $modulo->getDescricao());
-            
+
 
             //inserindo modulo no banco
             if (!$stmt->execute()) {
-                trigger_error("0 Erro insersao banco de dados");                
+                $stmt->conex = null;
+                return 0;
             }
-
             $stmt->conex = null;
+            return 1;
         } catch (PDOException $ex) {
             $msgErro = "dao";
             trigger_error($ex->getMessage());
         }
     }
-    
+
     public function update(Modulo $modulo = null) {
         try {
             if ($modulo != null) {
@@ -51,16 +53,24 @@ class ModuloDAO extends PDOConnectionFactory{
                 $stmt->bindValue(3, $modulo->getTitulo_modulo());
                 $stmt->bindValue(4, $modulo->getDescricao());
                 $stmt->bindValue(5, $modulo->getId_modulo());
-               
-                return $stmt->execute();
 
-                
+                return $stmt->execute();
             }
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
         }
     }
-    
+
+    public function updateNumero_modulo($numero_modulo, $id_curso) {
+        try {
+            $stmt = null;
+            $stmt = $this->conex->query("UPDATE modulo SET numero_modulo=(modulo.numero_modulo + 1) WHERE modulo.numero_modulo >= $numero_modulo AND id_curso = $id_curso");
+            return $stmt->rowCount();
+        } catch (PDOException $ex) {
+            echo "Erro: " . $ex->getMessage();
+        }
+    }
+
     public function select($condicao = null) {
         try {
             $stmt = null;
@@ -68,7 +78,7 @@ class ModuloDAO extends PDOConnectionFactory{
                 $stmt = $this->conex->query("SELECT * FROM modulo");
             } else {
                 $stmt = $this->conex->query("SELECT * FROM modulo WHERE " . $condicao);
-            }            
+            }
             $modulo = array();
             for ($i = 0; $i < $stmt->rowCount(); $i++) {
                 $modulo[$i] = $stmt->fetchObject('Modulo');
@@ -81,7 +91,7 @@ class ModuloDAO extends PDOConnectionFactory{
             echo "Erro: " . $ex->getMessage();
         }
     }
-    
+
     public function delete(Modulo $modulo) {
         try {
             $num = $this->conex->exec("DELETE FROM modulo WHERE id_curso=" . $modulo->getId_modulo());
@@ -96,7 +106,7 @@ class ModuloDAO extends PDOConnectionFactory{
             echo "Erro: " . $ex->getMessage();
         }
     }
-    
+
 }
 
 ?>

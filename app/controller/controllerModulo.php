@@ -171,7 +171,7 @@ class controllerModulo {
                     $lista .= "</label><input type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Resolver' class='btn_resolver btn_resolver_exe'/>";
                 } else {
                     $lista .= "</label><input type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' disabled='true' name='exercicio' value='Exercício já submetido' class='btn_resolver btn_resolver_exe'/>";
-                }                
+                }
             } else {
                 $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='video' class='link_exercicio' id='index.php?c=ead&a=visualizar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
                 $lista .= $exercicio[$i]->getTitulo();
@@ -471,6 +471,30 @@ class controllerModulo {
             return 1;
         }
         return 0;
+    }
+
+    /*
+     * Adiciona novo Módulo no curso de id: $id_curso
+     * @param $id_curso: id do curso    
+     */
+    public function adicionarModulo($id_curso) {
+        $this->modulo = null;
+        $this->setModulo();
+        $dao = new ModuloDAO();
+        // se módulo já existe - numeração igual
+        if ($dao->select("numeracao=" . $this->modulo->getNumero_modulo()) != null) {
+            //aqui atualiza em +1 as numerações dos módulos a partir da 'nova' numeração inserida
+            $dao->updateNumero_modulo($this->modulo->getNumero_modulo(), $id_curso);
+        }
+        //insere modulo
+        $retorno = $dao->insert($this->modulo);
+        return $retorno;
+    }
+    
+    public function removerModulo($id_modulo, $id_curso){
+        /* remover todos os itens relacionados com módulo:
+         *  - vídeo, material complementar e etc
+         */        
     }
 
 }
