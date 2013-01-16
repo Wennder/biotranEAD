@@ -15,8 +15,25 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
     }
 </style>
 
-<script>        
-    $(document).ready(function(){        
+<script>                 
+        $('#form_add_modulo').live('submit', function(){        
+            var form = $(this);
+            $(this).ajaxSubmit({
+                data:{acao: "adicionar", id: $('#id').val()},
+                dataType: 'json',
+                success: function(data){                                            
+                    if(data){
+                        alert('Módulo adicionado, recarregando página!');
+                        document.location.reload();
+                    }
+                    dialog.dialog('close');
+                }
+            });
+            return false;
+        });
+        
+    $(document).ready(function(){     
+                
         $('.profile_aluno').click(function(){
             var id_usuario = $(this).attr('id');
             var _HTML = $('#dialog_profile').html();
@@ -56,40 +73,6 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
                 }
             });
         });               
-    });
-    
-    $('#btn_add_modulo').live('click', function(){                    
-        var _HTML = $('#div_'+name).html();        
-        dialog = $(_HTML).dialog({
-            draggable: false,
-            resizable: false,
-            position: [(($(window).width()-900)/2), 15],
-            width:900,
-            show: {
-                effect: 'drop', 
-                direction: "up"
-            },
-            height: (300),
-            modal:true,                                          
-            close: function(event,ui){                     
-                $(dialog).dialog('destroy');
-                $(dialog).remove();
-            },
-            open: function(event, ui){
-                $('#form_adicionar_foto').live('submit', function(){
-                    var form = $(this);
-                    $(this).ajaxSubmit({                        
-                        success: function(data){                                            
-                            if(data){
-                                alert('Módulo adicionado, recarregando página!');
-                            }
-                            dialog.dialog('close');
-                        }
-                    });
-                    return false;
-                });
-            }
-        });
     });
     
     $('#btn_editar').click(function(){

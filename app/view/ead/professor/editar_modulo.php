@@ -32,6 +32,7 @@
     <div style="border-bottom:1px solid #f0f0f0; margin-left:20px">
         <div style="border-bottom:1px solid #eeeeee;">
             <center><label><b>Módulo <?php echo $this->modulo->getNumero_modulo() . ' - ' . $this->curso->getNome(); ?></b></label></center>
+            <label style="right: auto "> <input type="button" value="" id="btn_del_modulo" class="classeBotaoExcluir" style="margin: 0 0 5px 10px;"/> Remover Módulo</label>
         </div>
         <div id="info_modulo">
             <form id="form_descritivo" enctype="multipart/form-data" method="post">

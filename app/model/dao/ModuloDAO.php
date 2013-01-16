@@ -35,8 +35,9 @@ class ModuloDAO extends PDOConnectionFactory {
                 $stmt->conex = null;
                 return 0;
             }
+            $id = $this->conex->lastInsertId("Modulo");
             $stmt->conex = null;
-            return 1;
+            return $id;
         } catch (PDOException $ex) {
             $msgErro = "dao";
             trigger_error($ex->getMessage());
@@ -92,6 +93,20 @@ class ModuloDAO extends PDOConnectionFactory {
         }
     }
 
+    public function deleteModulo(Modulo $modulo) {
+        try {
+            $num = $this->conex->exec("DELETE FROM modulo WHERE id_modulo=" . $modulo->getId_modulo());
+            // caso seja execuado ele retorna o número de rows que foram afetadas.
+            if ($num >= 1) {
+                return $num;
+            } else {
+                return 0;
+            }
+            // caso ocorra um erro, retorna o erro;
+        } catch (PDOException $ex) {
+            echo "Erro: " . $ex->getMessage();
+        }
+    }
     public function delete(Modulo $modulo) {
         try {
             $num = $this->conex->exec("DELETE FROM modulo WHERE id_curso=" . $modulo->getId_modulo());
