@@ -18,11 +18,20 @@ class Usuario {
     private $tel_principal = '';
     private $tel_secundario = '';
     private $email = '';     
+    private $status_acesso = 1;
     
     public function Usuario(){
         
     }
+    
+    public function getStatus_acesso() {
+        return $this->status_acesso;
+    }
 
+    public function setStatus_acesso($status_acesso) {
+        $this->status_acesso = $status_acesso;
+    }
+    
     public function getId_usuario() {
         return $this->id_usuario;
     }

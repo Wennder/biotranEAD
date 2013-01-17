@@ -260,6 +260,57 @@ class controllerExercicio {
         }
         return $lista;
     }
+    
+    public function listaPerguntas_admin($id_exercicio) {
+        $controller = new controllerPergunta();
+        $lista = "";
+        $p = $controller->getListaPerguntas('id_exercicio="' . $id_exercicio . '" ORDER BY numeracao');
+        $controller = new controllerAlternativa();
+        for ($i = 0; $i < count($p); $i++) {
+            $a = $controller->getListaAlternativas("id_pergunta=" . $p[$i]->getId_pergunta());
+            $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body'><div class='accord_list'><label class='accord_label'><b>Questão " . $p[$i]->getNumeracao() . ":</b> " . substr($p[$i]->getEnunciado(), 0, 139) . "...</label></div></div>";
+            $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body' style='display:none;'>";
+            $lista .='<div style="margin: 0 0 0 5px;"><br>
+            <fieldset style="width:893px;">
+                <legend>Visualizar Questão</legend>
+                <table>
+                    <tr>
+                        <td><label>Nº: ' . $p[$i]->getNumeracao() . '</label></td>
+                        <td><label placeholder="Enunciado da Questão" id="enunciado" name="enunciado" class="text-area" style="height: 34px; width:650px;">' . $p[$i]->getEnunciado() . '</textarea></td>
+                    </tr>';
+            if (file_exists(ROOT_PATH . "/public/img/perguntas/" . $p[$i]->getId_pergunta() . ".jpg")) {
+                $lista .= '<tr>
+                        <td><label>Imagem: </label></td>
+                        <td><div id="div_imagem"><img src="img/perguntas/' . $p[$i]->getId_pergunta() . '.jpg" /></td>
+                    </tr>';
+            }
+            $lista .= '<tr>
+                        <td colspan="2">
+                            <div style="margin-top: 30px;">
+                                <label>Respostas:</label>
+                                <table style="width: 100%;">';
+            for ($j = 0; $j < count($a); $j++) {                                
+                $lista.='
+                                    <tr>
+                                        <td>
+                                            <textarea readonly="true" placeholder="Alternativa ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" class="text-area" style="height: 34px; width: 650px;">' . $a[$j]->getResposta() . '</textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>                                        
+                                        <td>
+                                            <textarea readonly="true" placeholder="Justificativa" id="justificativa-' . $j . '" name="justificativa-' . $j . '" class="text-area" style="height:34px; width: 650px; ">' . $a[$j]->getJustificativa() . '</textarea>
+                                        </td>
+                                    </tr>';
+            }
+            $lista .='</table>
+                            </div>
+                        </td>
+                    </tr>
+                </table><br>';                                
+            $lista .='</fieldset></div></div></div>';
+        }
+        return $lista;
+    }
 
     public function listaPerguntas_aluno($id_exercicio) {
         $controller = new controllerPergunta();

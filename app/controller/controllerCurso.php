@@ -82,6 +82,21 @@ class controllerCurso {
             }
         }
     }
+    
+    public function inserirAssinaturaCurso($id_curso) {
+        //Inserção da foto
+        if (isset($_FILES["assinatura"])) {
+            if ($_FILES["assinatura"]["name"] != '') {
+                $imagem = $_FILES["assinatura"];
+                $tipos = array("image/jpg", "image/jpeg");
+                $pasta_dir = "../img/cursos/";
+                if (in_array($imagem['type'], $tipos)) {
+                    $imagem_nome = $pasta_dir . "ass-" . $id_curso . ".jpg";
+                    move_uploaded_file($_FILES['assinatura']["tmp_name"], $imagem_nome);                                        
+                }
+            }
+        }
+    }
 
     /*
      * Insere um novo Curso no BD.     
@@ -133,6 +148,10 @@ class controllerCurso {
         if (isset($_FILES["imagem"])) {
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/
             $this->inserirFotoCurso($this->curso->getId_curso());
+            // inserindo assinatura digital;
+        }
+        if(isset($_FILES["assinatura"])){           
+            $this->inserirAssinaturaCurso($this->curso->getId_curso());
         }
 
         //cria o diretório do curso na pasta pdf
@@ -200,7 +219,10 @@ class controllerCurso {
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
         if (isset($_FILES["imagem"])) {
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/            
-            $this->inserirFotoCurso($this->curso->getId_curso());
+            $this->inserirFotoCurso($this->curso->getId_curso());            
+        }            
+        if (isset($_FILES["assinatura"])) {
+            $this->inserirAssinaturaCurso($this->curso->getId_curso());           
         }
     }
 
@@ -705,7 +727,7 @@ class controllerCurso {
         for (; $i < $quant; $i++) {
             $m = $controller->getMatricula_curso('id_curso=' . $this->cursos[$i]->getId_curso() . ' AND id_usuario=' . $id_usuario);
             if ($m != null) {
-                $tabela .= "<tr id=" . $m->getId_matricula_curso() . ">";
+                $tabela .= "<tr name='matricula' id=" . $m->getId_matricula_curso() . ">";
                 $tabela .= "<td width='49%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
                 if ($m->getStatus_acesso() == 1) {
                     $tabela .= "<td width='14%' id='status' align='center'><input type='checkbox' value='0' checked='checked' name='".$m->getId_matricula_curso()."' id='check_liberar_matricula' /></td>";
@@ -716,9 +738,9 @@ class controllerCurso {
                 $tabela .= "<td width='13%' id='data_inicio' align='center'>" . $m->getData_inicio() . "</td>";
                 $tabela .= "<td width='13%' id='data_termino' align='center'><input type='text' value='" . $m->getData_fim() . "' id='data-".$m->getId_matricula_curso()."' name='".$m->getId_matricula_curso()."' class='i_data_termino' /></td>";
             } else {
-                $tabela .= "<tr id='matricular'>";
+                $tabela .= "<tr name='nova_matricula' id='".$this->cursos[$i]->getId_curso()."'>";
                 $tabela .= "<td width='49%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
-                $tabela .= "<td width='14%' id='status' align='center'><input type='button' value='Matricular' id='".$this->cursos[$i]->getId_curso()."' class='button3' /></td>";
+                $tabela .= "<td width='14%' id='status' align='center'>Não Matriculado</td>";
                 $tabela .= "<td width='11%' id='progresso' align='center'> -- </td>";
                 $tabela .= "<td width='13%' id='data_inicio' align='center'> -- </td>";
                 $tabela .= "<td width='13%' id='data_termino' align='center'> -- </td>";
@@ -728,7 +750,7 @@ class controllerCurso {
 
         $tabela .= "</tbody></table>";
         return $tabela;
-    }
+    }        
 
 }
 

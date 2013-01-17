@@ -23,7 +23,7 @@ function updateDataTables(_form){
             fields_value.push(valorCampo);                
         }
     }
-    oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));        
+    oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));
 }     
     
 function insertDataTables(_form){//Adicionar essa função  
@@ -591,8 +591,35 @@ $(document).ready(function a(){
                     }
                 });  
             }
-        }
-        
+        }        
+    });
+    
+    $('#btn_bloq').live('click',function(){
+        elem = $('tbody tr.row_selected');
+        if (elem.length == 1) { 
+            var r = confirm('Deseja realmente bloquear/desbloquear esse usuario?');
+            if(r == true){    
+                var _data = oTable.fnGetData(elem[0]);
+                $.getJSON('ajax/crud_usuario.php?acao=bloquear',{
+                    id_usuario: oTable.fnGetData(elem[0], 20),       
+                    ajax: 'true'
+                }, function(j){
+                    //usuario liberado
+                    if(j == 1){                        
+                        oTable.fnUpdate("Liberado", oTable.fnGetPosition(elem[0]), 21); 
+                        alert('Usuario liberado!');
+                    }else{
+                        //usuario bloqueado
+                        if(j == 0){                                                    
+                            oTable.fnUpdate("Bloqueado", oTable.fnGetPosition(elem[0]), 21);
+                            alert('Usuario bloqueado!');
+                        }else{
+                            alert('Erro no servidor, tente novamente mais tarde!');
+                        }
+                    }
+                });  
+            }
+        }        
     });
         
     $('#btn_ger_matricula').live('click',function(){

@@ -140,7 +140,7 @@ class controllerUsuario {
         $user = $dao->select($condicao);
         return $user;
     }
-    
+
     public function listaAlunos($id_curso) {
         $usuarioDAO = new UsuarioDAO();
         $usuarios = $usuarioDAO->selectAlunosCurso($id_curso);
@@ -149,18 +149,18 @@ class controllerUsuario {
         $id_foto = "00";
         $listaUsuarios = "";
         for (; $i < $quant; $i++) {
-            if(file_exists(ROOT_PATH. '/public/img/profile/pic/'.$usuarios[$i]->getId_usuario().'.jpg')){
-                $id_foto = $usuarios[$i]->getId_usuario(); 
+            if (file_exists(ROOT_PATH . '/public/img/profile/pic/' . $usuarios[$i]->getId_usuario() . '.jpg')) {
+                $id_foto = $usuarios[$i]->getId_usuario();
             }
             $listaUsuarios .= '<div class="estudante">
-                    <a class="profile_aluno" id="'.$usuarios[$i]->getId_usuario().'" href="#">
+                    <a class="profile_aluno" id="' . $usuarios[$i]->getId_usuario() . '" href="#">
                         <table>
                             <tr>
                                 <td>
-                                    <div style="height: 42px; width: 35px; padding: 4px; background-color: #eee;"><img src="img/profile/pic/'.$id_foto.'.jpg "></div>
+                                    <div style="height: 42px; width: 35px; padding: 4px; background-color: #eee;"><img src="img/profile/pic/' . $id_foto . '.jpg "></div>
                                 </td>
                                 <td>
-                                    <label>'.$usuarios[$i]->getNome_completo().'</label>
+                                    <label>' . $usuarios[$i]->getNome_completo() . '</label>
                                 </td>
                             </tr>
                         </table>
@@ -209,6 +209,25 @@ class controllerUsuario {
                 return 0;
         }else {
             return 3;
+        }
+    }
+
+    public function bloquearUsuario($id_usuario) {
+        $user = $this->getUsuario("id_usuario=" . $id_usuario);        
+        if ($user != null) {
+            if ($user->getStatus_acesso()) {
+                $user->setStatus_acesso(0);
+            } else {
+                $user->setStatus_acesso(1);
+            }
+            $dao = new UsuarioDAO();
+            if ($dao->update($user)) {                
+                return $user->getStatus_acesso();
+            } else {
+                return 0;
+            }
+        } else {
+            return 2;
         }
     }
 
@@ -353,6 +372,7 @@ class controllerUsuario {
                     <th>endereco_pais</th>
                     <th>endereco_estado</th>
                     <th>id</th>
+                    <th>Status Acesso</th>
                 </tr> 
             </thead> 
             <tbody>";
@@ -365,35 +385,39 @@ class controllerUsuario {
         for (; $i < $quant; $i++) {
             $papel = $papelDAO->select("id_papel=" . $this->usuarios[$i]->getId_papel());
 //            if ($papel[0]->getId_papel() != 1) { filtro de administrador
-                $tabela .= "<tr id=" . $this->usuarios[$i]->getId_usuario() . ">";
-                $tabela .= "<td width='60%' class='nome_usuario_datatable' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
-                $tabela .= "<td width='15%' align='center' id='permissao'>" . $papel[0]->getPapel() . "</td>";
-                $tabela .= "<td width='25%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
+            $tabela .= "<tr id=" . $this->usuarios[$i]->getId_usuario() . ">";
+            $tabela .= "<td width='60%' class='nome_usuario_datatable' id='nome_completo'>" . $this->usuarios[$i]->getNome_completo() . "</td>";
+            $tabela .= "<td width='15%' align='center' id='permissao'>" . $papel[0]->getPapel() . "</td>";
+            $tabela .= "<td width='25%' id='atuacao' align='center'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
 
-                $tabela .= "<td width='55%' id='data_nascimento'>" . $this->usuarios[$i]->getData_nascimento() . "</td>";
-                $tabela .= "<td width='55%' id='cpf_passaporte'>" . $this->usuarios[$i]->getCpf_passaporte() . "</td>";
-                $tabela .= "<td width='0%' id='rg'>" . $this->usuarios[$i]->getRg() . "</td>";
-                $tabela .= "<td width='0%' id='id_profissional'>" . $this->usuarios[$i]->getId_profissional() . "</td>";
-                $tabela .= "<td width='0%' id='atuacao'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
-                $tabela .= "<td width='0%' id='descricao_pessoal'>" . $this->usuarios[$i]->getDescricao_pessoal() . "</td>";
-                $tabela .= "<td width='0%' id='sexo'>" . $this->usuarios[$i]->getSexo() . "</td>";
-                $tabela .= "<td width='0%' id='tel_principal'>" . $this->usuarios[$i]->getTel_principal() . "</td>";
-                $tabela .= "<td width='0%' id='tel_secundario'>" . $this->usuarios[$i]->getTel_secundario() . "</td>";
-                $tabela .= "<td width='0%' id='email'>" . $this->usuarios[$i]->getEmail() . "</td>";
+            $tabela .= "<td width='55%' id='data_nascimento'>" . $this->usuarios[$i]->getData_nascimento() . "</td>";
+            $tabela .= "<td width='55%' id='cpf_passaporte'>" . $this->usuarios[$i]->getCpf_passaporte() . "</td>";
+            $tabela .= "<td width='0%' id='rg'>" . $this->usuarios[$i]->getRg() . "</td>";
+            $tabela .= "<td width='0%' id='id_profissional'>" . $this->usuarios[$i]->getId_profissional() . "</td>";
+            $tabela .= "<td width='0%' id='atuacao'>" . $this->usuarios[$i]->getAtuacao() . "</td>";
+            $tabela .= "<td width='0%' id='descricao_pessoal'>" . $this->usuarios[$i]->getDescricao_pessoal() . "</td>";
+            $tabela .= "<td width='0%' id='sexo'>" . $this->usuarios[$i]->getSexo() . "</td>";
+            $tabela .= "<td width='0%' id='tel_principal'>" . $this->usuarios[$i]->getTel_principal() . "</td>";
+            $tabela .= "<td width='0%' id='tel_secundario'>" . $this->usuarios[$i]->getTel_secundario() . "</td>";
+            $tabela .= "<td width='0%' id='email'>" . $this->usuarios[$i]->getEmail() . "</td>";
 
-                $endereco = $this->controller->getEndereco("id_usuario=" . $this->usuarios[$i]->getId_usuario());
+            $endereco = $this->controller->getEndereco("id_usuario=" . $this->usuarios[$i]->getId_usuario());
 
-                $tabela .= "<td width='0%' id='rua'>" . $endereco->getRua() . "</td>";
-                $tabela .= "<td width='0%' id='numero'>" . $endereco->getNumero() . "</td>";
-                $tabela .= "<td width='0%' id='complemento'>" . $endereco->getComplemento() . "</td>";
-                $tabela .= "<td width='0%' id='bairro'>" . $endereco->getBairro() . "</td>";
-                $tabela .= "<td width='0%' id='cidade'>" . $endereco->getCidade() . "</td>";
-                $tabela .= "<td width='0%' id='pais'>" . $endereco->getPais() . "</td>";
-                $tabela .= "<td width='0%' id='estado'>" . $endereco->getEstado() . "</td>";
-                $tabela .= "<td width='0%' id='id_usuario'>" . $this->usuarios[$i]->getId_usuario() . "</td>";
+            $tabela .= "<td width='0%' id='rua'>" . $endereco->getRua() . "</td>";
+            $tabela .= "<td width='0%' id='numero'>" . $endereco->getNumero() . "</td>";
+            $tabela .= "<td width='0%' id='complemento'>" . $endereco->getComplemento() . "</td>";
+            $tabela .= "<td width='0%' id='bairro'>" . $endereco->getBairro() . "</td>";
+            $tabela .= "<td width='0%' id='cidade'>" . $endereco->getCidade() . "</td>";
+            $tabela .= "<td width='0%' id='pais'>" . $endereco->getPais() . "</td>";
+            $tabela .= "<td width='0%' id='estado'>" . $endereco->getEstado() . "</td>";
+            $tabela .= "<td width='0%' id='id_usuario'>" . $this->usuarios[$i]->getId_usuario() . "</td>";
+            $acesso = 'Liberado';
+            if (!$this->usuarios[$i]->getStatus_acesso()) {
+                $acesso = 'Bloqueado';
+            }
+            $tabela .= "<td width='15%' id='status_acesso'>" . $acesso . "</td>";
 
-                $tabela .= "</tr>";
-            
+            $tabela .= "</tr>";
         }
         $tabela .= "</tbody></table>";
         return $tabela;

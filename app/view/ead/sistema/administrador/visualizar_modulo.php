@@ -11,7 +11,37 @@
         }
         $('.accord_body').live('click', function(e) {
             $(this).next('.accord_content_body').slideToggle('fast');                  
-        }); 
+        });
+        
+        $('.link_exercicio').live('click', function(){
+            var btn = $(this);
+            $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
+                if (status == "error") {
+                    alert('erro');
+                    var msg = "Sorry but there was an error: ";
+                    $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                }else{                                                                                    
+                    dialog = $('#dialog').dialog({
+                        draggable: false,
+                        resizable: false,
+                        show: {
+                            effect: 'drop', 
+                            direction: "up"
+                        },
+                        width:970, 
+                        height:($(window).height() - 40),
+                        position: [(($(window).width()-970)/2), 15],
+                        dialogClass:'dialogstyle', 
+                        modal:true,
+                        close: function(event,ui){                     
+                            $(dialog).dialog('destroy');
+                            $(dialog).find('div').remove();
+                        }                                        
+                    });
+                }
+            }); 
+        });
+        
     });
 </script>
 

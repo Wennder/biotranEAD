@@ -78,7 +78,7 @@ class controllerModulo {
     //Lista lateral para adicionar o conteudo dos modulos
     //Lista todos os modulos existentes e opcao de adicionar conteudo em cada
     public function listaAdicionar_conteudo_modulo($id_curso) {
-        $modulos = $this->getListaModulo('id_curso=' . $id_curso);
+        $modulos = $this->getListaModulo("id_curso=$id_curso ORDER BY numero_modulo");
         $quant = count($modulos);
         $i = 0;
         $listaModulos = "";
@@ -90,7 +90,7 @@ class controllerModulo {
     }
 
     public function lista_visualizarModulos_lefcolumn($id_curso) {
-        $modulos = $this->getListaModulo('id_curso=' . $id_curso);
+        $modulos = $this->getListaModulo("id_curso=$id_curso ORDER BY numero_modulo");
         $quant = count($modulos);
         $i = 0;
         $listaModulos = "";
@@ -163,22 +163,26 @@ class controllerModulo {
         $exercicio = $controller->getListaExercicio('id_modulo=' . $id_modulo);
         $controller = new controllerUsuario_exercicio();
         for ($i = 0; $i < count($exercicio); $i++) {
-            $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='exercicio' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
-            $lista .= $exercicio[$i]->getTitulo();
 //            $id_pergunta = $controller2->getListaPerguntas('id_exercicio = ' . $exercicio[$i]->getId_exercicio());
             if ($_SESSION['usuarioLogado']->getId_papel() == 4) {
+                $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='exercicio' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
+                $lista .= $exercicio[$i]->getTitulo();
                 if ($controller->getUsuario_exercicio('id_usuario=' . $_SESSION['usuarioLogado']->getId_usuario() . ' AND id_exercicio=' . $exercicio[$i]->getId_exercicio()) == null) {
                     $lista .= "</label><input type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Resolver' class='btn_resolver btn_resolver_exe'/>";
                 } else {
                     $lista .= "</label><input type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' disabled='true' name='exercicio' value='Exercício já submetido' class='btn_resolver btn_resolver_exe'/>";
                 }
             } else {
+                $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='video' class='link_exercicio' id='index.php?c=ead&a=visualizar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
+                $lista .= $exercicio[$i]->getTitulo();
+                $lista .= "</label>";
                 $lista .= "</label>";
             }
         }
         if ($i == 0) {
             $lista = 'Não há registros no sistema.';
         }
+        $lista .= "</li>";
         return $lista;
     }
 
@@ -262,7 +266,7 @@ class controllerModulo {
      */
 
     public function criaDiretorioModulo(Modulo $modulo) {
-        $caminho = ROOT_PATH . '/public/cursos/' . $modulo->getId_curso() . '/modulos/' . $modulo->getId_modulo();
+        $caminho = ROOT_PATH . '/public/cursos/' . $modulo->getId_curso() . '/modulos/' . $modulo->getId_modulo();        
         if (!mkdir($caminho, 0777, true))
             trigger_error("Não foi possível criar o diretório de modulos");
         $video = $caminho . '/video_aula';
@@ -274,6 +278,22 @@ class controllerModulo {
         $material = $caminho . '/material_complementar';
         if (!mkdir($material, 0777, true))
             trigger_error("Não foi possível criar o diretório de material_complementar");
+    }
+
+    public function removeDiretorioModulo(Modulo $modulo) {
+        $caminho = ROOT_PATH . '/public/cursos/' . $modulo->getId_curso() . '/modulos/' . $modulo->getId_modulo();
+        if (is_dir($caminho)) {
+            $objects = scandir($caminho);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (filetype($caminho . "/" . $object) == "dir")
+                        rmdir($caminho . "/" . $object); else
+                        unlink($caminho . "/" . $object);
+                }
+            }
+            reset($objects);
+            rmdir($caminho);
+        }
     }
 
     /*
@@ -467,6 +487,41 @@ class controllerModulo {
             return 1;
         }
         return 0;
+    }
+
+    /*
+     * Adiciona novo Módulo no curso de id: $id_curso
+     * @param $id_curso: id do curso    
+     */
+
+    public function adicionarModulo($id_curso) {
+        $this->modulo = null;
+        $this->setModulo();
+        $this->modulo->setId_curso($id_curso);
+        // se módulo já existe - numeração igual
+//        if ($dao->select("id_curso =$id_curso AND numero_modulo = " . $this->modulo->getNumero_modulo()) != null) {
+            //aqui atualiza em +1 as numerações dos módulos a partir da 'nova' numeração inserida
+//            $dao->updateNumero_modulo($this->modulo->getNumero_modulo(), $id_curso);
+//        }
+        //insere modulo
+        $dao = new ModuloDAO();
+        $id = $dao->insert($this->modulo);
+        if($id){
+            $this->modulo->setId_modulo($id);
+        }
+        $this->criaDiretorioModulo($this->modulo);
+        return $id;
+    }
+
+    public function removerModulo($id_modulo) {
+        /* remover todos os itens relacionados com módulo:
+         *  - vídeo, material complementar e etc
+         */               
+        $m = $this->getModulo("id_modulo=$id_modulo");
+        $this->removeDiretorioModulo($m);
+        $dao = new ModuloDAO();
+        $retorno = $dao->deleteModulo($m);
+        return $retorno;
     }
 
 }

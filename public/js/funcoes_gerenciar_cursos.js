@@ -43,7 +43,7 @@ function updateDataTables(_form, _data){//Adicionar essa função
                 }
             }                
         }
-    }
+    }        
     oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));        
 }
     
@@ -278,6 +278,7 @@ $(document).ready(function(){
             $('#_id_gratuito'+_data[2]).attr('checked', 'true');
             var _HTML = $('#dialog_form').html();                                
             var id_imagem = "00";
+            var id_ass = "00";
                     
             $.ajax({
                 url: 'ajax/verificaImagem.php',
@@ -291,9 +292,20 @@ $(document).ready(function(){
                 success: function(data, textStatus, jqXHR){
                     if(data == '1'){
                         id_imagem = _data[10];
+                    }else{
+                        if(data == '2'){
+                            id_imagem = _data[10];
+                            id_ass = "ass-" + _data[10];
+                        }else{
+                            if(data == '3'){
+                                id_ass = "ass-" + _data[10];
+                            }
+                        }
                     }
+
                 }
             });
+                        
             $.getJSON('ajax/combosPickList_cadastroCurso.php?acao=comID',{
                 id_curso: _data[10],       
                 ajax: 'true'
@@ -309,6 +321,10 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('_id_imagem', 'imagem');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
+                _HTML = _HTML.replace('_id_ass_curso', 'ass_curso');
+                _HTML = _HTML.replace('_id_ass_curso', 'ass_curso');
+                _HTML = _HTML.replace('_id_assinatura', 'assinatura');
+                _HTML = _HTML.replace('_id_assinatura', 'assinatura');
                 _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
                 _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
                 _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');
@@ -335,6 +351,9 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('#DESCRICAO#', _data[5]);
                 _HTML = _HTML.replace('#ID_CURSO#', _data[10]);
                 _HTML = _HTML.replace('#ID_FOTO#', id_imagem);
+                _HTML = _HTML.replace('#ID_ASSINATURA#', id_ass);
+                _HTML = _HTML.replace('#ALEATORIO#', new Date().getTime());
+                _HTML = _HTML.replace('#ALEATORIO#', new Date().getTime());
                 //--gerando dialog
                 dialog = $(_HTML).dialog({
                     draggable: false,
@@ -363,7 +382,8 @@ $(document).ready(function(){
                     open: function(event, ui) { 
                         //Habilita a validação automática no formulário de cadastro
                         var form = $(this).find('#cadastro');
-                        $(this).find('#img_curso').src = "img/cursos/"+_data[10]+".jpg?" + new Date().getTime();
+//                        $(this).find('#img_curso').src = "img/cursos/"+id_imagem+".jpg?x=" + new Date().getTime();
+//                        $(this).find('#ass_curso').src = "img/cursos/ass-"+id_ass+".jpg?x=" + new Date().getTime();
                         $('#button_cadastrar').hide();
                         $('#button_atualizar').show();       
                         form.validate({
@@ -461,6 +481,9 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('_id_imagem', 'imagem');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
+                _HTML = _HTML.replace('_id_ass_curso', 'ass_curso');
+                _HTML = _HTML.replace('_id_assinatura', 'assinatura');
+                _HTML = _HTML.replace('_id_assinatura', 'assinatura');
                 _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
                 _HTML = _HTML.replace('_b_button_cadastrar', 'button_cadastrar');
                 _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');
@@ -475,6 +498,7 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('#DESCRICAO#', '');
                 _HTML = _HTML.replace('#ID_CURSO#', -1);
                 _HTML = _HTML.replace('#ID_FOTO#', '00');
+                _HTML = _HTML.replace('#ID_ASSINATURA#', '00');
                 //--gerando dialog
                 dialog = $(_HTML).dialog({
                     draggable: false,

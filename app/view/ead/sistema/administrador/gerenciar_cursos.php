@@ -89,13 +89,35 @@
                                 <tr>
                                     <td>
                                         <div id="imagem_curso">
-                                            <img id="_id_img_curso" src="img/cursos/#ID_FOTO#.jpg" alt="" height="180" width="240" />
+                                            <img id="_id_img_curso" src="img/cursos/#ID_FOTO#.jpg?#ALEATORIO#" alt="" height="180" width="240" />
                                         </div>
                                     </td>
                                     <td>
                                         <table style="margin: 112px 0 0 0;">
                                             <tr><td><label class="error" for="imagem" generated="true" style="display: none; position: relative;">Os formatos de imagem aceitos são somente .jpg e .jpeg.</label></td></tr>
                                             <tr><td><input type="file" name="_id_imagem" id="_id_imagem" style="margin: 0 0 0 5px;"/></td></tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="label_cadastro">Assinatura digital (240x180): </label>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div id="assinatura">
+                                            <img id="_id_ass_curso" src="img/cursos/#ID_ASSINATURA#.jpg?x=#ALEATORIO#" alt="" height="180" width="240" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <table style="margin: 112px 0 0 0;">
+                                            <tr><td><label class="error" for="assinatura" generated="true" style="display: none; position: relative;">Os formatos de imagem aceitos são somente .jpg e .jpeg.</label></td></tr>
+                                            <tr><td><input type="file" name="_id_assinatura" id="_id_assinatura" style="margin: 0 0 0 5px;"/></td></tr>
                                         </table>
                                     </td>
                                 </tr>

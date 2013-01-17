@@ -12,7 +12,6 @@ if (isset($_REQUEST['id_usuario'])) {
 }
 
 $controller = new controllerUsuario();
-
 if (method_exists($controller, $acao)) {
     $resposta = $controller->$acao($id_usuario);
 } else {

@@ -15,8 +15,25 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
     }
 </style>
 
-<script>
-    $(document).ready(function(){        
+<script>                 
+        $('#form_add_modulo').live('submit', function(){        
+            var form = $(this);
+            $(this).ajaxSubmit({
+                data:{acao: "adicionar", id: $('#id').val()},
+                dataType: 'json',
+                success: function(data){                                            
+                    if(data){
+                        alert('Módulo adicionado, recarregando página!');
+                        document.location.reload();
+                    }
+                    dialog.dialog('close');
+                }
+            });
+            return false;
+        });
+        
+    $(document).ready(function(){     
+                
         $('.profile_aluno').click(function(){
             var id_usuario = $(this).attr('id');
             var _HTML = $('#dialog_profile').html();
@@ -55,7 +72,7 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
                     dialog.remove();
                 }
             });
-        });
+        });               
     });
     
     $('#btn_editar').click(function(){
@@ -111,7 +128,7 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
             <center><label><b>Informações do curso</b></label></center>
         </div>
         <?php
-        if($this->curso->getStatus() == 4){
+        if ($this->curso->getStatus() == 4) {
             echo('
                     <div id="div_lista">
                         <div style="width: 241px; height: 30px; background-color: #016292;">
@@ -229,6 +246,9 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
         <div id="lista_modulos">
             <label style="margin: 5px 0 0 9px; position: absolute;"><b>Módulos:</b></label><br>
             <ul style="list-style-type:none; width: 725px; padding: 10px 0 0 10px; margin-bottom: 20px;">
+                <div id="div_add_modulo">
+                    <input type="button" value="" id="btn_add_modulo" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Adicionar Módulo
+                </div>
                 <?php
                 $controllerModulo = new controllerModulo();
                 echo $controllerModulo->listaModulos($id_curso);
