@@ -52,7 +52,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="index.php?c=ead&a=pini_fotos">
                         <div class="list_index_admin_gray">
                             <div class="index_admin_detalhe_gray"></div>
                             <label class="index_admin_label_gray" >Gerenciar Fotos</label><img src="img/seta_gray.png" />

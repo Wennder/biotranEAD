@@ -78,14 +78,14 @@
 
 <?php require ROOT_PATH . '/app/view/ead/sistema/pagina_inicial/pini_adicionar_foto.php'; ?>
 <div style="margin: 0px;margin-left: 20px; border-bottom: 1px solid #f0f0f0; padding:0px 0px 36px 0px ;">
-    <h3 style="margin:0pt;margin-bottom: 18px;">Foto</h3>
+    <h3 style="margin:0pt;margin-bottom: 18px;">Fotos</h3>
 
     <div id="fotos_gerencia" >
-        <div class="ref_ajax">
-            <a name="adicionar_foto" class="button2" href="#" id="index.php?c=ead&a=pini_adicionar_foto">adicionar foto</a>
+        <div class="ref_ajax" style="margin-bottom: 18px;">
+            <a name="adicionar_foto" class="button2" href="#" id="index.php?c=ead&a=pini_adicionar_foto">Adicionar Foto</a>
         </div>
 
-        <div id="lista_fotos">
+        <div id="lista_fotos" >
             <?php $controller = new controllerSistema();
             echo $controller->listaFotos();
             ?>
