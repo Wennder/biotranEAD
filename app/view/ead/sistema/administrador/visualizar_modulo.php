@@ -13,6 +13,10 @@
             $(this).next('.accord_content_body').slideToggle('fast');                  
         });
         
+        $('#cancelar_exercicio').live('click', function(){
+            $(dialog).dialog('close');
+        })
+        
         $('.link_exercicio').live('click', function(){
             var btn = $(this);
             $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
