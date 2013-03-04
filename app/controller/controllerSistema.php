@@ -528,21 +528,31 @@ class controllerSistema {
         $i = 0;
         $lista = '';
         for (; $i < $quant; $i++) {            
-            $lista.="<div id='div_foto_".$foto[$i]->getId_foto()."' class='foto_holder'><div style='overflow:auto;'><a class='remove_pini button3' name='div_foto_".$foto[$i]->getId_foto()."' id='index.php?c=ead&a=pini_fotos&id=" . $foto[$i]->getId_foto() . "' style='position:relative;text-decoration:none;'>remover</a></div><img src='" . $foto[$i]->getImagem() . "' /></div>";
+            $lista.="<div id='div_foto_".$foto[$i]->getId_foto()."' class='foto_holder'><div style='margin-bottom:5px;'><a class='remove_pini button3' name='div_foto_".$foto[$i]->getId_foto()."' id='index.php?c=ead&a=pini_fotos&id=" . $foto[$i]->getId_foto() . "' style='position:relative;text-decoration:none;'>remover</a></div><img src='" . $foto[$i]->getImagem() . "' /></div>";
         }
         return $lista;
     }
 
     /**/
 
-    public function listaFotos_index() {
-        $dao = new PatrocinadorDAO();
-        $patrocinador = $dao->select();
-        $quant = count($patrocinador);
-        $i = 0;
-        $lista = '';
-        for (; $i < $quant; $i++) {
-            $lista.="<img src='" . $patrocinador[$i]->getImagem() . "' width='200' height='200'/>";
+   public function listaFotos_index(){
+        $dao = new FotoDAO();
+        $foto = $dao->select();
+        $quant = count($foto);
+        $i=0;
+        $lista='';
+        for(;$i<$quant;$i++){
+            list($largura, $altura) = getimagesize("img/fotos/".$foto[$i]->getId_foto().".jpg");
+            $largura+=4;
+            $largura.="px";
+            $lista.="<li><img largura='$largura' altura='$altura' id='".$foto[$i]->getId_foto()."' src='img/fotos/thumb/".$foto[$i]->getId_foto().".jpg' ";
+            if($i>0){
+                $lista.="anterior='".$foto[$i-1]->getId_foto()."'";
+            }
+            if($i<($quant-1)){
+                $lista.="proximo='".$foto[$i+1]->getId_foto()."'";
+            }    
+            $lista.="/></li>";
         }
         return $lista;
     }
@@ -579,14 +589,31 @@ class controllerSistema {
                     $imagem_nome = $pasta_dir . $id_foto . ".jpg";
                     move_uploaded_file($imagem["tmp_name"], $imagem_nome);
                     $imagem_arquivo = "img/fotos/" . $id_foto . ".jpg";
+                    $imagem_arquivo_thumb = "img/fotos/thumb/".$id_foto.".jpg";
                     $this->foto->setImagem($imagem_arquivo);
                     list($altura, $largura) = getimagesize($imagem_nome);
-                    if ($altura > 200 && $largura > 200) {
+                    if ($altura > 600 || $largura > 450) {
                         $img = wiImage::load($imagem_arquivo);
-                        $img = $img->resize(250, 250, 'outside');
-                        $img = $img->crop('50% - 50', '50% - 40', 200, 200);
+                        $diferenca_altura = $altura - 600;
+                        $diferenca_largura = $largura - 450;
+                         $img = $img->resize( 640,480, 'outside');
+//                        if($diferenca_altura > $diferenca_largura){
+//                            $img = $img->resize( ($altura - $diferenca_altura),$largura, 'outside');
+//                            
+////                            echo ($altura - $diferenca_altura); 
+////                            echo ($largura - $diferenca_largura); die();
+//                        }else{
+//                            $img = $img->resize($altura,($largura - $diferenca_largura), 'outside');
+//                        }
+                        $img = $img->crop('00% - 40', '0% - 30', 600, 450);
                         $img->saveToFile($imagem_arquivo);
                     }
+                    copy($imagem_arquivo, $imagem_arquivo_thumb);
+                    $img = wiImage::load($imagem_arquivo_thumb);
+                    $img = $img->resize(170, 140, 'outside');
+                        $img = $img->crop('0% - 20', '0% - 0', 150, 140);
+                    
+                    $img->saveToFile($imagem_arquivo_thumb);
                 }
             }
         }
@@ -594,21 +621,33 @@ class controllerSistema {
 
     /**/
 
-    public function inserir_foto() {
+//    public function inserir_foto() {
+//        $this->foto = new Foto();
+//        $this->foto->setImagem("img/fotos/");
+//        //echo $this->patrocinador->getImagem();die();   
+//        $id = $this->novaFoto($this->foto);        
+//        if ($id != 0) {
+//            $this->foto->setId_foto($id);
+//            $this->inserirFoto($this->foto->getId_foto());
+//            $dao = new FotoDAO();
+//            $dao->update($this->foto);
+//            return $this->foto;
+//        }
+//        return 0;
+//    }
+
+     public function inserir_foto() {
         $this->foto = new Foto();
         $this->foto->setImagem("img/fotos/");
-        //echo $this->patrocinador->getImagem();die();   
-        $id = $this->novaFoto($this->foto);        
-        if ($id != 0) {
-            $this->foto->setId_foto($id);
-            $this->inserirFoto($this->foto->getId_foto());
-            $dao = new FotoDAO();
-            $dao->update($this->foto);
-            return $this->foto;
-        }
-        return 0;
+        //echo $this->patrocinador->getImagem();die();
+        
+        $this->foto->setId_foto($this->novaFoto($this->foto));
+        $this->inserirFoto($this->foto->getId_foto());
+        $dao = new FotoDAO();
+        $dao->update($this->foto);
+        return $this->foto;
     }
-
+    
     /**/
 
     public function novaFoto(Foto $foto = null) {
@@ -627,16 +666,18 @@ class controllerSistema {
 
     /**/
 
-    public function removerFoto($id_foto) {
+     public function removerFoto($id_foto){
         $dao = new FotoDAO();
         $resp = $dao->deletePorId($id_foto);
-        if ($resp != 0) {
-            $caminho = ROOT_PATH . '/public/img/fotos/' . $id_foto . '.jpg';
-            if (is_file($caminho)) {
-                unlink($caminho);
-            }
-        }
-        return $resp;
+         $caminho = ROOT_PATH . '/public/img/fotos/' . $id_foto . '.jpg';
+         if(is_file($caminho)){
+             unlink($caminho);
+         }
+         $caminho = ROOT_PATH . '/public/img/fotos/thumb/' . $id_foto . '.jpg';
+         if(is_file($caminho)){
+             unlink($caminho);
+         }
+         return $resp;
     }
 
     /**/

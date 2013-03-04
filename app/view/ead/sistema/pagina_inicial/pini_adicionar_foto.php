@@ -16,5 +16,6 @@
             </table>
         </fieldset>
         <input type="submit" id="_ID_SUBMIT_" value="adicionar" />
-    </form>    
+    </form>
+   
 </div>
