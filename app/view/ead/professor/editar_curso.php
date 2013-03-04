@@ -15,22 +15,7 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
     }
 </style>
 
-<script>                 
-        $('#form_add_modulo').live('submit', function(){        
-            var form = $(this);
-            $(this).ajaxSubmit({
-                data:{acao: "adicionar", id: $('#id').val()},
-                dataType: 'json',
-                success: function(data){                                            
-                    if(data){
-                        alert('Módulo adicionado, recarregando página!');
-                        document.location.reload();
-                    }
-                    dialog.dialog('close');
-                }
-            });
-            return false;
-        });
+<script>                         
         
     $(document).ready(function(){     
                 

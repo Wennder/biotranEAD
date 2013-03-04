@@ -4,7 +4,7 @@
             "bJQueryUI":true
         });
         
-        $('.i_data_termino').datepicker({
+        $('#.i_data_termino').datepicker({
             dateFormat: "dd/mm/yy",
             minDate: 1,
             onClose: function (selected, dpinstance){                                

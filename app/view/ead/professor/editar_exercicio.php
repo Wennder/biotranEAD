@@ -1,26 +1,15 @@
 <script>    
-    $(document).ready(function(){   
-        $('#form_descritivo_exercicio').validate({
+    $(document).ready(function(){                  
+        $('#form_cadastrar_pergunta').validate({
             rules:{
-                titulo_exercicio: {
+                numeracao: {
                     required: true
                 },
-                descricao_exercicio: {
+                enunciado: {
                     required: true
                 }
             }
         });
-        
-        //        $('#form_cadastrar_pergunta').validate({
-        //            rules:{
-        //                numeracao: {
-        //                    required: true
-        //                },
-        //                enunciado: {
-        //                    required: true
-        //                }
-        //            }
-        //        });
         
         $('#btn_editar_exercicio').click(function(){
             if($(this).attr('value') == 'Editar'){

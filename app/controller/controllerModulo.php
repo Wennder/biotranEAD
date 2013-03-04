@@ -241,7 +241,7 @@ class controllerModulo {
     }
 
     public function listaModulos($id_curso) {
-        $modulos = $this->getListaModulo('id_curso=' . $id_curso);
+        $modulos = $this->getListaModulo('id_curso=' . $id_curso . ' ORDER BY numero_modulo');
         $quant = count($modulos);
         $i = 0;
         $listaModulos = "";
