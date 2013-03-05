@@ -1,5 +1,9 @@
 var oTable_matricula, elem_matricula, id_curso;
 
+oTable_matricula = $('#tabela_matricula_cursos').dataTable({
+            "bJQueryUI":true
+        });
+
 function updateDataTables_matricula(){   
     //    elem_matricula = $('tbody tr.row_selected');
     if(elem_matricula.length > 0){

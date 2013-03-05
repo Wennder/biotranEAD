@@ -3,11 +3,21 @@
         $('#form_cadastrar_pergunta').validate({
             rules:{
                 numeracao: {
-                    required: true
+                    required: true,
+                    number: true
                 },
                 enunciado: {
                     required: true
-                }
+                },
+                eh_correta: {
+                    required: true
+                },
+                resposta0: {
+                    required: true
+                },
+                justificativa-0: {
+                    required: true
+                }                
             }
         });
         

@@ -36,9 +36,12 @@ function insertDataTables(_form){//Adicionar essa função
             if(nomeColunas[i] == 'id_papel'){
                 valorCampo = getNomePapel(valorCampo);
             }
-            fields_value.push(valorCampo);                
-        }
-    }
+            if(nomeColunas[i] == 'status_acesso'){
+                valorCampo = 'Liberado';
+            }
+            fields_value.push(valorCampo);
+        }        
+    }    
     oTable.fnAddData(fields_value, true);        
       
 //        alert('merda');
@@ -47,14 +50,14 @@ function insertDataTables(_form){//Adicionar essa função
 
     
 $(document).ready(function a(){
-    $('#foto').live('change',function(){
-        $('#foto_usuario').html('<img src="img/gif/ajax-loader-f.gif" alt="Enviando..."/> Enviando...');
-        /* Efetua o Upload sem dar refresh na pagina */
-        $('#form_imagem').ajaxForm({
-            target:'#foto_usuario' // o callback será no elemento com o id #visualizar
-        }).submit();
-        alert("c");
-    });
+    
+//    $('#foto').live('change',function(){
+//        $('#foto_usuario').html('<img src="img/gif/ajax-loader-f.gif" alt="Enviando..."/> Enviando...');
+//        /* Efetua o Upload sem dar refresh na pagina */
+//        $('#form_imagem').ajaxForm({
+//            target:'#foto_usuario' // o callback será no elemento com o id #visualizar
+//        }).submit();    
+//    });
     
     //capturando nome das colunas da tabela para lógica replace de ids
     i = 0;
@@ -65,6 +68,8 @@ $(document).ready(function a(){
             nomeColunas[i++] = 'id_papel';
         } else if ($(this).text() == 'Atuação'){
             nomeColunas[i++] = 'atuacao';                                
+        } else if ($(this).text() == 'Status Acesso'){
+            nomeColunas[i++] = 'status_acesso';                                
         }else nomeColunas[i++] = $(this).text();
     });
         

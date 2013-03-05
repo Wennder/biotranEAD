@@ -116,6 +116,7 @@ $(document).ready(function(){
         var aux;
         var btn = $(this);
         var tipo = btn.attr('name').split('-');
+        var exercicio = btn.attr('name');
         if(tipo[0] != 'h3'){
             var div = '#div_conteudo_'+btn.attr('name');
             var gif = '<img id="ajax_loader" src="img/gif/ajax-loader.gif" />';
@@ -175,20 +176,23 @@ $(document).ready(function(){
                                 $('#porcentagem').html('100%');
                                 $('pre').html(data);
                                 if(data != 0){
-                                    alert('Arquivo inserido!');
-                                    $(dialog).dialog('close');
+                                    if(exercicio == 'exercicio'){
+                                        alert('Exercício inserido!');
+                                    }else{
+                                        alert('Arquivo inserido!');
+                                    }
                                     insereLinha(data, tipo);
+                                    $(dialog).dialog('close');
                                 }
                             }
                         });
                     },
                     close: function(event,ui){                     
                         $(dialog).dialog('destroy');
-                        $(dialog).find('div').remove();
+                        $(dialog).find('div').remove();                        
                         if(aux != 0){
-                            aux = aux.split('-');
-                            aux[0] = aux[0].replace('"', '');
-                            $(".edt"+aux[0]).trigger('click');
+                            aux = aux.split('-');                            
+                            $(".edt"+aux[0]+"").click();
                         }
                     }                                        
                 });
@@ -269,7 +273,7 @@ function insereLinha(data, tipo){
             }
         }
         tipo = '#lista_'+tipo;
-        $(tipo.toString()).append($(_HTML));
+        $(tipo.toString()).append($(_HTML));        
     }
 }              
 function optionsFormCadastrarPergunta(form){                

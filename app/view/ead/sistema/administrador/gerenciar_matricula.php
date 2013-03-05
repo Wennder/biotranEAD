@@ -4,7 +4,7 @@
             "bJQueryUI":true
         });
         
-        $('#.i_data_termino').datepicker({
+        $('.i_data_termino').datepicker({
             dateFormat: "dd/mm/yy",
             minDate: 1,
             onClose: function (selected, dpinstance){                                
@@ -28,9 +28,12 @@
     <div style="border-bottom:1px solid #eeeeee; width: 940px;">
         <center><label style="font-weight: bold; font-size: 14px;">Gerenciar Matrícula</label></center>
     </div><br>
-    <center><label style="font-size: 13px;"><?php echo $this->usuario->getNome_completo(); ?></label></center><br>
+    <center><label style="font-size: 15px;"><?php echo $this->usuario->getNome_completo(); ?></label></center><br>
+    
     <input type="button" value="" id="btn_matricular" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Matricular
+    
     <?php
     echo $this->tabela;
     ?>
+    
 </div>
