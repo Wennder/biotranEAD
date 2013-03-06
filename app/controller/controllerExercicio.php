@@ -206,7 +206,7 @@ class controllerExercicio {
                 <legend>Editar Questão</legend>
                 <table>
                     <tr>
-                        <td><label>Nº </label><input id="numeracao" name="numeracao" value="' . $p[$i]->getNumeracao() . '" class="text-input" style="width: 30px"/></td>
+                        <td><label>Nº </label><input id="numeracao" readonly="true" name="numeracao" value="' . $p[$i]->getNumeracao() . '" class="text-input" style="width: 30px"/></td>
                         <td><textarea placeholder="Enunciado da Questão" id="enunciado" name="enunciado" class="text-area" style="height: 34px; width:650px;">' . $p[$i]->getEnunciado() . '</textarea></td>
                     </tr>';
             $lista .= '<tr>
@@ -239,13 +239,13 @@ class controllerExercicio {
                                             <input type="radio" ' . $c . ' name="eh_correta" value="' . $j . '" style="margin: 5px 0 0 15px;"/>
                                         </td>
                                         <td>
-                                            <textarea placeholder="Alternativa ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" class="text-area" style="height: 34px; width: 650px;">' . $a[$j]->getResposta() . '</textarea>
+                                            <textarea placeholder="Alternativa ' . ($j + 1) . '" id="resposta_' . $j . '" name="resposta_' . $j . '" class="text-area" style="height: 34px; width: 650px;">' . $a[$j]->getResposta() . '</textarea>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td>
-                                            <textarea placeholder="Justificativa" id="justificativa-' . $j . '" name="justificativa-' . $j . '" class="text-area" style="height:34px; width: 650px; ">' . $a[$j]->getJustificativa() . '</textarea>
+                                            <textarea placeholder="Justificativa" id="justificativa_' . $j . '" name="justificativa_' . $j . '" class="text-area" style="height:34px; width: 650px; ">' . $a[$j]->getJustificativa() . '</textarea>
                                         </td>
                                     </tr>';
             }
@@ -293,12 +293,12 @@ class controllerExercicio {
                 $lista.='
                                     <tr>
                                         <td>
-                                            <textarea readonly="true" placeholder="Alternativa ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" class="text-area" style="height: 34px; width: 650px;">' . $a[$j]->getResposta() . '</textarea>
+                                            <textarea readonly="true" placeholder="Alternativa ' . ($j + 1) . '" id="resposta_' . $j . '" name="resposta_' . $j . '" class="text-area" style="height: 34px; width: 650px;">' . $a[$j]->getResposta() . '</textarea>
                                         </td>
                                     </tr>
                                     <tr>                                        
                                         <td>
-                                            <textarea readonly="true" placeholder="Justificativa" id="justificativa-' . $j . '" name="justificativa-' . $j . '" class="text-area" style="height:34px; width: 650px; ">' . $a[$j]->getJustificativa() . '</textarea>
+                                            <textarea readonly="true" placeholder="Justificativa" id="justificativa_' . $j . '" name="justificativa_' . $j . '" class="text-area" style="height:34px; width: 650px; ">' . $a[$j]->getJustificativa() . '</textarea>
                                         </td>
                                     </tr>';
             }
@@ -396,13 +396,13 @@ class controllerExercicio {
 //
 //            for ($j = 0; $j < count($a); $j++) {
 //                $lista .='<div style="padding:0; margin:0">
-//                            <textarea readonly="true" placeholder="Alternativa ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px">' . $a[$j]->getResposta() . '</textarea>
+//                            <textarea readonly="true" placeholder="Alternativa ' . ($j + 1) . '" id="resposta_' . $j . '" name="resposta_' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 300px">' . $a[$j]->getResposta() . '</textarea>
 //                        </div>';
 //            }
 //            $lista .= '</fieldset >';
 ////            for ($j = 0; $j < count($a); $j++) {
 ////                $lista .= '<div>
-////                            <textarea readonly="true" placeholder="Justificativa" id="justificativa-' . $j . '" name="justificativa-' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px; ">' . $a[$j]->getJustificativa() . '</textarea>
+////                            <textarea readonly="true" placeholder="Justificativa" id="justificativa_' . $j . '" name="justificativa_' . $j . '" rows="2" class="validate[required] text-input" data-prompt-position="centerRight" maxlength="100" style="width: 300px; ">' . $a[$j]->getJustificativa() . '</textarea>
 ////                        </div>';
 ////            }
 //            $lista .='</div>
@@ -425,7 +425,7 @@ class controllerExercicio {
                 <legend>Editar Questão</legend>
                 <table>
                     <tr>
-                        <td><label>Nº </label><input id="numeracao" name="numeracao" value="' . $p->getNumeracao() . '" class="text-input" style="width: 30px"/></td>
+                        <td><label>Nº </label><input id="numeracao" readonly="true" name="numeracao" value="' . $p->getNumeracao() . '" class="text-input" style="width: 30px"/></td>
                         <td><textarea placeholder="Enunciado da Questão" id="enunciado" name="enunciado" class="text-area" style="height: 34px; width:650px;">' . $p->getEnunciado() . '</textarea></td>
                     </tr>
                     <tr>
@@ -457,13 +457,13 @@ class controllerExercicio {
                                             <input type="radio" ' . $c . ' name="eh_correta" value="' . $j . '" style="margin: 5px 0 0 15px;"/>
                                         </td>
                                         <td>
-                                            <textarea placeholder="Alternativa ' . ($j + 1) . '" id="resposta-' . $j . '" name="resposta-' . $j . '" class="text-area" style="height: 34px; width: 650px;">' . $a[$j]->getResposta() . '</textarea>
+                                            <textarea placeholder="Alternativa ' . ($j + 1) . '" id="resposta_' . $j . '" name="resposta_' . $j . '" class="text-area" style="height: 34px; width: 650px;">' . $a[$j]->getResposta() . '</textarea>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td>
-                                            <textarea placeholder="Justificativa" id="justificativa-' . $j . '" name="justificativa-' . $j . '" class="text-area" style="height:34px; width: 650px; ">' . $a[$j]->getJustificativa() . '</textarea>
+                                            <textarea placeholder="Justificativa" id="justificativa_' . $j . '" name="justificativa_' . $j . '" class="text-area" style="height:34px; width: 650px; ">' . $a[$j]->getJustificativa() . '</textarea>
                                         </td>
                                     </tr>';
         }

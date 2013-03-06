@@ -119,7 +119,7 @@ $(document).ready(function(){
         var exercicio = btn.attr('name');
         if(tipo[0] != 'h3'){
             var div = '#div_conteudo_'+btn.attr('name');
-            var gif = '<img id="ajax_loader" src="img/gif/ajax-loader.gif" />';
+            var gif = '<img id="ajax_loader" src="img/gif/ajax-loader2.gif" />';
             $(div.toString()).append($(gif));
             tipo = tipo[0];
         }else{
@@ -198,17 +198,35 @@ $(document).ready(function(){
                 });
             }
         });        
-    });
+    });      
                 
     $(".link_video").live('click',function() {
         var tag = $(this);
         if(tag.attr('name') == 'video'){                                                    
             $('#dialog_video').load(tag.attr('id'), function (){
-                console.log(this);
                 var options = {
                     width:700, 
-                    height:400,
+                    height:600,
                     dialogClass:'dialogstyle',
+                    focus: function(event, ui){
+                        $('#form_cadastrar').ajaxForm({
+                            dataType:"json",
+                            uploadProgress: function(event, position, total, percentComplete) {
+                                $('progress').attr('value',percentComplete);
+                                $('#porcentagem').html(percentComplete+'%');
+                            },                            
+                            success: function(data) {                                
+                                $('progress').attr('value','100');
+                                $('#porcentagem').html('100%');
+                                $('pre').html(data);
+                                if(data != 0){
+                                    alert('Atualizado com sucesso!');
+                                    atualizaLinha(data, 'video');
+                                    $(dialog_video).dialog('close');
+                                }
+                            }
+                        });                        
+                    },
                     open: function(event,ui){                                                                                
                     },
                     close: function(event,ui){                     
@@ -255,7 +273,7 @@ $(document).ready(function(){
     });
 });
 
-function insereLinha(data, tipo){ 
+function atualizaLinha(data, tipo){
     if($('#center_content').find('div').attr('id') == 'div_conteudo_professor_editar_modulo'){                                        
         var id_modulo = $('#id_modulo').val();
         var id_curso = $('#id_curso').val();        
@@ -270,6 +288,33 @@ function insereLinha(data, tipo){
                 var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label name="'+tipo+'" id="'+data[1]+'">'+data[1].toString()+'</label>' + excluir + editar + '</li>';
             }else{
                 var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label><a target="_blank" name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+'.pdf">'+data[1].toString() + '</a></label>' + excluir + '</li>';
+            }
+        }
+        tipo = '#lista_'+tipo;
+        $(tipo.toString()).find('#li_video_'+data[0]).remove();
+        $(tipo.toString()).append($(_HTML));        
+    }
+}
+
+function insereLinha(data, tipo){ 
+    if($('#center_content').find('div').attr('id') == 'div_conteudo_professor_editar_modulo'){                                        
+        var id_modulo = $('#id_modulo').val();
+        var id_curso = $('#id_curso').val();        
+        data = data.split('-');
+        var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir" style="float: right;"/>';
+        if(tipo == 'video'){
+            var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar" style="float: right;"/>';
+            var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label class="link_video" name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1].toString()+'</label>' + excluir + editar + '</li>';
+        }else{            
+            if(tipo == 'exercicio'){
+                var editar = '<input id="index.php?c=ead&a=editar_exercicio&id='+data[0]+'" name="'+tipo+'" type="button" class="btn_edt edt'+data[0]+'" value="Editar" style="float: right;">';
+                var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label name="'+tipo+'" id="'+data[1]+'">'+data[1].toString()+'</label>' + excluir + editar + '</li>';
+            }else{
+                if(data[2] == '.mp4'){
+                    var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label><a name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+data[2]+'">'+data[1].toString() + '</a></label>' + excluir + '</li>';                    
+                }else{
+                    var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label><a target="_blank" name="'+tipo+'" href="cursos/'+id_curso+'/modulos/'+id_modulo+'/'+tipo+'/'+data[0]+data[2]+'">'+data[1].toString() + '</a></label>' + excluir + '</li>';                    
+                }
             }
         }
         tipo = '#lista_'+tipo;

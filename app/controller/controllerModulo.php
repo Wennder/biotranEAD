@@ -197,6 +197,11 @@ class controllerModulo {
             $link = "cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/" . $tipo . "/";
             $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $modulo->getId_modulo() . "/" . $tipo . "/";
             $arquivos = glob($diretorio . "*.pdf");
+            $controle = 0;
+            if (!$arquivos && $tipo == 'material_complementar') {
+                $arquivos = glob($diretorio . "*.mp4");
+                $controle = 1;
+            }
             $lista = "";
             $controller = 'controller' . ucfirst($tipo);
             $controller = new $controller;
@@ -205,7 +210,11 @@ class controllerModulo {
                 $get = 'get' . ucfirst($tipo);
                 $txt = $controller->$get('id_' . $tipo . '=' . $id[0]);
                 $lista .= "<li class='conteudo_row' id='li_" . $tipo . "_" . $id[0] . "'><label>";
-                $lista .= "<a target='_blank' href='" . $link . basename($arquivo) . "'>" . $txt->getNome() . "</a>";
+                if ($controle) {
+                    $lista .= "<a href='index.php?c=ead&a=download&arquivo=" . $link . basename($arquivo) . "'>" . $txt->getNome() . "</a>";
+                } else {
+                    $lista .= "<a target='_blank' href='" . $link . basename($arquivo) . "'>" . $txt->getNome() . "</a>";
+                }
                 $lista .= "</label><input type='button' name='" . $tipo . "' id='" . $id[0] . "' class='btn_del' value='Excluir'/>";
                 $lista .= "</li>";
             }
@@ -266,7 +275,7 @@ class controllerModulo {
      */
 
     public function criaDiretorioModulo(Modulo $modulo) {
-        $caminho = ROOT_PATH . '/public/cursos/' . $modulo->getId_curso() . '/modulos/' . $modulo->getId_modulo();        
+        $caminho = ROOT_PATH . '/public/cursos/' . $modulo->getId_curso() . '/modulos/' . $modulo->getId_modulo();
         if (!mkdir($caminho, 0777, true))
             trigger_error("Não foi possível criar o diretório de modulos");
         $video = $caminho . '/video_aula';
@@ -342,6 +351,11 @@ class controllerModulo {
                 $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
                 if (in_array($video['type'], $tipos)) {
                     $video_nome = $pasta_dir . $id_video . ".mp4";
+                    if (is_file($video_nome)) {
+                        if (!unlink($video_nome)) {
+                            return 0;
+                        }
+                    }
                     move_uploaded_file($_FILES['video']['tmp_name'], $video_nome);
                     return 1;
                 }
@@ -359,9 +373,9 @@ class controllerModulo {
         if (isset($_FILES["arquivo"])) {
             if ($_FILES["arquivo"]["name"] != '') {
                 $arquivo = $_FILES["arquivo"];
-                $tipos = array("pdf");
+                $tipos = array("application/pdf");
                 $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $txt->getId_modulo() . "/texto_referencia/";
-                if (!in_array($arquivo['type'], $tipos)) {
+                if (in_array($arquivo['type'], $tipos)) {
                     $arquivo_nome = $pasta_dir . $txt->getId_texto_referencia() . '.pdf';
                     move_uploaded_file($_FILES["arquivo"]["tmp_name"], $arquivo_nome);
                     return 1;
@@ -379,10 +393,16 @@ class controllerModulo {
         if (isset($_FILES["arquivo"])) {
             if ($_FILES["arquivo"]["name"] != '') {
                 $arquivo = $_FILES["arquivo"];
-                $tipos = array("pdf");
+                $tipos = array("application/pdf", "video/mp4");
                 $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $material->getId_modulo() . "/material_complementar/";
-                if (!in_array($arquivo['type'], $tipos)) {
-                    $arquivo_nome = $pasta_dir . $material->getId_material_complementar() . '.pdf';
+                if (in_array($arquivo['type'], $tipos)) {
+                    if ($arquivo['type'] == "video/mp4") {
+                        $arquivo_nome = $pasta_dir . $material->getId_material_complementar() . '.mp4';
+                        move_uploaded_file($_FILES["arquivo"]["tmp_name"], $arquivo_nome);
+                        return 3;
+                    } else {
+                        $arquivo_nome = $pasta_dir . $material->getId_material_complementar() . '.pdf';
+                    }
                     move_uploaded_file($_FILES["arquivo"]["tmp_name"], $arquivo_nome);
                     return 1;
                 } else {
@@ -405,12 +425,26 @@ class controllerModulo {
         return 0;
     }
 
+    public function atualizar_video() {
+        $v = $this->setConteudo('video');
+        $controller = new controllerVideo();
+        $aux = $controller->getVideo("id_video=" . $v->getId_video());
+        $v->setId_modulo($aux->getId_modulo());
+        if ($controller->atualizaVideo($v)) {
+            $this->setArquivoVideo($v);
+            $retorno = $v->getId_video() . '-' . $v->getTitulo();
+            return $retorno;
+        } else {
+            return 0;
+        }
+    }
+
     public function inserir_texto_referencia() {
         $texto = $this->setConteudo('texto_referencia');
         $controller = new controllerTexto_referencia();
         $texto->setId_texto_referencia($controller->novoTexto_referencia($texto));
         if ($this->setArquivoTexto_referencia($texto)) {
-            $retorno = $texto->getId_texto_referencia() . '-' . $texto->getNome();
+            $retorno = $texto->getId_texto_referencia() . '-' . $texto->getNome() . "-.pdf";
             return $retorno;
         }
         return 0;
@@ -420,8 +454,14 @@ class controllerModulo {
         $material = $this->setConteudo('material_complementar');
         $controller = new controllerMaterial_complementar();
         $material->setId_material_complementar($controller->novoMaterial_complementar($material));
-        if ($this->setArquivoMaterial_complementar($material)) {
+        $aux = $this->setArquivoMaterial_complementar($material);
+        if ($aux) {
             $retorno = $material->getId_material_complementar() . '-' . $material->getNome();
+            if ($aux == 3) {
+                $retorno .= "-.mp4";
+            } else {
+                $retorno .= "-.pdf";
+            }
             return $retorno;
         }
         return 0;
@@ -470,6 +510,11 @@ class controllerModulo {
             $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $material->getId_modulo() . "/material_complementar/" . $material->getId_material_complementar() . ".pdf";
             if (unlink($diretorio)) {
                 return 1;
+            } else {
+                $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $material->getId_modulo() . "/material_complementar/" . $material->getId_material_complementar() . ".mp4";
+                if (unlink($diretorio)) {
+                    return 1;
+                }
             }
         }
         return 0;
@@ -500,13 +545,13 @@ class controllerModulo {
         $this->modulo->setId_curso($id_curso);
         // se módulo já existe - numeração igual
 //        if ($dao->select("id_curso =$id_curso AND numero_modulo = " . $this->modulo->getNumero_modulo()) != null) {
-            //aqui atualiza em +1 as numerações dos módulos a partir da 'nova' numeração inserida
+        //aqui atualiza em +1 as numerações dos módulos a partir da 'nova' numeração inserida
 //            $dao->updateNumero_modulo($this->modulo->getNumero_modulo(), $id_curso);
 //        }
         //insere modulo
         $dao = new ModuloDAO();
         $id = $dao->insert($this->modulo);
-        if($id){
+        if ($id) {
             $this->modulo->setId_modulo($id);
         }
         $this->criaDiretorioModulo($this->modulo);
@@ -516,7 +561,7 @@ class controllerModulo {
     public function removerModulo($id_modulo) {
         /* remover todos os itens relacionados com módulo:
          *  - vídeo, material complementar e etc
-         */               
+         */
         $m = $this->getModulo("id_modulo=$id_modulo");
         $this->removeDiretorioModulo($m);
         $dao = new ModuloDAO();

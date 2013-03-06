@@ -684,6 +684,10 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->listaPerguntas = $c->listaPerguntas_admin($id_exercicio);
         $this->renderizar();
     }
+    
+    public function actionDownload(){
+        $this->renderizar();
+    }
 
 }
 

@@ -11,13 +11,31 @@
                 },
                 eh_correta: {
                     required: true
-                },
-                resposta0: {
+                },                
+                resposta_0: {
                     required: true
                 },
-                justificativa-0: {
+                justificativa_0: {
                     required: true
-                }                
+                },                
+                resposta_1: {
+                    required: true
+                },
+                justificativa_1: {
+                    required: true
+                },                
+                resposta_2: {
+                    required: true
+                },
+                justificativa_2: {
+                    required: true
+                },                
+                resposta_3: {
+                    required: true
+                },
+                justificativa_3: {
+                    required: true
+                }
             }
         });
         
@@ -128,13 +146,13 @@
                                                         <input type="radio" name="eh_correta" value="0" style="margin: 5px 0 0 15px;"/>
                                                     </td>
                                                     <td>
-                                                        <textarea placeholder="Alternativa 1" id="resposta-0" name="resposta-0" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Alternativa 1" id="resposta_0" name="resposta_0" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td>
-                                                        <textarea placeholder="Justificativa da alternativa 1" id="justificativa-0" name="justificativa-0" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Justificativa da alternativa 1" id="justificativa_0" name="justificativa_0" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
                                                 <!--                                            Alternativa 2 -->
@@ -143,13 +161,13 @@
                                                         <input type="radio" name="eh_correta" value="1" style="margin: 5px 0 0 15px;"/>
                                                     </td>
                                                     <td>
-                                                        <textarea placeholder="Alternativa 2" id="resposta-1" name="resposta-1" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Alternativa 2" id="resposta_1" name="resposta_1" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td>
-                                                        <textarea placeholder="Justificativa da alternativa 2" id="justificativa-1" name="justificativa-1" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Justificativa da alternativa 2" id="justificativa_1" name="justificativa_1" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
                                                 <!--                                            Alternativa 3 -->
@@ -158,13 +176,13 @@
                                                         <input type="radio" name="eh_correta" value="2" style="margin: 5px 0 0 15px;"/>
                                                     </td>
                                                     <td>
-                                                        <textarea placeholder="Alternativa 3" id="resposta-2" name="resposta-2" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Alternativa 3" id="resposta_2" name="resposta_2" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td>
-                                                        <textarea placeholder="Justificativa da alternativa 3" id="justificativa-2" name="justificativa-2" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Justificativa da alternativa 3" id="justificativa_2" name="justificativa_2" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
                                                 <!--                                            Alternativa 4 -->
@@ -173,13 +191,13 @@
                                                         <input type="radio" name="eh_correta" value="3" style="margin: 5px 0 0 15px;"/>
                                                     </td>
                                                     <td>
-                                                        <textarea placeholder="Alternativa 4" id="resposta-3" name="resposta-3" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Alternativa 4" id="resposta_3" name="resposta_3" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td>
-                                                        <textarea placeholder="Justificativa da alternativa 4" id="justificativa-3" name="justificativa-3" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Justificativa da alternativa 4" id="justificativa_3" name="justificativa_3" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
                                             </table>

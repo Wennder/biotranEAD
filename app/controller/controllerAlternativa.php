@@ -64,8 +64,8 @@ class controllerAlternativa {
         }
         if (!empty($_POST)) {
             foreach ($_POST as $k => $v) {
-                $aux = explode('-', $k);
-                if (isset($aux[1])) {
+                $aux = explode('_', $k);
+                if (isset($aux[1]) && ($aux[0] == 'justificativa' || $aux[0] == 'resposta')) {
                     $setAtributo = 'set' . ucfirst($aux[0]);
                     if (method_exists($alternativa[$aux[1]], $setAtributo)) {
                         $alternativa[$aux[1]]->$setAtributo($v);

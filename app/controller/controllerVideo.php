@@ -40,6 +40,11 @@ class controllerVideo {
         $dao = new VideoDAO();
         return $dao->delete($v);        
     }        
+    
+    public function atualizaVideo(Video $v){
+        $dao = new VideoDAO();
+        return $dao->update($v);
+    }
 
 }
 ?>

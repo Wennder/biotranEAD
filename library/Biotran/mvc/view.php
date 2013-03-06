@@ -11,10 +11,9 @@ class Biotran_Mvc_View {
 
     public function renderizar($diretorio, $arquivo) {
 
-        //se realmente existe alguém logado
         if ($diretorio != 'index' && $arquivo != 'dados_pessoais.php' && $arquivo != 'index.php' && $arquivo != 'acesso_negado.php' && $arquivo != 'forum.php'
-                && $arquivo != 'adicionar_topico.php' && $arquivo != 'topico.php' && $arquivo != 'responder_topico.php') {
-
+                && $arquivo != 'adicionar_topico.php' && $arquivo != 'topico.php' && $arquivo != 'responder_topico.php' && $arquivo!='download.php') {
+            //se realmente existe alguém logado
             if (isset($_SESSION['usuarioLogado'])) {
                 $user = $_SESSION['usuarioLogado'];
                 $controller = new controllerPapel();

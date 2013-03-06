@@ -19,9 +19,9 @@
 <div id="form_cadastro">
     <form id="form_cadastrar" class="form_cadastro" method="post" action="ajax/crud_conteudo_modulo.php?acao=inserir_video" enctype="multipart/form-data">
         <div style="border-bottom:1px solid #eeeeee; width: 620px;">
-            <center><label style="font-weight: bold; font-size: 14px;">Módulo <?php echo $this->modulo->getId_modulo(); ?> - Adicionar Vídeo-Aula</label></center>
+            <center><label style="font-weight: bold; font-size: 14px;">Módulo <?php echo $this->modulo->getNumero_modulo(); ?> - Adicionar Vídeo-Aula</label></center>
         </div><br>
-        <fieldset style="width:600px;">
+        <fieldset style="width:700px;">
             <legend>Dados</legend>
             <table style="width: 100%;">
                 <tr>

@@ -35,7 +35,7 @@ class VideoDAO extends PDOConnectionFactory {
         }
     }
 
-    public function update(Video $video, $condicao) {
+    public function update(Video $video) {
         try {
             $this->conex->exec("SET NAMES 'utf8'");
             $stmt = $this->conex->prepare("UPDATE video SET descricao=?, titulo=?, id_modulo=? WHERE id_video=?");
@@ -44,7 +44,9 @@ class VideoDAO extends PDOConnectionFactory {
             $stmt->bindValue(3, $video->getId_modulo());
             $stmt->bindValue(4, $video->getId_video());
             
-            $stmt->execute();
+            if($stmt->execute())
+                return 1;
+            return 0;
         } catch (PDOException $ex) {
             echo "Erro: " . $ex->getMessage();
         }
