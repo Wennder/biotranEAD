@@ -207,13 +207,36 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionPag_curso() {
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $id_usuario = $_SESSION['usuarioLogado']->getId_usuario();
         $this->controller = new controllerCurso();
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
-        $this->controller = new controllerModulo();
-        $this->visao->listaModulos = $this->controller->listaModulos($id_curso);
-        $this->controller = new controllerUsuario();
-        $this->visao->listaAlunos = $this->controller->listaAlunos($id_curso);
-        $this->renderizar();
+        $this->controller = new controllerMatricula_curso();
+        $this->visao->mc = $this->controller->getMatricula_curso("id_usuario=" . $id_usuario . " AND id_curso=" . $id_curso . "");
+        //Se ainda não finalizou o curso..
+        if (!$this->visao->mc->getStatus_finalizado()) {
+            //CALCULANDO DIFERENÇA ENTRE DATAS PARA SABER TEMPO DE TERMINO DO CURSO
+            // Usa a função criada e pega o timestamp das duas datas:
+            $data_atual = date("d/m/Y");
+            $time_inicial = $this->geraTimestamp($data_atual);
+            $time_final = $this->geraTimestamp($this->visao->mc->getData_fim());
+            // Calcula a diferença de segundos entre as duas datas:
+            $diferenca = $time_final - $time_inicial;
+            // Calcula a diferença de dias
+            $this->visao->dias_restantes = (int) floor($diferenca / (60 * 60 * 24));
+            //Se ainda tem tempo para fazer curso não finalizado            
+            if (($this->visao->curso->getTempo() - $this->visao->dias_restantes) != 0) {
+                $this->controller = new controllerModulo();
+                $this->visao->listaModulos = $this->controller->listaModulos($id_curso);
+                $this->controller = new controllerUsuario();
+                $this->visao->listaAlunos = $this->controller->listaAlunos($id_curso);
+                $this->renderizar();
+            } else {//se o tempo acabou..
+                echo 'Seu tempo para realizar o curso ' . $this->visao->curso->getNome() . ' acabou. Consulte a Biotran para renovação de sua matrícula';
+            }
+        }else{
+           //CURSO FINALIZADO
+            echo 'Curso finalizado';
+        }
     }
 
     public function actionPag_modulo() {
@@ -493,7 +516,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         }
         $this->renderizar();
     }
-    
+
     public function enviarEmail($user, $user_logado) {
         //---enviar e-mail
         $mail = new PHPMailer(); //instancia o objeto PHPMailer
@@ -536,14 +559,17 @@ class ControllerEad extends Biotran_Mvc_Controller {
         if ($_GET['i'] == 1) {
             $controllerG = new controllerSistema();
             $p = $controllerG->inserir_patrocinador();
-            if($p != 0){
-                echo $p->getImagem() . '--' . $p->getId_patrocinador();die();
+            if ($p != 0) {
+                echo $p->getImagem() . '--' . $p->getId_patrocinador();
+                die();
             }
-            echo 0; die();
+            echo 0;
+            die();
         } else if (isset($_GET['id'])) {
             $controllerG = new controllerSistema();
             $retorno = $controllerG->removerPatrocinador($_GET['id']);
-            echo json_encode($retorno);die();
+            echo json_encode($retorno);
+            die();
         }
         $this->renderizar();
     }
@@ -556,7 +582,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         if ($_GET['i'] == '1') {
             $this->controller = new controllerSistema();
             $n = $this->controller->inserir_noticia();
-            if(!$n){
+            if (!$n) {
                 echo 0;
                 die();
             }
@@ -565,7 +591,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         } else if (isset($_GET['u'])) {
             $this->controller = new controllerSistema();
             $n = $this->controller->atualizar_noticia();
-            if(!$n){
+            if (!$n) {
                 echo 0;
                 die();
             }
@@ -574,7 +600,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         } else if (isset($_GET['id'])) {
             $this->controller = new controllerSistema();
             $resposta = $this->controller->removerNoticia($_GET['id']);
-            echo json_encode($resposta);die();
+            echo json_encode($resposta);
+            die();
         }
         $this->renderizar();
     }
@@ -596,7 +623,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         } else if (isset($_GET['id'])) {
             $this->controller = new controllerSistema();
             $resposta = $this->controller->removerComentario($_GET['id']);
-            echo json_encode($resposta);die();
+            echo json_encode($resposta);
+            die();
         }
         $this->renderizar();
     }
@@ -614,7 +642,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
         } else if (isset($_GET['id'])) {
             $controllerG = new controllerSistema();
             $retorno = $controllerG->removerDestaque($_GET['id']);
-            echo json_encode($retorno);die();
+            echo json_encode($retorno);
+            die();
         }
         $this->renderizar();
     }
@@ -650,16 +679,17 @@ class ControllerEad extends Biotran_Mvc_Controller {
         if ($_GET['i'] == 1) {
             $controllerG = new controllerSistema();
             $f = $controllerG->inserir_foto();
-            if(!$f){
+            if (!$f) {
                 echo 0;
-            }else{
+            } else {
                 echo $f->getImagem() . '--' . $f->getId_foto();
             }
             die();
         } else if (isset($_GET['id'])) {
             $controllerG = new controllerSistema();
             $retorno = $controllerG->removerFoto($_GET['id']);
-            echo json_encode($retorno);die();
+            echo json_encode($retorno);
+            die();
         }
         $this->renderizar();
     }
@@ -676,17 +706,22 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->usuario = $controllerUsuario->getUsuario("id_usuario=" . $this->visao->id_usuario . "");
         $this->renderizar();
     }
-    
+
     public function actionVisualizar_exercicio() {
         $id_exercicio = Biotran_Mvc::pegarInstancia()->pegarId();
         $c = new controllerExercicio();
-        $this->visao->exercicio= $c->getExercicio("id_exercicio=".$id_exercicio);
+        $this->visao->exercicio = $c->getExercicio("id_exercicio=" . $id_exercicio);
         $this->visao->listaPerguntas = $c->listaPerguntas_admin($id_exercicio);
         $this->renderizar();
     }
-    
-    public function actionDownload(){
+
+    public function actionDownload() {
         $this->renderizar();
+    }
+
+    public function geraTimestamp($data) {
+        $partes = explode('/', $data);
+        return mktime(0, 0, 0, $partes[1], $partes[0], $partes[2]);
     }
 
 }

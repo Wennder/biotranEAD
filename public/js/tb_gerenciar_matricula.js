@@ -1,8 +1,38 @@
-var oTable_matricula, elem_matricula, id_curso;
+var oTable_matricula, elem_matricula, id_curso, HTML_desempenho, dialog_desempenho;
+
+HTML_desempenho = '<div id="dialog_desempenho">'
++ '<div id="desempenho" style="display:none;">'
++'<center><b>--#NOMECURSO#--</b></center>'
++'<center><b>Desempenho de #NOMEUSUARIO#</b></center>'
++'<fieldset>'
++'<legend>Desempenho</legend>'
++'<table style="width: 100%;">'
++'<tr><td><table><tr>'
++'<td>'
++'<label class="label_profile">Média de acertos por exercícios realizados: </label>'
++'<label class="label_profile">#MEDIA_EXERCICIO#%</label>'
++'</td>'
++'</tr>'
++'<tr>'
++'<td>'
++'<label class="label_profile">Progresso no curso: </label>'
++'<label class="label_profile">#PROGRESSO#</label>'
++'</td></tr></table></td>'
++'</tr>'
++'<tr>'
++'<td>'
++'**Aqui explica como foi calculado o desempenho'
++'</td>'
++'</tr>'
++'<tr><td colspan="2"</td></tr>'
++'</table>'
++'</fieldset>'
++'</div>'
++'</div>';
 
 oTable_matricula = $('#tabela_matricula_cursos').dataTable({
-            "bJQueryUI":true
-        });
+    "bJQueryUI":true
+});
 
 function updateDataTables_matricula(){   
     //    elem_matricula = $('tbody tr.row_selected');
@@ -72,6 +102,48 @@ $('#btn_matricular').live('click', function(){
         if(elem_matricula.attr('name') == 'matricula'){
             alert('Já matriculado!');
         }
+    }
+})
+
+//acao do botão visualizar desemepnho - Desemepenho do usuario selecionado no curso
+$('#btn_desempenho').live('click', function(){    
+    elem_matricula = $('#tbody_tb_ger_matricula tr.row_selected');    
+    if (elem_matricula.length && (elem_matricula.attr('name') == 'matricula')) {        
+        var _data = oTable.fnGetData(elem[0]);
+        var _datamc = oTable_matricula.fnGetData(elem_matricula[0]);
+        var _HTML = $(HTML_desempenho).html();
+        var desempenho = 0;
+        $.ajax({
+           dataType: 'json',
+           data: {id_matricula_curso: elem_matricula.attr('id')},
+           url: 'ajax/ajax-gerenciar_matricula.php?acao=calcular_desempenho',
+           async: false,
+           success: function(data){
+               desempenho = data;
+           }
+        });
+        _HTML = _HTML.replace('#NOMECURSO#', _datamc[0]);
+               _HTML = _HTML.replace('#MEDIA_EXERCICIO#', desempenho);
+        _HTML = _HTML.replace('#NOMEUSUARIO#', _data[0]);
+        _HTML = _HTML.replace('#PROGRESSO#', _datamc[2]);                
+        dialog_desempenho = $(_HTML).dialog({
+            draggable: false,
+            resizable: false,
+            position: [(($(window).width()-900)/2), 15],
+            width:300,
+            show: {
+                effect: 'drop', 
+                direction: "up"
+            },
+            height: ($(window).height() - 40),
+            modal:true,                                          
+            close: function(event,ui){                     
+                $(dialog_desempenho).dialog('destroy');
+                $(dialog_desempenho).find('div').remove();
+            },
+            open: function(event, ui){
+            }
+        });            
     }
 })
 

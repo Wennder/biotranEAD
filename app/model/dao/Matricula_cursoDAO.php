@@ -45,14 +45,15 @@ class Matricula_cursoDAO extends PDOConnectionFactory {
         try {
             if ($mc != null) {
                 $this->conex->exec("SET NAMES 'utf8'");
-                $stmt = $this->conex->prepare("UPDATE matricula_curso SET id_curso=?, id_usuario=?,data_inicio=?, data_fim =?, status_acesso=?, modulo_atual=?  WHERE id_matricula_curso=?");
+                $stmt = $this->conex->prepare("UPDATE matricula_curso SET id_curso=?, id_usuario=?,data_inicio=?, data_fim =?, status_acesso=?, modulo_atual=?, status_finalizado=?  WHERE id_matricula_curso=?");
                 $stmt->bindValue(1, $mc->getId_curso());
                 $stmt->bindValue(2, $mc->getId_usuario());
                 $stmt->bindValue(3, $mc->getData_inicio());
                 $stmt->bindValue(4, $mc->getData_fim());
                 $stmt->bindValue(5, $mc->getStatus_acesso());
                 $stmt->bindValue(6, $mc->getModulo_atual());
-                $stmt->bindValue(7, $mc->getId_matricula_curso());
+                $stmt->bindValue(7, $mc->getStatus_finalizado());
+                $stmt->bindValue(8, $mc->getId_matricula_curso());
 
                 $stmt->execute();
                 if ($stmt->execute()) {

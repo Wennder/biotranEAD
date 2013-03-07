@@ -82,7 +82,7 @@ class controllerCurso {
             }
         }
     }
-    
+
     public function inserirAssinaturaCurso($id_curso) {
         //Inserção da foto
         if (isset($_FILES["assinatura"])) {
@@ -92,7 +92,7 @@ class controllerCurso {
                 $pasta_dir = "../img/cursos/";
                 if (in_array($imagem['type'], $tipos)) {
                     $imagem_nome = $pasta_dir . "ass-" . $id_curso . ".jpg";
-                    move_uploaded_file($_FILES['assinatura']["tmp_name"], $imagem_nome);                                        
+                    move_uploaded_file($_FILES['assinatura']["tmp_name"], $imagem_nome);
                 }
             }
         }
@@ -150,7 +150,7 @@ class controllerCurso {
             $this->inserirFotoCurso($this->curso->getId_curso());
             // inserindo assinatura digital;
         }
-        if(isset($_FILES["assinatura"])){           
+        if (isset($_FILES["assinatura"])) {
             $this->inserirAssinaturaCurso($this->curso->getId_curso());
         }
 
@@ -219,10 +219,10 @@ class controllerCurso {
         //se existir foto: para filtrar os cadastros feitos pela pag inicial
         if (isset($_FILES["imagem"])) {
             // NOME? NÃO É UMA ENTRADA ÚNICA... =/            
-            $this->inserirFotoCurso($this->curso->getId_curso());            
-        }            
+            $this->inserirFotoCurso($this->curso->getId_curso());
+        }
         if (isset($_FILES["assinatura"])) {
-            $this->inserirAssinaturaCurso($this->curso->getId_curso());           
+            $this->inserirAssinaturaCurso($this->curso->getId_curso());
         }
     }
 
@@ -359,7 +359,7 @@ class controllerCurso {
             // Lista os cursos aprovados e disponiveis
             $listaCursos .= "<div class='accord_body accord_list' style='border-left:3px solid #7fd08b; padding-left:5px;'><label class='accord_label'>Cursos Aprovados e Disponíveis</label><label class='accord_label_2'>$e Curso(s)</label></div>";
             $listaCursos .= "<div class='accord_content_body' style='display:none;'><ul class='accord_ul'>";
-            
+
             if ($aprovado_disponivel != "") {
                 $listaCursos .= $aprovado_disponivel;
             } else {
@@ -461,7 +461,7 @@ class controllerCurso {
         return $tabela;
     }
 
- public function lista_cursosAluno() {
+    public function lista_cursosAluno() {
         $tabela = null;
         $this->cursos = $this->getListaCursos("status = 4");
         $matricula_cursoDAO = new Matricula_cursoDAO();
@@ -486,7 +486,7 @@ class controllerCurso {
         $tabela .= "<div class='accord_content_body' style='display: none;'><ul class='accord_ul'>";
         if ($quant > 0)
             for (; $i < $quant; $i++) {
-                if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() ." AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
+                if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() . " AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
                     $tabela.="<li class='conteudo_row' style='height: 26px;'><label>" . $this->cursos[$i]->getNome() . "</label>";
                     $tabela.="<div style='float: right;'><input id='btn_visualizarCurso' name='" . $this->cursos[$i]->getId_curso() . "' type='button' class='button3' value='Visualizar'/></div></li>";
                 }
@@ -730,15 +730,17 @@ class controllerCurso {
                 $tabela .= "<tr name='matricula' id=" . $m->getId_matricula_curso() . ">";
                 $tabela .= "<td width='49%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
                 if ($m->getStatus_acesso() == 1) {
-                    $tabela .= "<td width='14%' id='status' align='center'><input type='checkbox' value='0' checked='checked' name='".$m->getId_matricula_curso()."' id='check_liberar_matricula' /></td>";
+                    $tabela .= "<td width='14%' id='status' align='center'><input type='checkbox' value='0' checked='checked' name='" . $m->getId_matricula_curso() . "' id='check_liberar_matricula' /></td>";
                 } else {
-                    $tabela .= "<td width='14%' id='status' align='center'><input type='checkbox' value='1' id='check_liberar_matricula' name='".$m->getId_matricula_curso()."' /></td>";
+                    $tabela .= "<td width='14%' id='status' align='center'><input type='checkbox' value='1' id='check_liberar_matricula' name='" . $m->getId_matricula_curso() . "' /></td>";
                 }
-                $tabela .= "<td width='11%' id='progresso' align='center'> -- </td>";
+                //Calculando Desempenho
+                $p = number_format($this->analise_progresso($this->cursos[$i], $m), 2);
+                $tabela .= "<td width='11%' id='progresso' align='center'>" . $p . "%</td>";
                 $tabela .= "<td width='13%' id='data_inicio' align='center'>" . $m->getData_inicio() . "</td>";
-                $tabela .= "<td width='13%' id='data_termino' align='center'><input type='text' value='" . $m->getData_fim() . "' id='data-".$m->getId_matricula_curso()."' name='".$m->getId_matricula_curso()."' class='i_data_termino' /></td>";
+                $tabela .= "<td width='13%' id='data_termino' align='center'><input type='text' value='" . $m->getData_fim() . "' id='data-" . $m->getId_matricula_curso() . "' name='" . $m->getId_matricula_curso() . "' class='i_data_termino' /></td>";
             } else {
-                $tabela .= "<tr name='nova_matricula' id='".$this->cursos[$i]->getId_curso()."'>";
+                $tabela .= "<tr name='nova_matricula' id='" . $this->cursos[$i]->getId_curso() . "'>";
                 $tabela .= "<td width='49%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
                 $tabela .= "<td width='14%' id='status' align='center'>Não Matriculado</td>";
                 $tabela .= "<td width='11%' id='progresso' align='center'> -- </td>";
@@ -750,7 +752,50 @@ class controllerCurso {
 
         $tabela .= "</tbody></table>";
         return $tabela;
-    }        
+    }
+
+    /*
+     * Conta simples:
+     * O progesso é a porc relativa do módulo atual + porc relativa de exercicios concluidos no módulo
+     */
+    public function analise_progresso(Curso $c, Matricula_curso $mc) {
+        $controller = new controllerModulo();
+        $modulo = $controller->getModulo("id_curso=" . $c->getId_curso() . " AND numero_modulo=" . $mc->getModulo_atual());
+        $qnt_exer = $controller->getQuantidadeExercicios($modulo->getId_modulo());
+        $y = (100 / $c->getNumero_modulos()) / $qnt_exer;
+        $p = $mc->getModulo_atual() * (100 / $c->getNumero_modulos()) + $y;
+        return $p;
+    }
+
+    /*
+     * Conta simples:
+     * Média de acertos entre os exercícios que já fez - por módulo;
+     */
+    public function analise_desempenho(Curso $c, Matricula_curso $mc) {
+        $ctr_modulo = new controllerModulo();
+        $ctr_usuario_exer = new controllerUsuario_exercicio();
+        $num_mod = $mc->getModulo_atual();
+        $soma_desem = 0;
+        $total_exer = 0;
+        //percorrendo módulo
+        while ($num_mod) {
+            $modulo = $ctr_modulo->getModulo("id_curso=" . $c->getId_curso() . " AND numero_modulo=" . $num_mod);
+            $lista = $ctr_usuario_exer->getListaUsuario_exercicios('id_modulo='.$modulo->getId_modulo());
+            $i = 0;
+            $aux = 0;
+            //percorrendo exercícios do módulo
+            for($i = 0; $i < count($lista); $i++){
+                $aux = $lista[$i]->getPorc_acertos();
+            }
+            //armazenando estatísticas base
+            $soma_desem += $aux;
+            $total_exer += $i;
+            $num_mod--;
+        }
+        //estatística (média) final
+        $desempenho_final = $soma_desem/$total_exer;                
+        return $desempenho_final;
+    }
 
 }
 

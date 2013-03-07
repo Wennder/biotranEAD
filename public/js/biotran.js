@@ -183,6 +183,11 @@ $(document).ready(function(){
                                     }
                                     insereLinha(data, tipo);
                                     $(dialog).dialog('close');
+                                }else{
+                                    if(exercicio != 'exercicio'){                                        
+                                        alert('Atenção! O Formato do arquivo é inválido. Documento de texto apenas em .pdf e vídeo em .mp4.')    
+                                    }                                    
+                                    
                                 }
                             }
                         });
@@ -223,6 +228,8 @@ $(document).ready(function(){
                                     alert('Atualizado com sucesso!');
                                     atualizaLinha(data, 'video');
                                     $(dialog_video).dialog('close');
+                                }else{
+                                    alert("Atenção, o formato do arquivo de video não é válido. Certifique-se de que a extensão do arquivo é .mp4.")
                                 }
                             }
                         });                        

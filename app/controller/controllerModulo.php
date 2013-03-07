@@ -422,6 +422,7 @@ class controllerModulo {
             $retorno = $v->getId_video() . '-' . $v->getTitulo();
             return $retorno;
         }
+        $controller->deleteVideo($v);
         return 0;
     }
 
@@ -430,8 +431,8 @@ class controllerModulo {
         $controller = new controllerVideo();
         $aux = $controller->getVideo("id_video=" . $v->getId_video());
         $v->setId_modulo($aux->getId_modulo());
-        if ($controller->atualizaVideo($v)) {
-            $this->setArquivoVideo($v);
+        if ($this->setArquivoVideo($v)) {
+            $controller->atualizaVideo($v);
             $retorno = $v->getId_video() . '-' . $v->getTitulo();
             return $retorno;
         } else {
@@ -443,10 +444,11 @@ class controllerModulo {
         $texto = $this->setConteudo('texto_referencia');
         $controller = new controllerTexto_referencia();
         $texto->setId_texto_referencia($controller->novoTexto_referencia($texto));
-        if ($this->setArquivoTexto_referencia($texto)) {
+        if ($this->setArquivoTexto_referencia($texto) == 1) {
             $retorno = $texto->getId_texto_referencia() . '-' . $texto->getNome() . "-.pdf";
             return $retorno;
         }
+        $controller->deleteTexto_referencia($texto);
         return 0;
     }
 
@@ -455,7 +457,7 @@ class controllerModulo {
         $controller = new controllerMaterial_complementar();
         $material->setId_material_complementar($controller->novoMaterial_complementar($material));
         $aux = $this->setArquivoMaterial_complementar($material);
-        if ($aux) {
+        if ($aux > 0 && $aux != 2) {
             $retorno = $material->getId_material_complementar() . '-' . $material->getNome();
             if ($aux == 3) {
                 $retorno .= "-.mp4";
@@ -464,6 +466,7 @@ class controllerModulo {
             }
             return $retorno;
         }
+        $controller->deleteMaterial_complementar($material);
         return 0;
     }
 
@@ -567,6 +570,12 @@ class controllerModulo {
         $dao = new ModuloDAO();
         $retorno = $dao->deleteModulo($m);
         return $retorno;
+    }
+    
+    public function getQuantidadeExercicios($id_modulo){
+        $dao = new ExercicioDAO();
+        return $dao->selectQuantidadeExercicio($id_modulo);
+        
     }
 
 }

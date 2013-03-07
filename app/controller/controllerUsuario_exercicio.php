@@ -67,7 +67,7 @@ class controllerUsuario_exercicio {
             }
         }
         return $p;
-    }        
+    }                
         
 }
 

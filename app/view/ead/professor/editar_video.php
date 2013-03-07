@@ -9,7 +9,19 @@
     
     $(document).ready(function(){                
         $('#form_cadastrar').ajaxForm();        
-        $('#form_cadastrar').validationEngine();                
+        $('#form_cadastrar').validationEngine({
+            rules: {
+                titulo:{
+                    required: true
+                },
+                video:{
+                    required: true
+                },
+                descricao:{
+                    required: true
+                }                    
+            }
+        });
     });
     
 </script>
@@ -24,7 +36,7 @@
                         <label class="label_cadastro">Título da aula: </label>
                     </td>
                     <td style="width: 600px;">
-                        <input type="text" id="titulo" name="titulo" value="" class="validate[required] text-input" data-prompt-position="centerRight" style="width: 500px"/>
+                        <input type="text" id="titulo" name="titulo" value="" class="text-input" data-prompt-position="centerRight" style="width: 500px"/>
                     </td>
                 </tr>
                 <tr>

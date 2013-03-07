@@ -18,6 +18,7 @@ class Matricula_curso {
     private $data_fim;
     private $status_acesso;
     private $modulo_atual;
+    private $status_finalizado;
     
     public function getId_matricula_curso() {
         return $this->id_matricula_curso;
@@ -74,7 +75,14 @@ class Matricula_curso {
     public function setModulo_atual($modulo_atual) {
         $this->modulo_atual = $modulo_atual;
     }
-    
+    public function getStatus_finalizado() {
+        return $this->status_finalizado;
+    }
+
+    public function setStatus_finalizado($status_finalizado) {
+        $this->status_finalizado = $status_finalizado;
+    }
+
 }
 
 ?>

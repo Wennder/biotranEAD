@@ -34,14 +34,14 @@ class ExercicioDAO extends PDOConnectionFactory {
     }
 
     public function insertResposta($id_usuario, $id_exercicio, $id_pergunta, $resposta) {
-        try {           
+        try {
             $this->conex->exec("SET NAMES 'utf8'");
             $stmt = $this->conex->prepare("INSERT INTO resposta_exercicio(id_pergunta, id_exercicio, id_usuario, resposta) VALUES (?,?,?,?)");
             $stmt->bindValue(1, $id_pergunta);
             $stmt->bindValue(2, $id_exercicio);
             $stmt->bindValue(3, $id_usuario);
             $stmt->bindValue(4, $resposta);
-            if ($stmt->execute()) {            
+            if ($stmt->execute()) {
                 return 1;
             }
             return 0;
@@ -103,11 +103,20 @@ class ExercicioDAO extends PDOConnectionFactory {
         try {
             $stmt = null;
             $stmt = $this->conex->query("SELECT * FROM resposta_exercicio WHERE id_pergunta = " . $id_pergunta);
-            $exercicio = array();            
+            $exercicio = array();
             for ($i = 0; $i < $stmt->rowCount(); $i++) {
                 $exercicio[$i] = $stmt->fetchObject('Resposta_exercicio');
             }
             return $exercicio;
+        } catch (PDOException $ex) {
+            return "erro: " . $ex;
+        }
+    }
+
+    public function selectQuantidadeExercicio($id_modulo) {
+        try {            
+            $stmt = $this->conex->query("SELECT * FROM exercicio WHERE id_modulo=".$id_modulo);            
+            return $stmt->rowCount();                        
         } catch (PDOException $ex) {
             return "erro: " . $ex;
         }

@@ -670,7 +670,7 @@ class controllerExercicio {
     public function getResposta($id_pergunta) {
         $dao = new ExercicioDAO();
         return $dao->selectResposta($id_pergunta);
-    }
+    }        
 
 }
 

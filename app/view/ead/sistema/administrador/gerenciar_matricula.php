@@ -1,4 +1,5 @@
 <script>
+    
     $(document).ready(function e(){
         oTable_matricula = $('#tabela_matricula_cursos').dataTable({
             "bJQueryUI":true
@@ -24,6 +25,9 @@
     });
 </script>
 
+
+
+
 <div id="tab_matricula_curso" style="">
     <div style="border-bottom:1px solid #eeeeee; width: 940px;">
         <center><label style="font-weight: bold; font-size: 14px;">Gerenciar Matrícula</label></center>
@@ -31,7 +35,8 @@
     <center><label style="font-size: 15px;"><?php echo $this->usuario->getNome_completo(); ?></label></center><br>
     
     <input type="button" value="" id="btn_matricular" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Matricular
-    
+    <input type="button" value="" id="btn_desempenho" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Desempenho
+       
     <?php
     echo $this->tabela;
     ?>

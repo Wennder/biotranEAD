@@ -92,6 +92,13 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
                 <tr>
                     <td>
                         <label>
+                            <b>Data de Matrícula: </b><?php echo $this->mc->getData_inicio(); ?>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
                             <b>Duração: </b><?php echo $this->curso->getTempo(); ?> dias
                         </label>
                     </td>
@@ -99,7 +106,7 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
                 <tr>
                     <td>
                         <label>
-                            <b>Tempo restante: </b><?php echo $this->curso->getTempo(); ?> dias
+                            <b>Tempo restante: </b><?php echo $this->dias_restantes; ?> dias
                         </label>
                     </td>
                 </tr>
