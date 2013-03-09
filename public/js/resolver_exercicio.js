@@ -125,10 +125,10 @@ $(document).ready(function(){
                             alert('Curso finalizado!');
                         }
                     }
-                }
-                $('input[name="exercicio_'+id_exercicio+'"]').attr('disabled', 'true');
+                }                
                 $('input[name="exercicio_'+id_exercicio+'"]').removeAttr('id');
-                $('input[name="exercicio_'+id_exercicio+'"]').attr('value', 'Exercicio já submetido');
+                $('input[name="exercicio_'+id_exercicio+'"]').attr('id',id_exercicio);
+                $('input[name="exercicio_'+id_exercicio+'"]').attr('value', 'Ver resultado');
                 $('#submeter_exercicio').remove();
                 $('#refazer_exercicio').attr('value', 'Finalizar');                
                 $('#refazer_exercicio').attr('id', 'finalizar_exercicio');                
@@ -136,6 +136,37 @@ $(document).ready(function(){
             //                dialog.dialog('close');                    
             });                        
         }
+    });
+    
+    $('.btn_exercicio_resolvido').live('click', function(){        
+        var btn = $(this);        
+        $('#dialog').load('ajax/submeterQuestionario.php?acao=exercicio_resolvido', {
+                id_exercicio: btn.attr('id')
+                },function(response, status, xhr) {
+            if (status == "error") {
+                alert('erro');
+                var msg = "Sorry but there was an error: ";
+                $("#error").html(msg + xhr.status + " " + xhr.statusText);
+            }else{                                                                                    
+                dialog = $('#dialog').dialog({
+                    draggable: false,
+                    resizable: false,
+                    show: {
+                        effect: 'drop', 
+                        direction: "up"
+                    },
+                    width:970, 
+                    height:($(window).height() - 40),
+                    position: [(($(window).width()-970)/2), 15],
+                    dialogClass:'dialogstyle', 
+                    modal:true,
+                    close: function(event,ui){                     
+                        $(dialog).dialog('destroy');
+                        $(dialog).find('div').remove();
+                    }                                        
+                });
+            }
+        });        
     });
 });
 

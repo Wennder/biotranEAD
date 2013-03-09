@@ -170,7 +170,7 @@ class controllerModulo {
                 if ($controller->getUsuario_exercicio('id_usuario=' . $_SESSION['usuarioLogado']->getId_usuario() . ' AND id_exercicio=' . $exercicio[$i]->getId_exercicio()) == null) {
                     $lista .= "</label><input type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Resolver' class='btn_resolver btn_resolver_exe'/>";
                 } else {
-                    $lista .= "</label><input type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' disabled='true' name='exercicio' value='Exercício já submetido' class='btn_resolver btn_resolver_exe'/>";
+                    $lista .= "</label><input type='button' id='" . $exercicio[$i]->getId_exercicio() . "' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Ver resultado' class='btn_exercicio_resolvido btn_resolver'/>";
                 }
             } else {
                 $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='video' class='link_exercicio' id='index.php?c=ead&a=visualizar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";

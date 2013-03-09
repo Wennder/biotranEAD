@@ -166,7 +166,7 @@ $(document).ready(function(){
                     focus: function(event,ui){                                                
                         $('#form_cadastrar').ajaxForm({
                             dataType:"json",
-                            uploadProgress: function(event, position, total, percentComplete) {
+                            uploadProgress: function(event, position, total, percentComplete) {                                
                                 $('progress').attr('value',percentComplete);
                                 $('#porcentagem').html(percentComplete+'%');
                             },                            

@@ -51,13 +51,13 @@ function insertDataTables(_form){//Adicionar essa função
     
 $(document).ready(function a(){
     
-//    $('#foto').live('change',function(){
-//        $('#foto_usuario').html('<img src="img/gif/ajax-loader-f.gif" alt="Enviando..."/> Enviando...');
-//        /* Efetua o Upload sem dar refresh na pagina */
-//        $('#form_imagem').ajaxForm({
-//            target:'#foto_usuario' // o callback será no elemento com o id #visualizar
-//        }).submit();    
-//    });
+    //    $('#foto').live('change',function(){
+    //        $('#foto_usuario').html('<img src="img/gif/ajax-loader-f.gif" alt="Enviando..."/> Enviando...');
+    //        /* Efetua o Upload sem dar refresh na pagina */
+    //        $('#form_imagem').ajaxForm({
+    //            target:'#foto_usuario' // o callback será no elemento com o id #visualizar
+    //        }).submit();    
+    //    });
     
     //capturando nome das colunas da tabela para lógica replace de ids
     i = 0;
@@ -248,7 +248,8 @@ $(document).ready(function a(){
             _HTML = _HTML.replace('_id_senha2', 'senha2');
             _HTML = _HTML.replace('_id_senha2', 'senha2');                                
             _HTML = _HTML.replace('_id_foto', 'foto');
-            _HTML = _HTML.replace('_id_foto', 'foto');                                
+            _HTML = _HTML.replace('_id_foto', 'foto');
+            _HTML2 = _HTML2.replace('_id_div_uploadProgress', 'div_uploadProgress');
             _HTML = _HTML.replace('_id_img_usuario', 'img_usuario');
             _HTML = _HTML.replace('_id_img_usuario', 'img_usuario');                                
             _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');
@@ -375,8 +376,20 @@ $(document).ready(function a(){
                     form.live('submit',function(){
                         form.ajaxSubmit({
                             dataType:'json',
-                            success:function(json){
+                            uploadProgress: function(event, position, total, percentComplete) {                                    
+                                $('progress').attr('value',percentComplete);
+                                $('#porcentagem').html(percentComplete+'%');
+                            },
+                            beforeSubmit: function(){
+                                var div = '<div id="div_progress">'
+                                +'Upload... <progress value="0" max="100"></progress><span id="porcentagem">0%</span>'
+                                +'</div>';
+                                $('#div_uploadProgress').append($(div));
+                            },
+                            success: function(json){
                                 if(json != false){
+                                    $('progress').attr('value','100');
+                                    $('#porcentagem').html('100%');
                                     updateDataTables(form);
                                     dialog.dialog('close');                                        
                                 }                                                                        
@@ -405,6 +418,7 @@ $(document).ready(function a(){
         _HTML2 = _HTML2.replace('_id_senha', 'senha');
         _HTML2 = _HTML2.replace('_id_senha2', 'senha2');
         _HTML2 = _HTML2.replace('_id_senha2', 'senha2');
+        _HTML2 = _HTML2.replace('_id_div_uploadProgress', 'div_uploadProgress');
         _HTML2 = _HTML2.replace('_id_foto', 'foto');
         _HTML2 = _HTML2.replace('_id_foto', 'foto');
         _HTML2 = _HTML2.replace('_b_button_cadastrar', 'button_cadastrar');
@@ -522,8 +536,20 @@ $(document).ready(function a(){
                 form.live('submit',function(){//adicionar esse evento
                     $(this).ajaxSubmit({
                         dataType: 'json',
+                        uploadProgress: function(event, position, total, percentComplete) {                                    
+                            $('progress').attr('value',percentComplete);
+                            $('#porcentagem').html(percentComplete+'%');
+                        },
+                        beforeSubmit: function(){
+                            var div = '<div id="div_progress">'
+                            +'Upload... <progress value="0" max="100"></progress><span id="porcentagem">0%</span>'
+                            +'</div>';
+                            $('#div_uploadProgress').append($(div));
+                        },
                         success: function(json){
-                            if(json != false){           
+                            if(json != false){
+                                $('progress').attr('value','100');
+                                $('#porcentagem').html('100%');
                                 json = json.replace('"', '');
                                 json = json.replace('"', '');
                                 json = json.replace(' ', '');                                        

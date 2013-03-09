@@ -117,18 +117,20 @@
                                     <td>
                                         <table style="margin: 112px 0 0 0;">
                                             <tr><td><label class="error" for="assinatura" generated="true" style="display: none; position: relative;">Os formatos de imagem aceitos são somente .jpg e .jpeg.</label></td></tr>
-                                            <tr><td><input type="file" name="_id_assinatura" id="_id_assinatura" style="margin: 0 0 0 5px;"/></td></tr>
+                                            <tr><td><input type="file" name="_id_assinatura" id="_id_assinatura" style="margin: 0 0 0 5px;"/></td></tr>                                            
                                         </table>
                                     </td>
-                                </tr>
+                                </tr>                                
                             </table>
                         </td>
                     </tr>
                 </table>
             </fieldset>
             <br>
-            <input type="submit" id="_b_button_cadastrar" name="_b_button_cadastrar" value="Cadastrar" class="button2"/>
-            <input type="submit" id="_b_button_atualizar"  name="_b_button_atualizar" value="Atualizar" class="button2" style="display: none;"/>
+            <div id="_id_div_uploadProgress">
+                <input type="submit" id="_b_button_cadastrar" name="_b_button_cadastrar" value="Cadastrar" class="button2"/>
+                <input type="submit" id="_b_button_atualizar"  name="_b_button_atualizar" value="Atualizar" class="button2" style="display: none;"/>                
+            </div>
             <div id="div_hidden" style="display: none;">
                 <input type="text" id="_id_id" name="_id_id" value="#ID_CURSO#"/>
             </div>

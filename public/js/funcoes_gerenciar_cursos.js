@@ -319,6 +319,7 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('_id_cadastro', 'cadastro');
                 _HTML = _HTML.replace('_id_imagem', 'imagem');
                 _HTML = _HTML.replace('_id_imagem', 'imagem');
+                _HTML = _HTML.replace('_id_div_uploadProgress', 'div_uploadProgress');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
                 _HTML = _HTML.replace('_id_ass_curso', 'ass_curso');
@@ -382,8 +383,8 @@ $(document).ready(function(){
                     open: function(event, ui) { 
                         //Habilita a validação automática no formulário de cadastro
                         var form = $(this).find('#cadastro');
-//                        $(this).find('#img_curso').src = "img/cursos/"+id_imagem+".jpg?x=" + new Date().getTime();
-//                        $(this).find('#ass_curso').src = "img/cursos/ass-"+id_ass+".jpg?x=" + new Date().getTime();
+                        //                        $(this).find('#img_curso').src = "img/cursos/"+id_imagem+".jpg?x=" + new Date().getTime();
+                        //                        $(this).find('#ass_curso').src = "img/cursos/ass-"+id_ass+".jpg?x=" + new Date().getTime();
                         $('#button_cadastrar').hide();
                         $('#button_atualizar').show();       
                         form.validate({
@@ -431,9 +432,22 @@ $(document).ready(function(){
                         form.live('submit',function(){//adicionar esse evento
                             form.ajaxSubmit({
                                 dataType: 'json',
+                                uploadProgress: function(event, position, total, percentComplete) {                                    
+                                    $('progress').attr('value',percentComplete);
+                                    $('#porcentagem').html(percentComplete+'%');
+                                },
+                                beforeSubmit: function(){
+                                    var div = '<div id="div_progress">'
+                                    +'Upload... <progress value="0" max="100"></progress><span id="porcentagem">0%</span>'
+                                    +'</div>';
+                                    $('#div_uploadProgress').append($(div));
+                                },
                                 success:function (json){
                                     if(json != false){
+                                        $('progress').attr('value','100');
+                                        $('#porcentagem').html('100%');
                                         updateDataTables(form, _data);
+                                        $('div_progress').remove();
                                         dialog.dialog('close');                                        
                                     }                                                                        
                                 }
@@ -478,7 +492,8 @@ $(document).ready(function(){
                 _HTML = _HTML.replace('_id_destino', 'destino');
                 _HTML = _HTML.replace('_id_destino', 'destino');                    
                 _HTML = _HTML.replace('_id_imagem', 'imagem');
-                _HTML = _HTML.replace('_id_imagem', 'imagem');
+                _HTML = _HTML.replace('_id_imagem', 'imagem');                
+                _HTML = _HTML.replace('_id_div_uploadProgress', 'div_uploadProgress');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
                 _HTML = _HTML.replace('_id_img_curso', 'img_curso');
                 _HTML = _HTML.replace('_id_ass_curso', 'ass_curso');
@@ -513,11 +528,11 @@ $(document).ready(function(){
                     modal:true,  
                     //                            dialogClass:'dialogstyle',
                     close: function(event,ui){                                           
-                        var form = $(this).find('#cadastro');                     
+                        var form = $(this).find('#cadastro');                        
                         dialog.dialog('destroy');
                         dialog.remove();
                     },
-                    open: function(event, ui) { 
+                    open: function(event, ui) {                         
                         //Habilita a validação automática no formulário de cadastro
                         var form = $(this).find('#cadastro');
                         form.validate({
@@ -564,15 +579,28 @@ $(document).ready(function(){
                         //-----------fim js janquery picklist
                         form.attr('action', 'ajax/crud_curso.php?acao=inserir&getCurso=1')
                         form.live('submit',function(){//adicionar esse evento                               
-                            form.ajaxSubmit({
+                            form.ajaxSubmit({                                
                                 dataType: 'json',
+                                uploadProgress: function(event, position, total, percentComplete) {                                    
+                                    $('progress').attr('value',percentComplete);
+                                    $('#porcentagem').html(percentComplete+'%');
+                                },
+                                beforeSubmit: function(){
+                                    var div = '<div id="div_progress">'
+                                    +'Upload... <progress value="0" max="100"></progress><span id="porcentagem">0%</span>'
+                                    +'</div>';
+                                    $('#div_uploadProgress').append($(div));
+                                },
                                 success: function(json){
                                     if(json != false){ 
+                                        $('progress').attr('value','100');
+                                        $('#porcentagem').html('100%');
                                         //                                        form.find('#id').val(json.id);
-                                        insertDataTables(form, json);
-                                        dialog.dialog('close');                                        
+                                        insertDataTables(form, json);                                        
+                                        $('div_progress').remove();
+                                        dialog.dialog('close');                           
                                     }  
-                                }
+                                }                                
                             },
                             $("#destino option").each(function(){
                                 $(this).attr({

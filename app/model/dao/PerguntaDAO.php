@@ -83,6 +83,26 @@ class PerguntaDAO extends PDOConnectionFactory {
             return "erro: " . $ex;
         }
     }
+    
+    public function selectId_pergunta($condicao = null) {
+        try {
+            $stmt = null;
+            if ($condicao == null) {
+                $stmt = $this->conex->query("SELECT id_pergunta FROM pergunta");
+            } else {
+                $stmt = $this->conex->query("SELECT id_pergunta FROM pergunta WHERE " . $condicao);
+            }            
+            $pergunta = array();
+            if($stmt){                
+                for ($i = 0; $i < $stmt->rowCount(); $i++) {
+                    $pergunta[$i] = $stmt->fetchObject('Pergunta');
+                }            
+            }else return null;
+            return $pergunta;
+        } catch (PDOException $ex) {
+            return "erro: " . $ex;
+        }
+    }
 }
 
 ?>
