@@ -519,6 +519,7 @@ class controllerExercicio {
             //se esta no ultimo módulo
             if ($m->getNumero_modulo() == $curso->getNumero_modulos()) {
                 $mc->setStatus_finalizado(1);
+                $mc->setData_fim(date("d/m/y"));
                 $c->updateMatricula_curso($mc);
                 return 3; //ULTIMO MÓDULO TERMINADO - CURSO FINALIZADO
             }

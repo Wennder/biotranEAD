@@ -738,10 +738,11 @@ class controllerCurso {
                 $p = number_format($this->analise_progresso($this->cursos[$i], $m), 2);
                 $tabela .= "<td width='11%' id='progresso' align='center'>" . $p . "%</td>";
                 $tabela .= "<td width='13%' id='data_inicio' align='center'>" . $m->getData_inicio() . "</td>";
+                //se finalizou ou não o curso
                 if (!$m->getStatus_finalizado()) {
                     $tabela .= "<td width='13%' id='data_termino' align='center'><input type='text' value='" . $m->getData_fim() . "' id='data-" . $m->getId_matricula_curso() . "' name='" . $m->getId_matricula_curso() . "' class='i_data_termino' /></td>";
                 } else {
-                    $tabela .= "<td width='13%' id='data_termino' align='center'> FINALIZADO </td>";
+                    $tabela .= "<td width='13%' id='data_termino' align='center'>". $m->getData_fim() ."</td>";
                 }
             } else {
                 $tabela .= "<tr name='nova_matricula' id='" . $this->cursos[$i]->getId_curso() . "'>";
