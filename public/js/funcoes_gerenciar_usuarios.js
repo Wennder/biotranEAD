@@ -249,7 +249,7 @@ $(document).ready(function a(){
             _HTML = _HTML.replace('_id_senha2', 'senha2');                                
             _HTML = _HTML.replace('_id_foto', 'foto');
             _HTML = _HTML.replace('_id_foto', 'foto');
-            _HTML2 = _HTML2.replace('_id_div_uploadProgress', 'div_uploadProgress');
+            _HTML = _HTML.replace('_id_div_uploadProgress', 'div_uploadProgress');
             _HTML = _HTML.replace('_id_img_usuario', 'img_usuario');
             _HTML = _HTML.replace('_id_img_usuario', 'img_usuario');                                
             _HTML = _HTML.replace('_b_button_atualizar', 'button_atualizar');

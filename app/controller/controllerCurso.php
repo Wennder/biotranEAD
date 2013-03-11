@@ -738,7 +738,11 @@ class controllerCurso {
                 $p = number_format($this->analise_progresso($this->cursos[$i], $m), 2);
                 $tabela .= "<td width='11%' id='progresso' align='center'>" . $p . "%</td>";
                 $tabela .= "<td width='13%' id='data_inicio' align='center'>" . $m->getData_inicio() . "</td>";
-                $tabela .= "<td width='13%' id='data_termino' align='center'><input type='text' value='" . $m->getData_fim() . "' id='data-" . $m->getId_matricula_curso() . "' name='" . $m->getId_matricula_curso() . "' class='i_data_termino' /></td>";
+                if (!$m->getStatus_finalizado()) {
+                    $tabela .= "<td width='13%' id='data_termino' align='center'><input type='text' value='" . $m->getData_fim() . "' id='data-" . $m->getId_matricula_curso() . "' name='" . $m->getId_matricula_curso() . "' class='i_data_termino' /></td>";
+                } else {
+                    $tabela .= "<td width='13%' id='data_termino' align='center'> FINALIZADO </td>";
+                }
             } else {
                 $tabela .= "<tr name='nova_matricula' id='" . $this->cursos[$i]->getId_curso() . "'>";
                 $tabela .= "<td width='49%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
@@ -758,12 +762,17 @@ class controllerCurso {
      * Conta simples:
      * O progesso é a porc relativa do módulo atual + porc relativa de exercicios concluidos no módulo
      */
+
     public function analise_progresso(Curso $c, Matricula_curso $mc) {
         $controller = new controllerModulo();
         $modulo = $controller->getModulo("id_curso=" . $c->getId_curso() . " AND numero_modulo=" . $mc->getModulo_atual());
         $qnt_exer = $controller->getQuantidadeExercicios($modulo->getId_modulo());
         $y = (100 / $c->getNumero_modulos()) / $qnt_exer;
-        $p = $mc->getModulo_atual() * (100 / $c->getNumero_modulos()) + $y;
+        if ($qnt_exer == 1) {
+            $p = $mc->getModulo_atual() * (100 / $c->getNumero_modulos());
+        } else {
+            $p = $mc->getModulo_atual() * (100 / $c->getNumero_modulos()) + $y;
+        }        
         return $p;
     }
 
@@ -771,6 +780,7 @@ class controllerCurso {
      * Conta simples:
      * Média de acertos entre os exercícios que já fez - por módulo;
      */
+
     public function analise_desempenho(Curso $c, Matricula_curso $mc) {
         $ctr_modulo = new controllerModulo();
         $ctr_usuario_exer = new controllerUsuario_exercicio();
@@ -780,20 +790,20 @@ class controllerCurso {
         //percorrendo módulo
         while ($num_mod) {
             $modulo = $ctr_modulo->getModulo("id_curso=" . $c->getId_curso() . " AND numero_modulo=" . $num_mod);
-            $lista = $ctr_usuario_exer->getListaUsuario_exercicios('id_modulo='.$modulo->getId_modulo());
+            $lista = $ctr_usuario_exer->getListaUsuario_exercicios('id_modulo=' . $modulo->getId_modulo());
             $i = 0;
             $aux = 0;
             //percorrendo exercícios do módulo
-            for($i = 0; $i < count($lista); $i++){
-                $aux = $lista[$i]->getPorc_acertos();
+            for ($i = 0; $i < count($lista); $i++) {
+                $aux += $lista[$i]->getPorc_acertos();
             }
             //armazenando estatísticas base
             $soma_desem += $aux;
             $total_exer += $i;
             $num_mod--;
         }
-        //estatística (média) final
-        $desempenho_final = $soma_desem/$total_exer;                
+        //estatística (média) final        
+        $desempenho_final = $soma_desem / $total_exer;
         return $desempenho_final;
     }
 

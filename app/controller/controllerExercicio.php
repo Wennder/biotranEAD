@@ -513,13 +513,16 @@ class controllerExercicio {
             $c = new controllerCurso();
             $curso = $c->getCurso('id_curso=' . $m->getId_curso());
 
-            //se esta no ultimo módulo
-            if ($m->getNumero_modulo() == $curso->getNumero_modulos()) {
-                return 3; //ULTIMO MÓDULO TERMINADO - CURSO FINALIZADO                
-            }
-            //passou para o próximo módulo
             $c = new controllerMatricula_curso();
             $mc = $c->getMatricula_curso("id_usuario=" . $id_usuario . ' AND id_curso=' . $m->getId_curso());
+            
+            //se esta no ultimo módulo
+            if ($m->getNumero_modulo() == $curso->getNumero_modulos()) {
+                $mc->setStatus_finalizado(1);
+                $c->updateMatricula_curso($mc);
+                return 3; //ULTIMO MÓDULO TERMINADO - CURSO FINALIZADO
+            }
+            //passou para o próximo módulo
             $mc->setModulo_atual(((int) $mc->getModulo_atual()) + 1);
             $c->updateMatricula_curso($mc);
             return 2;
@@ -692,6 +695,7 @@ class controllerExercicio {
             $aux = '';
             $p = $cp->getPergunta("id_pergunta=" . $id_perguntas[$i]);
             $a = $ca->getListaAlternativas("id_pergunta=" . $id_perguntas[$i]);
+            $lista .= '<div>';
             $lista .= "<div id='div_pergunta_" . $p->getNumeracao() . "' class='accord_body'><div class='accord_list questaoBody_" . $p->getNumeracao() . "'><label class='accord_label'><b>Questão " . $p->getNumeracao() . "</b></label></div></div>";
             $lista .= "<div id='div_pergunta_body_" . $p->getNumeracao() . "' class='accord_content_body questao_body' style='display:none;'>";
             $lista .='<div style="margin: 0 0 0 5px;" class="formulario"><br><fieldset style="width:893px;">
@@ -795,6 +799,7 @@ class controllerExercicio {
                         </td>
                     </tr>
                 </table><br></fieldset></div></div><br>';
+            $lista .= '</div>';
         }
 
         if ($acertos == 0) {

@@ -139,34 +139,65 @@ $(document).ready(function(){
     });
     
     $('.btn_exercicio_resolvido').live('click', function(){        
-        var btn = $(this);        
-        $('#dialog').load('ajax/submeterQuestionario.php?acao=exercicio_resolvido', {
+        var btn = $(this);
+        $.ajax({
+            url: 'ajax/submeterQuestionario.php?acao=exercicio_resolvido',
+            dataType: 'json',
+            data: {
                 id_exercicio: btn.attr('id')
-                },function(response, status, xhr) {
-            if (status == "error") {
-                alert('erro');
-                var msg = "Sorry but there was an error: ";
-                $("#error").html(msg + xhr.status + " " + xhr.statusText);
-            }else{                                                                                    
-                dialog = $('#dialog').dialog({
-                    draggable: false,
-                    resizable: false,
-                    show: {
-                        effect: 'drop', 
-                        direction: "up"
-                    },
-                    width:970, 
-                    height:($(window).height() - 40),
-                    position: [(($(window).width()-970)/2), 15],
-                    dialogClass:'dialogstyle', 
-                    modal:true,
-                    close: function(event,ui){                     
-                        $(dialog).dialog('destroy');
-                        $(dialog).find('div').remove();
-                    }                                        
-                });
+                },
+            async: false,
+            success: function(data){
+                if(data != 0){
+                    $('#dialog').append($(data.estatistica));
+                    $('#dialog').append($(data.lista));
+                    dialog = $('#dialog').dialog({
+                        draggable: false,
+                        resizable: false,
+                        show: {
+                            effect: 'drop', 
+                            direction: "up"
+                        },
+                        width:970, 
+                        height:($(window).height() - 40),
+                        position: [(($(window).width()-970)/2), 15],
+                        dialogClass:'dialogstyle', 
+                        modal:true,
+                        close: function(event,ui){                     
+                            $(dialog).dialog('destroy');
+                            $(dialog).find('div').remove();
+                        }                                        
+                    });
+                }
             }
-        });        
+        });
+//        $('#dialog').load('ajax/submeterQuestionario.php?acao=exercicio_resolvido', {
+//            id_exercicio: btn.attr('id')
+//        },function(response, status, xhr) {
+//            if (status == "error") {
+//                alert('erro');
+//                var msg = "Sorry but there was an error: ";
+//                $("#error").html(msg + xhr.status + " " + xhr.statusText);
+//            }else{                                                                                    
+//                dialog = $('#dialog').dialog({
+//                    draggable: false,
+//                    resizable: false,
+//                    show: {
+//                        effect: 'drop', 
+//                        direction: "up"
+//                    },
+//                    width:970, 
+//                    height:($(window).height() - 40),
+//                    position: [(($(window).width()-970)/2), 15],
+//                    dialogClass:'dialogstyle', 
+//                    modal:true,
+//                    close: function(event,ui){                     
+//                        $(dialog).dialog('destroy');
+//                        $(dialog).find('div').remove();
+//                    }                                        
+//                });
+//            }
+//        });        
     });
 });
 
