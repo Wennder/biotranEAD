@@ -76,14 +76,14 @@ class controllerMatricula_curso {
         return $mc;
     }
 
-    public function novaMatricula($id_curso, Usuario $usuario, $bool = 1) {
-        $mc = $this->getMatricula_curso('id_curso=' . $id_curso . ' AND id_usuario=' . $usuario->getId_usuario());
+    public function novaMatricula(Curso $curso, Usuario $usuario, $bool = 1) {
+        $mc = $this->getMatricula_curso('id_curso=' . $curso->getId_curso() . ' AND id_usuario=' . $usuario->getId_usuario());
         if ($mc == null) {
             if ($usuario->getId_papel() == 4) {
-                $mc = new Matricula_curso();
-                $mc->setData_inicio('--');
-                $mc->setData_fim('--');
-                $mc->setId_curso($id_curso);
+                $mc = new Matricula_curso();              
+                $mc->setData_inicio(date('d/m/y'));                
+                $mc->setData_fim(date('d/m/y', strtotime('+'.$curso->getTempo().' days')));
+                $mc->setId_curso($curso->getId_curso());
                 $mc->setId_usuario($usuario->getId_usuario());
                 $mc->setModulo_atual(1);
                 $mc->setStatus_acesso($bool);

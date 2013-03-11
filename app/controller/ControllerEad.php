@@ -198,10 +198,10 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionCurso_aluno() {
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $this->controllerCurso = new controllerCurso();
+        $this->visao->curso = $this->controllerCurso->getCurso("id_curso=" . $id_curso . "");
         $this->controller = new controllerMatricula_curso();
-        $this->controller->novaMatricula($id_curso, $_SESSION['usuarioLogado']);
-        $this->controller = new controllerCurso();
-        $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
+        $this->controller->novaMatricula($this->visao->curso, $_SESSION['usuarioLogado']);
         $this->renderizar();
     }
 
@@ -224,7 +224,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
             // Calcula a diferença de dias
             $this->visao->dias_restantes = (int) floor($diferenca / (60 * 60 * 24));
             //Se ainda tem tempo para fazer curso não finalizado            
-            if (($this->visao->curso->getTempo() - $this->visao->dias_restantes) != 0) {
+            if ($this->visao->dias_restantes > -1) {
                 $this->controller = new controllerModulo();
                 $this->visao->listaModulos = $this->controller->listaModulos($id_curso);
                 $this->controller = new controllerUsuario();
