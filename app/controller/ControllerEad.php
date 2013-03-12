@@ -233,8 +233,8 @@ class ControllerEad extends Biotran_Mvc_Controller {
             } else {//se o tempo acabou..
                 echo 'Seu tempo para realizar o curso ' . $this->visao->curso->getNome() . ' acabou. Consulte a Biotran para renovação de sua matrícula';
             }
-        }else{
-           //CURSO FINALIZADO
+        } else {
+            //CURSO FINALIZADO
             echo 'Curso finalizado';
         }
     }
@@ -722,6 +722,49 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function geraTimestamp($data) {
         $partes = explode('/', $data);
         return mktime(0, 0, 0, $partes[1], $partes[0], $partes[2]);
+    }
+
+    public function actionCertificado() {
+        $c = new controllerCurso();
+        // $handle = fopen(ROOT_PATH . "app/view/ead/estudante/certificado.php","r");
+        $certificado = "<html>
+    <head> 
+        <style type='text/css'>
+            *{margin:0px;padding:0px;font-family: Verdana, Geneva, sans-serif; font-weight:400;letter-spacing:6px;}
+            
+            h1{
+                font-size:45px;
+            }
+        </style>
+    </head>
+    <body>
+        <table style='width: 1340px;'>
+            <tr>
+                <td style='height: 200px;'><img src='img/certificado/Picture1.jpg' /></td>
+                <td rowspan='4' align='right'>
+                    <img style='height: 780px;' src='img/certificado/Picture2.jpg' />
+                </td>
+            </tr>
+            <tr style='height: 215px';>
+                <td align='center' style='padding-left:150px;'>
+                    <h1>Certificamos que <br> concluiu o curso online</h1>
+                </td>
+            </tr>
+            <tr>
+                <td style='padding-left:100px; height: 105px;'>
+                    <h4>Alfenas, xx de xxxxx de xxxx</h5>
+                </td>
+            </tr>
+            <tr align='center'>
+                <td style='padding-left:100px;'>
+                    <img src='img/certificado/ass.jpg' />
+                </td>
+            </tr>
+        </table>
+        </body>
+        </html>";
+        //print($conteudo);
+        $c->gerarCertificado("teste1", $certificado);
     }
 
 }

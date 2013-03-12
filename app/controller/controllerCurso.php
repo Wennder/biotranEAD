@@ -742,7 +742,7 @@ class controllerCurso {
                 if (!$m->getStatus_finalizado()) {
                     $tabela .= "<td width='13%' id='data_termino' align='center'><input type='text' value='" . $m->getData_fim() . "' id='data-" . $m->getId_matricula_curso() . "' name='" . $m->getId_matricula_curso() . "' class='i_data_termino' /></td>";
                 } else {
-                    $tabela .= "<td width='13%' id='data_termino' align='center'>". $m->getData_fim() ."</td>";
+                    $tabela .= "<td width='13%' id='data_termino' align='center'>" . $m->getData_fim() . "</td>";
                 }
             } else {
                 $tabela .= "<tr name='nova_matricula' id='" . $this->cursos[$i]->getId_curso() . "'>";
@@ -773,7 +773,7 @@ class controllerCurso {
             $p = $mc->getModulo_atual() * (100 / $c->getNumero_modulos());
         } else {
             $p = $mc->getModulo_atual() * (100 / $c->getNumero_modulos()) + $y;
-        }        
+        }
         return $p;
     }
 
@@ -806,6 +806,26 @@ class controllerCurso {
         //estatística (média) final        
         $desempenho_final = $soma_desem / $total_exer;
         return $desempenho_final;
+    }
+
+    public function gerarCertificado($titulo, $html, $tipo = "L") {
+        $dompdf = new DOMPDF();
+        if ($tipo == "L") {
+            $dompdf->set_paper("legal", "landscape"); // Altera o papel para modo paisagem.
+        }
+        $dompdf->load_html($html); // Carrega o HTML para a classe.
+        $dompdf->render();
+        $pdf = $dompdf->output(); // Cria o pdf
+        header('Content-type: application/pdf');
+        header('Content-Disposition: inline; filename="file.pdf"');
+        header('Content-Transfer-Encoding: binary');
+        header('Content-Length: ' . filesize($pdf));
+        header('Accept-Ranges: bytes');
+        $dompdf->stream("pdf_filename_" . rand(10, 1000) . ".pdf", array("Attachment" => false));
+        readfile($pdf);
+        //$mpdf = new mPDF();
+        //$mpdf->WriteHTML($html);   
+        //$mpdf->Output();
     }
 
 }
