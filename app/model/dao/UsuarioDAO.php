@@ -122,7 +122,7 @@ class UsuarioDAO extends PDOConnectionFactory {
         try {
 //            $this->conex->exec("SET NAMES 'utf-8_unicode_ci'");
             $stmt = null;
-            $stmt = $this->conex->query("SELECT * FROM usuario NATURAL JOIN matricula_curso WHERE id_curso = ". $idCurso . " ORDER BY nome_completo");
+            $stmt = $this->conex->query("SELECT * FROM usuario NATURAL JOIN matricula_curso WHERE status_finalizado=0 AND id_curso = ". $idCurso . " ORDER BY nome_completo");
             $usuario = array(); 
 //            echo "SELECT * FROM usuario WHERE " . $condicao; die();
             for ($i = 0; $i < $stmt->rowCount(); $i++){                
