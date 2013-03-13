@@ -418,10 +418,12 @@ class controllerModulo {
     
     public function convert_video(Video $v){        
         $id_curso = $this->getModulo("id_modulo=".$v->getId_modulo())->getId_curso();
-        $input = ROOT_PATH."/public/cursos/".$id_curso."/modulos/".$v->getId_modulo()."/video_aula/".$$v->getId_video().".mp4";
-        $output = ROOT_PATH."/public/cursos/".$id_curso."/modulos/".$v->getId_modulo()."/video_aula/".$$v->getId_video().".webm";
+        $input = ROOT_PATH."/public/cursos/".$id_curso."/modulos/".$v->getId_modulo()."/video_aula/".$v->getId_video().".mp4";
+        $output = ROOT_PATH."/public/cursos/".$id_curso."/modulos/".$v->getId_modulo()."/video_aula/".$v->getId_video().".webm";
         $cmd = "C:\ffmpeg\bin\ffmpeg -i ".$input. " " . $output;
-        shell_exec($cmd);
+        echo $input;
+        echo '<br><br>'. $output .'<br><br>';
+        print_r(shell_exec($cmd));die();
     }
 
     public function inserir_video() {
@@ -429,7 +431,7 @@ class controllerModulo {
         $controller = new controllerVideo();
         $v->setId_video($controller->novoVideo($v));
         if ($this->setArquivoVideo($v)) {
-            $this->convert_video($v->getId_video());
+            $this->convert_video($v);
             $retorno = $v->getId_video() . '-' . $v->getTitulo();
             return $retorno;
         }
