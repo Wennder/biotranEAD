@@ -415,12 +415,21 @@ class controllerModulo {
         }
         return 0;
     }
+    
+    public function convert_video(Video $v){        
+        $id_curso = $this->getModulo("id_modulo=".$v->getId_modulo())->getId_curso();
+        $input = ROOT_PATH."/public/cursos/".$id_curso."/modulos/".$v->getId_modulo()."/video_aula/".$$v->getId_video().".mp4";
+        $output = ROOT_PATH."/public/cursos/".$id_curso."/modulos/".$v->getId_modulo()."/video_aula/".$$v->getId_video().".webm";
+        $cmd = "C:\ffmpeg\bin\ffmpeg -i ".$input. " " . $output;
+        shell_exec($cmd);
+    }
 
     public function inserir_video() {
         $v = $this->setConteudo('video');
         $controller = new controllerVideo();
         $v->setId_video($controller->novoVideo($v));
         if ($this->setArquivoVideo($v)) {
+            $this->convert_video($v->getId_video());
             $retorno = $v->getId_video() . '-' . $v->getTitulo();
             return $retorno;
         }
