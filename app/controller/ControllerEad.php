@@ -767,7 +767,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
             </tr>
             <tr>
                 <td style='padding-left:100px; height: 105px;'>
-                    <h4>Alfenas, " . $data_fim[0] . " de " . utf8_encode($this->num_mes($data_fim[1])) . " de " . $data_fim[2] . "</h5>
+                    <h4>Alfenasççá, " . $data_fim[0] . " de " . utf8_encode($this->num_mes($data_fim[1])) . " de " . $data_fim[2] . "</h5>
                 </td>
             </tr>
             <tr align='center'>
