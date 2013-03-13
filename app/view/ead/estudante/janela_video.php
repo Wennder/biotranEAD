@@ -19,10 +19,8 @@
                 <td colspan="2">                    
                     <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="640" height="264"           
                            data-setup="{}">
-                        <source src="<?php echo ($this->caminho); ?>" type='video/mp4' />
-                        <source src="<?php echo ($this->caminho); ?>" type='audio/mp4' />
-                        <source src="<?php echo ($this->caminho); ?>" type='video/webm' />
-                        <source src="<?php echo ($this->caminho); ?>" type='audio/webm' />
+                        <source src="<?php echo ($this->caminho); ?>" type='video/mp4' />                        
+                        <source src="<?php echo ($this->caminho); ?>" type='video/webm' />                        
                         <source src="<?php echo ($this->caminho); ?>" type='video/ogg' />
                         <track kind="captions" src="captions.vtt" srclang="en" label="English" />
                     </video>  
