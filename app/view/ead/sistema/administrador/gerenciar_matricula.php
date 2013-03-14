@@ -35,7 +35,7 @@
     <center><label style="font-size: 15px;"><?php echo $this->usuario->getNome_completo(); ?></label></center><br>
     
     <input type="button" value="" id="btn_matricular" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Matricular
-    <input type="button" value="" id="btn_desempenho" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Desempenho
+    <input type="button" value="" id="btn_desempenho" class="classeBotaoDesempenho" style="margin: 0 0 5px 5px;"/> Desempenho
        
     <?php
     echo $this->tabela;

@@ -20,6 +20,9 @@ function updateDataTables(_form){
                 valorCampo = _data[1];
             //                valorCampo = getNomePapel(valorCampo);
             }
+            if(nomeColunas[i] == 'status_acesso'){                
+                valorCampo = 'Liberado';
+            }
             fields_value.push(valorCampo);                
         }
     }
@@ -36,15 +39,14 @@ function insertDataTables(_form){//Adicionar essa função
             if(nomeColunas[i] == 'id_papel'){
                 valorCampo = getNomePapel(valorCampo);
             }
-            if(nomeColunas[i] == 'status_acesso'){
+            if(nomeColunas[i] == 'status_acesso'){                
                 valorCampo = 'Liberado';
             }
             fields_value.push(valorCampo);
         }        
     }    
-    oTable.fnAddData(fields_value, true);        
-      
-//        alert('merda');
+    oTable.fnAddData(fields_value, true);              
+//        alert('!!');
 //        $('#tabela_usuarios').load(oTable.$('tr').click());
 }
 
@@ -75,6 +77,12 @@ $(document).ready(function a(){
         
     oTable = $("#tabela_usuarios").dataTable({
         "aoColumnDefs": [ 
+        {
+            "aTargets": [ 1, 2, 21 ], 
+            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {                
+                $(nTd).attr('align', 'center');
+            }
+        },
         {
             "bSearchable": false, 
             "bVisible": false, 

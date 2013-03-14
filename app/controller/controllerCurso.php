@@ -69,6 +69,11 @@ class controllerCurso {
                 $pasta_dir = "../img/cursos/";
                 if (!in_array($imagem['type'], $tipos)) {
                     $imagem_nome = $pasta_dir . $id_curso . ".jpg";
+                    if (is_file($imagem_nome)) {
+                        if (!unlink($imagem_nome)) {
+                            return 0;
+                        }
+                    }
                     move_uploaded_file($_FILES['imagem']["tmp_name"], $imagem_nome);
                     $imagem_arquivo = "../img/cursos/" . $id_curso . ".jpg";
                     list($altura, $largura) = getimagesize($imagem_arquivo);
@@ -92,6 +97,11 @@ class controllerCurso {
                 $pasta_dir = "../img/cursos/";
                 if (in_array($imagem['type'], $tipos)) {
                     $imagem_nome = $pasta_dir . "ass-" . $id_curso . ".jpg";
+                    if (is_file($imagem_nome)) {
+                        if (!unlink($imagem_nome)) {
+                            return 0;
+                        }
+                    }
                     move_uploaded_file($_FILES['assinatura']["tmp_name"], $imagem_nome);
                 }
             }
@@ -745,12 +755,14 @@ class controllerCurso {
                     $tabela .= "<td width='13%' id='data_termino' align='center'>" . $m->getData_fim() . "</td>";
                 }
             } else {
-                $tabela .= "<tr name='nova_matricula' id='" . $this->cursos[$i]->getId_curso() . "'>";
-                $tabela .= "<td width='49%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
-                $tabela .= "<td width='14%' id='status' align='center'>Não Matriculado</td>";
-                $tabela .= "<td width='11%' id='progresso' align='center'> -- </td>";
-                $tabela .= "<td width='13%' id='data_inicio' align='center'> -- </td>";
-                $tabela .= "<td width='13%' id='data_termino' align='center'> -- </td>";
+                if ($this->cursos[$i]->getStatus(1) == 4) {
+                    $tabela .= "<tr name='nova_matricula' id='" . $this->cursos[$i]->getId_curso() . "'>";
+                    $tabela .= "<td width='49%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";
+                    $tabela .= "<td width='14%' id='status' align='center'>Não Matriculado</td>";
+                    $tabela .= "<td width='11%' id='progresso' align='center'> -- </td>";
+                    $tabela .= "<td width='13%' id='data_inicio' align='center'> -- </td>";
+                    $tabela .= "<td width='13%' id='data_termino' align='center'> -- </td>";
+                }
             }
             $tabela .= "</tr>";
         }

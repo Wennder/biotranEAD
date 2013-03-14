@@ -4,7 +4,7 @@ HTML_desempenho = '<div id="dialog_desempenho">'
 + '<div id="desempenho" style="display:none;">'
 +'<center><b>--#NOMECURSO#--</b></center>'
 +'<center><b>Desempenho de #NOMEUSUARIO#</b></center>'
-+'<fieldset>'
++'<fieldset class="text-input">'
 +'<legend>Desempenho</legend>'
 +'<table style="width: 100%;">'
 +'<tr><td><table><tr>'
@@ -127,15 +127,15 @@ $('#btn_desempenho').live('click', function(){
         _HTML = _HTML.replace('#NOMEUSUARIO#', _data[0]);
         _HTML = _HTML.replace('#PROGRESSO#', _datamc[2]);                
         dialog_desempenho = $(_HTML).dialog({
-            draggable: false,
+            draggable: true,
             resizable: false,
-            position: [(($(window).width()-900)/2), 15],
+            position: [(($(window).width()-350)/2), 15],
             width:300,
             show: {
                 effect: 'drop', 
                 direction: "up"
             },
-            height: ($(window).height() - 40),
+            height: ($(window).height() - 80),
             modal:true,                                          
             close: function(event,ui){                     
                 $(dialog_desempenho).dialog('destroy');
