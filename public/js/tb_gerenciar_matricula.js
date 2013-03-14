@@ -2,10 +2,10 @@ var oTable_matricula, elem_matricula, id_curso, HTML_desempenho, dialog_desempen
 
 HTML_desempenho = '<div id="dialog_desempenho">'
 + '<div id="desempenho" style="display:none;">'
-+'<center><b>--#NOMECURSO#--</b></center>'
-+'<center><b>Desempenho de #NOMEUSUARIO#</b></center>'
++'<center><b>#NOMECURSO#</b></center>'
++'<center style="padding:5px 0 10px 0;"><span style="color:rgb(100,100,100);">Desempenho de #NOMEUSUARIO#</span></center>'
 +'<fieldset class="text-input">'
-+'<legend>Desempenho</legend>'
+
 +'<table style="width: 100%;">'
 +'<tr><td><table><tr>'
 +'<td>'
@@ -127,15 +127,15 @@ $('#btn_desempenho').live('click', function(){
         _HTML = _HTML.replace('#NOMEUSUARIO#', _data[0]);
         _HTML = _HTML.replace('#PROGRESSO#', _datamc[2]);                
         dialog_desempenho = $(_HTML).dialog({
-            draggable: true,
+            draggable: false,
             resizable: false,
-            position: [(($(window).width()-350)/2), 15],
+            position: [(($(window).width()-300)/2), 15],
             width:300,
             show: {
                 effect: 'drop', 
                 direction: "up"
             },
-            height: ($(window).height() - 80),
+            height: (250),
             modal:true,                                          
             close: function(event,ui){                     
                 $(dialog_desempenho).dialog('destroy');
