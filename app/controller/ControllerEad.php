@@ -234,8 +234,9 @@ class ControllerEad extends Biotran_Mvc_Controller {
                 echo 'Seu tempo para realizar o curso ' . $this->visao->curso->getNome() . ' acabou. Consulte a Biotran para renovação de sua matrícula';
             }
         } else {
-            //CURSO FINALIZADO
-            echo 'Curso finalizado';
+            //CURSO FINALIZADO - redireciona para página do curso finalizado
+            Biotran_Mvc::pegarInstancia()->mudarAcao('pag_curso_finalizado');
+            $this->renderizar();
         }
     }
 
@@ -367,7 +368,15 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->video = $this->controller->getVideo('id_video=' . $id_video);
         $this->controller = new controllerModulo();
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $this->visao->video->getId_modulo() . "");
-        $this->visao->caminho = "cursos/" . $this->visao->modulo->getId_curso() . "/modulos/" . $this->visao->video->getId_modulo() . "/video_aula/" . $this->visao->video->getId_video() . ".mp4";
+        //descobrindo navegador
+        $useragent = $_SERVER['HTTP_USER_AGENT'];
+
+        if (preg_match('|Firefox/([0-9\.]+)|', $useragent, $matched)) {
+            $this->visao->caminho = "cursos/" . $this->visao->modulo->getId_curso() . "/modulos/" . $this->visao->video->getId_modulo() . "/video_aula/" . $this->visao->video->getId_video() . ".webm";
+        } else {
+            $this->visao->caminho = "cursos/" . $this->visao->modulo->getId_curso() . "/modulos/" . $this->visao->video->getId_modulo() . "/video_aula/" . $this->visao->video->getId_video() . ".mp4";
+        }
+
         $this->renderizar();
     }
 
@@ -726,6 +735,12 @@ class ControllerEad extends Biotran_Mvc_Controller {
 
     public function actionCertificado() {
         $c = new controllerCurso();
+        $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
+        $id_usuario = $_SESSION['usuarioLogado']->getId_usuario();
+        $curso = $c->getCurso("id_curso=" . $id_curso);
+        $c = new controllerMatricula_curso();
+        $mc = $c->getMatricula_curso("id_curso=" . $id_curso . " AND id_usuario=" . $id_usuario);
+        $data_fim = split('/', $mc->getData_fim());
         // $handle = fopen(ROOT_PATH . "app/view/ead/estudante/certificado.php","r");
         $certificado = "<html>
     <head> 
@@ -747,24 +762,43 @@ class ControllerEad extends Biotran_Mvc_Controller {
             </tr>
             <tr style='height: 215px';>
                 <td align='center' style='padding-left:150px;'>
-                    <h1>Certificamos que <br> concluiu o curso online</h1>
+                    <h1>Certificamos que <br> concluiu o curso online '" . $curso->getNome() . "'</h1>
                 </td>
             </tr>
             <tr>
                 <td style='padding-left:100px; height: 105px;'>
-                    <h4>Alfenas, xx de xxxxx de xxxx</h5>
+                    <h4>Alfenasççá, " . $data_fim[0] . " de " . utf8_encode($this->num_mes($data_fim[1])) . " de " . $data_fim[2] . "</h5>
                 </td>
             </tr>
             <tr align='center'>
                 <td style='padding-left:100px;'>
-                    <img src='img/certificado/ass.jpg' />
+                    <img src='img/cursos/ass-" . $id_curso . ".jpg' />
                 </td>
             </tr>
         </table>
         </body>
         </html>";
         //print($conteudo);
-        $c->gerarCertificado("teste1", $certificado);
+        $c = new controllerCurso();
+        $c->gerarCertificado($curso->getNome(), $certificado);
+    }
+
+    public function num_mes($mes) {
+        switch ($mes) {
+            case '1': return 'Janeiro';
+            case '2': return 'Feveiro';
+            case '3': return 'Março';
+            case '4': return 'Abril';
+            case '5': return 'Maio';
+            case '6': return 'Junho';
+            case '7': return 'Julho';
+            case '8': return 'Agosto';
+            case '9': return 'Setembro';
+            case '10': return 'Outubro';
+            case '11': return 'Novembro';
+            case '12': return 'Dezembro';
+        }
+        return 0;
     }
 
 }

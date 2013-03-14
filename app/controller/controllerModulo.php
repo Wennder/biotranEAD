@@ -165,12 +165,14 @@ class controllerModulo {
         for ($i = 0; $i < count($exercicio); $i++) {
 //            $id_pergunta = $controller2->getListaPerguntas('id_exercicio = ' . $exercicio[$i]->getId_exercicio());
             if ($_SESSION['usuarioLogado']->getId_papel() == 4) {
-                $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='exercicio' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
-                $lista .= $exercicio[$i]->getTitulo();
                 if ($controller->getUsuario_exercicio('id_usuario=' . $_SESSION['usuarioLogado']->getId_usuario() . ' AND id_exercicio=' . $exercicio[$i]->getId_exercicio()) == null) {
+                    $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='exercicio' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
+                    $lista .= $exercicio[$i]->getTitulo();
                     $lista .= "</label><input type='button' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Resolver' class='btn_resolver btn_resolver_exe'/>";
                 } else {
-                    $lista .= "</label><input type='button' id='" . $exercicio[$i]->getId_exercicio() . "' name='exercicio_" . $exercicio[$i]->getId_exercicio() . "' value='Ver resultado' class='btn_exercicio_resolvido btn_resolver'/>";
+                    $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label class='btn_exercicio_resolvido' name='exercicio' id='" . $exercicio[$i]->getId_exercicio() . "'>";
+                    $lista .= $exercicio[$i]->getTitulo();
+                    $lista .= "</label>";
                 }
             } else {
                 $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='video' class='link_exercicio' id='index.php?c=ead&a=visualizar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
@@ -350,13 +352,19 @@ class controllerModulo {
                 $tipos = array("video/mp4");
                 $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
                 if (in_array($video['type'], $tipos)) {
-                    $video_nome = $pasta_dir . $id_video . ".mp4";
-                    if (is_file($video_nome)) {
-                        if (!unlink($video_nome)) {
+                    $video_mp4 = $pasta_dir . $id_video . ".mp4";
+                    $video_webm = $pasta_dir . $id_video . ".webm";
+                    if (is_file($video_mp4)) {
+                        if (!unlink($video_mp4)) {
                             return 0;
                         }
                     }
-                    move_uploaded_file($_FILES['video']['tmp_name'], $video_nome);
+                    if (is_file($video_webm)) {
+                        if (!unlink($video_webm)) {
+                            return 0;
+                        }
+                    }
+                    move_uploaded_file($_FILES['video']['tmp_name'], $video_mp4);
                     return 1;
                 }
             }
@@ -414,11 +422,20 @@ class controllerModulo {
         return 0;
     }
 
+    public function convert_video(Video $v) {
+        $id_curso = $this->getModulo("id_modulo=" . $v->getId_modulo())->getId_curso();
+        $input = ROOT_PATH . "/public/cursos/" . $id_curso . "/modulos/" . $v->getId_modulo() . "/video_aula/" . $v->getId_video() . ".mp4";
+        $output = ROOT_PATH . "/public/cursos/" . $id_curso . "/modulos/" . $v->getId_modulo() . "/video_aula/" . $v->getId_video() . ".webm";
+        $cmd = "C:\\ffmpeg\bin\\ffmpeg -y -i " . $input . " " . $output;
+        shell_exec($cmd);
+    }
+
     public function inserir_video() {
         $v = $this->setConteudo('video');
         $controller = new controllerVideo();
         $v->setId_video($controller->novoVideo($v));
         if ($this->setArquivoVideo($v)) {
+            $this->convert_video($v);
             $retorno = $v->getId_video() . '-' . $v->getTitulo();
             return $retorno;
         }
@@ -433,6 +450,7 @@ class controllerModulo {
         $v->setId_modulo($aux->getId_modulo());
         if ($this->setArquivoVideo($v)) {
             $controller->atualizaVideo($v);
+            $this->convert_video($v);
             $retorno = $v->getId_video() . '-' . $v->getTitulo();
             return $retorno;
         } else {
@@ -484,9 +502,12 @@ class controllerModulo {
         $v = $controller->getVideo("id_video=" . $id_video);
         $modulo = $this->getModulo("id_modulo=" . $v->getId_modulo());
         if ($controller->deleteVideo($v) > 0) {
-            $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $v->getId_modulo() . "/video_aula/" . $v->getId_video() . ".mp4";
-            if (unlink($diretorio)) {
-                return 1;
+            $diretorio_mp4 = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $v->getId_modulo() . "/video_aula/" . $v->getId_video() . ".mp4";
+            $diretorio_webm = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $v->getId_modulo() . "/video_aula/" . $v->getId_video() . ".webm";
+            if (unlink($diretorio_mp4)) {
+                if (unlink($diretorio_webm)) {
+                    return 1;
+                }
             }
         }
         return 0;
@@ -571,11 +592,10 @@ class controllerModulo {
         $retorno = $dao->deleteModulo($m);
         return $retorno;
     }
-    
-    public function getQuantidadeExercicios($id_modulo){
+
+    public function getQuantidadeExercicios($id_modulo) {
         $dao = new ExercicioDAO();
         return $dao->selectQuantidadeExercicio($id_modulo);
-        
     }
 
 }

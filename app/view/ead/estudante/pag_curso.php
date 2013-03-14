@@ -99,22 +99,25 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
                 <tr>
                     <td>
                         <label>
-                            <b>Duração: </b><?php echo $this->curso->getTempo(); ?> dias
+                            <b>Data de Término: </b><?php echo $this->mc->getData_fim(); ?>
                         </label>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label>
-                            <b>Tempo restante: </b><?php echo $this->dias_restantes; ?> dias
+                            <?php if($this->dias_restantes <= 5){
+                                echo '<b style="color:red;">Dia(s) restante(s): '. $this->dias_restantes.'</b>';
+                            } else{
+                                echo '<b>Dia(s) restante(s): </b>'. $this->dias_restantes;
+                            }
+                            ?>                            
                         </label>
                     </td>
                 </tr>
                 <tr><td style="height: 15px;"></td></tr>
                 <tr><td style="height: 15px;"></td></tr>
-                <tr><td style="height: 15px;"></td></tr>
-                <tr><td style="height: 15px;"></td></tr>
-                <tr><td style="height: 15px;"></td></tr>
+              
             </table>
         </div>
         <div>
@@ -128,7 +131,11 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
                             <textarea id="descricao" name="descricao" rows="3" cols="40" type="text" readonly="readonly" class="text-area"><?php echo $this->curso->getDescricao() ?></textarea>
                         </div>
                     </td>
-                    <td>
+                
+                </tr>
+                <tr>
+                     <tr>
+                      <td>
                         <div style="padding:5px;">
                             <div>
                                 <label><b>Objetivo:</b></label>
@@ -136,6 +143,15 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
                             <textarea id="objetivo" name="objetivo" rows="3" cols="40" type="text" readonly="readonly" class="text-area"><?php echo $this->curso->getObjetivo() ?> </textarea>
                         </div>
                     </td>
+                    <td>
+                        <div style="padding:5px;">
+                            <div>
+                                <label><b>Justificativa:</b></label>
+                            </div>
+                            <textarea id="justificativa" name="justificativa" rows="3" cols="40" type="text" readonly="readonly" class="text-area"><?php echo $this->curso->getJustificativa() ?> </textarea>
+                        </div>
+                    </td>
+                </tr>
                 </tr>
             </table>
         </div>

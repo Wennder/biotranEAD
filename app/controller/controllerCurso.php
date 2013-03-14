@@ -825,7 +825,7 @@ class controllerCurso {
         header('Content-Transfer-Encoding: binary');
         header('Content-Length: ' . filesize($pdf));
         header('Accept-Ranges: bytes');
-        $dompdf->stream("pdf_filename_" . rand(10, 1000) . ".pdf", array("Attachment" => false));
+        $dompdf->stream("certificado_" . $titulo . ".pdf", array("Attachment" => false));
         readfile($pdf);
         //$mpdf = new mPDF();
         //$mpdf->WriteHTML($html);   
