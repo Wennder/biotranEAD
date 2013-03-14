@@ -1,5 +1,5 @@
 var HTML_desempenho = '<div id="dialog_desempenho">'
-        + '<div id="desempenho" style="display:none;">'
+        + '<div id="desempenho" style="display:none; height:300px;">'
         +'<center><b>--#NOMECURSO#--</b></center>'
         +'<center><b>Desempenho de #NOMEUSUARIO#</b></center>'
         +'<fieldset>'
@@ -53,7 +53,7 @@ $(document).ready(function(){
         dialog_desempenho = $(_HTML).dialog({
             draggable: false,
             resizable: false,
-            position: [(($(window).width()-900)/2), 15],
+            position: [(($(window).width()-300)/2), 15],
             width:300,
             show: {
                 effect: 'drop', 

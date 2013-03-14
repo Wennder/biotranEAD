@@ -1,6 +1,6 @@
 <div id="div_adicionar_foto" style="display:none;">
     <form id="_ID_FORM_" method="post" action="index.php?c=ead&a=pini_fotos&i=1" enctype="multipart/form-data">
-        <fieldset>
+        <fieldset class="text-input" style="width:410px;">
             <legend>Adicionar Foto</legend>
             <table>
                 <tr>
@@ -15,7 +15,7 @@
                 </tr>
             </table>
         </fieldset>
-        <input type="submit" id="_ID_SUBMIT_" value="adicionar" />
+        <input class="button2" style="margin-top: 10px;" type="submit" id="_ID_SUBMIT_" value="adicionar" />
     </form>
    
 </div>
