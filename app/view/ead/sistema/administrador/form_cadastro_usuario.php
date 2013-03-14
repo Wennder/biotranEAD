@@ -265,8 +265,8 @@
             </fieldset>
             <br>
             <div id="_id_div_uploadProgress">
-                <input type="submit" id="_b_button_cadastrar" name="_b_button_cadastrar" value="Cadastrar" class="button2"/>
-                <input type="submit" id="_b_button_atualizar" name="_b_button_atualizar" value="Atualizar" class="button2" style="display: none;"/>
+                <input type="submit" id="_b_button_cadastrar" name="_b_button_cadastrar" value="Cadastrar" class="button2" style="float: left; margin-right: 10px"/>
+                <input type="submit" id="_b_button_atualizar" name="_b_button_atualizar" value="Atualizar" class="button2" style="display: none; float: left; margin-right: 10px"/>
             </div>
             <div id="div_hidden" style="display: none;">
                 <input type="text" id="_id_id" name="_id_id" value="#ID_USUARIO#"/>

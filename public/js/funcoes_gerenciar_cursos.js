@@ -1,5 +1,5 @@
 var verCurso, dialog, oTable, elem, nomeColunas = new Array();
-            
+
 function getGratuito(flag){
     if(flag == 1){
         return 'Sim';
@@ -24,9 +24,9 @@ function getStatus(status){
     if(status == 3){
         return 'Aprovado e disponível';
     }
-        
+
 }
-            
+
 function updateDataTables(_form, _data){//Adicionar essa função        
     var fields_value = new Array();
     for (var i=0; i<nomeColunas.length; i++) {
@@ -44,9 +44,9 @@ function updateDataTables(_form, _data){//Adicionar essa função
             }                
         }
     }        
-    oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));        
+    oTable.fnUpdate(fields_value, oTable.fnGetPosition(elem[0]));
 }
-    
+
 function updateDataTables_status(status){//Adicionar essa função        
     var _data = oTable.fnGetData(elem[0]);
     switch (status){            
@@ -69,7 +69,7 @@ function updateDataTables_status(status){//Adicionar essa função
     }
     oTable.fnUpdate(_data, oTable.fnGetPosition(elem[0]));        
 }        
-    
+
 function insertDataTables(_form, json){//Adicionar essa função  
     var fields_value = new Array();
     for (var i=0; i<6; i++) {
@@ -88,11 +88,13 @@ function insertDataTables(_form, json){//Adicionar essa função
     fields_value.push(json.justificativa);        
     fields_value.push(json.obs);        
     fields_value.push(json.id);        
-    fields_value.push("<input type='checkbox' value='0' disabled='true' id='check_habilitar' />");
-        
-    oTable.fnAddData(fields_value, true);
-}
+    fields_value.push("<input type='checkbox' value='0' disabled='true' id='check_habilitar' />");            
     
+    oTable.fnAddData(fields_value, true);    
+}
+
+
+
 $(document).ready(function(){
     //capturando nome das colunas da tabela para lógica replace de ids        
     $('thead th').each(function(){
@@ -100,9 +102,15 @@ $(document).ready(function(){
         texto = texto[0].toLowerCase();
         nomeColunas.push(texto);
     });
-        
+    
     oTable = $("#tabela_cursos").dataTable({
         "aoColumnDefs": [ 
+        {
+            "aTargets": [ 1, 2, 3, 4, 11 ], 
+            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {                
+                $(nTd).attr('align', 'center');
+            }
+        },
         {
             "bSearchable": false, 
             "bVisible": false, 
@@ -142,7 +150,7 @@ $(document).ready(function(){
         ],
         "bJQueryUI":true
     });
-            
+    
     $('#check_habilitar').live('change', function(){
         var id_curso = $(this).attr('name');
         var chave = $(this).val();
@@ -166,7 +174,7 @@ $(document).ready(function(){
             }
         });
     });
-        
+    
     $('#tabela_cursos tr').live('click',function(e){
         if ( $(this).hasClass('row_selected') ) {
             $(this).removeClass('row_selected');
@@ -175,7 +183,7 @@ $(document).ready(function(){
             $(this).addClass('row_selected');
         }
     });  
-        
+    
     $('#aprovar_curso').live('click', function(){                
         if (elem.length) {
             var id_curso = $(elem).attr('id');                    
@@ -197,7 +205,7 @@ $(document).ready(function(){
             });
         }            
     });
-        
+    
     $('#reprovar_curso').live('click', function(){
         if (elem.length) {
             var id_curso = $(elem).attr('id');                    
@@ -219,8 +227,8 @@ $(document).ready(function(){
             });
         }
     });
-        
-        
+    
+    
     $('#btn_analisar').live('click', function(){            
         elem = $('tbody tr.row_selected');
         if(elem.length){
@@ -268,18 +276,21 @@ $(document).ready(function(){
             });
         }
     });
-        
+    
     $('#btn_edit').live('click',function(){
         elem = $('tbody tr.row_selected');
         if (elem.length) {
             var _data = oTable.fnGetData(elem[0]);
             var _column = oTable.fnGetData(elem[0]);                                
             //preselecionando combos e radio inputs:
-            $('#_id_gratuito'+_data[2]).attr('checked', 'true');
+            if(_data[2] == 'Não'){
+                _data[2] = "Nao";
+            }
+            $('#_id_gratuito'+_data[2]).attr('checked', 'true');                                                
             var _HTML = $('#dialog_form').html();                                
             var id_imagem = "00";
             var id_ass = "00";
-                    
+            
             $.ajax({
                 url: 'ajax/verificaImagem.php',
                 dataType: 'json',                       
@@ -302,10 +313,10 @@ $(document).ready(function(){
                             }
                         }
                     }
-
+                
                 }
             });
-                        
+            
             $.getJSON('ajax/combosPickList_cadastroCurso.php?acao=comID',{
                 id_curso: _data[10],       
                 ajax: 'true'
@@ -420,7 +431,7 @@ $(document).ready(function(){
                                 $(this).remove();
                             });
                         });
-	
+                        
                         $(this).find('#remover').live('click',function(){
                             $('#destino option:selected').each(function(){
                                 $('#origem').append('<option value="'+$(this).val()+'">'+$(this).text()+'</option>');
@@ -464,7 +475,7 @@ $(document).ready(function(){
             });
         }
     });               
-        
+    
     $('#btn_add').live('click',function(){                                                                   
         var _HTML = $('#dialog_form').html();      
         //preparando picklist do curso:                
@@ -569,7 +580,7 @@ $(document).ready(function(){
                                 $(this).remove();
                             });
                         });
-	
+                        
                         $(this).find('#remover').live('click',function(){
                             $('#destino option:selected').each(function(){
                                 $('#origem').append('<option value="'+$(this).val()+'">'+$(this).text()+'</option>');
@@ -616,7 +627,7 @@ $(document).ready(function(){
             }
         });            
     });
-        
+    
     $('#btn_del').live('click',function(){
         elem = $('tbody tr.row_selected');
         if (elem.length == 1) { 
@@ -637,7 +648,7 @@ $(document).ready(function(){
                 });  
             }
         }
-        
+    
     });
 });
 

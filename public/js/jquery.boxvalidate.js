@@ -5,23 +5,23 @@ $(function() {
     /* Required message */
     var requiredMsg = "Campo Requerido!";
     /* E-mail message */
-    var mailMsg = "O e-mail informado È inv·lido!";
+    var mailMsg = "O e-mail informado √© inv√°lido!";
     /* CPF message */
-    var cpfMsg = "CPF informado È inv·lido!";
+    var cpfMsg = "CPF informado √© inv√°lido!";
     /* cnpj message */
-    var cnpjMsg = "CNPJ informado È inv·lido!";
+    var cnpjMsg = "CNPJ informado √© inv√°lido!";
     /* Data message */
-    var dataMsg = "Data informada È inv·lida!";    
+    var dataMsg = "Data informada √© inv√°lido!";
     /* Numeric message */
-    var numericMsg = "O valor deve ser n˙merico!";
+    var numericMsg = "O valor deve ser numerico!";
     /* minlength message */
     var minMsg = "Informe ao menos X caracters!";
     /* maxlength message */
-    var maxMsg = "A quantidade m·xima È de X caracters!";
+    var maxMsg = "A quantidade m√°xima √© de X caracters!";
     /* Password message */
-    var passwordMsg = "Senhas n„o conferem!";
+    var passwordMsg = "Senhas n√£o conferem!";
     /* Telefone message */
-    var foneMsg = "O telefone informado È inv·lido!";    
+    var foneMsg = "O telefone informado √© inv√°lido!";
     
     
     /* mascaras */
