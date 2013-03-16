@@ -54,13 +54,14 @@
                         </td>
                     </tr>
                 </table>
-                <div style="position: absolute; margin: -35px 0 0 370px;">
+                <div style="position: absolute; margin: -35px 0 0 400px;">
                     <div id="div_atualizar_modulo" style="display: none;">
                         <input id="btn_atualizar_modulo" type="button" class="button2" value="Atualizar"/>
                     </div>
                     <input id="btn_editar_modulo" type="button" class="button2" value="Editar"/>
                 </div>
             </form><br>
+            <div id="info_procedimento"><h4>clique nos ícones abaixo para adicionar e editar conteudo</h4></div>
             <div id="menu_accordion">
                 <div class="accord_body">
                     <div class='accord_list'>
