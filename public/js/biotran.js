@@ -170,8 +170,8 @@ $(document).ready(function(){
                             uploadProgress: function(event, position, total, percentComplete) {                                
                                 $('progress').attr('value',percentComplete);
                                 $('#porcentagem').html(percentComplete+'%');
-                                $('body').apend('<div style="position:absolute; z-index:9000; top:0px; left:0px;'
-                                    +'width:100%; height:100%;"><div style="position:relative; left:50%; margin-left:-20px; top:100px;aling:right;" id="div_loading"><img style="margin:auto;position:relative;" src="img/gif/ajax-loader-f.gif" /><p style="margin-left:-20px;">aguarde o video ser processado...</p></div></div>');
+//                                $('body').apend('<div style="position:absolute; z-index:9000; top:0px; left:0px;'
+//                                    +'width:100%; height:100%;"><div style="position:relative; left:50%; margin-left:-20px; top:100px;aling:right;" id="div_loading"><img style="margin:auto;position:relative;" src="img/gif/ajax-loader-f.gif" /><p style="margin-left:-20px;">aguarde o video ser processado...</p></div></div>');
                             },                            
                             success: function(data) {
                                 aux = data;
