@@ -12,10 +12,10 @@
 
 <div id="form_cadastro">
     <form id="form_cadastrar" class="form_cadastro" method="post" action="ajax/crud_exercicio.php?acao=inserir_exercicio" enctype="multipart/form-data">
-        <div style="border-bottom:1px solid #eeeeee; width: 620px;">
+        <div style="border-bottom:1px solid #eeeeee; ">
             <center><label style="font-weight: bold; font-size: 14px;">Módulo <?php echo $this->modulo->getNumero_modulo(); ?> - Adicionar Exercício</label></center>
         </div><br>
-        <fieldset style="width:600px;">
+        <fieldset class="text-input" style="width:inherit">
             <legend>Dados</legend>
             <table style="width: 100%;">
                 <tr>

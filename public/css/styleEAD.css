@@ -699,7 +699,7 @@ label.error{
 .btn_edt {
     background: #fff;
     background-position: left center;
-    float: right;
+    float: left;
     margin: -3px 5px 0 0;
     border: #ddd 1px solid;
     border-radius: 5px 5px 5px 5px;
@@ -721,7 +721,7 @@ label.error{
 .btn_del {
     background: #fff;
     background-position: left center;
-    float: right;
+    float: left;
     margin: -3px 5px 0 0;
     border: #ddd 1px solid;
     border-radius: 5px 5px 5px 5px;
@@ -792,6 +792,7 @@ label.error{
 .accord_label{
     margin: 7px 0 0 5px;
     position: absolute;
+    cursor:pointer;
 }
 
 .accord_label_2{
@@ -810,7 +811,8 @@ label.error{
 .conteudo_row{
     border-top:1px solid #f2f2f2;
     height: 20px;
-    padding: 5px 0 0 5px;
+    padding: 7px 15px;
+    overflow: hidden;
 }
 
 .conteudo_row a:hover, .conteudo_row label:hover{

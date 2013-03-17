@@ -27,13 +27,16 @@ if (isset($_GET['id'])) {
             }
         });
         
+        
         $("dd a, .desc").click(function() {
             if(centro!=1){
                 centro.find('div').remove();
             } 
+            $(centro).append('<div style="position:relative; left:50%; margin-left:-20px; top:100px;aling:right;" id="div_loading"><img style="margin:auto;position:relative;" src="img/gif/ajax-loader-f.gif" /><p style="margin-left:-20px;">carregando...</p></div>');            
             centro = $('#center_content').load($(this).attr('id'), function (){
-            });               
-        });
+//                centro.find("#div_loading").remove();
+            }); 
+            });
     }); 
 </script>
 

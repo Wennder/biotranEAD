@@ -120,9 +120,9 @@ class controllerModulo {
         $lista = "";
         $videos = $controllerVideo->getListaVideos('id_modulo=' . $id_modulo);
         for ($i = 0; $i < count($videos); $i++) {
-            $lista .= "<li class='conteudo_row' id='li_video_" . $videos[$i]->getId_video() . "'><label name='video' class='link_video' id='index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . "'>";
+            $lista .= "<li class='conteudo_row' id='li_video_" . $videos[$i]->getId_video() . "'><label name='video' user='professor' class='link_video' id='index.php?c=ead&a=janela_video&id=" . $videos[$i]->getId_video() . "'>";
             $lista .= $videos[$i]->getTitulo();
-            $lista .= "</label><input id='" . $videos[$i]->getId_video() . "' type='button' name='video' class='btn_del' value='Excluir' style='float: right;'/></li>";
+            $lista .= "</label><input id='" . $videos[$i]->getId_video() . "' type='button' name='video' class='btn_del' value='Excluir' style='float: left;'/></li>";
             $lista .= "</li>";
         }
         return $lista;

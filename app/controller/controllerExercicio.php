@@ -200,9 +200,9 @@ class controllerExercicio {
         for ($i = 0; $i < count($p); $i++) {
             $a = $controller->getListaAlternativas("id_pergunta=" . $p[$i]->getId_pergunta());
             $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body'><div class='accord_list'><label class='accord_label'><b>Questão " . $p[$i]->getNumeracao() . ":</b> " . substr($p[$i]->getEnunciado(), 0, 139) . "...</label></div></div>";
-            $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body' style='display:none;'>";
+            $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body' style='background-color:rgb(250,250,255);border-bottom:1px solid rgb(220,220,220);display:none;'>";
             $lista .='<div style="margin: 0 0 0 5px;"><form class="formulario" id="form_atualizar_pergunta_' . $p[$i]->getId_pergunta() . '" name="form_atualizar_pergunta" method="post" action="ajax/crud_exercicio.php?acao=atualizar_pergunta" enctype="multipart/form-data"><br>
-            <fieldset style="width:893px;">
+            <fieldset style="width:893px; border:0px;">
                 <legend>Editar Questão</legend>
                 <table>
                     <tr>
@@ -320,8 +320,8 @@ class controllerExercicio {
         for ($i = 0; $i < count($p); $i++) {
             $a = $controller->getListaAlternativas("id_pergunta=" . $p[$i]->getId_pergunta());
             $lista .= "<div id='div_pergunta_" . $p[$i]->getNumeracao() . "' class='accord_body'><div class='accord_list questaoBody_" . $p[$i]->getNumeracao() . "'><label class='accord_label'><b>Questão " . $p[$i]->getNumeracao() . "</b></label></div></div>";
-            $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body questao_body' style='display:none;'>";
-            $lista .='<div style="margin: 0 0 0 5px;" class="formulario"><br><fieldset style="width:893px;">
+            $lista .= "<div id='div_pergunta_body_" . $p[$i]->getNumeracao() . "' class='accord_content_body questao_body' style='background-color:rgb(250,250,255);border-bottom:1px solid rgb(220,220,220);display:none;'>";
+            $lista .='<div style="margin: 0 0 0 5px;" class="formulario"><br><fieldset style="border:0px;width:893px;">
                 <table>
                     <tr>
                         <td valign="top"><label><b>' . $p[$i]->getNumeracao() . 'º)</b> </label></td>
@@ -696,10 +696,10 @@ class controllerExercicio {
             $aux = '';
             $p = $cp->getPergunta("id_pergunta=" . $id_perguntas[$i]);
             $a = $ca->getListaAlternativas("id_pergunta=" . $id_perguntas[$i]);
-            $lista .= '<div>';
+          //  $lista .= '<div>';
             $lista .= "<div id='div_pergunta_" . $p->getNumeracao() . "' class='accord_body'><div class='accord_list questaoBody_" . $p->getNumeracao() . "'><label class='accord_label'><b>Questão " . $p->getNumeracao() . "</b></label></div></div>";
-            $lista .= "<div id='div_pergunta_body_" . $p->getNumeracao() . "' class='accord_content_body questao_body' style='display:none;'>";
-            $lista .='<div style="margin: 0 0 0 5px;" class="formulario"><br><fieldset style="width:893px;">
+            $lista .= "<div id='div_pergunta_body_" . $p->getNumeracao() . "' class='accord_content_body questao_body' style='background-color:rgb(250,250,255);border-bottom:1px solid rgb(220,220,220);display:none;'>";
+            $lista .='<div style="margin: 0 0 0 5px;" class="formulario"><br><fieldset style="border:0px; width:893px;">
                             <table>
                                 <tr>
                                     <td valign="top"><label><b>' . $p->getNumeracao() . 'º)</b> </label></td>
@@ -799,8 +799,8 @@ class controllerExercicio {
                             </div>
                         </td>
                     </tr>
-                </table><br></fieldset></div></div><br>';
-            $lista .= '</div>';
+                </table><br></fieldset></div></div>';
+           // $lista .= '</div>';
         }
 
         if ($acertos == 0) {
@@ -809,7 +809,7 @@ class controllerExercicio {
             $porc = (100 * $acertos) / ($acertos + $erros);
         }
         $botao = '<div>
-            <input type="button" value="Fechar" id="fechar_exercicio" class="button2"/>                    
+            <input type="button" style="margin:5px" value="Fechar" id="fechar_exercicio" class="button2"/>                    
             </div>
             <div style="display:none;" >
             <input type="text" value="' . $porc . '" id="porc_acertos"/>        

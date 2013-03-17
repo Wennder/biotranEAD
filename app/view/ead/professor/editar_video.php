@@ -28,7 +28,7 @@
 
 <div id="form_cadastro" style="">
     <form id="form_cadastrar" class="form_cadastro" method="post" action="ajax/crud_conteudo_modulo.php?acao=inserir_video" enctype="multipart/form-data">
-        <fieldset style="width: 100%;">
+        <fieldset class="text-input" style="width: 100%;">
             <legend>Dados da video-aula</legend>
             <table>
                 <tr>

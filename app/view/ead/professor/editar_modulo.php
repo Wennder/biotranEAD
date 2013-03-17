@@ -61,7 +61,7 @@
                     <input id="btn_editar_modulo" type="button" class="button2" value="Editar"/>
                 </div>
             </form><br>
-            <div id="info_procedimento"><h4>clique nos ícones abaixo para adicionar e editar conteudo</h4></div>
+            <div id="info_procedimento"><h5>clique nos ícones abaixo para adicionar e editar conteudo</h5></div>
             <div id="menu_accordion">
                 <div class="accord_body">
                     <div class='accord_list'>
