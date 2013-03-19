@@ -4,7 +4,7 @@
 body {
     padding: 0; 
     margin: 0;
-    font-size: 12px;
+    font-size: 15px;
     color: #404040;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     /*    background: url('../img/body_bg.png') repeat-x;*/
@@ -69,7 +69,7 @@ body {
     height: 45px;
     margin: 13px 385px 0;
     color: #fff;
-    font-size: 20px;
+    font-size: 23px;
     font-weight: bold;
     text-shadow: 1px 1px 4px #000;
     position: absolute;
@@ -93,7 +93,7 @@ body {
     height: 45px;
     margin: 13px 160px 0;
     color: #fff;
-    font-size: 20px;
+    font-size: 23px;
     font-weight: bold;
     text-shadow: 1px 1px 4px #000;
     position: absolute;
@@ -164,7 +164,7 @@ body {
     height: 45px;
     margin: 13px 140px 0;
     color: #fff;
-    font-size: 20px;
+    font-size: 23px;
     font-weight: bold;
     text-shadow: 1px 1px 4px #000;
     position: absolute;
@@ -185,7 +185,7 @@ body {
 
 .comentario{
     padding: 2px 15px;
-    font-size: 11px;
+    font-size: 13px;
     margin: 5px 3px ;
     background: #f7f7f7;
     border: 1px solid #eeeeee;
@@ -199,7 +199,7 @@ body {
 .comentario p{
     color:#404040;
     padding:4px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 #footer{
@@ -240,7 +240,7 @@ body {
 }
 
 #div_login table{
-    font-size: 14px;
+    font-size: 16px;
 }
 
 #div_logado{
@@ -253,7 +253,7 @@ body {
 }
 
 #div_logado table{
-    font-size: 13px;
+    font-size: 15px;
     color: #FFF;
     text-align: right;
     margin-right: 5px;
@@ -268,7 +268,7 @@ body {
 }
 
 #recuperar_senha{
-    font-size: 11px;
+    font-size: 13px;
     color: #FFF;
     text-align: right;
     margin-right: 5px;
@@ -289,7 +289,7 @@ body {
 }
 
 #errorlogin{
-    font-size: 12px;
+    font-size: 14px;
     color: #FBCACA;
     text-align: right;
     font-weight: bold;
@@ -331,7 +331,7 @@ body {
 }
 
 #nome_curso label{
-    font-size: 12px;
+    font-size: 14px;
 }
 /*-----------------------------------------*/
 
@@ -365,7 +365,7 @@ body {
     float:left;
     color: #FFF;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -390,7 +390,7 @@ body {
     float:left;
     color: #FFF;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
 }
 /*-----------------------------------------*/
@@ -450,7 +450,7 @@ body {
     width: 305px;
     color: #fff;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 27px;
     font-weight: bold;
     padding-left: 80px;
     text-shadow: 1px 2px 3px #000;
@@ -461,7 +461,7 @@ body {
     width: 305px;
     color: #fff;
     text-decoration: none;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
     padding-left: 70px;
     text-shadow: 1px 2px 3px #000;
@@ -491,21 +491,21 @@ body {
 
 form.form_cadastro{
     font-family: tahoma,verdana,"sans-serif";
-    font-size: 12px;
+    font-size: 14px;
     width: 98%;
 }
 
 .label_cadastro, .label_recuperarSenha{
-    font-size: 13px;
+    font-size: 15px;
 }
 
 #form_cadastro .label_cadastro_legend, #form_recuperarSenha .label_recuperarsenha_legend{
-    font-size: 11px;
+    font-size: 13px;
     color: #555555;
 }
 
 #form_cadastro legend, #form_recuperarSenha legend{
-    font-size: 11px;
+    font-size: 13px;
     color: #555555;
 
 }
@@ -518,7 +518,7 @@ form.form_cadastro{
     background: none repeat-x scroll 0 0 #FFFFFF;
     border: 1px solid #B5B8C8;
     color: #555555;
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 4px;
     padding: 4px;
     width: 250px;
@@ -537,14 +537,14 @@ form.form_cadastro{
     color: red;
     margin: 8px 0 0 5px;
     vertical-align:top;
-    font-size: 12px;
+    font-size: 14px;
     position: absolute;
 }
 /*-----------------------------------------*/
 
 /*------------- BOTÃO TIPO 1 --------------*/
 .button1{
-    font:bold 14px Arial, Helvetica, sans-serif;
+    font:bold 16px Arial, Helvetica, sans-serif;
     font-style:normal;
     color:#3074c7;
     width:140px;
@@ -571,7 +571,7 @@ form.form_cadastro{
 
 /*------------- BOTÃO TIPO 2 --------------*/
 .button2{
-    font:bold 14px Arial, Helvetica, sans-serif;
+    font:bold 16px Arial, Helvetica, sans-serif;
     font-style:normal;
     color: white;
     padding: 3px 15px;
@@ -600,3 +600,22 @@ form.form_cadastro{
     top:2px;
 }
 /*-----------------------------------------*/
+
+/*-------------Noticias--------------------*/
+#titulo_noticia{
+    margin:0px;
+}
+#manchete_noticia{
+    margin:0px 3px;
+    color:rgb(120,120,120);
+}
+#data_noticia{
+    padding-left:3px;
+    margin:0px 0px 10px 0px;
+    color:rgb(110,110,100);
+}
+#img_noticia{
+    max-width: 800px;
+}
+#texto_noticia{margin-bottom:0;}
+#autor_noticia{margin:8px 0 10px 0;color:rgb(100,100,100);}

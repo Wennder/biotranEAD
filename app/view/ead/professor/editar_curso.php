@@ -231,13 +231,14 @@ $caminho = file_exists("img/cursos/" . $this->curso->getId_curso() . ".jpg") ? "
         <div id="lista_modulos">
             <label style="margin: 5px 0 0 9px; position: absolute;"><b>Módulos:</b></label><br>
             <ul style="list-style-type:none; width: 725px; padding: 10px 0 0 10px; margin-bottom: 20px;">
-                <div id="div_add_modulo">
-                    <input type="button" value="" id="btn_add_modulo" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Adicionar Módulo
-                </div>
+                
                 <?php
                 $controllerModulo = new controllerModulo();
                 echo $controllerModulo->listaModulos($id_curso);
                 ?>
+                <div id="div_add_modulo">
+                    <input type="button" value="" id="btn_add_modulo" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Inserir Módulo Adicional
+                </div>
             </ul>
         </div>
     </form>

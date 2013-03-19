@@ -494,13 +494,17 @@ class controllerCurso {
         $i = 0;
         $tabela .= "<div class='accord_body accord_list' style='border-left:3px solid #7fd08b; padding-left:5px;'><label class='accord_label'>Outros Cursos</label></div>";
         $tabela .= "<div class='accord_content_body' style='display: none;'><ul class='accord_ul'>";
-        if ($quant > 0)
+        $existe_curso = false;
+        if ($quant > 0){
             for (; $i < $quant; $i++) {
                 if ($matricula_cursoDAO->select("id_usuario=" . $_SESSION["usuarioLogado"]->getId_usuario() . " AND id_curso=" . $this->cursos[$i]->getId_curso()) == null) {
-                    $tabela.="<li class='conteudo_row' style='height: 26px;'><label>" . $this->cursos[$i]->getNome() . "</label>";
-                    $tabela.="<div style='float: right;'><input id='btn_visualizarCurso' name='" . $this->cursos[$i]->getId_curso() . "' type='button' class='button3' value='Visualizar'/></div></li>";
+                    $tabela.="<li class='conteudo_row' style='height: 26px;'><label><a href='index.php?c=ead&a=visualizar_curso&id=".$this->cursos[$i]->getId_curso()."'>" . $this->cursos[$i]->getNome() . "</a></label></li>";
+                    $existe_curso = true;
                 }
-            } else {
+            }
+            
+        }
+        if($existe_curso == false){
             $tabela.="<li class='conteudo_row' style='height: 26px;'><label>Não há outros cursos disponíveis no momento.</label></li>";
         }
         $tabela .='</ul></div>';

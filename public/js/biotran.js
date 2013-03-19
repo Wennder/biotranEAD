@@ -135,8 +135,8 @@ $(document).ready(function(){
                 var width = 0;
                 var height = 0;
                 if(tipo == 'video'){
-                    width = 650;
-                    height = 360;
+                    width = 545;
+                    height = 380;
                 }else{
                     if(tipo == 'texto_referencia'){
                         width = 650;
@@ -146,8 +146,8 @@ $(document).ready(function(){
                             width = 650;
                             height = 280;
                         }else{//novo exercício
-                            width = 650;
-                            height = 290;
+                            width = 580;
+                            height = 310;
                         }
                     }
                 }                                            
@@ -170,10 +170,8 @@ $(document).ready(function(){
                             uploadProgress: function(event, position, total, percentComplete) {                                
                                 $('progress').attr('value',percentComplete);
                                 $('#porcentagem').html(percentComplete+'%');
-                                if(exercicio == 'exercicio'){
-                                    if(percentComplete > 99){                                        
-                                    }
-                                }
+//                                $('body').apend('<div style="position:absolute; z-index:9000; top:0px; left:0px;'
+//                                    +'width:100%; height:100%;"><div style="position:relative; left:50%; margin-left:-20px; top:100px;aling:right;" id="div_loading"><img style="margin:auto;position:relative;" src="img/gif/ajax-loader-f.gif" /><p style="margin-left:-20px;">aguarde o video ser processado...</p></div></div>');
                             },                            
                             success: function(data) {
                                 aux = data;
@@ -209,14 +207,17 @@ $(document).ready(function(){
             }
         });        
     });      
-                
+     var h = 470;      
     $(".link_video").live('click',function() {
         var tag = $(this);
+        if(tag.attr('user')== 'professor'){
+            h=600;
+        }
         if(tag.attr('name') == 'video'){                                                    
             $('#dialog_video').load(tag.attr('id'), function (){
                 var options = {
                     width:700, 
-                    height:600,
+                    height:h,
                     dialogClass:'dialogstyle',
                     focus: function(event, ui){
                         $('#form_cadastrar').ajaxForm({

@@ -50,13 +50,13 @@
         dialog = $(_HTML).dialog({
             draggable: false,
             resizable: false,
-            position: [(($(window).width()-900)/2), 15],
-            width:900,
+            position: [(($(window).width()-500)/2), 15],
+            width:500,
             show: {
                 effect: 'drop', 
                 direction: "up"
             },
-            height: (300),
+            height: (180),
             modal:true,                                          
             close: function(event,ui){                     
                 $(dialog).dialog('destroy');

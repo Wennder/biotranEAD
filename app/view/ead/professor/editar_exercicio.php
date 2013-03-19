@@ -81,7 +81,7 @@
             <div style="border-bottom:1px solid #eeeeee; width: 923px;">
                 <center><label style="font-weight: bold; font-size: 14px;">Editar Exercício</label></center>
             </div><br>
-            <fieldset style="width:905px;">
+            <fieldset class="text-input" style="width:905px;">
                 <legend>Dados</legend>
                 <table style="width: 100%;">
                     <tr>

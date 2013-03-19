@@ -12,7 +12,7 @@
         <center><label style="font-weight: bold; font-size: 14px;">Módulo <?php echo $this->modulo->getNumero_modulo(); ?> - Editar Vídeo-Aula</label></center>
     </div><br>
     <form id="form_cadastrar" class="form_cadastro" method="post" action="ajax/crud_conteudo_modulo.php?acao=atualizar_video" enctype="multipart/form-data">
-        <fieldset style="width:650px;">
+        <fieldset class="text-input" style="width:650px;">
             <legend>Dados</legend>
             <table style="width: 100%;">
                 <tr>
@@ -50,8 +50,8 @@
                     </td>
                 </tr>            
                 <tr>
-                    <td>
-                <center><label>--- Vídeo atual</label></center>
+                    <td colspan="2">
+               <label>--- Vídeo atual</label>
                 </td>
                 </tr>
                 <tr>

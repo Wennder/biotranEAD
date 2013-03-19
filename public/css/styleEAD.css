@@ -5,7 +5,7 @@ body {
     background-color: #fff;
     color: #404040;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: normal;
     line-height: 18px;
     margin: 0;
@@ -50,13 +50,13 @@ textarea{
 
 .labelTopbar_1{
     color: #fff;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
 }
 
 .labelTopbar_2{
     color: #fff;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 #pic_topbar{
@@ -108,7 +108,7 @@ textarea{
 
 #menuDrop_topbar a{
     color: #fff;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 #menuDrop_topbar a:hover{
@@ -159,7 +159,7 @@ textarea{
 #page-leftcolumn a {
     color:#fff;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 17px;
 }
 
 #page-leftcolumn ul{
@@ -174,7 +174,7 @@ textarea{
 #page-leftcolumn dt {
     background-color:#016292;
     padding: 10px 0 10px 5px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 #page-leftcolumn dt:hover {
@@ -195,7 +195,7 @@ textarea{
     color:#069;
     padding:5px;
     padding: 5px 0 5px 30px;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 #page-leftcolumn ul li a:hover {
@@ -313,7 +313,7 @@ textarea{
     color:#616161;
     font-weight: bold;
     float:left;
-    font-size: 15px;
+    font-size: 17px;
 }
 
 .index_admin_label_blue{
@@ -321,7 +321,7 @@ textarea{
     color:#275175;
     font-weight: bold;
     float:left;
-    font-size: 15px;
+    font-size: 17px;
 }
 
 .index_admin_label_gray:hover, .index_admin_label_blue:hover{
@@ -461,17 +461,17 @@ textarea{
 
 form.form_cadastro, form.form_editar{
     font-family: tahoma,verdana,"sans-serif";
-    font-size: 12px;
+    font-size: 14px;
     width: 98%;
 }
 
 #form_cadastro .label_cadastro_legend, #form_editar .label_editar_legend{
-    font-size: 11px;
+    font-size: 13px;
     color: #555555;
 }
 
 #form_cadastro legend, #profile legend, #form_editar legend{
-    font-size: 11px;
+    font-size: 13px;
     color: #555555;
 }
 
@@ -484,16 +484,16 @@ label.error{
     color: red;
     margin: 8px 0 0 5px;
     vertical-align:top;
-    font-size: 12px;
+    font-size: 14px;
     position: absolute;
 }
 
 .label_cadastro, .label_profile, .label_editar, .label_pergunta{
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .formulario legend{
-    font-size: 11px;
+    font-size: 13px;
     color: #555555;
 }
 
@@ -506,7 +506,7 @@ label.error{
     border: 1px solid #B5B8C8;
     border-radius: 8px 8px 8px 8px;
     color: #555555;
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 4px;
     padding: 4px;
     width: 250px;
@@ -517,7 +517,7 @@ label.error{
     border: 1px solid #B5B8C8;
     border-radius: 8px 8px 8px 8px;
     color: #555555;
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 4px;
     padding: 4px; 
 }
@@ -589,7 +589,7 @@ label.error{
 
 /*------------- BOTÃO TIPO 1 --------------*/
 .button1{
-    font:bold 13px Arial, Helvetica, sans-serif;
+    font:bold 15px Arial, Helvetica, sans-serif;
     font-style:normal;
     color:#3074c7;
     width:140px;
@@ -617,7 +617,7 @@ label.error{
 
 /*------------- BOTÃO TIPO 2 --------------*/
 .button2{
-    font:bold 14px Arial, Helvetica, sans-serif;
+    font:bold 16px Arial, Helvetica, sans-serif;
     font-style:normal;
     color: white;
     padding: 3px 15px;
@@ -699,7 +699,7 @@ label.error{
 .btn_edt {
     background: #fff;
     background-position: left center;
-    float: right;
+    float: left;
     margin: -3px 5px 0 0;
     border: #ddd 1px solid;
     border-radius: 5px 5px 5px 5px;
@@ -721,7 +721,7 @@ label.error{
 .btn_del {
     background: #fff;
     background-position: left center;
-    float: right;
+    float: left;
     margin: -3px 5px 0 0;
     border: #ddd 1px solid;
     border-radius: 5px 5px 5px 5px;
@@ -792,6 +792,7 @@ label.error{
 .accord_label{
     margin: 7px 0 0 5px;
     position: absolute;
+    cursor:pointer;
 }
 
 .accord_label_2{
@@ -810,7 +811,8 @@ label.error{
 .conteudo_row{
     border-top:1px solid #f2f2f2;
     height: 20px;
-    padding: 5px 0 0 5px;
+    padding: 7px 15px;
+    overflow: hidden;
 }
 
 .conteudo_row a:hover, .conteudo_row label:hover{
@@ -901,7 +903,7 @@ label.error{
 
 .estudante{
     padding: 1px;
-    font-size: 11px;
+    font-size: 13px;
     margin: 3px ;
     background: #f7f7f7;
     border: 1px solid #eeeeee;
@@ -1035,7 +1037,7 @@ label.error{
     background-color: #edf7ff;
 }
 #forum_novo_topico, #forum_responder{
-    font:bold 14px Tahoma, Geneva, sans-serif;
+    font:bold 16px Tahoma, Geneva, sans-serif;
     font-style:normal;
     color:#ffffff;
     background:midnightblue;
