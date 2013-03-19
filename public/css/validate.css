@@ -1,5 +1,5 @@
 /* INICIO STYLE VALIDATE PLUGIN */
-.hide
+/*.hide
 {
     display:none;
 }
@@ -9,27 +9,27 @@
 }
 .validate input[type="text"] , .validate input[type="password"]
 {
-    border:1px solid #7A9CBC; /* BORDA */
-    -moz-box-shadow: 0 0 3px #138AE7; /* BORDA */
-    -webkit-box-shadow: 0 0 3px #138AE7;/* BORDA */
-    box-shadow: 0 0 3px #138AE7;  /* BORDA */
+    border:1px solid #7A9CBC;  BORDA 
+    -moz-box-shadow: 0 0 3px #138AE7;  BORDA 
+    -webkit-box-shadow: 0 0 3px #138AE7; BORDA 
+    box-shadow: 0 0 3px #138AE7;   BORDA 
     border-radius:4px;  
     -moz-border-radius:4px;
     padding:7px;
-    min-width: 300px; /* COMPRIMENTO DO CAMPO INPUT */
+    min-width: 300px;  COMPRIMENTO DO CAMPO INPUT 
     color:#333;
     margin-bottom:5px; 
 }
 .validate select
 {
-    border:1px solid #7A9CBC; /* BORDA */
-    -moz-box-shadow: 0 0 3px #138AE7; /* BORDA */
-    -webkit-box-shadow: 0 0 3px #138AE7;/* BORDA */
-    box-shadow: 0 0 3px #138AE7;  /* BORDA */
+    border:1px solid #7A9CBC;  BORDA 
+    -moz-box-shadow: 0 0 3px #138AE7;  BORDA 
+    -webkit-box-shadow: 0 0 3px #138AE7; BORDA 
+    box-shadow: 0 0 3px #138AE7;   BORDA 
     border-radius:4px;  
     -moz-border-radius:4px;
     padding:7px;
-    min-width: 317px; /* COMPRIMENTO DO CAMPO INPUT */
+    min-width: 317px;  COMPRIMENTO DO CAMPO INPUT 
     color:#333;
     margin-bottom:10px; 
 }
@@ -41,15 +41,15 @@
     padding-left:0px;
     margin-top:8px; 
     color:#666;
-}
+}*/
 .validate .invalid
 {
     border:1px solid red !important;
-    -moz-box-shadow: 0 0 3px red !important;
-    -webkit-box-shadow: 0 0 3px red !important;
-    box-shadow: 0 0 3px red !important;  
-    border-radius:4px; 
-    -moz-border-radius:4px;
+    -moz-box-shadow: 0 0 8px red !important;
+    -webkit-box-shadow: 0 0 8px red !important;
+    box-shadow: 0 0 8px red !important;  
+    border-radius:8px;
+    -moz-border-radius:8px;
     background: url(../images/error.png) no-repeat right;
     position: relative;
 }
@@ -58,7 +58,7 @@
     background: url(../images/success.png) no-repeat right;  
 }
 
-.validate p span
+/*.validate p span
 {
     color:red;
     display: none;
@@ -66,6 +66,6 @@
     position: relative;
     top:25px;
     left:-325px;
-}
+}*/
 
 /* FIM STYLE VALIDATE PLUGIN */

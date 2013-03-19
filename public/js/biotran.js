@@ -170,6 +170,10 @@ $(document).ready(function(){
                             uploadProgress: function(event, position, total, percentComplete) {                                
                                 $('progress').attr('value',percentComplete);
                                 $('#porcentagem').html(percentComplete+'%');
+                                if(exercicio == 'exercicio'){
+                                    if(percentComplete > 99){                                        
+                                    }
+                                }
                             },                            
                             success: function(data) {
                                 aux = data;
@@ -335,6 +339,13 @@ function optionsFormCadastrarPergunta(form){
         clearForm:true,
         data: {
             id_exercicio: $('#id').val()
+        },
+        beforeSubmit: function(){
+            if($('input[id=radio_correta]:checked').size() == 0){
+                alert("É preciso selecionar a alternativa correta!");
+                $('#btn_add_pergunta').removeAttr('disabled');
+                return false;               
+            }
         },
         uploadProgress: function(event, position, total, percentComplete) {
             form.find('#progress').attr('value',percentComplete);

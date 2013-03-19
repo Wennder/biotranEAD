@@ -70,6 +70,9 @@ class controllerUsuario {
         $this->setUsuario_post();
         //atualiza usuario
         $this->updateUsuario($this->usuario, $this->end);
+        if($this->usuario->getId_usuario() == $_SESSION['usuarioLogado']->getId_usuario()){
+            $_SESSION['usuarioLogado'] = $this->usuario;
+        }
         //atualiza a foto
         $this->inserirFotoUsuario($this->usuario->getId_usuario());
         return 1;

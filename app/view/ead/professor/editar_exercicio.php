@@ -1,43 +1,45 @@
+<script src="js/jquery.boxvalidate.js" type="text/javascript"></script>
+
 <script>    
     $(document).ready(function(){                  
-        $('#form_cadastrar_pergunta').validate({
-            rules:{
-                numeracao: {
-                    required: true,
-                    number: true
-                },
-                enunciado: {
-                    required: true
-                },
-                eh_correta: {
-                    required: true
-                },                
-                resposta_0: {
-                    required: true
-                },
-                justificativa_0: {
-                    required: true
-                },                
-                resposta_1: {
-                    required: true
-                },
-                justificativa_1: {
-                    required: true
-                },                
-                resposta_2: {
-                    required: true
-                },
-                justificativa_2: {
-                    required: true
-                },                
-                resposta_3: {
-                    required: true
-                },
-                justificativa_3: {
-                    required: true
-                }
-            }
-        });
+//        $('#form_cadastrar_pergunta').validate({
+//            rules:{
+//                numeracao: {
+//                    required: true,
+//                    number: true
+//                },
+//                enunciado: {
+//                    required: true
+//                },
+//                eh_correta: {
+//                    required: true
+//                },                
+//                resposta_0: {
+//                    required: true
+//                },
+//                justificativa_0: {
+//                    required: true
+//                },                
+//                resposta_1: {
+//                    required: true
+//                },
+//                justificativa_1: {
+//                    required: true
+//                },                
+//                resposta_2: {
+//                    required: true
+//                },
+//                justificativa_2: {
+//                    required: true
+//                },                
+//                resposta_3: {
+//                    required: true
+//                },
+//                justificativa_3: {
+//                    required: true
+//                }
+//            }
+//        });
         
         $('#btn_editar_exercicio').click(function(){
             if($(this).attr('value') == 'Editar'){
@@ -59,6 +61,16 @@
             $(dialog).find('div').remove();
         });
     });
+    
+    function apenas_numero(e){
+        var tecla=(window.event)?event.keyCode:e.which;   
+        if((tecla>47 && tecla<58)) return true;
+        else{
+            if (tecla==8 || tecla==0) return true;
+            else  return false;
+        }
+    }
+    
 </script>
 <div>
     <div style="display:none;">                
@@ -109,16 +121,16 @@
             </div>
             <div id="div_cadastrar_pergunta_body" class="accord_content_body" style="display:none;">
                 <div style="margin: 0 0 0 5px;">
-                    <form id="form_cadastrar_pergunta" name="form_cadastrar_pergunta" class="formulario" method="post" action="ajax/crud_exercicio.php?acao=inserir_pergunta" enctype="multipart/form-data"><br>
+                    <form id="form_cadastrar_pergunta" name="form_cadastrar_pergunta" class="validate formulario" method="post" action="ajax/crud_exercicio.php?acao=inserir_pergunta" enctype="multipart/form-data"><br>
                         <fieldset style="width:893px;">
                             <legend>Nova Questão</legend>
                             <table>
                                 <tr>
                                     <td>
-                                        <label>Nº </label><input type="text" id="numeracao" name="numeracao" class="text-input" style="width: 30px;"/>
+                                        <label>Nº </label><input type="text" id="numeracao" name="numeracao" class="required text-input" onkeypress='return apenas_numero(event);' style="width: 30px;"/>
                                     </td>
                                     <td>
-                                        <textarea placeholder="Enunciado da Questão" id="enunciado" name="enunciado" class="text-area" style="height: 34px; width: 650px;"></textarea>
+                                        <textarea placeholder="Enunciado da Questão" id="enunciado" name="enunciado" class="required text-area" style="height: 34px; width: 650px;"></textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -140,64 +152,64 @@
                                         <div style="margin-top: 30px;">
                                             <label>Respostas:</label>
                                             <table style="width: 100%;">
-                                                <!--                                            Alternativa 1 -->
+                                                                                            Alternativa 1 
                                                 <tr>
                                                     <td>
-                                                        <input type="radio" name="eh_correta" value="0" style="margin: 5px 0 0 15px;"/>
+                                                        <input class="required" type="radio" id="radio_correta" name="eh_correta" value="0" style="margin: 5px 0 0 15px;"/>
                                                     </td>
                                                     <td>
-                                                        <textarea placeholder="Alternativa 1" id="resposta_0" name="resposta_0" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Alternativa 1" id="resposta_0" name="resposta_0" class="required text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td>
-                                                        <textarea placeholder="Justificativa da alternativa 1" id="justificativa_0" name="justificativa_0" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Justificativa da alternativa 1" id="justificativa_0" name="justificativa_0" class="required text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
-                                                <!--                                            Alternativa 2 -->
+                                                                                            Alternativa 2 
                                                 <tr>
                                                     <td>
-                                                        <input type="radio" name="eh_correta" value="1" style="margin: 5px 0 0 15px;"/>
+                                                        <input type="radio" name="eh_correta" id="radio_correta" value="1" style="margin: 5px 0 0 15px;"/>
                                                     </td>
                                                     <td>
-                                                        <textarea placeholder="Alternativa 2" id="resposta_1" name="resposta_1" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>
-                                                        <textarea placeholder="Justificativa da alternativa 2" id="justificativa_1" name="justificativa_1" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
-                                                    </td>
-                                                </tr>
-                                                <!--                                            Alternativa 3 -->
-                                                <tr>
-                                                    <td>
-                                                        <input type="radio" name="eh_correta" value="2" style="margin: 5px 0 0 15px;"/>
-                                                    </td>
-                                                    <td>
-                                                        <textarea placeholder="Alternativa 3" id="resposta_2" name="resposta_2" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Alternativa 2" id="resposta_1" name="resposta_1" class="required text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td>
-                                                        <textarea placeholder="Justificativa da alternativa 3" id="justificativa_2" name="justificativa_2" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Justificativa da alternativa 2" id="justificativa_1" name="justificativa_1" class="required text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
-                                                <!--                                            Alternativa 4 -->
+                                                                                            Alternativa 3 
                                                 <tr>
                                                     <td>
-                                                        <input type="radio" name="eh_correta" value="3" style="margin: 5px 0 0 15px;"/>
+                                                        <input type="radio" name="eh_correta" value="2" id="radio_correta" style="margin: 5px 0 0 15px;"/>
                                                     </td>
                                                     <td>
-                                                        <textarea placeholder="Alternativa 4" id="resposta_3" name="resposta_3" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Alternativa 3" id="resposta_2" name="resposta_2" class="required text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td>
-                                                        <textarea placeholder="Justificativa da alternativa 4" id="justificativa_3" name="justificativa_3" class="text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                        <textarea placeholder="Justificativa da alternativa 3" id="justificativa_2" name="justificativa_2" class="required text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                    </td>
+                                                </tr>
+                                                                                            Alternativa 4 
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="eh_correta" value="3" id="radio_correta" style="margin: 5px 0 0 15px;"/>
+                                                    </td>
+                                                    <td>
+                                                        <textarea placeholder="Alternativa 4" id="resposta_3" name="resposta_3" class="required text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <textarea placeholder="Justificativa da alternativa 4" id="justificativa_3" name="justificativa_3" class="required text-area" style="height: 34px; width: 650px; margin: 5px 0 0 26px;"></textarea>
                                                     </td>
                                                 </tr>
                                             </table>
