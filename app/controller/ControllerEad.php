@@ -199,9 +199,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionCurso_aluno() {
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->controllerCurso = new controllerCurso();
-        $this->visao->curso = $this->controllerCurso->getCurso("id_curso=" . $id_curso . "");
-        $this->controller = new controllerMatricula_curso();
-        $this->controller->novaMatricula($this->visao->curso, $_SESSION['usuarioLogado']);
+        $this->visao->curso = $this->controllerCurso->getCurso("id_curso=" . $id_curso . "");                
         $this->renderizar();
     }
 

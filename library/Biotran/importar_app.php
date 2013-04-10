@@ -69,6 +69,7 @@ require ROOT_PATH . '/library/Biotran/mvc/controller.php';
 include ROOT_PATH . '/library/wideimage/lib/WideImage.inc.php';
 include ROOT_PATH . '/library/phpmailer/class.phpmailer.php';
 include ROOT_PATH . '/library/dompdf/dompdf_config.inc.php';
+include ROOT_PATH . '/library/PagSeguroLibrary/PagSeguroLibrary.php';
 
 
 ?>
