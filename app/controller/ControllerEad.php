@@ -199,7 +199,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
     public function actionCurso_aluno() {
         $id_curso = Biotran_Mvc::pegarInstancia()->pegarId();
         $this->controllerCurso = new controllerCurso();
-        $this->visao->curso = $this->controllerCurso->getCurso("id_curso=" . $id_curso . "");                
+        $this->visao->curso = $this->controllerCurso->getCurso("id_curso=" . $id_curso . "");
         $this->renderizar();
     }
 
@@ -246,12 +246,16 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $mc = $c->getMatricula_curso('id_curso=' . $this->visao->modulo->getId_curso() . ' AND id_usuario=' . $_SESSION['usuarioLogado']->getId_usuario());
         $this->controllerCurso = new controllerCurso();
         $this->visao->curso = $this->controllerCurso->getCurso("id_curso=" . $this->visao->modulo->getId_curso() . "");
-        $this->visao->boolAcesso_modulo = $mc->getModulo_atual() >= $this->visao->modulo->getNumero_modulo();
-        if ($this->visao->boolAcesso_modulo) {
-            $this->visao->listaVideo = $this->controller->visualizar_listaVideo_aulas_modulo($id_modulo);
-            $this->visao->listaTexto = $this->controller->visualizar_listaArquivos($this->visao->modulo, 'texto_referencia');
-            $this->visao->listaMaterial = $this->controller->visualizar_listaArquivos($this->visao->modulo, 'material_complementar');
-            $this->visao->listaExercicio = $this->controller->visualizar_listaExercicio($id_modulo);
+        if (!$mc->getStatus_finalizado()) {
+            $this->visao->boolAcesso_modulo = $mc->getModulo_atual() >= $this->visao->modulo->getNumero_modulo();
+            if ($this->visao->boolAcesso_modulo) {
+                $this->visao->listaVideo = $this->controller->visualizar_listaVideo_aulas_modulo($id_modulo);
+                $this->visao->listaTexto = $this->controller->visualizar_listaArquivos($this->visao->modulo, 'texto_referencia');
+                $this->visao->listaMaterial = $this->controller->visualizar_listaArquivos($this->visao->modulo, 'material_complementar');
+                $this->visao->listaExercicio = $this->controller->visualizar_listaExercicio($id_modulo);
+            }
+        } else {
+            echo 'Seu tempo para realizar o curso ' . $this->visao->curso->getNome() . ' acabou. Consulte a Biotran para renovação de sua matrícula';
         }
         $this->renderizar();
     }
@@ -367,14 +371,14 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->controller = new controllerModulo();
         $this->visao->modulo = $this->controller->getModulo("id_modulo=" . $this->visao->video->getId_modulo() . "");
         //descobrindo navegador
-        $useragent = $_SERVER['HTTP_USER_AGENT'];
-
-        if (preg_match('|Firefox/([0-9\.]+)|', $useragent, $matched)) {
-            $this->visao->caminho = "cursos/" . $this->visao->modulo->getId_curso() . "/modulos/" . $this->visao->video->getId_modulo() . "/video_aula/" . $this->visao->video->getId_video() . ".webm";
-        } else {
-            $this->visao->caminho = "cursos/" . $this->visao->modulo->getId_curso() . "/modulos/" . $this->visao->video->getId_modulo() . "/video_aula/" . $this->visao->video->getId_video() . ".mp4";
-        }
-
+//        $useragent = $_SERVER['HTTP_USER_AGENT'];
+//
+//        if (preg_match('|Firefox/([0-9\.]+)|', $useragent, $matched)) {
+//            $this->visao->caminho = "cursos/" . $this->visao->modulo->getId_curso() . "/modulos/" . $this->visao->video->getId_modulo() . "/video_aula/" . $this->visao->video->getId_video() . ".webm";
+//        } else {
+//            $this->visao->caminho = "cursos/" . $this->visao->modulo->getId_curso() . "/modulos/" . $this->visao->video->getId_modulo() . "/video_aula/" . $this->visao->video->getId_video() . ".mp4";
+//        }
+        $this->visao->caminho = "cursos/" . $this->visao->modulo->getId_curso() . "/modulos/" . $this->visao->video->getId_modulo() . "/video_aula/" . $this->visao->video->getId_video() . ".webm";
         $this->renderizar();
     }
 

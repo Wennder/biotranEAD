@@ -141,7 +141,7 @@ class controllerMatricula_curso {
             //$paymentRequest->setShippingType($CODIGO_SEDEX);
             //$paymentRequest->setShippingAddress('01452002', 'Av. Brig. Faria Lima', '1384', 'apto. 114', 'Jardim Paulistano', 'São Paulo', 'SP', 'BRA');
             // Sets your customer information.
-            $paymentRequest->setSender($u->getNome_completo(), $u->getEmail());
+            $paymentRequest->setSender($u->getNome_completo(), $u->getEmail());            
             $paymentRequest->setRedirectUrl("http://www.google.com.br");
             try {
                 /*
@@ -150,7 +150,7 @@ class controllerMatricula_curso {
                  * You can also get your credentails from a config file. See an example:
                  * $credentials = PagSeguroConfig::getAccountCredentials();
                  */
-                $credentials = new PagSeguroAccountCredentials("carlos@biotran.com.br", "EC58F4E74AB94D45B8FCEA24AD737E73");
+                $credentials = PagSeguroConfig::getAccountCredentials();
                 // Register this payment request in PagSeguro, to obtain the payment URL for redirect your customer.
                 $url = $paymentRequest->register($credentials);
             } catch (PagSeguroServiceException $e) {

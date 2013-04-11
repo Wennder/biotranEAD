@@ -373,6 +373,25 @@ class controllerModulo {
         return 0;
     }
 
+    public function removeVideoMp4(Video $v) {
+        $id_video = $v->getId_video();
+        $id_modulo = $v->getId_modulo();
+        $id_curso = $this->getModulo("id_modulo=" . $id_modulo)->getId_curso();
+        $video = $_FILES["video"];
+        $tipos = array("video/mp4");
+        $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
+        if (in_array($video['type'], $tipos)) {
+            $video_mp4 = $pasta_dir . $id_video . ".mp4";        
+            if (is_file($video_mp4)) {
+                if (!unlink($video_mp4)) {
+                    return 0;
+                }
+            }            
+            return 1;
+        }
+        return 0;
+    }
+
     /*
      * $tipo_arquivo: material complementar, bibliográfico e texto de referencia
      */
