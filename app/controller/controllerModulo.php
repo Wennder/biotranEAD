@@ -149,9 +149,10 @@ class controllerModulo {
         $lista = "";
         $exercicio = $controller->getListaExercicio('id_modulo=' . $id_modulo);
         for ($i = 0; $i < count($exercicio); $i++) {
-            $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label name='exercicio' id='index.php?c=ead&a=resolver_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
+            $lista .= "<li class='conteudo_row' id='li_exercicio_" . $exercicio[$i]->getId_exercicio() . "'><label class='edt_exe' name='exercicio' id='index.php?c=ead&a=editar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "'>";
             $lista .= $exercicio[$i]->getTitulo();
-            $lista .= "</label><input id='" . $exercicio[$i]->getId_exercicio() . "' type='button' name='exercicio' class='btn_del' value='Excluir'/><input type='button' id='index.php?c=ead&a=editar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' class='btn_edt edt" . $exercicio[$i]->getId_exercicio() . "' name='exercicio' value='Editar'/></li>";
+            //BOTAO EDITAR - <input type='button' id='index.php?c=ead&a=editar_exercicio&id=" . $exercicio[$i]->getId_exercicio() . "' class='btn_edt edt" . $exercicio[$i]->getId_exercicio() . "' name='exercicio' value='Editar'/>
+            $lista .= "</label><input id='" . $exercicio[$i]->getId_exercicio() . "' type='button' name='exercicio' class='btn_del' value='Excluir'/></li>";
         }
         return $lista;
     }
@@ -372,6 +373,25 @@ class controllerModulo {
         return 0;
     }
 
+    public function removeVideoMp4(Video $v) {
+        $id_video = $v->getId_video();
+        $id_modulo = $v->getId_modulo();
+        $id_curso = $this->getModulo("id_modulo=" . $id_modulo)->getId_curso();
+        $video = $_FILES["video"];
+        $tipos = array("video/mp4");
+        $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
+        if (in_array($video['type'], $tipos)) {
+            $video_mp4 = $pasta_dir . $id_video . ".mp4";        
+            if (is_file($video_mp4)) {
+                if (!unlink($video_mp4)) {
+                    return 0;
+                }
+            }            
+            return 1;
+        }
+        return 0;
+    }
+
     /*
      * $tipo_arquivo: material complementar, bibliográfico e texto de referencia
      */
@@ -436,6 +456,7 @@ class controllerModulo {
         $v->setId_video($controller->novoVideo($v));
         if ($this->setArquivoVideo($v)) {
             $this->convert_video($v);
+            $this->removeVideoMp4();
             $retorno = $v->getId_video() . '-' . $v->getTitulo();
             return $retorno;
         }

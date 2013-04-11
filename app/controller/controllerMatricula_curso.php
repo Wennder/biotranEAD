@@ -80,9 +80,9 @@ class controllerMatricula_curso {
         $mc = $this->getMatricula_curso('id_curso=' . $curso->getId_curso() . ' AND id_usuario=' . $usuario->getId_usuario());
         if ($mc == null) {
             if ($usuario->getId_papel() == 4) {
-                $mc = new Matricula_curso();              
-                $mc->setData_inicio(date('d/m/y'));                
-                $mc->setData_fim(date('d/m/y', strtotime('+'.$curso->getTempo().' days')));
+                $mc = new Matricula_curso();
+                $mc->setData_inicio(date('d/m/y'));
+                $mc->setData_fim(date('d/m/y', strtotime('+' . $curso->getTempo() . ' days')));
                 $mc->setId_curso($curso->getId_curso());
                 $mc->setId_usuario($usuario->getId_usuario());
                 $mc->setModulo_atual(1);
@@ -117,6 +117,50 @@ class controllerMatricula_curso {
             return $this->updateMatricula_curso($mc);
         }
         return 0;
+    }
+
+    /*
+     * Cria uma requisicao de pagamento no PagSeguro
+     */
+
+    public function requisitarPagamento(Curso $c, Usuario $u) {
+        //se curso não for gratuito
+        if (!$c->getGratuito(1)) {
+            // Instantiate a new payment request
+            $paymentRequest = new PagSeguroPaymentRequest();
+            // Sets the currency
+            $paymentRequest->setCurrency("BRL");
+            $valor = str_replace(',', '.', $c->getValor());
+            // Add an item for this payment request
+            $paymentRequest->addItem($c->getId_curso(), $c->getNome(), 1, $valor);
+            // Add another item for this payment request        
+            // Sets a reference code for this payment request, it is useful to identify this payment in future notifications.
+            $paymentRequest->setReference("REF1234");
+            // Sets shipping information for this payment request
+            $CODIGO_SEDEX = PagSeguroShippingType::getCodeByType('SEDEX');
+            //$paymentRequest->setShippingType($CODIGO_SEDEX);
+            //$paymentRequest->setShippingAddress('01452002', 'Av. Brig. Faria Lima', '1384', 'apto. 114', 'Jardim Paulistano', 'São Paulo', 'SP', 'BRA');
+            // Sets your customer information.
+            $paymentRequest->setSender($u->getNome_completo(), $u->getEmail());            
+            $paymentRequest->setRedirectUrl("http://www.google.com.br");
+            try {
+                /*
+                 * #### Crendencials ##### 
+                 * Substitute the parameters below with your credentials (e-mail and token)
+                 * You can also get your credentails from a config file. See an example:
+                 * $credentials = PagSeguroConfig::getAccountCredentials();
+                 */
+                $credentials = PagSeguroConfig::getAccountCredentials();
+                // Register this payment request in PagSeguro, to obtain the payment URL for redirect your customer.
+                $url = $paymentRequest->register($credentials);
+            } catch (PagSeguroServiceException $e) {
+                die($e->getMessage());
+            }
+        }else{
+            $this->novaMatricula($this->visao->curso, $_SESSION['usuarioLogado']);
+            $url = "index.php?a=curso_aluno&c=ead&id=".$c->getId_curso();           
+        }
+        return $url;
     }
 
 }

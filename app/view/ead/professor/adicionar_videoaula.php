@@ -55,8 +55,8 @@
                         <textarea id="descricao" name="descricao" rows="3" cols="45" class="text-area" maxlength="100"></textarea>
                     </td>
                 </tr>
-            </table><br>
-            <input type="submit" id="btn_add" name="btn_add" value="Adicionar" class="button2"/>
+            </table><br>            
+            <input type="submit" id="btn_add" name="btn_add" value="Adicionar" class="button2"/>            
             <div style="display:none;">
                 <input type="text" id="id_modulo" name="id_modulo" value="<?php echo ($this->modulo != null ? $this->modulo->getId_modulo() : '') ?>"/>
             </div>

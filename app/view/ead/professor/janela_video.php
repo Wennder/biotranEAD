@@ -23,7 +23,7 @@
                         <input value="<?php echo $this->video->getTitulo(); ?>" type="text" id="titulo" name="titulo" class="text-input" style="width: 300px"/>
                         
                         <input type="submit" id="btn_edt_video" name="btn_edt_video" value="Atualizar" class="button2"/>
-                        <input type="button" id="btn_cancel_edt_video" name="btn_cancel_edt_video" value="Fechar" class="button2"/>
+                        <input type="button" id="btn_cancel_edt_video" name="btn_cancel_edt_video" value="Fechar" class="button2 fechar_dialog"/>
                     </td>                    
                 </tr>
                 <tr>

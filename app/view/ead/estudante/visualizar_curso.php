@@ -17,7 +17,21 @@
     $('#btn_matricular').live('click', function(){
         //AQUI REDIRECIONA PARA MATRICULA_CURSO COM SISTEMA DE PAGAMENTO
         var id = $(this).attr('name');
-        document.location = 'index.php?a=curso_aluno&c=ead&id='+id;
+        $.ajax({
+           url: 'ajax/pagamentoPagSeguro.php',
+           dataType: 'json',
+           data: {
+               'id_curso': id
+           },
+           success: function(retorno){
+               if(retorno){
+                   //aqui, se o curso for gratuito o aluno ja esta matriculado
+                   //se não vai para pagina do pagseguro
+                   document.location = retorno;
+               }
+           }
+        });
+        //document.location = 'index.php?a=curso_aluno&c=ead&id='+id;
     });
 </script>
 
@@ -85,7 +99,7 @@
         </table>
     </div>
     <div id="div_atualizar" align="right" style="display: none; ">
-        <input id="id" name="id" type="text" value="<?php echo $this->curso->getId_curso() ?>"/>    
+        <input id="id" name="id" type="text" value="<?php echo $this->curso->getId_curso() ?>"/>            
     </div>
     <div id="lista_modulos">
         <label style="margin: 5px 0 0 9px; position: absolute;"><b>Módulos:</b></label><br>

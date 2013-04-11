@@ -40,6 +40,10 @@ function zerarCronometro(){
 $(document).ready(function(){                
     document.onClick = comprimir();        
     
+    $('.fechar_dialog').live('click', function(e){        
+        $('#dialog_video').dialog('close');
+    });
+    
     $('.btn_del_pergunta').live('click', function(e){
         var r = confirm('Tem certeza de que deseja excluir este registro?');
         if(r == true){
@@ -84,6 +88,34 @@ $(document).ready(function(){
     });
                 
     $(".btn_edt").live('click', function(){
+        var btn = $(this);
+        $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
+            if (status == "error") {
+                alert('Em construção');
+                var msg = "Sorry but there was an error: ";
+                $("#error").html(msg + xhr.status + " " + xhr.statusText);
+            }else{                                                                                    
+                dialog = $('#dialog').dialog({
+                    draggable: false,
+                    resizable: false,
+                    show: {
+                        effect: 'drop', 
+                        direction: "up"
+                    },
+                    width:970, 
+                    height:($(window).height() - 40),
+                    position: [(($(window).width()-970)/2), 15],
+                    dialogClass:'dialogstyle', 
+                    modal:true,                        
+                    close: function(event,ui){                     
+                        $(dialog).dialog('destroy');
+                        $(dialog).find('div').remove();
+                    }                                        
+                });
+            }
+        });
+    });
+    $(".edt_exe").live('click', function(){
         var btn = $(this);
         $('#dialog').load(btn.attr('id'), function(response, status, xhr) {
             if (status == "error") {
@@ -170,8 +202,8 @@ $(document).ready(function(){
                             uploadProgress: function(event, position, total, percentComplete) {                                
                                 $('progress').attr('value',percentComplete);
                                 $('#porcentagem').html(percentComplete+'%');
-//                                $('body').apend('<div style="position:absolute; z-index:9000; top:0px; left:0px;'
-//                                    +'width:100%; height:100%;"><div style="position:relative; left:50%; margin-left:-20px; top:100px;aling:right;" id="div_loading"><img style="margin:auto;position:relative;" src="img/gif/ajax-loader-f.gif" /><p style="margin-left:-20px;">aguarde o video ser processado...</p></div></div>');
+                            //                                $('body').apend('<div style="position:absolute; z-index:9000; top:0px; left:0px;'
+                            //                                    +'width:100%; height:100%;"><div style="position:relative; left:50%; margin-left:-20px; top:100px;aling:right;" id="div_loading"><img style="margin:auto;position:relative;" src="img/gif/ajax-loader-f.gif" /><p style="margin-left:-20px;">aguarde o video ser processado...</p></div></div>');
                             },                            
                             success: function(data) {
                                 aux = data;
@@ -197,17 +229,19 @@ $(document).ready(function(){
                     },
                     close: function(event,ui){                     
                         $(dialog).dialog('destroy');
-                        $(dialog).find('div').remove();                        
-                        if(aux != 0){
-                            aux = aux.split('-');                            
-                            $(".edt"+aux[0]+"").click();
+                        $(dialog).find('div').remove();
+                        if(exercicio == 'exercicio'){
+                            if(aux != 0){
+                                aux = aux.split('-');                            
+                                $(".edt"+aux[0]+"").click();
+                            }                            
                         }
                     }                                        
                 });
             }
         });        
     });      
-     var h = 470;      
+    var h = 470;      
     $(".link_video").live('click',function() {
         var tag = $(this);
         if(tag.attr('user')== 'professor'){
@@ -314,13 +348,13 @@ function insereLinha(data, tipo){
         var id_modulo = $('#id_modulo').val();
         var id_curso = $('#id_curso').val();        
         data = data.split('-');
-        var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir" style="float: right;"/>';
+        var excluir = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_del" value="Excluir" style="float: left;"/>';
         if(tipo == 'video'){
-            var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar" style="float: right;"/>';
-            var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label class="link_video" name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1].toString()+'</label>' + excluir + editar + '</li>';
+            //var editar = '<input id="'+data[0]+'" name="'+tipo+'" type="button" class="btn_edt" value="Editar" style="float: right;"/>';
+            var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label class="link_video" name="'+tipo+'" id="index.php?c=ead&a=janela_video&id='+data[0]+'">'+data[1].toString()+'</label>' + excluir + '</li>';
         }else{            
             if(tipo == 'exercicio'){
-                var editar = '<input id="index.php?c=ead&a=editar_exercicio&id='+data[0]+'" name="'+tipo+'" type="button" class="btn_edt edt'+data[0]+'" value="Editar" style="float: right;">';
+                var editar = '<input id="index.php?c=ead&a=editar_exercicio&id='+data[0]+'" name="'+tipo+'" type="button" class="btn_edt edt'+data[0]+'" value="Editar" style="float: left;">';
                 var _HTML = '<li class="conteudo_row" id=li_'+tipo+'_'+data[0]+'><label name="'+tipo+'" id="'+data[1]+'">'+data[1].toString()+'</label>' + excluir + editar + '</li>';
             }else{
                 if(data[2] == '.mp4'){
@@ -340,6 +374,13 @@ function optionsFormCadastrarPergunta(form){
         clearForm:true,
         data: {
             id_exercicio: $('#id').val()
+        },
+        beforeSubmit: function(){
+            if($('input[id=radio_correta]:checked').size() == 0){
+                alert("É preciso selecionar a alternativa correta!");
+                $('#btn_add_pergunta').removeAttr('disabled');
+                return false;               
+            }
         },
         uploadProgress: function(event, position, total, percentComplete) {
             form.find('#progress').attr('value',percentComplete);

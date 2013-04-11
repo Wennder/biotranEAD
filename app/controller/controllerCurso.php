@@ -483,8 +483,19 @@ class controllerCurso {
         $tabela .= "<div class='accord_content_body' style='display: none;'><ul class='accord_ul'>";
         if ($quant > 0) {
             for (; $i < $quant; $i++) {
+                $data_atual = date("d/m/Y");
+                $time_inicial = $this->geraTimestamp($data_atual);
+                $time_final = $this->geraTimestamp($matriculados[$i]->getData_fim());
+                // Calcula a diferença de segundos entre as duas datas:
+                $diferenca = $time_final - $time_inicial;
+                // Calcula a diferença de dias
+                $dias_restantes = (int) floor($diferenca / (60 * 60 * 24));                
                 $auxCurso = $this->getListaCursos("id_curso=" . $matriculados[$i]->getId_curso());
-                $tabela.="<li class='conteudo_row' style='height: 26px;'><label><a href='index.php?c=ead&a=curso_aluno&id=" . $auxCurso[0]->getId_curso() . "'>" . $auxCurso[0]->getNome() . '</a></label></li>';
+                if($dias_restantes > 0){
+                    $tabela.="<li class='conteudo_row' style='height: 26px;'><label><a href='index.php?c=ead&a=curso_aluno&id=" . $auxCurso[0]->getId_curso() . "'>" . $auxCurso[0]->getNome() . '</a> - Tempo restante: '.$dias_restantes.' dia(s)</label></li>';                    
+                }else{
+                    $tabela.="<li class='conteudo_row' style='height: 26px;'><label style='color: red;'>" . $auxCurso[0]->getNome() . ' - O prazo para realizar o curso acabou, entre em contato com a administração!</label></li>';                   
+                }
             }
         } else {
             $tabela.="<li class='conteudo_row' style='height: 26px;'><label>Você não possui nenhum curso no momento.</label></li>";
@@ -842,6 +853,11 @@ class controllerCurso {
         //$mpdf = new mPDF();
         //$mpdf->WriteHTML($html);   
         //$mpdf->Output();
+    }
+    
+    public function geraTimestamp($data) {
+        $partes = explode('/', $data);
+        return mktime(0, 0, 0, $partes[1], $partes[0], $partes[2]);
     }
 
 }

@@ -14,6 +14,8 @@
         <script src="js/funcoes_editar_curso.js" type="text/javascript"></script>
         <script src="js/funcoes_curso_completo.js" type="text/javascript"></script>
         
+        <link href='css/validate_ie7.css' rel='stylesheet' type="text/css"/>
+        <link href='css/validate.css' rel='stylesheet' type="text/css"/>
         <link href='css/styleEAD.css' rel='stylesheet' type="text/css"/>
         <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <link href='css/jquery-te-Style.css' rel='stylesheet' type="text/css"/>
