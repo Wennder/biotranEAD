@@ -7,10 +7,7 @@
                     <td><label>Título: </label></td>
                     <td><input type="text" id="titulo" name="titulo" style="width:500px;" maxlength="255" class="text-input"/></td>
                 </tr>
-                <tr>
-                    <td><label>Autor:</label></td>
-                    <td><input type="text" name="autor" style="width:500px;" class="text-input"/></td>
-                </tr>
+               
                 <tr>
                     <td style="vertical-align: top;"><label>Manchete: </label></td>
                     <td><textarea id="manchete" name="manchete" rows="3" style="width:500px;" maxlenght="255" class="text-area"></textarea></td>
@@ -30,8 +27,8 @@
                     </td>
                 </tr>                
                 <tr>
-                    <td><label>autor:</label></td>
-                    <td><input type="text" name="autor" style="width:500px;"/></td>
+                    <td><label>Autor:</label></td>
+                    <td><input type="text" class="text-input" name="autor" style="width:500px;"/></td>
                 </tr>
             </table>
         </fieldset><br>
