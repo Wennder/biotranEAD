@@ -437,6 +437,7 @@ class controllerModulo {
         $v->setId_video($controller->novoVideo($v));
         if ($this->setArquivoVideo($v)) {
             $this->convert_video($v);
+            $this->removeVideoMp4();
             $retorno = $v->getId_video() . '-' . $v->getTitulo();
             return $retorno;
         }
