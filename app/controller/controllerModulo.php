@@ -381,12 +381,12 @@ class controllerModulo {
         $tipos = array("video/mp4");
         $pasta_dir = "../cursos/" . $id_curso . "/modulos/" . $id_modulo . "/video_aula/";
         if (in_array($video['type'], $tipos)) {
-            $video_mp4 = $pasta_dir . $id_video . ".mp4";        
+            $video_mp4 = $pasta_dir . $id_video . ".mp4";
             if (is_file($video_mp4)) {
                 if (!unlink($video_mp4)) {
                     return 0;
                 }
-            }            
+            }
             return 1;
         }
         return 0;
@@ -456,7 +456,7 @@ class controllerModulo {
         $v->setId_video($controller->novoVideo($v));
         if ($this->setArquivoVideo($v)) {
             $this->convert_video($v);
-            $this->removeVideoMp4();
+            $this->removeVideoMp4($v);
             $retorno = $v->getId_video() . '-' . $v->getTitulo();
             return $retorno;
         }
@@ -525,10 +525,8 @@ class controllerModulo {
         if ($controller->deleteVideo($v) > 0) {
             $diretorio_mp4 = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $v->getId_modulo() . "/video_aula/" . $v->getId_video() . ".mp4";
             $diretorio_webm = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $v->getId_modulo() . "/video_aula/" . $v->getId_video() . ".webm";
-            if (unlink($diretorio_mp4)) {
-                if (unlink($diretorio_webm)) {
-                    return 1;
-                }
+            if (unlink($diretorio_webm)) {
+                return 1;
             }
         }
         return 0;
@@ -553,11 +551,11 @@ class controllerModulo {
         $modulo = $this->getModulo("id_modulo=" . $material->getId_modulo());
         if ($controller->deleteMaterial_complementar($material) > 0) {
             $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $material->getId_modulo() . "/material_complementar/" . $material->getId_material_complementar() . ".pdf";
-            if (unlink($diretorio)) {
+            if (is_file($diretorio) && unlink($diretorio)) {
                 return 1;
             } else {
                 $diretorio = ROOT_PATH . "/public/cursos/" . $modulo->getId_curso() . "/modulos/" . $material->getId_modulo() . "/material_complementar/" . $material->getId_material_complementar() . ".mp4";
-                if (unlink($diretorio)) {
+                if (is_file($diretorio) &&unlink($diretorio)) {
                     return 1;
                 }
             }

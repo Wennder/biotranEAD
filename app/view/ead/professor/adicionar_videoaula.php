@@ -56,7 +56,10 @@
                     </td>
                 </tr>
             </table><br>            
-            <input type="submit" id="btn_add" name="btn_add" value="Adicionar" class="button2"/>            
+            <div id="ajaxload_processandovideo">
+            <input type="submit" id="btn_add" name="button_cadastrar" value="Adicionar" class="button2"/>
+                
+            </div>
             <div style="display:none;">
                 <input type="text" id="id_modulo" name="id_modulo" value="<?php echo ($this->modulo != null ? $this->modulo->getId_modulo() : '') ?>"/>
             </div>

@@ -28,9 +28,9 @@ class UsuarioDAO extends PDOConnectionFactory {
             $stmt->bindValue(13, $user->getTel_secundario());
             $stmt->bindValue(14, $user->getEmail());
             $stmt->bindValue(15, $user->getStatus_acesso());
-            //inserindo usuario no banco
+            //inserindo usuario no banco            
             if(!$stmt->execute()){
-                trigger_error(FALHA_SISTEMA);
+                trigger_error(FALHA_SISTEMA);                
             }
             $id = $this->conex->lastInsertId("Usuario");               
             //inserindo enderecos de usuario no banco                                    
@@ -97,18 +97,20 @@ class UsuarioDAO extends PDOConnectionFactory {
     //$condicao entra no formato, ex: 'nome_coluna = valor'
     public function select($condicao = null) {
         try {
-//            $this->conex->exec("SET NAMES 'utf-8_unicode_ci'");
             $stmt = null;
             if ($condicao == null) {
                 $stmt = $this->conex->query("SELECT * FROM usuario");
             } else {
                 $stmt = $this->conex->query("SELECT * FROM usuario WHERE " . $condicao);
             }
-            $usuario = array(); 
-//            echo "SELECT * FROM usuario WHERE " . $condicao; die();
+            $usuario = null; 
+//            echo "SELECT * FROM usuario WHERE " . $condicao; die();            
             for ($i = 0; $i < $stmt->rowCount(); $i++){                
+                if($i==0){
+                    $usuario = array();
+                }
                 $usuario[$i] = $stmt->fetchObject('Usuario');
-            }
+            }            
             if($i==0){                
                 $usuario = null;
             }

@@ -20,7 +20,7 @@
                 cpf_passaporte: {
                     required: true,
                     number: true,
-                    remote: 'ajax/validarCamposUnicos.php?acao=cpf_passaporte&controller=usuario&id='+$("#id").val()
+                    remote: 'ajax/validarCamposUnicos.php?acao=cpf_passaporte&controller=usuario&id=-1'
                 },
                 endereco_rua: {
                     required: true
@@ -41,10 +41,10 @@
                 email: {
                     required: true,
                     email: true,
-                    remote: "ajax/validarCamposUnicos.php?acao=email&controller=usuario&id="+$("#id").val()
+                    remote: "ajax/validarCamposUnicos.php?acao=email&controller=usuario&id=-1"
                 },
-                senha2: {
-                    equalTo: "#senha"
+                senha: {
+                    equalTo: "#senha2"
                 }
             },
             messages:{

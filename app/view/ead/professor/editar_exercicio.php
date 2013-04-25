@@ -1,46 +1,7 @@
 <script src="js/jquery.boxvalidate.js" type="text/javascript"></script>
 
 <script>    
-    $(document).ready(function(){                  
-//        $('#form_cadastrar_pergunta').validate({
-//            rules:{
-//                numeracao: {
-//                    required: true,
-//                    number: true
-//                },
-//                enunciado: {
-//                    required: true
-//                },
-//                eh_correta: {
-//                    required: true
-//                },                
-//                resposta_0: {
-//                    required: true
-//                },
-//                justificativa_0: {
-//                    required: true
-//                },                
-//                resposta_1: {
-//                    required: true
-//                },
-//                justificativa_1: {
-//                    required: true
-//                },                
-//                resposta_2: {
-//                    required: true
-//                },
-//                justificativa_2: {
-//                    required: true
-//                },                
-//                resposta_3: {
-//                    required: true
-//                },
-//                justificativa_3: {
-//                    required: true
-//                }
-//            }
-//        });
-        
+    $(document).ready(function(){                         
         $('#btn_editar_exercicio').click(function(){
             if($(this).attr('value') == 'Editar'){
                 $('#titulo_exercicio').removeAttr('readonly');

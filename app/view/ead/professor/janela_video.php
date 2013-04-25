@@ -1,4 +1,5 @@
 <script src="js/jquery-ui-1.8.24.custom.min.js" type="text/javascript"></script>
+<script src="js/jquery.boxvalidate.js" type="text/javascript"></script>
 <!-- Chang URLs to wherever Video.js files will be hosted -->
 <link href="css/video-js.css" rel="stylesheet" type="text/css"> 
 <!--<script src="js/video.js"></script>-->
@@ -11,7 +12,7 @@
     <div style="border-bottom:1px solid #eeeeee; width: 620px;">
         <center><label style="font-weight: bold; font-size: 14px;">Módulo <?php echo $this->modulo->getNumero_modulo(); ?> - Editar Vídeo-Aula</label></center>
     </div><br>
-    <form id="form_cadastrar" class="form_cadastro" method="post" action="ajax/crud_conteudo_modulo.php?acao=atualizar_video" enctype="multipart/form-data">
+    <form id="form_cadastrar" class="form_cadastro validate" method="post" action="ajax/crud_conteudo_modulo.php?acao=atualizar_video" enctype="multipart/form-data">
         <fieldset class="text-input" style="width:650px;">
             <legend>Dados</legend>
             <table style="width: 100%;">
@@ -20,7 +21,7 @@
                         <label>Título da Aula:</label>
                     </td>
                     <td>
-                        <input value="<?php echo $this->video->getTitulo(); ?>" type="text" id="titulo" name="titulo" class="text-input" style="width: 300px"/>
+                        <input value="<?php echo $this->video->getTitulo(); ?>" type="text" id="titulo" name="titulo" class="text-input required" style="width: 300px"/>
                         
                         <input type="submit" id="btn_edt_video" name="btn_edt_video" value="Atualizar" class="button2"/>
                         <input type="button" id="btn_cancel_edt_video" name="btn_cancel_edt_video" value="Fechar" class="button2 fechar_dialog"/>
@@ -46,7 +47,7 @@
                         <label>Descrição:</label>
                     </td>
                     <td>
-                        <textarea id="descricao" name="descricao" rows="3" cols="45" class="text-area" maxlength="100"><?php echo $this->video->getDescricao(); ?></textarea>
+                        <textarea id="descricao" name="descricao" rows="3" cols="45" class="text-area required" maxlength="100"><?php echo $this->video->getDescricao(); ?></textarea>
                     </td>
                 </tr>            
                 <tr>

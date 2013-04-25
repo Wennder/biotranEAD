@@ -5,10 +5,12 @@
     $('#form_adicionar_destaque').live('submit', function(){
         $(this).ajaxSubmit({                        
             uploadProgress: function(event, position, total, percentComplete) {
-                $('#progress').attr('value',percentComplete);
+                $('progress').attr('value',percentComplete);
                 $('#porcentagem').html(percentComplete+'%');
             },
             success: function(data){                                            
+                $('progress').attr('value','100');
+                $('#porcentagem').html('100%');
                 if(!data){
                     alert('Operação não realizada, tente novamente mais tarde!');
                 }else{                    
@@ -58,6 +60,7 @@
             modal:true,                                          
             close: function(event,ui){                     
                 $(dialog).dialog('destroy');
+                $('progress').attr('value','0');                
                 $(dialog).remove();
             },
             open: function(event, ui){                                

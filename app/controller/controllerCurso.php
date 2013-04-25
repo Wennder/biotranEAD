@@ -750,7 +750,7 @@ class controllerCurso {
         $i = 0;
         $controller = new controllerMatricula_curso();
         for (; $i < $quant; $i++) {
-            $m = $controller->getMatricula_curso('id_curso=' . $this->cursos[$i]->getId_curso() . ' AND id_usuario=' . $id_usuario);
+            $m = $controller->getMatricula_curso('id_curso=' . $this->cursos[$i]->getId_curso() . ' AND id_usuario=' . $id_usuario);            
             if ($m != null) {
                 $tabela .= "<tr name='matricula' id=" . $m->getId_matricula_curso() . ">";
                 $tabela .= "<td width='49%' id='nome'>" . $this->cursos[$i]->getNome() . "</td>";

@@ -7,16 +7,18 @@
         var form = $(this);
         $(this).ajaxSubmit({
             uploadProgress: function(event, position, total, percentComplete) {
-                $('#progress').attr('value',percentComplete);
+                $('progress').attr('value',percentComplete);
                 $('#porcentagem').html(percentComplete+'%');
             },
             success: function(data){                                            
+                $('progress').attr('value','100');
+                $('#porcentagem').html('100%');
                 if(!data){
                     alert('Operação não realizada, tente novamente mais tarde!');
                 }else{                    
                     insereLinhaNoticia(form, data);
                 }
-//                $('progress').attr('value',0);
+                //                $('progress').attr('value',0);
                 dialog.dialog('close');
             }
         });
@@ -27,16 +29,17 @@
         var form = $(this);
         $(this).ajaxSubmit({  
             uploadProgress: function(event, position, total, percentComplete) {
-                $('#progress').attr('value',percentComplete);
+                $('progress').attr('value',percentComplete);
                 $('#porcentagem').html(percentComplete+'%');
             },
-            success: function(data){                                            
+            success: function(data){       
+                $('progress').attr('value','100');
+                $('#porcentagem').html('100%');
                 if(!data){
                     alert('Operação não realizada, tente novamente mais tarde!');
                 }else{                    
                     editarLinhaNoticia(form, data);
-                }
-//                $('progress').attr('value',0);
+                }                
                 dialog.dialog('close');
             }
         });
@@ -67,6 +70,7 @@
             modal:true,                                          
             close: function(event,ui){                     
                 $(dialog).dialog('destroy');
+                $('progress').attr('value',0);
                 $(dialog).remove();
             },
             open: function(event, ui){
@@ -157,6 +161,7 @@
             modal:true,
             close: function(event,ui){                     
                 $(dialog).dialog('destroy');
+                $('progress').attr('value',0);
                 $(dialog).find('#div_editar_noticia');
             },
             open: function(event, ui){                

@@ -62,6 +62,8 @@ class NotificationListener {
 
         try {
             $transaction = PagSeguroNotificationService::checkTransaction($credentials, $notificationCode);
+            $sender = $transaction->getSender();
+            $item = $transaction->getItems();
             switch ($transaction->getStatus()) {
                 case 'WAITING_PAYMENT':
                     /*
@@ -70,6 +72,7 @@ class NotificationListener {
                      * informação sobre o pagamento.
                      */
                     $text_status = "Aguardando pagamento";
+                    self::sendMail($sender, $item, $text_status);
                     break;
                 case 'IN_ANALYSIS':
                     /*
@@ -77,6 +80,7 @@ class NotificationListener {
                      * o PagSeguro está analisando o risco da transação.
                      */
                     $text_status = "Em análise";
+                    self::sendMail($sender, $item, $text_status);
                     break;
                 case 'PAID':
                     /*
@@ -84,6 +88,14 @@ class NotificationListener {
                      * confirmação da instituição financeira responsável pelo processamento.
                      */
                     $text_status = "Pago";
+                    //realizando matricula do aluno
+                    $c = new controllerCurso();
+                    $curso = $c->getCurso("id_curso=".$item->getId());
+                    $c = new controllerUsuario();
+                    $usuario = $c->getUsuario("login=".$sender->getEmail());
+                    $c = new controllerMatricula_curso();
+                    $c->novaMatricula($curso, $usuario);
+                    self::sendMail($sender, $item, $text_status);
                     break;
                 case 'AVAILABLE':
                     /*
@@ -91,6 +103,7 @@ class NotificationListener {
                      * liberação sem ter sido retornada e sem que haja nenhuma disputa aberta.
                      */
                     $text_status = "Disponível";
+                    self::sendMail($sender, $item, $text_status);
                     break;
                 case 'IN_DISPUTE':
                     /*
@@ -98,18 +111,21 @@ class NotificationListener {
                      * liberação da transação, abriu uma disputa.
                      */
                     $text_status = "Em disputa";
+                    self::sendMail($sender, $item, $text_status);
                     break;
                 case 'REFUNDED':
                     /*
                      * Devolvida: o valor da transação foi devolvido para o comprador.
                      */
                     $text_status = "Devolvida";
+                    self::sendMail($sender, $item, $text_status);
                     break;
                 case 'CANCELED':
                     /*
                      * Cancelada: a transação foi cancelada sem ter sido finalizada.
                      */
                     $text_status = "Cancelada";
+                    self::sendMail($sender, $item, $text_status);
                     break;
             }
         } catch (PagSeguroServiceException $e) {
@@ -146,14 +162,25 @@ class NotificationListener {
         //gerando nova senha de usuario:
         $senha = $this->gerarSenha();
         //criando o corpo do e-mail
-        $mail->Body = "<html><body>
+        if ($text_status == 'Pago') {
+            $mail->Body = "<html><body>
                     Olá, " . $user->getNome_completo() . " </br>
                         Constatamos que o status de sua compra do curso " . $item->getDescription() . " foi alterado para:</br>
                                                 
-                        <b>".$text_status."</b><br><br>
-                            Para maiores informações entre em contato conosco!                            
+                        <b>" . $text_status . "</b><br><br>
+                            Sua matrícula foi efetuada com sucesso e o curso já se encontra disponível. Para maiores informações entre em contato conosco!
                             
             </body></html>"; //aqui vai o corpo do e-mail em HTML
+        } else {
+            $mail->Body = "<html><body>
+                    Olá, " . $user->getNome_completo() . " </br>
+                        Constatamos que o status de sua compra do curso " . $item->getDescription() . " foi alterado para:</br>
+                                                
+                        <b>" . $text_status . "</b><br><br>
+                            Para maiores informações entre em contato conosco!                            
+                            
+            </body></html>"; //aqui vai o corpo do e-mail em HTML            
+        }
         //Enfim, envio o e-mail.
         if ($mail->Send()) {
             //atualizando no banco

@@ -12,7 +12,11 @@ switch ($papel) {
 ?>
 <?php require ROOT_PATH . '/app/view/ead/structure/content.php'; ?>
 
+
+<!--<script src="js/validarCpf_passaporteCadastro.js" type="text/javascript"></script>-->
 <script src="js/crudTabelaUsuario.js" type="text/javascript"></script>
+<script src="js/jquery.validate.js" type="text/javascript"></script>
+<script src="js/messages_pt_BR.js" type="text/javascript"></script>
 <script src="js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="js/funcoes_gerenciar_usuarios.js" type="text/javascript"></script>
 <script src="js/tb_gerenciar_matricula.js" type="text/javascript"></script>
@@ -28,8 +32,7 @@ switch ($papel) {
             <div id="form_gerenciar">   
                 <input type="button" value="" id="btn_add" class="classeBotaoAdicionar" style="margin: 0 0 5px 5px;"/> Adicionar
                 <input type="button" value="" id="btn_edit"  class="classeBotaoEditar" style="margin: 0 0 5px 10px;"/> Editar
-                <!--<input type="button" value="" id="btn_del" class="classeBotaoExcluir" style="margin: 0 0 5px 10px;"/> Remover-->
-                <input type="button" value="" id="btn_bloq" class="classeBotaoExcluir" style="margin: 0 0 5px 10px;"/> Bloquear/Desbloquear
+                <input type="button" value="" id="btn_del" class="classeBotaoExcluir" style="margin: 0 0 5px 10px;"/> Remover
                 <input type="button" value="" id="btn_view" class="classeBotaoVisualizar" style="margin: 0 0 5px 10px;"/> Visualizar
                 <input type="button" value="" id="btn_ger_matricula" class="classeBotaoGerenciar" style="margin: 0 0 5px 10px;"/> Gerenciar Matrícula
                 <br>
