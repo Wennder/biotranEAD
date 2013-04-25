@@ -210,6 +210,10 @@ class ControllerEad extends Biotran_Mvc_Controller {
         $this->visao->curso = $this->controller->getCurso("id_curso=" . $id_curso . "");
         $this->controller = new controllerMatricula_curso();
         $this->visao->mc = $this->controller->getMatricula_curso("id_usuario=" . $id_usuario . " AND id_curso=" . $id_curso . "");
+        //se for primeiro acesso
+        if($this->visao->mc->getData_inicio() == '--'){
+            $this->controller->primeiroAcessoCurso($this->visao->mc, $this->visao->curso);
+        }
         //Se ainda não finalizou o curso..
         if (!$this->visao->mc->getStatus_finalizado()) {
             //CALCULANDO DIFERENÇA ENTRE DATAS PARA SABER TEMPO DE TERMINO DO CURSO

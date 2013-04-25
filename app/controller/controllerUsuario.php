@@ -7,8 +7,8 @@ class controllerUsuario {
     private $controller;
 
     public function validarEmail($login, $id_usuario = -1) {
-        $user = $this->getUsuario("login='" . $login . "'");
-        if ($user != null) {
+        $user = $this->getUsuario("login='" . $login . "'");        
+        if ($user != null) {            
             if ($id_usuario != -1) {
                 $user_id = $this->getUsuario("id_usuario=" . $id_usuario);
                 if ($user_id->getLogin() == $login) {
@@ -48,8 +48,8 @@ class controllerUsuario {
         //setando o objeto usuario e endereco via post
         $this->setUsuario_post();
         //inserindo os objetos         
-        //echo $this->usuario->getEmail();die();
-        $this->usuario->setId_usuario($this->novoUsuario($this->usuario, $this->end));
+        //echo $this->usuario->getEmail();die();        
+        $this->usuario->setId_usuario($this->novoUsuario($this->usuario, $this->end));        
         //verifico se existe foto para ser inserida
         if (isset($_FILES["foto"])) {
             //insere foto do usuario

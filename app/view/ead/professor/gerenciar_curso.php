@@ -115,10 +115,11 @@
             
         }
         $('.ref_ajax').live('click',function(e){                
-            if(centro!=1){            
+            if(centro!=1){
                 centro.find('div').remove();
             } 
             var id = $(this).attr('name');
+            $(centro).append('<div style="position:relative; left:50%; margin-left:-20px; top:100px;aling:right;" id="div_loading"><img style="margin:auto;position:relative;" src="img/gif/ajax-loader-f.gif" /><p style="margin-left:-20px;">carregando...</p></div>');
             centro = $('#center_content').load(id, function (){                    
                 $('#div_conteudo').append(centro);
             });

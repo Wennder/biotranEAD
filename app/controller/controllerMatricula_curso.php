@@ -81,7 +81,7 @@ class controllerMatricula_curso {
         if ($mc == null) {
             if ($usuario->getId_papel() == 4) {
                 $mc = new Matricula_curso();
-                $mc->setData_inicio(date('d/m/y'));
+                $mc->setData_inicio("--");
                 $mc->setData_fim(date('d/m/y', strtotime('+' . $curso->getTempo() . ' days')));
                 $mc->setId_curso($curso->getId_curso());
                 $mc->setId_usuario($usuario->getId_usuario());
@@ -96,8 +96,19 @@ class controllerMatricula_curso {
                 //curso iniciado - primeiro acesso ao curso..
                 date_default_timezone_set("Brazil/East");
                 $mc->setData_inicio(date("d/m/y"));
+                $mc->setData_fim(date('d/m/y', strtotime('+' . $curso->getTempo() . ' days')));
                 $this->updateMatricula_curso($mc);
             }
+        }
+    }
+
+    public function primeiroAcessoCurso(Matricula_curso $mc, Curso $curso) {
+        if ($mc->getData_inicio() == '--') {
+            //curso iniciado - primeiro acesso ao curso..
+            date_default_timezone_set("Brazil/East");
+            $mc->setData_inicio(date("d/m/y"));
+            $mc->setData_fim(date('d/m/y', strtotime('+' . $curso->getTempo() . ' days')));
+            $this->updateMatricula_curso($mc);
         }
     }
 
@@ -141,7 +152,7 @@ class controllerMatricula_curso {
             //$paymentRequest->setShippingType($CODIGO_SEDEX);
             //$paymentRequest->setShippingAddress('01452002', 'Av. Brig. Faria Lima', '1384', 'apto. 114', 'Jardim Paulistano', 'São Paulo', 'SP', 'BRA');
             // Sets your customer information.
-            $paymentRequest->setSender($u->getNome_completo(), $u->getEmail());            
+            $paymentRequest->setSender($u->getNome_completo(), $u->getEmail());
             $paymentRequest->setRedirectUrl("http://www.google.com.br");
             try {
                 /*
@@ -156,9 +167,9 @@ class controllerMatricula_curso {
             } catch (PagSeguroServiceException $e) {
                 die($e->getMessage());
             }
-        }else{
+        } else {
             $this->novaMatricula($this->visao->curso, $_SESSION['usuarioLogado']);
-            $url = "index.php?a=curso_aluno&c=ead&id=".$c->getId_curso();           
+            $url = "index.php?a=curso_aluno&c=ead&id=" . $c->getId_curso();
         }
         return $url;
     }

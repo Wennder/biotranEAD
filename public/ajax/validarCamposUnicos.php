@@ -20,6 +20,8 @@ $classe_controller = 'controller' . ucfirst(strtolower($controller));
 $acao_controller = 'validar' . ucfirst(strtolower($acao));
 $acaoGet_controller = 'get' . ucfirst(strtolower($controller));
 
+
+
 if (class_exists($classe_controller)) {
     $controller = new $classe_controller;
     if (method_exists($controller, $acao_controller)) {

@@ -37,7 +37,7 @@ function zerarCronometro(){
 }
 //---------------------------------------------------
 
-$(document).ready(function(){                
+$(document).ready(function(){ 
     document.onClick = comprimir();        
     
     $('.fechar_dialog').live('click', function(e){        
@@ -45,6 +45,8 @@ $(document).ready(function(){
     });
     
     $('.btn_del_pergunta').live('click', function(e){
+        var btn = $(this);
+        btn.attr('disabled', 'true');
         var r = confirm('Tem certeza de que deseja excluir este registro?');
         if(r == true){
             var id = $(this).attr('id');
@@ -57,6 +59,7 @@ $(document).ready(function(){
                 if(j != 0){                    
                     $('#div_pergunta_'+j).remove();
                     $('#div_pergunta_body_'+j).remove();
+                    btn.removeAttr('disabled');
                 }else{
                     alert('Operação não realizada, tente novamente mais tarde!');
                 }
@@ -168,7 +171,7 @@ $(document).ready(function(){
                 var height = 0;
                 if(tipo == 'video'){
                     width = 545;
-                    height = 380;
+                    height = 400;
                 }else{
                     if(tipo == 'texto_referencia'){
                         width = 650;
@@ -202,9 +205,13 @@ $(document).ready(function(){
                             uploadProgress: function(event, position, total, percentComplete) {                                
                                 $('progress').attr('value',percentComplete);
                                 $('#porcentagem').html(percentComplete+'%');
-                            //                                $('body').apend('<div style="position:absolute; z-index:9000; top:0px; left:0px;'
-                            //                                    +'width:100%; height:100%;"><div style="position:relative; left:50%; margin-left:-20px; top:100px;aling:right;" id="div_loading"><img style="margin:auto;position:relative;" src="img/gif/ajax-loader-f.gif" /><p style="margin-left:-20px;">aguarde o video ser processado...</p></div></div>');
-                            },                            
+                                if(tipo == 'video' && percentComplete == 100){ 
+                                    $('#ajaxload_processandovideo').append('<div id="div_loading"><img src="img/gif/ajax-loader-f.gif" /><span> Aguarde o video ser processado...</span></div>'); 
+                                }
+                            },
+                            beforeSubmit: function(){                              
+                                $('#form_cadastrar').find('button_cadastrar').attr('disabled', 'true');
+                            },
                             success: function(data) {
                                 aux = data;
                                 $('progress').attr('value','100');
@@ -216,7 +223,7 @@ $(document).ready(function(){
                                     }else{
                                         alert('Arquivo inserido!');
                                     }
-                                    insereLinha(data, tipo);
+                                    insereLinha(data, tipo);                                    
                                     $(dialog).dialog('close');
                                 }else{
                                     if(exercicio != 'exercicio'){                                        
@@ -260,6 +267,9 @@ $(document).ready(function(){
                                 $('progress').attr('value',percentComplete);
                                 $('#porcentagem').html(percentComplete+'%');
                             },                            
+                            beforeSubmit: function(){                              
+                                $('#form_cadastrar').find('button_cadastrar').attr('disabled', 'true');
+                            },
                             success: function(data) {                                
                                 $('progress').attr('value','100');
                                 $('#porcentagem').html('100%');
@@ -288,6 +298,7 @@ $(document).ready(function(){
                 
     $(".btn_del").live('click', function(){            
         var btn = $(this);
+        btn.attr('disabled', 'true');
         var r = confirm('Tem certeza de que deseja excluir este registro?');                    
         if(r == true){                  
             var id = btn.attr('id');                
@@ -297,10 +308,12 @@ $(document).ready(function(){
             }, function(j){
                 //usuario excluido  
                 if(j > 0){
-                    id = '#li_'+btn.attr('name')+'_'+id;                        
+                    id = '#li_'+btn.attr('name')+'_'+id;                                    
                     $(id.toString()).remove();
                 }
             }); 
+        }else{
+            btn.removeAttr('disabled');
         }
     });
     
@@ -375,10 +388,10 @@ function optionsFormCadastrarPergunta(form){
         data: {
             id_exercicio: $('#id').val()
         },
-        beforeSubmit: function(){
+        beforeSubmit: function(){            
             if($('input[id=radio_correta]:checked').size() == 0){
                 alert("É preciso selecionar a alternativa correta!");
-                $('#btn_add_pergunta').removeAttr('disabled');
+                $('#btn_add_pergunta').removeAttr('disabled');                
                 return false;               
             }
         },
