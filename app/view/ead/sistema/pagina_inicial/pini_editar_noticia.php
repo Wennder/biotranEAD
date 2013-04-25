@@ -48,7 +48,7 @@ echo $today = date("d/m/y - h:i"); ?>"/>
                     <td><textarea id="manchete" name="manchete" rows="3" style="width:500px;" maxlenght="255" class="text-area"><?php echo $noticia[0]->getManchete(); ?></textarea></td>
                 </tr>
                 <?php if (is_file('img/noticias/' . $noticia[0]->getId_noticia() . '.jpg')) { ?>
-                    <tr><td colspan="3"><img src="img/noticias/<?php echo $noticia[0]->getId_noticia(); ?>.jpg" alt="" /></td><!--<td><a href="index.php?c=ead&a=editar_noticia&id=<?php echo $_GET['id']; ?>&f=1">x</a></td>--></tr>
+                    <tr><td colspan="3"><img style="max-width: 800px;"src="img/noticias/<?php echo $noticia[0]->getId_noticia(); ?>.jpg" alt="" /></td><!--<td><a href="index.php?c=ead&a=editar_noticia&id=<?php echo $_GET['id']; ?>&f=1">x</a></td>--></tr>
 <?php } ?>
                 <tr>
                     <td style="vertical-align: top;"><label>Notícia:</label></td>

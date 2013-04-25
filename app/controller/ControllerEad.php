@@ -750,6 +750,7 @@ class ControllerEad extends Biotran_Mvc_Controller {
         // $handle = fopen(ROOT_PATH . "app/view/ead/estudante/certificado.php","r");
         $certificado = "<html>
     <head> 
+        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
         <style type='text/css'>
             *{margin:0px;padding:0px;font-family: Verdana, Geneva, sans-serif; font-weight:400;letter-spacing:6px;}
             
