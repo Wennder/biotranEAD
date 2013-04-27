@@ -6,7 +6,9 @@
 
 var dialog, oTable, elem, nomeColunas = new Array();
     
-    
+var cpf = "<input type=\"text\" id=\"cpf_passaporte\" tipo=\"cpf\" name=\"cpf_passaporte\" onkeypress=\"return apenas_numero(event);\" class=\"text-input\" style=\"width: 115px\" maxlength=\"14\"/>";
+var passaporte = "<input type=\"text\" id=\"cpf_passaporte\" tipo=\"passaporte\" name=\"cpf_passaporte\" class=\"text-input\" style=\"width: 115px\" maxlength=\"14\"/>";
+   
     
 function updateDataTables(_form){
     var fields_value = new Array();
@@ -416,7 +418,7 @@ $(document).ready(function a(){
         updateDataTables($(this).parent());
         $(dialog).dialog('destroy');
     });
-        
+       
     $('#btn_add').click(function(){                                              
         var _HTML2 = $('#dialog_form').html();
         //alterando ids e names                
@@ -481,233 +483,285 @@ $(document).ready(function a(){
             },
             open: function(event, ui) { 
                 //Habilita a validação automática no formulário de cadastro
-                var form = $(this).find('#cadastro2');
-                $('#button_cadastrar').show();
-                $('#button_atualizar').hide(); 
-                form.validate({
-                    rules:{
-                        nome_completo: {
-                            required: true
-                        },
-                        id_papel: {
-                            required: true
-                        },
-                        atuacao: {
-                            required: true
-                        },
-                        sexo: {
-                            required: true
-                        },
-                        cpf_passaporte: {
+                
+               $("#radio_cpf").live("click",function(){
+                    $("#radio_cpf").attr("checked", true);
+         
+                    if($("#campo_cpf_passaporte input").attr("tipo") != "cpf"){
+                        alert(" alert 2");
+                        $("#cpf_passaporte").rules("remove");
+                        $("#cpf_passaporte").remove();
+                        $("#campo_cpf_passaporte label").remove();
+                        $("#campo_cpf_passaporte").append(cpf);
+                        $("#cpf_passaporte").rules("add", {
                             required: true,
                             number: true,
-                            remote: 'ajax/validarCamposUnicos.php?acao=cpf_passaporte&controller=usuario&id='+$("#id").val()
-                        },
-                        endereco_rua: {
-                            required: true
-                        },
-                        endereco_numero: {
-                            required: true,
-                            number: true
-                        },
-                        endereco_bairro: {
-                            required: true
-                        },
-                        endereco_cidade: {
-                            required: true
-                        },
-                        endereco_pais: {
-                            required: true
-                        },
-                        email: {
-                            required: true,
-                            email: true,
-                            remote: "ajax/validarCamposUnicos.php?acao=email&controller=usuario&id="+$("#id").val()
-                        },
-                        senha: {
-                            required: true
-                        },
-                        senha2: {
-                            required: true,
-                            equalTo: "#senha"
-                        }
-                    },
-                    messages:{
-                        cpf_passaporte: {
-                            remote: "Este CPF/Passaporte já está sendo utilizado."
-                        },
-                        email: {
-                            remote: "Este login já está sendo utilizado."
-                        }
+                            minlength:11,
+                            maxlength:11,
+                            remote: 'ajax/validarCamposUnicos.php?acao=cpf_passaporte&controller=usuario&id='+$("#id").val(),
+                            message:{
+                                minlength: "Coloque todos os 11 numeros do cpf",
+                                maxlength: "Coloque apenas os 11 numeros do cpf",
+                                remote: "Este CPF já está sendo utilizado"
+                            }
+                        });
                     }
+           
+                    $("#radio_passaporte").removeAttr("checked");
+           
+            
                 });
-                form.live('submit',function(){//adicionar esse evento
-                    $(this).ajaxSubmit({
-                        dataType: 'json',
-                        uploadProgress: function(event, position, total, percentComplete) {                                    
-                            $('progress').attr('value',percentComplete);
-                            $('#porcentagem').html(percentComplete+'%');
-                        },
-                        beforeSubmit: function(){
-                            var div = '<div id="div_progress">'
-                            +'Upload... <progress value="0" max="100"></progress><span id="porcentagem">0%</span>'
-                            +'</div>';
-                            $('#div_uploadProgress').append($(div));
-                        },
-                        success: function(json){
-                            if(json != false){
-                                $('progress').attr('value','100');
-                                $('#porcentagem').html('100%');
-                                json = json.replace('"', '');
-                                json = json.replace('"', '');
-                                json = json.replace(' ', '');                                        
-                                form.find('#id').val(json);
-                                insertDataTables(form);                                       
-                                dialog2.dialog('close');                                    
-                            }   
-                        }
-                    });                                    
-                    return false;
-                });
-            }
+                $("#radio_passaporte").live("click",function(){
+                    $("#radio_passaporte").attr("checked",true);
+                    $("#radio_cpf").removeAttr("checked" );
+                    if($("#campo_cpf_passaporte input").attr("tipo") != "passaporte"){
+                        $("#cpf_passaporte").rules("remove");
+                        $("#cpf_passaporte").remove();
+                        //alert("alert");
+                        $("#campo_cpf_passaporte label").remove();
+                        $("#campo_cpf_passaporte").append(passaporte);
+                        $("#cpf_passaporte").rules("add",{
+                            required:true,
+                            remote: 'ajax/validarCamposUnicos.php?acao=cpf_passaporte&controller=usuario&id='+$("#id").val(),
+                            message: {
+                                remote: "Este passaporte já está sendo utilizado"
+                            }
+                        });
+                
+                }
+                });  
+                
+            var form = $(this).find('#cadastro2');
+            $('#button_cadastrar').show();
+            $('#button_atualizar').hide(); 
+            form.validate({
+                rules:{
+                    nome_completo: {
+                        required: true
+                    },
+                    id_papel: {
+                        required: true
+                    },
+                    atuacao: {
+                        required: true
+                    },
+                    sexo: {
+                        required: true
+                    },
+                    cpf_passaporte: {
+                    required: true,
+                    minlength:11,
+                    maxlenght:11,
+                    number: true,
+                    remote: 'ajax/validarCamposUnicos.php?acao=cpf_passaporte&controller=usuario&id='+$("#id").val()
+                },
+                    endereco_rua: {
+                        required: true
+                    },
+                    endereco_numero: {
+                        required: true,
+                        number: true
+                    },
+                    endereco_bairro: {
+                        required: true
+                    },
+                    endereco_cidade: {
+                        required: true
+                    },
+                    endereco_pais: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true,
+                        remote: "ajax/validarCamposUnicos.php?acao=email&controller=usuario&id="+$("#id").val()
+                    },
+                    senha: {
+                        required: true
+                    },
+                    senha2: {
+                        required: true,
+                        equalTo: "#senha"
+                    }
+                },
+                messages:{
+                     cpf_passaporte: {
+                    minlength: "Coloque todos os 11 numeros do cpf",
+                        maxlength: "Coloque apenas os 11 numeros do cpf",
+                        remote: "Este CPF já está sendo utilizado"
+                },
+                    email: {
+                        remote: "Este login já está sendo utilizado."
+                    }
+                }
+            });
+            form.live('submit',function(){//adicionar esse evento
+                $(this).ajaxSubmit({
+                    dataType: 'json',
+                    uploadProgress: function(event, position, total, percentComplete) {                                    
+                        $('progress').attr('value',percentComplete);
+                        $('#porcentagem').html(percentComplete+'%');
+                    },
+                    beforeSubmit: function(){
+                        var div = '<div id="div_progress">'
+                        +'Upload... <progress value="0" max="100"></progress><span id="porcentagem">0%</span>'
+                        +'</div>';
+                        $('#div_uploadProgress').append($(div));
+                    },
+                    success: function(json){
+                        if(json != false){
+                            $('progress').attr('value','100');
+                            $('#porcentagem').html('100%');
+                            json = json.replace('"', '');
+                            json = json.replace('"', '');
+                            json = json.replace(' ', '');                                        
+                            form.find('#id').val(json);
+                            insertDataTables(form);                                       
+                            dialog2.dialog('close');                                    
+                        }   
+                    }
+                });                                    
+                return false;
+            });
+        }
         });            
     });
     
     
-    $('#btn_view').click(function(){
-        elem = $('tbody tr.row_selected');
-        if (elem.length) {
-            var _data = oTable.fnGetData(elem[0]);
-            var _HTML = $('#dialog_profile').html();
+$('#btn_view').click(function(){
+    elem = $('tbody tr.row_selected');
+    if (elem.length) {
+        var _data = oTable.fnGetData(elem[0]);
+        var _HTML = $('#dialog_profile').html();
                 
-            var id_imagem = "00";
-            $.getJSON('ajax/verificaImagem.php',{
-                id: _data[20], 
-                tipo: "usuario", 
-                ajax: 'true'
-            }, function(j){       
-                if(j == '1'){
-                    id_imagem = _data[20];
-                }
-                _HTML = _HTML.replace('#ATUACAO#', _data[2]);
-                _HTML = _HTML.replace('#SEXO#', _data[9]);
-                _HTML = _HTML.replace('#PAPEL#', _data[1]);
-                _HTML = _HTML.replace('#NOME_COMPLETO#', _data[0]);               
-                _HTML = _HTML.replace('#DATA_NASCIMENTO#', _data[3]);                                
-                _HTML = _HTML.replace('#DESCRICAO#', _data[8]);              
-                _HTML = _HTML.replace('#CIDADE#', _data[17]);
-                _HTML = _HTML.replace('#EMAIL#', _data[12]);
-                _HTML = _HTML.replace('#FOTO#', id_imagem);
+        var id_imagem = "00";
+        $.getJSON('ajax/verificaImagem.php',{
+            id: _data[20], 
+            tipo: "usuario", 
+            ajax: 'true'
+        }, function(j){       
+            if(j == '1'){
+                id_imagem = _data[20];
+            }
+            _HTML = _HTML.replace('#ATUACAO#', _data[2]);
+            _HTML = _HTML.replace('#SEXO#', _data[9]);
+            _HTML = _HTML.replace('#PAPEL#', _data[1]);
+            _HTML = _HTML.replace('#NOME_COMPLETO#', _data[0]);               
+            _HTML = _HTML.replace('#DATA_NASCIMENTO#', _data[3]);                                
+            _HTML = _HTML.replace('#DESCRICAO#', _data[8]);              
+            _HTML = _HTML.replace('#CIDADE#', _data[17]);
+            _HTML = _HTML.replace('#EMAIL#', _data[12]);
+            _HTML = _HTML.replace('#FOTO#', id_imagem);
         
-                $(_HTML).dialog({
-                    draggable: false,
-                    resizable: false,
-                    position: [(($(window).width()-900)/2), 15],
-                    show: {
-                        effect: 'drop', 
-                        direction: "up"
-                    },
-                    width:900,
-                    height: 350,
-                    modal:true
-                });
+            $(_HTML).dialog({
+                draggable: false,
+                resizable: false,
+                position: [(($(window).width()-900)/2), 15],
+                show: {
+                    effect: 'drop', 
+                    direction: "up"
+                },
+                width:900,
+                height: 350,
+                modal:true
+            });
+        });
+    }
+});
+    
+$('#btn_del').live('click',function(){
+    elem = $('tbody tr.row_selected');
+    if (elem.length == 1) { 
+        var r = confirm('Deseja realmente deletar esse usuario?');
+        if(r == true){                    
+            $.getJSON('ajax/crud_usuario.php?acao=remover',{
+                id_usuario: oTable.fnGetData(elem[0], 20),       
+                ajax: 'true'
+            }, function(j){
+                //usuario excluido         
+                if(j == 1){                            
+                    oTable.fnDeleteRow(elem[0], null, true);                            
+                }
+            });  
+        }
+    }        
+});
+    
+$('#btn_bloq').live('click',function(){
+    elem = $('tbody tr.row_selected');
+    if (elem.length == 1) { 
+        var r = confirm('Deseja realmente bloquear/desbloquear esse usuario?');
+        if(r == true){    
+            var _data = oTable.fnGetData(elem[0]);
+            $.getJSON('ajax/crud_usuario.php?acao=bloquear',{
+                id_usuario: oTable.fnGetData(elem[0], 20),       
+                ajax: 'true'
+            }, function(j){
+                //usuario liberado
+                if(j == 1){                        
+                    oTable.fnUpdate("Liberado", oTable.fnGetPosition(elem[0]), 21); 
+                    alert('Usuario liberado!');
+                }else{
+                    //usuario bloqueado
+                    if(j == 0){                                                    
+                        oTable.fnUpdate("Bloqueado", oTable.fnGetPosition(elem[0]), 21);
+                        alert('Usuario bloqueado!');
+                    }else{
+                        alert('Erro no servidor, tente novamente mais tarde!');
+                    }
+                }
+            });  
+        }
+    }        
+});
+        
+$('#btn_ger_matricula').live('click',function(){
+    elem = $('tbody tr.row_selected');
+    var _data = oTable.fnGetData(elem[0]);
+    if(_data[1] == 'Estudante'){
+        if (elem.length == 1) {
+            $('#dialog').load('index.php?a=gerenciar_matricula&c=ead&id='+elem.attr('id'), function(response, status, xhr) {
+                if (status == "error") {
+                    alert('erro');
+                    var msg = "Sorry but there was an error: ";
+                    $("#error").html(msg + xhr.status + " " + xhr.statusText);
+                }else{                                                                                    
+                    dialog = $('#dialog').dialog({
+                        draggable: false,
+                        resizable: false,
+                        position: [(($(window).width()-900)/2), 15],
+                        width:970,
+                        show: {
+                            effect: 'drop', 
+                            direction: "up"
+                        },
+                        height: 600,
+                        modal:true,                   
+                        close: function(event,ui){                     
+                            $(dialog).dialog('destroy');
+                            $(dialog).find('div').remove();
+                        }                                        
+                    });
+                }
             });
         }
-    });
-    
-    $('#btn_del').live('click',function(){
-        elem = $('tbody tr.row_selected');
-        if (elem.length == 1) { 
-            var r = confirm('Deseja realmente deletar esse usuario?');
-            if(r == true){                    
-                $.getJSON('ajax/crud_usuario.php?acao=remover',{
-                    id_usuario: oTable.fnGetData(elem[0], 20),       
-                    ajax: 'true'
-                }, function(j){
-                    //usuario excluido         
-                    if(j == 1){                            
-                        oTable.fnDeleteRow(elem[0], null, true);                            
-                    }
-                });  
-            }
-        }        
-    });
-    
-    $('#btn_bloq').live('click',function(){
-        elem = $('tbody tr.row_selected');
-        if (elem.length == 1) { 
-            var r = confirm('Deseja realmente bloquear/desbloquear esse usuario?');
-            if(r == true){    
-                var _data = oTable.fnGetData(elem[0]);
-                $.getJSON('ajax/crud_usuario.php?acao=bloquear',{
-                    id_usuario: oTable.fnGetData(elem[0], 20),       
-                    ajax: 'true'
-                }, function(j){
-                    //usuario liberado
-                    if(j == 1){                        
-                        oTable.fnUpdate("Liberado", oTable.fnGetPosition(elem[0]), 21); 
-                        alert('Usuario liberado!');
-                    }else{
-                        //usuario bloqueado
-                        if(j == 0){                                                    
-                            oTable.fnUpdate("Bloqueado", oTable.fnGetPosition(elem[0]), 21);
-                            alert('Usuario bloqueado!');
-                        }else{
-                            alert('Erro no servidor, tente novamente mais tarde!');
-                        }
-                    }
-                });  
-            }
-        }        
-    });
+    }else{
+        alert('Usuário selecionado não é estudante.');
+    }
+});            
         
-    $('#btn_ger_matricula').live('click',function(){
-        elem = $('tbody tr.row_selected');
-        var _data = oTable.fnGetData(elem[0]);
-        if(_data[1] == 'Estudante'){
-            if (elem.length == 1) {
-                $('#dialog').load('index.php?a=gerenciar_matricula&c=ead&id='+elem.attr('id'), function(response, status, xhr) {
-                    if (status == "error") {
-                        alert('erro');
-                        var msg = "Sorry but there was an error: ";
-                        $("#error").html(msg + xhr.status + " " + xhr.statusText);
-                    }else{                                                                                    
-                        dialog = $('#dialog').dialog({
-                            draggable: false,
-                            resizable: false,
-                            position: [(($(window).width()-900)/2), 15],
-                            width:970,
-                            show: {
-                                effect: 'drop', 
-                                direction: "up"
-                            },
-                            height: 600,
-                            modal:true,                   
-                            close: function(event,ui){                     
-                                $(dialog).dialog('destroy');
-                                $(dialog).find('div').remove();
-                            }                                        
-                        });
-                    }
-                });
-            }
-        }else{
-            alert('Usuário selecionado não é estudante.');
+function matricular_usuario(){
+    $.getJSON('ajax/ajax-gerenciar_matricula.php', {
+        id_usuario:elem.attr('id')
+    }, function(j){
+        if(j == 1){
+            alert('Matriculado com sucesso!');
         }
-    });            
-        
-    function matricular_usuario(){
-        $.getJSON('ajax/ajax-gerenciar_matricula.php', {
-            id_usuario:elem.attr('id')
-        }, function(j){
-            if(j == 1){
-                alert('Matriculado com sucesso!');
-            }
-        });
-    }              
+    });
+}              
 
-    //Captura o papel do usuário a ser editado e seta o combobox
-    var papel = $("#i_papel");
+//Captura o papel do usuário a ser editado e seta o combobox
+var papel = $("#i_papel");
     $("#id_papel").val(papel.val());
     //Captura a atuação do usuário a ser editado e seta o combobox
     var atuacao = $("#i_atuacao");

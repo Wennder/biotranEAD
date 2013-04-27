@@ -58,15 +58,20 @@
                             <label class="label_cadastro">Feminino </label>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <label class="label_cadastro">*CPF/Passaporte: </label>
-                        </td>
-                        <td>
-                            <input type="text" id="_id_cpf_passaporte" name="_id_cpf_passaporte" value="#CPF_PASSAPORTE#" style="width: 100px" maxlength="14" class="text-input"/>
-                            <label class="label_cadastro_legend"> </label>
-                        </td>
-                    </tr>
+                   <tr>
+                    <td>
+                        <label class="label_cadastro">*CPF/Passaporte: </label>
+                    </td>
+                    <td id="campo_cpf_passaporte">
+                        <input type="text" id="cpf_passaporte" tipo="cpf" name="cpf_passaporte" onkeypress="return apenas_numero(event);" class="text-input" style="width: 115px" maxlength="14"/>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="radio" id="radio_cpf" name="cpf_ou_passaporte" value="cpf" title="cpf" checked="checked"/><label>CPF</label>
+                        <input type="radio" id="radio_passaporte" name="cpf_ou_passaporte" value="passaporte" /><label>Passaporte</label></td>
+                </tr>
                     <tr>
                         <td>
                             <label class="label_cadastro">RG: </label>

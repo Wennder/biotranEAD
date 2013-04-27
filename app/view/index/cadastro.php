@@ -36,7 +36,7 @@
             
         });
         $("#radio_passaporte").click(function(){
-            $("radio_passaporte").attr("checked",true);
+            $("#radio_passaporte").attr("checked",true);
            
             $("#radio_cpf").removeAttr("checked" );
             if($("#campo_cpf_passaporte input").attr("tipo") != "passaporte"){
