@@ -5,7 +5,57 @@
 <script src="js/messages_pt_BR.js" type="text/javascript"></script>
 
 <script>
+    //alteracao
+    var cpf = "<input type=\"text\" id=\"cpf_passaporte\" tipo=\"cpf\" name=\"cpf_passaporte\" onkeypress=\"return apenas_numero(event);\" class=\"text-input\" style=\"width: 115px\" maxlength=\"14\"/>";
+    var passaporte = "<input type=\"text\" id=\"cpf_passaporte\" tipo=\"passaporte\" name=\"cpf_passaporte\" class=\"text-input\" style=\"width: 115px\" maxlength=\"14\"/>";
+    //-----
+    
     $(document).ready(function(){ 
+        //alteracao
+        $("#radio_cpf").click(function(){
+            $("#radio_cpf").attr("checked", true);
+         
+            if($("#campo_cpf_passaporte input").attr("tipo") != "cpf"){
+                
+                $("#cpf_passaporte").rules("remove");
+                $("#cpf_passaporte").remove();
+                $("#campo_cpf_passaporte label").remove();
+                $("#campo_cpf_passaporte").append(cpf);
+                $("#cpf_passaporte").rules("add", {required: true,
+                    number: true,
+                    minlength:11,
+                    maxlength:11,
+                    remote: 'ajax/validarCamposUnicos.php?acao=cpf_passaporte&controller=usuario&id=-1',
+                    message:{minlength: "Coloque todos os 11 numeros do cpf",
+                        remote: "Este CPF já está sendo utilizado"}
+                });
+            }
+           
+            $("#radio_passaporte").removeAttr("checked");
+           
+            
+        });
+        $("#radio_passaporte").click(function(){
+            $("radio_passaporte").attr("checked",true);
+           
+            $("#radio_cpf").removeAttr("checked" );
+            if($("#campo_cpf_passaporte input").attr("tipo") != "passaporte"){
+                $("#cpf_passaporte").rules("remove");
+                $("#cpf_passaporte").remove();
+                $("#campo_cpf_passaporte label").remove();
+                $("#campo_cpf_passaporte").append(passaporte);
+                $("#cpf_passaporte").rules("add",{
+                required:true,
+                remote: 'ajax/validarCamposUnicos.php?acao=cpf_passaporte&controller=usuario&id=-1',
+                message: {
+                    remote: "Este passaporte já está sendo utilizado"
+                }});
+                
+            }
+        });
+        //------
+        
+        
         $("#cadastro").validate({
             rules:{
                 nome_completo: {
@@ -17,11 +67,11 @@
                 sexo: {
                     required: true
                 },
-                cpf_passaporte: {
-                    required: true,
-                    number: true,
-                    remote: 'ajax/validarCamposUnicos.php?acao=cpf_passaporte&controller=usuario&id=-1'
-                },
+//                cpf_passaporte: {
+//                    required: true,
+//                    number: true,
+//                    remote: 'ajax/validarCamposUnicos.php?acao=cpf_passaporte&controller=usuario&id=-1'
+//                },
                 endereco_rua: {
                     required: true
                 },
@@ -48,14 +98,24 @@
                 }
             },
             messages:{
-                cpf_passaporte: {
-                    remote: "Este CPF/Passaporte já está sendo utilizado"
-                },
+//                cpf_passaporte: {
+//                    remote: "Este CPF/Passaporte já está sendo utilizado"
+//                },
                 email: {
                     remote: "Este login já está sendo utilizado."
                 }
             }
         });
+        
+        $("#cpf_passaporte").rules("add", {required: true,
+            number: true,
+            minlength:11,
+            maxlength:11,
+            remote: 'ajax/validarCamposUnicos.php?acao=cpf_passaporte&controller=usuario&id=-1',
+            message:{minlength: "Coloque todos os 11 numeros do cpf",
+                remote: "Este CPF já está sendo utilizado"}
+        });
+        
     });
     
     //Faz o input aceitar apenas números
@@ -128,9 +188,15 @@
                     <td>
                         <label class="label_cadastro">*CPF/Passaporte: </label>
                     </td>
-                    <td>
-                        <input type="text" id="cpf_passaporte" name="cpf_passaporte" class="text-input" style="width: 115px" maxlength="14"/>
+                    <td id="campo_cpf_passaporte">
+                        <input type="text" id="cpf_passaporte" tipo="cpf" name="cpf_passaporte" onkeypress="return apenas_numero(event);" class="text-input" style="width: 115px" maxlength="14"/>
+
                     </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="radio" id="radio_cpf" name="cpf_ou_passaporte" value="cpf" title="cpf" checked="checked"/><label>CPF</label>
+                        <input type="radio" id="radio_passaporte" name="cpf_ou_passaporte" value="passaporte" /><label>Passaporte</label></td>
                 </tr>
             </table>
         </fieldset>

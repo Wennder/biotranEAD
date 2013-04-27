@@ -237,6 +237,8 @@ class controllerUsuario {
     public function novoUsuario(Usuario $user = null, Endereco $end = null) {
         if ($user != null && $end != null) {
             $dao = new UsuarioDAO();
+            //echo $user->getCpf_passaporte();
+           
             //verifica se realmente já não existe o registro
             //prevenir reenvio de formulário
             if ($dao->select("login='" . $user->getLogin() . "'") == null) {
@@ -275,6 +277,8 @@ class controllerUsuario {
                 $this->end = new Endereco();
             }
             foreach ($_POST as $k => $v) {
+            //echo $k; echo $v;
+                
                 if (stristr($k, '_')) {
                     $chave_endereco = explode('_', $k);
                     if ($chave_endereco[0] != 'endereco') {
@@ -308,6 +312,8 @@ class controllerUsuario {
             if (!isset($_POST["id_papel"])) {
                 $this->usuario->setId_papel(4);
             }
+        
+       // die();
         }
     }
 
